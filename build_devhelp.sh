@@ -28,5 +28,5 @@ then
     link=$( echo "$pagename" | sed -e 's/\(\/\|\\\|&\)/\\&/g' )
     fixed_link=$( echo "$page" | sed -e 's/\(\.\|\/\|\*\|\[\|\]\|\\\)/\\&/g' )
     
-    sed "s/link=\"$link\"/link=\"$fixed_link\"/g" -i ../cppreference-en-doc.devhelp2 
+    sed "s/link=\"$link\"/link=\"$fixed_link\"/g" -i ../cppreference-doc-en.devhelp2 
 fi

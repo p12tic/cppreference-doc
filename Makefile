@@ -4,8 +4,8 @@ SHELL := /bin/bash
 
 prefix = /usr
 datarootdir = $(prefix)/share
-docdir = $(datarootdir)/doc/cppreference-en-doc
-bookdir = $(datarootdir)/devhelp/books/cppreference-en-doc
+docdir = $(datarootdir)/doc/cppreference-doc-en
+bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
 
 #STANDARD RULES
 
@@ -13,14 +13,14 @@ all: doc_devhelp
 
 clean:
 	rm -rf "output/"
-	rm -f "cppreference-en-doc.devhelp2"
+	rm -f "cppreference-doc-en.devhelp2"
 
 install:
 	#do not install the ttf files
 	pushd "output"; find . -type f -not -iname "*.ttf" \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/{}" \; ; popd
 
-	install -DT -m 644 cppreference-en-doc.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-en-doc.devhelp2"
+	install -DT -m 644 cppreference-doc-en.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en.devhelp2"
 
 uninstall:
 	rm -rf "$(DESTDIR)$(docdir)"
@@ -30,7 +30,7 @@ uninstall:
 
 doc_devhelp: init_html
 	#build the .devhelp2 index
-	xsltproc index2devhelp.xsl index-functions.xml > "cppreference-en-doc.devhelp2"
+	xsltproc index2devhelp.xsl index-functions.xml > "cppreference-doc-en.devhelp2"
 
 	#correct links in the .devhelp2 index
 	pushd "output"; find . -name "*.html" -exec ../build_devhelp.sh '{}' \; ; popd

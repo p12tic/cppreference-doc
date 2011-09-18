@@ -21,12 +21,12 @@
                 xmlns="http://www.devhelp.net/book"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 >
-<xsl:param name="book-base" select="'/usr/share/doc/cppreference-en-doc/'"/>
+<xsl:param name="book-base" select="'/usr/share/doc/cppreference-doc-en/'"/>
 
 <xsl:output indent="yes"/>
 
 <xsl:template match="/index">
-  <book title="C++ Standard Library Reference Manual" name="cppreference-en-doc" 
+  <book title="C++ Standard Library Reference Manual" name="cppreference-doc-en" 
         base="{$book-base}" link="cpp" version="2" language="c++">
     <xsl:copy-of select="document('index-chapters.xml')"/>
     <functions>
