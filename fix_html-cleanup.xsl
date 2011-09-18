@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (C) 2011  p12 <tir5c3@yahoo.co.uk>
 
