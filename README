@@ -1,34 +1,24 @@
   Information
   ===========
 
-This repository contains utility scripts for Cppreference C++ standard library reference
-documentation available at <http://en.cppreference.com>. 
+This is source package for Cppreference C++ standard library reference documentation available at
+<http://en.cppreference.com>. 
 
-  Packaging process
-  =================
+If there is no 'reference/' subdirectory in this package, the actual documentation is not present 
+here and must be obtained separately in order to build the binary package. This can be done in two 
+ways:
 
-The resources for making a package are separated into three parts for better maintainability.
+ 1) Running `make source` which will pull the documentation directly from the website page-by-page.
+ 
+ 2) Downloading an already prepared archive from <http://en.cppreference.com/w/Cppreference:Archives>.
+    This way is preferred.
+    
+Note, that abovementioned documentation is still a raw copy of the website and needs to be 
+transformed in order to be suitable for local viewing. This step can be achieved by running `make`.
+The result of the transformation will be placed at the 'output/' subdirectory.
 
-  1) The C++ reference itself. It is maintained using MediaWiki content management system and resides
-     at 
-         <http://en.cppreference.com>
+  See also
+  ========
   
-  2) Utility scripts used to used to transform a raw copy of the website into an version suitable 
-     for offline viewing. They are maintained using a git repository at 
-     
-         <https://github.com/p12tic/cppreference-doc>
-     
-  3) Debian packaging information. It is maintained using a git repository at 
-   
-         <https://github.com/p12tic/cppreference-doc-debian>
-     
-The (1) and (2) parts must be combined prior any attemts to package the documentation. This can be 
-done by extracting (2) in some directory and either running `make source` there, or downloading and 
-extracting a prepared archive of (1) at 
-
-    <http://en.cppreference.com/w/Cppreference:Archives>
-
-In both cases the documentation should appear in the 'reference/' subdirectory.
-
-Then the documentation can be transformed into a version suitable for offline viewing and installed
-by either usual `make && make install` or by creating a debian package.
+Debian packaging information for this package is maintained at 
+<https://github.com/p12tic/cppreference-doc-debian>
