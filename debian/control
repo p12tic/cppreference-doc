@@ -1,0 +1,16 @@
+Source: cppreference-en-doc
+Priority: extra
+Maintainer: p12 <tir5c3@yahoo.co.uk>
+Build-Depends: debhelper (>= 7.0.50~), xsltproc, httrack
+Standards-Version: 3.9.1
+Section: doc
+Homepage: http://en.cppreference.com/w/Cppreference:Archives
+
+Package: cppreference-en-doc
+Section: doc
+Architecture: all
+Depends: ttf-dejavu-core
+Recommends: 
+Description: C++ standard library reference manual
+ A version of online C++ standard library reference manual available at en.cppreference.com, suitable 
+ for viewing offline.

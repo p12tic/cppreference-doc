@@ -1,0 +1,1819 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    structure:
+
+    /index/const        defines a macro/constant/enum value
+    /index/function     defines a global function
+    /index/class        defines a class
+    /index/enum         defines an enum
+
+        "name" attribute: name of the identifier (with the namespace prefix)
+        "link" attribute: link relative to the wiki root
+        "since" attribute: (optional) "c++11" or none
+
+    //class/const       defines a macro/member constant/member enum value
+    //enum/const        defines an enum class value (only in c++11)
+    //class/function    defines a member function
+    //class/class       defines a member class
+    //class/enum        defines a member enum
+    
+        "name" attribute: name of the function/class (without the parent class/namespace prefix)
+        "link" attribute: (optional) link relative to the parent class
+                          by default equals to 'name'
+                          if set to "." the resulting link targets to the page of the parent class
+
+        "since" attribute: (optional) "c++11" or none
+
+    //class/constructor
+
+        defines a constructor. Equivalent to <function name="@@@"/> where @@@ is the name of the
+        parent class without the namespace prefix
+
+    //class/destructor
+
+        defines a destructor. Equivalent to <function name="~@@@"/> where @@@ is the name of the
+        parent class without the namespace prefix
+
+    /index/typedef      defines a typedef
+
+        "name" attribute: name of the identifier (with the namespace prefix)
+        "link" attribute: link relative to the wiki root
+        "alias" attribute: name of the identifier whose contents to import.
+                           Allowed identifiers: '/index/class' and '/index/enum'
+        "since" attribute: (optional) "c++11" or none
+        "alias" and "link" attributes are incompatible
+      
+    //class/typedef     defines a member typedef
+    
+        "name" attribute: name of the identifier (with the namespace prefix)
+        "link" attribute: link relative to the wiki root
+        "alias" attribute: name of the identifier whose contents to import
+                           Allowed identifiers: '/index/class' and '/index/enum'
+        "since" attribute: (optional) "c++11" or none
+        "alias" and "link" attributes are incompatible
+
+    //class/inherits
+
+        imports all class and function members of another class.
+
+        "name" attribute: name of the identifier whose contents to import.
+                          Allowed identifiers: '/index/class' and '/index/enum'
+
+
+    <note replace spaces in link with '_'></note>
+-->
+<index>
+
+    <!-- cpp/utility/types -->
+
+    <class name="std::numeric_limits" link="cpp/types/numeric_limits" type="template">
+        <function name="is_specialized" link="."/>
+        <function name="is_iec559" link="."/>
+        <function name="is_signed" link="."/>
+        <function name="is_integer" link="."/>
+        <function name="is_exact" link="."/>
+        <function name="is_modulo" link="."/>
+        <function name="is_bounded" link="."/>
+        <function name="min" link="."/>
+        <function name="max" link="."/>
+        <function name="lowest" link="."/>
+        <function name="has_denorm" link="."/>
+        <function name="denorm_min" link="."/>
+        <function name="has_infinity" link="."/>
+        <function name="infinity" link="."/>
+        <function name="radix" link="."/>
+        <function name="min_exponent" link="."/>
+        <function name="min_exponent10" link="."/>
+        <function name="max_exponent" link="."/>
+        <function name="max_exponent10" link="."/>
+        <function name="digits" link="."/>
+        <function name="digits10" link="."/>
+        <function name="max_digits10" link="."/>
+        <function name="epsilon" link="."/>
+        <function name="round_error" link="."/>
+        <function name="has_denorm_loss" link="."/>
+        <function name="round_style" link="."/>
+        <function name="has_signalling_NaN" link="."/>
+        <function name="has_quiet_NaN" link="."/>
+        <function name="signalling_NaN" link="."/>
+        <function name="quiet_NaN" link="."/>
+        <function name="traps" link="."/>
+        <function name="tinyness_before" link="."/>
+    </class>
+
+    <!-- cpp/utility/rtti -->
+
+    <class name="std::type_info" link="cpp/types/type_info">
+        <function name="operator==" link="operator_comp"/>
+        <function name="operator!=" link="operator_comp"/>
+        <function name="before"/>
+        <function name="hash_code"/>
+        <function name="name"/>
+    </class>
+
+    <class name="std::type_index" link="cpp/types/type_index">
+        <constructor/>
+        <function name="operator==" link="operator_comp"/>
+        <function name="operator!=" link="operator_comp"/>
+        <function name="operator&lt;=" link="operator_comp"/>
+        <function name="operator&lt;" link="operator_comp"/>
+        <function name="operator&gt;=" link="operator_comp"/>
+        <function name="operator&gt;" link="operator_comp"/>
+        <function name="hash_code"/>
+        <function name="name"/>
+    </class>
+
+    <class name="std::bad_typeid" link="cpp/types/bad_typeid"><!--todo--></class>
+    <class name="std::bad_cast" link="cpp/types/bad_cast"><!--todo--></class>
+
+    <!-- cpp/utility/memory -->
+
+    <class name="std::bad_alloc" link="cpp/memory/new/bad_alloc"><!--todo--></class>
+    <class name="std::bad_array_new_length" link="cpp/memory/new/bad_array_new_length"><!--todo--></class>
+
+    <class name="std::nothrow_t" link="cpp/memory/new/nothrow_t"><!--todo--></class>
+    <class name="std::new_handler" link="cpp/memory/new/new_handler"><!--todo--></class>
+
+    <function name="std::set_new_handler" link="cpp/memery/new/set_new_handler"/>
+    <function name="std::nothrow" link="cpp/memory/new/nothrow"/>
+
+    <class name="std::allocator" link="cpp/memory/allocator"><!--todo--></class>
+    <class name="std::allocator_traits" link="cpp/memory/allocator_traits"><!--todo--></class>
+
+    <class name="std::scoped_allocator_adaptor" link="cpp/memory/scoped_allocator_adaptor"><!--todo--></class>
+
+    <function name="std::uninitialized_copy" link="cpp/memory/uninitialized_copy"/>
+    <function name="std::uninitialized_copy_n" link="cpp/memory/uninitialized_copy_n"/>
+    <function name="std::uninitialized_fill" link="cpp/memory/uninitialized_fill"/>
+    <function name="std::uninitialized_fill_n" link="cpp/memory/uninitialized_fill_n"/>
+
+    <class name="std::unique_ptr" link="cpp/memory/unique_ptr">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="release"/>
+        <function name="reset"/>
+        <function name="swap"/>
+        <function name="get"/>
+        <function name="get_deleter"/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="operator bool"/>
+    </class>
+
+    <class name="std::default_delete" link="cpp/memory/default_delete">
+        <!--todo-->
+    </class>
+
+    <class name="std::shared_ptr" link="cpp/memory/shared_ptr">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="reset"/>
+        <function name="swap"/>
+        <function name="get"/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="unique"/>
+        <function name="operator bool"/>
+        <function name="owner_before"/>
+    </class>
+
+    <class name="std::weak_ptr" link="cpp/memory/weak_ptr"><!--todo--></class>
+    <class name="std::enable_shared_from_this" link="cpp/memory/enable_shared_from_this"><!--todo--></class>
+    <class name="std::bad_weak_ptr" link="cpp/memory/bad_weak_ptr"><!--todo--></class>
+    <class name="std::auto_ptr" link="cpp/memory/auto_ptr"><!--todo--></class>
+
+
+    <function name="std::declare_reachable" link="cpp/memory/gc/declare_reachable"/>
+    <function name="std::undeclare_reachable" link="cpp/memory/gc/undeclare_reachable"/>
+    <function name="std::declare_no_pointers" link="cpp/memory/gc/declare_no_pointers"/>
+    <function name="std::undeclare_no_pointers" link="cpp/memory/gc/undeclare_no_pointers"/>
+    <function name="std::pointer_safety" link="cpp/memory/gc/pointer_safety"/>
+
+    <class name="std::pointer_traits" link="cpp/memory/pointer_traits"><!--todo--></class>
+
+    <function name="std::address_of" link="cpp/memory/address_of"/>
+    <function name="std::align" link="cpp/memory/align"/>
+    <function name="std::malloc" link="cpp/memory/c/malloc"/>
+    <function name="std::calloc" link="cpp/memory/c/calloc"/>
+    <function name="std::realloc" link="cpp/memory/c/realloc"/>
+    <function name="std::free" link="cpp/memory/c/free"/>
+
+    <!-- cpp/utility/error -->
+
+    <class name="std::exception" link="cpp/error/exception/exception">
+        <constructor/>
+        <destructor/>
+        <function name="what"/>
+    </class>
+
+    <class name="std::logic_error" link="cpp/error/exception/logic_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::domain_error" link="cpp/error/exception/domain_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::length_error" link="cpp/error/exception/length_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::out_of_range" link="cpp/error/exception/out_of_range">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::invalid_argument" link="cpp/error/exception/invalid_argument">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::runtime_error" link="cpp/error/exception/runtime_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::range_error" link="cpp/error/exception/range_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::overflow_error" link="cpp/error/exception/overflow_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <class name="std::underflow_error" link="cpp/error/exception/underflow_error">
+        <inherits name="std::exception"/>
+        <constructor/>
+    </class>
+
+    <function name="assert" link="cpp/error/assert"/>
+
+    <!-- cpp/utility/initializer_list -->
+
+    <class name="std::initializer_list" link="cpp/utility/unitializer_list">
+        <constructor/>
+        <function name="size"/>
+        <function name="begin"/>
+        <function name="end"/>
+    </class>
+
+    <!-- cpp/utility/program -->
+
+    <function name="std::abort" link="cpp/utility/program/abort"/>
+    <function name="std::exit" link="cpp/utility/program/exit"/>
+    <function name="std::quick_exit" link="cpp/utility/program/quick_exit"/>
+    <function name="std::_Exit" link="cpp/utility/program/_Exit"/>
+    <function name="std::atexit" link="cpp/utility/program/atexit"/>
+    <function name="std::at_quick_exit" link="cpp/utility/program/at_quick_exit"/>
+
+    <const name="EXIT_SUCCESS" link="cpp/utility/program/EXIT_SUCCESS"/>
+    <const name="EXIT_FAILURE" link="cpp/utility/program/EXIT_FAILURE"/>
+
+    <function name="std::system" link="cpp/utility/program/system"/>
+    <function name="std::getenv" link="cpp/utility/program/getenv"/>
+    <function name="std::signal" link="cpp/utility/program/signal"/>
+    <function name="std::raise" link="cpp/utility/program/raise"/>
+
+    <const name="SIG_DFL" link="cpp/utility/program/SIG_DFL"/>
+    <const name="SIG_IGN" link="cpp/utility/program/SIG_IGN"/>
+    <const name="SIG_ERR" link="cpp/utility/program/SIG_ERR"/>
+    <const name="SIGABRT" link="cpp/utility/program/SIGABRT"/>
+    <const name="SIGFPE" link="cpp/utility/program/SIGFPE"/>
+    <const name="SIGILL" link="cpp/utility/program/SIGILL"/>
+    <const name="SIGINT" link="cpp/utility/program/SIGINT"/>
+    <const name="SIGSEGV" link="cpp/utility/program/SIGSEGV"/>
+    <const name="SIGTERM" link="cpp/utility/program/SIGTERM"/>
+
+
+    <function name="std::longjmp" link="cpp/utility/program/longjmp"/>
+    <function name="std::setjmp" link="cpp/utility/program/setjmp"/>
+
+    <!-- cpp/utility/ratio -->
+
+    <class name="std::ratio" link="cpp/utility/ratio/ratio">
+        <!--todo-->
+    </class>
+
+    <typedef name="std::yocto" alias="std::ratio"/>
+    <typedef name="std::femto" alias="std::ratio"/>
+    <typedef name="std::pico" alias="std::ratio"/>
+    <typedef name="std::nano" alias="std::ratio"/>
+    <typedef name="std::micro" alias="std::ratio"/>
+    <typedef name="std::milli" alias="std::ratio"/>
+    <typedef name="std::centi" alias="std::ratio"/>
+    <typedef name="std::deci" alias="std::ratio"/>
+    <typedef name="std::deca" alias="std::ratio"/>
+    <typedef name="std::hecto" alias="std::ratio"/>
+    <typedef name="std::kilo" alias="std::ratio"/>
+    <typedef name="std::mega" alias="std::ratio"/>
+    <typedef name="std::giga" alias="std::ratio"/>
+    <typedef name="std::tera" alias="std::ratio"/>
+    <typedef name="std::peta" alias="std::ratio"/>
+    <typedef name="std::exa" alias="std::ratio"/>
+    <typedef name="std::zetta" alias="std::ratio"/>
+    <typedef name="std::yotta" alias="std::ratio"/>
+
+    <function name="std::ratio_equal" link="cpp/utility/ratio/ratio_equal"/>
+    <function name="std::ratio_not_equal" link="cpp/utility/ratio/ratio_not_equal"/>
+    <function name="std::ratio_less" link="cpp/utility/ratio/ratio_less"/>
+    <function name="std::ratio_less_equal" link="cpp/utility/ratio/ratio_less_equal"/>
+    <function name="std::ratio_greater" link="cpp/utility/ratio/ratio_greater"/>
+    <function name="std::ratio_greater_equal" link="cpp/utility/ratio/ratio_greater_equal"/>
+
+    <function name="std::difftime" link="cpp/chrono/c/difftime"/>
+    <function name="std::time" link="cpp/chrono/c/time"/>
+    <function name="std::clock" link="cpp/chrono/c/clock"/>
+    <function name="std::asctime" link="cpp/chrono/c/asctime"/>
+    <function name="std::ctime" link="cpp/chrono/c/ctime"/>
+    <function name="std::strftime" link="cpp/chrono/c/strftime"/>
+    <function name="std::gmtime" link="cpp/chrono/c/gmtime"/>
+    <function name="std::localtime" link="cpp/chrono/c/localtime"/>
+    <function name="std::mktime" link="cpp/chrono/c/mktime"/>
+
+    <!-- cpp/utility/bitset -->
+
+    <class name="std::bitset" link="cpp/utility/bitset">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator==" link="operator_comp"/>
+        <function name="operator!=" link="operator_comp"/>
+
+        <function name="operator[]" link="operator_at"/>
+        <function name="test"/>
+        <function name="all" link="all_any_none"/>
+        <function name="any" link="all_any_none"/>
+        <function name="none" link="all_any_none"/>
+        <function name="count"/>
+
+        <function name="size"/>
+        <function name="operator&amp;=" link="operator_mod"/>
+        <function name="operator|=" link="operator_mod"/>
+        <function name="operator^=" link="operator_mod"/>
+        <function name="operator~" link="operator_mod"/>
+        <function name="operator&lt;&lt;=" link="operator_gtgtltlt"/>
+        <function name="operator&gt;&gt;=" link="operator_gtgtltlt"/>
+        <function name="operator&lt;&lt;" link="operator_gtgtltlt"/>
+        <function name="operator&gt;&gt;" link="operator_gtgtltlt"/>
+        <function name="set"/>
+        <function name="reset"/>
+        <function name="flip"/>
+
+        <function name="to_string"/>
+        <function name="to_ulong"/>
+        <function name="to_ullong"/>
+    </class>
+
+    <!-- cpp/utility/functional -->
+
+    <class name="std::plus" link="cpp/utility/functional/plus"><!--todo--></class>
+    <class name="std::minus" link="cpp/utility/functional/minus"><!--todo--></class>
+    <class name="std::multiplies" link="cpp/utility/functional/multiplies"><!--todo--></class>
+    <class name="std::divides" link="cpp/utility/functional/divides"><!--todo--></class>
+    <class name="std::modulus" link="cpp/utility/functional/modulus"><!--todo--></class>
+    <class name="std::negates" link="cpp/utility/functional/negates"><!--todo--></class>
+    <class name="std::equal_to" link="cpp/utility/functional/equal_to"><!--todo--></class>
+    <class name="std::not_equal_to" link="cpp/utility/functional/not_equal_to"><!--todo--></class>
+    <class name="std::greater" link="cpp/utility/functional/greater"><!--todo--></class>
+    <class name="std::greater_equal" link="cpp/utility/functional/greater_equal"><!--todo--></class>
+    <class name="std::less" link="cpp/utility/functional/less"><!--todo--></class>
+    <class name="std::less_equal" link="cpp/utility/functional/less_equal"><!--todo--></class>
+    <class name="std::logical_and" link="cpp/utility/functional/logical_and"><!--todo--></class>
+    <class name="std::logical_or" link="cpp/utility/functional/logical_or"><!--todo--></class>
+    <class name="std::logical_not" link="cpp/utility/functional/logical_not"><!--todo--></class>
+    <class name="std::bit_and" link="cpp/utility/functional/bit_and"><!--todo--></class>
+    <class name="std::bit_or" link="cpp/utility/functional/bit_or"><!--todo--></class>
+    <class name="std::bit_not" link="cpp/utility/functional/bit_not"><!--todo--></class>
+    <class name="std::unary_negate" link="cpp/utility/functional/unary_negate"><!--todo--></class>
+    <class name="std::binary_negate" link="cpp/utility/functional/binary_negate"><!--todo--></class>
+
+    <function name="std::not1" link="cpp/utility/functional/not1"/>
+    <function name="std::not2" link="cpp/utility/functional/not2"/>
+    <function name="std::bind" link="cpp/utility/functional/bind"/>
+    <function name="std::mem_fn" link="cpp/utility/functional/mem_fn"/>
+
+    <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"><!--todo--></class>
+    <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"><!--todo--></class>
+    <class name="std::bad_function_call" link="cpp/utility/functional/bad_function_call"><!--todo--></class>
+    <class name="std::function" link="cpp/utility/functional/function"><!--todo--></class>
+
+    <!-- cpp/utility -->
+
+    <class name="std::pair" link="cpp/utility/pair"><!--todo--></class>
+    <class name="std::tuple" link="cpp/utility/tuple">
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+    </class>
+
+    <function name="std::make_pair" link="cpp/utility/make_pair"/>
+    <function name="std::make_tuple" link="cpp/utility/make_tuple"/>
+
+    <function name="std::forward" link="cpp/utility/forward"/>
+    <function name="std::move_if_noexcept" link="cpp/utility/move_if_noexcept"/>
+    <function name="std::hash" link="cpp/utility/hash"/>
+
+    <!-- cpp/string/narrow -->
+
+    <function name="std::isalnum" link="cpp/string/narrow/isalnum"/>
+    <function name="std::isalpha" link="cpp/string/narrow/isalpha"/>
+    <function name="std::islower" link="cpp/string/narrow/islower"/>
+    <function name="std::isupper" link="cpp/string/narrow/isupper"/>
+    <function name="std::isdigit" link="cpp/string/narrow/isdigit"/>
+    <function name="std::iscntrl" link="cpp/string/narrow/iscntrl"/>
+    <function name="std::isgraph" link="cpp/string/narrow/isgraph"/>
+    <function name="std::isspace" link="cpp/string/narrow/isspace"/>
+    <function name="std::isprint" link="cpp/string/narrow/isprint"/>
+    <function name="std::ispunct" link="cpp/string/narrow/ispunct"/>
+    <function name="std::tolower" link="cpp/string/narrow/tolower"/>
+    <function name="std::toupper" link="cpp/string/narrow/toupper"/>
+    <function name="std::atof" link="cpp/string/narrow/atof"/>
+    <function name="std::atoi" link="cpp/string/narrow/atoi"/>
+    <function name="std::atol" link="cpp/string/narrow/atoi"/>
+    <function name="std::atoll" link="cpp/string/narrow/atoi"/>
+    <function name="std::strtol" link="cpp/string/narrow/strtol"/>
+    <function name="std::strtoll" link="cpp/string/narrow/strtol"/>
+    <function name="std::strtoul" link="cpp/string/narrow/strtoul"/>
+    <function name="std::strtoull" link="cpp/string/narrow/strtoul"/>
+    <function name="std::strtof" link="cpp/string/narrow/strtof"/>
+    <function name="std::strtod" link="cpp/string/narrow/strtof"/>
+    <function name="std::strtold" link="cpp/string/narrow/strtof"/>
+    <function name="std::strcpy" link="cpp/string/narrow/strcpy"/>
+    <function name="std::strncpy" link="cpp/string/narrow/strncpy"/>
+    <function name="std::strcat" link="cpp/string/narrow/strcat"/>
+    <function name="std::strncat" link="cpp/string/narrow/strncat"/>
+    <function name="std::strxfrm" link="cpp/string/narrow/strxfrm"/>
+    <function name="std::strlen" link="cpp/string/narrow/strlen"/>
+    <function name="std::strcmp" link="cpp/string/narrow/strcmp"/>
+    <function name="std::strncmp" link="cpp/string/narrow/strncmp"/>
+    <function name="std::strcoll" link="cpp/string/narrow/strcoll"/>
+    <function name="std::strchr" link="cpp/string/narrow/strchr"/>
+    <function name="std::strrchr" link="cpp/string/narrow/strrchr"/>
+    <function name="std::strspn" link="cpp/string/narrow/strspn"/>
+    <function name="std::strcspn" link="cpp/string/narrow/strcspn"/>
+    <function name="std::strpbrk" link="cpp/string/narrow/strpbrk"/>
+    <function name="std::strstr" link="cpp/string/narrow/strstr"/>
+    <function name="std::strtok" link="cpp/string/narrow/strtok"/>
+    <function name="std::strerror" link="cpp/string/narrow/strerror"/>
+    <function name="std::memchr" link="cpp/string/narrow/memchr"/>
+    <function name="std::memcmp" link="cpp/string/narrow/memcmp"/>
+    <function name="std::memset" link="cpp/string/narrow/memset"/>
+    <function name="std::memcpy" link="cpp/string/narrow/memcpy"/>
+    <function name="std::memmove" link="cpp/string/narrow/memmove"/>
+
+    <!-- cpp/string/basic_string -->
+
+    <class name="std::basic_string" link="cpp/string/basic_string">
+        <constructor/>
+        <function name="assign"/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="at"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="front"/>
+        <function name="back"/>
+        <function name="data"/>
+        <function name="c_str"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="length"/>
+        <function name="max_size"/>
+        <function name="reserve"/>
+        <function name="capacity"/>
+        <function name="shrink_to_fit"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="erase"/>
+        <function name="push_back"/>
+        <function name="pop_back"/>
+        <function name="append"/>
+        <function name="compare"/>
+        <function name="replace"/>
+        <function name="substr"/>
+        <function name="copy"/>
+        <function name="resize"/>
+        <function name="swap"/>
+
+        <function name="find"/>
+        <function name="rfind"/>
+        <function name="find_first_of"/>
+        <function name="find_first_not_of"/>
+        <function name="find_last_of"/>
+        <function name="find_last_not_of"/>
+
+        <const name="npos"/>
+    </class>
+
+    <typedef name="std::string" alias="std::basic_string"/>
+    <typedef name="std::wstring" alias="std::basic_string"/>
+    <typedef name="std::u16string" alias="std::basic_string"/>
+    <typedef name="std::u32string" alias="std::basic_string"/>
+
+    <!-- cpp/string -->
+
+    <function name="std::getline" link="cpp/string/getline"/>
+    <function name="std::stoi" link="cpp/string/stol"/>
+    <function name="std::stol" link="cpp/string/stol"/>
+    <function name="std::stoll" link="cpp/string/stol"/>
+    <function name="std::stoul" link="cpp/string/stoul"/>
+    <function name="std::stoull" link="cpp/string/stoul"/>
+    <function name="std::stof" link="cpp/string/stof"/>
+    <function name="std::stod" link="cpp/string/stof"/>
+    <function name="std::stold" link="cpp/string/stof"/>
+    <function name="std::to_string" link="cpp/string/to_string"/>
+    <function name="std::to_wstring" link="cpp/string/to_wstring"/>
+
+    <class name="std::char_traits" link="cpp/string/char_traits">
+        <function name="assign" link="."/>
+        <function name="eq" link="."/>
+        <function name="lt" link="."/>
+        <function name="move" link="."/>
+        <function name="copy" link="."/>
+        <function name="compare" link="."/>
+        <function name="length" link="."/>
+        <function name="find" link="."/>
+        <function name="to_char_type" link="."/>
+        <function name="to_int_type" link="."/>
+        <function name="eq_int_type" link="."/>
+        <function name="eof" link="."/>
+        <function name="not_eof" link="."/>
+    </class>
+
+    <!-- cpp/container -->
+
+    <class name="std::array" link="cpp/container/array">
+
+        <function name="at"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="front"/>
+        <function name="back"/>
+        <function name="data"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="fill"/>
+        <function name="swap"/>
+    </class>
+
+    <class name="std::vector" link="cpp/container/vector">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="get_allocator"/>
+
+        <function name="at"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="front"/>
+        <function name="back"/>
+        <function name="data"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+        <function name="reserve"/>
+        <function name="capacity"/>
+        <function name="shrink_to_fit"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="erase"/>
+        <function name="push_back"/>
+        <function name="emplace_back"/>
+        <function name="pop_back"/>
+        <function name="resize"/>
+        <function name="swap"/>
+    </class>
+
+    <class name="std::deque" link="cpp/container/deque">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="get_allocator"/>
+
+        <function name="at"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="front"/>
+        <function name="back"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+        <function name="shrink_to_fit"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="erase"/>
+        <function name="push_back"/>
+        <function name="emplace_back"/>
+        <function name="pop_back"/>
+        <function name="push_front"/>
+        <function name="pemplace_front"/>
+        <function name="pop_front"/>
+        <function name="resize"/>
+        <function name="swap"/>
+    </class>
+    <class name="std::forward_list" link="cpp/container/forward_list">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="get_allocator"/>
+
+        <function name="front"/>
+
+        <function name="beforebegin"/>
+        <function name="cbeforebegin" link="beforebegin"/>
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+
+        <function name="empty"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert_after"/>
+        <function name="emplace_after"/>
+        <function name="erase_after"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="erase"/>
+        <function name="push_front"/>
+        <function name="pemplace_front"/>
+        <function name="pop_front"/>
+        <function name="resize"/>
+        <function name="swap"/>
+
+        <function name="merge"/>
+        <function name="splice"/>
+        <function name="remove"/>
+        <function name="remove_if"/>
+        <function name="reverse"/>
+        <function name="unique"/>
+        <function name="sort"/>
+
+    </class>
+    <class name="std::list" link="cpp/container/list">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="get_allocator"/>
+
+        <function name="front"/>
+        <function name="back"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="erase"/>
+        <function name="push_back"/>
+        <function name="emplace_back"/>
+        <function name="pop_back"/>
+        <function name="push_front"/>
+        <function name="pemplace_front"/>
+        <function name="pop_front"/>
+        <function name="resize"/>
+        <function name="swap"/>
+
+        <function name="merge"/>
+        <function name="splice"/>
+        <function name="remove"/>
+        <function name="remove_if"/>
+        <function name="reverse"/>
+        <function name="unique"/>
+        <function name="sort"/>
+    </class>
+    <class name="std::set" link="cpp/container/set">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        <function name="lower_bound"/>
+        <function name="upper_bound"/>
+        
+        <function name="key_comp"/>
+        <function name="value_comp"/>
+    </class>
+    
+    <class name="std::multiset" link="cpp/container/multiset">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        <function name="lower_bound"/>
+        <function name="upper_bound"/>
+        
+        <function name="key_comp"/>
+        <function name="value_comp"/>
+    </class>
+    
+    <class name="std::map" link="cpp/container/map">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="at"/>
+        <function name="operator[]" link="operator_at"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        <function name="lower_bound"/>
+        <function name="upper_bound"/>
+        
+        <function name="key_comp"/>
+        <function name="value_comp"/>
+    </class>
+    
+    <class name="std::multimap" link="cpp/container/multimap">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        <function name="lower_bound"/>
+        <function name="upper_bound"/>
+        
+        <function name="key_comp"/>
+        <function name="value_comp"/>
+    </class>
+    
+    <class name="std::unordered_set" link="cpp/container/unordered_set">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        
+        <function name="begin(int)"/>
+        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="bend(int)"/>
+        <function name="cend(int)" link="end(int)"/>
+        
+        <function name="bucket_count"/>
+        <function name="max_bucket_count"/>
+        <function name="bucket_size"/>
+        <function name="bucket"/>
+        
+        <function name="load_factor"/>
+        <function name="max_load_factor"/>
+        <function name="reserve"/>
+        <function name="rehash"/>
+        
+        <function name="hash_function"/>
+        <function name="key_eq"/>
+    </class>
+    
+    <class name="std::unordered_multiset" link="cpp/container/unordered_multiset">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        
+        <function name="begin(int)"/>
+        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="bend(int)"/>
+        <function name="cend(int)" link="end(int)"/>
+        
+        <function name="bucket_count"/>
+        <function name="max_bucket_count"/>
+        <function name="bucket_size"/>
+        <function name="bucket"/>
+        
+        <function name="load_factor"/>
+        <function name="max_load_factor"/>
+        <function name="reserve"/>
+        <function name="rehash"/>
+        
+        <function name="hash_function"/>
+        <function name="key_eq"/>
+    </class>
+    
+    <class name="std::unordered_map" link="cpp/container/unordered_map">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="at"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        
+        <function name="begin(int)"/>
+        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="bend(int)"/>
+        <function name="cend(int)" link="end(int)"/>
+        
+        <function name="bucket_count"/>
+        <function name="max_bucket_count"/>
+        <function name="bucket_size"/>
+        <function name="bucket"/>
+        
+        <function name="load_factor"/>
+        <function name="max_load_factor"/>
+        <function name="reserve"/>
+        <function name="rehash"/>
+        
+        <function name="hash_function"/>
+        <function name="key_eq"/>
+    </class>
+    
+    <class name="std::unordered_multimap" link="cpp/container/unordered_multimap">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get_allocator"/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+
+        <function name="clear"/>
+        <function name="insert"/>
+        <function name="emplace"/>
+        <function name="emplace_hint"/>
+        <function name="erase"/>
+        <function name="swap"/>
+        
+        <function name="count"/>
+        <function name="find"/>
+        <function name="equal_range"/>
+        
+        <function name="begin(int)"/>
+        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="bend(int)"/>
+        <function name="cend(int)" link="end(int)"/>
+        
+        <function name="bucket_count"/>
+        <function name="max_bucket_count"/>
+        <function name="bucket_size"/>
+        <function name="bucket"/>
+        
+        <function name="load_factor"/>
+        <function name="max_load_factor"/>
+        <function name="reserve"/>
+        <function name="rehash"/>
+        
+        <function name="hash_function"/>
+        <function name="key_eq"/>
+    </class>
+    
+    <class name="std::stack" link="cpp/container/stack">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="top"/>
+        
+        <function name="empty"/>
+        <function name="size"/>
+        
+        <function name="push"/>
+        <function name="emplace"/>
+        <function name="pop"/>
+        <function name="swap"/>
+    </class>
+    
+    <class name="std::queue" link="cpp/container/queue">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="front"/>
+        <function name="back"/>
+        
+        <function name="empty"/>
+        <function name="size"/>
+        
+        <function name="push"/>
+        <function name="emplace"/>
+        <function name="pop"/>
+        <function name="swap"/>
+    </class>
+    
+    <class name="std::priority_queue" link="cpp/container/priority_queue">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="top"/>
+        
+        <function name="empty"/>
+        <function name="size"/>
+        
+        <function name="push"/>
+        <function name="emplace"/>
+        <function name="pop"/>
+        <function name="swap"/>
+    </class>
+
+    <!-- cpp/numeric/math -->
+
+    <function name="std::abs(int)" link="cpp/numeric/math/abs"/>
+    <function name="std::labs" link="cpp/numeric/math/abs"/>
+    <function name="std::llabs" link="cpp/numeric/math/abs"/>
+    <function name="std::abs(float)" link="cpp/numeric/math/fabs"/>
+    <function name="std::fabs" link="cpp/numeric/math/fabs"/>
+    <function name="std::div" link="cpp/numeric/math/div"/>
+    <function name="std::ldiv" link="cpp/numeric/math/ldiv"/>
+    <function name="std::fmod" link="cpp/numeric/math/fmod"/>
+    <function name="std::remainder" link="cpp/numeric/math/remainder"/>
+    <function name="std::remquo" link="cpp/numeric/math/remquo"/>
+    <function name="std::fma" link="cpp/numeric/math/fma"/>
+    <function name="std::fmax" link="cpp/numeric/math/fmax"/>
+    <function name="std::fmin" link="cpp/numeric/math/fmin"/>
+    <function name="std::fdim" link="cpp/numeric/math/fdim"/>
+    <function name="std::nan" link="cpp/numeric/math/nan"/>
+    <function name="std::nanf" link="cpp/numeric/math/nan"/>
+    <function name="std::nanl" link="cpp/numeric/math/nan"/>
+    
+    <function name="std::exp" link="cpp/numeric/math/exp"/>
+    <function name="std::exp2" link="cpp/numeric/math/exp2"/>
+    <function name="std::expm1" link="cpp/numeric/math/expm1"/>
+    <function name="std::log" link="cpp/numeric/math/log"/>
+    <function name="std::log10" link="cpp/numeric/math/log10"/>
+    <function name="std::log1p" link="cpp/numeric/math/log1p"/>
+    <function name="std::ilogb" link="cpp/numeric/math/ilogb"/>
+    <function name="std::logb" link="cpp/numeric/math/logb"/>
+    
+    <function name="std::sqrt" link="cpp/numeric/math/sqrt"/>
+    <function name="std::cbrt" link="cpp/numeric/math/cbrt"/>
+    <function name="std::hypot" link="cpp/numeric/math/hypot"/>
+    <function name="std::pow" link="cpp/numeric/math/pow"/>
+    
+    <function name="std::sin" link="cpp/numeric/math/sin"/>
+    <function name="std::cos" link="cpp/numeric/math/cos"/>
+    <function name="std::tan" link="cpp/numeric/math/tan"/>
+    <function name="std::asin" link="cpp/numeric/math/asin"/>
+    <function name="std::acos" link="cpp/numeric/math/acos"/>
+    <function name="std::atan" link="cpp/numeric/math/atan"/>
+    <function name="std::atan2" link="cpp/numeric/math/atan2"/>
+    <function name="std::sinh" link="cpp/numeric/math/sinh"/>
+    <function name="std::cosh" link="cpp/numeric/math/cosh"/>
+    <function name="std::tanh" link="cpp/numeric/math/tanh"/>
+    <function name="std::asinh" link="cpp/numeric/math/asinh"/>
+    <function name="std::acosh" link="cpp/numeric/math/acosh"/>
+    <function name="std::atanh" link="cpp/numeric/math/atanh"/>
+    
+    <function name="std::erf" link="cpp/numeric/math/erf"/>
+    <function name="std::erfc" link="cpp/numeric/math/erfc"/>
+    <function name="std::lgamma" link="cpp/numeric/math/lgamma"/>
+    <function name="std::tgamma" link="cpp/numeric/math/tgamma"/>
+    
+    <function name="std::ceil" link="cpp/numeric/math/ceil"/>
+    <function name="std::floor" link="cpp/numeric/math/floor"/>
+    <function name="std::trunc" link="cpp/numeric/math/trunc"/>
+    <function name="std::round" link="cpp/numeric/math/round"/>
+    <function name="std::lround" link="cpp/numeric/math/round"/>
+    <function name="std::llround" link="cpp/numeric/math/round"/>
+    <function name="std::nearbyint" link="cpp/numeric/math/nearbyint"/>
+    <function name="std::rint" link="cpp/numeric/math/rint"/>
+    <function name="std::lrint" link="cpp/numeric/math/rint"/>
+    <function name="std::llrint" link="cpp/numeric/math/rint"/>
+    
+    <function name="std::frexp" link="cpp/numeric/math/frexp"/>
+    <function name="std::ldexp" link="cpp/numeric/math/ldexp"/>
+    <function name="std::modf" link="cpp/numeric/math/modf"/>
+    <function name="std::scalbn" link="cpp/numeric/math/scalbn"/>
+    <function name="std::scalbln" link="cpp/numeric/math/scalbn"/>
+    <function name="std::nextafter" link="cpp/numeric/math/nextafter"/>
+    <function name="std::nexttoward" link="cpp/numeric/math/nexttoward"/>
+    <function name="std::copysign" link="cpp/numeric/math/copysign"/>
+    
+    <function name="std::fpclassify" link="cpp/numeric/math/fpclassify"/>
+    <function name="std::isfinite" link="cpp/numeric/math/isfinite"/>
+    <function name="std::isinf" link="cpp/numeric/math/isinf"/>
+    <function name="std::isnan" link="cpp/numeric/math/isnan"/>
+    <function name="std::isnormal" link="cpp/numeric/math/isnormal"/>
+    <function name="std::signbit" link="cpp/numeric/math/signbit"/>
+
+    <const name="HUGE_VAL" link="cpp/numeric/math/HUGE_VAL"/>
+    <const name="HUGE_VALF" link="cpp/numeric/math/HUGE_VALF"/>
+    <const name="HUGE_VALL" link="cpp/numeric/math/HUGE_VALL"/>
+    <const name="FP_INFINITE" link="cpp/numeric/math/FP_INFINITE"/>
+    <const name="FP_NAN" link="cpp/numeric/math/FP_NAN"/>
+    <const name="FP_NORMAL" link="cpp/numeric/math/FP_NORMAL"/>
+    <const name="FP_SUBNORMAL" link="cpp/numeric/math/FP_SUBNORMAL"/>
+    <const name="FP_ZERO" link="cpp/numeric/math/FP_ZERO"/>
+    
+    <!-- cpp/numeric/random -->
+
+    <class name="std::linear_congrueential_engine" link="cpp/numeric/random/linear_congruential_engine"><!--todo--></class>
+    <class name="std::mersenne_twister_engine" link="cpp/numeric/random/linear_congruential_engine"><!--todo--></class>
+    <class name="std::subtract_with_carry_engine" link="cpp/numeric/random/subtract_with_carry_engine"><!--todo--></class>
+    <class name="std::discard_block_engine" link="cpp/numeric/random/discard_block_engine"><!--todo--></class>
+    <class name="std::independent_bits_engine" link="cpp/numeric/random/independent_bits_engine"><!--todo--></class>
+    <class name="std::shuffle_order_engine" link="cpp/numeric/random/shuffle_order_engine"><!--todo--></class>
+    
+    <typedef name="std::minstd_rand0" alias="std::linear_congrueential_engine"/>
+    <typedef name="std::minstd_rand" alias="std::linear_congrueential_engine"/>
+    <typedef name="std::mt19937" alias="std::mersenne_twister_engine"/>
+    <typedef name="std::mt19937_64" alias="std::mersenne_twister_engine"/>
+    <typedef name="std::ranlux24_base" alias="std::subtract_with_carry_engine"/>
+    <typedef name="std::ranlux48_base" alias="std::subtract_with_carry_engine"/>
+    <typedef name="std::ranlux24" alias="std::discard_block_engine"/>
+    <typedef name="std::ranlux48" alias="std::discard_block_engine"/>
+    <typedef name="std::knuth_b" alias="std::shuffle_order_engine"/>
+    <typedef name="std::default_random_engine" link="cpp/numeric/random"/>
+    
+    <function name="std::srand" link="cpp/numeric/random/srand"/>
+    <function name="std::rand" link="cpp/numeric/random/srand"/>
+    <const name="MAX_RANDOM" link="cpp/numeric/random/MAX_RANDOM"/>
+    
+    <class name="std::uniform_int_distribution" link="cpp/numeric/random/uniform_int_distribution"><!--todo--></class>
+    <class name="std::uniform_real_distribution" link="cpp/numeric/random/uniform_real_distribution"><!--todo--></class>
+
+    <class name="std::bernoulli_distribution" link="cpp/numeric/random/bernoulli_distribution"><!--todo--></class>
+    <class name="std::binomial_distribution" link="cpp/numeric/random/binomial_distribution"><!--todo--></class>
+    <class name="std::negative_binomial_distribution" link="cpp/numeric/random/negative_binomial_distribution"><!--todo--></class>
+    <class name="std::geometric_distribution" link="cpp/numeric/random/geometric_distribution"><!--todo--></class>
+
+    <class name="std::poisson_distribution" link="cpp/numeric/random/poisson_distribution"><!--todo--></class>
+    <class name="std::exponential_distribution" link="cpp/numeric/random/exponential_distribution"><!--todo--></class>
+    <class name="std::gamma_distribution" link="cpp/numeric/random/gamma_distribution"><!--todo--></class>
+    <class name="std::weibull_distribution" link="cpp/numeric/random/weibull_distribution"><!--todo--></class>
+    <class name="std::extreme_value_distribution" link="cpp/numeric/random/extreme_value_distribution"><!--todo--></class>
+
+    <class name="std::normal_distribution" link="cpp/numeric/random/normal_distribution"><!--todo--></class>
+    <class name="std::lognormal_distribution" link="cpp/numeric/random/lognormal_distribution"><!--todo--></class>
+    <class name="std::chi_squared_distribution" link="cpp/numeric/random/chi_squared_distribution"><!--todo--></class>
+    <class name="std::cauchy_distribution" link="cpp/numeric/random/cauchy_distribution"><!--todo--></class>
+    <class name="std::fisher_f_distribution" link="cpp/numeric/random/fisher_f_distribution"><!--todo--></class>
+    <class name="std::student_t_distribution" link="cpp/numeric/random/student_t_distribution"><!--todo--></class>
+
+    <class name="std::discrete_distribution" link="cpp/numeric/random/discrete_distribution"><!--todo--></class>
+    <class name="std::piecewise_constant_distribution" link="cpp/numeric/random/piecewise_constant_distribution"><!--todo--></class>
+    <class name="std::piecewise_linear_distribution" link="cpp/numeric/random/piecewise_linear_distribution"><!--todo--></class>
+
+    <!-- cpp/algorithm -->
+
+    <function name="std::all_of" link="cpp/algorithm/all_any_none_of"/>
+    <function name="std::any_of" link="cpp/algorithm/all_any_none_of"/>
+    <function name="std::none_of" link="cpp/algorithm/all_any_none_of"/>
+    <function name="std::for_each" link="cpp/algorithm/for_each"/>
+    <function name="std::count" link="cpp/algorithm/count"/>
+    <function name="std::count_if" link="cpp/algorithm/count"/>
+    <function name="std::mismatch" link="cpp/algorithm/mismatch"/>
+    <function name="std::equal" link="cpp/algorithm/equal"/>
+    <function name="std::find" link="cpp/algorithm/find"/>
+    <function name="std::find_if" link="cpp/algorithm/find"/>
+    <function name="std::find_if_not" link="cpp/algorithm/find"/>
+    <function name="std::find_end" link="cpp/algorithm/find_end"/>
+    <function name="std::find_first_of" link="cpp/algorithm/find_first_of"/>
+    <function name="std::adjacent_find" link="cpp/algorithm/adjacent_find"/>
+    <function name="std::search" link="cpp/algorithm/search"/>
+    <function name="std::search_n" link="cpp/algorithm/search_n"/>
+
+    <function name="std::copy" link="cpp/algorithm/copy"/>
+    <function name="std::copy_if" link="cpp/algorithm/copy_if"/>
+    <function name="std::copy_n" link="cpp/algorithm/copy_n"/>
+    <function name="std::copy_backward" link="cpp/algorithm/copy_backward"/>
+    <function name="std::move" link="cpp/algorithm/move"/>
+    <function name="std::move_backward" link="cpp/algorithm/move_backward"/>
+    <function name="std::fill" link="cpp/algorithm/fill"/>
+    <function name="std::fill_n" link="cpp/algorithm/fill_n"/>
+    <function name="std::transform" link="cpp/algorithm/transform"/>
+    <function name="std::generate" link="cpp/algorithm/generate"/>
+    <function name="std::generate_n" link="cpp/algorithm/generate_n"/>
+    <function name="std::remove" link="cpp/algorithm/remove"/>
+    <function name="std::remove_if" link="cpp/algorithm/remove"/>
+    <function name="std::remove_copy" link="cpp/algorithm/remove_copy"/>
+    <function name="std::remove_copy_if" link="cpp/algorithm/remove_copy"/>
+    <function name="std::replace" link="cpp/algorithm/replace"/>
+    <function name="std::replace_if" link="cpp/algorithm/replace"/>
+    <function name="std::replace_copy" link="cpp/algorithm/replace_copy"/>
+    <function name="std::replace_copy_if" link="cpp/algorithm/replace_copy"/>
+    <function name="std::swap" link="cpp/algorithm/swap"/>
+    <function name="std::swap_ranges" link="cpp/algorithm/swap_ranges"/>
+    <function name="std::iter_swap" link="cpp/algorithm/iter_swap"/>
+    <function name="std::reverse" link="cpp/algorithm/reverse"/>
+    <function name="std::reverse_copy" link="cpp/algorithm/reverse_copy"/>
+    <function name="std::rotate" link="cpp/algorithm/rotate"/>
+    <function name="std::rotate_copy" link="cpp/algorithm/rotate_copy"/>
+    <function name="std::random_shuffle" link="cpp/algorithm/random_shuffle"/>
+    <function name="std::shuffle" link="cpp/algorithm/shuffle"/>
+    <function name="std::unique" link="cpp/algorithm/unique"/>
+    <function name="std::unique_copy" link="cpp/algorithm/unique_copy"/>
+
+    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned"/>
+    <function name="std::partition" link="cpp/algorithm/partition"/>
+    <function name="std::partition_copy" link="cpp/algorithm/partition_copy"/>
+    <function name="std::stable_partition" link="cpp/algorithm/stable_partition"/>
+    <function name="std::partition_point" link="cpp/algorithm/partition_point"/>
+
+    <function name="std::is_sorted" link="cpp/algorithm/is_sorted"/>
+    <function name="std::is_sorted_until" link="cpp/algorithm/is_sorted_until"/>
+    <function name="std::sort" link="cpp/algorithm/sort"/>
+    <function name="std::partial_sort" link="cpp/algorithm/partial_sort"/>
+    <function name="std::partial_sort_copy" link="cpp/algorithm/partial_sort_copy"/>
+    <function name="std::stable_sort" link="cpp/algorithm/stable_sort"/>
+    <function name="std::nht_element" link="cpp/algorithm/nth_element"/>
+
+    <function name="std::lower_bound" link="cpp/algorithm/lower_bound"/>
+    <function name="std::upper_bound" link="cpp/algorithm/upper_bound"/>
+    <function name="std::binary_search" link="cpp/algorithm/binary_search"/>
+    <function name="std::equal_range" link="cpp/algorithm/equal_range"/>
+
+    <function name="std::merge" link="cpp/algorithm/merge"/>
+    <function name="std::inplace_merge" link="cpp/algorithm/inplace_merge"/>
+    <function name="std::includes" link="cpp/algorithm/includes"/>
+    <function name="std::set_difference" link="cpp/algorithm/set_difference"/>
+    <function name="std::set_intersection" link="cpp/algorithm/set_intersection"/>
+    <function name="std::set_symmetric_difference" link="cpp/algorithm/set_symmetric_difference"/>
+    <function name="std::set_union" link="cpp/algorithm/set_union"/>
+
+    <function name="std::is_heap" link="cpp/algorithm/is_heap"/>
+    <function name="std::is_heap_until" link="cpp/algorithm/is_heap_until"/>
+    <function name="std::make_heap" link="cpp/algorithm/make_heap"/>
+    <function name="std::push_heap" link="cpp/algorithm/push_heap"/>
+    <function name="std::pop_heap" link="cpp/algorithm/pop_heap"/>
+    <function name="std::sort_heap" link="cpp/algorithm/sort_heap"/>
+
+    <function name="std::max" link="cpp/algorithm/max"/>
+    <function name="std::max_element" link="cpp/algorithm/max_element"/>
+    <function name="std::min" link="cpp/algorithm/min"/>
+    <function name="std::min_element" link="cpp/algorithm/min_element"/>
+    <function name="std::minmax" link="cpp/algorithm/minmax"/>
+    <function name="std::minmax_element" link="cpp/algorithm/minmax_element"/>
+
+    <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
+    <function name="std::is_permutation" link="cpp/algorithm/is_permutation"/>
+    <function name="std::next_permutation" link="cpp/algorithm/next_permutation"/>
+    <function name="std::prev_permutation" link="cpp/algorithm/prev_permutation"/>
+
+    <function name="std::accumulate" link="cpp/algorithm/accumulate"/>
+    <function name="std::inner_product" link="cpp/algorithm/inner_product"/>
+    <function name="std::adjacent_difference" link="cpp/algorithm/adjacent_difference"/>
+    <function name="std::partial_sum" link="cpp/algorithm/partial_sum"/>
+
+    <function name="std::qsort" link="cpp/algorithm/qsort"/>
+    <function name="std::bsearch" link="cpp/algorithm/bsearch"/>
+
+    <!-- cpp/io -->
+    
+    <class name="std::basic_streambuf" link="cpp/io/basic_streambuf"/>
+    <class name="std::basic_filebuf" link="cpp/io/basic_filebuf"/>
+    <class name="std::basic_stringbuf" link="cpp/io/basic_stringbuf"/>
+
+    <class name="std::ios_base" link="cpp/io/ios_base">
+        <constructor/>
+        <destructor/>
+        <function name="flags"/>
+        <function name="setf"/>
+        <function name="unsetf"/>
+        <function name="precision"/>
+        <function name="width"/>
+        
+        <function name="imbue"/>
+        <function name="getloc"/>
+        
+        <function name="xalloc"/>
+        <function name="iword"/>
+        <function name="pword"/>
+        
+        <function name="register_callback"/>
+        <function name="sync_with_stdio"/>
+        
+        <class name="failure">
+            <inherits name="std::exception"/>
+            <constructor/>
+        </class>
+        
+        <enum name="openmode"/>
+        <const name="app" link="openmode"/>
+        <const name="binary" link="openmode"/>
+        <const name="in" link="openmode"/>
+        <const name="out" link="openmode"/>
+        <const name="trunc" link="openmode"/>
+        <const name="ate" link="openmode"/>
+        
+        <enum name="fmtflags"/>
+        <const name="dec" link="fmtflags"/>
+        <const name="oct" link="fmtflags"/>
+        <const name="hex" link="fmtflags"/>
+        <const name="basefield" link="fmtflags"/>
+        <const name="left" link="fmtflags"/>
+        <const name="right" link="fmtflags"/>
+        <const name="internal" link="fmtflags"/>
+        <const name="adjustfield" link="fmtflags"/>
+        <const name="scientific" link="fmtflags"/>
+        <const name="fixed" link="fmtflags"/>
+        <const name="floatfield" link="fmtflags"/>
+        <const name="boolalpha" link="fmtflags"/>
+        <const name="showbase" link="fmtflags"/>
+        <const name="showpoint" link="fmtflags"/>
+        <const name="showpos" link="fmtflags"/>
+        <const name="skipws" link="fmtflags"/>
+        <const name="unitbuf" link="fmtflags"/>
+        <const name="uppercase" link="fmtflags"/>
+        
+        <enum name="iostate"/>
+        <const name="goodbit" link="iostate"/>
+        <const name="badbit" link="iostate"/>
+        <const name="failbit" link="iostate"/>
+        <const name="eofbit" link="iostate"/>
+        
+        <enum name="seekdir"/>
+        <const name="beg" link="openmode"/>
+        <const name="cur" link="openmode"/>
+        <const name="end" link="openmode"/>
+        
+        <typedef name="event"/>
+    </class>
+    
+    <class name="std::basic_ios" link="cpp/io/basic_ios">
+        <inherits name="std::ios_base"/>
+        <constructor/>
+        <destructor/>
+        
+        <function name="good"/>
+        <function name="eof"/>
+        <function name="fail"/>
+        <function name="bad"/>
+        <function name="operator!"/>
+        <function name="operator bool"/>
+        <function name="rdstate"/>
+        <function name="setstate"/>
+        <function name="clear"/>
+        
+        <function name="copyfmt"/>
+        <function name="fill"/>
+        
+        <function name="exceptions"/>
+        <function name="imbue"/>
+        <function name="rdbuf"/>
+        <function name="tie"/>
+        <function name="narrow"/>
+        <function name="widen"/>
+    </class>
+    
+    <class name="std::basic_istream" link="cpp/io/basic_istream">
+        <inherits name="std::basic_ios"/>
+        <constructor/>
+        <destructor/>
+        
+        <function name="operator&gt;&gt;" link="operator_gtgt"/>
+        <function name="get"/>
+        <function name="peek"/>
+        <function name="unget"/>
+        <function name="putback"/>
+        <function name="getline"/>
+        <function name="ignore"/>
+        <function name="read"/>
+        <function name="readsome"/>
+        <function name="gcount"/>
+        
+        <function name="tellg"/>
+        <function name="seekg"/>
+        <function name="sync"/>
+        
+        <class name="sentry"/>
+    </class>
+    
+    <class name="std::basic_ostream" link="cpp/io/basic_ostream">
+        <inherits name="std::basic_ios"/>
+        <constructor/>
+        <destructor/>
+        
+        <function name="operator&lt;&lt;" link="operator_ltlt"/>
+        <function name="put"/>
+        <function name="write"/>
+        <function name="tellp"/>
+        <function name="seekp"/>
+        <function name="flush"/>
+        
+        <class name="sentry"/>
+    </class>
+    
+    <class name="std::basic_iostream" link="cpp/io/basic_iostream">
+        <inherits name="std::basic_istream"/>
+        <inherits name="std::basic_ostream"/>
+        <constructor/>
+        <destructor/>
+    </class>
+    
+    <class name="std::basic_ifstream" link="cpp/io/basic_ifstream">
+        <inherits name="std::basic_istream"/>
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="rdbuf"/>
+        
+        <function name="is_open"/>
+        <function name="open"/>
+        <function name="close"/>
+    </class>
+    
+    <class name="std::basic_ofstream" link="cpp/io/basic_ofstream">
+        <inherits name="std::basic_ostream"/>
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="rdbuf"/>
+        
+        <function name="is_open"/>
+        <function name="open"/>
+        <function name="close"/>
+    </class>
+    
+    <class name="std::basic_fstream" link="cpp/io/basic_fstream">
+        <inherits name="std::basic_iostream"/>
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="rdbuf"/>
+        
+        <function name="is_open"/>
+        <function name="open"/>
+        <function name="close"/>
+    </class>
+    
+    <class name="std::basic_istringstream" link="cpp/io/basic_istringstream">
+        <inherits name="std::basic_istream"/>
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="rdbuf"/>
+        
+        <function name="str"/>
+    </class>
+    
+    <class name="std::basic_ostringstream" link="cpp/io/basic_ostringstream">
+        <inherits name="std::basic_ostream"/>
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="rdbuf"/>
+        
+        <function name="str"/>
+    </class>
+    
+    <class name="std::basic_stringstream" link="cpp/io/basic_stringstream">
+        <inherits name="std::basic_iostream"/>
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="rdbuf"/>
+        
+        <function name="str"/>
+    </class>
+
+    <typedef name="std::streambuf" alias="std::basic_streambuf"/>
+    <typedef name="std::filebuf" alias="std::basic_filebuf"/>
+    <typedef name="std::stringbuf" alias="std::basic_stringbuf"/>
+    <typedef name="std::istream" alias="std::basic_istream"/>
+    <typedef name="std::ostream" alias="std::basic_ostream"/>
+    <typedef name="std::iostream" alias="std::basic_iostream"/>
+    <typedef name="std::ifstream" alias="std::basic_ifstream"/>
+    <typedef name="std::ofstream" alias="std::basic_ofstream"/>
+    <typedef name="std::fstream" alias="std::basic_fstream"/>
+    <typedef name="std::istringstream" alias="std::basic_istringstream"/>
+    <typedef name="std::ostringstream" alias="std::basic_ostringstream"/>
+    <typedef name="std::stringstream" alias="std::basic_stringstream"/>
+
+    <typedef name="std::wstreambuf" alias="std::basic_streambuf"/>
+    <typedef name="std::wfilebuf" alias="std::basic_filebuf"/>
+    <typedef name="std::wstringbuf" alias="std::basic_stringbuf"/>
+    <typedef name="std::wistream" alias="std::basic_istream"/>
+    <typedef name="std::wostream" alias="std::basic_ostream"/>
+    <typedef name="std::wiostream" alias="std::basic_iostream"/>
+    <typedef name="std::wifstream" alias="std::basic_ifstream"/>
+    <typedef name="std::wofstream" alias="std::basic_ofstream"/>
+    <typedef name="std::wfstream" alias="std::basic_fstream"/>
+    <typedef name="std::wistringstream" alias="std::basic_istringstream"/>
+    <typedef name="std::wostringstream" alias="std::basic_ostringstream"/>
+    <typedef name="std::wstringstream" alias="std::basic_stringstream"/>
+
+    <!-- class doesn't fit here, but whatever -->
+    <class name="std::cin" link="cpp/io/basic_istream"/>
+    <class name="std::wcin" link="cpp/io/basic_istream"/>
+    <class name="std::cout" link="cpp/io/basic_ostream"/>
+    <class name="std::wcout" link="cpp/io/basic_ostream"/>
+    <class name="std::cerr" link="cpp/io/basic_ostream"/>
+    <class name="std::wcerr" link="cpp/io/basic_ostream"/>
+    <class name="std::clog" link="cpp/io/basic_ostream"/>
+    <class name="std::wclog" link="cpp/io/basic_ostream"/>
+
+    <!-- cpp/io/c -->
+
+    <function name="std::fopen" link="cpp/io/c/fopen"/>
+    <function name="std::freopen" link="cpp/io/c/freopen"/>
+    <function name="std::fflush" link="cpp/io/c/fflush"/>
+    <function name="std::fclose" link="cpp/io/c/fclose"/>
+    <function name="std::setbuf" link="cpp/io/c/setbuf"/>
+    <function name="std::setvbuf" link="cpp/io/c/setvbuf"/>
+    <function name="std::fread" link="cpp/io/c/fread"/>
+    <function name="std::fwrite" link="cpp/io/c/fwrite"/>
+    <function name="std::fgetc" link="cpp/io/c/fgetc"/>
+    <function name="std::getc" link="cpp/io/c/fgetc"/>
+    <function name="std::fgets" link="cpp/io/c/fgets"/>
+    <function name="std::fputc" link="cpp/io/c/fputc"/>
+    <function name="std::putc" link="cpp/io/c/fputc"/>
+    <function name="std::fputs" link="cpp/io/c/fputs"/>
+    <function name="std::getchar" link="cpp/io/c/getchar"/>
+    <function name="std::gets" link="cpp/io/c/gets"/>
+    <function name="std::putchar" link="cpp/io/c/putchar"/>
+    <function name="std::puts" link="cpp/io/c/puts"/>
+    <function name="std::ungetc" link="cpp/io/c/ungetc"/>
+    <function name="std::fgetwc" link="cpp/io/c/fgetwc"/>
+    <function name="std::fgetss" link="cpp/io/c/fgetws"/>
+    <function name="std::fputwc" link="cpp/io/c/fputwc"/>
+    <function name="std::fputws" link="cpp/io/c/fputws"/>
+    <function name="std::getwchar" link="cpp/io/c/getwchar"/>
+    <function name="std::putwchar" link="cpp/io/c/putwchar"/>
+    <function name="std::ungetwc" link="cpp/io/c/ungetwc"/>
+    <function name="std::scanf" link="cpp/io/c/fscanf"/>
+    <function name="std::fscanf" link="cpp/io/c/fscanf"/>
+    <function name="std::sscanf" link="cpp/io/c/fscanf"/>
+    <function name="std::vscanf" link="cpp/io/c/vfscanf"/>
+    <function name="std::vfscanf" link="cpp/io/c/vfscanf"/>
+    <function name="std::vsscanf" link="cpp/io/c/vfscanf"/>
+    <function name="std::printf" link="cpp/io/c/fprintf"/>
+    <function name="std::fprintf" link="cpp/io/c/fprintf"/>
+    <function name="std::sprintf" link="cpp/io/c/fprintf"/>
+    <function name="std::snprintf" link="cpp/io/c/fprintf"/>
+    <function name="std::vprintf" link="cpp/io/c/vfprintf"/>
+    <function name="std::vfprintf" link="cpp/io/c/vfprintf"/>
+    <function name="std::vsprintf" link="cpp/io/c/vfprintf"/>
+    <function name="std::vsnprintf" link="cpp/io/c/vfprintf"/>
+    <function name="std::wscanf" link="cpp/io/c/fwscanf"/>
+    <function name="std::fwscanf" link="cpp/io/c/fwscanf"/>
+    <function name="std::swscanf" link="cpp/io/c/fwscanf"/>
+    <function name="std::vwscanf" link="cpp/io/c/vfwscanf"/>
+    <function name="std::vfwscanf" link="cpp/io/c/vfwscanf"/>
+    <function name="std::vswscanf" link="cpp/io/c/vfwscanf"/>
+    <function name="std::wprintf" link="cpp/io/c/fwprintf"/>
+    <function name="std::fwprintf" link="cpp/io/c/fwprintf"/>
+    <function name="std::swprintf" link="cpp/io/c/fwprintf"/>
+    <function name="std::vwprintf" link="cpp/io/c/vfwprintf"/>
+    <function name="std::vfwprintf" link="cpp/io/c/vfwprintf"/>
+    <function name="std::vswprintf" link="cpp/io/c/vfwprintf"/>
+    <function name="std::ftell" link="cpp/io/c/ftell"/>
+    <function name="std::fgetpos" link="cpp/io/c/fgetpos"/>
+    <function name="std::fseek" link="cpp/io/c/fseek"/>
+    <function name="std::fsetpos" link="cpp/io/c/fsetpos"/>
+    <function name="std::rewind" link="cpp/io/c/rewind"/>
+    <function name="std::clearerr" link="cpp/io/c/clearerr"/>
+    <function name="std::feof" link="cpp/io/c/feof"/>
+    <function name="std::ferror" link="cpp/io/c/ferror"/>
+    <function name="std::perror" link="cpp/io/c/perror"/>
+    <function name="std::remove" link="cpp/io/c/remove"/>
+    <function name="std::rename" link="cpp/io/c/rename"/>
+    <function name="std::tmpfile" link="cpp/io/c/tmpfile"/>
+    <function name="std::tmpnam" link="cpp/io/c/tmpnam"/>
+
+    <!-- cpp/locale -->
+
+    <function name="std::setlocale" link="cpp/locale/setlocale"/>
+
+    <!-- cpp/regex -->
+
+    <!-- cpp/atomic -->
+
+    <!-- cpp/thread -->
+
+    <class name="std::thread" link="cpp/thread/thread">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        
+        <function name="joinable"/>
+        <function name="get_id"/>
+        <function name="native_handle"/>
+        <function name="hardware_concurrency"/>
+        
+        <function name="join"/>
+        <function name="detach"/>
+        <function name="swap"/>
+    </class>
+    
+    <class name="std::thread::id" link="cpp/thread/thread/id"><!--todo--></class>
+
+    <function name="std::this_thread::get_id" link="cpp/thread/get_id"/>
+    <function name="std::this_thread::sleep_for" link="cpp/thread/sleep_for"/>
+    <function name="std::this_thread::sleep_until" link="cpp/thread/sleep_until"/>
+    <function name="std::this_thread::yield" link="cpp/thread/yield"/>
+
+    <class name="std::mutex" link="cpp/thread/mutex">
+        <constructor/>
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="unlock"/>
+        <function name="native_handle"/>
+    </class>
+    
+    <class name="std::recursive_mutex" link="cpp/thread/recursive_mutex">
+        <constructor/>
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="unlock"/>
+        <function name="native_handle"/>
+    </class>
+    
+    <class name="std::timed_mutex" link="cpp/thread/timed_mutex">
+        <constructor/>
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="try_lock_for"/>
+        <function name="try_lock_until"/>
+        <function name="unlock"/>
+        <function name="native_handle"/>
+    </class>
+    
+    <class name="std::recursive_timed_mutex" link="cpp/thread/recursive_timed_mutex">
+        <constructor/>
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="try_lock_for"/>
+        <function name="try_lock_until"/>
+        <function name="unlock"/>
+        <function name="native_handle"/>
+    </class>
+
+    <class name="std::lock_guard" link="cpp/thread/lock_guard"/>
+    <class name="std::unique_lock" link="cpp/thread/unique_lock"/>
+    <function name="std::lock" link="cpp/thread/lock"/>
+    <function name="std::try_lock" link="cpp/thread/try_lock"/>
+
+    <class name="std::condition_variable" link="cpp/thread/condition_variable"/>
+    <class name="std::condition_variable_any" link="cpp/thread/condition_variable_any"/>
+    <class name="std::notify_all_at_thread_exit" link="cpp/thread/notify_all_at_thread_exit"/>
+
+    <class name="std::once_flag" link="cpp/thread/once_flag"/>
+    
+    <function name="std::call_once" link="cpp/thread/call_once"/>
+    
+    <class name="std::promise" link="cpp/thread/promise">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="get_future"/>
+        <function name="set_value"/>
+        <function name="set_value_at_thread_exit"/>
+        <function name="set_exception"/>
+        <function name="set_exception_at_thread_exit"/>
+    </class>
+    
+    <class name="std::future" link="cpp/thread/future">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="share"/>
+        <function name="get"/>
+        
+        <function name="valid"/>
+        <function name="wait"/>
+        <function name="wait_for"/>
+        <function name="wait_until"/>
+    </class>
+    
+    <class name="std::shared_future" link="cpp/thread/shared_future">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="get"/>
+        
+        <function name="valid"/>
+        <function name="wait"/>
+        <function name="wait_for"/>
+        <function name="wait_until"/>
+    </class>
+    
+    <class name="std::packaged_task" link="cpp/thread/packaged_task">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="valid"/>
+        <function name="swap"/>
+        
+        <function name="get_future"/>
+        <function name="operator()"/>
+        <function name="make_ready_at_thread_exit"/>
+        <function name="reset"/>
+    </class>
+    
+    <function name="std::async" link="cpp/thread/async"/>
+    
+</index>

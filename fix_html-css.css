@@ -1,0 +1,14 @@
+
+/*place the content correctly*/
+#content {
+    margin-left: 0em;
+}
+
+/* fix the font size */
+#content {
+    font-size: 1em;
+}
+
+#bodyContent {
+    font-size: 1em;
+}
