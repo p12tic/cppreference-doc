@@ -4,7 +4,7 @@ Information
 In order to build the documentation package, the html copy of the website must reside at the 
 'reference/' directory. It can be obtained in two ways:
 
-1) (preferred) Downloading a prepared raw archive from http://en.cpprefence.com/w/Cppreference:Archives and
+1) (preferred) Downloading a prepared raw archive from http://en.cppreference.com/w/Cppreference:Archives and
    extracting in this directory.
    
 2) Running `make source`. This would launch httrack network copier which will download the up to date
