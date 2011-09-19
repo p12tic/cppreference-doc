@@ -33,6 +33,7 @@
 
     <!-- remove useless UI elements-->
     <xsl:template match="//div[@class='noprint']"/>
+    <xsl:template match="//span[@class='noprint']"/>
     <xsl:template match="//div[@id='footer']"/>
     <!-- remove external links to unused resources -->
     <xsl:template match="/html/head/link[@rel = 'alternate']"/>
