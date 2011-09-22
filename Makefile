@@ -7,6 +7,10 @@ datarootdir = $(prefix)/share
 docdir = $(datarootdir)/doc/cppreference-doc-en
 bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
 
+#Version
+
+VERSION=20110918
+
 #STANDARD RULES
 
 all: doc_devhelp
@@ -16,6 +20,13 @@ clean:
 	rm -f "cppreference-doc-en.devhelp2"
 
 check:
+
+dist:
+	mkdir -p "cppreference-$(VERSION)"
+	cp -r "reference" "cppreference-$(VERSION)"
+	find . -maxdepth 1 -type f -not -iname "*.tar.gz" -exec cp '{}' "cppreference-$(VERSION)" \;
+	tar czf "cppreference-$(VERSION).tar.gz" "cppreference-$(VERSION)" 
+	rm -rf "cppreference-$(VERSION)"
 
 install:
 	#do not install the ttf files
