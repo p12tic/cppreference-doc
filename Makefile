@@ -15,6 +15,8 @@ clean:
 	rm -rf "output/"
 	rm -f "cppreference-doc-en.devhelp2"
 
+check:
+
 install:
 	#do not install the ttf files
 	pushd "output"; find . -type f -not -iname "*.ttf" \
