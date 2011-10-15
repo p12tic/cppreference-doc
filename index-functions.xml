@@ -1708,7 +1708,64 @@
     <!-- cpp/regex -->
 
     <!-- cpp/atomic -->
+    <class name="std::atomic" link="cpp/atomic/atomic">
+        <!-- todo -->
+    </class>
+    
+    <function name="std::atomic_is_lock_free" link="cpp/atomic/atomic_is_lock_free"/>
+    
+    <function name="std::atomic_store" link="cpp/atomic/atomic_store"/>
+    <function name="std::atomic_store_explicit" link="cpp/atomic/atomic_store"/>
 
+    <function name="std::atomic_load" link="cpp/atomic/atomic_load"/>
+    <function name="std::atomic_load_explicit" link="cpp/atomic/atomic_load"/>
+
+    <function name="std::atomic_exchange" link="cpp/atomic/atomic_exchange"/>
+    <function name="std::atomic_exchange_explicit" link="cpp/atomic/atomic_exchange"/>
+
+    <function name="std::atomic_compare_exchange_weak" link="cpp/atomic/atomic_compare_exchange"/>
+    <function name="std::atomic_compare_exchange_weak_explicit" link="cpp/atomic/atomic_compare_exchange"/>
+    <function name="std::atomic_compare_exchange_strong" link="cpp/atomic/atomic_compare_exchange"/>
+    <function name="std::atomic_compare_exchange_strong_explicit" link="cpp/atomic/atomic_compare_exchange"/>
+
+    <function name="std::atomic_fetch_add" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_add_explicit" link="cpp/atomic/atomic_fetch_add"/>
+
+    <function name="std::atomic_fetch_sub" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_sub_explicit" link="cpp/atomic/atomic_fetch_add"/>
+
+    <function name="std::atomic_fetch_and" link="cpp/atomic/atomic_fetch_sub"/>
+    <function name="std::atomic_fetch_and_explicit" link="cpp/atomic/atomic_fetch_sub"/>
+
+    <function name="std::atomic_fetch_or" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_or_explicit" link="cpp/atomic/atomic_fetch_add"/>
+
+    <function name="std::atomic_fetch_xor" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_xor_explicit" link="cpp/atomic/atomic_fetch_add"/>
+
+    <class name="std::atomic_flag" link="cpp/atomic/atomic_flag">
+        <constructor/>
+        <function name="operator="/>
+        <function name="clear"/>
+        <function name="test_and_set"/>
+    </class>
+    
+    <function name="std::atomic_init" link="cpp/atomic/atomic_init"/>
+    <function name="ATOMIC_VAR_INIT" link="cpp/atomic/ATOMIC_VAR_INIT"/>
+    <enum name="ATOMIC_FLAG_INIT" link="cpp/atomic/ATOMIC_FLAG_INIT"/>
+    
+    <enum name="std::memory_order" link="cpp/atomic/memory_order"/>
+    <const name="std::memory_order_relaxed" link="cpp/atomic/memory_order"/>
+    <const name="std::memory_order_consume" link="cpp/atomic/memory_order"/>
+    <const name="std::memory_order_acquire" link="cpp/atomic/memory_order"/>
+    <const name="std::memory_order_release" link="cpp/atomic/memory_order"/>
+    <const name="std::memory_order_acq_rel" link="cpp/atomic/memory_order"/>
+    <const name="std::memory_order_seq_cst" link="cpp/atomic/memory_order"/>
+    
+    <function name="std::kill_dependency" link="cpp/atomic/kill_dependency"/>
+    <function name="std::atomic_thread_fence" link="cpp/atomic/atomic_thread_fence"/>
+    <function name="std::atomic_signal_fence" link="cpp/atomic/atomic_signal_fence"/>
+    
     <!-- cpp/thread -->
 
     <class name="std::thread" link="cpp/thread/thread">
