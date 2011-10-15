@@ -1453,9 +1453,9 @@
         <const name="eofbit" link="iostate"/>
         
         <enum name="seekdir"/>
-        <const name="beg" link="openmode"/>
-        <const name="cur" link="openmode"/>
-        <const name="end" link="openmode"/>
+        <const name="beg" link="seekdir"/>
+        <const name="cur" link="seekdir"/>
+        <const name="end" link="seekdir"/>
         
         <typedef name="event"/>
     </class>
