@@ -22,11 +22,11 @@ clean:
 check:
 
 dist:
-	mkdir -p "cppreference-$(VERSION)"
-	cp -r "reference" "cppreference-$(VERSION)"
-	find . -maxdepth 1 -type f -not -iname "*.tar.gz" -exec cp '{}' "cppreference-$(VERSION)" \;
-	tar czf "cppreference-$(VERSION).tar.gz" "cppreference-$(VERSION)" 
-	rm -rf "cppreference-$(VERSION)"
+	mkdir -p "cppreference-doc-$(VERSION)"
+	cp -r "reference" "cppreference-doc-$(VERSION)"
+	find . -maxdepth 1 -type f -not -iname "*.tar.gz" -exec cp '{}' "cppreference-doc-$(VERSION)" \;
+	tar czf "cppreference-doc-$(VERSION).tar.gz" "cppreference-doc-$(VERSION)" 
+	rm -rf "cppreference-doc-$(VERSION)"
 
 install:
 	#do not install the ttf files
