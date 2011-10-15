@@ -66,7 +66,7 @@ source:
 	mkdir "reference"
 	
 	pushd "reference" ; \
-	httrack http://en.cppreference.com/w/ -%k -%s -n -%q0 \
+	httrack http://en.cppreference.com/w/ -%k -%s -n -%q0 -%F "" \
 	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* -*action=* -*printable=* \
 	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* +*title=-&action=raw* ;\
 	popd
