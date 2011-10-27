@@ -1706,8 +1706,146 @@
     <function name="std::setlocale" link="cpp/locale/setlocale"/>
 
     <!-- cpp/regex -->
+    
+    <class name="std::basic_regex" link="cpp/regex/basic_regex">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        
+        <function name="mark_count"/>
+        <function name="flags"/>
+        
+        <function name="getloc"/>
+        <function name="imbue"/>
+        
+        <function name="swap"/>
+    </class>
+    
+    <typedef name="std::regex" alias="std::basic_regex"/>
+    <typedef name="std::wregex" alias="std::basic_regex"/>
+    
+    <class name="std::sub_match" link="cpp/regex/sub_match">
+        <constructor/>
+        <function name="length"/>
+        <function name="str"/>
+        <function name="operator string_type" link="str"/>
+        <function name="compare"/>
+    </class>
+    
+    <typedef name="std::csub_match" alias="std::sub_match"/>
+    <typedef name="std::wcsub_match" alias="std::sub_match"/>
+    <typedef name="std::ssub_match" alias="std::sub_match"/>
+    <typedef name="std::wssub_match" alias="std::sub_match"/>
+
+    <class name="std::match_results" link="cpp/regex/match_results">
+        <constructor/>
+        <destructor/>
+        <function name="get_allocator"/>
+        
+        <function name="ready"/>
+        
+        <function name="empty"/>
+        <function name="size"/>
+        <function name="max_size"/>
+        
+        <function name="length"/>
+        <function name="position"/>
+        <function name="str"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="prefix"/>
+        <function name="suffix"/>
+        
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend"/>
+        
+        <function name="format"/>
+        <function name="swap"/>
+    </class>
+    
+    <typedef name="std::cmatch" alias="std::match_results"/>
+    <typedef name="std::wcmatch" alias="std::match_results"/>
+    <typedef name="std::smatch" alias="std::match_results"/>
+    <typedef name="std::wsmatch" alias="std::match_results"/>
+    
+    <function name="std::regex_match" link="cpp/regex/regex_match"/>
+    <function name="std::regex_search" link="cpp/regex/regex_search"/>
+    <function name="std::regex_replace" link="cpp/regex/regex_replace"/>
+    
+    <class name="std::regex_iterator" link="cpp/regex/regex_iterator">
+        <!-- todo -->
+    </class>
+    
+    <typedef name="std::cregex_iterator" alias="std::regex_iterator"/>
+    <typedef name="std::wcregex_iterator" alias="std::regex_iterator"/>
+    <typedef name="std::sregex_iterator" alias="std::regex_iterator"/>
+    <typedef name="std::wsregex_iterator" alias="std::regex_iterator"/>
+    
+    <class name="std::regex_token_iterator" link="cpp/regex/regex_token_iterator">
+        <!-- todo -->
+    </class>
+    
+    <typedef name="std::cregex_token_iterator" alias="std::regex_token_iterator"/>
+    <typedef name="std::wcregex_token_iterator" alias="std::regex_token_iterator"/>
+    <typedef name="std::sregex_token_iterator" alias="std::regex_token_iterator"/>
+    <typedef name="std::wsregex_token_iterator" alias="std::regex_token_iterator"/>
+    
+    <class name="std::regex_error" link="cpp/regex_error">
+        <inherits name="std::runtime_error"/>
+        <constructor/>
+        <function name="code"/>
+    </class>
+    
+    <class name="std::regex_traits" link="cpp/regex/regex_traits">
+        <!-- todo -->
+    </class>
+    
+    <enum name="std::regex_constants::syntax_option_type" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::icase" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::nosubs" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::optimize" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::collate" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::ECMAScript" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::basic" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::extended" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::awk" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::grep" link="cpp/regex/syntax_option_type"/>
+    <const name="std::regex_constants::egrep" link="cpp/regex/syntax_option_type"/>
+
+    <enum name="std::regex_constants::match_flag_type" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_default" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_not_bol" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_not_eol" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_not_bow" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_not_eow" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_any" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_not_null" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_continuous" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::match_prev_avail" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::format_default" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::format_sed" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::format_no_copy" link="cpp/regex/match_flag_type"/>
+    <const name="std::regex_constants::format_first_only" link="cpp/regex/match_flag_type"/>
+    
+    <enum name="std::regex_constants::error_type" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_collate" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_ctype" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_escape" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_backref" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_brack" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_paren" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_brace" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_badbrace" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_range" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_space" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_badrepeat" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_complexity" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_stack" link="cpp/regex/error_type"/>
 
     <!-- cpp/atomic -->
+    
     <class name="std::atomic" link="cpp/atomic/atomic">
         <!-- todo -->
     </class>
