@@ -18,6 +18,8 @@
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
 page="$1"
+# remove an invalid tag added by httrack
+sed -f "fix_html-httrack_meta.sed" -i "$page"
 
 # remove sidebar, header and footer
 xsltproc --novalid --html -o "tmpfile" "fix_html-cleanup.xsl" $1 
