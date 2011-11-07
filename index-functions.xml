@@ -314,38 +314,6 @@
     <function name="std::longjmp" link="cpp/utility/program/longjmp"/>
     <function name="std::setjmp" link="cpp/utility/program/setjmp"/>
 
-    <!-- cpp/utility/ratio -->
-
-    <class name="std::ratio" link="cpp/utility/ratio/ratio">
-        <!--todo-->
-    </class>
-
-    <typedef name="std::yocto" alias="std::ratio"/>
-    <typedef name="std::femto" alias="std::ratio"/>
-    <typedef name="std::pico" alias="std::ratio"/>
-    <typedef name="std::nano" alias="std::ratio"/>
-    <typedef name="std::micro" alias="std::ratio"/>
-    <typedef name="std::milli" alias="std::ratio"/>
-    <typedef name="std::centi" alias="std::ratio"/>
-    <typedef name="std::deci" alias="std::ratio"/>
-    <typedef name="std::deca" alias="std::ratio"/>
-    <typedef name="std::hecto" alias="std::ratio"/>
-    <typedef name="std::kilo" alias="std::ratio"/>
-    <typedef name="std::mega" alias="std::ratio"/>
-    <typedef name="std::giga" alias="std::ratio"/>
-    <typedef name="std::tera" alias="std::ratio"/>
-    <typedef name="std::peta" alias="std::ratio"/>
-    <typedef name="std::exa" alias="std::ratio"/>
-    <typedef name="std::zetta" alias="std::ratio"/>
-    <typedef name="std::yotta" alias="std::ratio"/>
-
-    <function name="std::ratio_equal" link="cpp/utility/ratio/ratio_equal"/>
-    <function name="std::ratio_not_equal" link="cpp/utility/ratio/ratio_not_equal"/>
-    <function name="std::ratio_less" link="cpp/utility/ratio/ratio_less"/>
-    <function name="std::ratio_less_equal" link="cpp/utility/ratio/ratio_less_equal"/>
-    <function name="std::ratio_greater" link="cpp/utility/ratio/ratio_greater"/>
-    <function name="std::ratio_greater_equal" link="cpp/utility/ratio/ratio_greater_equal"/>
-
     <function name="std::difftime" link="cpp/chrono/c/difftime"/>
     <function name="std::time" link="cpp/chrono/c/time"/>
     <function name="std::clock" link="cpp/chrono/c/clock"/>
@@ -1283,6 +1251,38 @@
     <class name="std::discrete_distribution" link="cpp/numeric/random/discrete_distribution"><!--todo--></class>
     <class name="std::piecewise_constant_distribution" link="cpp/numeric/random/piecewise_constant_distribution"><!--todo--></class>
     <class name="std::piecewise_linear_distribution" link="cpp/numeric/random/piecewise_linear_distribution"><!--todo--></class>
+
+    <!-- cpp/numeric/ratio -->
+
+    <class name="std::ratio" link="cpp/numeric/ratio/ratio">
+        <!--todo-->
+    </class>
+
+    <typedef name="std::yocto" alias="std::ratio"/>
+    <typedef name="std::femto" alias="std::ratio"/>
+    <typedef name="std::pico" alias="std::ratio"/>
+    <typedef name="std::nano" alias="std::ratio"/>
+    <typedef name="std::micro" alias="std::ratio"/>
+    <typedef name="std::milli" alias="std::ratio"/>
+    <typedef name="std::centi" alias="std::ratio"/>
+    <typedef name="std::deci" alias="std::ratio"/>
+    <typedef name="std::deca" alias="std::ratio"/>
+    <typedef name="std::hecto" alias="std::ratio"/>
+    <typedef name="std::kilo" alias="std::ratio"/>
+    <typedef name="std::mega" alias="std::ratio"/>
+    <typedef name="std::giga" alias="std::ratio"/>
+    <typedef name="std::tera" alias="std::ratio"/>
+    <typedef name="std::peta" alias="std::ratio"/>
+    <typedef name="std::exa" alias="std::ratio"/>
+    <typedef name="std::zetta" alias="std::ratio"/>
+    <typedef name="std::yotta" alias="std::ratio"/>
+
+    <function name="std::ratio_equal" link="cpp/numeric/ratio/ratio_equal"/>
+    <function name="std::ratio_not_equal" link="cpp/numeric/ratio/ratio_not_equal"/>
+    <function name="std::ratio_less" link="cpp/numeric/ratio/ratio_less"/>
+    <function name="std::ratio_less_equal" link="cpp/numeric/ratio/ratio_less_equal"/>
+    <function name="std::ratio_greater" link="cpp/numeric/ratio/ratio_greater"/>
+    <function name="std::ratio_greater_equal" link="cpp/numeric/ratio/ratio_greater_equal"/>
 
     <!-- cpp/algorithm -->
 
