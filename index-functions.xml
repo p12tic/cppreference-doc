@@ -276,7 +276,7 @@
 
     <!-- cpp/utility/initializer_list -->
 
-    <class name="std::initializer_list" link="cpp/utility/unitializer_list">
+    <class name="std::initializer_list" link="cpp/utility/initializer_list">
         <constructor/>
         <function name="size"/>
         <function name="begin"/>
