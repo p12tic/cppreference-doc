@@ -123,8 +123,8 @@
     <!-- cpp/utility/rtti -->
 
     <class name="std::type_info" link="cpp/types/type_info">
-        <function name="operator==" link="operator_comp"/>
-        <function name="operator!=" link="operator_comp"/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
         <function name="before"/>
         <function name="hash_code"/>
         <function name="name"/>
@@ -132,12 +132,12 @@
 
     <class name="std::type_index" link="cpp/types/type_index">
         <constructor/>
-        <function name="operator==" link="operator_comp"/>
-        <function name="operator!=" link="operator_comp"/>
-        <function name="operator&lt;=" link="operator_comp"/>
-        <function name="operator&lt;" link="operator_comp"/>
-        <function name="operator&gt;=" link="operator_comp"/>
-        <function name="operator&gt;" link="operator_comp"/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        <function name="operator&lt;=" link="operator_cmp"/>
+        <function name="operator&lt;" link="operator_cmp"/>
+        <function name="operator&gt;=" link="operator_cmp"/>
+        <function name="operator&gt;" link="operator_cmp"/>
         <function name="hash_code"/>
         <function name="name"/>
     </class>
@@ -330,8 +330,8 @@
         <constructor/>
         <destructor/>
         <function name="operator="/>
-        <function name="operator==" link="operator_comp"/>
-        <function name="operator!=" link="operator_comp"/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
 
         <function name="operator[]" link="operator_at"/>
         <function name="test"/>
