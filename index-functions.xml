@@ -1811,15 +1811,15 @@
     
     <!-- cpp/numeric/random -->
 
-    <class name="std::linear_congrueential_engine" link="cpp/numeric/random/linear_congruential_engine"><!--todo--></class>
-    <class name="std::mersenne_twister_engine" link="cpp/numeric/random/linear_congruential_engine"><!--todo--></class>
+    <class name="std::linear_congruential_engine" link="cpp/numeric/random/linear_congruential_engine"><!--todo--></class>
+    <class name="std::mersenne_twister_engine" link="cpp/numeric/random/mersenne_twister_engine"><!--todo--></class>
     <class name="std::subtract_with_carry_engine" link="cpp/numeric/random/subtract_with_carry_engine"><!--todo--></class>
     <class name="std::discard_block_engine" link="cpp/numeric/random/discard_block_engine"><!--todo--></class>
     <class name="std::independent_bits_engine" link="cpp/numeric/random/independent_bits_engine"><!--todo--></class>
     <class name="std::shuffle_order_engine" link="cpp/numeric/random/shuffle_order_engine"><!--todo--></class>
     
-    <typedef name="std::minstd_rand0" alias="std::linear_congrueential_engine"/>
-    <typedef name="std::minstd_rand" alias="std::linear_congrueential_engine"/>
+    <typedef name="std::minstd_rand0" alias="std::linear_congruential_engine"/>
+    <typedef name="std::minstd_rand" alias="std::linear_congruential_engine"/>
     <typedef name="std::mt19937" alias="std::mersenne_twister_engine"/>
     <typedef name="std::mt19937_64" alias="std::mersenne_twister_engine"/>
     <typedef name="std::ranlux24_base" alias="std::subtract_with_carry_engine"/>
