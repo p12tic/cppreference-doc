@@ -11,7 +11,7 @@ ways:
  1) Running `make source` which will pull the documentation directly from the website page-by-page.
  
  2) Downloading an already prepared archive from <http://en.cppreference.com/w/Cppreference:Archives>.
-    This way is preferred.
+    This method is preferred.
     
 Note, that abovementioned documentation is still a raw copy of the website and needs to be 
 transformed in order to be suitable for local viewing. This step can be achieved by running `make`.
