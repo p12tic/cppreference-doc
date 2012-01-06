@@ -1081,7 +1081,27 @@
 
     <!-- cpp/string/multibyte -->
     
-        <!-- todo -->
+    <function name="std::mblen" link="cpp/string/multibyte/mblen"/>
+    <function name="std::mbtowc" link="cpp/string/multibyte/mbtowc"/>
+    <function name="std::wctomb" link="cpp/string/multibyte/wctomb"/>
+    <function name="std::mbstowcs" link="cpp/string/multibyte/mbstowcs"/>
+    <function name="std::wcstombs" link="cpp/string/multibyte/wcstombs"/>
+    
+    <function name="std::mbsinit" link="cpp/string/multibyte/mbsinit"/>
+    <function name="std::btowc" link="cpp/string/multibyte/btowc"/>
+    <function name="std::wctob" link="cpp/string/multibyte/wctob"/>
+    <function name="std::mbrlen" link="cpp/string/multibyte/mbrlen"/>
+    <function name="std::mbrtowc" link="cpp/string/multibyte/mbrtowc"/>
+    <function name="std::wcrtomb" link="cpp/string/multibyte/wcrtomb"/>
+    <function name="std::mbsrtowcs" link="cpp/string/multibyte/mbsrtowcs"/>
+    <function name="std::wcstombs" link="cpp/string/multibyte/wcstombs"/>
+    
+    <function name="std::mbrtoc16" link="cpp/string/multibyte/mbrtoc16"/>
+    <function name="std::c16rtomb" link="cpp/string/multibyte/c16rtomb"/>
+    <function name="std::mbrtoc32" link="cpp/string/multibyte/mbrtoc32"/>
+    <function name="std::c32rtomb" link="cpp/string/multibyte/c32rtomb"/>
+    
+    <class name="std::mbstate_t" linke="cpp/string/multibyte/mbstate_t"/>
     
     <!-- cpp/string/wide -->
     
