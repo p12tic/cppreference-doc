@@ -233,6 +233,82 @@
     <const name="std::denorm_absent" link="cpp/types/numeric_limits/float_denorm_style"/>
     <const name="std::denorm_present" link="cpp/types/numeric_limits/float_denorm_style"/>
 
+        <!-- cpp/types/climits -->
+    <const name="PTRDIFF_MIN" link="cpp/types/climits"/>
+    <const name="PTRDIFF_MAX" link="cpp/types/climits"/>
+    <const name="SIZE_MAX" link="cpp/types/climits"/>
+    <const name="SIG_ATOMIC_MIN" link="cpp/types/climits"/>
+    <const name="SIG_ATOMIC_MAX" link="cpp/types/climits"/>
+    <const name="WCHAR_MIN" link="cpp/types/climits"/>
+    <const name="WCHAR_MAX" link="cpp/types/climits"/>
+    <const name="WINT_MIN" link="cpp/types/climits"/>
+    <const name="WINT_MAX" link="cpp/types/climits"/>
+    
+    <const name="CHAR_BIT" link="cpp/types/climits"/>
+    <const name="MB_LEN_MAX" link="cpp/types/climits"/>
+    <const name="CHAR_MIN" link="cpp/types/climits"/>
+    <const name="CHAR_MAX" link="cpp/types/climits"/>
+    
+    <const name="SCHAR_MIN" link="cpp/types/climits"/>
+    <const name="SHRT_MIN" link="cpp/types/climits"/>
+    <const name="INT_MIN" link="cpp/types/climits"/>
+    <const name="LONG_MIN" link="cpp/types/climits"/>
+    <const name="LLONG_MIN" link="cpp/types/climits"/>
+    
+    <const name="SCHAR_MAX" link="cpp/types/climits"/>
+    <const name="SHRT_MAX" link="cpp/types/climits"/>
+    <const name="INT_MAX" link="cpp/types/climits"/>
+    <const name="LONG_MAX" link="cpp/types/climits"/>
+    <const name="LLONG_MAX" link="cpp/types/climits"/>
+
+    <const name="UCHAR_MAX" link="cpp/types/climits"/>
+    <const name="USHRT_MAX" link="cpp/types/climits"/>
+    <const name="UINT_MAX" link="cpp/types/climits"/>
+    <const name="ULONG_MAX" link="cpp/types/climits"/>
+    <const name="ULLONG_MAX" link="cpp/types/climits"/>
+    
+    <const name="FLT_RADIX" link="cpp/types/climits"/>
+    <const name="DECIMAL_DIG" link="cpp/types/climits"/>
+    
+    <const name="FLT_MIN" link="cpp/types/climits"/>
+    <const name="DBL_MIN" link="cpp/types/climits"/>
+    <const name="LDBL_MIN" link="cpp/types/climits"/>
+    
+    <const name="FLT_MAX" link="cpp/types/climits"/>
+    <const name="DBL_MAX" link="cpp/types/climits"/>
+    <const name="LDBL_MAX" link="cpp/types/climits"/>
+    
+    <const name="FLT_EPSILON" link="cpp/types/climits"/>
+    <const name="DBL_EPSILON" link="cpp/types/climits"/>
+    <const name="LDBL_EPSILON" link="cpp/types/climits"/>
+    
+    <const name="FLT_DIG" link="cpp/types/climits"/>
+    <const name="DBL_DIG" link="cpp/types/climits"/>
+    <const name="LDBL_DIG" link="cpp/types/climits"/>
+    
+    <const name="FLT_MANT_DIG" link="cpp/types/climits"/>
+    <const name="DBL_MANT_DIG" link="cpp/types/climits"/>
+    <const name="LDBL_MANT_DIG" link="cpp/types/climits"/>
+    
+    <const name="FLT_MIN_EXP" link="cpp/types/climits"/>
+    <const name="DBL_MIN_EXP" link="cpp/types/climits"/>
+    <const name="LDBL_MIN_EXP" link="cpp/types/climits"/>
+    
+    <const name="FLT_MIN_10_EXP" link="cpp/types/climits"/>
+    <const name="DBL_MIN_10_EXP" link="cpp/types/climits"/>
+    <const name="LDBL_MIN_10_EXP" link="cpp/types/climits"/>
+   
+    <const name="FLT_MAX_EXP" link="cpp/types/climits"/>
+    <const name="DBL_MAX_EXP" link="cpp/types/climits"/>
+    <const name="LDBL_MAX_EXP" link="cpp/types/climits"/>
+    
+    <const name="FLT_MAX_10_EXP" link="cpp/types/climits"/>
+    <const name="DBL_MAX_10_EXP" link="cpp/types/climits"/>
+    <const name="LDBL_MAX_10_EXP" link="cpp/types/climits"/>
+    
+    <const name="FLT_ROUNDS" link="cpp/types/climits"/>
+    <const name="FLT_EVAL_METHOD" link="cpp/types/climits"/>
+        
         <!-- RTTI -->
         
     <class name="std::type_info" link="cpp/types/type_info">
