@@ -1877,13 +1877,13 @@
     <function name="std::signbit" link="cpp/numeric/math/signbit"/>
 
     <const name="HUGE_VAL" link="cpp/numeric/math/HUGE_VAL"/>
-    <const name="HUGE_VALF" link="cpp/numeric/math/HUGE_VALF"/>
-    <const name="HUGE_VALL" link="cpp/numeric/math/HUGE_VALL"/>
-    <const name="FP_INFINITE" link="cpp/numeric/math/FP_INFINITE"/>
-    <const name="FP_NAN" link="cpp/numeric/math/FP_NAN"/>
-    <const name="FP_NORMAL" link="cpp/numeric/math/FP_NORMAL"/>
-    <const name="FP_SUBNORMAL" link="cpp/numeric/math/FP_SUBNORMAL"/>
-    <const name="FP_ZERO" link="cpp/numeric/math/FP_ZERO"/>
+    <const name="HUGE_VALF" link="cpp/numeric/math/HUGE_VAL"/>
+    <const name="HUGE_VALL" link="cpp/numeric/math/HUGE_VAL"/>
+    <const name="FP_INFINITE" link="cpp/numeric/math/FP_categories"/>
+    <const name="FP_NAN" link="cpp/numeric/math/FP_categories"/>
+    <const name="FP_NORMAL" link="cpp/numeric/math/FP_categories"/>
+    <const name="FP_SUBNORMAL" link="cpp/numeric/math/FP_categories"/>
+    <const name="FP_ZERO" link="cpp/numeric/math/FP_categories"/>
     
     <!-- cpp/numeric/random -->
 
