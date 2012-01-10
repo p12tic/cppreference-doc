@@ -1101,7 +1101,7 @@
     <function name="std::mbrtoc32" link="cpp/string/multibyte/mbrtoc32"/>
     <function name="std::c32rtomb" link="cpp/string/multibyte/c32rtomb"/>
     
-    <class name="std::mbstate_t" linke="cpp/string/multibyte/mbstate_t"/>
+    <class name="std::mbstate_t" link="cpp/string/multibyte/mbstate_t"/>
     
     <!-- cpp/string/wide -->
     
@@ -2086,6 +2086,7 @@
     <function name="std::inner_product" link="cpp/algorithm/inner_product"/>
     <function name="std::adjacent_difference" link="cpp/algorithm/adjacent_difference"/>
     <function name="std::partial_sum" link="cpp/algorithm/partial_sum"/>
+    <function name="std::iota" link="cpp/algorithm/iota"/>
 
     <function name="std::qsort" link="cpp/algorithm/qsort"/>
     <function name="std::bsearch" link="cpp/algorithm/bsearch"/>
