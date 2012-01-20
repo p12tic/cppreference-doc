@@ -25,13 +25,12 @@
         <sub name="Error handling" link="cpp/error"/>
         <sub name="std::initializer_list" link="cpp/utility/initializer_list"/>
         <sub name="Program utilities" link="cpp/utility/program"/>
-        <sub name="Compile time rational arithmetic" link="cpp/utility/ratio"/>
         <sub name="Date and time" link="cpp/chrono"/>
         <sub name="std::bitset" link="cpp/utility/bitset"/>
         <sub name="Fenction objects" link="cpp/utility/functional"/>
     </sub>
     <sub name="Strings library" link="cpp/string">
-        <sub name="Null terminated narrow strings" link="cpp/string/narrow"/>
+        <sub name="Null terminated narrow strings" link="cpp/string/byte"/>
         <sub name="Null terminated wide strings" link="cpp/string/wide"/>
         <sub name="std::basic_string" link="cpp/string/basic_string"/>
         <sub name="std::char_traits" link="cpp/string/char_traits"/>
@@ -59,6 +58,7 @@
     <sub name="Numerics library" link="cpp/numeric">
         <sub name="Common mathematical functions" link="cpp/numeric/math"/>
         <sub name="Complex numbers" link="cpp/numeric/complex"/>
+        <sub name="Compile time rational arithmetic" link="cpp/numeric/ratio"/>
         <sub name="Pseudo-random number generation" link="cpp/numeric/random"/>
     </sub>
     <sub name="Input/output library" link="cpp/io">
