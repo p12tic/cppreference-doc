@@ -21,7 +21,7 @@
                 xmlns="http://www.devhelp.net/book"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 >
-<xsl:param name="book-base" select="'/usr/share/doc/cppreference-doc-en/'"/>
+<xsl:param name="book-base" select="'/usr/share/doc/cppreference-doc-en/html'"/>
 
 <xsl:output indent="yes"/>
 

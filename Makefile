@@ -35,7 +35,7 @@ dist:
 install:
 	#do not install the ttf files
 	pushd "output"; find . -type f -not -iname "*.ttf" \
-		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/{}" \; ; popd
+		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; popd
 
 	install -DT -m 644 cppreference-doc-en.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en.devhelp2"
 
@@ -51,7 +51,8 @@ doc_qch: cppreference-doc-en.qch
 
 #build the .devhelp2 index
 cppreference-doc-en.devhelp2: output
-	xsltproc index2devhelp.xsl index-functions.xml > devhelp-index.xml
+	xsltproc --stringparam book-base "/usr/share/doc/cppreference-doc-en/html" \
+		index2devhelp.xsl index-functions.xml > devhelp-index.xml
 
 	#correct links in the .devhelp2 index
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
