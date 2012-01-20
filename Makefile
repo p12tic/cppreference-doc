@@ -49,7 +49,7 @@ doc_devhelp: cppreference-doc-en.devhelp2
 doc_qch: cppreference-doc-en.qch
 
 #build the .devhelp2 index
-cppreference-doc-en.devhelp2: init_html
+cppreference-doc-en.devhelp2: output
 	xsltproc index2devhelp.xsl index-functions.xml > "cppreference-doc-en.devhelp2"
 
 	#correct links in the .devhelp2 index
@@ -73,8 +73,7 @@ qch-help-project.xml: cppreference-doc-en.devhelp2
 	xsltproc devhelp2qch.xsl cppreference-doc-en.devhelp2 > "qch-help-project.xml"
 
 #copy the source documentation tree, since changes will be made inplace
-init_html:
-	rm -rf "output"
+output:
 	cp -r "reference" "output"
 	
 	#remove useless UI elements
