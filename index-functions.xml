@@ -188,7 +188,7 @@
         
         <const name="has_infinity"/>
         <const name="has_quiet_NaN"/>
-        <const name="has_signalling_NaN"/>
+        <const name="has_signaling_NaN"/>
         <const name="has_denorm"/>
         <const name="has_denorm_loss"/>
 
@@ -217,7 +217,7 @@
         <function name="round_error"/>
         <function name="infinity"/>
         <function name="quiet_NaN"/>
-        <function name="signalling_NaN"/>
+        <function name="signaling_NaN"/>
         <function name="denorm_min"/>
     </class>
 
