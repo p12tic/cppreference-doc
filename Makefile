@@ -21,6 +21,7 @@ clean:
 	rm -f "cppreference-doc-en.qch"
 	rm -f "qch-help-project.xml"
 	rm -f "qch-files.xml"
+	rm -f "devhelp-index.xml"
 
 check:
 
@@ -50,11 +51,16 @@ doc_qch: cppreference-doc-en.qch
 
 #build the .devhelp2 index
 cppreference-doc-en.devhelp2: output
-	xsltproc index2devhelp.xsl index-functions.xml > "cppreference-doc-en.devhelp2"
+	xsltproc index2devhelp.xsl index-functions.xml > devhelp-index.xml
 
 	#correct links in the .devhelp2 index
-	pushd "output"; find . -iname "*.html" -exec ../build_devhelp.sh '{}' \; ; popd
-
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
+	pushd "output"; find . -iname "*.html" \
+		-exec ../fix_devhelp-links.sh '{}' \; ; popd
+	echo "</files>" >> "devhelp-files.xml"
+	
+	xsltproc fix_devhelp-links.xsl devhelp-index.xml > cppreference-doc-en.devhelp2
+	
 #build the .qch (QT help) file
 cppreference-doc-en.qch: qch-help-project.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation 
