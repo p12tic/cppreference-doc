@@ -13,11 +13,14 @@ VERSION=20111225
 
 #STANDARD RULES
 
-all: doc_devhelp
+all: doc_devhelp doc_qch
 
 clean:
 	rm -rf "output/"
 	rm -f "cppreference-doc-en.devhelp2"
+	rm -f "cppreference-doc-en.qch"
+	rm -f "qch-help-project.xml"
+	rm -f "qch-files.xml"
 
 check:
 
@@ -41,16 +44,36 @@ uninstall:
 
 #WORKER RULES
 
-doc_devhelp: init_html
-	#build the .devhelp2 index
+doc_devhelp: cppreference-doc-en.devhelp2 
+
+doc_qch: cppreference-doc-en.qch
+
+#build the .devhelp2 index
+cppreference-doc-en.devhelp2: init_html
 	xsltproc index2devhelp.xsl index-functions.xml > "cppreference-doc-en.devhelp2"
 
 	#correct links in the .devhelp2 index
-	pushd "output"; find . -name "*.html" -exec ../build_devhelp.sh '{}' \; ; popd
-	
+	pushd "output"; find . -iname "*.html" -exec ../build_devhelp.sh '{}' \; ; popd
 
+#build the .qch (QT help) file
+cppreference-doc-en.qch: qch-help-project.xml
+	#qhelpgenerator only works if the project file is in the same directory as the documentation 
+	cp qch-help-project.xml output/qch.xml
+	pushd "output"; qhelpgenerator qch.xml -o "../cppreference-doc-en.qch"; popd
+	rm -f output/qch.xml
+
+qch-help-project.xml: cppreference-doc-en.devhelp2
+	#build the file list
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "qch-files.xml"
+	pushd "output"; find . -type f -not -iname "*.ttf" \
+		-exec echo "<file>"'{}'"</file>" >> "../qch-files.xml" \; ; popd                
+	echo "</files>" >> "qch-files.xml"
+	
+	#create the project (copies the file list)
+	xsltproc devhelp2qch.xsl cppreference-doc-en.devhelp2 > "qch-help-project.xml"
+
+#copy the source documentation tree, since changes will be made inplace
 init_html:
-	#copy the source documentation tree, since changes will be made inplace
 	rm -rf "output"
 	cp -r "reference" "output"
 	
