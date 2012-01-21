@@ -2093,7 +2093,62 @@
 
     <!-- cpp/io -->
     
-    <class name="std::basic_streambuf" link="cpp/io/basic_streambuf"/>
+    <class name="std::basic_streambuf" link="cpp/io/basic_streambuf">
+        <constructor/>
+        <destructor/>
+        
+        <function name="pubimbue"/>
+        <function name="getloc"/>
+        
+        <function name="pubsetbuf"/>
+        <function name="pubseekoff"/>
+        <function name="pubseekpos"/>
+        <function name="pubsync"/>
+        
+        <function name="in_avail"/>
+        <function name="snextc"/>
+        <function name="sbumpc"/>
+        <function name="sgetc"/>
+        <function name="sgetn"/>
+        
+        <function name="sputc"/>
+        <function name="sputn"/>
+        
+        <function name="sputbackc"/>
+        <function name="ungetc"/>
+        
+        <function name="operator="/>
+        <function name="swap"/>
+        
+        <function name="imbue" link="pubimbue"/>
+        
+        <function name="setbuf" link="pubimbue"/>
+        <function name="seekoff" link="pubseekoff"/>
+        <function name="seekpos" link="pubseekpos"/>
+        <function name="sync" link="pubsync"/>
+        
+        <function name="showmanyc"/>
+        <function name="underflow"/>
+        <function name="uflow"/>
+        <function name="xsgetn" link="sgetn"/>
+        <function name="gback" link="gptr"/>
+        <function name="gptr" />
+        <function name="egptr" link="gptr"/>
+        <function name="gbump"/>
+        <function name="setg"/>
+        
+        <function name="xsputn" link="sputn"/>
+        <function name="overflow"/>
+        <function name="pbase" link="pptr"/>
+        <function name="pptr" />
+        <function name="epptr" link="pptr"/>
+        
+        <function name="pbump"/>
+        <function name="setp"/>
+        
+        <function name="pbackfail"/>
+    </class>
+    
     <class name="std::basic_filebuf" link="cpp/io/basic_filebuf"/>
     <class name="std::basic_stringbuf" link="cpp/io/basic_stringbuf"/>
 
