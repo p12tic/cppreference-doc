@@ -1929,11 +1929,79 @@
     <function name="std::rand" link="cpp/numeric/random/srand"/>
     <const name="MAX_RANDOM" link="cpp/numeric/random/MAX_RANDOM"/>
     
-    <class name="std::uniform_int_distribution" link="cpp/numeric/random/uniform_int_distribution"><!--todo--></class>
-    <class name="std::uniform_real_distribution" link="cpp/numeric/random/uniform_real_distribution"><!--todo--></class>
+    <function name="std::generate_canonical" link="cpp/numeric/random/generate_canonical"/>
+    
+    <class name="std::uniform_int_distribution" link="cpp/numeric/random/uniform_int_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+        
+        <function name="a"/>
+        <function name="b"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+        
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        
+        <function name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <function name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+    
+    <class name="std::uniform_real_distribution" link="cpp/numeric/random/uniform_real_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+        
+        <function name="a"/>
+        <function name="b"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+        
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        
+        <function name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <function name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
 
-    <class name="std::bernoulli_distribution" link="cpp/numeric/random/bernoulli_distribution"><!--todo--></class>
-    <class name="std::binomial_distribution" link="cpp/numeric/random/binomial_distribution"><!--todo--></class>
+    <class name="std::bernoulli_distribution" link="cpp/numeric/random/bernoulli_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+        
+        <function name="p"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+        
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        
+        <function name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <function name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+    
+    <class name="std::binomial_distribution" link="cpp/numeric/random/binomial_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+        
+        <function name="t"/>
+        <function name="p"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+        
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        
+        <function name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <function name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+    
     <class name="std::negative_binomial_distribution" link="cpp/numeric/random/negative_binomial_distribution"><!--todo--></class>
     <class name="std::geometric_distribution" link="cpp/numeric/random/geometric_distribution"><!--todo--></class>
 
