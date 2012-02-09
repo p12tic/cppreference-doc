@@ -941,27 +941,77 @@
     <!--=======================================================================-->
     <!-- cpp/utility/functional -->
 
-    <class name="std::plus" link="cpp/utility/functional/plus"><!--todo--></class>
-    <class name="std::minus" link="cpp/utility/functional/minus"><!--todo--></class>
-    <class name="std::multiplies" link="cpp/utility/functional/multiplies"><!--todo--></class>
-    <class name="std::divides" link="cpp/utility/functional/divides"><!--todo--></class>
-    <class name="std::modulus" link="cpp/utility/functional/modulus"><!--todo--></class>
-    <class name="std::negates" link="cpp/utility/functional/negates"><!--todo--></class>
+    <class name="std::plus" link="cpp/utility/functional/plus">
+        <function name="operator()" link="."/>
+    </class>
     
-    <class name="std::equal_to" link="cpp/utility/functional/equal_to"><!--todo--></class>
-    <class name="std::not_equal_to" link="cpp/utility/functional/not_equal_to"><!--todo--></class>
-    <class name="std::greater" link="cpp/utility/functional/greater"><!--todo--></class>
-    <class name="std::greater_equal" link="cpp/utility/functional/greater_equal"><!--todo--></class>
-    <class name="std::less" link="cpp/utility/functional/less"><!--todo--></class>
-    <class name="std::less_equal" link="cpp/utility/functional/less_equal"><!--todo--></class>
+    <class name="std::minus" link="cpp/utility/functional/minus">
+        <function name="operator()" link="."/>
+    </class>
     
-    <class name="std::logical_and" link="cpp/utility/functional/logical_and"><!--todo--></class>
-    <class name="std::logical_or" link="cpp/utility/functional/logical_or"><!--todo--></class>
-    <class name="std::logical_not" link="cpp/utility/functional/logical_not"><!--todo--></class>
+    <class name="std::multiplies" link="cpp/utility/functional/multiplies">
+        <function name="operator()" link="."/>
+    </class>
     
-    <class name="std::bit_and" link="cpp/utility/functional/bit_and"><!--todo--></class>
-    <class name="std::bit_or" link="cpp/utility/functional/bit_or"><!--todo--></class>
-    <class name="std::bit_not" link="cpp/utility/functional/bit_not"><!--todo--></class>
+    <class name="std::divides" link="cpp/utility/functional/divides">
+        <function name="operator()" link="."/>
+    </class>
+        
+    <class name="std::modulus" link="cpp/utility/functional/modulus">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::negates" link="cpp/utility/functional/negates">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::equal_to" link="cpp/utility/functional/equal_to">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::not_equal_to" link="cpp/utility/functional/not_equal_to">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::greater" link="cpp/utility/functional/greater">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::greater_equal" link="cpp/utility/functional/greater_equal">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::less" link="cpp/utility/functional/less">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::less_equal" link="cpp/utility/functional/less_equal">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::logical_and" link="cpp/utility/functional/logical_and">
+        <function name="operator()" link="."/>
+    </class>
+        
+    <class name="std::logical_or" link="cpp/utility/functional/logical_or">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::logical_not" link="cpp/utility/functional/logical_not">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::bit_and" link="cpp/utility/functional/bit_and">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::bit_or" link="cpp/utility/functional/bit_or">
+        <function name="operator()" link="."/>
+    </class>
+    
+    <class name="std::bit_not" link="cpp/utility/functional/bit_not">
+        <function name="operator()" link="."/>
+    </class>
     
     <class name="std::unary_negate" link="cpp/utility/functional/unary_negate"><!--todo--></class>
     <class name="std::binary_negate" link="cpp/utility/functional/binary_negate"><!--todo--></class>
@@ -969,8 +1019,8 @@
     <function name="std::not2" link="cpp/utility/functional/not2"/>
     
     <function name="std::bind" link="cpp/utility/functional/bind"/>
-    <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"/>
-    <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"/>
+    <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"><!--todo--></class>
+    <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"><!--todo--></class>
 
     <function name="std::mem_fn" link="cpp/utility/functional/mem_fn"/>
     <class name="std::function" link="cpp/utility/functional/function">
