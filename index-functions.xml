@@ -2594,6 +2594,8 @@
     <!-- cpp/locale -->
 
     <function name="std::setlocale" link="cpp/locale/setlocale"/>
+    <function name="std::localeconv" link="cpp/locale/localeconv"/>
+    <class name="std::lconv" link="cpp/locale/lconv"/>
 
     <class name="std::locale" link="cpp/locale/locale">
         <constructor/>
