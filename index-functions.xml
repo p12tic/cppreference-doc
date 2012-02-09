@@ -1353,6 +1353,7 @@
         <function name="resize"/>
         <function name="swap"/>
     </class>
+    
     <class name="std::forward_list" link="cpp/container/forward_list">
         <constructor/>
         <destructor/>
@@ -1394,6 +1395,7 @@
         <function name="sort"/>
 
     </class>
+    
     <class name="std::list" link="cpp/container/list">
         <constructor/>
         <destructor/>
@@ -1438,6 +1440,7 @@
         <function name="unique"/>
         <function name="sort"/>
     </class>
+    
     <class name="std::set" link="cpp/container/set">
         <constructor/>
         <destructor/>
@@ -2836,7 +2839,10 @@
         <function name="swap"/>
     </class>
     
-    <class name="std::thread::id" link="cpp/thread/thread/id"><!--todo--></class>
+    <class name="std::thread::id" link="cpp/thread/thread/id">
+        <constructor/>
+        <!--todo-->
+    </class>
 
     <function name="std::this_thread::get_id" link="cpp/thread/get_id"/>
     <function name="std::this_thread::sleep_for" link="cpp/thread/sleep_for"/>
@@ -2879,18 +2885,70 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::lock_guard" link="cpp/thread/lock_guard"/>
-    <class name="std::unique_lock" link="cpp/thread/unique_lock"/>
+    <class name="std::lock_guard" link="cpp/thread/lock_guard">
+        <constructor/>
+        <destructor/>
+    </class>
+    
+    <class name="std::unique_lock" link="cpp/thread/unique_lock">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="try_lock_for"/>
+        <function name="try_lock_until"/>
+        <function name="unlock"/>
+        
+        <function name="swap"/>
+        <function name="release"/>
+        
+        <function name="mutex"/>
+        <function name="owns_lock"/>
+        <function name="operator bool"/>
+    </class>
+    
     <function name="std::lock" link="cpp/thread/lock"/>
     <function name="std::try_lock" link="cpp/thread/try_lock"/>
 
-    <class name="std::condition_variable" link="cpp/thread/condition_variable"/>
-    <class name="std::condition_variable_any" link="cpp/thread/condition_variable_any"/>
-    <class name="std::notify_all_at_thread_exit" link="cpp/thread/notify_all_at_thread_exit"/>
+    <class name="std::condition_variable" link="cpp/thread/condition_variable">
+        <constructor/>
+        <destructor/>
+        
+        <function name="notify_one"/>
+        <function name="notify_all"/>
+        
+        <function name="wait"/>
+        <function name="wait_for"/>
+        <function name="wait_until"/>
+        
+        <function name="native_handle"/>
+    </class>
+    
+    <class name="std::condition_variable_any" link="cpp/thread/condition_variable_any">
+        <constructor/>
+        <destructor/>
+        
+        <function name="notify_one"/>
+        <function name="notify_all"/>
+        
+        <function name="wait"/>
+        <function name="wait_for"/>
+        <function name="wait_until"/>
+        
+        <function name="native_handle"/>
+    </class>
+    
+    <function name="std::notify_all_at_thread_exit" link="cpp/thread/notify_all_at_thread_exit"/>
 
     <class name="std::once_flag" link="cpp/thread/once_flag"/>
-    
     <function name="std::call_once" link="cpp/thread/call_once"/>
+    
+    <enum name="std::cv_status" link="cpp/thread/cv_status">
+        <const name="no_timeout"/>
+        <const name="timeout"/>
+    </enum>
     
     <class name="std::promise" link="cpp/thread/promise">
         <constructor/>
@@ -2928,6 +2986,8 @@
         <function name="wait_for"/>
         <function name="wait_until"/>
     </class>
+    
+    <function name="std::future_category" link="cpp/thread/future/future_category"/>
     
     <class name="std::packaged_task" link="cpp/thread/packaged_task">
         <constructor/>
