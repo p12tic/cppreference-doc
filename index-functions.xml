@@ -2531,6 +2531,29 @@
 
     <function name="std::setlocale" link="cpp/locale/setlocale"/>
 
+    <class name="std::locale" link="cpp/locale/locale">
+        <constructor/>
+        <destructor/>
+        
+        <function name="operator="/>
+        <function name="combine"/>
+        <function name="name"/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        <function name="operator()"/>
+        
+        <function name="global"/>
+        <function name="classic"/>
+    </class>
+    
+    <class name="std::locale::id" link="cpp/locale/locale/id">
+        <constructor/>
+    </class>
+    
+    <class name="std::locale::facet" link="cpp/locale/locale/facet">
+        <constructor/>
+    </class>
+    
     <!-- cpp/regex -->
     
     <class name="std::basic_regex" link="cpp/regex/basic_regex">
