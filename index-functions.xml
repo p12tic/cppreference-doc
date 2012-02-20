@@ -819,8 +819,8 @@
     <function name="std::raise" link="cpp/utility/program/raise"/>
     <typedef name="std::sig_atomic_t" link="cpp/utility/program/sig_atomic_t"/>
 
-    <const name="SIG_DFL" link="cpp/utility/program/SIG_DFL"/>
-    <const name="SIG_IGN" link="cpp/utility/program/SIG_IGN"/>
+    <const name="SIG_DFL" link="cpp/utility/program/SIG_strategies"/>
+    <const name="SIG_IGN" link="cpp/utility/program/SIG_strategies"/>
     <const name="SIG_ERR" link="cpp/utility/program/SIG_ERR"/>
     
     <const name="SIGABRT" link="cpp/utility/program/SIGABRT"/>
@@ -1269,17 +1269,17 @@
 
     <!-- cpp/string -->
 
-    <function name="std::getline" link="cpp/string/getline"/>
-    <function name="std::stoi" link="cpp/string/stol"/>
-    <function name="std::stol" link="cpp/string/stol"/>
-    <function name="std::stoll" link="cpp/string/stol"/>
-    <function name="std::stoul" link="cpp/string/stoul"/>
-    <function name="std::stoull" link="cpp/string/stoul"/>
-    <function name="std::stof" link="cpp/string/stof"/>
-    <function name="std::stod" link="cpp/string/stof"/>
-    <function name="std::stold" link="cpp/string/stof"/>
-    <function name="std::to_string" link="cpp/string/to_string"/>
-    <function name="std::to_wstring" link="cpp/string/to_wstring"/>
+    <function name="std::getline" link="cpp/string/basic_string/getline"/>
+    <function name="std::stoi" link="cpp/string/basic_string/stol"/>
+    <function name="std::stol" link="cpp/string/basic_string/stol"/>
+    <function name="std::stoll" link="cpp/string/basic_string/stol"/>
+    <function name="std::stoul" link="cpp/string/basic_string/stoul"/>
+    <function name="std::stoull" link="cpp/string/basic_string/stoul"/>
+    <function name="std::stof" link="cpp/string/basic_string/stof"/>
+    <function name="std::stod" link="cpp/string/basic_string/stof"/>
+    <function name="std::stold" link="cpp/string/basic_string/stof"/>
+    <function name="std::to_string" link="cpp/string/basic_string/to_string"/>
+    <function name="std::to_wstring" link="cpp/string/basic_string/to_wstring"/>
 
     <class name="std::char_traits" link="cpp/string/char_traits">
         <function name="assign" link="."/>
