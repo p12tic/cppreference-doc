@@ -1979,7 +1979,7 @@
     <typedef name="std::default_random_engine" link="cpp/numeric/random"/>
     
     <function name="std::srand" link="cpp/numeric/random/srand"/>
-    <function name="std::rand" link="cpp/numeric/random/srand"/>
+    <function name="std::rand" link="cpp/numeric/random/rand"/>
     <const name="MAX_RANDOM" link="cpp/numeric/random/MAX_RANDOM"/>
     
     <function name="std::generate_canonical" link="cpp/numeric/random/generate_canonical"/>
