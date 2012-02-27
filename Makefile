@@ -15,20 +15,40 @@ VERSION=20111225
 
 all: doc_devhelp doc_qch
 
-clean:
-	rm -rf "output/"
-	rm -f "cppreference-doc-en.devhelp2"
-	rm -f "cppreference-doc-en.qch"
-	rm -f "qch-help-project.xml"
-	rm -f "qch-files.xml"
-	rm -f "devhelp-index.xml"
+DISTFILES=	\
+		reference				\
+		devhelp2qch.xsl			\
+		fix_devhelp-links.sh	\
+		fix_devhelp-links.xsl	\
+		fix_html.sh				\
+		fix_html-cleanup.xsl	\
+		fix_html-css.css		\
+		fix_html-httrack_meta.sed	\
+		index2browser.xsl		\
+		index2devhelp.xsl		\
+		index2highlight.xsl		\
+		index-chapters.xml		\
+		index-functions.xml		\
+		Makefile				\
+		README
 
+CLEANFILES= \
+		output								\
+		cppreference-doc-en.devhelp2		\
+		cppreference-doc-en.qch				\
+		qch-help-project.xml				\
+		qch-files.xml						\
+		devhelp-index.xml					\
+		devhelp-files.xml
+
+clean:
+	rm -rf $(CLEANFILES)
+	
 check:
 
 dist:
 	mkdir -p "cppreference-doc-$(VERSION)"
-	cp -r "reference" "cppreference-doc-$(VERSION)"
-	find . -maxdepth 1 -type f -not -iname "*.tar.gz" -exec cp '{}' "cppreference-doc-$(VERSION)" \;
+	cp -r $(DISTFILES) "cppreference-doc-$(VERSION)"
 	tar czf "cppreference-doc-$(VERSION).tar.gz" "cppreference-doc-$(VERSION)" 
 	rm -rf "cppreference-doc-$(VERSION)"
 
