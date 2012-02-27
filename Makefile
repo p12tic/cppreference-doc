@@ -9,7 +9,7 @@ bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
 
 #Version
 
-VERSION=20111225
+VERSION=20120227
 
 #STANDARD RULES
 
