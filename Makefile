@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 prefix = /usr
 datarootdir = $(prefix)/share
-docdir = $(datarootdir)/doc/cppreference-doc-en
+docdir = $(datarootdir)/cppreference/doc/en
 bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
 
 #Version
