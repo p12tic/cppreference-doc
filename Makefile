@@ -117,7 +117,7 @@ source:
 	pushd "reference" ; \
 	httrack http://en.cppreference.com/w/ -%k -%s -n -%q0 \
 	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* -*action=* -*printable=* \
-	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* +*title=-&action=raw* ;\
+	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* +*title=-&action=raw* --timeout=30 --retries=3 ;\
 	popd
 	
 	#httrack apparently continues as a background process in non-interactive shells. 
