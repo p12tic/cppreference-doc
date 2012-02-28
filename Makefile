@@ -71,7 +71,7 @@ doc_qch: cppreference-doc-en.qch
 
 #build the .devhelp2 index
 cppreference-doc-en.devhelp2: output
-	xsltproc --stringparam book-base "/usr/share/doc/cppreference-doc-en/html" \
+	xsltproc --stringparam book-base $(docdir)/html \
 		index2devhelp.xsl index-functions.xml > devhelp-index.xml
 
 	#correct links in the .devhelp2 index
