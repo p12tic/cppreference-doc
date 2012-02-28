@@ -53,11 +53,13 @@ dist:
 	rm -rf "cppreference-doc-$(VERSION)"
 
 install:
-	#do not install the ttf files
+	# install the devhelp documentation (skip the ttf files)
 	pushd "output"; find . -type f -not -iname "*.ttf" \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; popd
-
 	install -DT -m 644 cppreference-doc-en.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en.devhelp2"
+	
+	# install the .qch (Qt Help) documentation
+	install -DT -m 644 cppreference-doc-en.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en.qch
 
 uninstall:
 	rm -rf "$(DESTDIR)$(docdir)"
@@ -74,7 +76,7 @@ cppreference-doc-en.devhelp2: output
 	xsltproc --stringparam book-base $(docdir)/html \
 		index2devhelp.xsl index-functions.xml > devhelp-index.xml
 
-	#correct links in the .devhelp2 index
+	#fix links in the .devhelp2 index
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
 	pushd "output"; find . -iname "*.html" \
 		-exec ../fix_devhelp-links.sh '{}' \; ; popd
