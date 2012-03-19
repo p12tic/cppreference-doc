@@ -370,7 +370,7 @@
     <class name="std::is_trivial" link="cpp/types/is_trivial"/>
     <class name="std::is_trivially_copyable" link="cpp/types/is_trivially_copyable"/>
     <class name="std::is_standard_layout" link="cpp/types/is_standard_layout"/>
-    <class name="std::is_pod" link="cpp/types/::is_pod"/>
+    <class name="std::is_pod" link="cpp/types/is_pod"/>
     <class name="std::is_literal_type" link="cpp/types/is_literal_type"/>
     <class name="std::is_empty" link="cpp/types/is_empty"/>
     <class name="std::is_polymorphic" link="cpp/types/is_polymorphic"/>
@@ -809,8 +809,8 @@
     <function name="std::atexit" link="cpp/utility/program/atexit"/>
     <function name="std::at_quick_exit" link="cpp/utility/program/at_quick_exit"/>
 
-    <const name="EXIT_SUCCESS" link="cpp/utility/program/EXIT_SUCCESS"/>
-    <const name="EXIT_FAILURE" link="cpp/utility/program/EXIT_FAILURE"/>
+    <const name="EXIT_SUCCESS" link="cpp/utility/program/EXIT_status"/>
+    <const name="EXIT_FAILURE" link="cpp/utility/program/EXIT_status"/>
 
     <function name="std::system" link="cpp/utility/program/system"/>
     <function name="std::getenv" link="cpp/utility/program/getenv"/>
@@ -1042,6 +1042,8 @@
     </class>
 
     <class name="std::placeholders" link="cpp/utility/functional/placeholders"/>
+    
+    <!-- todo: deprecated content of <functional> -->
     
     <!--=======================================================================-->
     <!-- cpp/utility -->
@@ -1413,8 +1415,8 @@
 
         <function name="front"/>
 
-        <function name="beforebegin"/>
-        <function name="cbeforebegin" link="beforebegin"/>
+        <function name="before_begin"/>
+        <function name="cbefore_begin" link="before_begin"/>
         <function name="begin"/>
         <function name="cbegin" link="begin"/>
         <function name="end"/>
@@ -1427,19 +1429,16 @@
         <function name="insert_after"/>
         <function name="emplace_after"/>
         <function name="erase_after"/>
-        <function name="insert"/>
-        <function name="emplace"/>
-        <function name="erase"/>
         <function name="push_front"/>
-        <function name="pemplace_front"/>
+        <function name="emplace_front"/>
         <function name="pop_front"/>
         <function name="resize"/>
         <function name="swap"/>
 
         <function name="merge"/>
-        <function name="splice"/>
+        <function name="splice_after"/>
         <function name="remove"/>
-        <function name="remove_if"/>
+        <function name="remove_if" link="remove"/>
         <function name="reverse"/>
         <function name="unique"/>
         <function name="sort"/>
@@ -1477,7 +1476,7 @@
         <function name="emplace_back"/>
         <function name="pop_back"/>
         <function name="push_front"/>
-        <function name="pemplace_front"/>
+        <function name="emplace_front"/>
         <function name="pop_front"/>
         <function name="resize"/>
         <function name="swap"/>
@@ -1485,7 +1484,7 @@
         <function name="merge"/>
         <function name="splice"/>
         <function name="remove"/>
-        <function name="remove_if"/>
+        <function name="remove_if" link="remove"/>
         <function name="reverse"/>
         <function name="unique"/>
         <function name="sort"/>
@@ -1666,7 +1665,7 @@
         
         <function name="begin(int)"/>
         <function name="cbegin(int)" link="begin(int)"/>
-        <function name="bend(int)"/>
+        <function name="end(int)"/>
         <function name="cend(int)" link="end(int)"/>
         
         <function name="bucket_count"/>
@@ -1711,7 +1710,7 @@
         
         <function name="begin(int)"/>
         <function name="cbegin(int)" link="begin(int)"/>
-        <function name="bend(int)"/>
+        <function name="end(int)"/>
         <function name="cend(int)" link="end(int)"/>
         
         <function name="bucket_count"/>
@@ -1758,7 +1757,7 @@
         
         <function name="begin(int)"/>
         <function name="cbegin(int)" link="begin(int)"/>
-        <function name="bend(int)"/>
+        <function name="end(int)"/>
         <function name="cend(int)" link="end(int)"/>
         
         <function name="bucket_count"/>
@@ -1803,7 +1802,7 @@
         
         <function name="begin(int)"/>
         <function name="cbegin(int)" link="begin(int)"/>
-        <function name="bend(int)"/>
+        <function name="end(int)"/>
         <function name="cend(int)" link="end(int)"/>
         
         <function name="bucket_count"/>
@@ -1877,7 +1876,7 @@
     <function name="std::abs(float)" link="cpp/numeric/math/fabs"/>
     <function name="std::fabs" link="cpp/numeric/math/fabs"/>
     <function name="std::div" link="cpp/numeric/math/div"/>
-    <function name="std::ldiv" link="cpp/numeric/math/ldiv"/>
+    <function name="std::ldiv" link="cpp/numeric/math/div"/>
     <function name="std::fmod" link="cpp/numeric/math/fmod"/>
     <function name="std::remainder" link="cpp/numeric/math/remainder"/>
     <function name="std::remquo" link="cpp/numeric/math/remquo"/>
@@ -1939,7 +1938,7 @@
     <function name="std::scalbn" link="cpp/numeric/math/scalbn"/>
     <function name="std::scalbln" link="cpp/numeric/math/scalbn"/>
     <function name="std::nextafter" link="cpp/numeric/math/nextafter"/>
-    <function name="std::nexttoward" link="cpp/numeric/math/nexttoward"/>
+    <function name="std::nexttoward" link="cpp/numeric/math/nextafter"/>
     <function name="std::copysign" link="cpp/numeric/math/copysign"/>
     
     <function name="std::fpclassify" link="cpp/numeric/math/fpclassify"/>
@@ -2191,7 +2190,7 @@
     <function name="std::search_n" link="cpp/algorithm/search_n"/>
 
     <function name="std::copy" link="cpp/algorithm/copy"/>
-    <function name="std::copy_if" link="cpp/algorithm/copy_if"/>
+    <function name="std::copy_if" link="cpp/algorithm/copy"/>
     <function name="std::copy_n" link="cpp/algorithm/copy_n"/>
     <function name="std::copy_backward" link="cpp/algorithm/copy_backward"/>
     <function name="std::move" link="cpp/algorithm/move"/>
@@ -2217,7 +2216,7 @@
     <function name="std::rotate" link="cpp/algorithm/rotate"/>
     <function name="std::rotate_copy" link="cpp/algorithm/rotate_copy"/>
     <function name="std::random_shuffle" link="cpp/algorithm/random_shuffle"/>
-    <function name="std::shuffle" link="cpp/algorithm/shuffle"/>
+    <function name="std::shuffle" link="cpp/algorithm/random_shuffle"/>
     <function name="std::unique" link="cpp/algorithm/unique"/>
     <function name="std::unique_copy" link="cpp/algorithm/unique_copy"/>
 
@@ -2413,7 +2412,7 @@
         <function name="fail"/>
         <function name="bad"/>
         <function name="operator!"/>
-        <function name="operator bool"/>
+        <function name="operator_bool"/>
         <function name="rdstate"/>
         <function name="setstate"/>
         <function name="clear"/>
@@ -2727,7 +2726,7 @@
         <function name="begin"/>
         <function name="cbegin" link="begin"/>
         <function name="end"/>
-        <function name="cend"/>
+        <function name="cend" link="cond"/>
         
         <function name="format"/>
         <function name="swap"/>
