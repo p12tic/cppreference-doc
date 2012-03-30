@@ -3159,7 +3159,7 @@
         <function name="fail"/>
         <function name="bad"/>
         <function name="operator!"/>
-        <function name="operator_bool"/>
+        <function name="operator bool" link="operator_bool"/>
         <function name="rdstate"/>
         <function name="setstate"/>
         <function name="clear"/>
@@ -3498,7 +3498,7 @@
         <function name="begin"/>
         <function name="cbegin" link="begin"/>
         <function name="end"/>
-        <function name="cend" link="cond"/>
+        <function name="cend" link="end"/>
         
         <function name="format"/>
         <function name="swap"/>
@@ -3659,7 +3659,7 @@
         <function name="detach"/>
         <function name="swap"/>
         
-        <overload name="std::Swap" link="swap2"/>
+        <overload name="std::swap" link="swap2"/>
     </class>
     
     <class name="std::thread::id" link="cpp/thread/thread/id">
