@@ -9,7 +9,7 @@ bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
 
 #Version
 
-VERSION=20120227
+VERSION=20120330
 
 #STANDARD RULES
 
@@ -26,7 +26,9 @@ DISTFILES=	\
 		fix_html-httrack_meta.sed	\
 		index2browser.xsl		\
 		index2devhelp.xsl		\
+		index2search.xsl		\
 		index2highlight.xsl		\
+		index_transform.xsl		\
 		index-chapters.xml		\
 		index-functions.xml		\
 		Makefile				\
