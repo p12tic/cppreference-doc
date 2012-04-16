@@ -30,7 +30,8 @@ DISTFILES=	\
 		index2highlight.xsl		\
 		index_transform.xsl		\
 		index-chapters.xml		\
-		index-functions.xml		\
+		index-functions.README	\
+		index-functions-cpp.xml	\
 		Makefile				\
 		README
 
@@ -76,7 +77,7 @@ doc_qch: cppreference-doc-en.qch
 #build the .devhelp2 index
 cppreference-doc-en.devhelp2: output
 	xsltproc --stringparam book-base $(docdir)/html \
-		index2devhelp.xsl index-functions.xml > devhelp-index.xml
+		index2devhelp.xsl index-functions-cpp.xml > devhelp-index.xml
 
 	#fix links in the .devhelp2 index
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
