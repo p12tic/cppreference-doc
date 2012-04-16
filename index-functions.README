@@ -78,6 +78,4 @@ This file defines the schema of the index-functions-*.xml files.
 
 
     Note: replace spaces in all links with '_'
-    Note: currently the alias attributes is not handled by the XSLT scripts
-    Todo: add pseudo-random number generators and distributions
-    Todo: add non-member functions, e.g. std::swap overloads
+
