@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2012  p12 <tir5c3@yahoo.co.uk>
+
+    This file is part of cppreference-doc
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<!--
+    For the documentation of the schema, see the accompanying 
+    index-function.README file
+-->
+<!--
+    TODO: add -f and -l variants of mathematical functions
+-->
+<index>
+
+    <!--=======================================================================-->
+    <!-- c/types -->
+        
+        <!-- generic types -->
+        <!--
+    <typedef name="std::size_t" link="cpp/types/size_t"/>
+    <typedef name="std::ptrdiff_t" link="cpp/types/ptrdiff_t"/>
+    <typedef name="std::nullptr_t" link="cpp/types/nullptr_t"/>
+    <const name="NULL" link="cpp/types/NULL"/>
+    <typedef name="std::max_align_t" link="cpp/types/max_align_t"/>
+    <function name="offsetof" link="cpp/types/offsetof"/>
+        -->
+        <!-- fixed width integer types -->
+        
+    <typedef name="int8_t" link="c/types/integer"/>
+    <typedef name="int16_t" link="c/types/integer"/>
+    <typedef name="int32_t" link="c/types/integer"/>
+    <typedef name="int64_t" link="c/types/integer"/>
+    <typedef name="int_fast8_t" link="c/types/integer"/>
+    <typedef name="int_fast16_t" link="c/types/integer"/>
+    <typedef name="int_fast32_t" link="c/types/integer"/>
+    <typedef name="int_fast64_t" link="c/types/integer"/>
+    <typedef name="int_least8_t" link="c/types/integer"/>
+    <typedef name="int_least16_t" link="c/types/integer"/>
+    <typedef name="int_least32_t" link="c/types/integer"/>
+    <typedef name="int_least64_t" link="c/types/integer"/>
+    <typedef name="intmax_t" link="c/types/integer"/>
+    <typedef name="intptr_t" link="c/types/integer"/>
+    
+    <typedef name="uint8_t" link="c/types/integer"/>
+    <typedef name="uint16_t" link="c/types/integer"/>
+    <typedef name="uint32_t" link="c/types/integer"/>
+    <typedef name="uint64_t" link="c/types/integer"/>
+    <typedef name="uint_fast8_t" link="c/types/integer"/>
+    <typedef name="uint_fast16_t" link="c/types/integer"/>
+    <typedef name="uint_fast32_t" link="c/types/integer"/>
+    <typedef name="uint_fast64_t" link="c/types/integer"/>
+    <typedef name="uint_least8_t" link="c/types/integer"/>
+    <typedef name="uint_least16_t" link="c/types/integer"/>
+    <typedef name="uint_least32_t" link="c/types/integer"/>
+    <typedef name="uint_least64_t" link="c/types/integer"/>
+    <typedef name="uintmax_t" link="c/types/integer"/>
+    <typedef name="uintptr_t" link="c/types/integer"/>
+    
+    <const name="INT8_MIN" link="c/types/integer"/>
+    <const name="INT16_MIN" link="c/types/integer"/>
+    <const name="INT32_MIN" link="c/types/integer"/>
+    <const name="INT64_MIN" link="c/types/integer"/>
+    <const name="INT_FAST8_MIN" link="c/types/integer"/>
+    <const name="INT_FAST16_MIN" link="c/types/integer"/>
+    <const name="INT_FAST32_MIN" link="c/types/integer"/>
+    <const name="INT_FAST64_MIN" link="c/types/integer"/>
+    <const name="INT_LEAST8_MIN" link="c/types/integer"/>
+    <const name="INT_LEAST16_MIN" link="c/types/integer"/>
+    <const name="INT_LEAST32_MIN" link="c/types/integer"/>
+    <const name="INT_LEAST64_MIN" link="c/types/integer"/>
+    <const name="INTPTR_MIN" link="c/types/integer"/>
+    <const name="INTMAX_MIN" link="c/types/integer"/>
+    
+    <const name="INT8_MAX" link="c/types/integer"/>
+    <const name="INT16_MAX" link="c/types/integer"/>
+    <const name="INT32_MAX" link="c/types/integer"/>
+    <const name="INT64_MAX" link="c/types/integer"/>
+    <const name="INT_FAST8_MAX" link="c/types/integer"/>
+    <const name="INT_FAST16_MAX" link="c/types/integer"/>
+    <const name="INT_FAST32_MAX" link="c/types/integer"/>
+    <const name="INT_FAST64_MAX" link="c/types/integer"/>
+    <const name="INT_LEAST8_MAX" link="c/types/integer"/>
+    <const name="INT_LEAST16_MAX" link="c/types/integer"/>
+    <const name="INT_LEAST32_MAX" link="c/types/integer"/>
+    <const name="INT_LEAST64_MAX" link="c/types/integer"/>
+    <const name="INTPTR_MAX" link="c/types/integer"/>
+    <const name="INTMAX_MAX" link="c/types/integer"/>
+    
+    <const name="UINT8_MAX" link="c/types/integer"/>
+    <const name="UINT16_MAX" link="c/types/integer"/>
+    <const name="UINT32_MAX" link="c/types/integer"/>
+    <const name="UINT64_MAX" link="c/types/integer"/>
+    <const name="UINT_FAST8_MAX" link="c/types/integer"/>
+    <const name="UINT_FAST16_MAX" link="c/types/integer"/>
+    <const name="UINT_FAST32_MAX" link="c/types/integer"/>
+    <const name="UINT_FAST64_MAX" link="c/types/integer"/>
+    <const name="UINT_LEAST8_MAX" link="c/types/integer"/>
+    <const name="UINT_LEAST16_MAX" link="c/types/integer"/>
+    <const name="UINT_LEAST32_MAX" link="c/types/integer"/>
+    <const name="UINT_LEAST64_MAX" link="c/types/integer"/>
+    <const name="UINTPTR_MAX" link="c/types/integer"/>
+    <const name="UINTMAX_MAX" link="c/types/integer"/>
+
+    <const name="PRId8" link="c/types/integer"/>
+    <const name="PRId16" link="c/types/integer"/>
+    <const name="PRId32" link="c/types/integer"/>
+    <const name="PRId64" link="c/types/integer"/>
+    <const name="PRIdLEAST8" link="c/types/integer"/>
+    <const name="PRIdLEAST16" link="c/types/integer"/>
+    <const name="PRIdLEAST32" link="c/types/integer"/>
+    <const name="PRIdLEAST64" link="c/types/integer"/>
+    <const name="PRIdFAST8" link="c/types/integer"/>
+    <const name="PRIdFAST16" link="c/types/integer"/>
+    <const name="PRIdFAST32" link="c/types/integer"/>
+    <const name="PRIdFAST64" link="c/types/integer"/>
+    <const name="PRIdMAX" link="c/types/integer"/>
+    <const name="PRIdPTR " link="c/types/integer"/>
+
+    <const name="PRIi8" link="c/types/integer"/>
+    <const name="PRIi16" link="c/types/integer"/>
+    <const name="PRIi32" link="c/types/integer"/>
+    <const name="PRIi64" link="c/types/integer"/>
+    <const name="PRIiLEAST8" link="c/types/integer"/>
+    <const name="PRIiLEAST16" link="c/types/integer"/>
+    <const name="PRIiLEAST32" link="c/types/integer"/>
+    <const name="PRIiLEAST64" link="c/types/integer"/>
+    <const name="PRIiFAST8" link="c/types/integer"/>
+    <const name="PRIiFAST16" link="c/types/integer"/>
+    <const name="PRIiFAST32" link="c/types/integer"/>
+    <const name="PRIiFAST64" link="c/types/integer"/>
+    <const name="PRIiMAX" link="c/types/integer"/>
+    <const name="PRIiPTR " link="c/types/integer"/>
+
+    <const name="PRIu8" link="c/types/integer"/>
+    <const name="PRIu16" link="c/types/integer"/>
+    <const name="PRIu32" link="c/types/integer"/>
+    <const name="PRIu64" link="c/types/integer"/>
+    <const name="PRIuLEAST8" link="c/types/integer"/>
+    <const name="PRIuLEAST16" link="c/types/integer"/>
+    <const name="PRIuLEAST32" link="c/types/integer"/>
+    <const name="PRIuLEAST64" link="c/types/integer"/>
+    <const name="PRIuFAST8" link="c/types/integer"/>
+    <const name="PRIuFAST16" link="c/types/integer"/>
+    <const name="PRIuFAST32" link="c/types/integer"/>
+    <const name="PRIuFAST64" link="c/types/integer"/>
+    <const name="PRIuMAX" link="c/types/integer"/>
+    <const name="PRIuPTR " link="c/types/integer"/>
+
+    <const name="PRIo8" link="c/types/integer"/>
+    <const name="PRIo16" link="c/types/integer"/>
+    <const name="PRIo32" link="c/types/integer"/>
+    <const name="PRIo64" link="c/types/integer"/>
+    <const name="PRIoLEAST8" link="c/types/integer"/>
+    <const name="PRIoLEAST16" link="c/types/integer"/>
+    <const name="PRIoLEAST32" link="c/types/integer"/>
+    <const name="PRIoLEAST64" link="c/types/integer"/>
+    <const name="PRIoFAST8" link="c/types/integer"/>
+    <const name="PRIoFAST16" link="c/types/integer"/>
+    <const name="PRIoFAST32" link="c/types/integer"/>
+    <const name="PRIoFAST64" link="c/types/integer"/>
+    <const name="PRIoMAX" link="c/types/integer"/>
+    <const name="PRIoPTR " link="c/types/integer"/>
+
+    <const name="PRIx8" link="c/types/integer"/>
+    <const name="PRIx16" link="c/types/integer"/>
+    <const name="PRIx32" link="c/types/integer"/>
+    <const name="PRIx64" link="c/types/integer"/>
+    <const name="PRIxLEAST8" link="c/types/integer"/>
+    <const name="PRIxLEAST16" link="c/types/integer"/>
+    <const name="PRIxLEAST32" link="c/types/integer"/>
+    <const name="PRIxLEAST64" link="c/types/integer"/>
+    <const name="PRIxFAST8" link="c/types/integer"/>
+    <const name="PRIxFAST16" link="c/types/integer"/>
+    <const name="PRIxFAST32" link="c/types/integer"/>
+    <const name="PRIxFAST64" link="c/types/integer"/>
+    <const name="PRIxMAX" link="c/types/integer"/>
+    <const name="PRIxPTR " link="c/types/integer"/>
+
+    <const name="PRIX8" link="c/types/integer"/>
+    <const name="PRIX16" link="c/types/integer"/>
+    <const name="PRIX32" link="c/types/integer"/>
+    <const name="PRIX64" link="c/types/integer"/>
+    <const name="PRIXLEAST8" link="c/types/integer"/>
+    <const name="PRIXLEAST16" link="c/types/integer"/>
+    <const name="PRIXLEAST32" link="c/types/integer"/>
+    <const name="PRIXLEAST64" link="c/types/integer"/>
+    <const name="PRIXFAST8" link="c/types/integer"/>
+    <const name="PRIXFAST16" link="c/types/integer"/>
+    <const name="PRIXFAST32" link="c/types/integer"/>
+    <const name="PRIXFAST64" link="c/types/integer"/>
+    <const name="PRIXMAX" link="c/types/integer"/>
+    <const name="PRIXPTR " link="c/types/integer"/>
+
+    <const name="SCNd8" link="c/types/integer"/>
+    <const name="SCNd16" link="c/types/integer"/>
+    <const name="SCNd32" link="c/types/integer"/>
+    <const name="SCNd64" link="c/types/integer"/>
+    <const name="SCNdLEAST8" link="c/types/integer"/>
+    <const name="SCNdLEAST16" link="c/types/integer"/>
+    <const name="SCNdLEAST32" link="c/types/integer"/>
+    <const name="SCNdLEAST64" link="c/types/integer"/>
+    <const name="SCNdFAST8" link="c/types/integer"/>
+    <const name="SCNdFAST16" link="c/types/integer"/>
+    <const name="SCNdFAST32" link="c/types/integer"/>
+    <const name="SCNdFAST64" link="c/types/integer"/>
+    <const name="SCNdMAX" link="c/types/integer"/>
+    <const name="SCNdPTR " link="c/types/integer"/>
+
+    <const name="SCNi8" link="c/types/integer"/>
+    <const name="SCNi16" link="c/types/integer"/>
+    <const name="SCNi32" link="c/types/integer"/>
+    <const name="SCNi64" link="c/types/integer"/>
+    <const name="SCNiLEAST8" link="c/types/integer"/>
+    <const name="SCNiLEAST16" link="c/types/integer"/>
+    <const name="SCNiLEAST32" link="c/types/integer"/>
+    <const name="SCNiLEAST64" link="c/types/integer"/>
+    <const name="SCNiFAST8" link="c/types/integer"/>
+    <const name="SCNiFAST16" link="c/types/integer"/>
+    <const name="SCNiFAST32" link="c/types/integer"/>
+    <const name="SCNiFAST64" link="c/types/integer"/>
+    <const name="SCNiMAX" link="c/types/integer"/>
+    <const name="SCNiPTR " link="c/types/integer"/>
+
+    <const name="SCNu8" link="c/types/integer"/>
+    <const name="SCNu16" link="c/types/integer"/>
+    <const name="SCNu32" link="c/types/integer"/>
+    <const name="SCNu64" link="c/types/integer"/>
+    <const name="SCNuLEAST8" link="c/types/integer"/>
+    <const name="SCNuLEAST16" link="c/types/integer"/>
+    <const name="SCNuLEAST32" link="c/types/integer"/>
+    <const name="SCNuLEAST64" link="c/types/integer"/>
+    <const name="SCNuFAST8" link="c/types/integer"/>
+    <const name="SCNuFAST16" link="c/types/integer"/>
+    <const name="SCNuFAST32" link="c/types/integer"/>
+    <const name="SCNuFAST64" link="c/types/integer"/>
+    <const name="SCNuMAX" link="c/types/integer"/>
+    <const name="SCNuPTR " link="c/types/integer"/>
+
+    <const name="SCNo8" link="c/types/integer"/>
+    <const name="SCNo16" link="c/types/integer"/>
+    <const name="SCNo32" link="c/types/integer"/>
+    <const name="SCNo64" link="c/types/integer"/>
+    <const name="SCNoLEAST8" link="c/types/integer"/>
+    <const name="SCNoLEAST16" link="c/types/integer"/>
+    <const name="SCNoLEAST32" link="c/types/integer"/>
+    <const name="SCNoLEAST64" link="c/types/integer"/>
+    <const name="SCNoFAST8" link="c/types/integer"/>
+    <const name="SCNoFAST16" link="c/types/integer"/>
+    <const name="SCNoFAST32" link="c/types/integer"/>
+    <const name="SCNoFAST64" link="c/types/integer"/>
+    <const name="SCNoMAX" link="c/types/integer"/>
+    <const name="SCNoPTR " link="c/types/integer"/>
+
+    <const name="SCNx8" link="c/types/integer"/>
+    <const name="SCNx16" link="c/types/integer"/>
+    <const name="SCNx32" link="c/types/integer"/>
+    <const name="SCNx64" link="c/types/integer"/>
+    <const name="SCNxLEAST8" link="c/types/integer"/>
+    <const name="SCNxLEAST16" link="c/types/integer"/>
+    <const name="SCNxLEAST32" link="c/types/integer"/>
+    <const name="SCNxLEAST64" link="c/types/integer"/>
+    <const name="SCNxFAST8" link="c/types/integer"/>
+    <const name="SCNxFAST16" link="c/types/integer"/>
+    <const name="SCNxFAST32" link="c/types/integer"/>
+    <const name="SCNxFAST64" link="c/types/integer"/>
+    <const name="SCNxMAX" link="c/types/integer"/>
+    <const name="SCNxPTR " link="c/types/integer"/>
+
+    <const name="SCNX8" link="c/types/integer"/>
+    <const name="SCNX16" link="c/types/integer"/>
+    <const name="SCNX32" link="c/types/integer"/>
+    <const name="SCNX64" link="c/types/integer"/>
+    <const name="SCNXLEAST8" link="c/types/integer"/>
+    <const name="SCNXLEAST16" link="c/types/integer"/>
+    <const name="SCNXLEAST32" link="c/types/integer"/>
+    <const name="SCNXLEAST64" link="c/types/integer"/>
+    <const name="SCNXFAST8" link="c/types/integer"/>
+    <const name="SCNXFAST16" link="c/types/integer"/>
+    <const name="SCNXFAST32" link="c/types/integer"/>
+    <const name="SCNXFAST64" link="c/types/integer"/>
+    <const name="SCNXMAX" link="c/types/integer"/>
+    <const name="SCNXPTR" link="c/types/integer"/>
+    
+        <!-- c/types/limits -->
+    <const name="PTRDIFF_MIN" link="c/types/limits"/>
+    <const name="PTRDIFF_MAX" link="c/types/limits"/>
+    <const name="SIZE_MAX" link="c/types/limits"/>
+    <const name="SIG_ATOMIC_MIN" link="c/types/limits"/>
+    <const name="SIG_ATOMIC_MAX" link="c/types/limits"/>
+    <const name="WCHAR_MIN" link="c/types/limits"/>
+    <const name="WCHAR_MAX" link="c/types/limits"/>
+    <const name="WINT_MIN" link="c/types/limits"/>
+    <const name="WINT_MAX" link="c/types/limits"/>
+    
+    <const name="CHAR_BIT" link="c/types/limits"/>
+    <const name="MB_LEN_MAX" link="c/types/limits"/>
+    <const name="CHAR_MIN" link="c/types/limits"/>
+    <const name="CHAR_MAX" link="c/types/limits"/>
+    
+    <const name="SCHAR_MIN" link="c/types/limits"/>
+    <const name="SHRT_MIN" link="c/types/limits"/>
+    <const name="INT_MIN" link="c/types/limits"/>
+    <const name="LONG_MIN" link="c/types/limits"/>
+    <const name="LLONG_MIN" link="c/types/limits"/>
+    
+    <const name="SCHAR_MAX" link="c/types/limits"/>
+    <const name="SHRT_MAX" link="c/types/limits"/>
+    <const name="INT_MAX" link="c/types/limits"/>
+    <const name="LONG_MAX" link="c/types/limits"/>
+    <const name="LLONG_MAX" link="c/types/limits"/>
+
+    <const name="UCHAR_MAX" link="c/types/limits"/>
+    <const name="USHRT_MAX" link="c/types/limits"/>
+    <const name="UINT_MAX" link="c/types/limits"/>
+    <const name="ULONG_MAX" link="c/types/limits"/>
+    <const name="ULLONG_MAX" link="c/types/limits"/>
+    
+    <const name="FLT_RADIX" link="c/types/limits"/>
+    <const name="DECIMAL_DIG" link="c/types/limits"/>
+    
+    <const name="FLT_MIN" link="c/types/limits"/>
+    <const name="DBL_MIN" link="c/types/limits"/>
+    <const name="LDBL_MIN" link="c/types/limits"/>
+    
+    <const name="FLT_MAX" link="c/types/limits"/>
+    <const name="DBL_MAX" link="c/types/limits"/>
+    <const name="LDBL_MAX" link="c/types/limits"/>
+    
+    <const name="FLT_EPSILON" link="c/types/limits"/>
+    <const name="DBL_EPSILON" link="c/types/limits"/>
+    <const name="LDBL_EPSILON" link="c/types/limits"/>
+    
+    <const name="FLT_DIG" link="c/types/limits"/>
+    <const name="DBL_DIG" link="c/types/limits"/>
+    <const name="LDBL_DIG" link="c/types/limits"/>
+    
+    <const name="FLT_MANT_DIG" link="c/types/limits"/>
+    <const name="DBL_MANT_DIG" link="c/types/limits"/>
+    <const name="LDBL_MANT_DIG" link="c/types/limits"/>
+    
+    <const name="FLT_MIN_EXP" link="c/types/limits"/>
+    <const name="DBL_MIN_EXP" link="c/types/limits"/>
+    <const name="LDBL_MIN_EXP" link="c/types/limits"/>
+    
+    <const name="FLT_MIN_10_EXP" link="c/types/limits"/>
+    <const name="DBL_MIN_10_EXP" link="c/types/limits"/>
+    <const name="LDBL_MIN_10_EXP" link="c/types/limits"/>
+   
+    <const name="FLT_MAX_EXP" link="c/types/limits"/>
+    <const name="DBL_MAX_EXP" link="c/types/limits"/>
+    <const name="LDBL_MAX_EXP" link="c/types/limits"/>
+    
+    <const name="FLT_MAX_10_EXP" link="c/types/limits"/>
+    <const name="DBL_MAX_10_EXP" link="c/types/limits"/>
+    <const name="LDBL_MAX_10_EXP" link="c/types/limits"/>
+    
+    <const name="FLT_ROUNDS" link="c/types/limits"/>
+    <const name="FLT_EVAL_METHOD" link="c/types/limits"/>
+        
+    <!--=======================================================================-->
+    <!-- c/memory -->
+            
+    <function name="malloc" link="c/memory/malloc"/>
+    <function name="calloc" link="c/memory/calloc"/>
+    <function name="realloc" link="c/memory/realloc"/>
+    <function name="free" link="c/memory/free"/>
+
+    <!--=======================================================================-->
+    <!-- c/error -->
+
+    <function name="assert" link="c/error/assert"/>
+
+    <const name="errno" link="c/error/errno"/>
+    <const name="E2BIG" link="c/error/errno_macros"/>
+    <const name="EACCESS" link="c/error/errno_macros"/>
+    <const name="EADDRINUSE" link="c/error/errno_macros"/>
+    <const name="EADDRNOTAVAIL" link="c/error/errno_macros"/>
+    <const name="EAFNOSUPPORT" link="c/error/errno_macros"/>
+    <const name="EAGAIN" link="c/error/errno_macros"/>
+    <const name="EALREADY" link="c/error/errno_macros"/>
+    <const name="EBADF" link="c/error/errno_macros"/>
+    <const name="EBADMSG" link="c/error/errno_macros"/>
+    <const name="EBUSY" link="c/error/errno_macros"/>
+    <const name="ECANCELED" link="c/error/errno_macros"/>
+    <const name="ECHILD" link="c/error/errno_macros"/>
+    <const name="ECONNABORTED" link="c/error/errno_macros"/>
+    <const name="ECONNREFUSED" link="c/error/errno_macros"/>
+    <const name="ECONNRESET" link="c/error/errno_macros"/>
+    <const name="EDEADLK" link="c/error/errno_macros"/>
+    <const name="EDESTADDRREQ" link="c/error/errno_macros"/>
+    <const name="EDOM" link="c/error/errno_macros"/>
+    <const name="EEXIST" link="c/error/errno_macros"/>
+    <const name="EFAULT" link="c/error/errno_macros"/>
+    <const name="EFBIG" link="c/error/errno_macros"/>
+    <const name="EHOSTUNREACH" link="c/error/errno_macros"/>
+    <const name="EIDRM" link="c/error/errno_macros"/>
+    <const name="EILSEQ" link="c/error/errno_macros"/>
+    <const name="EINPROGRESS" link="c/error/errno_macros"/>
+    <const name="EINTR" link="c/error/errno_macros"/>
+    <const name="EINVAL" link="c/error/errno_macros"/>
+    <const name="EIO" link="c/error/errno_macros"/>
+    <const name="EISCONN" link="c/error/errno_macros"/>
+    <const name="EISDIR" link="c/error/errno_macros"/>
+    <const name="ELOOP" link="c/error/errno_macros"/>
+    <const name="EMFILE" link="c/error/errno_macros"/>
+    <const name="EMLINK" link="c/error/errno_macros"/>
+    <const name="EMSGSIZE" link="c/error/errno_macros"/>
+    <const name="ENAMETOOLONG" link="c/error/errno_macros"/>
+    <const name="ENETDOWN" link="c/error/errno_macros"/>
+    <const name="ENETRESET" link="c/error/errno_macros"/>
+    <const name="ENETUNREACH" link="c/error/errno_macros"/>
+    <const name="ENFILE" link="c/error/errno_macros"/>
+    <const name="ENOBUFS" link="c/error/errno_macros"/>
+    <const name="ENODATA" link="c/error/errno_macros"/>
+    <const name="ENODEV" link="c/error/errno_macros"/>
+    <const name="ENOENT" link="c/error/errno_macros"/>
+    <const name="ENOEXEC" link="c/error/errno_macros"/>
+    <const name="ENOLCK" link="c/error/errno_macros"/>
+    <const name="ENOLINK" link="c/error/errno_macros"/>
+    <const name="ENOMEM" link="c/error/errno_macros"/>
+    <const name="ENOMSG" link="c/error/errno_macros"/>
+    <const name="ENOPROTOOPT" link="c/error/errno_macros"/>
+    <const name="ENOSPC" link="c/error/errno_macros"/>
+    <const name="ENOSR" link="c/error/errno_macros"/>
+    <const name="ENOSTR" link="c/error/errno_macros"/>
+    <const name="ENOSYS" link="c/error/errno_macros"/>
+    <const name="ENOTCONN" link="c/error/errno_macros"/>
+    <const name="ENOTDIR" link="c/error/errno_macros"/>
+    <const name="ENOTEMPTY" link="c/error/errno_macros"/>
+    <const name="ENOTRECOVERABLE" link="c/error/errno_macros"/>
+    <const name="ENOTSOCK" link="c/error/errno_macros"/>
+    <const name="ENOTSUP" link="c/error/errno_macros"/>
+    <const name="ENOTTY" link="c/error/errno_macros"/>
+    <const name="ENXIO" link="c/error/errno_macros"/>
+    <const name="EOPNOTSUPP" link="c/error/errno_macros"/>
+    <const name="EOVERFLOW" link="c/error/errno_macros"/>
+    <const name="EOWNERDEAD" link="c/error/errno_macros"/>
+    <const name="EPERM" link="c/error/errno_macros"/>
+    <const name="EPIPE" link="c/error/errno_macros"/>
+    <const name="EPROTO" link="c/error/errno_macros"/>
+    <const name="EPROTONOSUPPORT" link="c/error/errno_macros"/>
+    <const name="EPROTOTYPE" link="c/error/errno_macros"/>
+    <const name="ERANGE" link="c/error/errno_macros"/>
+    <const name="EROFS" link="c/error/errno_macros"/>
+    <const name="ESPIPE" link="c/error/errno_macros"/>
+    <const name="ESRCH" link="c/error/errno_macros"/>
+    <const name="ETIME" link="c/error/errno_macros"/>
+    <const name="ETIMEDOUT" link="c/error/errno_macros"/>
+    <const name="ETXTBSY" link="c/error/errno_macros"/>
+    <const name="EWOULDBLOCK" link="c/error/errno_macros"/>
+    <const name="EXDEV" link="c/error/errno_macros"/>
+    
+    <!--=======================================================================-->
+    <!-- cS/variadic -->
+    
+    <!-- todo -->
+    
+    <!--=======================================================================-->
+    <!-- c/program -->
+
+    <function name="abort" link="c/program/abort"/>
+    <function name="exit" link="c/program/exit"/>
+    <function name="quick_exit" link="c/program/quick_exit"/>
+    <function name="_Exit" link="c/program/_Exit"/>
+    <function name="atexit" link="c/program/atexit"/>
+    <function name="at_quick_exit" link="c/program/at_quick_exit"/>
+
+    <const name="EXIT_SUCCESS" link="c/program/EXIT_status"/>
+    <const name="EXIT_FAILURE" link="c/program/EXIT_status"/>
+
+    <function name="system" link="c/program/system"/>
+    <function name="getenv" link="c/program/getenv"/>
+    
+    <function name="signal" link="c/program/signal"/>
+    <function name="raise" link="c/program/raise"/>
+    <typedef name="sig_atomic_t" link="c/program/sig_atomic_t"/>
+
+    <const name="SIG_DFL" link="c/program/SIG_strategies"/>
+    <const name="SIG_IGN" link="c/program/SIG_strategies"/>
+    <const name="SIG_ERR" link="c/program/SIG_ERR"/>
+    
+    <const name="SIGABRT" link="c/program/SIG_types"/>
+    <const name="SIGFPE" link="c/program/SIG_types"/>
+    <const name="SIGILL" link="c/program/SIG_types"/>
+    <const name="SIGINT" link="c/program/SIG_types"/>
+    <const name="SIGSEGV" link="c/program/SIG_types"/>
+    <const name="SIGTERM" link="c/program/SIG_types"/>
+
+    <function name="longjmp" link="c/program/longjmp"/>
+    <function name="setjmp" link="c/program/setjmp"/>
+    <typedef name="jmp_buf" link="c/program/jmp_buf"/>
+    
+    <!--=======================================================================-->
+    <!-- c/chrono -->
+    
+    <function name="difftime" link="c/chrono/difftime"/>
+    <function name="time" link="c/chrono/time"/>
+    <function name="clock" link="c/chrono/clock"/>
+    
+    <function name="asctime" link="c/chrono/asctime"/>
+    <function name="ctime" link="c/chrono/ctime"/>
+    <function name="strftime" link="c/chrono/strftime"/>
+    <function name="wcsftime" link="c/chrono/wcsftime"/>
+    <function name="gmtime" link="c/chrono/gmtime"/>
+    <function name="localtime" link="c/chrono/localtime"/>
+    <function name="mktime" link="c/chrono/mktime"/>
+    
+    <const name="CLOCKS_PER_SEC" link="c/chrono/CLOCKS_PER_SEC"/>
+    
+    <class name="tm" link="c/chrono/tm"/>
+    <typedef name="time_t" link="c/chrono/time_t"/>
+    <typedef name="clock_t" link="c/chrono/clock_t"/>
+
+    <!--=======================================================================-->
+    <!-- c/string/byte -->
+
+    <function name="isalnum" link="c/string/byte/isalnum"/>
+    <function name="isalpha" link="c/string/byte/isalpha"/>
+    <function name="islower" link="c/string/byte/islower"/>
+    <function name="isupper" link="c/string/byte/isupper"/>
+    <function name="isdigit" link="c/string/byte/isdigit"/>
+    <function name="isxdigit" link="c/string/byte/isxdigit"/>
+    <function name="iscntrl" link="c/string/byte/iscntrl"/>
+    <function name="isgraph" link="c/string/byte/isgraph"/>
+    <function name="isspace" link="c/string/byte/isspace"/>
+    <function name="isblank" link="c/string/byte/isblank"/>
+    <function name="isprint" link="c/string/byte/isprint"/>
+    <function name="ispunct" link="c/string/byte/ispunct"/>
+    <function name="tolower" link="c/string/byte/tolower"/>
+    <function name="toupper" link="c/string/byte/toupper"/>
+    
+    <function name="atof" link="c/string/byte/atof"/>
+    <function name="atoi" link="c/string/byte/atoi"/>
+    <function name="atol" link="c/string/byte/atoi"/>
+    <function name="atoll" link="c/string/byte/atoi"/>
+    <function name="strtol" link="c/string/byte/strtol"/>
+    <function name="strtoll" link="c/string/byte/strtol"/>
+    <function name="strtoul" link="c/string/byte/strtoul"/>
+    <function name="strtoull" link="c/string/byte/strtoul"/>
+    <function name="strtof" link="c/string/byte/strtof"/>
+    <function name="strtod" link="c/string/byte/strtof"/>
+    <function name="strtold" link="c/string/byte/strtof"/>
+    <function name="strtoimax" link="c/string/byte/strtoimax"/>
+    <function name="strtoumax" link="c/string/byte/strtoimax"/>
+    
+    <function name="strcpy" link="c/string/byte/strcpy"/>
+    <function name="strncpy" link="c/string/byte/strncpy"/>
+    <function name="strcat" link="c/string/byte/strcat"/>
+    <function name="strncat" link="c/string/byte/strncat"/>
+    <function name="strxfrm" link="c/string/byte/strxfrm"/>
+    
+    <function name="strlen" link="c/string/byte/strlen"/>
+    <function name="strcmp" link="c/string/byte/strcmp"/>
+    <function name="strncmp" link="c/string/byte/strncmp"/>
+    <function name="strcoll" link="c/string/byte/strcoll"/>
+    <function name="strchr" link="c/string/byte/strchr"/>
+    <function name="strrchr" link="c/string/byte/strrchr"/>
+    <function name="strspn" link="c/string/byte/strspn"/>
+    <function name="strcspn" link="c/string/byte/strcspn"/>
+    <function name="strpbrk" link="c/string/byte/strpbrk"/>
+    <function name="strstr" link="c/string/byte/strstr"/>
+    <function name="strtok" link="c/string/byte/strtok"/>
+        
+    <function name="memchr" link="c/string/byte/memchr"/>
+    <function name="memcmp" link="c/string/byte/memcmp"/>
+    <function name="memset" link="c/string/byte/memset"/>
+    <function name="memcpy" link="c/string/byte/memcpy"/>
+    <function name="memmove" link="c/string/byte/memmove"/>
+
+    <function name="strerror" link="c/string/byte/strerror"/>
+
+    <!-- c/string/multibyte -->
+    
+    <function name="mblen" link="c/string/multibyte/mblen"/>
+    <function name="mbtowc" link="c/string/multibyte/mbtowc"/>
+    <function name="wctomb" link="c/string/multibyte/wctomb"/>
+    <function name="mbstowcs" link="c/string/multibyte/mbstowcs"/>
+    <function name="wcstombs" link="c/string/multibyte/wcstombs"/>
+    
+    <function name="mbsinit" link="c/string/multibyte/mbsinit"/>
+    <function name="btowc" link="c/string/multibyte/btowc"/>
+    <function name="wctob" link="c/string/multibyte/wctob"/>
+    <function name="mbrlen" link="c/string/multibyte/mbrlen"/>
+    <function name="mbrtowc" link="c/string/multibyte/mbrtowc"/>
+    <function name="wcrtomb" link="c/string/multibyte/wcrtomb"/>
+    <function name="mbsrtowcs" link="c/string/multibyte/mbsrtowcs"/>
+    <function name="wcstombs" link="c/string/multibyte/wcstombs"/>
+    
+    <function name="mbrtoc16" link="c/string/multibyte/mbrtoc16"/>
+    <function name="c16rtomb" link="c/string/multibyte/c16rtomb"/>
+    <function name="mbrtoc32" link="c/string/multibyte/mbrtoc32"/>
+    <function name="c32rtomb" link="c/string/multibyte/c32rtomb"/>
+    
+    <class name="mbstate_t" link="c/string/multibyte/mbstate_t"/>
+    
+    <!-- c/string/wide -->
+    
+    <function name="iswalnum" link="c/string/wide/iswalnum"/>
+    <function name="iswalpha" link="c/string/wide/iswalpha"/>
+    <function name="iswlower" link="c/string/wide/iswlower"/>
+    <function name="iswupper" link="c/string/wide/iswupper"/>
+    <function name="iswdigit" link="c/string/wide/iswdigit"/>
+    <function name="iswxdigit" link="c/string/wide/iswxdigit"/>
+    <function name="iswcntrl" link="c/string/wide/iswcntrl"/>
+    <function name="iswgraph" link="c/string/wide/iswgraph"/>
+    <function name="iswspace" link="c/string/wide/iswspace"/>
+    <function name="iswblank" link="c/string/wide/iswblank"/>
+    <function name="iswprint" link="c/string/wide/iswprint"/>
+    <function name="iswpunct" link="c/string/wide/iswpunct"/>
+    <function name="iswctype" link="c/string/wide/iswctype"/>
+    <function name="wctype" link="c/string/wide/wctype"/>
+    
+    <function name="towlower" link="c/string/wide/tolower"/>
+    <function name="towupper" link="c/string/wide/toupper"/>
+    <function name="towctrans" link="c/string/wide/towctrans"/>
+    <function name="wctrans" link="c/string/wide/wctrans"/>
+    
+    <function name="wcstof" link="c/string/wide/wcstof"/>
+    <function name="wcstod" link="c/string/wide/wcstof"/>
+    <function name="wcstold" link="c/string/wide/wcstof"/>
+    <function name="wcstol" link="c/string/wide/wcstol"/>
+    <function name="wcstoll" link="c/string/wide/wcstol"/>
+    <function name="wcstoul" link="c/string/wide/wcstoul"/>
+    <function name="wcstoull" link="c/string/wide/wcstoul"/>
+    <function name="wcstoimax" link="c/string/byte/wcstoimax"/>
+    <function name="wcstoumax" link="c/string/byte/wcstoimax"/>
+    
+    <function name="wcscpy" link="c/string/wide/wcscpy"/>
+    <function name="wcsncpy" link="c/string/wide/wcsncpy"/>
+    <function name="wcscat" link="c/string/wide/wcscat"/>
+    <function name="wcsncat" link="c/string/wide/wcsncat"/>
+    <function name="wcsxfrm" link="c/string/wide/wcsxfrm"/>
+    
+    <function name="wcslen" link="c/string/wide/wcslen"/>
+    <function name="wcscmp" link="c/string/wide/wcscmp"/>
+    <function name="wcsncmp" link="c/string/wide/wcsncmp"/>
+    <function name="wcscoll" link="c/string/wide/wcscoll"/>
+    <function name="wcschr" link="c/string/wide/wcschr"/>
+    <function name="wcsrchr" link="c/string/wide/wcsrchr"/>
+    <function name="wcsspn" link="c/string/wide/wcsspn"/>
+    <function name="wcscspn" link="c/string/wide/wcscspn"/>
+    <function name="wcspbrk" link="c/string/wide/wcspbrk"/>
+    <function name="wcsstr" link="c/string/wide/wcsstr"/>
+    <function name="wcstok" link="c/string/wide/wcstok"/>
+        
+    <function name="wmemchr" link="c/string/wide/wmemchr"/>
+    <function name="wmemcmp" link="c/string/wide/wmemcmp"/>
+    <function name="wmemset" link="c/string/wide/wmemset"/>
+    <function name="wmemcpy" link="c/string/wide/wmemcpy"/>
+    <function name="wmemmove" link="c/string/wide/wmemmove"/>
+
+    <!-- cpnumeric/math -->
+
+    <function name="abs" link="c/numeric/math/abs"/>
+    <function name="labs" link="c/numeric/math/abs"/>
+    <function name="llabs" link="c/numeric/math/abs"/>
+    <function name="fabs" link="c/numeric/math/fabs"/>
+    <function name="div" link="c/numeric/math/div"/>
+    <function name="ldiv" link="c/numeric/math/div"/>
+    <function name="fmod" link="c/numeric/math/fmod"/>
+    <function name="remainder" link="c/numeric/math/remainder"/>
+    <function name="remquo" link="c/numeric/math/remquo"/>
+    <function name="fma" link="c/numeric/math/fma"/>
+    <function name="fmax" link="c/numeric/math/fmax"/>
+    <function name="fmin" link="c/numeric/math/fmin"/>
+    <function name="fdim" link="c/numeric/math/fdim"/>
+    <function name="nan" link="c/numeric/math/nan"/>
+    <function name="nanf" link="c/numeric/math/nan"/>
+    <function name="nanl" link="c/numeric/math/nan"/>
+    
+    <function name="exp" link="c/numeric/math/exp"/>
+    <function name="exp2" link="c/numeric/math/exp2"/>
+    <function name="expm1" link="c/numeric/math/expm1"/>
+    <function name="log" link="c/numeric/math/log"/>
+    <function name="log10" link="c/numeric/math/log10"/>
+    <function name="log1p" link="c/numeric/math/log1p"/>
+    <function name="ilogb" link="c/numeric/math/ilogb"/>
+    <function name="logb" link="c/numeric/math/logb"/>
+    
+    <function name="sqrt" link="c/numeric/math/sqrt"/>
+    <function name="cbrt" link="c/numeric/math/cbrt"/>
+    <function name="hypot" link="c/numeric/math/hypot"/>
+    <function name="pow" link="c/numeric/math/pow"/>
+    
+    <function name="sin" link="c/numeric/math/sin"/>
+    <function name="cos" link="c/numeric/math/cos"/>
+    <function name="tan" link="c/numeric/math/tan"/>
+    <function name="asin" link="c/numeric/math/asin"/>
+    <function name="acos" link="c/numeric/math/acos"/>
+    <function name="atan" link="c/numeric/math/atan"/>
+    <function name="atan2" link="c/numeric/math/atan2"/>
+    <function name="sinh" link="c/numeric/math/sinh"/>
+    <function name="cosh" link="c/numeric/math/cosh"/>
+    <function name="tanh" link="c/numeric/math/tanh"/>
+    <function name="asinh" link="c/numeric/math/asinh"/>
+    <function name="acosh" link="c/numeric/math/acosh"/>
+    <function name="atanh" link="c/numeric/math/atanh"/>
+    
+    <function name="erf" link="c/numeric/math/erf"/>
+    <function name="erfc" link="c/numeric/math/erfc"/>
+    <function name="lgamma" link="c/numeric/math/lgamma"/>
+    <function name="tgamma" link="c/numeric/math/tgamma"/>
+    
+    <function name="ceil" link="c/numeric/math/ceil"/>
+    <function name="floor" link="c/numeric/math/floor"/>
+    <function name="trunc" link="c/numeric/math/trunc"/>
+    <function name="round" link="c/numeric/math/round"/>
+    <function name="lround" link="c/numeric/math/round"/>
+    <function name="llround" link="c/numeric/math/round"/>
+    <function name="nearbyint" link="c/numeric/math/nearbyint"/>
+    <function name="rint" link="c/numeric/math/rint"/>
+    <function name="lrint" link="c/numeric/math/rint"/>
+    <function name="llrint" link="c/numeric/math/rint"/>
+    
+    <function name="frexp" link="c/numeric/math/frexp"/>
+    <function name="ldexp" link="c/numeric/math/ldexp"/>
+    <function name="modf" link="c/numeric/math/modf"/>
+    <function name="scalbn" link="c/numeric/math/scalbn"/>
+    <function name="scalbln" link="c/numeric/math/scalbn"/>
+    <function name="nextafter" link="c/numeric/math/nextafter"/>
+    <function name="nexttoward" link="c/numeric/math/nextafter"/>
+    <function name="copysign" link="c/numeric/math/copysign"/>
+    
+    <function name="fpclassify" link="c/numeric/math/fpclassify"/>
+    <function name="isfinite" link="c/numeric/math/isfinite"/>
+    <function name="isinf" link="c/numeric/math/isinf"/>
+    <function name="isnan" link="c/numeric/math/isnan"/>
+    <function name="isnormal" link="c/numeric/math/isnormal"/>
+    <function name="signbit" link="c/numeric/math/signbit"/>
+
+    <const name="HUGE_VAL" link="c/numeric/math/HUGE_VAL"/>
+    <const name="HUGE_VALF" link="c/numeric/math/HUGE_VAL"/>
+    <const name="HUGE_VALL" link="c/numeric/math/HUGE_VAL"/>
+    <const name="FP_INFINITE" link="c/numeric/math/FP_categories"/>
+    <const name="FP_NAN" link="c/numeric/math/FP_categories"/>
+    <const name="FP_NORMAL" link="c/numeric/math/FP_categories"/>
+    <const name="FP_SUBNORMAL" link="c/numeric/math/FP_categories"/>
+    <const name="FP_ZERO" link="c/numeric/math/FP_categories"/>
+    
+    <!-- c/numeric/fenv -->
+    
+    <function name="feclearexcept" link="c/numeric/fenv/fecrearexcept"/>
+    <function name="fetestexcept" link="c/numeric/fenv/fetestexcept"/>
+    <function name="feraiseexcept" link="c/numeric/fenv/feraiseexcept"/>
+    <function name="fegetexceptflag" link="c/numeric/fenv/feexceptflag"/>
+    <function name="fesetexceptflag" link="c/numeric/fenv/feexceptflag"/>
+    <function name="fegetround" link="c/numeric/fenv/feround"/>
+    <function name="fesetround" link="c/numeric/fenv/feround"/>
+    <function name="fegetenv" link="c/numeric/fenv/feenv"/>
+    <function name="fesetenv" link="c/numeric/fenv/feenv"/>
+    <function name="feholdexcept" link="c/numeric/fenv/feholdexcept"/>
+    <function name="feupdateenv" link="c/numeric/fenv/feupdateenv"/>
+    
+    <const name="FE_ALL_EXCEPT" link="c/numeric/fenv/FE_exceptions"/>
+    <const name="FE_DIVBYZERO" link="c/numeric/fenv/FE_exceptions"/>
+    <const name="FE_INEXACT" link="c/numeric/fenv/FE_exceptions"/>
+    <const name="FE_INVALID" link="c/numeric/fenv/FE_exceptions"/>
+    <const name="FE_OVERFLOW" link="c/numeric/fenv/FE_exceptions"/>
+    <const name="FE_UNHERFLOW" link="c/numeric/fenv/FE_exceptions"/>
+    
+    <const name="FE_DOWNWARD" link="c/numeric/fenv/FE_round"/>
+    <const name="FE_TONEAREST" link="c/numeric/fenv/FE_round"/>
+    <const name="FE_TOWARDZERO" link="c/numeric/fenv/FE_round"/>
+    <const name="FE_UPWARD" link="c/numeric/fenv/FE_round"/>
+    
+    <const name="FE_DFL_ENV" link="c/numeric/fenv/FE_DFL_ENV"/>
+    
+    <!-- cpp/numeric/random -->
+ 
+    <function name="srand" link="c/numeric/random/srand"/>
+    <function name="rand" link="c/numeric/random/rand"/>
+    <const name="MAX_RANDOM" link="c/numeric/random/MAX_RANDOM"/>
+    
+    <!-- cpp/algorithm -->
+
+    <function name="qsort" link="c/algorithm/qsort"/>
+    <function name="bsearch" link="c/algorithm/bsearch"/>
+       
+    <!-- cpp/io/c -->
+
+    <function name="fopen" link="c/io/fopen"/>
+    <function name="freopen" link="c/io/freopen"/>
+    <function name="fflush" link="c/io/fflush"/>
+    <function name="fclose" link="c/io/fclose"/>
+    <function name="setbuf" link="c/io/setbuf"/>
+    <function name="setvbuf" link="c/io/setvbuf"/>
+    <function name="fread" link="c/io/fread"/>
+    <function name="fwrite" link="c/io/fwrite"/>
+    <function name="fgetc" link="c/io/fgetc"/>
+    <function name="getc" link="c/io/fgetc"/>
+    <function name="fgets" link="c/io/fgets"/>
+    <function name="fputc" link="c/io/fputc"/>
+    <function name="putc" link="c/io/fputc"/>
+    <function name="fputs" link="c/io/fputs"/>
+    <function name="getchar" link="c/io/getchar"/>
+    <function name="gets" link="c/io/gets"/>
+    <function name="putchar" link="c/io/putchar"/>
+    <function name="puts" link="c/io/puts"/>
+    <function name="ungetc" link="c/io/ungetc"/>
+    <function name="fgetwc" link="c/io/fgetwc"/>
+    <function name="fgetss" link="c/io/fgetws"/>
+    <function name="fputwc" link="c/io/fputwc"/>
+    <function name="fputws" link="c/io/fputws"/>
+    <function name="getwchar" link="c/io/getwchar"/>
+    <function name="putwchar" link="c/io/putwchar"/>
+    <function name="ungetwc" link="c/io/ungetwc"/>
+    <function name="scanf" link="c/io/fscanf"/>
+    <function name="fscanf" link="c/io/fscanf"/>
+    <function name="sscanf" link="c/io/fscanf"/>
+    <function name="vscanf" link="c/io/vfscanf"/>
+    <function name="vfscanf" link="c/io/vfscanf"/>
+    <function name="vsscanf" link="c/io/vfscanf"/>
+    <function name="printf" link="c/io/fprintf"/>
+    <function name="fprintf" link="c/io/fprintf"/>
+    <function name="sprintf" link="c/io/fprintf"/>
+    <function name="snprintf" link="c/io/fprintf"/>
+    <function name="vprintf" link="c/io/vfprintf"/>
+    <function name="vfprintf" link="c/io/vfprintf"/>
+    <function name="vsprintf" link="c/io/vfprintf"/>
+    <function name="vsnprintf" link="c/io/vfprintf"/>
+    <function name="wscanf" link="c/io/fwscanf"/>
+    <function name="fwscanf" link="c/io/fwscanf"/>
+    <function name="swscanf" link="c/io/fwscanf"/>
+    <function name="vwscanf" link="c/io/vfwscanf"/>
+    <function name="vfwscanf" link="c/io/vfwscanf"/>
+    <function name="vswscanf" link="c/io/vfwscanf"/>
+    <function name="wprintf" link="c/io/fwprintf"/>
+    <function name="fwprintf" link="c/io/fwprintf"/>
+    <function name="swprintf" link="c/io/fwprintf"/>
+    <function name="vwprintf" link="c/io/vfwprintf"/>
+    <function name="vfwprintf" link="c/io/vfwprintf"/>
+    <function name="vswprintf" link="c/io/vfwprintf"/>
+    <function name="ftell" link="c/io/ftell"/>
+    <function name="fgetpos" link="c/io/fgetpos"/>
+    <function name="fseek" link="c/io/fseek"/>
+    <function name="fsetpos" link="c/io/fsetpos"/>
+    <function name="rewind" link="c/io/rewind"/>
+    <function name="clearerr" link="c/io/clearerr"/>
+    <function name="feof" link="c/io/feof"/>
+    <function name="ferror" link="c/io/ferror"/>
+    <function name="perror" link="c/io/perror"/>
+    <function name="remove" link="c/io/remove"/>
+    <function name="rename" link="c/io/rename"/>
+    <function name="tmpfile" link="c/io/tmpfile"/>
+    <function name="tmpnam" link="c/io/tmpnam"/>
+
+    <typedef name="FILE" link="c/io"/>
+    <typedef name="fpos_t" link="c/io"/>
+    <const name="stdin" link="c/io"/>
+    <const name="stdout" link="c/io"/>
+    <const name="stderr" link="c/io"/>
+    <const name="EOF" link="c/io"/>
+    <const name="FOPEN_MAX" link="c/io"/>
+    <const name="FILENAME_MAX" link="c/io"/>
+    <const name="BUFSIZ" link="c/io"/>
+    <const name="_IOFBF" link="c/io"/>
+    <const name="_IOLBF" link="c/io"/>
+    <const name="_IONBF" link="c/io"/>
+    <const name="SEEK_SET" link="c/io"/>
+    <const name="SEEK_CUR" link="c/io"/>
+    <const name="SEEK_END" link="c/io"/>
+    <const name="TMP_MAX" link="c/io"/>
+    <const name="L_tmpnam" link="c/io"/>
+    
+    <!-- c/locale -->
+
+    <function name="setlocale" link="c/locale/setlocale"/>
+    <function name="localeconv" link="c/locale/localeconv"/>
+    <class name="lconv" link="c/locale/lconv"/>
+
+</index>
