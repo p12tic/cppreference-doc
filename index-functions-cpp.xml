@@ -794,78 +794,78 @@
     <!--=======================================================================-->
     <!-- cpp/utility/error -->
 
-    <class name="std::exception" link="cpp/error/exception/exception">
+    <class name="std::exception" link="cpp/error/exception">
         <constructor/>
         <destructor/>
         <function name="operator="/>
         <function name="what"/>
     </class>
 
-    <class name="std::logic_error" link="cpp/error/exception/logic_error">
+    <class name="std::logic_error" link="cpp/error/logic_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::domain_error" link="cpp/error/exception/domain_error">
+    <class name="std::domain_error" link="cpp/error/domain_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::length_error" link="cpp/error/exception/length_error">
+    <class name="std::length_error" link="cpp/error/length_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::out_of_range" link="cpp/error/exception/out_of_range">
+    <class name="std::out_of_range" link="cpp/error/out_of_range">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::invalid_argument" link="cpp/error/exception/invalid_argument">
+    <class name="std::invalid_argument" link="cpp/error/invalid_argument">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::runtime_error" link="cpp/error/exception/runtime_error">
+    <class name="std::runtime_error" link="cpp/error/runtime_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::range_error" link="cpp/error/exception/range_error">
+    <class name="std::range_error" link="cpp/error/range_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::overflow_error" link="cpp/error/exception/overflow_error">
+    <class name="std::overflow_error" link="cpp/error/overflow_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
-    <class name="std::underflow_error" link="cpp/error/exception/underflow_error">
+    <class name="std::underflow_error" link="cpp/error/underflow_error">
         <inherits name="std::exception"/>
         <constructor/>
     </class>
 
     <function name="assert" link="cpp/error/assert"/>
 
-    <function name="std::uncaught_exception" link="cpp/error/exception/uncaught_exception"/>
-    <typedef name="std::exception_ptr" link="cpp/error/exception/exception_ptr"/>
-    <function name="std::make_exception_ptr" link="cpp/error/exception/make_exception_ptr"/>
-    <function name="std::current_exception" link="cpp/error/exception/current_exception"/>
-    <function name="std::nested_exception" link="cpp/error/exception/nested_exception"/>
-    <function name="std::throw_with_nested" link="cpp/error/exception/throw_with_nested"/>
-    <function name="std::rethrow_if_nested" link="cpp/error/exception/rethrow_if_nested"/>
+    <function name="std::uncaught_exception" link="cpp/error/uncaught_exception"/>
+    <typedef name="std::exception_ptr" link="cpp/error/exception_ptr"/>
+    <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr"/>
+    <function name="std::current_exception" link="cpp/error/current_exception"/>
+    <function name="std::nested_exception" link="cpp/error/nested_exception"/>
+    <function name="std::throw_with_nested" link="cpp/error/throw_with_nested"/>
+    <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested"/>
     
-    <function name="std::terminate" link="cpp/error/exception/terminate"/>
-    <typedef name="std::terminate_handler" link="cpp/error/exception/terminated_handler"/>
-    <function name="std::get_terminate" link="cpp/error/exception/get_terminate"/>
-    <function name="std::set_terminate" link="cpp/error/exception/set_terminate"/>
+    <function name="std::terminate" link="cpp/error/terminate"/>
+    <typedef name="std::terminate_handler" link="cpp/error/terminated_handler"/>
+    <function name="std::get_terminate" link="cpp/error/get_terminate"/>
+    <function name="std::set_terminate" link="cpp/error/set_terminate"/>
     
-    <function name="std::unexpected" link="cpp/error/exception/unexpected"/>
-    <class name="std::bad_exception" link="cpp/error/exception/bad_exception"/>
-    <typedef name="std::unexpected_handler" link="cpp/error/exception/unexpected_handler"/>
-    <function name="std::get_unexpected" link="cpp/error/exception/get_unexpected"/>
-    <function name="std::set_unexpected" link="cpp/error/exception/set_unexpected"/>
+    <function name="std::unexpected" link="cpp/error/unexpected"/>
+    <class name="std::bad_exception" link="cpp/error/bad_exception"/>
+    <typedef name="std::unexpected_handler" link="cpp/error/unexpected_handler"/>
+    <function name="std::get_unexpected" link="cpp/error/get_unexpected"/>
+    <function name="std::set_unexpected" link="cpp/error/set_unexpected"/>
     
     <const name="errno" link="cpp/error/errno"/>
     <const name="E2BIG" link="cpp/error/errno_macros"/>
@@ -947,7 +947,7 @@
     <const name="EWOULDBLOCK" link="cpp/error/errno_macros"/>
     <const name="EXDEV" link="cpp/error/errno_macros"/>
     
-    <class name="std::error_category" link="cpp/error/system_error/error_category">
+    <class name="std::error_category" link="cpp/error/error_category">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -960,10 +960,10 @@
         <function name="operator&lt;" link="operator_cmp"/>
     </class>
     
-    <function name="std::generic_category" link="cpp/error/system_error/generic_category"/>
-    <function name="std::system_category" link="cpp/error/system_error/system_category"/>
+    <function name="std::generic_category" link="cpp/error/generic_category"/>
+    <function name="std::system_category" link="cpp/error/system_category"/>
     
-    <class name="std::error_condition" link="cpp/error/system_error/error_condition">
+    <class name="std::error_condition" link="cpp/error/error_condition">
         <constructor/>
         <function name="operator="/>
         <function name="assign"/>
@@ -978,10 +978,10 @@
         <overload name="operator&lt;" link="operator_cmp"/>
     </class>
     
-    <function name="std::make_error_condition" link="cpp/error/system_error/make_error_condition"/>
-    <function name="std::is_error_condition_enum" link="cpp/error/system_error/is_error_condition_enum"/>
+    <function name="std::make_error_condition" link="cpp/error/make_error_condition"/>
+    <function name="std::is_error_condition_enum" link="cpp/error/is_error_condition_enum"/>
     
-    <class name="std::err_c" link="cpp/error/system_error/err_c">
+    <class name="std::err_c" link="cpp/error/err_c">
         <const name="address_family_not_supported" link="."/>
         <const name="address_in_use" link="."/>
         <const name="address_not_available" link="."/>
@@ -1062,7 +1062,7 @@
         <const name="wrong_protocol_type" link="."/>
     </class>
     
-    <class name="std::error_code" link="cpp/error/system_error/error_code">
+    <class name="std::error_code" link="cpp/error/error_code">
         <constructor/>
         <function name="operator="/>
         <function name="assign"/>
@@ -1079,9 +1079,9 @@
         <overload name="operator&lt;&lt;" link="operator_ltlt"/>
     </class>
     
-    <function name="std::make_error_code" link="cpp/error/system_error/make_error_code"/>
-    <function name="std::is_error_code_enum" link="cpp/error/system_error/is_error_code_enum"/>
-    <class name="std::system_error" link="cpp/error/system_error/system_error">
+    <function name="std::make_error_code" link="cpp/error/make_error_code"/>
+    <function name="std::is_error_code_enum" link="cpp/error/is_error_code_enum"/>
+    <class name="std::system_error" link="cpp/error/system_error">
         <inherits name="std::runtime_error"/>
         <constructor/>
         <function name="code"/>
