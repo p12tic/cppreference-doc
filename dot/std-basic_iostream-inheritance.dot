@@ -1,0 +1,43 @@
+digraph inheritance {
+    rankdir=LR
+ 
+    graph [dpi = 65, bgcolor=transparent];
+    node [
+        shape = box,
+        fontname="DejaVu Serif, verdana, sans-serif", fontsize=14,
+        width=1.6, height=0.5,
+        style=filled, fillcolor=white
+    ];
+ 
+    base [
+        label = "ios_base",
+        tooltip = "std::ios_base",
+        URL="cpp/io/ios_base"
+    ]; 
+    ios [
+        label = <basic_ios<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_ios",
+        URL="cpp/io/basic_ios"
+    ]; 
+    ist [
+        label = <basic_istream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_istream",
+        URL="cpp/io/basic_istream"
+    ];
+    ost [
+        label = <basic_istream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_ostream",
+        URL="cpp/io/basic_ostream"
+    ];
+    iost [
+        label = <basic_iostream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_iostream",
+        fillcolor = lightgrey
+    ];
+        
+    base -> ios;
+    ios -> ist;
+    ios -> ost;
+    ist -> iost;
+    ost -> iost;
+}​​

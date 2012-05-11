@@ -1,0 +1,95 @@
+digraph inheritance {
+    rankdir=UD
+ 
+    graph [dpi = 65, bgcolor=transparent];
+    node [
+        shape = box,
+        fontname="DejaVu Serif, verdana, sans-serif", fontsize=14,
+        width=1.6, height=0.5,
+        style=filled, fillcolor=white
+    ];
+ 
+    base [
+        label = "ios_base",
+        tooltip = "std::ios_base",
+        URL="cpp/io/ios_base"
+    ]; 
+    ios [
+        label = <basic_ios<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_ios"
+        URL="cpp/io/basic_ios"
+    ]; 
+    ist [
+        label = <basic_istream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_istream",
+        URL="cpp/io/basic_istream"
+    ];
+    ifst [
+        group = i,
+        label = <basic_ifstream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_ifstream",
+        URL="cpp/io/basic_ifstream"
+    ];
+    isst [
+        group = i,
+        label = <basic_istringstream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_istringstream",
+        URL="cpp/io/basic_istringstream"
+    ];
+    ost [
+        label = <basic_istream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_istream",
+        URL="cpp/io/basic_ostream"
+    ];
+    ofst [
+        group = o,
+        label = <basic_ofstream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_ofstream",
+        URL="cpp/io/basic_ofstream"
+    ];
+    osst [
+        group = o,
+        label = <basic_ostringstream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_ostringstream",
+        URL="cpp/io/basic_ostringstream"
+    ];
+    iost [
+        label = <basic_iostream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_iostream",
+        URL="cpp/io/basic_iostream"
+    ];
+    fst [
+        group = io,
+        label = <basic_fstream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_fstream",
+        URL="cpp/io/basic_fstream"
+    ];
+    sst [
+        group = io,
+        label = <basic_stringstream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        tooltip = "std::basic_stringstream",
+        URL="cpp/io/basic_stringstream"
+    ];
+        
+    base -> ios;
+    ios -> ist;
+    ios -> ost;
+    ist -> iost;
+    ist -> ifst;
+    ist -> isst;
+    ost -> iost;
+    ost -> ofst;
+    ost -> osst;
+    iost -> fst;
+    iost -> sst;
+ 
+    {rank = same; ofst -> ifst [style=invis]}
+    {rank = same; ofst -> fst [style=invis]}
+    {rank = same; fst -> ifst [style=invis]}
+    {rank = same; osst -> isst [style=invis]}
+    {rank = same; osst -> sst [style=invis]}
+    {rank = same; sst -> isst [style=invis]}
+    {ofst -> osst [style=invis]}
+    {ifst -> isst [style=invis]}
+    {fst -> sst [style=invis]}
+}​​
