@@ -18,16 +18,6 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="/svg:svg">
-  <xsl:copy>
-     <xsl:apply-templates select="node()|@*"/>
-     <style>
-.node:hover > a:link polygon {
-  fill: #eeeeff;
-}</style>
-  </xsl:copy>
-</xsl:template>
-
 <xsl:template match="/svg:svg/@width">
   <xsl:attribute name="width">
      <xsl:value-of select="str:replace(.,'pt','px')"/>
