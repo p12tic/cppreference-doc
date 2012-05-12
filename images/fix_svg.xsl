@@ -4,6 +4,7 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:str="http://exslt.org/strings"
                 xmlns:svg="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
 <xsl:output indent="yes"
             method="xml"
@@ -29,6 +30,9 @@
      <xsl:value-of select="str:replace(.,'pt','px')"/>
   </xsl:attribute>
 </xsl:template>
+
+<xsl:template match="//@xlink:href"/>
+<xsl:template match="//@xlink:title"/>
 
 <!--<xsl:template match="/svg:svg/@viewBox"/>-->
 
