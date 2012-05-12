@@ -24,8 +24,7 @@
      <style>
 .node:hover > a:link polygon {
   fill: #eeeeff;
-}
-</style>
+}</style>
   </xsl:copy>
 </xsl:template>
 
