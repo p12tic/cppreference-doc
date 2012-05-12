@@ -1,0 +1,32 @@
+digraph inheritance {
+    rankdir=LR
+ 
+    graph [dpi = 65, bgcolor=transparent];
+    node [
+        shape = box,
+        fontname="DejaVu Serif, verdana, sans-serif", fontsize=14,
+        width=1.6, height=0.5,
+        style=filled, fillcolor=white
+    ];
+ 
+    e1 [
+        label = "exception",
+        tooltip = "std::exception",
+        URL="cpp/error/exception"
+    ];
+
+    e2 [
+        label = "runtime_error",
+        tooltip = "std::runtime_error",
+        URL="cpp/error/runtime_error"
+    ];
+
+    e3 [
+        label = "range_error",
+        tooltip = "std::range_error",
+        fillcolor = lightgrey
+    ];
+
+    e1 -> e2;
+    e2 -> e3;
+}​​
