@@ -12,4 +12,4 @@ do
     rm $tmpfile
 done
 
-python math-rounding.py
+python math.py
