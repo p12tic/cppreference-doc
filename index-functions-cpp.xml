@@ -1130,12 +1130,12 @@
     <const name="SIG_IGN" link="cpp/utility/program/SIG_strategies"/>
     <const name="SIG_ERR" link="cpp/utility/program/SIG_ERR"/>
     
-    <const name="SIGABRT" link="cpp/utility/program/SIGABRT"/>
-    <const name="SIGFPE" link="cpp/utility/program/SIGFPE"/>
-    <const name="SIGILL" link="cpp/utility/program/SIGILL"/>
-    <const name="SIGINT" link="cpp/utility/program/SIGINT"/>
-    <const name="SIGSEGV" link="cpp/utility/program/SIGSEGV"/>
-    <const name="SIGTERM" link="cpp/utility/program/SIGTERM"/>
+    <const name="SIGABRT" link="cpp/utility/program/SIG_types"/>
+    <const name="SIGFPE" link="cpp/utility/program/SIG_types"/>
+    <const name="SIGILL" link="cpp/utility/program/SIG_types"/>
+    <const name="SIGINT" link="cpp/utility/program/SIG_types"/>
+    <const name="SIGSEGV" link="cpp/utility/program/SIG_types"/>
+    <const name="SIGTERM" link="cpp/utility/program/SIG_types"/>
 
     <function name="std::longjmp" link="cpp/utility/program/longjmp"/>
     <function name="std::setjmp" link="cpp/utility/program/setjmp"/>
@@ -1171,7 +1171,7 @@
     <class name="std::chrono::duration" link="cpp/chrono/duration">
         <constructor/>
         <destructor/>
-        <function name="operotar="/>
+        <function name="operator="/>
         <function name="count"/>
         <function name="zero"/>
         <function name="min"/>
@@ -1393,7 +1393,7 @@
         <function name="swap"/>
         <function name="assign"/>
         <function name="operator bool" link="operator_bool"/>
-        <function name="operotor()"/>
+        <function name="operator()"/>
         <function name="target_type"/>
         <function name="target"/>
         
@@ -1421,7 +1421,7 @@
     </class>
     
     <function name="std::ref" link="cpp/utility/functional/ref"/>
-    <function name="std::cref" link="cpp/utility/functional/cref"/>
+    <function name="std::cref" link="cpp/utility/functional/ref"/>
     
     <!-- todo: deprecated content of <functional> -->
     
