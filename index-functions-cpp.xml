@@ -564,6 +564,39 @@
     <typedef name="std::false_type" alias="std::integral_constant"/>
 
     <!--=======================================================================-->
+    <!-- cpp/iterator -->
+    
+    <class name="std::iterator_traits" link="cpp/iterator/iterator_traits"/>
+    <class name="std::input_iterator_tag" link="cpp/iterator/iterator_tags"/>
+    <class name="std::output_iterator_tag" link="cpp/iterator/iterator_tags"/>
+    <class name="std::forward_iterator_tag" link="cpp/iterator/iterator_tags"/>
+    <class name="std::bidirectional_iterator_tag" link="cpp/iterator/iterator_tags"/>
+    <class name="std::random_access_iterator_tag" link="cpp/iterator/iterator_tags"/>
+    <class name="std::iterator" link="cpp/iterator/iterator"/>
+
+    <class name="std::reverse_iterator" link="cpp/iterator/reverse_iterator"/>
+    <class name="std::move_iterator" link="cpp/iterator/move_iterator"/>
+    <function name="std::make_move_iterator" link="cpp/iterator/make_move_iterator"/>
+    <class name="std::back_insert_iterator" link="cpp/iterator/back_insert_iterator"/>
+    <function name="std::back_inserter" link="cpp/iterator/back_inserter"/>
+    <class name="std::front_insert_iterator" link="cpp/iterator/front_insert_iterator"/>
+    <function name="std::front_inserter" link="cpp/iterator/front_inserter"/>
+    <class name="std::insert_iterator" link="cpp/iterator/insert_iterator"/>
+    <function name="std::inserter" link="cpp/iterator/inserter"/>
+ 
+    <class name="std::istream_iterator" link="cpp/iterator/istream_iterator"/>
+    <class name="std::istreambuf_iterator" link="cpp/iterator/istreambuf_iterator"/>
+    <class name="std::ostream_iterator" link="cpp/iterator/ostream_iterator"/>
+    <class name="std::ostreambuf_iterator" link="cpp/iterator/ostreambuf_iterator"/>
+    
+    <function name="std::advance" link="cpp/iterator/advance"/>
+    <function name="std::distance" link="cpp/iterator/distance"/>
+    <function name="std::next" link="cpp/iterator/next"/>
+    <function name="std::prev" link="cpp/iterator/prev"/>
+    <function name="std::begin" link="cpp/iterator/begin"/>
+    <function name="std::end" link="cpp/iterator/end"/>
+
+    <!--=======================================================================-->
     <!-- cpp/utility/memory -->
     
         <!-- low level stuff -->
