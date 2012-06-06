@@ -1137,7 +1137,11 @@
     <!--=======================================================================-->
     <!-- cpp/utility/variadic -->
     
-    <!-- todo -->
+    <function name="va_start" link="cpp/utility/variadic/va_start"/>
+    <function name="va_copy" link="cpp/utility/variadic/va_copy"/>
+    <function name="va_arg" link="cpp/utility/variadic/va_arg"/>
+    <function name="va_end" link="cpp/utility/variadic/va_end"/>
+    <class name="va_list" link="cpp/utility/variadic/va_list"/>
     
     <!--=======================================================================-->
     <!-- cpp/utility/program -->
