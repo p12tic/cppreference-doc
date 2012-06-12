@@ -748,7 +748,7 @@
     </class>
     
     <function name="std::make_shared" link="cpp/memory/shared_ptr/make_shared"/>
-    <function name="std::allocate_shared" link="cpp/memory/shared_ptr/allocate_sharod"/>
+    <function name="std::allocate_shared" link="cpp/memory/shared_ptr/allocate_shared"/>
     <function name="std::static_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
     <function name="std::dynamic_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
     <function name="std::const_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
