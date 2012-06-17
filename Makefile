@@ -57,8 +57,11 @@ dist:
 
 install:
 	# install the devhelp documentation (skip the ttf files)
-	pushd "output"; find . -type f -not -iname "*.ttf" \
-		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; popd
+	pushd "output" > /dev/null; \
+	find . -type f -not -iname "*.ttf" \
+		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
+	popd > /dev/null
+
 	install -DT -m 644 cppreference-doc-en.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en.devhelp2"
 
 	# install the .qch (Qt Help) documentation
@@ -81,8 +84,11 @@ cppreference-doc-en.devhelp2: output
 
 	#fix links in the .devhelp2 index
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
-	pushd "output"; find . -iname "*.html" \
-		-exec ../fix_devhelp-links.sh '{}' \; ; popd
+	pushd "output" > /dev/null;	\
+	find . -iname "*.html" \
+		-exec ../fix_devhelp-links.sh '{}' \; ; \
+	popd > /dev/null
+
 	echo "</files>" >> "devhelp-files.xml"
 
 	xsltproc fix_devhelp-links.xsl devhelp-index.xml > cppreference-doc-en.devhelp2
@@ -91,14 +97,22 @@ cppreference-doc-en.devhelp2: output
 cppreference-doc-en.qch: qch-help-project.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
 	cp qch-help-project.xml output/qch.xml
-	pushd "output"; qhelpgenerator qch.xml -o "../cppreference-doc-en.qch"; popd
+
+	pushd "output" > /dev/null; \
+	qhelpgenerator qch.xml -o "../cppreference-doc-en.qch"; \
+	popd > /dev/null
+
 	rm -f output/qch.xml
 
 qch-help-project.xml: cppreference-doc-en.devhelp2
 	#build the file list
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "qch-files.xml"
-	pushd "output"; find . -type f -not -iname "*.ttf" \
-		-exec echo "<file>"'{}'"</file>" >> "../qch-files.xml" \; ; popd
+
+	pushd "output" > /dev/null; \
+	find . -type f -not -iname "*.ttf" \
+		-exec echo "<file>"'{}'"</file>" >> "../qch-files.xml" \; ; \
+	popd > /dev/null
+
 	echo "</files>" >> "qch-files.xml"
 
 	#create the project (copies the file list)
@@ -119,14 +133,14 @@ source:
 	rm -rf "reference"
 	mkdir "reference"
 
-	pushd "reference" ; \
+	pushd "reference" > /dev/null; \
 	httrack http://en.cppreference.com/w/ -%k -%s -n -%q0 \
 	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* \
 	  -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* \
 	  -*/Template:* -*/Category:* -*action=* -*printable=* \
 	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* \
 	  +*title=-&action=raw* --timeout=30 --retries=3 ;\
-	popd
+	popd > /dev/null
 
 	#httrack apparently continues as a background process in non-interactive shells.
 	#Wait for it to complete
