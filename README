@@ -31,6 +31,8 @@ documentation formats are currently supported:
  3) QT Help documentation format (.qch). Can be generated using `make doc_qch`.
  `make install` installs the documentation into proper locations.
 
+Simply running `make` will run generate documentation in all three formats.
+
   Dependencies
   ============
 
