@@ -25,7 +25,7 @@ digraph inheritance {
         URL="cpp/io/basic_istream"
     ];
     ost [
-        label = <basic_istream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
+        label = <basic_ostream<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
         tooltip = "std::basic_ostream",
         URL="cpp/io/basic_ostream"
     ];
