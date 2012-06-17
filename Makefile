@@ -17,6 +17,7 @@ all: doc_devhelp doc_qch
 
 DISTFILES=	\
 		reference				\
+		images					\
 		devhelp2qch.xsl			\
 		fix_devhelp-links.sh	\
 		fix_devhelp-links.xsl	\
@@ -37,6 +38,7 @@ DISTFILES=	\
 
 CLEANFILES= \
 		output								\
+		images/output						\
 		cppreference-doc-en.devhelp2		\
 		cppreference-doc-en.qch				\
 		qch-help-project.xml				\
