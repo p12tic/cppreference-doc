@@ -1,24 +1,24 @@
 digraph inheritance {
     rankdir=LR
- 
+
     graph [dpi = 65, bgcolor=transparent];
     node [
         shape = box,
-        fontname="DejaVu Serif, verdana, sans-serif", fontsize=14,
+        fontname="DejaVu Sans, verdana, sans-serif", fontsize=14,
         width=1.6, height=0.5,
         style=filled, fillcolor=white
     ];
- 
+
     base [
         label = "ios_base",
         tooltip = "std::ios_base",
         URL="cpp/io/ios_base"
-    ]; 
+    ];
     ios [
         label = <basic_ios<br/><font color="#808080">&lt;CharT, Traits&gt;</font>>,
         tooltip = "std::basic_ios",
         fillcolor=lightgrey
-    ]; 
- 
+    ];
+
     base -> ios;
 }​​

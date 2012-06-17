@@ -10,10 +10,10 @@ import numpy as np
 import math
 import pprint
 
-font = {'family' : 'DejaVu Serif',
+font = {'family' : 'DejaVu Sans',
         'weight' : 'normal',
         'size'   : 18}
-        
+
 plt.rc('font', **font)
 plt.rc('contour', **{ 'negative_linestyle' : 'solid'})
 

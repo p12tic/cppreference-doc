@@ -102,10 +102,10 @@ DATA = (
     )
 )
 
-font = {'family' : 'DejaVu Serif',
+font = {'family' : 'DejaVu Sans',
         'weight' : 'normal',
         'size'   : 9}
-        
+
 plt.rc('font', **font)
 
 for i in xrange(len(DATA)):
@@ -127,13 +127,13 @@ for i in xrange(len(DATA)):
         imax = bisect_right(data_x, x2)
         del data[imin:imax]
 
-        data.insert(imin, {'type' : 'dend', 'x': x2, 'y' : y2, 't': t2 }) 
+        data.insert(imin, {'type' : 'dend', 'x': x2, 'y' : y2, 't': t2 })
         data.insert(imin, {'type' : 'dbeg', 'x': x1, 'y' : y1, 't': t1 })
 
     # make fig
     fig = plt.figure(figsize=(200.0/72.0,200.0/72.0))
     ax = fig.add_subplot(111)
-    
+
     (xmin,xmax,ymin,ymax) = lim
     ax.set_xlim((xmin, xmax))
     ax.set_ylim((ymin, ymax))
@@ -166,7 +166,7 @@ for i in xrange(len(DATA)):
     # the lines are painted in batches
     paint_batch = list()
     for j in xrange(1, len(data)):
-        
+
         prev_t = data[j-1]['type']
         curr_t = data[j]['type']
         prev_x = data[j-1]['x']
@@ -197,7 +197,7 @@ for i in xrange(len(DATA)):
         # we need painting if this is the last data point
         if j == len(data) - 1:
             is_good = False
-            
+
         # paint the current batch, if any
         if (not is_good) and len(paint_batch) > 1:
 
@@ -206,7 +206,7 @@ for i in xrange(len(DATA)):
                 (x1,y1) = paint_batch[n]
                 (x2,y2) = paint_batch[n+1]
                 return (y2-y1)/(x2-x1)
-                
+
             prev_dir = compute_dir(0)
             k = 1
             while k < len(paint_batch) - 1:
@@ -229,15 +229,15 @@ for i in xrange(len(DATA)):
         curr_t = data[j]['type']
         curr_x = data[j]['x']
         curr_y = data[j]['y']
-        
+
         # paint point marking discontinuous region if needed
         if curr_t != 'c':
             if not d_in_lim(curr_x, curr_y):
                 continue
-                
+
             fill = data[j]['t']
             l = ax.plot(curr_x, curr_y, marker='o')
-            
+
             plt.setp(l, 'markersize', 7.5)
             plt.setp(l, 'markeredgewidth', 0.5)
             plt.setp(l, 'markeredgecolor', '#0000FF')
@@ -258,4 +258,4 @@ for i in xrange(len(DATA)):
     os.system('rm ' + tmpfile)
 
     plt.close()
-        
+
