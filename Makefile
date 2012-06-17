@@ -126,7 +126,7 @@ output:
 	find "output" -name "*.html" -exec ./fix_html.sh '{}' \;
 
 	#append css modifications
-	cat fix_html-css.css >> "output/en.cppreference.com/mwiki/index0cd5.css"
+	cat fix_html-css.css >> "output/en.cppreference.com/mwiki/load7fe1.css"
 
 #redownloads the source documentation directly from en.cppreference.com
 source:
