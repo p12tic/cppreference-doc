@@ -44,7 +44,7 @@ CLEANFILES= \
 		qch-help-project.xml				\
 		qch-files.xml						\
 		devhelp-index.xml					\
-		devhelp-files.xml
+		link-map.xml
 
 clean:
 	rm -rf $(CLEANFILES)
@@ -84,14 +84,8 @@ cppreference-doc-en.devhelp2: output
 	xsltproc --stringparam book-base $(docdir)/html \
 		index2devhelp.xsl index-functions-cpp.xml > devhelp-index.xml
 
-	#fix links in the .devhelp2 index
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
-	pushd "output" > /dev/null;	\
-	find . -iname "*.html" \
-		-exec ../fix_devhelp-links.sh '{}' \; ; \
-	popd > /dev/null
-
-	echo "</files>" >> "devhelp-files.xml"
+	#create mapping between filename and real title
+	./build_link_map.py
 
 	xsltproc fix_devhelp-links.xsl devhelp-index.xml > cppreference-doc-en.devhelp2
 
