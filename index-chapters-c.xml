@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2011  p12 <tir5c3@yahoo.co.uk>
+
+    This file is part of cppreference-doc
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+<chapters xmlns="http://www.devhelp.net/book">
+    <sub name="Language" link="c/language" />
+    <sub name="Headers" link="c/header" />
+    <sub name="Type support" link="c/types" />
+    <sub name="Dynamic memory management" link="c/memory" />
+    <sub name="Error handling" link="c/error" />
+    <sub name="Program utilities" link="c/program" />
+    <sub name="Date and time utilities" link="c/chrono" />
+    <sub name="Strings library" link="c/string">
+        <sub name="Null terminated byte strings" link="c/string/byte"/>
+        <sub name="Null terminated multibyte" link="c/string/multibyte"/>
+        <sub name="Null terminated wide strings" link="c/string/wide"/>
+    </sub>
+    <sub name="Algorithms" link="c/algorithm"/>
+    <sub name="Input/output support" link="c/io"/>
+    <sub name="Numerics" link="c/numeric">
+        <sub name="Mathematical functions" link="c/numeric/math"/>
+        <sub name="Floating-point environment" link="c/numeric/fenv"/>
+        <sub name="Pseudo-random number generation" link="c/numeric/random"/>
+        <sub name="Complex number arithmetic" link="c/numeric/complex"/>
+        <sub name="Type-generic math" link="c/numeric/tgmath"/>
+    </sub>
+    <sub name="Localization support" link="c/locale"/>
+    <sub name="Atomic operations library" link="c/atomic"/>
+    <sub name="Thread support library" link="c/thread"/>
+</chapters>
