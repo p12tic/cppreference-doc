@@ -150,3 +150,6 @@ source:
 	rm -f "reference/hts-log.txt"
 	rm -f "reference/index.html"
 
+	#download files that httrack has forgotten
+	./httrack-workarounds.py
+
