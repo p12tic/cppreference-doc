@@ -17,7 +17,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet
+  version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:str="http://exslt.org/strings">
 
   <xsl:output
     doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -88,5 +91,19 @@
   <!-- remove Google Analytics scripts -->
   <xsl:template match="/html/head/script[contains(text(),'google-analytics.com/ga.js')]"/>
   <xsl:template match="/html/head/script[contains(text(),'pageTracker')]"/>
+
+  <!-- update links to resources: -->
+  <xsl:template match="//@href | //@src">
+    <xsl:attribute name="{name()}">
+      <xsl:choose>
+        <xsl:when test="contains(.,'../../upload.cppreference.com/mwiki/')">
+          <xsl:value-of select="str:replace(.,'../../upload.cppreference.com/mwiki/','../common/')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="str:replace(.,'../mwiki/','../common/')"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:template>
 
 </xsl:stylesheet>

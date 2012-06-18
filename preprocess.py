@@ -26,6 +26,46 @@ os.system('rm -rf output')
 os.system('mkdir output')
 os.system('cp -rt output reference/*')
 
+# rearrange the archive
+
+# before
+# output/en.cppreference.com/w/ : html
+# output/en.cppreference.com/mwiki/ : data
+# output/en.cppreference.com/ : data
+# ... (other languages)
+# output/upload.cppreference.com/mwiki/ : data
+
+# after
+# output/common/ : all data
+# output/en/ : html for en
+# ... (other languages)
+
+data_path = "output/common"
+os.system('mkdir ' + data_path)
+os.system('mv output/upload.cppreference.com/mwiki/* ' + data_path)
+os.system('rm -r output/upload.cppreference.com/')
+
+for lang in ["en"]:
+    path = "output/" + lang + ".cppreference.com/"
+    src_html_path = path + "w/"
+    src_data_path = path + "mwiki/"
+    html_path = "output/" + lang
+
+    if (os.path.isdir(src_html_path)):
+        os.system('mv ' + src_html_path + ' ' + html_path)
+
+    if (os.path.isdir(src_data_path)):
+        # the skin files should be the same for all languages thus we
+        # can merge everything
+        os.system('cp -rl ' + src_data_path + '/* ' + data_path)
+        os.system('rm -r ' + src_data_path)
+
+    # also copy the custom fonts
+    os.system('cp ' + path + 'DejaVuSansMonoCondensed60.ttf ' +
+                      path + 'DejaVuSansMonoCondensed75.ttf ' + data_path)
+    # remove what's left
+    os.system('rm -r '+ path)
+
 # find all html and css files
 html_files = []
 css_files = []
@@ -56,5 +96,14 @@ for fn in html_files:
     os.system('xsltproc --novalid --html preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
     os.system('mv "' + tmpfile + '" "' + fn + '"')
 
+# append css modifications to the css files
+for fn in css_files:
+    f = open(fn, "r")
+    text = f.read()
+    f.close()
 
-os.system('cat preprocess-css.css >> "output/en.cppreference.com/mwiki/load7fe1.css"')
+    r = re.compile('DejaVuSansMonoCondensed60')
+    if (r.search(text)):
+        # assume this is minified MediaWiki:Common.css
+        # append the modifications
+        os.system('cat preprocess-css.css >> "'+fn+'"')
