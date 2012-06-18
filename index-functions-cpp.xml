@@ -1247,7 +1247,9 @@
     
     <function name="std::chrono::duration_cast" link="cpp/chrono/duration/duration_cast"/>
     
-    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/duration/treat_as_floating_point"><!--todo--></class>
+    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/duration/treat_as_floating_point">
+    </class>
+
     <class name="std::chrono::duration_values" link="cpp/chrono/duration/duration_values">
         <function name="zero"/>
         <function name="min"/>
