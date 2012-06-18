@@ -20,7 +20,7 @@
 page=$1
 
 #replace a pseudo link in .devhelp2 with the actual link
-pagename=$(cat "$page" | grep 'wgPageName' | awk -F\" '{print $(NF-1)}' )
+pagename=$(cat "$page" | grep "\"wgPageName\"" | sed -e 's/^.*\"wgPageName\"[^\"]*\"\([^\"]*\)\".*$/\1/g' )
 
 echo "<file from=\"$pagename\" to=\"$page\" />" >> ../devhelp-files.xml
 
