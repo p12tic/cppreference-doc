@@ -120,15 +120,9 @@ qch-help-project.xml: cppreference-doc-en.devhelp2
 	#create the project (copies the file list)
 	xsltproc devhelp2qch.xsl cppreference-doc-en.devhelp2 > "qch-help-project.xml"
 
-#copy the source documentation tree, since changes will be made inplace
+#create preprocessed archive
 output:
-	cp -r "reference" "output"
-
-	#remove useless UI elements
-	find "output" -name "*.html" -exec ./fix_html.sh '{}' \;
-
-	#append css modifications
-	cat fix_html-css.css >> "output/en.cppreference.com/mwiki/load7fe1.css"
+	./preprocess.py
 
 #redownloads the source documentation directly from en.cppreference.com
 source:
