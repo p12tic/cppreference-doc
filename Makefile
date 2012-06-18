@@ -4,8 +4,8 @@ SHELL := /bin/bash
 
 prefix = /usr
 datarootdir = $(prefix)/share
-docdir = $(datarootdir)/cppreference/doc/en
-bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
+docdir = $(datarootdir)/cppreference/doc
+bookdir = $(datarootdir)/devhelp/books/cppreference-doc
 
 #Version
 
@@ -16,15 +16,12 @@ VERSION=20120330
 all: doc_devhelp doc_qch
 
 DISTFILES=	\
-		reference				\
-		images					\
+		reference/				\
+		images/					\
+		build_link_map.py		\
 		devhelp2qch.xsl			\
-		fix_devhelp-links.sh	\
 		fix_devhelp-links.xsl	\
-		fix_html.sh				\
-		fix_html-cleanup.xsl	\
-		fix_html-css.css		\
-		fix_html-httrack_meta.sed	\
+		httrack-workarounds.py	\
 		index2browser.xsl		\
 		index2devhelp.xsl		\
 		index2search.xsl		\
@@ -35,6 +32,9 @@ DISTFILES=	\
 		index-functions.README	\
 		index-functions-c.xml	\
 		index-functions-cpp.xml	\
+		preprocess.py			\
+		preprocess.xsl			\
+		preprocess-css.css		\
 		Makefile				\
 		README
 
@@ -63,16 +63,17 @@ dist:
 	rm -rf "cppreference-doc-$(VERSION)"
 
 install:
-	# install the devhelp documentation (skip the .ttf files)
+	# install the devhelp documentation
 	pushd "output" > /dev/null; \
-	find . -type f -not -iname "*.ttf" \
+	find . -type f \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
 	popd > /dev/null
 
-	install -DT -m 644 cppreference-doc-en.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en.devhelp2"
+	install -DT -m 644 cppreference-doc-en-c.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en-c.devhelp2"
+	install -DT -m 644 cppreference-doc-en-cpp.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en-cpp.devhelp2"
 
 	# install the .qch (Qt Help) documentation
-	install -DT -m 644 cppreference-doc-en.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en.qch
+	install -DT -m 644 cppreference-doc-en-cpp.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en-cpp.qch
 
 uninstall:
 	rm -rf "$(DESTDIR)$(docdir)"
