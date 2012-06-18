@@ -30,8 +30,10 @@ DISTFILES=	\
 		index2search.xsl		\
 		index2highlight.xsl		\
 		index_transform.xsl		\
-		index-chapters.xml		\
+		index-chapters-c.xml	\
+		index-chapters-cpp.xml	\
 		index-functions.README	\
+		index-functions-c.xml	\
 		index-functions-cpp.xml	\
 		Makefile				\
 		README
@@ -39,11 +41,14 @@ DISTFILES=	\
 CLEANFILES= \
 		output								\
 		images/output						\
-		cppreference-doc-en.devhelp2		\
-		cppreference-doc-en.qch				\
-		qch-help-project.xml				\
+		cppreference-doc-en-c.devhelp2		\
+		cppreference-doc-en-cpp.devhelp2	\
+		cppreference-doc-en-c.qch			\
+		cppreference-doc-en-cpp.qch			\
+		qch-help-project-cpp.xml			\
 		qch-files.xml						\
-		devhelp-index.xml					\
+		devhelp-index-c.xml					\
+		devhelp-index-cpp.xml				\
 		link-map.xml
 
 clean:
@@ -58,7 +63,7 @@ dist:
 	rm -rf "cppreference-doc-$(VERSION)"
 
 install:
-	# install the devhelp documentation (skip the ttf files)
+	# install the devhelp documentation (skip the .ttf files)
 	pushd "output" > /dev/null; \
 	find . -type f -not -iname "*.ttf" \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
@@ -75,32 +80,41 @@ uninstall:
 
 #WORKER RULES
 
-doc_devhelp: cppreference-doc-en.devhelp2
+doc_devhelp: cppreference-doc-en-c.devhelp2 cppreference-doc-en-cpp.devhelp2
 
-doc_qch: cppreference-doc-en.qch
+doc_qch: cppreference-doc-en-cpp.qch
 
-#build the .devhelp2 index
-cppreference-doc-en.devhelp2: output
-	xsltproc --stringparam book-base $(docdir)/html \
-		index2devhelp.xsl index-functions-cpp.xml > devhelp-index.xml
-
-	#create mapping between filename and real title
+#builds the title<->location map
+link-map.xml: output
 	./build_link_map.py
 
-	xsltproc fix_devhelp-links.xsl devhelp-index.xml > cppreference-doc-en.devhelp2
+#build the .devhelp2 index
+cppreference-doc-en-c.devhelp2: output link-map.xml
+	xsltproc --stringparam book-base $(docdir)/html 			\
+			 --stringparam chapters-file index-chapters-c.xml	\
+			 --stringparam title "C Standard Library reference"	\
+			 index2devhelp.xsl index-functions-c.xml > devhelp-index-c.xml
+	xsltproc fix_devhelp-links.xsl devhelp-index-c.xml > cppreference-doc-en-c.devhelp2
+
+cppreference-doc-en-cpp.devhelp2: output link-map.xml
+	xsltproc --stringparam book-base $(docdir)/html 			\
+			 --stringparam chapters-file index-chapters-cpp.xml	\
+			 --stringparam title "C++ Standard Library reference"	\
+			 index2devhelp.xsl index-functions-cpp.xml > devhelp-index-cpp.xml
+	xsltproc fix_devhelp-links.xsl devhelp-index-cpp.xml > cppreference-doc-en-cpp.devhelp2
 
 #build the .qch (QT help) file
-cppreference-doc-en.qch: qch-help-project.xml
+cppreference-doc-en-cpp.qch: qch-help-project-cpp.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
-	cp qch-help-project.xml output/qch.xml
+	cp qch-help-project-cpp.xml output/qch.xml
 
 	pushd "output" > /dev/null; \
-	qhelpgenerator qch.xml -o "../cppreference-doc-en.qch"; \
+	qhelpgenerator qch.xml -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
 	rm -f output/qch.xml
 
-qch-help-project.xml: cppreference-doc-en.devhelp2
+qch-help-project-cpp.xml: cppreference-doc-en-cpp.devhelp2
 	#build the file list
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "qch-files.xml"
 
@@ -112,7 +126,7 @@ qch-help-project.xml: cppreference-doc-en.devhelp2
 	echo "</files>" >> "qch-files.xml"
 
 	#create the project (copies the file list)
-	xsltproc devhelp2qch.xsl cppreference-doc-en.devhelp2 > "qch-help-project.xml"
+	xsltproc devhelp2qch.xsl cppreference-doc-en-cpp.devhelp2 > "qch-help-project-cpp.xml"
 
 #create preprocessed archive
 output:

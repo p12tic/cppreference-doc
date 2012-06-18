@@ -3,7 +3,7 @@
     Copyright (C) 2011  p12 <tir5c3@yahoo.co.uk>
 
     This file is part of cppreference-doc
-    
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -23,13 +23,15 @@
                 >
 <xsl:import href="index_transform.xsl"/>
 <xsl:param name="book-base" select="'/usr/share/doc/cppreference-doc-en/html'"/>
+<xsl:param name="chapters-file" select="''"/>
+<xsl:param name="title" select="''"/>
 
 <xsl:output indent="yes"/>
 
 <xsl:template match="/index">
-  <book title="C++ Standard Library Reference Manual" name="cppreference-doc-en" 
+  <book title="{$title}" name="cppreference-doc-en"
         base="{$book-base}" link="cpp" version="2" language="c++">
-    <xsl:copy-of select="document('index-chapters.xml')"/>
+    <xsl:copy-of select="document($chapters-file)"/>
     <functions>
       <xsl:apply-templates mode="process-item" select="child::*"/>
     </functions>
@@ -39,7 +41,7 @@
 <xsl:template name="output-item">
   <xsl:param name="name"/>
   <xsl:param name="link"/>
-  
+
   <xsl:variable name="mark">
     <xsl:choose>
       <xsl:when test="name()='const'"><xsl:text>macro</xsl:text></xsl:when>
@@ -54,7 +56,7 @@
       <xsl:otherwise/>
     </xsl:choose>
   </xsl:variable>
-  
+
   <keyword type="{$mark}" name="{$name}" link="{$link}"/>
 </xsl:template>
 
