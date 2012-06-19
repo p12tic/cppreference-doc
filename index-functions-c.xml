@@ -3,23 +3,20 @@
     Copyright (C) 2012  p12 <tir5c3@yahoo.co.uk>
 
     This file is part of cppreference-doc
-    
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses/.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 -->
 
 <!--
-    For the documentation of the schema, see the accompanying 
+    For the documentation of the schema, see the accompanying
     index-function.README file
 -->
 <!--
@@ -29,7 +26,7 @@
 
     <!--=======================================================================-->
     <!-- c/types -->
-        
+
         <!-- generic types -->
         <!--
     <typedef name="std::size_t" link="cpp/types/size_t"/>
@@ -40,7 +37,7 @@
     <function name="offsetof" link="cpp/types/offsetof"/>
         -->
         <!-- fixed width integer types -->
-        
+
     <typedef name="int8_t" link="c/types/integer"/>
     <typedef name="int16_t" link="c/types/integer"/>
     <typedef name="int32_t" link="c/types/integer"/>
@@ -55,7 +52,7 @@
     <typedef name="int_least64_t" link="c/types/integer"/>
     <typedef name="intmax_t" link="c/types/integer"/>
     <typedef name="intptr_t" link="c/types/integer"/>
-    
+
     <typedef name="uint8_t" link="c/types/integer"/>
     <typedef name="uint16_t" link="c/types/integer"/>
     <typedef name="uint32_t" link="c/types/integer"/>
@@ -70,7 +67,7 @@
     <typedef name="uint_least64_t" link="c/types/integer"/>
     <typedef name="uintmax_t" link="c/types/integer"/>
     <typedef name="uintptr_t" link="c/types/integer"/>
-    
+
     <const name="INT8_MIN" link="c/types/integer"/>
     <const name="INT16_MIN" link="c/types/integer"/>
     <const name="INT32_MIN" link="c/types/integer"/>
@@ -85,7 +82,7 @@
     <const name="INT_LEAST64_MIN" link="c/types/integer"/>
     <const name="INTPTR_MIN" link="c/types/integer"/>
     <const name="INTMAX_MIN" link="c/types/integer"/>
-    
+
     <const name="INT8_MAX" link="c/types/integer"/>
     <const name="INT16_MAX" link="c/types/integer"/>
     <const name="INT32_MAX" link="c/types/integer"/>
@@ -100,7 +97,7 @@
     <const name="INT_LEAST64_MAX" link="c/types/integer"/>
     <const name="INTPTR_MAX" link="c/types/integer"/>
     <const name="INTMAX_MAX" link="c/types/integer"/>
-    
+
     <const name="UINT8_MAX" link="c/types/integer"/>
     <const name="UINT16_MAX" link="c/types/integer"/>
     <const name="UINT32_MAX" link="c/types/integer"/>
@@ -295,7 +292,7 @@
     <const name="SCNXFAST64" link="c/types/integer"/>
     <const name="SCNXMAX" link="c/types/integer"/>
     <const name="SCNXPTR" link="c/types/integer"/>
-    
+
         <!-- c/types/limits -->
     <const name="PTRDIFF_MIN" link="c/types/limits"/>
     <const name="PTRDIFF_MAX" link="c/types/limits"/>
@@ -306,18 +303,18 @@
     <const name="WCHAR_MAX" link="c/types/limits"/>
     <const name="WINT_MIN" link="c/types/limits"/>
     <const name="WINT_MAX" link="c/types/limits"/>
-    
+
     <const name="CHAR_BIT" link="c/types/limits"/>
     <const name="MB_LEN_MAX" link="c/types/limits"/>
     <const name="CHAR_MIN" link="c/types/limits"/>
     <const name="CHAR_MAX" link="c/types/limits"/>
-    
+
     <const name="SCHAR_MIN" link="c/types/limits"/>
     <const name="SHRT_MIN" link="c/types/limits"/>
     <const name="INT_MIN" link="c/types/limits"/>
     <const name="LONG_MIN" link="c/types/limits"/>
     <const name="LLONG_MIN" link="c/types/limits"/>
-    
+
     <const name="SCHAR_MAX" link="c/types/limits"/>
     <const name="SHRT_MAX" link="c/types/limits"/>
     <const name="INT_MAX" link="c/types/limits"/>
@@ -329,52 +326,52 @@
     <const name="UINT_MAX" link="c/types/limits"/>
     <const name="ULONG_MAX" link="c/types/limits"/>
     <const name="ULLONG_MAX" link="c/types/limits"/>
-    
+
     <const name="FLT_RADIX" link="c/types/limits"/>
     <const name="DECIMAL_DIG" link="c/types/limits"/>
-    
+
     <const name="FLT_MIN" link="c/types/limits"/>
     <const name="DBL_MIN" link="c/types/limits"/>
     <const name="LDBL_MIN" link="c/types/limits"/>
-    
+
     <const name="FLT_MAX" link="c/types/limits"/>
     <const name="DBL_MAX" link="c/types/limits"/>
     <const name="LDBL_MAX" link="c/types/limits"/>
-    
+
     <const name="FLT_EPSILON" link="c/types/limits"/>
     <const name="DBL_EPSILON" link="c/types/limits"/>
     <const name="LDBL_EPSILON" link="c/types/limits"/>
-    
+
     <const name="FLT_DIG" link="c/types/limits"/>
     <const name="DBL_DIG" link="c/types/limits"/>
     <const name="LDBL_DIG" link="c/types/limits"/>
-    
+
     <const name="FLT_MANT_DIG" link="c/types/limits"/>
     <const name="DBL_MANT_DIG" link="c/types/limits"/>
     <const name="LDBL_MANT_DIG" link="c/types/limits"/>
-    
+
     <const name="FLT_MIN_EXP" link="c/types/limits"/>
     <const name="DBL_MIN_EXP" link="c/types/limits"/>
     <const name="LDBL_MIN_EXP" link="c/types/limits"/>
-    
+
     <const name="FLT_MIN_10_EXP" link="c/types/limits"/>
     <const name="DBL_MIN_10_EXP" link="c/types/limits"/>
     <const name="LDBL_MIN_10_EXP" link="c/types/limits"/>
-   
+
     <const name="FLT_MAX_EXP" link="c/types/limits"/>
     <const name="DBL_MAX_EXP" link="c/types/limits"/>
     <const name="LDBL_MAX_EXP" link="c/types/limits"/>
-    
+
     <const name="FLT_MAX_10_EXP" link="c/types/limits"/>
     <const name="DBL_MAX_10_EXP" link="c/types/limits"/>
     <const name="LDBL_MAX_10_EXP" link="c/types/limits"/>
-    
+
     <const name="FLT_ROUNDS" link="c/types/limits"/>
     <const name="FLT_EVAL_METHOD" link="c/types/limits"/>
-        
+
     <!--=======================================================================-->
     <!-- c/memory -->
-            
+
     <function name="malloc" link="c/memory/malloc"/>
     <function name="calloc" link="c/memory/calloc"/>
     <function name="realloc" link="c/memory/realloc"/>
@@ -464,12 +461,12 @@
     <const name="ETXTBSY" link="c/error/errno_macros"/>
     <const name="EWOULDBLOCK" link="c/error/errno_macros"/>
     <const name="EXDEV" link="c/error/errno_macros"/>
-    
+
     <!--=======================================================================-->
     <!-- cS/variadic -->
-    
+
     <!-- todo -->
-    
+
     <!--=======================================================================-->
     <!-- c/program -->
 
@@ -485,7 +482,7 @@
 
     <function name="system" link="c/program/system"/>
     <function name="getenv" link="c/program/getenv"/>
-    
+
     <function name="signal" link="c/program/signal"/>
     <function name="raise" link="c/program/raise"/>
     <typedef name="sig_atomic_t" link="c/program/sig_atomic_t"/>
@@ -493,7 +490,7 @@
     <const name="SIG_DFL" link="c/program/SIG_strategies"/>
     <const name="SIG_IGN" link="c/program/SIG_strategies"/>
     <const name="SIG_ERR" link="c/program/SIG_ERR"/>
-    
+
     <const name="SIGABRT" link="c/program/SIG_types"/>
     <const name="SIGFPE" link="c/program/SIG_types"/>
     <const name="SIGILL" link="c/program/SIG_types"/>
@@ -504,14 +501,14 @@
     <function name="longjmp" link="c/program/longjmp"/>
     <function name="setjmp" link="c/program/setjmp"/>
     <typedef name="jmp_buf" link="c/program/jmp_buf"/>
-    
+
     <!--=======================================================================-->
     <!-- c/chrono -->
-    
+
     <function name="difftime" link="c/chrono/difftime"/>
     <function name="time" link="c/chrono/time"/>
     <function name="clock" link="c/chrono/clock"/>
-    
+
     <function name="asctime" link="c/chrono/asctime"/>
     <function name="ctime" link="c/chrono/ctime"/>
     <function name="strftime" link="c/chrono/strftime"/>
@@ -519,9 +516,9 @@
     <function name="gmtime" link="c/chrono/gmtime"/>
     <function name="localtime" link="c/chrono/localtime"/>
     <function name="mktime" link="c/chrono/mktime"/>
-    
+
     <const name="CLOCKS_PER_SEC" link="c/chrono/CLOCKS_PER_SEC"/>
-    
+
     <class name="tm" link="c/chrono/tm"/>
     <typedef name="time_t" link="c/chrono/time_t"/>
     <typedef name="clock_t" link="c/chrono/clock_t"/>
@@ -543,7 +540,7 @@
     <function name="ispunct" link="c/string/byte/ispunct"/>
     <function name="tolower" link="c/string/byte/tolower"/>
     <function name="toupper" link="c/string/byte/toupper"/>
-    
+
     <function name="atof" link="c/string/byte/atof"/>
     <function name="atoi" link="c/string/byte/atoi"/>
     <function name="atol" link="c/string/byte/atoi"/>
@@ -557,13 +554,13 @@
     <function name="strtold" link="c/string/byte/strtof"/>
     <function name="strtoimax" link="c/string/byte/strtoimax"/>
     <function name="strtoumax" link="c/string/byte/strtoimax"/>
-    
+
     <function name="strcpy" link="c/string/byte/strcpy"/>
     <function name="strncpy" link="c/string/byte/strncpy"/>
     <function name="strcat" link="c/string/byte/strcat"/>
     <function name="strncat" link="c/string/byte/strncat"/>
     <function name="strxfrm" link="c/string/byte/strxfrm"/>
-    
+
     <function name="strlen" link="c/string/byte/strlen"/>
     <function name="strcmp" link="c/string/byte/strcmp"/>
     <function name="strncmp" link="c/string/byte/strncmp"/>
@@ -575,7 +572,7 @@
     <function name="strpbrk" link="c/string/byte/strpbrk"/>
     <function name="strstr" link="c/string/byte/strstr"/>
     <function name="strtok" link="c/string/byte/strtok"/>
-        
+
     <function name="memchr" link="c/string/byte/memchr"/>
     <function name="memcmp" link="c/string/byte/memcmp"/>
     <function name="memset" link="c/string/byte/memset"/>
@@ -585,13 +582,13 @@
     <function name="strerror" link="c/string/byte/strerror"/>
 
     <!-- c/string/multibyte -->
-    
+
     <function name="mblen" link="c/string/multibyte/mblen"/>
     <function name="mbtowc" link="c/string/multibyte/mbtowc"/>
     <function name="wctomb" link="c/string/multibyte/wctomb"/>
     <function name="mbstowcs" link="c/string/multibyte/mbstowcs"/>
     <function name="wcstombs" link="c/string/multibyte/wcstombs"/>
-    
+
     <function name="mbsinit" link="c/string/multibyte/mbsinit"/>
     <function name="btowc" link="c/string/multibyte/btowc"/>
     <function name="wctob" link="c/string/multibyte/wctob"/>
@@ -600,16 +597,16 @@
     <function name="wcrtomb" link="c/string/multibyte/wcrtomb"/>
     <function name="mbsrtowcs" link="c/string/multibyte/mbsrtowcs"/>
     <function name="wcstombs" link="c/string/multibyte/wcstombs"/>
-    
+
     <function name="mbrtoc16" link="c/string/multibyte/mbrtoc16"/>
     <function name="c16rtomb" link="c/string/multibyte/c16rtomb"/>
     <function name="mbrtoc32" link="c/string/multibyte/mbrtoc32"/>
     <function name="c32rtomb" link="c/string/multibyte/c32rtomb"/>
-    
+
     <class name="mbstate_t" link="c/string/multibyte/mbstate_t"/>
-    
+
     <!-- c/string/wide -->
-    
+
     <function name="iswalnum" link="c/string/wide/iswalnum"/>
     <function name="iswalpha" link="c/string/wide/iswalpha"/>
     <function name="iswlower" link="c/string/wide/iswlower"/>
@@ -624,12 +621,12 @@
     <function name="iswpunct" link="c/string/wide/iswpunct"/>
     <function name="iswctype" link="c/string/wide/iswctype"/>
     <function name="wctype" link="c/string/wide/wctype"/>
-    
+
     <function name="towlower" link="c/string/wide/tolower"/>
     <function name="towupper" link="c/string/wide/toupper"/>
     <function name="towctrans" link="c/string/wide/towctrans"/>
     <function name="wctrans" link="c/string/wide/wctrans"/>
-    
+
     <function name="wcstof" link="c/string/wide/wcstof"/>
     <function name="wcstod" link="c/string/wide/wcstof"/>
     <function name="wcstold" link="c/string/wide/wcstof"/>
@@ -639,13 +636,13 @@
     <function name="wcstoull" link="c/string/wide/wcstoul"/>
     <function name="wcstoimax" link="c/string/byte/wcstoimax"/>
     <function name="wcstoumax" link="c/string/byte/wcstoimax"/>
-    
+
     <function name="wcscpy" link="c/string/wide/wcscpy"/>
     <function name="wcsncpy" link="c/string/wide/wcsncpy"/>
     <function name="wcscat" link="c/string/wide/wcscat"/>
     <function name="wcsncat" link="c/string/wide/wcsncat"/>
     <function name="wcsxfrm" link="c/string/wide/wcsxfrm"/>
-    
+
     <function name="wcslen" link="c/string/wide/wcslen"/>
     <function name="wcscmp" link="c/string/wide/wcscmp"/>
     <function name="wcsncmp" link="c/string/wide/wcsncmp"/>
@@ -657,7 +654,7 @@
     <function name="wcspbrk" link="c/string/wide/wcspbrk"/>
     <function name="wcsstr" link="c/string/wide/wcsstr"/>
     <function name="wcstok" link="c/string/wide/wcstok"/>
-        
+
     <function name="wmemchr" link="c/string/wide/wmemchr"/>
     <function name="wmemcmp" link="c/string/wide/wmemcmp"/>
     <function name="wmemset" link="c/string/wide/wmemset"/>
@@ -682,7 +679,7 @@
     <function name="nan" link="c/numeric/math/nan"/>
     <function name="nanf" link="c/numeric/math/nan"/>
     <function name="nanl" link="c/numeric/math/nan"/>
-    
+
     <function name="exp" link="c/numeric/math/exp"/>
     <function name="exp2" link="c/numeric/math/exp2"/>
     <function name="expm1" link="c/numeric/math/expm1"/>
@@ -691,12 +688,12 @@
     <function name="log1p" link="c/numeric/math/log1p"/>
     <function name="ilogb" link="c/numeric/math/ilogb"/>
     <function name="logb" link="c/numeric/math/logb"/>
-    
+
     <function name="sqrt" link="c/numeric/math/sqrt"/>
     <function name="cbrt" link="c/numeric/math/cbrt"/>
     <function name="hypot" link="c/numeric/math/hypot"/>
     <function name="pow" link="c/numeric/math/pow"/>
-    
+
     <function name="sin" link="c/numeric/math/sin"/>
     <function name="cos" link="c/numeric/math/cos"/>
     <function name="tan" link="c/numeric/math/tan"/>
@@ -710,12 +707,12 @@
     <function name="asinh" link="c/numeric/math/asinh"/>
     <function name="acosh" link="c/numeric/math/acosh"/>
     <function name="atanh" link="c/numeric/math/atanh"/>
-    
+
     <function name="erf" link="c/numeric/math/erf"/>
     <function name="erfc" link="c/numeric/math/erfc"/>
     <function name="lgamma" link="c/numeric/math/lgamma"/>
     <function name="tgamma" link="c/numeric/math/tgamma"/>
-    
+
     <function name="ceil" link="c/numeric/math/ceil"/>
     <function name="floor" link="c/numeric/math/floor"/>
     <function name="trunc" link="c/numeric/math/trunc"/>
@@ -726,7 +723,7 @@
     <function name="rint" link="c/numeric/math/rint"/>
     <function name="lrint" link="c/numeric/math/rint"/>
     <function name="llrint" link="c/numeric/math/rint"/>
-    
+
     <function name="frexp" link="c/numeric/math/frexp"/>
     <function name="ldexp" link="c/numeric/math/ldexp"/>
     <function name="modf" link="c/numeric/math/modf"/>
@@ -735,7 +732,7 @@
     <function name="nextafter" link="c/numeric/math/nextafter"/>
     <function name="nexttoward" link="c/numeric/math/nextafter"/>
     <function name="copysign" link="c/numeric/math/copysign"/>
-    
+
     <function name="fpclassify" link="c/numeric/math/fpclassify"/>
     <function name="isfinite" link="c/numeric/math/isfinite"/>
     <function name="isinf" link="c/numeric/math/isinf"/>
@@ -751,9 +748,9 @@
     <const name="FP_NORMAL" link="c/numeric/math/FP_categories"/>
     <const name="FP_SUBNORMAL" link="c/numeric/math/FP_categories"/>
     <const name="FP_ZERO" link="c/numeric/math/FP_categories"/>
-    
+
     <!-- c/numeric/fenv -->
-    
+
     <function name="feclearexcept" link="c/numeric/fenv/fecrearexcept"/>
     <function name="fetestexcept" link="c/numeric/fenv/fetestexcept"/>
     <function name="feraiseexcept" link="c/numeric/fenv/feraiseexcept"/>
@@ -765,32 +762,32 @@
     <function name="fesetenv" link="c/numeric/fenv/feenv"/>
     <function name="feholdexcept" link="c/numeric/fenv/feholdexcept"/>
     <function name="feupdateenv" link="c/numeric/fenv/feupdateenv"/>
-    
+
     <const name="FE_ALL_EXCEPT" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_DIVBYZERO" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_INEXACT" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_INVALID" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_OVERFLOW" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_UNHERFLOW" link="c/numeric/fenv/FE_exceptions"/>
-    
+
     <const name="FE_DOWNWARD" link="c/numeric/fenv/FE_round"/>
     <const name="FE_TONEAREST" link="c/numeric/fenv/FE_round"/>
     <const name="FE_TOWARDZERO" link="c/numeric/fenv/FE_round"/>
     <const name="FE_UPWARD" link="c/numeric/fenv/FE_round"/>
-    
+
     <const name="FE_DFL_ENV" link="c/numeric/fenv/FE_DFL_ENV"/>
-    
+
     <!-- cpp/numeric/random -->
- 
+
     <function name="srand" link="c/numeric/random/srand"/>
     <function name="rand" link="c/numeric/random/rand"/>
     <const name="MAX_RANDOM" link="c/numeric/random/MAX_RANDOM"/>
-    
+
     <!-- cpp/algorithm -->
 
     <function name="qsort" link="c/algorithm/qsort"/>
     <function name="bsearch" link="c/algorithm/bsearch"/>
-       
+
     <!-- cpp/io/c -->
 
     <function name="fopen" link="c/io/fopen"/>
@@ -876,7 +873,7 @@
     <const name="SEEK_END" link="c/io"/>
     <const name="TMP_MAX" link="c/io"/>
     <const name="L_tmpnam" link="c/io"/>
-    
+
     <!-- c/locale -->
 
     <function name="setlocale" link="c/locale/setlocale"/>
