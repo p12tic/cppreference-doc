@@ -160,18 +160,13 @@ source:
 	mkdir "reference"
 
 	pushd "reference" > /dev/null; \
-	httrack http://en.cppreference.com/w/ -%k -%s -n -%q0 \
+	httrack http://en.cppreference.com/w/ -k --near --include-query-string \
 	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* \
 	  -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* \
 	  -*/Template:* -*/Category:* -*action=* -*printable=* \
 	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* \
-	  +*title=-&action=raw* --timeout=30 --retries=3 ;\
+	  -*MediaWiki:Geshi.css* "+*title=-&action=raw*" --timeout=180 --retries=10 ;\
 	popd > /dev/null
-
-	#httrack apparently continues as a background process in non-interactive shells.
-	#Wait for it to complete
-	while [[ ! -e "reference/hts-in_progress.lock" ]] ; do sleep 1; done
-	while [[ -e "reference/hts-in_progress.lock" ]] ; do sleep 3; done
 
 	#delete useless files
 	rm -rf "reference/hts-cache"
