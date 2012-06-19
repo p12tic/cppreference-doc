@@ -25,11 +25,12 @@
 <xsl:param name="book-base" select="'/usr/share/doc/cppreference-doc-en/html'"/>
 <xsl:param name="chapters-file" select="''"/>
 <xsl:param name="title" select="''"/>
+<xsl:param name="name" select="''"/>
 
 <xsl:output indent="yes"/>
 
 <xsl:template match="/index">
-  <book title="{$title}" name="cppreference-doc-en"
+  <book title="{$title}" name="{$name}"
         base="{$book-base}" link="cpp" version="2" language="c++">
     <xsl:copy-of select="document($chapters-file)"/>
     <functions>

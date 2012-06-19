@@ -113,6 +113,7 @@ cppreference-doc-en-c.devhelp2: output link-map.xml
 	xsltproc --stringparam book-base $(docdir)/html 			\
 			 --stringparam chapters-file index-chapters-c.xml	\
 			 --stringparam title "C Standard Library reference"	\
+			 --stringparam name "cppreference-doc-en-c"	\
 			 index2devhelp.xsl index-functions-c.xml > devhelp-index-c.xml
 	xsltproc fix_devhelp-links.xsl devhelp-index-c.xml > cppreference-doc-en-c.devhelp2
 
@@ -120,6 +121,7 @@ cppreference-doc-en-cpp.devhelp2: output link-map.xml
 	xsltproc --stringparam book-base $(docdir)/html 			\
 			 --stringparam chapters-file index-chapters-cpp.xml	\
 			 --stringparam title "C++ Standard Library reference"	\
+			 --stringparam name "cppreference-doc-en-cpp"	\
 			 index2devhelp.xsl index-functions-cpp.xml > devhelp-index-cpp.xml
 	xsltproc fix_devhelp-links.xsl devhelp-index-cpp.xml > cppreference-doc-en-cpp.devhelp2
 
