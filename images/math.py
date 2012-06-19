@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #   Copyright (C) 2011, 2012  p12 <tir5c3@yahoo.co.uk>
 #
 #   This file is part of cppreference-doc
