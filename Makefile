@@ -22,7 +22,7 @@ SHELL := /bin/bash
 prefix = /usr
 datarootdir = $(prefix)/share
 docdir = $(datarootdir)/cppreference/doc
-bookdir = $(datarootdir)/devhelp/books/cppreference-doc
+bookdir = $(datarootdir)/devhelp/books
 
 #Version
 
@@ -86,8 +86,10 @@ install:
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
 	popd > /dev/null
 
-	install -DT -m 644 cppreference-doc-en-c.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en-c.devhelp2"
-	install -DT -m 644 cppreference-doc-en-cpp.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en-cpp.devhelp2"
+	install -DT -m 644 cppreference-doc-en-c.devhelp2 \
+		"$(DESTDIR)$(bookdir)/cppreference-doc-en-c/cppreference-doc-en-c.devhelp2"
+	install -DT -m 644 cppreference-doc-en-cpp.devhelp2 \
+		"$(DESTDIR)$(bookdir)/cppreference-doc-en-cpp/cppreference-doc-en-cpp.devhelp2"
 
 	# install the .qch (Qt Help) documentation
 	install -DT -m 644 cppreference-doc-en-cpp.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en-cpp.qch
