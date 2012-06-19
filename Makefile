@@ -73,7 +73,7 @@ clean:
 
 check:
 
-dist:
+dist: clean
 	mkdir -p "cppreference-doc-$(VERSION)"
 	cp -r $(DISTFILES) "cppreference-doc-$(VERSION)"
 	tar czf "cppreference-doc-$(VERSION).tar.gz" "cppreference-doc-$(VERSION)"
