@@ -97,13 +97,25 @@ for fn in html_files:
     os.system('mv "' + tmpfile + '" "' + fn + '"')
 
 # append css modifications to the css files
+
+f = open("preprocess-css.css", "r")
+css_app = f.read()
+f.close()
+
 for fn in css_files:
     f = open(fn, "r")
     text = f.read()
     f.close()
 
-    r = re.compile('DejaVuSansMonoCondensed60')
-    if (r.search(text)):
+    text = text.replace('../DejaVuSansMonoCondensed60.ttf', 'DejaVuSansMonoCondensed60.ttf')
+    text = text.replace('../DejaVuSansMonoCondensed75.ttf', 'DejaVuSansMonoCondensed75.ttf')
+
+    if (re.search('DejaVuSansMonoCondensed60', text)):
         # assume this is minified MediaWiki:Common.css
         # append the modifications
-        os.system('cat preprocess-css.css >> "'+fn+'"')
+        text += css_app
+
+    f = open(fn, "w")
+    f.write(text)
+    f.close()
+
