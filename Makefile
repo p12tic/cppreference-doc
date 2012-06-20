@@ -26,7 +26,7 @@ bookdir = $(datarootdir)/devhelp/books
 
 #Version
 
-VERSION=20120330
+VERSION=20120620
 
 #STANDARD RULES
 
