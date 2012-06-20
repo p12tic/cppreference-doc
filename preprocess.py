@@ -97,7 +97,7 @@ for fn in html_files:
     f.close()
 
     tmpfile = fn + '.tmp';
-    os.system('xsltproc --novalid --html preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
+    os.system('xsltproc --novalid --html --encoding UTF-8 preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
     os.system('mv "' + tmpfile + '" "' + fn + '"')
 
 # append css modifications to the css files
