@@ -1,73 +1,98 @@
+#   Copyright (C) 2011, 2012  p12 <tir5c3@yahoo.co.uk>
+#
+#   This file is part of cppreference-doc
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see http://www.gnu.org/licenses/.
+
 SHELL := /bin/bash
 
 #Common prefixes
 
 prefix = /usr
 datarootdir = $(prefix)/share
-docdir = $(datarootdir)/cppreference/doc/en
-bookdir = $(datarootdir)/devhelp/books/cppreference-doc-en
+docdir = $(datarootdir)/cppreference/doc
+bookdir = $(datarootdir)/devhelp/books
 
 #Version
 
-VERSION=20120330
+VERSION=20120620
 
 #STANDARD RULES
 
 all: doc_devhelp doc_qch
 
 DISTFILES=	\
-		reference				\
-		images					\
+		reference/				\
+		images/					\
+		build_link_map.py		\
 		devhelp2qch.xsl			\
-		fix_devhelp-links.sh	\
 		fix_devhelp-links.xsl	\
-		fix_html.sh				\
-		fix_html-cleanup.xsl	\
-		fix_html-css.css		\
-		fix_html-httrack_meta.sed	\
+		httrack-workarounds.py	\
 		index2browser.xsl		\
 		index2devhelp.xsl		\
 		index2search.xsl		\
 		index2highlight.xsl		\
 		index_transform.xsl		\
-		index-chapters.xml		\
+		index-chapters-c.xml	\
+		index-chapters-cpp.xml	\
 		index-functions.README	\
+		index-functions-c.xml	\
 		index-functions-cpp.xml	\
+		preprocess.py			\
+		preprocess.xsl			\
+		preprocess-css.css		\
 		Makefile				\
 		README
 
 CLEANFILES= \
 		output								\
 		images/output						\
-		cppreference-doc-en.devhelp2		\
-		cppreference-doc-en.qch				\
-		qch-help-project.xml				\
+		cppreference-doc-en-c.devhelp2		\
+		cppreference-doc-en-cpp.devhelp2	\
+		cppreference-doc-en-c.qch			\
+		cppreference-doc-en-cpp.qch			\
+		qch-help-project-cpp.xml			\
 		qch-files.xml						\
-		devhelp-index.xml					\
-		devhelp-files.xml
+		devhelp-index-c.xml					\
+		devhelp-index-cpp.xml				\
+		link-map.xml
 
 clean:
 	rm -rf $(CLEANFILES)
 
 check:
 
-dist:
+dist: clean
 	mkdir -p "cppreference-doc-$(VERSION)"
 	cp -r $(DISTFILES) "cppreference-doc-$(VERSION)"
 	tar czf "cppreference-doc-$(VERSION).tar.gz" "cppreference-doc-$(VERSION)"
 	rm -rf "cppreference-doc-$(VERSION)"
 
 install:
-	# install the devhelp documentation (skip the ttf files)
+	# install the devhelp documentation
 	pushd "output" > /dev/null; \
-	find . -type f -not -iname "*.ttf" \
+	find . -type f \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
 	popd > /dev/null
 
-	install -DT -m 644 cppreference-doc-en.devhelp2 "$(DESTDIR)$(bookdir)/cppreference-doc-en.devhelp2"
+	install -DT -m 644 cppreference-doc-en-c.devhelp2 \
+		"$(DESTDIR)$(bookdir)/cppreference-doc-en-c/cppreference-doc-en-c.devhelp2"
+	install -DT -m 644 cppreference-doc-en-cpp.devhelp2 \
+		"$(DESTDIR)$(bookdir)/cppreference-doc-en-cpp/cppreference-doc-en-cpp.devhelp2"
 
 	# install the .qch (Qt Help) documentation
-	install -DT -m 644 cppreference-doc-en.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en.qch
+	install -DT -m 644 cppreference-doc-en-cpp.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en-cpp.qch
 
 uninstall:
 	rm -rf "$(DESTDIR)$(docdir)"
@@ -75,38 +100,43 @@ uninstall:
 
 #WORKER RULES
 
-doc_devhelp: cppreference-doc-en.devhelp2
+doc_devhelp: cppreference-doc-en-c.devhelp2 cppreference-doc-en-cpp.devhelp2
 
-doc_qch: cppreference-doc-en.qch
+doc_qch: cppreference-doc-en-cpp.qch
+
+#builds the title<->location map
+link-map.xml: output
+	./build_link_map.py
 
 #build the .devhelp2 index
-cppreference-doc-en.devhelp2: output
-	xsltproc --stringparam book-base $(docdir)/html \
-		index2devhelp.xsl index-functions-cpp.xml > devhelp-index.xml
+cppreference-doc-en-c.devhelp2: output link-map.xml
+	xsltproc --stringparam book-base $(docdir)/html 			\
+			 --stringparam chapters-file index-chapters-c.xml	\
+			 --stringparam title "C Standard Library reference"	\
+			 --stringparam name "cppreference-doc-en-c"	\
+			 index2devhelp.xsl index-functions-c.xml > devhelp-index-c.xml
+	xsltproc fix_devhelp-links.xsl devhelp-index-c.xml > cppreference-doc-en-c.devhelp2
 
-	#fix links in the .devhelp2 index
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "devhelp-files.xml"
-	pushd "output" > /dev/null;	\
-	find . -iname "*.html" \
-		-exec ../fix_devhelp-links.sh '{}' \; ; \
-	popd > /dev/null
-
-	echo "</files>" >> "devhelp-files.xml"
-
-	xsltproc fix_devhelp-links.xsl devhelp-index.xml > cppreference-doc-en.devhelp2
+cppreference-doc-en-cpp.devhelp2: output link-map.xml
+	xsltproc --stringparam book-base $(docdir)/html 			\
+			 --stringparam chapters-file index-chapters-cpp.xml	\
+			 --stringparam title "C++ Standard Library reference"	\
+			 --stringparam name "cppreference-doc-en-cpp"	\
+			 index2devhelp.xsl index-functions-cpp.xml > devhelp-index-cpp.xml
+	xsltproc fix_devhelp-links.xsl devhelp-index-cpp.xml > cppreference-doc-en-cpp.devhelp2
 
 #build the .qch (QT help) file
-cppreference-doc-en.qch: qch-help-project.xml
+cppreference-doc-en-cpp.qch: qch-help-project-cpp.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
-	cp qch-help-project.xml output/qch.xml
+	cp qch-help-project-cpp.xml output/qch.xml
 
 	pushd "output" > /dev/null; \
-	qhelpgenerator qch.xml -o "../cppreference-doc-en.qch"; \
+	qhelpgenerator qch.xml -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
 	rm -f output/qch.xml
 
-qch-help-project.xml: cppreference-doc-en.devhelp2
+qch-help-project-cpp.xml: cppreference-doc-en-cpp.devhelp2
 	#build the file list
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "qch-files.xml"
 
@@ -118,7 +148,7 @@ qch-help-project.xml: cppreference-doc-en.devhelp2
 	echo "</files>" >> "qch-files.xml"
 
 	#create the project (copies the file list)
-	xsltproc devhelp2qch.xsl cppreference-doc-en.devhelp2 > "qch-help-project.xml"
+	xsltproc devhelp2qch.xsl cppreference-doc-en-cpp.devhelp2 > "qch-help-project-cpp.xml"
 
 #create preprocessed archive
 output:
@@ -130,18 +160,13 @@ source:
 	mkdir "reference"
 
 	pushd "reference" > /dev/null; \
-	httrack http://en.cppreference.com/w/ -%k -%s -n -%q0 \
+	httrack http://en.cppreference.com/w/ -k --near --include-query-string \
 	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* \
 	  -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* \
 	  -*/Template:* -*/Category:* -*action=* -*printable=* \
 	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* \
-	  +*title=-&action=raw* --timeout=30 --retries=3 ;\
+	  -*MediaWiki:Geshi.css* "+*title=-&action=raw*" --timeout=180 --retries=10 ;\
 	popd > /dev/null
-
-	#httrack apparently continues as a background process in non-interactive shells.
-	#Wait for it to complete
-	while [[ ! -e "reference/hts-in_progress.lock" ]] ; do sleep 1; done
-	while [[ -e "reference/hts-in_progress.lock" ]] ; do sleep 3; done
 
 	#delete useless files
 	rm -rf "reference/hts-cache"
@@ -149,4 +174,7 @@ source:
 	rm -f "reference/fade.gif"
 	rm -f "reference/hts-log.txt"
 	rm -f "reference/index.html"
+
+	#download files that httrack has forgotten
+	./httrack-workarounds.py
 

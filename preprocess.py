@@ -79,6 +79,9 @@ for root, dirnames, filenames in os.walk('output'):
 r1 = re.compile('<!-- Added by HTTrack -->.*?<!-- \/Added by HTTrack -->')
 r2 = re.compile('<!-- Mirrored from .*?-->')
 
+#temporary fix
+r3 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)
+
 # clean the html files
 for fn in html_files:
     f = open(fn, "r")
@@ -87,23 +90,36 @@ for fn in html_files:
 
     text = r1.sub('', text);
     text = r2.sub('', text);
+    text = r3.sub('', text);
 
     f = open(fn, "w")
     f.write(text)
     f.close()
 
     tmpfile = fn + '.tmp';
-    os.system('xsltproc --novalid --html preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
+    os.system('xsltproc --novalid --html --encoding UTF-8 preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
     os.system('mv "' + tmpfile + '" "' + fn + '"')
 
 # append css modifications to the css files
+
+f = open("preprocess-css.css", "r")
+css_app = f.read()
+f.close()
+
 for fn in css_files:
     f = open(fn, "r")
     text = f.read()
     f.close()
 
-    r = re.compile('DejaVuSansMonoCondensed60')
-    if (r.search(text)):
+    text = text.replace('../DejaVuSansMonoCondensed60.ttf', 'DejaVuSansMonoCondensed60.ttf')
+    text = text.replace('../DejaVuSansMonoCondensed75.ttf', 'DejaVuSansMonoCondensed75.ttf')
+
+    if (re.search('DejaVuSansMonoCondensed60', text)):
         # assume this is minified MediaWiki:Common.css
         # append the modifications
-        os.system('cat preprocess-css.css >> "'+fn+'"')
+        text += css_app
+
+    f = open(fn, "w")
+    f.write(text)
+    f.close()
+

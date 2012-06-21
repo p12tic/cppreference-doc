@@ -3,7 +3,7 @@
     Copyright (C) 2012  p12 <tir5c3@yahoo.co.uk>
 
     This file is part of cppreference-doc
-    
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@
 
 <xsl:output indent="yes"/>
 
-<xsl:variable name="mapping" select="document('devhelp-files.xml')/files/*"/>
+<xsl:variable name="mapping" select="document('link-map.xml')/files/*"/>
 
 <xsl:template match="node()|@*">
   <xsl:copy>

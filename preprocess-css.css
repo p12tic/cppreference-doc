@@ -1,4 +1,13 @@
 /*place the content correctly*/
 div#content {
     margin: 0 0;
+    font-size: 1em;
+}
+
+div#bodyContent {
+    font-size: 1em;
+}
+
+body {
+    background-color: white;
 }
