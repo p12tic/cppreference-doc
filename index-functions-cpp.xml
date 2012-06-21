@@ -1199,9 +1199,9 @@
 
         <specialization name="std::common_type" link="common_type"/>
     </class>
-
-    <function name="std::time_point_cast" link="cpp/chrono/time_point/time_point_cast"/>
-
+    
+    <function name="std::chrono::time_point_cast" link="cpp/chrono/time_point/time_point_cast"/>
+    
     <class name="std::chrono::duration" link="cpp/chrono/duration">
         <constructor/>
         <destructor/>
@@ -1243,12 +1243,18 @@
     <typedef name="std::chrono::hours" alias="std::chrono::duration"/>
 
     <function name="std::chrono::duration_cast" link="cpp/chrono/duration/duration_cast"/>
+    
+    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/duration/treat_as_floating_point">
+    </class>
 
-    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/duration/treat_as_floating_point"><!--todo--></class>
-    <class name="std::chrono::duration_values" link="cpp/chrono/duration/duration_values"><!--todo--></class>
-
+    <class name="std::chrono::duration_values" link="cpp/chrono/duration/duration_values">
+        <function name="zero"/>
+        <function name="min"/>
+        <function name="max"/>
+    </class>
+    
     <class name="std::chrono::system_clock" link="cpp/chrono/system_clock">
-        <const name="is_steady"/>
+        <const name="is_steady" link="."/>
         <function name="now"/>
         <function name="to_time_t"/>
         <function name="from_time_t"/>
@@ -1260,7 +1266,7 @@
     </class>
 
     <class name="std::chrono::high_resolution_clock" link="cpp/chrono/high_resolution_clock">
-        <const name="is_steady"/>
+        <const name="is_steady" link="."/>
         <function name="now"/>
     </class>
 
