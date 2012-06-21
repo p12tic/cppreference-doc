@@ -1257,7 +1257,7 @@
     </class>
     
     <class name="std::chrono::system_clock" link="cpp/chrono/system_clock">
-        <const name="is_steady"/>
+        <const name="is_steady" link="."/>
         <function name="now"/>
         <function name="to_time_t"/>
         <function name="from_time_t"/>
@@ -1269,7 +1269,7 @@
     </class>
     
     <class name="std::chrono::high_resolution_clock" link="cpp/chrono/high_resolution_clock">
-        <const name="is_steady"/>
+        <const name="is_steady" link="."/>
         <function name="now"/>
     </class>
     
