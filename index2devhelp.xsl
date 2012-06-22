@@ -26,12 +26,13 @@
 <xsl:param name="chapters-file" select="''"/>
 <xsl:param name="title" select="''"/>
 <xsl:param name="name" select="''"/>
+<xsl:param name="link" select="''"/>
 
 <xsl:output indent="yes"/>
 
 <xsl:template match="/index">
   <book title="{$title}" name="{$name}"
-        base="{$book-base}" link="cpp" version="2" language="c++">
+        base="{$book-base}" link="{$link}" version="2" language="c++">
     <xsl:copy-of select="document($chapters-file)"/>
     <functions>
       <xsl:apply-templates mode="process-item" select="child::*"/>
