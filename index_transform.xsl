@@ -34,7 +34,7 @@
   name="output-item"
   
     Parameters
-      "name" - full name of teh feature
+      "name" - full name of the feature
       "link" - full link to the page of the feature relative to the wiki root
   
     Called to output the information about the feature to the resulting document.

@@ -2938,7 +2938,7 @@
     <function name="std::partial_sort" link="cpp/algorithm/partial_sort"/>
     <function name="std::partial_sort_copy" link="cpp/algorithm/partial_sort_copy"/>
     <function name="std::stable_sort" link="cpp/algorithm/stable_sort"/>
-    <function name="std::nht_element" link="cpp/algorithm/nth_element"/>
+    <function name="std::nth_element" link="cpp/algorithm/nth_element"/>
 
     <function name="std::lower_bound" link="cpp/algorithm/lower_bound"/>
     <function name="std::upper_bound" link="cpp/algorithm/upper_bound"/>
