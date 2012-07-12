@@ -3748,6 +3748,14 @@
         <function name="native_handle"/>
     </class>
 
+    <class name="std::defer_lock_t" link="cpp/thread/lock_tag_t"/>
+    <class name="std::try_to_lock_t" link="cpp/thread/lock_tag_t"/>
+    <class name="std::adopt_lock_t" link="cpp/thread/lock_tag_t"/>
+
+    <const name="std::defer_lock" link="cpp/thread/lock_tag"/>
+    <const name="std::try_to_lock" link="cpp/thread/lock_tag"/>
+    <const name="std::adopt_lock" link="cpp/thread/lock_tag"/>
+
     <class name="std::lock_guard" link="cpp/thread/lock_guard">
         <constructor/>
         <destructor/>
