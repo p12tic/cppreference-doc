@@ -1327,8 +1327,8 @@
         <overload name="operator&amp;" link="operator_logic2"/>
         <overload name="operator|" link="operator_logic2"/>
         <overload name="operator^" link="operator_logic2"/>
-        <overload name="operator&lt;lt;" link="operator_lltltgtgt2"/>
-        <overload name="operator&gt;gt;" link="operator_lltltgtgt2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt2"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt2"/>
 
         <specialization name="std::hash" link="hash"/>
     </class>
