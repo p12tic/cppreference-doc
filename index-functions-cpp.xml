@@ -2686,6 +2686,13 @@
 
     <function name="std::generate_canonical" link="cpp/numeric/random/generate_canonical"/>
 
+    <class name="std::seed_seq" link="cpp/numeric/random/seed_seq">
+        <constructor/>
+        <function name="generate"/>
+        <function name="size"/>
+        <function name="param"/>
+    </class>
+
     <class name="std::uniform_int_distribution" link="cpp/numeric/random/uniform_int_distribution">
         <constructor/>
         <function name="reset"/>
