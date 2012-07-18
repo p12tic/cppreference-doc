@@ -3993,4 +3993,32 @@
 
     <function name="std::async" link="cpp/thread/async"/>
 
+    <enum name="std::launch" link="cpp/thread/launch">
+        <const name="async" link="."/>
+        <const name="deferred" link="."/>
+    </enum>
+
+    <enum name="std::future_status" link="cpp/thread/future_status">
+        <const name="ready" link="."/>
+        <const name="timeout" link="."/>
+        <const name="deferred" link="."/>
+    </enum>
+
+    <class name="std::future_error" link="cpp/thread/future_error">
+        <inherits name="std::logic_error"/>
+        <constructor/>
+        <function name="code"/>
+        <function name="what"/>
+    </class>
+
+    <function name="std::future_category" link="cpp/thread/future_category"/>
+
+    <enum name="std::future_errc" link="cpp/thread/future_errc">
+        <const name="broken_promise" link="."/>
+        <const name="future_already_retrieved" link="."/>
+        <const name="promise_already_satisfied" link="."/>
+        <const name="no_state" link="."/>
+        <!-- todo helpers -->
+    </enum>
+
 </index>
