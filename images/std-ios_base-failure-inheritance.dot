@@ -1,0 +1,57 @@
+/*
+    Copyright (C) 2012  p12 <tir5c3@yahoo.co.uk>
+
+    This file is part of cppreference-doc
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+*/
+digraph inheritance {
+    rankdir=LR
+
+    graph [dpi = 65, bgcolor=transparent];
+    node [
+        shape = box,
+        fontname="DejaVu Sans, verdana, sans-serif", fontsize=14,
+        width=1.6, height=0.5,
+        style=filled, fillcolor=white
+    ];
+
+    e1 [
+        label = "exception",
+        tooltip = "std::exception",
+        URL="cpp/error/exception"
+    ];
+
+    e2 [
+        label = "runtime_error",
+        tooltip = "std::runtime_error",
+        URL="cpp/error/runtime_error"
+    ];
+
+    e3 [
+        label = "system_error",
+        tooltip = "std::system_error",
+        URL="cpp/error/system_error"
+    ];
+
+    e4 [
+        label = "ios_base::failure",
+        tooltip = "std::ios_base::failure",
+        fillcolor = lightgrey
+    ];
+
+    e1 -> e2;
+    e2 -> e3;
+    e3 -> e4;
+}​​
