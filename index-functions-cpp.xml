@@ -3677,7 +3677,18 @@
     </class>
 
     <class name="std::regex_traits" link="cpp/regex/regex_traits">
-        <!-- todo -->
+        <constructor/>
+        <function name="length"/>
+        <function name="translate"/>
+        <function name="translate_nocase"/>
+        <function name="transform"/>
+        <function name="transform_primary"/>
+        <function name="lookup_collatename"/>
+        <function name="lookup_classname"/>
+        <function name="isctype"/>
+        <function name="value"/>
+        <function name="imbue"/>
+        <function name="getloc"/>
     </class>
 
     <enum name="std::regex_constants::syntax_option_type" link="cpp/regex/syntax_option_type"/>
