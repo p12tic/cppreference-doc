@@ -19,6 +19,7 @@
 
 # this file contains the default graph options inserted by preprocess.py
 rankdir=RL
+ranksep=0.4;
 
 graph [dpi = 65, bgcolor=transparent];
 node [
@@ -28,5 +29,6 @@ node [
     style=filled, fillcolor=white
 ];
 edge [
-    arrowhead = empty
+    arrowhead = empty,
+    arrowsize = 1.5
 ];
