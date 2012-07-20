@@ -41,7 +41,7 @@ digraph inheritance {
         fillcolor=lightgrey
     ];
 
-    base -> ios;
-    ios -> ist;
-    ist -> isst;
+    ios -> base;
+    ist -> ios;
+    isst -> ist;
 }​​

@@ -32,5 +32,5 @@ digraph inheritance {
         fillcolor = lightgrey
     ];
 
-    e1 -> e2;
+    e2 -> e1;
 }​​

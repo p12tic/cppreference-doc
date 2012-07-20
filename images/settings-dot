@@ -18,7 +18,7 @@
 */
 
 # this file contains the default graph options inserted by preprocess.py
-rankdir=LR
+rankdir=RL
 
 graph [dpi = 65, bgcolor=transparent];
 node [
@@ -26,4 +26,7 @@ node [
     fontname="DejaVu Sans, verdana, sans-serif", fontsize=14,
     width=1.6, height=0.5,
     style=filled, fillcolor=white
+];
+edge [
+    arrowhead = empty
 ];

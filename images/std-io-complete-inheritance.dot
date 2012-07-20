@@ -19,7 +19,7 @@
 digraph inheritance {
     @SETTINGS@
 
-    rankdir=UD
+    rankdir=BT
 
     base [
         label = "ios_base",
@@ -83,17 +83,17 @@ digraph inheritance {
         URL="cpp/io/basic_stringstream"
     ];
 
-    base -> ios;
-    ios -> ist;
-    ios -> ost;
-    ist -> iost;
-    ist -> ifst;
-    ist -> isst;
-    ost -> iost;
-    ost -> ofst;
-    ost -> osst;
-    iost -> fst;
-    iost -> sst;
+    ios -> base;
+    ist -> ios;
+    ost -> ios;
+    iost -> ist;
+    ifst -> ist;
+    isst -> ist;
+    iost -> ost;
+    ofst -> ost;
+    osst -> ost;
+    fst -> iost;
+    sst -> iost;
 
     {rank = same; ofst -> ifst [style=invis]}
     {rank = same; ofst -> fst [style=invis]}
