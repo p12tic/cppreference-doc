@@ -16,21 +16,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
 */
-digraph inheritance {
 
-    @SETTINGS@
+# this file contains the default graph options inserted by preprocess.py
+rankdir=LR
 
-    e1 [
-        label = "exception",
-        tooltip = "std::exception",
-        URL="cpp/error/exception"
-    ];
-
-    e2 [
-        label = "bad_alloc",
-        tooltip = "std::bad_alloc",
-        fillcolor = lightgrey
-    ];
-
-    e1 -> e2;
-}​​
+graph [dpi = 65, bgcolor=transparent];
+node [
+    shape = box,
+    fontname="DejaVu Sans, verdana, sans-serif", fontsize=14,
+    width=1.6, height=0.5,
+    style=filled, fillcolor=white
+];

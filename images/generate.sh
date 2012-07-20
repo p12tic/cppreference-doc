@@ -24,17 +24,21 @@ do
     outfile="output/$i.svg"
     mapfile="output/$i.map"
     wikimapfile="output/$i.wikimap"
-    tmpfile="output/$i.tmp"
-    dot -Tsvg -o$tmpfile $infile
-    xsltproc --novalid fix_svg-dot.xsl $tmpfile > $outfile
-    dot -Timap $infile | sed 1d | awk '{sub(/,/, " ", $3); sub(/,/, " ", $4); print $1" "$3" "$4" [["$2"]]"; };' > $mapfile
+    tmpsvgfile="output/$i.tmpsvg"
+    tmpdotfile="output/$i.tmpdot"
+
+    python preprocess.py $infile $tmpdotfile
+    dot -Tsvg -o$tmpsvgfile $tmpdotfile
+    xsltproc --novalid fix_svg-dot.xsl $tmpsvgfile > $outfile
+    dot -Timap $tmpdotfile | sed 1d | awk '{sub(/,/, " ", $3); sub(/,/, " ", $4); print $1" "$3" "$4" [["$2"]]"; };' > $mapfile
 
     wikiimage=$(echo $i | sed 's/\.\///' | sed 's/\.dot//')
     echo "{{inheritance diagram|image=$wikiimage.svg|map=" > $wikimapfile
     cat $mapfile >> $wikimapfile
     echo "}}" >> $wikimapfile
 
-    rm $tmpfile
+    rm $tmpsvgfile
+    rm $tmpdotfile
 done
 
 python math.py

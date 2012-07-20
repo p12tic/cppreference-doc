@@ -17,15 +17,9 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 */
 digraph inheritance {
-    rankdir=UD
+    @SETTINGS@
 
-    graph [dpi = 65, bgcolor=transparent];
-    node [
-        shape = box,
-        fontname="DejaVu Sans, verdana, sans-serif", fontsize=14,
-        width=1.6, height=0.5,
-        style=filled, fillcolor=white
-    ];
+    rankdir=UD
 
     base [
         label = "ios_base",
