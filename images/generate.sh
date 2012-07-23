@@ -33,7 +33,7 @@ do
     dot -Timap $tmpdotfile | sed 1d | awk '{sub(/,/, " ", $3); sub(/,/, " ", $4); print $1" "$3" "$4" [["$2"]]"; };' > $mapfile
 
     wikiimage=$(echo $i | sed 's/\.\///' | sed 's/\.dot//')
-    echo "{{inheritance diagram|image=$wikiimage.svg|map=" > $wikimapfile
+    echo "{{inheritance diagram|image=$wikiimage.svg|notes={{{notes|}}}|map=" > $wikimapfile
     cat $mapfile >> $wikimapfile
     echo "}}" >> $wikimapfile
 
