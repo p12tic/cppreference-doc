@@ -17,22 +17,28 @@
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
 mkdir -p "output"
+mkdir -p "output/inheritance"
 
-for i in $(find -iname "*.dot")
+for i in $(find inheritance -iname "*.dot")
 do
-    infile="$i"
-    outfile="output/$i.svg"
-    mapfile="output/$i.map"
-    wikimapfile="output/$i.wikimap"
-    tmpsvgfile="output/$i.tmpsvg"
-    tmpdotfile="output/$i.tmpdot"
 
-    python preprocess.py $infile $tmpdotfile
+    o=${i#*/}
+
+    outdir="output/inheritance/"
+    infile="$i"
+    setfile="inheritance/settings-dot"
+    outfile="$outdir/$o.svg"
+    mapfile="$outdir/$o.map"
+    wikimapfile="$outdir/$o.wikimap"
+    tmpsvgfile="$outdir/$o.tmpsvg"
+    tmpdotfile="$outdir/$o.tmpdot"
+
+    python preprocess.py $infile $setfile $tmpdotfile
     dot -Tsvg -o$tmpsvgfile $tmpdotfile
     xsltproc --novalid fix_svg-dot.xsl $tmpsvgfile > $outfile
     dot -Timap $tmpdotfile | sed 1d | awk '{sub(/,/, " ", $3); sub(/,/, " ", $4); print $1" "$3" "$4" [["$2"]]"; };' > $mapfile
 
-    wikiimage=$(echo $i | sed 's/\.\///' | sed 's/\.dot//')
+    wikiimage=$(echo $o | sed 's/\.\///' | sed 's/\.dot//')
     echo "{{inheritance diagram|image=$wikiimage.svg|notes={{{notes|}}}|map=" > $wikimapfile
     cat $mapfile >> $wikimapfile
     echo "}}" >> $wikimapfile

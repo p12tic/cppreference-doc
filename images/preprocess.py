@@ -20,14 +20,16 @@
 import re
 import sys
 
-if len(sys.argv) != 3:
+if len(sys.argv) != 4:
     print "Wrong usage"
+    print "First argument - source dot file"
+    print "Second argument - settings dot file"
+    print "Third argument - output dot file"
     sys.exit(-1)
 
 inf = open(sys.argv[1], 'r')
-outf = open(sys.argv[2], 'w')
-
-setf = open('settings-dot', 'r')
+setf = open(sys.argv[2], 'r')
+outf = open(sys.argv[3], 'w')
 
 itext = inf.read()
 inf.close()
