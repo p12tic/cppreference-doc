@@ -2226,9 +2226,9 @@
         <function name="equal_range"/>
 
         <function name="begin(int)"/>
-        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="cbegin(int)" link="begin2"/>
         <function name="end(int)"/>
-        <function name="cend(int)" link="end(int)"/>
+        <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
         <function name="max_bucket_count"/>
@@ -2276,9 +2276,9 @@
         <function name="equal_range"/>
 
         <function name="begin(int)"/>
-        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="cbegin(int)" link="begin2"/>
         <function name="end(int)"/>
-        <function name="cend(int)" link="end(int)"/>
+        <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
         <function name="max_bucket_count"/>
@@ -2328,9 +2328,9 @@
         <function name="equal_range"/>
 
         <function name="begin(int)"/>
-        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="cbegin(int)" link="begin2"/>
         <function name="end(int)"/>
-        <function name="cend(int)" link="end(int)"/>
+        <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
         <function name="max_bucket_count"/>
@@ -2378,9 +2378,9 @@
         <function name="equal_range"/>
 
         <function name="begin(int)"/>
-        <function name="cbegin(int)" link="begin(int)"/>
+        <function name="cbegin(int)" link="begin2"/>
         <function name="end(int)"/>
-        <function name="cend(int)" link="end(int)"/>
+        <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
         <function name="max_bucket_count"/>
