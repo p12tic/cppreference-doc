@@ -418,8 +418,8 @@
     <const name="DBL_MAX_10_EXP" link="cpp/types/climits"/>
     <const name="LDBL_MAX_10_EXP" link="cpp/types/climits"/>
 
-    <const name="FLT_ROUNDS" link="cpp/types/climits"/>
-    <const name="FLT_EVAL_METHOD" link="cpp/types/climits"/>
+    <const name="FLT_ROUNDS" link="cpp/types/climits/FLT_ROUNDS"/>
+    <const name="FLT_EVAL_METHOD" link="cpp/types/climits/FLT_EVAL_METHOD"/>
 
         <!-- RTTI -->
 

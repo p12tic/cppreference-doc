@@ -366,8 +366,8 @@
     <const name="DBL_MAX_10_EXP" link="c/types/limits"/>
     <const name="LDBL_MAX_10_EXP" link="c/types/limits"/>
 
-    <const name="FLT_ROUNDS" link="c/types/limits"/>
-    <const name="FLT_EVAL_METHOD" link="c/types/limits"/>
+    <const name="FLT_ROUNDS" link="c/types/limits/FLT_ROUNDS"/>
+    <const name="FLT_EVAL_METHOD" link="c/types/limits/FLT_EVAL_METHOD"/>
 
     <!--=======================================================================-->
     <!-- c/memory -->
