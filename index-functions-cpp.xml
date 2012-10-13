@@ -592,7 +592,7 @@
     <function name="std::front_inserter" link="cpp/iterator/front_inserter"/>
     <function name="std::inserter" link="cpp/iterator/inserter"/>
 
-    <class name="std::istream_iterator" link="cpp/iterator/istream_iterator"/>
+    <class name="std::istream_iterator" link="cpp/iterator/istream_iterator">
         <!-- todo -->
     </class>
     <class name="std::istreambuf_iterator" link="cpp/iterator/istreambuf_iterator">
@@ -3849,7 +3849,7 @@
 
         <function name="operator+=" link="operator_arith2"/>
         <function name="operator-=" link="operator_arith2"/>
-        <function name="operator&=" link="operator_arith2"/>
+        <function name="operator&amp;=" link="operator_arith2"/>
         <function name="operator|=" link="operator_arith2"/>
         <function name="operator^=" link="operator_arith2"/>
     </class>
