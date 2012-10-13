@@ -3785,7 +3785,32 @@
     <!-- cpp/atomic -->
 
     <class name="std::atomic" link="cpp/atomic/atomic">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+        <function name="is_lock_free"/>
+        <function name="store"/>
+        <function name="load"/>
+        <function name="operator T"/>
+        <function name="exchange"/>
+        <function name="compare_exchange_strong" link="compare_exchange"/>
+        <function name="compare_exchange_weak" link="compare_exchange"/>
+
+        <function name="fetch_add"/>
+        <function name="fetch_sub"/>
+        <function name="fetch_and"/>
+        <function name="fetch_or"/>
+        <function name="fetch_xor"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+
+        <function name="operator+=" link="operator_arith2"/>
+        <function name="operator-=" link="operator_arith2"/>
+        <function name="operator&=" link="operator_arith2"/>
+        <function name="operator|=" link="operator_arith2"/>
+        <function name="operator^=" link="operator_arith2"/>
     </class>
 
     <function name="std::atomic_is_lock_free" link="cpp/atomic/atomic_is_lock_free"/>
