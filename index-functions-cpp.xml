@@ -1225,6 +1225,12 @@
         <function name="operator/=" link="operator_arith3"/>
         <function name="operator%=" link="operator_arith3"/>
 
+        <overload name="operator+" link="operator_arith4"/>
+        <overload name="operator-" link="operator_arith4"/>
+        <overload name="operator*" link="operator_arith4"/>
+        <overload name="operator/" link="operator_arith4"/>
+        <overload name="operator%" link="operator_arith4"/>
+
         <overload name="operator==" link="operator_cmp"/>
         <overload name="operator!=" link="operator_cmp"/>
         <overload name="operator&lt;" link="operator_cmp"/>
