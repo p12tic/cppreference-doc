@@ -2569,6 +2569,14 @@
     <const name="HUGE_VAL" link="cpp/numeric/math/HUGE_VAL"/>
     <const name="HUGE_VALF" link="cpp/numeric/math/HUGE_VAL"/>
     <const name="HUGE_VALL" link="cpp/numeric/math/HUGE_VAL"/>
+
+    <const name="INFINITY" link="cpp/numeric/math/INFINITY"/>
+    <const name="NAN" link="cpp/numeric/math/NAN"/>
+
+    <const name="math_errhandling" link="cpp/numeric/math/math_errhandling"/>
+    <const name="MATH_ERRNO" link="cpp/numeric/math/math_errhandling"/>
+    <const name="MATH_ERREXCEPT" link="cpp/numeric/math/math_errhandling"/>
+
     <const name="FP_INFINITE" link="cpp/numeric/math/FP_categories"/>
     <const name="FP_NAN" link="cpp/numeric/math/FP_categories"/>
     <const name="FP_NORMAL" link="cpp/numeric/math/FP_categories"/>
