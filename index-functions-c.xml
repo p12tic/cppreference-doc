@@ -463,7 +463,7 @@
     <const name="EXDEV" link="c/error/errno_macros"/>
 
     <!--=======================================================================-->
-    <!-- cS/variadic -->
+    <!-- c/variadic -->
 
     <!-- todo -->
 
@@ -783,6 +783,84 @@
     <function name="rand" link="c/numeric/random/rand"/>
     <const name="MAX_RANDOM" link="c/numeric/random/MAX_RANDOM"/>
 
+    <!-- cpp/numeric/random -->
+
+    <const name="complex"/>
+    <const name="Complex_I"/>
+    <const name="imaginary"/>
+    <const name="Imaginary_I"/>
+    <const name="I"/>
+
+    <function name="CMPLX" link="CMPLX"/>
+    <function name="CMPLXF" link="CMPLX"/>
+    <function name="CMPLXL" link="CMPLX"/>
+    <function name="cimag" link="cimag"/>
+    <function name="cimagf" link="cimag"/>
+    <function name="cimagl" link="cimag"/>
+    <function name="creal" link="creal"/>
+    <function name="crealf" link="creal"/>
+    <function name="creall" link="creal"/>
+    <function name="carg" link="carg"/>
+    <function name="cargf" link="carg"/>
+    <function name="cargl" link="carg"/>
+    <function name="conj" link="conj"/>
+    <function name="conjf" link="conj"/>
+    <function name="conjl" link="conj"/>
+    <function name="cproj" link="cproj"/>
+    <function name="cprojf" link="cproj"/>
+    <function name="cprojl" link="cproj"/>
+    <function name="cabs" link="cabs"/>
+    <function name="cabsf" link="cabs"/>
+    <function name="cabsl" link="cabs"/>
+    <function name="cexp" link="cexp"/>
+    <function name="cexpf" link="cexp"/>
+    <function name="cexpl" link="cexp"/>
+    <function name="clog" link="clog"/>
+    <function name="clogf" link="clog"/>
+    <function name="clogl" link="clog"/>
+    <function name="cpow" link="cpow"/>
+    <function name="cpowf" link="cpow"/>
+    <function name="cpowl" link="cpow"/>
+    <function name="csqrt" link="csqrt"/>
+    <function name="csqrtf" link="csqrt"/>
+    <function name="csqrtl" link="csqrt"/>
+    <function name="cacos" link="cacos"/>
+    <function name="cacosf" link="cacos"/>
+    <function name="cacosl" link="cacos"/>
+    <function name="casin" link="casin"/>
+    <function name="casinf" link="casin"/>
+    <function name="casinl" link="casin"/>
+    <function name="catan" link="catan"/>
+    <function name="catanf" link="catan"/>
+    <function name="catanl" link="catan"/>
+    <function name="ccos" link="ccos"/>
+    <function name="ccosf" link="ccos"/>
+    <function name="ccosl" link="ccos"/>
+    <function name="csin" link="csin"/>
+    <function name="csinf" link="csin"/>
+    <function name="csinl" link="csin"/>
+    <function name="ctan" link="ctan"/>
+    <function name="ctanf" link="ctan"/>
+    <function name="ctanl" link="ctan"/>
+    <function name="cacosh" link="cacosh"/>
+    <function name="cacoshf" link="cacosh"/>
+    <function name="cacoshl" link="cacosh"/>
+    <function name="casinh" link="casinh"/>
+    <function name="casinhf" link="casinh"/>
+    <function name="casinhl" link="casinh"/>
+    <function name="catanh" link="catanh"/>
+    <function name="catanhf" link="catanh"/>
+    <function name="catanhl" link="catanh"/>
+    <function name="ccosh" link="ccosh"/>
+    <function name="ccoshf" link="ccosh"/>
+    <function name="ccoshl" link="ccosh"/>
+    <function name="csinh" link="csinh"/>
+    <function name="csinhf" link="csinh"/>
+    <function name="csinhl" link="csinh"/>
+    <function name="ctanh" link="ctanh"/>
+    <function name="ctanhf" link="ctanh"/>
+    <function name="ctanhl" link="ctanh"/>
+
     <!-- cpp/algorithm -->
 
     <function name="qsort" link="c/algorithm/qsort"/>
@@ -1022,7 +1100,7 @@
     <const name="thread_local" link="c/thread/thread_local"/>
     <const name="TSS_DTOR_ITERATIONS" link="c/thread/TSS_DTOR_ITERATIONS"/>
     <typedef name="tss_t" link="c/thread"/>
-    <typedef name="tss_dtor_t"/>
+    <typedef name="tss_dtor_t" link="c/thread"/>
 
     <function name="tss_create" link="c/thread/tss_create"/>
     <function name="tss_get" link="c/thread/tss_get"/>
