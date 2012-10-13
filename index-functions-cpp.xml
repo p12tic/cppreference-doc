@@ -3729,7 +3729,14 @@
     <function name="std::regex_replace" link="cpp/regex/regex_replace"/>
 
     <class name="std::regex_iterator" link="cpp/regex/regex_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
     </class>
 
     <typedef name="std::cregex_iterator" alias="std::regex_iterator"/>
@@ -3738,7 +3745,14 @@
     <typedef name="std::wsregex_iterator" alias="std::regex_iterator"/>
 
     <class name="std::regex_token_iterator" link="cpp/regex/regex_token_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
     </class>
 
     <typedef name="std::cregex_token_iterator" alias="std::regex_token_iterator"/>
@@ -3915,7 +3929,15 @@
 
     <class name="std::thread::id" link="cpp/thread/thread/id">
         <constructor/>
-        <!--todo-->
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        <function name="operator&lt;" link="operator_cmp"/>
+        <function name="operator&lt;=" link="operator_cmp"/>
+        <function name="operator&gt;" link="operator_cmp"/>
+        <function name="operator&gt;=" link="operator_cmp"/>
+        <function name="operator&lt;&lt;" link="operator_ltlt"/>
+
+        <specialization name="std::hash" link="hash"/>
     </class>
 
     <function name="std::this_thread::get_id" link="cpp/thread/get_id"/>
@@ -4119,7 +4141,10 @@
         <const name="future_already_retrieved" link="."/>
         <const name="promise_already_satisfied" link="."/>
         <const name="no_state" link="."/>
-        <!-- todo helpers -->
+
+        <specialization name="std::is_error_code_enum" link="is_error_code_enum"/>
+        <overload name="std::make_error_code" link="make_error_code"/>
+        <overload name="std::make_error_condition" link="make_error_condition"/>
     </enum>
 
 </index>
