@@ -880,4 +880,96 @@
     <function name="localeconv" link="c/locale/localeconv"/>
     <class name="lconv" link="c/locale/lconv"/>
 
+    <!-- c/atomic -->
+
+    <enum name="memory_order" link="c/atomic/memory_order"/>
+    <const name="memory_order_relaxed" link="c/atomic/memory_order"/>
+    <const name="memory_order_consume" link="c/atomic/memory_order"/>
+    <const name="memory_order_acquire" link="c/atomic/memory_order"/>
+    <const name="memory_order_release" link="c/atomic/memory_order"/>
+    <const name="memory_order_acq_rel" link="c/atomic/memory_order"/>
+    <const name="memory_order_seq_cst" link="c/atomic/memory_order"/>
+    <typedef name="atomic_flag" link="c/atomic/atomic_flag"/>
+
+    <const name="ATOMIC_BOOL_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_CHAR_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_CHAR16_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_CHAR32_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_WCHAR_T_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_SHORT_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_INT_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_LONG_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_LLONG_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+    <const name="ATOMIC_POINTER_LOCK_FREE" link="c/atomic/ATOMIC_LOCK_FREE_consts"/>
+
+    <const name="ATOMIC_FLAG_INIT" link="c/atomic/ATOMIC_FLAG_INIT"/>
+    <function name="ATOMIC_VAR_INIT" link="c/atomic/ATOMIC_VAR_INIT"/>
+    <function name="kill_dependency" link="c/atomic/kill_dependency"/>
+
+    <function name="atomic_load_test_and_set" link="c/atomic/atomic_load_test_and_set"/>
+    <function name="atomic_load_test_and_set_explicit" link="c/atomic/atomic_load_test_and_set"/>
+    <function name="atomic_flag_clear"/>
+    <function name="atomic_init" link="c/atomic/atomic_init"/>
+    <function name="atomic_is_lock_free" link="c/atomic/atomic_is_lock_free"/>
+
+    <function name="atomic_store" link="c/atomic/atomic_store"/>
+    <function name="atomic_store_explicit" link="c/atomic/atomic_store"/>
+    <function name="atomic_load" link="c/atomic/atomic_load"/>
+    <function name="atomic_load_explicit" link="c/atomic/atomic_load"/>
+    <function name="atomic_exchange" link="c/atomic/atomic_exchange"/>
+    <function name="atomic_exchange_explicit" link="c/atomic/atomic_exchange"/>
+    <function name="atomic_compare_exchange_weak" link="c/atomic/atomic_compare_exchange"/>
+    <function name="atomic_compare_exchange_weak_explicit" link="c/atomic/atomic_compare_exchange"/>
+    <function name="atomic_compare_exchange_strong" link="c/atomic/atomic_compare_exchange"/>
+    <function name="atomic_compare_exchange_strong_explicit" link="c/atomic/atomic_compare_exchange"/>
+    <function name="atomic_fetch_add" link="c/atomic/atomic_fetch_add"/>
+    <function name="atomic_fetch_add_explicit" link="c/atomic/atomic_fetch_add"/>
+    <function name="atomic_fetch_sub" link="c/atomic/atomic_fetch_sub"/>
+    <function name="atomic_fetch_sub_explicit" link="c/atomic/atomic_fetch_sub"/>
+    <function name="atomic_fetch_or" link="c/atomic/atomic_fetch_or"/>
+    <function name="atomic_fetch_or_explicit" link="c/atomic/atomic_fetch_or"/>
+    <function name="atomic_fetch_xor" link="c/atomic/atomic_fetch_xor"/>
+    <function name="atomic_fetch_xor_explicit" link="c/atomic/atomic_fetch_xor"/>
+    <function name="atomic_fetch_and" link="c/atomic/atomic_fetch_and"/>
+    <function name="atomic_fetch_and_explicit" link="c/atomic/atomic_fetch_and"/>
+    <function name="atomic_thread_fence" link="c/atomic/atomic_thread_fence"/>
+    <function name="atomic_signal_fence" link="c/atomic/atomic_signal_fence"/>
+
+    <typedef name="atomic_bool" link="c/atomic"/>
+    <typedef name="atomic_char" link="c/atomic"/>
+    <typedef name="atomic_schar" link="c/atomic"/>
+    <typedef name="atomic_uchar" link="c/atomic"/>
+    <typedef name="atomic_short" link="c/atomic"/>
+    <typedef name="atomic_ushort" link="c/atomic"/>
+    <typedef name="atomic_int" link="c/atomic"/>
+    <typedef name="atomic_uint" link="c/atomic"/>
+    <typedef name="atomic_long" link="c/atomic"/>
+    <typedef name="atomic_ulong" link="c/atomic"/>
+    <typedef name="atomic_llong" link="c/atomic"/>
+    <typedef name="atomic_ullong" link="c/atomic"/>
+    <typedef name="atomic_char16_t" link="c/atomic"/>
+    <typedef name="atomic_char32_t" link="c/atomic"/>
+    <typedef name="atomic_wchar_t" link="c/atomic"/>
+    <typedef name="atomic_int_least8_t" link="c/atomic"/>
+    <typedef name="atomic_uint_least8_t" link="c/atomic"/>
+    <typedef name="atomic_int_least16_t" link="c/atomic"/>
+    <typedef name="atomic_uint_least16_t" link="c/atomic"/>
+    <typedef name="atomic_int_least32_t" link="c/atomic"/>
+    <typedef name="atomic_uint_least32_t" link="c/atomic"/>
+    <typedef name="atomic_int_least64_t" link="c/atomic"/>
+    <typedef name="atomic_uint_least64_t" link="c/atomic"/>
+    <typedef name="atomic_int_fast8_t" link="c/atomic"/>
+    <typedef name="atomic_uint_fast8_t" link="c/atomic"/>
+    <typedef name="atomic_int_fast16_t" link="c/atomic"/>
+    <typedef name="atomic_uint_fast16_t" link="c/atomic"/>
+    <typedef name="atomic_int_fast32_t" link="c/atomic"/>
+    <typedef name="atomic_uint_fast32_t" link="c/atomic"/>
+    <typedef name="atomic_int_fast64_t" link="c/atomic"/>
+    <typedef name="atomic_uint_fast64_t" link="c/atomic"/>
+    <typedef name="atomic_intprt_t" link="c/atomic"/>
+    <typedef name="atomic_uintprt_t" link="c/atomic"/>
+    <typedef name="atomic_size_t" link="c/atomic"/>
+    <typedef name="atomic_ptrdiff_t" link="c/atomic"/>
+    <typedef name="atomic_intmax_t" link="c/atomic"/>
+    <typedef name="atomic_uintmax_t" link="c/atomic"/>
 </index>
