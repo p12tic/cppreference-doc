@@ -3138,8 +3138,51 @@
         <function name="pbackfail"/>
     </class>
 
-    <class name="std::basic_filebuf" link="cpp/io/basic_filebuf"><!--TODO--></class>
-    <class name="std::basic_stringbuf" link="cpp/io/basic_stringbuf"><!--TODO--></class>
+    <class name="std::basic_filebuf" link="cpp/io/basic_filebuf">
+        <inherits name="std::basic_streambuf"/>
+
+        <constructor/>
+        <destructor/>
+
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="str"/>
+
+        <function name="is_open"/>
+        <function name="open"/>
+        <function name="close"/>
+
+        <function name="showmanyc"/>
+        <function name="underflow"/>
+        <function name="uflow"/>
+        <function name="pbackfail"/>
+        <function name="overflow"/>
+        <function name="setbuf"/>
+        <function name="seekoff"/>
+        <function name="seekpos"/>
+        <function name="sync"/>
+        <function name="imbue"/>
+
+        <overload name="std::swap" link="swap2"/>
+    </class>
+
+    <class name="std::basic_stringbuf" link="cpp/io/basic_stringbuf">
+        <inherits name="std::basic_streambuf"/>
+
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+        <function name="str"/>
+
+        <function name="underflow"/>
+        <function name="pbackfail"/>
+        <function name="overflow"/>
+        <function name="setbuf"/>
+        <function name="seekoff"/>
+        <function name="seekpos"/>
+
+        <overload name="std::swap" link="swap2"/>
+    </class>
 
     <class name="std::ios_base" link="cpp/io/ios_base">
         <constructor/>
