@@ -972,4 +972,61 @@
     <typedef name="atomic_ptrdiff_t" link="c/atomic"/>
     <typedef name="atomic_intmax_t" link="c/atomic"/>
     <typedef name="atomic_uintmax_t" link="c/atomic"/>
+
+        <!-- c/thread -->
+
+    <typedef name="thrd_t" link="c/thread"/>
+    <function name="thrd_create" link="c/thread/thrd_create"/>
+    <function name="thrd_equal" link="c/thread/thrd_equal"/>
+    <function name="thrd_current" link="c/thread/thrd_current"/>
+    <function name="thrd_sleep" link="c/thread/thrd_sleep"/>
+    <function name="thrd_yield" link="c/thread/thrd_yield"/>
+    <function name="thrd_exit" link="c/thread/thrd_exit"/>
+    <function name="thrd_detach" link="c/thread/thrd_detach"/>
+    <function name="thrd_join" link="c/thread/thrd_join"/>
+
+    <const name="thrd_success" link="c/thread/thrd_errors"/>
+    <const name="thrd_timeout" link="c/thread/thrd_errors"/>
+    <const name="thrd_busy" link="c/thread/thrd_errors"/>
+    <const name="thrd_nomem" link="c/thread/thrd_errors"/>
+    <const name="thrd_error" link="c/thread/thrd_errors"/>
+
+    <typedef name="thrd_start_t" link="c/thread"/>
+
+    <typedef name="mtx_t" link="c/thread"/>
+    <function name="mtx_init" link="c/thread/mtx_init"/>
+    <function name="mtx_lock" link="c/thread/mtx_lock"/>
+    <function name="mtx_timedlock" link="c/thread/mtx_timedlock"/>
+    <function name="mtx_trylock" link="c/thread/mtx_trylock"/>
+    <function name="mtx_unlock" link="c/thread/mtx_unlock"/>
+    <function name="mtx_destroy" link="c/thread/mtx_destroy"/>
+
+    <const name="mtx_plain" link="c/thread/mtx_types"/>
+    <const name="mtx_recursive" link="c/thread/mtx_types"/>
+    <const name="mtx_timed" link="c/thread/mtx_types"/>
+
+    <typedef name="thrd_start_t" link="c/thread"/>
+
+    <typedef name="once_flag" link="c/thread"/>
+    <const name="ONCE_FLAG_INIT" link="c/thread/ONCE_FLAG_INIT"/>
+    <function name="call_once" link="c/thread/call_once"/>
+
+    <typedef name="cnd_t" link="c/thread"/>
+    <function name="cnd_init" link="c/thread/cnd_init"/>
+    <function name="cnd_signal" link="c/thread/cnd_signal"/>
+    <function name="cnd_broadcast" link="c/thread/cnd_broadcast"/>
+    <function name="cnd_wait" link="c/thread/cnd_wait"/>
+    <function name="cnd_timedwait" link="c/thread/cnd_timedwait"/>
+    <function name="cnd_destroy" link="c/thread/cnd_destroy"/>
+
+    <const name="thread_local" link="c/thread/thread_local"/>
+    <const name="TSS_DTOR_ITERATIONS" link="c/thread/TSS_DTOR_ITERATIONS"/>
+    <typedef name="tss_t" link="c/thread"/>
+    <typedef name="tss_dtor_t"/>
+
+    <function name="tss_create" link="c/thread/tss_create"/>
+    <function name="tss_get" link="c/thread/tss_get"/>
+    <function name="tss_set" link="c/thread/tss_set"/>
+    <function name="tss_delete" link="c/thread/tss_delete"/>
+
 </index>
