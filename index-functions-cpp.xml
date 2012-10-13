@@ -775,7 +775,7 @@
         <function name="operator="/>
         <function name="reset"/>
         <function name="swap"/>
-        <function name="uset_count"/>
+        <function name="use_count"/>
         <function name="expired"/>
         <function name="lock"/>
         <function name="owner_before"/>
@@ -1030,7 +1030,7 @@
     <function name="std::make_error_condition" link="cpp/error/make_error_condition"/>
     <function name="std::is_error_condition_enum" link="cpp/error/is_error_condition_enum"/>
 
-    <class name="std::err_c" link="cpp/error/err_c">
+    <class name="std::errc" link="cpp/error/errc">
         <const name="address_family_not_supported" link="."/>
         <const name="address_in_use" link="."/>
         <const name="address_not_available" link="."/>
@@ -1381,7 +1381,7 @@
         <function name="operator()" link="."/>
     </class>
 
-    <class name="std::negates" link="cpp/utility/functional/negates">
+    <class name="std::negate" link="cpp/utility/functional/negate">
         <function name="operator()" link="."/>
     </class>
 
@@ -1723,7 +1723,7 @@
 
         <function name="empty"/>
         <function name="size"/>
-        <function name="length"/>
+        <function name="length" link="size"/>
         <function name="max_size"/>
         <function name="reserve"/>
         <function name="capacity"/>
@@ -1925,7 +1925,7 @@
         <function name="emplace_back"/>
         <function name="pop_back"/>
         <function name="push_front"/>
-        <function name="pemplace_front"/>
+        <function name="emplace_front"/>
         <function name="pop_front"/>
         <function name="resize"/>
         <function name="swap"/>
@@ -2250,9 +2250,9 @@
         <function name="find"/>
         <function name="equal_range"/>
 
-        <function name="begin(int)"/>
+        <function name="begin(int)" link="begin2"/>
         <function name="cbegin(int)" link="begin2"/>
-        <function name="end(int)"/>
+        <function name="end(int)" link="end2"/>
         <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
@@ -2300,9 +2300,9 @@
         <function name="find"/>
         <function name="equal_range"/>
 
-        <function name="begin(int)"/>
+        <function name="begin(int)" link="begin2"/>
         <function name="cbegin(int)" link="begin2"/>
-        <function name="end(int)"/>
+        <function name="end(int)" link="end2"/>
         <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
@@ -2352,9 +2352,9 @@
         <function name="find"/>
         <function name="equal_range"/>
 
-        <function name="begin(int)"/>
+        <function name="begin(int)" link="begin2"/>
         <function name="cbegin(int)" link="begin2"/>
-        <function name="end(int)"/>
+        <function name="end(int)" link="end2"/>
         <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
@@ -2402,9 +2402,9 @@
         <function name="find"/>
         <function name="equal_range"/>
 
-        <function name="begin(int)"/>
+        <function name="begin(int)" link="begin2"/>
         <function name="cbegin(int)" link="begin2"/>
-        <function name="end(int)"/>
+        <function name="end(int)" link="end2"/>
         <function name="cend(int)" link="end2"/>
 
         <function name="bucket_count"/>
@@ -2807,7 +2807,7 @@
 
     <function name="std::srand" link="cpp/numeric/random/srand"/>
     <function name="std::rand" link="cpp/numeric/random/rand"/>
-    <const name="MAX_RANDOM" link="cpp/numeric/random/MAX_RANDOM"/>
+    <const name="RAND_MAX" link="cpp/numeric/random/RAND_MAX"/>
 
     <function name="std::generate_canonical" link="cpp/numeric/random/generate_canonical"/>
 

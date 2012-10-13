@@ -622,8 +622,8 @@
     <function name="iswctype" link="c/string/wide/iswctype"/>
     <function name="wctype" link="c/string/wide/wctype"/>
 
-    <function name="towlower" link="c/string/wide/tolower"/>
-    <function name="towupper" link="c/string/wide/toupper"/>
+    <function name="towlower" link="c/string/wide/towlower"/>
+    <function name="towupper" link="c/string/wide/towupper"/>
     <function name="towctrans" link="c/string/wide/towctrans"/>
     <function name="wctrans" link="c/string/wide/wctrans"/>
 
@@ -751,7 +751,7 @@
 
     <!-- c/numeric/fenv -->
 
-    <function name="feclearexcept" link="c/numeric/fenv/fecrearexcept"/>
+    <function name="feclearexcept" link="c/numeric/fenv/feclearexcept"/>
     <function name="fetestexcept" link="c/numeric/fenv/fetestexcept"/>
     <function name="feraiseexcept" link="c/numeric/fenv/feraiseexcept"/>
     <function name="fegetexceptflag" link="c/numeric/fenv/feexceptflag"/>
@@ -781,7 +781,7 @@
 
     <function name="srand" link="c/numeric/random/srand"/>
     <function name="rand" link="c/numeric/random/rand"/>
-    <const name="MAX_RANDOM" link="c/numeric/random/MAX_RANDOM"/>
+    <const name="RAND_MAX" link="c/numeric/random/RAND_MAX"/>
 
     <!-- cpp/numeric/random -->
 
