@@ -29,11 +29,11 @@
 
         <!-- generic types -->
 
-    <typedef name="std::size_t" link="cpp/types/size_t"/>
-    <typedef name="std::ptrdiff_t" link="cpp/types/ptrdiff_t"/>
-    <typedef name="std::nullptr_t" link="cpp/types/nullptr_t"/>
+    <typedef name="size_t" link="cpp/types/size_t"/>
+    <typedef name="ptrdiff_t" link="cpp/types/ptrdiff_t"/>
+    <typedef name="nullptr_t" link="cpp/types/nullptr_t"/>
     <const name="NULL" link="cpp/types/NULL"/>
-    <typedef name="std::max_align_t" link="cpp/types/max_align_t"/>
+    <typedef name="max_align_t" link="cpp/types/max_align_t"/>
     <function name="offsetof" link="cpp/types/offsetof"/>
 
         <!-- fixed width integer types -->
