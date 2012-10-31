@@ -906,7 +906,7 @@
     <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested"/>
 
     <function name="std::terminate" link="cpp/error/terminate"/>
-    <typedef name="std::terminate_handler" link="cpp/error/terminated_handler"/>
+    <typedef name="std::terminate_handler" link="cpp/error/terminate_handler"/>
     <function name="std::get_terminate" link="cpp/error/get_terminate"/>
     <function name="std::set_terminate" link="cpp/error/set_terminate"/>
 
