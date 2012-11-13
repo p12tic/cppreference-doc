@@ -901,6 +901,7 @@
     <typedef name="std::exception_ptr" link="cpp/error/exception_ptr"/>
     <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr"/>
     <function name="std::current_exception" link="cpp/error/current_exception"/>
+    <function name="std::rethrow_exception" link="cpp/error/rethrow_exception"/>
     <function name="std::nested_exception" link="cpp/error/nested_exception"/>
     <function name="std::throw_with_nested" link="cpp/error/throw_with_nested"/>
     <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested"/>
