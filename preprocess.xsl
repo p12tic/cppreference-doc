@@ -90,8 +90,9 @@
   <xsl:template match="/html/head/link[@rel = 'EditURI']"/>
 
   <!-- remove Google Analytics scripts -->
-  <xsl:template match="/html/head/script[contains(text(),'google-analytics.com/ga.js')]"/>
-  <xsl:template match="/html/head/script[contains(text(),'pageTracker')]"/>
+  <xsl:template match="/html/body/script[contains(text(),'google-analytics.com/ga.js')]"/>
+  <xsl:template match="/html/body/script[contains(@src, 'google-analytics.com/ga.js')]"/>
+  <xsl:template match="/html/body/script[contains(text(),'pageTracker')]"/>
 
   <!-- update links to resources: -->
   <xsl:template match="//@href | //@src">
