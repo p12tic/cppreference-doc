@@ -75,14 +75,6 @@
       ]
     ]"/>
 
-  <!-- remove template edit links -->
-  <xsl:template match="
-    //tr[
-      @class = 't-dcl-list-item'
-    ]/td/span[
-      contains(@class, 'editsection')
-    ]"/>
-
   <!-- remove external links to unused resources -->
   <xsl:template match="/html/head/link[@rel = 'alternate']"/>
   <xsl:template match="/html/head/link[@rel = 'search']"/>
