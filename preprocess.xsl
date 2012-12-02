@@ -35,8 +35,9 @@
   </xsl:template>
 
   <!-- remove useless UI elements-->
-  <xsl:template match="//div[@class='noprint']"/>
-  <xsl:template match="//span[@class='noprint']"/>
+  <xsl:template match="//*[contains(@class, 'noprint ')]"/>
+  <xsl:template match="//*[contains(@class, ' noprint')]"/>
+  <xsl:template match="//*[@class='noprint']"/>
 
   <!-- remove 'See also' links between C and C++ parts of the documentation -->
   <xsl:template match="
