@@ -1,13 +1,13 @@
-/*place the content correctly*/
-div#content {
-    margin: 0 0;
-    font-size: 1em;
-}
-
-div#bodyContent {
-    font-size: 1em;
-}
 
 body {
     background-color: white;
+}
+
+div#cpp-content-base {
+    background-color: white;
+}
+
+div#content {
+    background-color: white;
+    box-shadow: 0 0 3px 3px #ddd;
 }
