@@ -88,13 +88,23 @@
 
   <!-- update links to resources: -->
   <xsl:template match="//@href | //@src">
-    <xsl:attribute name="{name()}">
+    <xsl:variable name="fixed_url">
       <xsl:choose>
         <xsl:when test="contains(.,'../../upload.cppreference.com/mwiki/')">
           <xsl:value-of select="str:replace(.,'../../upload.cppreference.com/mwiki/','../common/')"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="str:replace(.,'../mwiki/','../common/')"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:attribute name="{name()}">
+      <xsl:choose>
+        <xsl:when test="contains($fixed_url, '.css?') or contains($fixed_url, '.php?')">
+          <xsl:copy-of select="substring-before($fixed_url,'?')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="$fixed_url"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
