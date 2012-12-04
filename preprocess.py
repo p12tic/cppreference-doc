@@ -119,6 +119,9 @@ for fn in css_files:
         # append the modifications
         text += css_app
 
+    # QT Help viewer doesn't understand nth-child
+    text = text.replace('nth-child(1)', 'first-child')
+
     f = open(fn, "w")
     f.write(text)
     f.close()
