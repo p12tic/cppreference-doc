@@ -1514,6 +1514,9 @@
 
     <function name="std::make_pair" link="cpp/utility/pair/make_pair"/>
 
+    <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
+    <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
+
     <class name="std::tuple" link="cpp/utility/tuple">
         <constructor/>
         <function name="operator="/>
