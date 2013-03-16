@@ -2797,6 +2797,14 @@
         <!--todo mem objects-->
     </class>
 
+    <class name="std::random_device" link="cpp/numeric/random/random_device">
+        <constructor/>
+        <function name="operator()"/>
+        <function name="min"/>
+        <function name="max"/>
+        <function name="entropy"/>
+    </class>
+
     <typedef name="std::minstd_rand0" alias="std::linear_congruential_engine"/>
     <typedef name="std::minstd_rand" alias="std::linear_congruential_engine"/>
     <typedef name="std::mt19937" alias="std::mersenne_twister_engine"/>
