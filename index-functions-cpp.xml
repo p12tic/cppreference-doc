@@ -1515,6 +1515,9 @@
 
     <function name="std::make_pair" link="cpp/utility/pair/make_pair"/>
 
+    <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
+    <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
+
     <class name="std::tuple" link="cpp/utility/tuple">
         <constructor/>
         <function name="operator="/>
@@ -2793,6 +2796,14 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
         <!--todo mem objects-->
+    </class>
+
+    <class name="std::random_device" link="cpp/numeric/random/random_device">
+        <constructor/>
+        <function name="operator()"/>
+        <function name="min"/>
+        <function name="max"/>
+        <function name="entropy"/>
     </class>
 
     <typedef name="std::minstd_rand0" alias="std::linear_congruential_engine"/>
