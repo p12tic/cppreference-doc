@@ -986,7 +986,8 @@
 
     <function name="atomic_load_test_and_set" link="c/atomic/atomic_load_test_and_set"/>
     <function name="atomic_load_test_and_set_explicit" link="c/atomic/atomic_load_test_and_set"/>
-    <function name="atomic_flag_clear"/>
+    <function name="atomic_flag_clear" link="c/atomic/atomic_flag_clear"/>
+    <function name="atomic_flag_clear_explicit" link="c/atomic/atomic_flag_clear"/>
     <function name="atomic_init" link="c/atomic/atomic_init"/>
     <function name="atomic_is_lock_free" link="c/atomic/atomic_is_lock_free"/>
 
