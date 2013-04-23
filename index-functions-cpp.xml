@@ -3644,10 +3644,6 @@
 
     <!-- cpp/locale -->
 
-    <function name="std::setlocale" link="cpp/locale/setlocale"/>
-    <function name="std::localeconv" link="cpp/locale/localeconv"/>
-    <class name="std::lconv" link="cpp/locale/lconv"/>
-
     <class name="std::locale" link="cpp/locale/locale">
         <constructor/>
         <destructor/>
@@ -3670,6 +3666,399 @@
     <class name="std::locale::facet" link="cpp/locale/locale/facet">
         <constructor/>
     </class>
+
+    <function name="std::use_facet" link="cpp/locale/use_facet"/>
+    <function name="std::has_facet" link="cpp/locale/has_facet"/>
+
+    <class name="std::wstring_convert" link="cpp/locale/wstring_convert">
+        <constructor/>
+        <destructor/>
+        <function name="from_bytes"/>
+        <function name="to_bytes"/>
+        <function name="converted"/>
+        <function name="state"/>
+    </class>
+
+    <class name="std::wbuffer_convert" link="cpp/locale/wbuffer_convert">
+        <constructor/>
+        <destructor/>
+        <function name="rdbuf"/>
+        <function name="state"/>
+    </class>
+
+    <class name="std::ctype_base" link="cpp/locale/ctype_base">
+        <typedef name="mask" link="."/>
+        <const name="space" link="."/>
+        <const name="print" link="."/>
+        <const name="cntrl" link="."/>
+        <const name="upper" link="."/>
+        <const name="lower" link="."/>
+        <const name="alpha" link="."/>
+        <const name="digit" link="."/>
+        <const name="punct" link="."/>
+        <const name="xdigit" link="."/>
+        <const name="blank" link="."/>
+        <const name="alnum" link="."/>
+        <const name="graph" link="."/>
+    </class>
+
+    <class name="std::codecvt_base" link="cpp/locale/codecvt_base">
+        <enum name="result" link="."/>
+        <const name="ok" link="."/>
+        <const name="partial" link="."/>
+        <const name="error" link="."/>
+        <const name="noconv" link="."/>
+    </class>
+
+    <class name="std::messages_base" link="cpp/locale/messages_base">
+        <typedef name="catalog" link="."/>
+    </class>
+
+    <class name="std::time_base" link="cpp/locale/time_base">
+        <enum name="dateorder" link="."/>
+        <const name="no_order" link="."/>
+        <const name="dmy" link="."/>
+        <const name="mdy" link="."/>
+        <const name="ymd" link="."/>
+        <const name="ydm" link="."/>
+    </class>
+
+    <class name="std::money_base" link="cpp/locale/money_base">
+        <enum name="part" link="."/>
+        <const name="none" link="."/>
+        <const name="space" link="."/>
+        <const name="symbol" link="."/>
+        <const name="sign" link="."/>
+        <const name="value" link="."/>
+        <class name="pattern" link="."/>
+    </class>
+
+    <class name="std::ctype" link="cpp/locale/ctype">
+        <inherits name="std::ctype_base"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="is"/>
+        <function name="scan_is"/>
+        <function name="toupper"/>
+        <function name="tolower"/>
+        <function name="widen"/>
+        <function name="narrow"/>
+
+        <!-- protected -->
+        <function name="do_is" link="is"/>
+        <function name="do_scan_is" link="scan_is"/>
+        <function name="do_toupper" link="toupper"/>
+        <function name="do_tolower" link="tolower"/>
+        <function name="do_widen" link="widen"/>
+        <function name="do_narrow" link="narrow"/>
+
+        <!-- todo id -->
+    </class>
+
+    <!-- todo ctype<char> -->
+
+    <class name="std::codecvt" link="cpp/locale/codecvt">
+        <inherits name="std::codecvt_base"/>
+
+        <typedef name="intern_type" link="."/>
+        <typedef name="extern_type" link="."/>
+        <typedef name="state_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="out"/>
+        <function name="in"/>
+        <function name="unshift"/>
+        <function name="encoding"/>
+        <function name="always_noconv"/>
+        <function name="length"/>
+        <function name="max_length"/>
+
+        <!-- protected -->
+        <function name="do_out" link="out"/>
+        <function name="do_in" link="in"/>
+        <function name="do_unshift" link="unshift"/>
+        <function name="do_encoding" link="encoding"/>
+        <function name="do_always_noconv" link="always_noconv"/>
+        <function name="do_length" link="length"/>
+        <function name="do_max_length" link="max_length"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::collate" link="cpp/locale/collate">
+        <typedef name="char_type" link="."/>
+        <typedef name="string_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="compare"/>
+        <function name="transform"/>
+        <function name="hash"/>
+
+        <!-- protected -->
+        <function name="do_compare" link="compare"/>
+        <function name="do_transform" link="transform"/>
+        <function name="do_hash" link="hash"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::messages" link="cpp/locale/messages">
+        <inherits name="std::messages_base"/>
+
+        <typedef name="char_type" link="."/>
+        <typedef name="string_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="open"/>
+        <function name="get"/>
+        <function name="close"/>
+
+        <!-- protected -->
+        <function name="do_open" link="open"/>
+        <function name="do_get" link="get"/>
+        <function name="do_close" link="close"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::time_get" link="cpp/locale/time_get">
+        <inherits name="std::time_base"/>
+
+        <typedef name="char_type" link="."/>
+        <typedef name="iter_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="date_order"/>
+        <function name="get_time"/>
+        <function name="get_date"/>
+        <function name="get_weekday"/>
+        <function name="get_monthname"/>
+        <function name="get_year"/>
+        <function name="get"/>
+
+        <!-- protected -->
+        <function name="do_date_order" link="date_order"/>
+        <function name="do_get_time" link="get_time"/>
+        <function name="do_get_date" link="get_date"/>
+        <function name="do_get_weekday" link="get_weekday"/>
+        <function name="do_get_monthname" link="get_monthname"/>
+        <function name="do_get_year" link="get_year"/>
+        <function name="do_get" link="get"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::time_put" link="cpp/locale/time_put">
+        <inherits name="std::time_base"/>
+
+        <typedef name="char_type" link="."/>
+        <typedef name="iter_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="put"/>
+
+        <!-- protected -->
+        <function name="do_put" link="put"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::num_get" link="cpp/locale/num_get">
+        <typedef name="char_type" link="."/>
+        <typedef name="iter_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="get"/>
+
+        <!-- protected -->
+        <function name="do_get" link="get"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::num_put" link="cpp/locale/num_put">
+        <typedef name="char_type" link="."/>
+        <typedef name="iter_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="put"/>
+
+        <!-- protected -->
+        <function name="do_put" link="put"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::numpunct" link="cpp/locale/numpunct">
+        <typedef name="char_type" link="."/>
+        <typedef name="string_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="decimal_point"/>
+        <function name="thousands_sep"/>
+        <function name="grouping"/>
+        <function name="truename"/>
+        <function name="falsename"/>
+
+        <!-- protected -->
+        <function name="do_decimal_point" link="decimal_point"/>
+        <function name="do_thousands_sep" link="thousands_sep"/>
+        <function name="do_grouping" link="grouping"/>
+        <function name="do_truename" link="truename"/>
+        <function name="do_falsename" link="falsename"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::money_get" link="cpp/locale/money_get">
+        <inherits name="std::money_base"/>
+
+        <typedef name="char_type" link="."/>
+        <typedef name="iter_type" link="."/>
+        <typedef name="string_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="get"/>
+
+        <!-- protected -->
+        <function name="do_get" link="get"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::money_put" link="cpp/locale/money_put">
+        <inherits name="std::money_base"/>
+
+        <typedef name="char_type" link="."/>
+        <typedef name="iter_type" link="."/>
+        <typedef name="string_type" link="."/>
+
+        <constructor/>
+        <destructor/>
+        <function name="put"/>
+
+        <!-- protected -->
+        <function name="do_put" link="put"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::moneypunct" link="cpp/locale/moneypunct">
+        <typedef name="char_type" link="."/>
+        <typedef name="string_type" link="."/>
+        <inherits name="std::money_base"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="decimal_point"/>
+        <function name="thousands_sep"/>
+        <function name="grouping"/>
+        <function name="curr_symbol"/>
+        <function name="positive_sign"/>
+        <function name="negative_sign"/>
+        <function name="frac_digits"/>
+        <function name="pos_format"/>
+        <function name="neg_format"/>
+
+        <!-- protected -->
+        <function name="do_decimal_point" link="decimal_point"/>
+        <function name="do_thousands_sep" link="thousands_sep"/>
+        <function name="do_grouping" link="grouping"/>
+        <function name="do_curr_symbol" link="curr_symbol"/>
+        <function name="do_positive_sign" link="positive_sign"/>
+        <function name="do_negative_sign" link="negative_sign"/>
+        <function name="do_frac_digits" link="frac_digits"/>
+        <function name="do_pos_format" link="pos_format"/>
+        <function name="do_neg_format" link="neg_format"/>
+
+        <!-- todo id -->
+    </class>
+
+    <class name="std::ctype_byname" link="cpp/locale/ctype_byname">
+        <inherits name="std::ctype"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::codecvt_byname" link="cpp/locale/codecvt_byname">
+        <inherits name="std::codecvt"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::messages_byname" link="cpp/locale/messages_byname">
+        <inherits name="std::messages"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::collate_byname" link="cpp/locale/collate_byname">
+        <inherits name="std::collate"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::time_get_byname" link="cpp/locale/time_get_byname">
+        <inherits name="std::time_get"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::time_put_byname" link="cpp/locale/time_put_byname">
+        <inherits name="std::time_put"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::numpunct_byname" link="cpp/locale/numpunct_byname">
+        <inherits name="std::numpunct"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::moneypunct_byname" link="cpp/locale/moneypunct_byname">
+        <inherits name="std::moneypunct"/>
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::codecvt_utf8" link="cpp/locale/codecvt_utf8">
+        <inherits name="std::codecvt"/>
+    </class>
+    <class name="std::codecvt_utf16" link="cpp/locale/codecvt_utf16">
+        <inherits name="std::codecvt"/>
+    </class>
+    <class name="std::codecvt_utf8_utf16" link="cpp/locale/codecvt_utf8_utf16">
+        <inherits name="std::codecvt"/>
+    </class>
+
+    <enum name="std::codecvt_mode" link="cpp/locale/codecvt_mode"/>
+    <const name="std::consume_header" link="cpp/locale/codecvt_mode"/>
+    <const name="std::generate_header" link="cpp/locale/codecvt_mode"/>
+    <const name="std::little_endian" link="cpp/locale/codecvt_mode"/>
+    
+    <!-- c localization facilities -->
+
+    <function name="std::setlocale" link="cpp/locale/setlocale"/>
+    <function name="std::localeconv" link="cpp/locale/localeconv"/>
+    <class name="std::lconv" link="cpp/locale/lconv"/>
+
+    <const name="LC_ALL" link="cpp/locale/LC_categories"/>
+    <const name="LC_COLLATE" link="cpp/locale/LC_categories"/>
+    <const name="LC_CTYPE" link="cpp/locale/LC_categories"/>
+    <const name="LC_MONETARY" link="cpp/locale/LC_categories"/>
+    <const name="LC_NUMERIC" link="cpp/locale/LC_categories"/>
+    <const name="LC_TIME" link="cpp/locale/LC_categories"/>
 
     <!-- cpp/regex -->
 

@@ -958,6 +958,13 @@
     <function name="localeconv" link="c/locale/localeconv"/>
     <class name="lconv" link="c/locale/lconv"/>
 
+    <const name="LC_ALL" link="c/locale/LC_categories"/>
+    <const name="LC_COLLATE" link="c/locale/LC_categories"/>
+    <const name="LC_CTYPE" link="c/locale/LC_categories"/>
+    <const name="LC_MONETARY" link="c/locale/LC_categories"/>
+    <const name="LC_NUMERIC" link="c/locale/LC_categories"/>
+    <const name="LC_TIME" link="c/locale/LC_categories"/>
+
     <!-- c/atomic -->
 
     <enum name="memory_order" link="c/atomic/memory_order"/>
