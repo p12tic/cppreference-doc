@@ -1192,8 +1192,8 @@
     <const name="SIGTERM" link="cpp/utility/program/SIG_types"/>
 
     <function name="std::longjmp" link="cpp/utility/program/longjmp"/>
-    <function name="std::setjmp" link="cpp/utility/program/setjmp"/>
-    <typedef name="jmp_buf" link="cpp/utility/program/jmp_buf"/>
+    <function name="setjmp" link="cpp/utility/program/setjmp"/>
+    <typedef name="std::jmp_buf" link="cpp/utility/program/jmp_buf"/>
 
     <!--=======================================================================-->
     <!-- cpp/chrono -->
