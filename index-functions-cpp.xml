@@ -1322,6 +1322,9 @@
     <class name="std::bitset" link="cpp/utility/bitset">
         <constructor/>
         <destructor/>
+
+        <class name="reference"/>
+
         <function name="operator="/>
         <function name="operator==" link="operator_cmp"/>
         <function name="operator!=" link="operator_cmp"/>
@@ -2136,6 +2139,8 @@
     </class>
 
     <class name="std::map" link="cpp/container/map">
+        <class name="value_compare"/>
+
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -2184,8 +2189,11 @@
     </class>
 
     <class name="std::multimap" link="cpp/container/multimap">
+        <class name="value_compare"/>
+
         <constructor/>
         <destructor/>
+
         <function name="operator="/>
         <function name="get_allocator"/>
 
@@ -4046,7 +4054,7 @@
     <const name="std::consume_header" link="cpp/locale/codecvt_mode"/>
     <const name="std::generate_header" link="cpp/locale/codecvt_mode"/>
     <const name="std::little_endian" link="cpp/locale/codecvt_mode"/>
-    
+
     <!-- c localization facilities -->
 
     <function name="std::setlocale" link="cpp/locale/setlocale"/>
