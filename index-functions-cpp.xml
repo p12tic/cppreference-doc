@@ -812,8 +812,8 @@
     </class>
 
     <class name="std::default_delete" link="cpp/memory/default_delete">
-        <constructor/>
-        <function name="operator()"/>
+        <constructor link="."/>
+        <function name="operator()" link="."/>
     </class>
 
     <function name="std::declare_reachable" link="cpp/memory/gc/declare_reachable"/>
@@ -3914,15 +3914,15 @@
         <function name="decimal_point"/>
         <function name="thousands_sep"/>
         <function name="grouping"/>
-        <function name="truename"/>
-        <function name="falsename"/>
+        <function name="truename" link="truefalsename"/>
+        <function name="falsename" link="truefalsename"/>
 
         <!-- protected -->
         <function name="do_decimal_point" link="decimal_point"/>
         <function name="do_thousands_sep" link="thousands_sep"/>
         <function name="do_grouping" link="grouping"/>
-        <function name="do_truename" link="truename"/>
-        <function name="do_falsename" link="falsename"/>
+        <function name="do_truename" link="truename" link="truefalsename"/>
+        <function name="do_falsename" link="falsename" link="truefalsename"/>
 
         <!-- todo id -->
     </class>
