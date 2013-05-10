@@ -122,7 +122,7 @@
 <!--
   Adds the members of the base classes. Calls itself recursively to process each
   base class. A list of already processed classes is maintained and passed as
-  a parameter in order to avoid duplications if daemond inheritance is present.
+  a parameter in order to avoid duplications if diamond inheritance is present.
 -->
 <xsl:template name="inherits-worker">
   <xsl:param name="finished" select="/.."/>
@@ -356,6 +356,7 @@
 
   <xsl:value-of select="$parent-link"/>
   <xsl:if test="string($parent-link)"><xsl:text>/</xsl:text></xsl:if>
+  <xsl:text>~</xsl:text>
 
   <xsl:call-template name="get-last-item">
     <xsl:with-param name="string" select="$parent-link"/>
