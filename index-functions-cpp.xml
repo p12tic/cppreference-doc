@@ -3921,8 +3921,8 @@
         <function name="do_decimal_point" link="decimal_point"/>
         <function name="do_thousands_sep" link="thousands_sep"/>
         <function name="do_grouping" link="grouping"/>
-        <function name="do_truename" link="truename" link="truefalsename"/>
-        <function name="do_falsename" link="falsename" link="truefalsename"/>
+        <function name="do_truename" link="truefalsename"/>
+        <function name="do_falsename" link="truefalsename"/>
 
         <!-- todo id -->
     </class>
