@@ -77,24 +77,14 @@
   <xsl:param name="parent-name" select="''"/>
   <xsl:param name="parent-link" select="''"/>
 
-  <xsl:variable name="name">
-    <xsl:apply-templates mode="get-name" select="."/>
-  </xsl:variable>
-
-  <xsl:variable name="link">
-    <xsl:apply-templates mode="get-link" select="."/>
-  </xsl:variable>
-
   <xsl:variable name="full-name">
     <xsl:apply-templates mode="get-full-name" select=".">
-      <xsl:with-param name="name" select="$name"/>
       <xsl:with-param name="parent-name" select="$parent-name"/>
     </xsl:apply-templates>
   </xsl:variable>
 
   <xsl:variable name="full-link">
     <xsl:apply-templates mode="get-full-link" select=".">
-      <xsl:with-param name="link" select="$link"/>
       <xsl:with-param name="parent-link" select="$parent-link"/>
     </xsl:apply-templates>
   </xsl:variable>
@@ -240,8 +230,10 @@
   class, if any).
 -->
 <xsl:template mode="get-full-name" match="*">
-  <xsl:param name="name" select="''"/>
   <xsl:param name="parent-name" select="''"/>
+  <xsl:variable name="name">
+    <xsl:apply-templates mode="get-name" select="."/>
+  </xsl:variable>
 
   <xsl:value-of select="$parent-name"/>
   <xsl:if test="$parent-name"><xsl:text>::</xsl:text></xsl:if>
@@ -264,8 +256,10 @@
 
 
 <xsl:template mode="get-full-name" match="overload">
-  <xsl:param name="name" select="''"/>
   <xsl:param name="parent-name" select="''"/>
+  <xsl:variable name="name">
+    <xsl:apply-templates mode="get-name" select="."/>
+  </xsl:variable>
 
   <xsl:value-of select="$name"/>
   <xsl:text>(</xsl:text>
@@ -275,8 +269,10 @@
 
 
 <xsl:template mode="get-full-name" match="specialization">
-  <xsl:param name="name" select="''"/>
   <xsl:param name="parent-name" select="''"/>
+  <xsl:variable name="name">
+    <xsl:apply-templates mode="get-name" select="."/>
+  </xsl:variable>
 
   <xsl:value-of select="$name"/>
   <xsl:text>&lt;</xsl:text>
@@ -291,8 +287,10 @@
   describing the feature
 -->
 <xsl:template mode="get-full-link" match="*">
-  <xsl:param name="link" select="''"/>
   <xsl:param name="parent-link" select="''"/>
+  <xsl:variable name="link">
+    <xsl:apply-templates mode="get-link" select="."/>
+  </xsl:variable>
 
   <xsl:value-of select="$parent-link"/>
     <xsl:if test="string($parent-link) and string($link)"><xsl:text>/</xsl:text></xsl:if>
@@ -301,8 +299,10 @@
 
 
 <xsl:template mode="get-full-link" match="typedef">
-  <xsl:param name="link" select="''"/>
   <xsl:param name="parent-link" select="''"/>
+  <xsl:variable name="link">
+    <xsl:apply-templates mode="get-link" select="."/>
+  </xsl:variable>
 
   <xsl:variable name="alias" select="@alias"/>
   <xsl:variable name="target" select="(/index/class[@name = $alias] |
