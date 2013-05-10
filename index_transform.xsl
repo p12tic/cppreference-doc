@@ -293,7 +293,7 @@
   </xsl:variable>
 
   <xsl:value-of select="$parent-link"/>
-    <xsl:if test="string($parent-link) and string($link)"><xsl:text>/</xsl:text></xsl:if>
+  <xsl:if test="string($parent-link) and string($link)"><xsl:text>/</xsl:text></xsl:if>
   <xsl:value-of select="$link"/>
 </xsl:template>
 
@@ -327,15 +327,24 @@
 
 <xsl:template mode="get-full-link" match="constructor|destructor">
   <xsl:param name="parent-link" select="''"/>
+  <xsl:variable name="link">
+    <xsl:choose>
+      <xsl:when test="@link">
+        <xsl:apply-templates mode="get-link" select="."/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="get-last-item">
+          <xsl:with-param name="string" select="$parent-link"/>
+          <xsl:with-param name="sep" select="'/'"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
   <xsl:value-of select="$parent-link"/>
-  <xsl:if test="string($parent-link)"><xsl:text>/</xsl:text></xsl:if>
+  <xsl:if test="string($parent-link) and string($link)"><xsl:text>/</xsl:text></xsl:if>
   <xsl:if test="local-name() = 'destructor'"><xsl:text>~</xsl:text></xsl:if>
-
-  <xsl:call-template name="get-last-item">
-    <xsl:with-param name="string" select="$parent-link"/>
-    <xsl:with-param name="sep" select="'/'"/>
-  </xsl:call-template>
+  <xsl:value-of select="$link"/>
 </xsl:template>
 
 <!--=====================================================================-->

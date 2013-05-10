@@ -1,4 +1,4 @@
-This file defines the schema of the index-functions-*.xml files. 
+This file defines the schema of the index-functions-*.xml files.
 
     /index/const        defines a macro/constant/enum value
     /index/function     defines a global function
@@ -14,42 +14,58 @@ This file defines the schema of the index-functions-*.xml files.
     //class/function    defines a member function
     //class/class       defines a member class
     //class/enum        defines a member enum
-    
-        "name" attribute: name of the function/class (without the parent class/namespace prefix)
-        "link" attribute: (optional) link relative to the parent class
-                          by default equals to 'name'
-                          if set to "." the resulting link targets to the page of the parent class
+
+        "name" attribute: name of the function/class (without the parent
+                          class/namespace prefix)
+        "link" attribute: (optional) link relative to the parent class. By
+                          default equals to 'name'. If set to "." the resulting
+                          link targets to the page of the parent class
 
         "since" attribute: (optional) "c++11" or none
-        
-    //class/overload    
-    
-        defines a function overload or function specialization of some function 
+
+    //class/overload
+
+        defines a function overload or function specialization of some function
         accepts the class as one of the arguments and can be found using ADL.
-        
+
         "name" attribute: name of the identifier (with the namespace prefix)
-        "link" attribute: link relative to the parent class
-                          if set to "." the resulting link targets to the page of the parent class
+        "link" attribute: link relative to the parent class. If set to "." the
+                          resulting link targets to the page of the parent class
         "since" attribute: (optional) "c++11" or none
-        
+
     //class/specialization
-        defines a specialization of an unrelated class for specific type (for 
+        defines a specialization of an unrelated class for specific type (for
         function specializations use 'overload')
-        
+
         "name" attribute: name of the identifier (with the namespace prefix)
-        "link" attribute: link relative to the parent class
-                          if set to "." the resulting link targets to the page of the parent class
+        "link" attribute: (optional) link relative to the parent class. By
+                          default equals to 'name'. If set to "." the resulting
+                          link targets to the page of the parent class
         "since" attribute: (optional) "c++11" or none
 
     //class/constructor
 
-        defines a constructor. Equivalent to <function name="@@@"/> where @@@ is the name of the
-        parent class without the namespace prefix
+        defines a constructor. Equivalent to <function name="@1" link="@2"/>
+        where @1 and @2 are the following:
+            @1 - the name of the parent class without the namespace prefix
+            @2 - the link parameter if provided, the value of @1 otherwise.
+
+        "link" attribute: (optional) link relative to the parent class. By
+                          default equals to the name of the parent class without
+                          the namespace prefix. If set to ".", the resulting
+                          link targets to the page of the parent class.
 
     //class/destructor
 
-        defines a destructor. Equivalent to <function name="~@@@"/> where @@@ is the name of the
-        parent class without the namespace prefix
+        defines a constructor. Equivalent to <function name="~@1" link="@2"/>
+        where @1 and @2 are the following:
+            @1 - the name of the parent class without the namespace prefix
+            @2 - the link parameter if provided, the value of ~@1 otherwise.
+
+        "link" attribute: (optional) link relative to the parent class. By
+                          default equals to the name of the parent class without
+                          the namespace prefix. If set to ".", the resulting
+                          link targets to the page of the parent class.
 
     /index/typedef      defines a typedef
 
@@ -59,9 +75,9 @@ This file defines the schema of the index-functions-*.xml files.
                            Allowed identifiers: '/index/class' and '/index/enum'
         "since" attribute: (optional) "c++11" or none
         "alias" and "link" attributes are incompatible
-      
+
     //class/typedef     defines a member typedef
-    
+
         "name" attribute: name of the identifier (with the namespace prefix)
         "link" attribute: link relative to the wiki root
         "alias" attribute: name of the identifier whose contents to import
