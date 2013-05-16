@@ -852,47 +852,47 @@
 
     <class name="std::logic_error" link="cpp/error/logic_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::domain_error" link="cpp/error/domain_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::length_error" link="cpp/error/length_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::out_of_range" link="cpp/error/out_of_range">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::invalid_argument" link="cpp/error/invalid_argument">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::runtime_error" link="cpp/error/runtime_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::range_error" link="cpp/error/range_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::overflow_error" link="cpp/error/overflow_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::underflow_error" link="cpp/error/underflow_error">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <function name="assert" link="cpp/error/assert"/>
