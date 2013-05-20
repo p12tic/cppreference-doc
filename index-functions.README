@@ -7,7 +7,7 @@ This file defines the schema of the index-functions-*.xml files.
 
         "name" attribute: name of the identifier (with the namespace prefix)
         "link" attribute: link relative to the wiki root
-        "since" attribute: (optional) "c++11" or none
+        "since" attribute: (optional) <see below>
 
     //class/const       defines a macro/member constant/member enum value
     //enum/const        defines an enum class value (only in c++11)
@@ -21,7 +21,7 @@ This file defines the schema of the index-functions-*.xml files.
                           default equals to 'name'. If set to "." the resulting
                           link targets to the page of the parent class
 
-        "since" attribute: (optional) "c++11" or none
+        "since" attribute: (optional) <see below>
 
     //class/overload
 
@@ -31,7 +31,7 @@ This file defines the schema of the index-functions-*.xml files.
         "name" attribute: name of the identifier (with the namespace prefix)
         "link" attribute: link relative to the parent class. If set to "." the
                           resulting link targets to the page of the parent class
-        "since" attribute: (optional) "c++11" or none
+        "since" attribute: (optional) <see below>
 
     //class/specialization
         defines a specialization of an unrelated class for specific type (for
@@ -41,7 +41,7 @@ This file defines the schema of the index-functions-*.xml files.
         "link" attribute: (optional) link relative to the parent class. By
                           default equals to 'name'. If set to "." the resulting
                           link targets to the page of the parent class
-        "since" attribute: (optional) "c++11" or none
+        "since" attribute: (optional) <see below>
 
     //class/constructor
 
@@ -73,7 +73,7 @@ This file defines the schema of the index-functions-*.xml files.
         "link" attribute: link relative to the wiki root
         "alias" attribute: name of the identifier whose contents to import.
                            Allowed identifiers: '/index/class' and '/index/enum'
-        "since" attribute: (optional) "c++11" or none
+        "since" attribute: (optional) <see below>
         "alias" and "link" attributes are incompatible
 
     //class/typedef     defines a member typedef
@@ -82,7 +82,7 @@ This file defines the schema of the index-functions-*.xml files.
         "link" attribute: link relative to the wiki root
         "alias" attribute: name of the identifier whose contents to import
                            Allowed identifiers: '/index/class' and '/index/enum'
-        "since" attribute: (optional) "c++11" or none
+        "since" attribute: (optional) <see below>
         "alias" and "link" attributes are incompatible
 
     //class/inherits
@@ -93,5 +93,7 @@ This file defines the schema of the index-functions-*.xml files.
                           Allowed identifiers: '/index/class' and '/index/enum'
 
 
+    "since" attribute: one of "c99", "c11", "c++03", "c++11", "c++14"
+    
     Note: replace spaces in all links with '_'
 
