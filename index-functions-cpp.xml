@@ -4510,6 +4510,27 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
+    <class name="std::shared_lock" link="cpp/thread/shared_lock" since="c++14">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="try_lock_for"/>
+        <function name="try_lock_until"/>
+        <function name="unlock"/>
+
+        <function name="swap"/>
+        <function name="release"/>
+
+        <function name="mutex"/>
+        <function name="owns_lock"/>
+        <function name="operator bool"/>
+
+        <overload name="std::swap" link="swap2"/>
+    </class>
+
     <function name="std::lock" link="cpp/thread/lock"/>
     <function name="std::try_lock" link="cpp/thread/try_lock"/>
 
