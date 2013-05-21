@@ -1518,9 +1518,6 @@
 
     <function name="std::make_pair" link="cpp/utility/pair/make_pair"/>
 
-    <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
-    <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
-
     <class name="std::tuple" link="cpp/utility/tuple">
         <constructor/>
         <function name="operator="/>
@@ -1540,6 +1537,15 @@
         <specialization name="std::tuple_element" link="tuple_element"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
+
+    <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
+    <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
+
+    <class name="std::integer_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
+    <typenedf name="std::index_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
+    <typenedf name="std::make_integer_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
+    <typenedf name="std::make_index_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
+    <typenedf name="std::index_sequence_for" link="cpp/utility/integer_sequence" since="c++14"/>
 
     <function name="std::make_tuple" link="cpp/utility/tuple/make_tuple"/>
     <function name="std::tie" link="cpp/utility/tuple/tie"/>
