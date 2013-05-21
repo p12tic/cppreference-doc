@@ -1572,6 +1572,36 @@
     <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
     <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
 
+    <class name="std::optional" link="cpp/utility/optional" since="c++14">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="operator bool" link="operator_bool"/>
+        <function name="value"/>
+        <function name="value_or"/>
+        <function name="swap"/>
+        <function name="emplace"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="std::swap" link="swap2"/>
+        <specialization name="std::hash" link="hash"/>
+    </class>
+
+    <function name="std::make_optional" link="cpp/utility/optional/make_optional" since="c++14"/>
+
+    <class name="std::inplace_t" link="cpp/utility/inplace_t" since="c++14"/>
+    <const name="std::inplace" link="cpp/utility/inplace" since="c++14"/>
+    <class name="std::nullopt_t" link="cpp/utility/nullopt_t" since="c++14"/>
+    <const name="std::nullopt" link="cpp/utility/nullopt" since="c++14"/>
+
+    <class name="std::bad_optional_access" link="cpp/utility/bad_optional_access" since="c++14">
+        <inherits name="std::login_error"/>
+        <constructor link="."/>
+    </class>
+
     <!--=======================================================================-->
     <!-- cpp/string/byte -->
 
