@@ -4461,6 +4461,21 @@
         <function name="native_handle"/>
     </class>
 
+    <class name="std::shared_mutex" link="cpp/thread/shared_mutex" since="c++14">
+        <constructor/>
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="try_lock_for"/>
+        <function name="try_lock_until"/>
+        <function name="unlock"/>
+
+        <function name="lock_shared"/>
+        <function name="try_lock_shared"/>
+        <function name="try_lock_shared_for"/>
+        <function name="try_lock_shared_until"/>
+        <function name="unlock_shared"/>
+    </class>
+
     <class name="std::defer_lock_t" link="cpp/thread/lock_tag_t"/>
     <class name="std::try_to_lock_t" link="cpp/thread/lock_tag_t"/>
     <class name="std::adopt_lock_t" link="cpp/thread/lock_tag_t"/>
