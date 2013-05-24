@@ -37,7 +37,7 @@ DISTFILES=	\
 		images/					\
 		build_link_map.py		\
 		devhelp2qch.xsl			\
-		fix_devhelp-links.xsl	\
+		fix_devhelp-links.py	\
 		httrack-workarounds.py	\
 		index2browser.py		\
 		index2devhelp.py		\
@@ -113,13 +113,13 @@ cppreference-doc-en-c.devhelp2: output link-map.xml
 	./index2devhelp.py $(docdir)/html index-chapters-c.xml 	\
 		"C Standard Library reference" "cppreference-doc-en-c" "c" \
 		index-functions-c.xml devhelp-index-c.xml
-	xsltproc fix_devhelp-links.xsl devhelp-index-c.xml > cppreference-doc-en-c.devhelp2
+	./fix_devhelp-links.py devhelp-index-c.xml cppreference-doc-en-c.devhelp2
 
 cppreference-doc-en-cpp.devhelp2: output link-map.xml
 	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml 	\
 		"C++ Standard Library reference" "cppreference-doc-en-cpp" "cpp" \
 		index-functions-cpp.xml devhelp-index-cpp.xml
-	xsltproc fix_devhelp-links.xsl devhelp-index-cpp.xml > cppreference-doc-en-cpp.devhelp2
+	./fix_devhelp-links.py devhelp-index-cpp.xml cppreference-doc-en-cpp.devhelp2
 
 #build the .qch (QT help) file
 cppreference-doc-en-cpp.qch: qch-help-project-cpp.xml
