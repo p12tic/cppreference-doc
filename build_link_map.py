@@ -21,6 +21,7 @@
 # filename -> title mapping to a xml file.
 
 import fnmatch
+import lxml.etree as e
 import re
 import os
 
@@ -31,8 +32,7 @@ for root, dirnames, filenames in os.walk('output'):
         html_files.append(os.path.join(root, filename))
 
 # create an xml file containing mapping between page title and actual location
-out = open('link-map.xml', 'w')
-out.write('<?xml version="1.0" encoding="UTF-8"?><files>\n')
+root = e.Element('files')
 
 for fn in html_files:
     f = open(fn, "r")
@@ -51,7 +51,11 @@ for fn in html_files:
     title = m.group(1)
 
     target = os.path.relpath(os.path.abspath(fn), os.path.abspath('output'))
-    out.write('  <file from="' + title + '" to="' + target + '" />\n')
+    file_el = e.SubElement(root, 'file')
+    file_el.set('from', title)
+    file_el.set('to', target)
 
-out.write('</files>')
+out = open('link-map.xml', 'w')
+out.write('<?xml version="1.0" encoding="UTF-8"?>')
+out.write(e.tostring(root, pretty_print=True))
 out.close()
