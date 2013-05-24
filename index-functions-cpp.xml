@@ -1598,7 +1598,7 @@
     <const name="std::nullopt" link="cpp/utility/nullopt" since="c++14"/>
 
     <class name="std::bad_optional_access" link="cpp/utility/bad_optional_access" since="c++14">
-        <inherits name="std::login_error"/>
+        <inherits name="std::logic_error"/>
         <constructor link="."/>
     </class>
 
