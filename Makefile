@@ -39,11 +39,11 @@ DISTFILES=	\
 		devhelp2qch.xsl			\
 		fix_devhelp-links.xsl	\
 		httrack-workarounds.py	\
-		index2browser.xsl		\
-		index2devhelp.xsl		\
-		index2search.xsl		\
-		index2highlight.xsl		\
-		index_transform.xsl		\
+		index2browser.py		\
+		index2devhelp.py		\
+		index2search.py			\
+		index2highlight.py		\
+		index_transform.py		\
 		index-chapters-c.xml	\
 		index-chapters-cpp.xml	\
 		index-functions.README	\
@@ -110,21 +110,15 @@ link-map.xml: output
 
 #build the .devhelp2 index
 cppreference-doc-en-c.devhelp2: output link-map.xml
-	xsltproc --stringparam book-base $(docdir)/html 			\
-			 --stringparam chapters-file index-chapters-c.xml	\
-			 --stringparam title "C Standard Library reference"	\
-			 --stringparam name "cppreference-doc-en-c"	\
-			 --stringparam link "c"	\
-			 index2devhelp.xsl index-functions-c.xml > devhelp-index-c.xml
+	./index2devhelp.py $(docdir)/html index-chapters-c.xml 	\
+		"C Standard Library reference" "cppreference-doc-en-c" "c" \
+		index-functions-c.xml devhelp-index-c.xml
 	xsltproc fix_devhelp-links.xsl devhelp-index-c.xml > cppreference-doc-en-c.devhelp2
 
 cppreference-doc-en-cpp.devhelp2: output link-map.xml
-	xsltproc --stringparam book-base $(docdir)/html 			\
-			 --stringparam chapters-file index-chapters-cpp.xml	\
-			 --stringparam title "C++ Standard Library reference"	\
-			 --stringparam name "cppreference-doc-en-cpp"	\
-			 --stringparam link "cpp"	\
-			 index2devhelp.xsl index-functions-cpp.xml > devhelp-index-cpp.xml
+	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml 	\
+		"C++ Standard Library reference" "cppreference-doc-en-cpp" "cpp" \
+		index-functions-cpp.xml devhelp-index-cpp.xml
 	xsltproc fix_devhelp-links.xsl devhelp-index-cpp.xml > cppreference-doc-en-cpp.devhelp2
 
 #build the .qch (QT help) file
