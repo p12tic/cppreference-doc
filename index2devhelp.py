@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
     Copyright (C) 2013  p12 <tir5c3@yahoo.co.uk>
 
@@ -22,7 +22,7 @@ from index_transform import IndexTransform, xml_escape
 import sys
 
 if len(sys.argv) != 8:
-    print '''Please provide the following 7 arguments:
+    print ('''Please provide the following 7 arguments:
  * a link to the location of the book
  * the chapters file to include
  * the title of the book
@@ -30,7 +30,7 @@ if len(sys.argv) != 8:
  * the link relative to the root of the documentation
  * the file name of the source file
  * the file name of the destination file
-'''
+''')
 
 book_base = sys.argv[1]
 chapters_fn = sys.argv[2]

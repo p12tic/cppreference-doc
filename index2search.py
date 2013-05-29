@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
     Copyright (C) 2013  p12 <tir5c3@yahoo.co.uk>
 
@@ -23,8 +23,8 @@ from index_transform import IndexTransform
 import sys
 
 if len(sys.argv) != 3:
-    print '''Please provide the file name of the index as the first argument
- and the file name of the destination as the second '''
+    print ('''Please provide the file name of the index as the first argument
+ and the file name of the destination as the second ''')
     sys.exit(1)
 
 out_f = open(sys.argv[2], 'w')

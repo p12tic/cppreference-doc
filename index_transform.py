@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
     Copyright (C) 2011-2013  p12 <tir5c3@yahoo.co.uk>
 
@@ -52,7 +52,7 @@ class IndexTransform:
                 nm_str = ''
             raise Exception('Element \'' + el.tag + '\' does not have attribute \'' +
                              attr + '\' ' + nm_str)
-        return unicode(a)
+        return str(a)
 
     """ Returns the relative link of 'el' to its parent, if any
     """
@@ -65,7 +65,7 @@ class IndexTransform:
             return default
         if link == '.':
             return ''
-        return unicode(link)
+        return str(link)
 
     """ Appends two possible empty relative links
     """
@@ -194,8 +194,7 @@ class IndexTransform:
 
     """ Transforms the index """
     def transform(self, fn):
-        in_file = open(fn, 'r')
-        root = e.XML(in_file.read())
+        root = e.parse(fn)
         elems = root.xpath('/index/*')
         for el in elems:
             self.process_item(el, '', '')
