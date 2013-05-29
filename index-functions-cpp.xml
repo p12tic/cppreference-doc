@@ -3430,7 +3430,11 @@
         <function name="seekg"/>
         <function name="sync"/>
 
-        <class name="sentry"/>
+        <class name="sentry">
+            <constructor link="."/>
+            <destructor link="."/>
+            <function name="operator bool" link="."/>
+        </class>
 
         <overload name="operator&gt;&gt;" link="operator_gtgt2"/>
     </class>
@@ -3447,7 +3451,11 @@
         <function name="seekp"/>
         <function name="flush"/>
 
-        <class name="sentry"/>
+        <class name="sentry">
+            <constructor link="."/>
+            <destructor link="."/>
+            <function name="operator bool" link="."/>
+        </class>
 
         <overload name="operator&lt;&lt;" link="operator_ltlt2"/>
     </class>
