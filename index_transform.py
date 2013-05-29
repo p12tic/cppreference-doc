@@ -24,11 +24,6 @@
     Concrete transformations can be implemented by subclassing IndexTransform
     and overriding the provided hooks.
 
-    inherits_worker:
-
-    Processes the inheritance tree. Override with an empty function to disable
-    this functionality
-
     process_item_hook:
 
     Called to output information of a feature and continue the processing of the
@@ -39,6 +34,10 @@ import lxml.etree as e
 import re
 
 class IndexTransform:
+
+    def __init__(self, ignore_typedefs=False, ignore_inherits=False):
+        self.ignore_typedefs = ignore_typedefs
+        self.ignore_inherits = ignore_inherits
 
     """ Returns the attribute 'attr' of 'el', raises exception on error
     """
@@ -144,6 +143,8 @@ class IndexTransform:
             self.process_item_hook(el, full_name, full_link)
 
         elif el.tag == 'inherits' and el.getparent().xpath('child::inherits')[0] == el:
+            if self.ignore_inherits:
+                return
             pending = el.getparent().xpath('child::inherits')
             self.inherits_worker(parent_name, pending, list())
 
@@ -154,6 +155,9 @@ class IndexTransform:
             for child in el:
                 self.process_item(child, parent_name, parent_link)
         elif el.tag == 'typedef':
+            if self.ignore_typedefs:
+                return
+
             alias_name = el.get('alias')
             if alias_name:
                 target = self.get_alias(el, alias_name)
