@@ -902,9 +902,16 @@
     <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr"/>
     <function name="std::current_exception" link="cpp/error/current_exception"/>
     <function name="std::rethrow_exception" link="cpp/error/rethrow_exception"/>
-    <function name="std::nested_exception" link="cpp/error/nested_exception"/>
-    <function name="std::throw_with_nested" link="cpp/error/throw_with_nested"/>
-    <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested"/>
+
+    <class name="std::nested_exception" link="cpp/error/nested_exception">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="rethrow_nested"/>
+        <function name="nested_ptr"/>
+    </class>
+    <function name="std::throw_with_nested" link="cpp/error/nested_exception/throw_with_nested"/>
+    <function name="std::rethrow_if_nested" link="cpp/error/nexted_exception/rethrow_if_nested"/>
 
     <function name="std::terminate" link="cpp/error/terminate"/>
     <typedef name="std::terminate_handler" link="cpp/error/terminate_handler"/>
