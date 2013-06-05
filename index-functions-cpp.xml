@@ -1035,8 +1035,26 @@
         <overload name="operator&lt;" link="operator_cmp"/>
     </class>
 
-    <function name="std::make_error_condition" link="cpp/error/make_error_condition"/>
-    <function name="std::is_error_condition_enum" link="cpp/error/is_error_condition_enum"/>
+    <class name="std::is_error_condition_enum" link="cpp/error/error_condition/is_error_condition_enum"/>
+
+    <class name="std::error_code" link="cpp/error/error_code">
+        <constructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="clear"/>
+        <function name="value"/>
+        <function name="category"/>
+        <function name="default_error_condition"/>
+        <function name="message"/>
+        <function name="operator bool" link="operator_bool"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+    </class>
+
+    <function name="std::is_error_code_enum" link="cpp/error/is_error_code_enum"/>
 
     <class name="std::errc" link="cpp/error/errc">
         <const name="address_family_not_supported" link="."/>
@@ -1117,27 +1135,12 @@
         <const name="too_many_symbolic_link_levels" link="."/>
         <const name="value_too_large" link="."/>
         <const name="wrong_protocol_type" link="."/>
+
+        <specialization name="std::is_error_condition_enum" link="is_error_condition_enum"/>
+        <overload name="std::make_error_code" link="make_error_code"/>
+        <overload name="std::make_error_condition" link="make_error_condition"/>
     </class>
 
-    <class name="std::error_code" link="cpp/error/error_code">
-        <constructor/>
-        <function name="operator="/>
-        <function name="assign"/>
-        <function name="clear"/>
-        <function name="value"/>
-        <function name="category"/>
-        <function name="default_error_condition"/>
-        <function name="message"/>
-        <function name="operator bool" link="operator_bool"/>
-
-        <overload name="operator==" link="operator_cmp"/>
-        <overload name="operator!=" link="operator_cmp"/>
-        <overload name="operator&lt;" link="operator_cmp"/>
-        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
-    </class>
-
-    <function name="std::make_error_code" link="cpp/error/make_error_code"/>
-    <function name="std::is_error_code_enum" link="cpp/error/is_error_code_enum"/>
     <class name="std::system_error" link="cpp/error/system_error">
         <inherits name="std::runtime_error"/>
         <constructor/>
