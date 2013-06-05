@@ -1711,8 +1711,8 @@
     <function name="std::iswctype" link="cpp/string/wide/iswctype"/>
     <function name="std::wctype" link="cpp/string/wide/wctype"/>
 
-    <function name="std::towlower" link="cpp/string/wide/tolower"/>
-    <function name="std::towupper" link="cpp/string/wide/toupper"/>
+    <function name="std::towlower" link="cpp/string/wide/towlower"/>
+    <function name="std::towupper" link="cpp/string/wide/towupper"/>
     <function name="std::towctrans" link="cpp/string/wide/towctrans"/>
     <function name="std::wctrans" link="cpp/string/wide/wctrans"/>
 
