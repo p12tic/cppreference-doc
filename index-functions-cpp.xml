@@ -2921,8 +2921,8 @@
         <function name="reset"/>
         <function name="operator()"/>
 
-        <function name="a"/>
-        <function name="b"/>
+        <function name="a" link="params"/>
+        <function name="b" link="params"/>
         <function name="param"/>
         <function name="min"/>
         <function name="max"/>
@@ -2939,8 +2939,8 @@
         <function name="reset"/>
         <overload name="operator()"/>
 
-        <function name="a"/>
-        <function name="b"/>
+        <function name="a" link="params"/>
+        <function name="b" link="params"/>
         <function name="param"/>
         <function name="min"/>
         <function name="max"/>
@@ -2974,8 +2974,8 @@
         <function name="reset"/>
         <overload name="operator()"/>
 
-        <function name="t"/>
-        <function name="p"/>
+        <function name="t" link="params"/>
+        <function name="p" link="params"/>
         <function name="param"/>
         <function name="min"/>
         <function name="max"/>
@@ -2992,8 +2992,8 @@
         <function name="reset"/>
         <overload name="operator()"/>
 
-        <function name="k"/>
-        <function name="p"/>
+        <function name="k" link="params"/>
+        <function name="p" link="params"/>
         <function name="param"/>
         <function name="min"/>
         <function name="max"/>
@@ -3056,20 +3056,218 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::gamma_distribution" link="cpp/numeric/random/gamma_distribution"><!--todo--></class>
-    <class name="std::weibull_distribution" link="cpp/numeric/random/weibull_distribution"><!--todo--></class>
-    <class name="std::extreme_value_distribution" link="cpp/numeric/random/extreme_value_distribution"><!--todo--></class>
+    <class name="std::gamma_distribution" link="cpp/numeric/random/gamma_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
 
-    <class name="std::normal_distribution" link="cpp/numeric/random/normal_distribution"><!--todo--></class>
-    <class name="std::lognormal_distribution" link="cpp/numeric/random/lognormal_distribution"><!--todo--></class>
-    <class name="std::chi_squared_distribution" link="cpp/numeric/random/chi_squared_distribution"><!--todo--></class>
-    <class name="std::cauchy_distribution" link="cpp/numeric/random/cauchy_distribution"><!--todo--></class>
-    <class name="std::fisher_f_distribution" link="cpp/numeric/random/fisher_f_distribution"><!--todo--></class>
-    <class name="std::student_t_distribution" link="cpp/numeric/random/student_t_distribution"><!--todo--></class>
+        <function name="alpha" link="params"/>
+        <function name="beta" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
 
-    <class name="std::discrete_distribution" link="cpp/numeric/random/discrete_distribution"><!--todo--></class>
-    <class name="std::piecewise_constant_distribution" link="cpp/numeric/random/piecewise_constant_distribution"><!--todo--></class>
-    <class name="std::piecewise_linear_distribution" link="cpp/numeric/random/piecewise_linear_distribution"><!--todo--></class>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::weibull_distribution" link="cpp/numeric/random/weibull_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="a" link="params"/>
+        <function name="b" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::extreme_value_distribution" link="cpp/numeric/random/extreme_value_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="a" link="params"/>
+        <function name="b" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::normal_distribution" link="cpp/numeric/random/normal_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="mean" link="params"/>
+        <function name="stddev" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::lognormal_distribution" link="cpp/numeric/random/lognormal_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="m" link="params"/>
+        <function name="s" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::chi_squared_distribution" link="cpp/numeric/random/chi_squared_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="n"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::cauchy_distribution" link="cpp/numeric/random/cauchy_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="a" link="params"/>
+        <function name="b" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::fisher_f_distribution" link="cpp/numeric/random/fisher_f_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="m" link="params"/>
+        <function name="n" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::student_t_distribution" link="cpp/numeric/random/student_t_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="n"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::discrete_distribution" link="cpp/numeric/random/discrete_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="probabilities"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::piecewise_constant_distribution" link="cpp/numeric/random/piecewise_constant_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="intervals" link="params"/>
+        <function name="densities" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
+
+    <class name="std::piecewise_linear_distribution" link="cpp/numeric/random/piecewise_linear_distribution">
+        <constructor/>
+        <function name="reset"/>
+        <function name="operator()"/>
+
+        <function name="intervals" link="params"/>
+        <function name="densities" link="params"/>
+        <function name="param"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+    </class>
 
     <!-- cpp/numeric/ratio -->
 
