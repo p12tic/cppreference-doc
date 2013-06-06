@@ -795,7 +795,7 @@
     </class>
 
     <class name="std::owner_less" link="cpp/memory/owner_less">
-        <function name="operator()"/>
+        <function name="operator()" link="."/>
     </class>
 
     <class name="std::enable_shared_from_this" link="cpp/memory/enable_shared_from_this">
