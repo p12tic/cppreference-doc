@@ -141,10 +141,11 @@ tr.transform(sys.argv[1])
 tr = Index2AutolinkerLinks()
 tr.transform(sys.argv[1])
 
-json_groups = []
-for k in groups:
-    json_groups.append(groups[k])
+json_groups = [ v for v in groups.values() ]
 
-out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links }, indent=1,
+json_groups = sorted(json_groups, key=lambda x: x['name'])
+links = sorted(links, key=lambda x: x['target'])
+
+out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links}, indent=0,
                        sort_keys=True))
 out_f.close()
