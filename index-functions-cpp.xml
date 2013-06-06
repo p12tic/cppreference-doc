@@ -627,7 +627,9 @@
 
     <class name="std::bad_alloc" link="cpp/memory/new/bad_alloc">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
+        <function name="operator=" link="."/>
+        <function name="what" link="."/>
     </class>
 
     <class name="std::bad_array_new_length" link="cpp/memory/new/bad_array_new_length">
