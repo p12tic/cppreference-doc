@@ -1061,7 +1061,7 @@
         <overload name="operator&lt;&lt;" link="operator_ltlt"/>
     </class>
 
-    <function name="std::is_error_code_enum" link="cpp/error/is_error_code_enum"/>
+    <class name="std::is_error_code_enum" link="cpp/error/error_code/is_error_code_enum"/>
 
     <class name="std::errc" link="cpp/error/errc">
         <const name="address_family_not_supported" link="."/>
