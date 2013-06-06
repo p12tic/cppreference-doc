@@ -637,6 +637,11 @@
         <constructor/>
     </class>
 
+    <class name="std::bad_array_length" link="cpp/memory/new/bad_array_length" since="c++14">
+        <inherits name="std::bad_alloc"/>
+        <constructor link="."/>
+    </class>
+
     <class name="std::nothrow_t" link="cpp/memory/new/nothrow_t"/>
     <typedef name="std::new_handler" link="cpp/memory/new/new_handler"/>
 
