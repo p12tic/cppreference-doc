@@ -1847,19 +1847,19 @@
     <function name="std::to_wstring" link="cpp/string/basic_string/to_wstring"/>
 
     <class name="std::char_traits" link="cpp/string/char_traits">
-        <function name="assign" link="."/>
-        <function name="eq" link="."/>
-        <function name="lt" link="."/>
-        <function name="move" link="."/>
-        <function name="copy" link="."/>
-        <function name="compare" link="."/>
-        <function name="length" link="."/>
-        <function name="find" link="."/>
-        <function name="to_char_type" link="."/>
-        <function name="to_int_type" link="."/>
-        <function name="eq_int_type" link="."/>
-        <function name="eof" link="."/>
-        <function name="not_eof" link="."/>
+        <function name="assign"/>
+        <function name="eq"/>
+        <function name="lt"/>
+        <function name="move"/>
+        <function name="copy"/>
+        <function name="compare"/>
+        <function name="length"/>
+        <function name="find"/>
+        <function name="to_char_type"/>
+        <function name="to_int_type"/>
+        <function name="eq_int_type"/>
+        <function name="eof"/>
+        <function name="not_eof"/>
     </class>
 
     <!-- cpp/container -->
