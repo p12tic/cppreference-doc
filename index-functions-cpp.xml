@@ -3544,7 +3544,7 @@
 
         <class name="failure">
             <inherits name="std::exception"/>
-            <constructor/>
+            <constructor link="."/>
         </class>
 
         <enum name="openmode"/>
