@@ -36,10 +36,12 @@ DISTFILES=	\
 		reference/				\
 		images/					\
 		build_link_map.py		\
+		ddg_parse_html.py		\
 		devhelp2qch.xsl			\
 		fix_devhelp-links.py	\
 		httrack-workarounds.py	\
 		index2browser.py		\
+		index2ddg.py			\
 		index2devhelp.py		\
 		index2search.py			\
 		index2highlight.py		\
