@@ -170,7 +170,7 @@ for page in proc_ins:
 
                 code,version,multi = get_declaration(root, name)
                 if multi:
-                    code += '\n...'
+                    code += '\n< more overloads available >'
                 desc = get_short_description(root, version)
 
                 abstract = '<code>' + code + '</code><br/>' + desc
@@ -179,7 +179,7 @@ for page in proc_ins:
 
                 code,version,multi = get_declaration(root, name)
                 if multi:
-                    code += '\n...'
+                    code += '\n< more overloads available >'
                 desc = get_short_description(root, version)
 
                 abstract = '<code>' + code + '</code><br/>' + desc
