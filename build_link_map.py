@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #   Copyright (C) 2012  p12 <tir5c3@yahoo.co.uk>
 #
@@ -25,37 +25,52 @@ import lxml.etree as e
 import re
 import os
 
-# find all html files
-html_files = []
-for root, dirnames, filenames in os.walk('output'):
-    for filename in fnmatch.filter(filenames, '*.html'):
-        html_files.append(os.path.join(root, filename))
+# returns a dict { title -> filename }.
+# directory - either 'output' or 'reference'
+def build_link_map(directory):
+    # find all html files
+    html_files = []
+    for root, dirnames, filenames in os.walk(directory):
+        for filename in fnmatch.filter(filenames, '*.html'):
+            html_files.append(os.path.join(root, filename))
 
-# create an xml file containing mapping between page title and actual location
-root = e.Element('files')
+    link_map = {}
 
-for fn in html_files:
-    f = open(fn, "r")
-    text = f.read()
-    f.close()
+    for fn in html_files:
+        f = open(fn, "r")
+        text = f.read()
+        f.close()
 
-    m = re.search('<script>[^<]*mw\.config\.set([^<]*wgPageName[^<]*)</script>', text)
-    if not m:
-        continue
-    text = m.group(1)
-    text = re.sub('\s*', '', text)
-    m = re.search('"wgPageName":"([^"]*)"', text)
-    if not m:
-        continue
+        m = re.search('<script>[^<]*mw\.config\.set([^<]*wgPageName[^<]*)</script>', text)
+        if not m:
+            continue
+        text = m.group(1)
+        text = re.sub('\s*', '', text)
+        m = re.search('"wgPageName":"([^"]*)"', text)
+        if not m:
+            continue
 
-    title = m.group(1)
+        title = m.group(1)
 
-    target = os.path.relpath(os.path.abspath(fn), os.path.abspath('output'))
-    file_el = e.SubElement(root, 'file')
-    file_el.set('from', title)
-    file_el.set('to', target)
+        target = os.path.relpath(os.path.abspath(fn), os.path.abspath(directory))
+        link_map[title] = target
+    return link_map
 
-out = open('link-map.xml', 'w')
-out.write('<?xml version="1.0" encoding="UTF-8"?>')
-out.write(e.tostring(root, pretty_print=True))
-out.close()
+def main():
+    link_map = build_link_map('output')
+
+    # create an xml file containing mapping between page title and actual location
+    root = e.Element('files')
+
+    for key in link_map:
+        file_el = e.SubElement(root, 'file')
+        file_el.set('from', key)
+        file_el.set('to', link_map[key])
+
+    out = open('link-map.xml', 'w')
+    out.write('<?xml version="1.0" encoding="UTF-8"?>')
+    out.write(e.tostring(root, encoding=str, pretty_print=True))
+    out.close()
+
+if __name__ == "__main__":
+    main()
