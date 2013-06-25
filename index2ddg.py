@@ -217,7 +217,7 @@ for page in proc_ins:
                 '''
 
             # title
-            line = 'c++ ' + item_ident + '\t'
+            line = item_ident + '\t'
             # type
             line += 'A\t'
             # redirect, otheruses, categories, references, see_also,
