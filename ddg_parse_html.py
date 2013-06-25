@@ -75,6 +75,7 @@ def get_declaration(root_el, name):
             continue
 
         code = code_els[0].text_content()
+        code = re.sub('\n+', '\n', code)
 
         if (code.find(name) == -1):
             continue
