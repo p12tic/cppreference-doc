@@ -114,11 +114,22 @@ proc_ins = {}
 
 for link in items:
     if link in link_map:
-        page = link_map[link]
-        if page not in proc_ins:
-            proc_ins[page] = { 'link': link, 'ident': {}}
+        fn = link_map[link]
+        if fn not in proc_ins:
+            proc_ins[fn] = { 'fn': fn, 'link': link, 'idents': {}}
         for ident in items[link]:
-            proc_ins[page]['ident'][ident] = items[link][ident]
+            proc_ins[fn]['idents'][ident] = { 'ident' : ident,
+                                              'type' : items[link][ident] }
+
+# sort proc_ins to produce ordered output.txt
+proc_ins = [ v for v in proc_ins.values() ]
+proc_ins = sorted(proc_ins, key=lambda x: x['link'])
+
+for page in proc_ins:
+    idents = page['idents']
+    idents = [ v for v in idents.values() ]
+    idents = sorted(idents, key=lambda x: x['ident'])
+    page['idents'] = idents
 
 # process the files
 
@@ -141,13 +152,14 @@ else:
 
 #i=1
 for page in proc_ins:
-    identifiers = proc_ins[page]['ident']
-    link = proc_ins[page]['link']
+    idents = page['idents']
+    link = page['link']
+    fn = page['fn']
 
     if debug_ident:
         ignore = False
-        for ident in identifiers:
-            if ident.find(debug_ident) == -1:
+        for ident in idents:
+            if ident['ident'].find(debug_ident) == -1:
                 ignore = True
                 break
         if ignore:
@@ -156,11 +168,11 @@ for page in proc_ins:
     #print(str(i) + '/' + str(len(proc_ins)) + ': ' + link)
     #i+=1
 
-    root = e.parse('reference/'+page, parser=html.HTMLParser())
+    root = e.parse('reference/'+fn, parser=html.HTMLParser())
 
-    for item_ident in identifiers:
-
-        item_type = identifiers[item_ident]
+    for ident in idents:
+        item_ident = ident['ident']
+        item_type = ident['type']
 
         # get the name by extracting the unqualified identifier
         name = get_name(item_ident)
