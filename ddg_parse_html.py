@@ -145,6 +145,9 @@ def process_description(el):
     desc = e.tostring(el, method='html', encoding=str, with_tail=False)
     desc = desc.replace('<root>','').replace('</root>','')
 
+    # description must never contain newlines
+    desc = desc.replace('\n',' ')
+
     # Handle 'i.e.' as a special case
     desc = desc.replace('i.e.', 'ᚃ')
 
