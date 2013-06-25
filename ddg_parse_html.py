@@ -144,6 +144,9 @@ def process_description(el):
     desc = e.tostring(el, method='html', encoding=str, with_tail=False)
     desc = desc.replace('<root>','').replace('</root>','')
 
+    # Handle 'i.e.' as a special case
+    desc = desc.replace('i.e.', 'ᚃ')
+
     # limit the number of characters
     num_code = desc.count('<code>')
     num_i = desc.count('<i>')
@@ -185,9 +188,24 @@ def process_description(el):
         last_dot = last_close + pos
 
     if last_dot == -1 or last_dot > len(desc):
-        desc = desc + '...'
+        iepos = desc.rfind('ᚃ')
+        if iepos != -1 and iepos > 2:
+            # string is too long but we can cut it at 'i.e.'
+            if desc[iepos-2:iepos+1] == ', ᚃ':
+                desc = desc[:iepos-2] + '.'
+            elif desc[iepos-2:iepos+1] == ' ,ᚃ':
+                desc = desc[:iepos-2] + '.'
+            elif desc[iepos-1:iepos+1] == ',ᚃ':
+                desc = desc[:iepos-1] + '.'
+            elif desc[iepos-1:iepos+1] == ' ᚃ':
+                desc = desc[:iepos-1] + '.'
+            else:
+                desc = desc[:iepos]
+        else:
+            desc = desc + '...'
     else:
         desc = desc[:last_dot] + '.'
+    desc = desc.replace('ᚃ', 'i.e.')
     return desc
 
 
