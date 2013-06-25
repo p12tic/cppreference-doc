@@ -148,6 +148,41 @@ def process_description(el):
     # Handle 'i.e.' as a special case
     desc = desc.replace('i.e.', 'ᚃ')
 
+    # process the description:
+    # remove text in parentheses (except when it's within a tags
+    # get the position of the cut of the description
+
+    open_count = 0
+    open_paren_count = 0
+
+    del_ranges = []
+
+    # remove parentheses
+    for t in re.finditer('(<code>|</code>|<i>|</i>|<b>|</b>|\(|\))', desc):
+        mt = t.group(1)
+
+        if mt == '(':
+            if open_count == 0:
+                open_paren_count += 1
+                if open_paren_count == 1:
+                    last_paren_open = t.start()
+
+        elif mt == ')':
+            if open_count == 0 and open_paren_count > 0:
+                open_paren_count -= 1
+                if open_paren_count == 0:
+                    del_ranges.append((last_paren_open, t.start()+1))
+
+        else:
+            if mt[1] != '/':
+                open_count += 1
+            else:
+                open_count -= 1
+
+    for r in reversed(del_ranges):
+        begin,end = r
+        desc = desc[:begin] + desc[end:]
+
     # limit the number of characters
     num_code = desc.count('<code>')
     num_i = desc.count('<i>')
@@ -155,22 +190,30 @@ def process_description(el):
     limit = char_limit + num_code * 13 + num_i * 7 + num_b * 7
     desc = desc[:limit]
 
-    # find the last dot, remove broken tags
+    # find the first dot, actual limit when ignoring the tags
     last_open = -1
-    last_close = -1
+    last_close = 0
     open_count = 0
     first_dot = -1
 
-    for t in re.finditer('<(/?(?:code|i|b))>', desc):
-        if t.group(1)[0] != '/':
+    curr_limit= char_limit
 
+    for t in re.finditer('(<code>|</code>|<i>|</i>|<b>|</b>)', desc):
+        mt = t.group(1)
+
+        if t.start() > curr_limit + len(mt):
+            break
+
+        curr_limit += len(mt)
+
+        if t.group(1)[1] != '/':
             if open_count == 0:
                 last_open = t.start()
                 # find any dots in the top level text
-                if last_close != -1:
-                    pos = desc[last_close:last_open].rfind('.')
-                    if pos != -1 and first_dot == -1:
-                        first_dot = last_close + pos
+                pos = desc[last_close:last_open].find('.')
+                if pos != -1 and first_dot == -1:
+                    first_dot = last_close + pos
+
             open_count += 1
 
         else:
@@ -178,16 +221,23 @@ def process_description(el):
             if open_count == 0:
                 last_close = t.start()
 
-    if open_count > 0:
+    # find dot if there were no tags (last_close == 0) or in the range after
+    # the last close tag
+    if first_dot == -1:
+        pos = desc[last_close:].find('.')
+        if pos != -1:
+            first_dot = last_close + pos
+
+    # limit desc to the adjusted limit
+    # additionally strip unclosed tags (last_open < curr_limit)
+    if open_count == 0:
+        desc = desc[:curr_limit]
+    else:
         desc = desc[:last_open]
 
-    if last_close == -1:
-        last_close = 0
-
-    pos = desc[last_close:].rfind('.')
-    if pos != -1 and first_dot == -1:
-        first_dot = last_close + pos
-
+    # limit desc to the first sentence. If first sentence is longer than the
+    # limit, then try to cut desc at "i.e." if present. Otherwise, cut desc
+    # in the middle of the sentence, preferably at the end of a word
     if first_dot == -1 or first_dot > len(desc):
         iepos = desc.rfind('ᚃ')
         if iepos != -1 and iepos > 2:
@@ -203,12 +253,18 @@ def process_description(el):
             else:
                 desc = desc[:iepos]
         else:
+            # open_count != 0 means that we are not within a word already
+            if open_count == 0:
+                for m in re.finditer('[\s.]+', desc):
+                    pass
+                if m:
+                    desc = desc[:m.start()]
+
             desc = desc + '...'
     else:
         desc = desc[:first_dot] + '.'
     desc = desc.replace('ᚃ', 'i.e.')
     return desc
-
 
 ''' Returns a short description of a feature. This is the first sentence after
     the declaration (dcl template). If a list follows immediately, then the
