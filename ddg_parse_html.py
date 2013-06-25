@@ -159,7 +159,7 @@ def process_description(el):
     last_open = -1
     last_close = -1
     open_count = 0
-    last_dot = -1
+    first_dot = -1
 
     for t in re.finditer('<(/?(?:code|i|b))>', desc):
         if t.group(1)[0] != '/':
@@ -169,8 +169,8 @@ def process_description(el):
                 # find any dots in the top level text
                 if last_close != -1:
                     pos = desc[last_close:last_open].rfind('.')
-                    if pos != -1:
-                        last_dot = last_close + pos
+                    if pos != -1 and first_dot == -1:
+                        first_dot = last_close + pos
             open_count += 1
 
         else:
@@ -185,10 +185,10 @@ def process_description(el):
         last_close = 0
 
     pos = desc[last_close:].rfind('.')
-    if pos != -1:
-        last_dot = last_close + pos
+    if pos != -1 and first_dot == -1:
+        first_dot = last_close + pos
 
-    if last_dot == -1 or last_dot > len(desc):
+    if first_dot == -1 or first_dot > len(desc):
         iepos = desc.rfind('ᚃ')
         if iepos != -1 and iepos > 2:
             # string is too long but we can cut it at 'i.e.'
@@ -205,7 +205,7 @@ def process_description(el):
         else:
             desc = desc + '...'
     else:
-        desc = desc[:last_dot] + '.'
+        desc = desc[:first_dot] + '.'
     desc = desc.replace('ᚃ', 'i.e.')
     return desc
 
