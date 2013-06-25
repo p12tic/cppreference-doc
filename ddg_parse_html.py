@@ -129,7 +129,7 @@ def get_declaration(root_el, name):
     200 characters, '...' is appended.
 '''
 def process_description(el):
-    char_limit = 100
+    char_limit = 200
 
     el = deepcopy(el)   # we'll modify the tree
     el.tag = 'root'
