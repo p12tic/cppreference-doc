@@ -315,20 +315,30 @@ def get_short_description(root_el, num):
     if desc_el.tag == 'p':
         return process_description(desc_el)
     elif desc_el.tag == 'div' and desc_el.get('class') == 't-li1':
-        for el in dcl_table.xpath('div[@class="t-li1"]'):
-            try:
-                index_el = el.xpath('span[@class="t-li"]')[0]
-                index = e.tostring(index_el, method='text')
+        if num == None:
+            raise DdgException("Versioned summary with no version supplied")
 
-                m = re.match('^\s*(\d*)\)\s*$', index)
-                if m and int(m.group(1)) == num:
-                    index_el.getparent().remove(index_el)
-                    return process_description(el)
+        while (desc_el != None and desc_el.tag == 'div' and
+            desc_el.get('class') == 't-li1'):
+            index_els = desc_el.xpath('span[@class="t-li"]')
+            if len(index_els) == 0:
+                desc_el = desc_el.getnext()
+                continue
+            index_el = index_els[0]
+            index = e.tostring(index_el, encoding=str,
+                               method='text', with_tail=False)
 
-                m = re.match('^\s*(\d*)-(\d*)\)\s*$', index)
-                if m and int(m.group(1)) <= num and int(m.group(2)) >= num:
-                    index_el.getparent().remove(index_el)
-                    return process_description(el)
-            except None:
-                pass
+            m = re.match('^\s*(\d+)\)\s*$', index)
+            if m and int(m.group(1)) == num:
+                index_el.drop_tree()
+                return process_description(desc_el)
+
+            m = re.match('^\s*(\d+)-(\d+)\)\s*$', index)
+            if m and int(m.group(1)) <= num and int(m.group(2)) >= num:
+                index_el.drop_tree()
+                return process_description(desc_el)
+
+            desc_el = desc_el.getnext()
+        raise DdgException("List items are not numbered")
+
     raise DdgException("No description found")
