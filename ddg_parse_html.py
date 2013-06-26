@@ -130,6 +130,7 @@ def get_declaration(root_el, name):
 '''
 def process_description(el):
     char_limit = 200
+    min_paren_size = 40
 
     el = deepcopy(el)   # we'll modify the tree
     el.tag = 'root'
@@ -174,7 +175,10 @@ def process_description(el):
             if open_count == 0 and open_paren_count > 0:
                 open_paren_count -= 1
                 if open_paren_count == 0:
-                    del_ranges.append((last_paren_open, t.start()+1))
+                    end = t.start()+1
+                    text = desc[last_paren_open:end]
+                    if text.find('ᚃ') != -1 or len(text) > min_paren_size:
+                        del_ranges.append((last_paren_open, t.start()+1))
 
         else:
             if mt[1] != '/':
