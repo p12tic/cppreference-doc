@@ -203,13 +203,6 @@ def process_description(el, debug=False):
     if debug:
         print("PAREN: " + desc)
 
-    # limit the number of characters
-    num_code = desc.count('<code>')
-    num_i = desc.count('<i>')
-    num_b = desc.count('<b>')
-    limit = char_limit + num_code * 13 + num_i * 7 + num_b * 7
-    desc = desc[:limit]
-
     # find the first dot, actual limit when ignoring the tags
     last_open = -1
     last_close = 0
