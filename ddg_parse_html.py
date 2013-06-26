@@ -62,14 +62,14 @@ VERSION_CXX14 = 103
 def get_declaration(root_el, name):
     content_el = get_content_el(root_el)
 
-    dcl_tables = content_el.xpath('table[@class="t-ddcl-list"]')
+    dcl_tables = content_el.xpath('table[@class="t-dcl-begin"]')
     if len(dcl_tables) == 0:
         raise DdgException("dcl table not found")
 
     dcl_table = dcl_tables[0]
 
     parsed_dcls = []
-    for dcl in dcl_table.xpath('tr[@class="t-ddcl-list-item"]'):
+    for dcl in dcl_table.xpath('tbody/tr[@class="t-dcl"]'):
         code_els = dcl.xpath('td[1]/div/span[contains(@class, "mw-geshi")]')
         if len(code_els) == 0:
             continue
@@ -295,7 +295,7 @@ def get_short_description(root_el, num):
 
     content_el = get_content_el(root_el)
 
-    dcl_tables = content_el.xpath('table[@class="t-ddcl-list"]')
+    dcl_tables = content_el.xpath('table[@class="t-dcl-begin"]')
     if len(dcl_tables) == 0:
         raise DdgException("No dcl table found")
         #todo debug
