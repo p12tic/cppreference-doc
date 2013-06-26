@@ -44,6 +44,9 @@ if len(sys.argv) > 2 and sys.argv[2] == 'debug':
     if len(sys.argv) > 3:
         debug_ident = sys.argv[3]
 
+# track the statistics of number of lines used by the entries
+debug_num_lines = [0 for i in range(40)]
+
 index_file = sys.argv[1]
 output_file = sys.argv[2]
 
@@ -161,6 +164,8 @@ def get_version(decls):
 
 def build_abstract(decls, desc):
     line_limit = MAX_CODE_LINES
+    global debug_num_lines
+    num_lines = 0
 
     limited = False
     all_code = ''
@@ -168,7 +173,7 @@ def build_abstract(decls, desc):
     for i,(code,ver) in enumerate(decls):
         code = code.strip()
         code = '<pre><code>' + code + '</code></pre>'
-        num_lines = code.count('\n') + 1
+        code_num_lines = code.count('\n') + 1
 
         # limit the number of code snippets to be included so that total number
         # of lines is less than MAX_CODE_LINES. The limit becomes active only
@@ -178,21 +183,41 @@ def build_abstract(decls, desc):
 
         if not first:
             if last:
-                if num_lines > line_limit:
+                if code_num_lines > line_limit:
                     limited = True
                     break
             else:
-                if num_lines > line_limit - 1:
+                if code_num_lines > line_limit - 1:
                     # -1 because we need to take into account
                     # <more overloads omitted> message
                     limited = True
                     break
 
         all_code += code
-        line_limit -= num_lines
+        num_lines += 1
+        line_limit -= code_num_lines
 
     if limited:
         all_code += '<pre><code> &lt;...&gt; </code></pre>'
+
+
+    # count the number of lines used
+    num_lines += all_code.count('\n')
+    if len(desc) > 110:
+        num_lines += 2
+    else:
+        num_lines += 1
+    if limited:
+        num_lines += 1
+
+    debug_num_lines[num_lines] += 1
+
+    if debug and num_lines >= 10:
+        print("# error : large number of lines: ")
+        print("# BEGIN ======")
+        print(all_code + desc)
+        print("# END ========")
+
     return all_code + desc
 
 if debug:
@@ -275,3 +300,9 @@ for page in proc_ins:
             if debug:
                 line = '# error (' + str(err) + "): " + link + ": " + item_ident + "\n"
                 out.write(line)
+
+if debug:
+    print('=============================')
+    print('Numbers of lines used:')
+    for i,l in enumerate(debug_num_lines):
+        print(str(i) + ': ' + str(l) + ' line(s)')
