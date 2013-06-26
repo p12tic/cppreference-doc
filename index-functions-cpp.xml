@@ -917,8 +917,8 @@
         <function name="rethrow_nested"/>
         <function name="nested_ptr"/>
     </class>
-    <function name="std::throw_with_nested" link="cpp/error/nested_exception/throw_with_nested"/>
-    <function name="std::rethrow_if_nested" link="cpp/error/nexted_exception/rethrow_if_nested"/>
+    <function name="std::throw_with_nested" link="cpp/error/throw_with_nested"/>
+    <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested"/>
 
     <function name="std::terminate" link="cpp/error/terminate"/>
     <typedef name="std::terminate_handler" link="cpp/error/terminate_handler"/>
@@ -1287,7 +1287,7 @@
 
     <function name="std::chrono::duration_cast" link="cpp/chrono/duration/duration_cast"/>
 
-    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/duration/treat_as_floating_point">
+    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point">
     </class>
 
     <class name="std::chrono::duration_values" link="cpp/chrono/duration_values">
@@ -1730,8 +1730,8 @@
     <function name="std::wcstoll" link="cpp/string/wide/wcstol"/>
     <function name="std::wcstoul" link="cpp/string/wide/wcstoul"/>
     <function name="std::wcstoull" link="cpp/string/wide/wcstoul"/>
-    <function name="std::wcstoimax" link="cpp/string/byte/wcstoimax"/>
-    <function name="std::wcstoumax" link="cpp/string/byte/wcstoimax"/>
+    <function name="std::wcstoimax" link="cpp/string/wide/wcstoimax"/>
+    <function name="std::wcstoumax" link="cpp/string/wide/wcstoimax"/>
 
     <function name="std::wcscpy" link="cpp/string/wide/wcscpy"/>
     <function name="std::wcsncpy" link="cpp/string/wide/wcsncpy"/>
@@ -2704,7 +2704,7 @@
 
     <!-- cpp/numeric/fenv -->
 
-    <function name="std::feclearexcept" link="cpp/numeric/fenv/fecrearexcept"/>
+    <function name="std::feclearexcept" link="cpp/numeric/fenv/feclearexcept"/>
     <function name="std::fetestexcept" link="cpp/numeric/fenv/fetestexcept"/>
     <function name="std::feraiseexcept" link="cpp/numeric/fenv/feraiseexcept"/>
     <function name="std::fegetexceptflag" link="cpp/numeric/fenv/feexceptflag"/>
