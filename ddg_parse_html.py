@@ -338,6 +338,11 @@ def get_short_description(root_el, num):
                 index_el.drop_tree()
                 return process_description(desc_el)
 
+            m = re.match('^\s*(\d+),(\d+)\)\s*$', index)
+            if m and num in [int(m.group(1)), int(m.group(2))]:
+                index_el.drop_tree()
+                return process_description(desc_el)
+
             desc_el = desc_el.getnext()
         raise DdgException("List items are not numbered")
 
