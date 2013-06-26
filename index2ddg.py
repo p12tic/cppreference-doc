@@ -26,7 +26,7 @@ from index_transform import IndexTransform, xml_escape
 from build_link_map import build_link_map
 from ddg_parse_html import get_declaration, get_short_description, DdgException
 
-if len(sys.argv) != 3 and not (sys.arg > 2 and sys.argv[1] == 'debug'):
+if len(sys.argv) != 3 and not (len(sys.argv) > 2 and sys.argv[2] == 'debug'):
     print('''Please provide the file name of the index as the first argument
  and the file name of the output as the second ''')
     sys.exit(1)
@@ -157,10 +157,10 @@ for page in proc_ins:
     fn = page['fn']
 
     if debug_ident:
-        ignore = False
+        ignore = True
         for ident in idents:
-            if ident['ident'].find(debug_ident) == -1:
-                ignore = True
+            if ident['ident'].find(debug_ident) != -1:
+                ignore = False
                 break
         if ignore:
             continue
