@@ -31,6 +31,8 @@ if len(sys.argv) != 3 and not (len(sys.argv) > 2 and sys.argv[2] == 'debug'):
  and the file name of the output as the second ''')
     sys.exit(1)
 
+MAX_CODE_LINES = 6
+
 # If a the second argument is 'debug', the program switches to debug mode and
 # prints everything to stdout. If the third argument is provided, the program
 # processes only the identifiers that match the provided string
@@ -148,13 +150,50 @@ def get_name(ident):
 # declarations have different version numbers or if no version number is
 # provided
 def get_version(decls):
-    return decls[0][1]
+    rv = None
+    for code,v in decls:
+        if v:
+            if rv == None:
+                rv = v
+            elif v != rv:
+                return None
+    return rv
 
 def build_abstract(decls, desc):
-    code = decls[0][0]
-    if len(decls) > 1:
-        code += '\n< more overloads available >'
-    return '<pre><code>' + code + '</code></pre>' + desc
+    line_limit = MAX_CODE_LINES
+
+    limited = False
+    all_code = ''
+
+    for i,(code,ver) in enumerate(decls):
+        code = code.strip()
+        code = '<pre><code>' + code + '</code></pre>'
+        num_lines = code.count('\n') + 1
+
+        # limit the number of code snippets to be included so that total number
+        # of lines is less than MAX_CODE_LINES. The limit becomes active only
+        # for the second and subsequent snippets.
+        first = True if i == 0 else False;
+        last = True if i == len(decls)-1 else False;
+
+        if not first:
+            if last:
+                if num_lines > line_limit:
+                    limited = True
+                    break
+            else:
+                if num_lines > line_limit - 1:
+                    # -1 because we need to take into account
+                    # <more overloads omitted> message
+                    limited = True
+                    break
+
+        all_code += code
+        line_limit -= num_lines
+
+    if limited:
+        all_code += '<pre><code> &lt;...&gt; </code></pre>'
+    return all_code + desc
 
 if debug:
     out = sys.stdout
