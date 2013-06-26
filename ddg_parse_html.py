@@ -123,6 +123,9 @@ def get_declaration(root_el, name):
     else:
         raise DdgException("No declarations after parsing")
 
+def del_all_attrs(el):
+    for key in el.attrib:
+        del el.attrib[key]
 ''' Processes description text. Drops all tags except <code> and <i>. Replaces
     <b> with <i>. Replaces span.mw-geshi with <code>. Returns the processed
     description as str. The description is limited to one sentence (delimited
@@ -135,13 +138,14 @@ def process_description(el):
 
     el = deepcopy(el)   # we'll modify the tree
     el.tag = 'root'
+    del_all_attrs(el)
+
     for t in el.xpath('.//span[contains(@class, "mw-geshi")]'):
         t.tag = 'code'
 
     for t in el.xpath('.//*'):
         if t.tag in ['code', 'i', 'b']:
-            for key in t.attrib:
-                del t.attrib[key]
+            del_all_attrs(t)
         else:
             t.drop_tag()
     desc = e.tostring(el, method='html', encoding=str, with_tail=False)
