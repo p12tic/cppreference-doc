@@ -97,8 +97,9 @@ def get_declaration(root_el, name):
         version = None
         try:
             version_str = dcl.xpath('td[2]')[0].text_content()
-            version_str = re.search('\(([^)]*)\)', version_str).group(1)
-            version = long(version_str)
+            version_str = re.search('\((\d*)\)', version_str).group(1)
+            version = int(version_str)
+
         except:
             pass
 
