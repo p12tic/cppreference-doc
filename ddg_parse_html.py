@@ -44,6 +44,9 @@ VERSION_CXX03 = 101
 VERSION_CXX11 = 102
 VERSION_CXX14 = 103
 
+DESC_CHAR_LIMIT = 200
+MAX_PAREN_SIZE = 40
+
 ''' Returns the declaration of the feature with name 'name'.
     If several declarations with the same name are present, the standard
     revision marker is parsed and only the declarations for the latest standard
@@ -133,8 +136,6 @@ def del_all_attrs(el):
     200 characters, '...' is appended.
 '''
 def process_description(el, debug=False):
-    char_limit = 200
-    min_paren_size = 40
 
     el = deepcopy(el)   # we'll modify the tree
     el.tag = 'root'
@@ -187,7 +188,7 @@ def process_description(el, debug=False):
                     text = desc[last_paren_open:end]
                     if (text.find('ᚃ') != -1 or
                         text.find('ᚄ') != -1 or
-                        len(text) > min_paren_size):
+                        len(text) > MAX_PAREN_SIZE):
                         del_ranges.append((last_paren_open, t.start()+1))
 
         else:
@@ -209,7 +210,7 @@ def process_description(el, debug=False):
     open_count = 0
     first_dot = -1
 
-    curr_limit= char_limit
+    curr_limit= DESC_CHAR_LIMIT
 
     for t in re.finditer('(<code>|</code>|<i>|</i>|<b>|</b>)', desc):
         mt = t.group(1)
