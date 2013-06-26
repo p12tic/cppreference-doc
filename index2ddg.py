@@ -185,7 +185,7 @@ for page in proc_ins:
                     code += '\n< more overloads available >'
                 desc = get_short_description(root, version)
 
-                abstract = '<pre><code>' + code + '</code></pre><br/>' + desc
+                abstract = '<pre><code>' + code + '</code></pre>' + desc
 
             elif item_type == ITEM_TYPE_FUNCTION:
 
@@ -194,7 +194,7 @@ for page in proc_ins:
                     code += '\n< more overloads available >'
                 desc = get_short_description(root, version)
 
-                abstract = '<pre><code>' + code + '</code></pre><br/>' + desc
+                abstract = '<pre><code>' + code + '</code></pre>' + desc
 
 
             elif item_type == ITEM_TYPE_FUNCTION_INLINEMEM:
