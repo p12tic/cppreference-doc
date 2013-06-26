@@ -132,7 +132,7 @@ def del_all_attrs(el):
     by a dot) and a maximum of 200 characters. If the sentence is longer than
     200 characters, '...' is appended.
 '''
-def process_description(el):
+def process_description(el, debug=False):
     char_limit = 200
     min_paren_size = 40
 
@@ -150,6 +150,8 @@ def process_description(el):
             t.drop_tag()
     desc = e.tostring(el, method='html', encoding=str, with_tail=False)
     desc = desc.replace('<root>','').replace('</root>','')
+    if debug:
+        print("ROOT: " + desc)
 
     # description must never contain newlines
     desc = desc.replace('\n',' ')
@@ -198,6 +200,9 @@ def process_description(el):
         begin,end = r
         desc = desc[:begin] + desc[end:]
 
+    if debug:
+        print("PAREN: " + desc)
+
     # limit the number of characters
     num_code = desc.count('<code>')
     num_i = desc.count('<i>')
@@ -245,10 +250,23 @@ def process_description(el):
 
     # limit desc to the adjusted limit
     # additionally strip unclosed tags (last_open < curr_limit)
+    if debug:
+        print("open_count: " + str(open_count))
+        print("last_open: " + str(last_open))
+        print("first_dot: " + str(first_dot))
+        print("len: " + str(len(desc)))
+
     if open_count == 0:
         desc = desc[:curr_limit]
     else:
         desc = desc[:last_open]
+
+    if debug:
+        print("limited: " + str(limited))
+        print("open_count: " + str(open_count))
+        print("last_open: " + str(last_open))
+        print("first_dot: " + str(first_dot))
+        print("LIMIT: " + desc)
 
     # limit desc to the first sentence. If first sentence is longer than the
     # limit, then try to cut desc at "i.e." if present. Otherwise, cut desc
@@ -288,6 +306,9 @@ def process_description(el):
         desc = desc[:first_dot] + '.'
     desc = desc.replace('ᚃ', 'i.e.')
     desc = desc.replace('ᚄ', 'that is,')
+
+    if debug:
+        print("FINAL: " + desc)
     return desc
 
 ''' Returns a short description of a feature. This is the first sentence after
@@ -296,7 +317,7 @@ def process_description(el):
 
     Raises DdgException on error
 '''
-def get_short_description(root_el, num):
+def get_short_description(root_el, num, debug=False):
 
     content_el = get_content_el(root_el)
 
@@ -313,7 +334,7 @@ def get_short_description(root_el, num):
         raise DdgException("No elements after dcl table")
 
     if desc_el.tag == 'p':
-        return process_description(desc_el)
+        return process_description(desc_el, debug=debug)
     elif desc_el.tag == 'div' and desc_el.get('class') == 't-li1':
         if num == None:
             raise DdgException("Versioned summary with no version supplied")
@@ -331,17 +352,17 @@ def get_short_description(root_el, num):
             m = re.match('^\s*(\d+)\)\s*$', index)
             if m and int(m.group(1)) == num:
                 index_el.drop_tree()
-                return process_description(desc_el)
+                return process_description(desc_el, debug=debug)
 
             m = re.match('^\s*(\d+)-(\d+)\)\s*$', index)
             if m and int(m.group(1)) <= num and int(m.group(2)) >= num:
                 index_el.drop_tree()
-                return process_description(desc_el)
+                return process_description(desc_el, debug=debug)
 
             m = re.match('^\s*(\d+),(\d+)\)\s*$', index)
             if m and num in [int(m.group(1)), int(m.group(2))]:
                 index_el.drop_tree()
-                return process_description(desc_el)
+                return process_description(desc_el, debug=debug)
 
             desc_el = desc_el.getnext()
         raise DdgException("List items are not numbered")

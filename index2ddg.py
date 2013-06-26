@@ -178,12 +178,13 @@ for page in proc_ins:
         name = get_name(item_ident)
 
         try:
+            debug_verbose = True if debug and debug_ident != None else False
             if item_type == ITEM_TYPE_CLASS:
 
                 code,version,multi = get_declaration(root, name)
                 if multi:
                     code += '\n< more overloads available >'
-                desc = get_short_description(root, version)
+                desc = get_short_description(root, version, debug=debug_verbose)
 
                 abstract = '<pre><code>' + code + '</code></pre>' + desc
 
@@ -192,7 +193,7 @@ for page in proc_ins:
                 code,version,multi = get_declaration(root, name)
                 if multi:
                     code += '\n< more overloads available >'
-                desc = get_short_description(root, version)
+                desc = get_short_description(root, version, debug=debug_verbose)
 
                 abstract = '<pre><code>' + code + '</code></pre>' + desc
 
