@@ -249,10 +249,13 @@ def process_description(el, debug=False):
         print("first_dot: " + str(first_dot))
         print("len: " + str(len(desc)))
 
-    if open_count == 0:
-        desc = desc[:curr_limit]
-    else:
-        desc = desc[:last_open]
+    limited = False
+    if len(desc) > curr_limit:
+        limited = True
+        if open_count == 0:
+            desc = desc[:curr_limit]
+        else:
+            desc = desc[:last_open]
 
     if debug:
         print("limited: " + str(limited))
@@ -264,7 +267,8 @@ def process_description(el, debug=False):
     # limit desc to the first sentence. If first sentence is longer than the
     # limit, then try to cut desc at "i.e." if present. Otherwise, cut desc
     # in the middle of the sentence, preferably at the end of a word
-    if first_dot == -1 or first_dot > len(desc):
+    if limited and (first_dot == -1 or first_dot > len(desc)):
+        # interrupted in the middle of a sentence. Polish the result
 
         #find the last match
         m = None
@@ -289,14 +293,26 @@ def process_description(el, debug=False):
             # open_count != 0 means that we are not within a word already
             if open_count == 0:
                 m = None
-                for m in re.finditer('[\s.]+', desc):
+                for m in re.finditer('[\s]+', desc):
                     pass
                 if m:
                     desc = desc[:m.start()]
 
             desc = desc + '...'
     else:
-        desc = desc[:first_dot] + '.'
+        desc = desc.rstrip()
+        if first_dot == -1:
+            # fix the punctuation at the end
+            if desc[-1] in [';', ',']:
+                desc = desc[:-1] + '.'
+            if desc[-1] in [':', '-']:
+                desc = desc + ' ...'
+            elif desc[-1] != '.':
+                desc = desc + '.'
+        else:
+            # cut the summary at the end of the first sentence
+            desc = desc[:first_dot] + '.'
+
     desc = desc.replace('ᚃ', 'i.e.')
     desc = desc.replace('ᚄ', 'that is,')
 
