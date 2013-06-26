@@ -149,8 +149,9 @@ def process_description(el):
     # description must never contain newlines
     desc = desc.replace('\n',' ')
 
-    # Handle 'i.e.' as a special case
+    # Handle 'i.e.' and 'that is' as a special case
     desc = desc.replace('i.e.', 'ᚃ')
+    desc = desc.replace('that is,', 'ᚄ')
 
     # process the description:
     # remove text in parentheses (except when it's within a tags
@@ -177,7 +178,9 @@ def process_description(el):
                 if open_paren_count == 0:
                     end = t.start()+1
                     text = desc[last_paren_open:end]
-                    if text.find('ᚃ') != -1 or len(text) > min_paren_size:
+                    if (text.find('ᚃ') != -1 or
+                        text.find('ᚄ') != -1 or
+                        len(text) > min_paren_size):
                         del_ranges.append((last_paren_open, t.start()+1))
 
         else:
@@ -246,22 +249,30 @@ def process_description(el):
     # limit, then try to cut desc at "i.e." if present. Otherwise, cut desc
     # in the middle of the sentence, preferably at the end of a word
     if first_dot == -1 or first_dot > len(desc):
-        iepos = desc.rfind('ᚃ')
-        if iepos != -1 and iepos > 2:
+
+        #find the last match
+        m = None
+        for m in re.finditer('[ᚃᚄ]', desc):
+            pass
+        if m and m.start() > 2:
+            pos = m.start()
+            char = m.group(0)
+
             # string is too long but we can cut it at 'i.e.'
-            if desc[iepos-2:iepos+1] == ', ᚃ':
-                desc = desc[:iepos-2] + '.'
-            elif desc[iepos-2:iepos+1] == ' ,ᚃ':
-                desc = desc[:iepos-2] + '.'
-            elif desc[iepos-1:iepos+1] == ',ᚃ':
-                desc = desc[:iepos-1] + '.'
-            elif desc[iepos-1:iepos+1] == ' ᚃ':
-                desc = desc[:iepos-1] + '.'
+            if desc[pos-2:pos+1] == ', '+char:
+                desc = desc[:pos-2] + '.'
+            elif desc[pos-2:pos+1] == ' ,'+char:
+                desc = desc[:pos-2] + '.'
+            elif desc[pos-1:pos+1] == ','+char:
+                desc = desc[:pos-1] + '.'
+            elif desc[pos-1:pos+1] == ' '+char:
+                desc = desc[:pos-1] + '.'
             else:
-                desc = desc[:iepos]
+                desc = desc[:pos]
         else:
             # open_count != 0 means that we are not within a word already
             if open_count == 0:
+                m = None
                 for m in re.finditer('[\s.]+', desc):
                     pass
                 if m:
@@ -271,6 +282,7 @@ def process_description(el):
     else:
         desc = desc[:first_dot] + '.'
     desc = desc.replace('ᚃ', 'i.e.')
+    desc = desc.replace('ᚄ', 'that is,')
     return desc
 
 ''' Returns a short description of a feature. This is the first sentence after
