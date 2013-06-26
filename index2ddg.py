@@ -24,7 +24,7 @@ import lxml.html as html
 
 from index_transform import IndexTransform, xml_escape
 from build_link_map import build_link_map
-from ddg_parse_html import get_declaration, get_short_description, DdgException
+from ddg_parse_html import get_declarations, get_short_description, DdgException
 
 if len(sys.argv) != 3 and not (len(sys.argv) > 2 and sys.argv[2] == 'debug'):
     print('''Please provide the file name of the index as the first argument
@@ -144,6 +144,17 @@ def get_name(ident):
         ident = ident[qpos+2:]
     return ident
 
+# returns the version number common to all declarations. Returns none if two
+# declarations have different version numbers or if no version number is
+# provided
+def get_version(decls):
+    return decls[0][1]
+
+def build_abstract(decls, desc):
+    code = decls[0][0]
+    if len(decls) > 1:
+        code += '\n< more overloads available >'
+    return '<pre><code>' + code + '</code></pre>' + desc
 
 if debug:
     out = sys.stdout
@@ -180,23 +191,14 @@ for page in proc_ins:
         try:
             debug_verbose = True if debug and debug_ident != None else False
             if item_type == ITEM_TYPE_CLASS:
-
-                code,version,multi = get_declaration(root, name)
-                if multi:
-                    code += '\n< more overloads available >'
-                desc = get_short_description(root, version, debug=debug_verbose)
-
-                abstract = '<pre><code>' + code + '</code></pre>' + desc
+                decls = get_declarations(root, name)
+                desc = get_short_description(root, get_version(decls), debug=debug_verbose)
+                abstract = build_abstract(decls, desc)
 
             elif item_type == ITEM_TYPE_FUNCTION:
-
-                code,version,multi = get_declaration(root, name)
-                if multi:
-                    code += '\n< more overloads available >'
-                desc = get_short_description(root, version, debug=debug_verbose)
-
-                abstract = '<pre><code>' + code + '</code></pre>' + desc
-
+                decls = get_declarations(root, name)
+                desc = get_short_description(root, get_version(decls), debug=debug_verbose)
+                abstract = build_abstract(decls, desc)
 
             elif item_type == ITEM_TYPE_FUNCTION_INLINEMEM:
                 raise DdgException("INLINEMEM")

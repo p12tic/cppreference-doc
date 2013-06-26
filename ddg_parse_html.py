@@ -48,21 +48,17 @@ DESC_CHAR_LIMIT = 200
 MAX_PAREN_SIZE = 40
 
 ''' Returns the declaration of the feature with name 'name'.
-    If several declarations with the same name are present, the standard
-    revision marker is parsed and only the declarations for the latest standard
-    are left. If there are still several declarations left in the viable
-    declaration list, the first is returned.
-
-    Return value: a tuple of three elements:
+    If several declarations with the same name are present, and entries
+    superseded in the later standards (as determined by the presence of until
+    XXX marker) are ignored. The rest of declarations are returned as a list of
+    tuples, each of which the two elements:
         1) the code of the declaration
         2) the version as defined by the 'num' dcl template parameter, or None
            if no version was specified.
-        3) True if several viable declarations were still present after the
-           filtering, False otherwise
 
     If no declaration is found, an exception of type DdgException is raised
 '''
-def get_declaration(root_el, name):
+def get_declarations(root_el, name):
     content_el = get_content_el(root_el)
 
     dcl_tables = content_el.xpath('table[contains(@class, "t-dcl-begin")]')
@@ -71,60 +67,46 @@ def get_declaration(root_el, name):
 
     dcl_table = dcl_tables[0]
 
-    parsed_dcls = []
+    dcls = []
+    ignored = False
     for dcl in dcl_table.xpath('tbody/tr[contains(@class, "t-dcl")]'):
         code_els = dcl.xpath('td[1]/div/span[contains(@class, "mw-geshi")]')
         if len(code_els) == 0:
+            ignored = True
             continue
 
         code = code_els[0].text_content()
         code = re.sub('\n+', '\n', code)
 
         if (code.find(name) == -1):
+            ignored = True
             continue
 
+        # ignore superseded entries
         std_rev_els = dcl.xpath('td[3]/span[contains(@class, "t-mark")]')
-        if len(std_rev_els) == 0:
-            std_rev = VERSION_CXX98
-        else:
-            std_rev_str = std_rev_els[0].text_content().lower()
-            if (std_rev_str.find('c++03') != -1):
-                std_rev = VERSION_CXX03
-            if (std_rev_str.find('c++11') != -1):
-                std_rev = VERSION_CXX11
-            if (std_rev_str.find('c++14') != -1):
-                std_rev = VERSION_CXX14
-            else:
-                std_rev = VERSION_CXX98
+        if len(std_rev_els) != 0:
+            txt = std_rev_els[0].text_content().lower()
+            if txt.find('until') != -1:
+                ignored = True
+                continue
 
         version = None
         try:
             version_str = dcl.xpath('td[2]')[0].text_content()
             version_str = re.search('\((\d*)\)', version_str).group(1)
             version = int(version_str)
-
         except:
             pass
 
-        parsed_dcls.append((code, std_rev, version))
+        dcls.append((code, version))
 
-    if len(parsed_dcls) == 0:
-        raise DdgException("dcl table contains no declarations")
+    if len(dcls) == 0:
+        if not ignored:
+            raise DdgException("dcl table contains no declarations")
+        else:
+            raise DdgException("All entries in dcl table were ignored")
 
-    # filter out older standards
-    max_std_rev = max(parsed_dcls, key=lambda x:x[1])[1]
-    parsed_dcls = [ d for d in parsed_dcls if d[1] == max_std_rev ]
-
-    if len(parsed_dcls) > 0:
-        code = parsed_dcls[0][0]
-        version = parsed_dcls[0][2]
-        multi = False
-        if len(parsed_dcls) > 1:
-            multi = True
-
-        return (code, version, multi)
-    else:
-        raise DdgException("No declarations after parsing")
+    return dcls
 
 def del_all_attrs(el):
     for key in el.attrib:
