@@ -198,7 +198,7 @@ def build_abstract(decls, desc):
         line_limit -= code_num_lines
 
     if limited:
-        all_code += '<pre><code> &lt;...&gt; </code></pre>'
+        all_code += '<pre><code> &lt; omitted declarations &gt; </code></pre>'
 
 
     # count the number of lines used
@@ -305,4 +305,4 @@ if debug:
     print('=============================')
     print('Numbers of lines used:')
     for i,l in enumerate(debug_num_lines):
-        print(str(i) + ': ' + str(l) + ' line(s)')
+        print(str(i) + ': ' + str(l) + ' result(s)')
