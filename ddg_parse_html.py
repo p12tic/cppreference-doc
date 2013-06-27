@@ -78,8 +78,14 @@ def get_declarations(root_el, name):
         code = code_els[0].text_content()
         code = re.sub('\n+', '\n', code)
 
+        # skip entries that don't contain name
         if re.search('[^a-zA-Z0-9_]' + re.escape(name) + '[^a-zA-Z0-9_]',
                      code) == None:
+            ignored = True
+            continue
+
+        # skip deleted functions
+        if re.search('=\s*delete\s*;', code) != None:
             ignored = True
             continue
 
