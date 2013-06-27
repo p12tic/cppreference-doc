@@ -3450,7 +3450,7 @@
 
         <function name="imbue" link="pubimbue"/>
 
-        <function name="setbuf" link="pubimbue"/>
+        <function name="setbuf" link="pubsetbuf"/>
         <function name="seekoff" link="pubseekoff"/>
         <function name="seekpos" link="pubseekpos"/>
         <function name="sync" link="pubsync"/>
@@ -3459,7 +3459,7 @@
         <function name="underflow"/>
         <function name="uflow"/>
         <function name="xsgetn" link="sgetn"/>
-        <function name="gback" link="gptr"/>
+        <function name="eback" link="gptr"/>
         <function name="gptr" />
         <function name="egptr" link="gptr"/>
         <function name="gbump"/>
@@ -3880,7 +3880,7 @@
     <function name="std::puts" link="cpp/io/c/puts"/>
     <function name="std::ungetc" link="cpp/io/c/ungetc"/>
     <function name="std::fgetwc" link="cpp/io/c/fgetwc"/>
-    <function name="std::fgetss" link="cpp/io/c/fgetws"/>
+    <function name="std::fgetws" link="cpp/io/c/fgetws"/>
     <function name="std::fputwc" link="cpp/io/c/fputwc"/>
     <function name="std::fputws" link="cpp/io/c/fputws"/>
     <function name="std::getwchar" link="cpp/io/c/getwchar"/>
