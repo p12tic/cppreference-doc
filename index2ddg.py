@@ -291,7 +291,7 @@ for page in proc_ins:
             # further_reading, external links, disambiguation, images
             line += '\t\t\t\t\t\t\t\t\t'
             # abstract
-            abstract = abstract.replace('\n','\\\\n')
+            abstract = abstract.replace('\n','\\n')
             line += abstract + '\t'
             # source url
             line += '[http://en.cppreference.com/w/' + link + ' Cppreference]\n'
