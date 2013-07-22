@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#   Copyright (C) 2011, 2012  p12 <tir5c3@yahoo.co.uk>
+#   Copyright (C) 2011, 2012  Povilas Kanapickas <tir5c3@yahoo.co.uk>
 #
 #   This file is part of cppreference-doc
 #

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (C) 2012  p12 <tir5c3@yahoo.co.uk>
+    Copyright (C) 2012  Povilas Kanapickas <tir5c3@yahoo.co.uk>
 
     This file is part of cppreference-doc
-    
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -61,7 +61,7 @@
       <files>
         <xsl:copy-of select="document('qch-files.xml')/files/*"/>
       </files>
-      
+
     </filterSection>
   </QtHelpProject>
 </xsl:template>
