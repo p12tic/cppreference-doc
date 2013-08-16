@@ -3786,6 +3786,55 @@
     <typedef name="std::wostringstream" alias="std::basic_ostringstream"/>
     <typedef name="std::wstringstream" alias="std::basic_stringstream"/>
 
+    <!-- deprecated classes -->
+    <class name="std::strstreambuf" link="cpp/io/strstreambuf">
+        <inherits name="std::basic_streambuf"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="freeze"/>
+        <function name="str"/>
+        <function name="pcount"/>
+
+        <function name="underflow"/>
+        <function name="pbackfail"/>
+        <function name="overflow"/>
+        <function name="setbuf"/>
+        <function name="seekoff"/>
+        <function name="seekpos"/>
+    </class>
+
+    <class name="std::istrstream" link="cpp/io/istrstream">
+        <inherits name="std::basic_istream"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="rdbuf"/>
+        <function name="str"/>
+    </class>
+
+    <class name="std::ostrstream" link="cpp/io/ostrstream">
+        <inherits name="std::basic_ostream"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="rdbuf"/>
+        <function name="str"/>
+        <function name="freeze"/>
+        <function name="pcount"/>
+    </class>
+
+    <class name="std::strstream" link="cpp/io/strstream">
+        <inherits name="std::basic_iostream"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="rdbuf"/>
+        <function name="str"/>
+        <function name="freeze"/>
+        <function name="pcount"/>
+    </class>
+
     <!-- class doesn't fit here, but whatever -->
     <class name="std::cin" link="cpp/io/basic_istream"/>
     <class name="std::wcin" link="cpp/io/basic_istream"/>
