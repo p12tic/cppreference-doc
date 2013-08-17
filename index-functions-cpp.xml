@@ -799,6 +799,8 @@
         <function name="get"/>
         <function name="operator*"/>
         <function name="operator->" link="operator*"/>
+
+        <function name="operator auto_ptr&lt;Y&gt;" link="operator_auto_ptr"/>
     </class>
 
     <class name="std::owner_less" link="cpp/memory/owner_less">
