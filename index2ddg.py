@@ -53,19 +53,19 @@ output_file = sys.argv[2]
 items = {}
 
 # Entry types
-# class or struct
+# a class or struct
 ITEM_TYPE_CLASS = 1
 
-# member function or free function
+# a member function or free function
 ITEM_TYPE_FUNCTION = 2
 
-# member function that is described in the same page as the class
+# a member function that is described in the same page as the class
 ITEM_TYPE_FUNCTION_INLINEMEM = 3
 
-# enum
+# an enum
 ITEM_TYPE_ENUM = 4
 
-# a value of enum
+# a value of an enum
 ITEM_TYPE_ENUM_CONST = 5
 
 def get_item_type(el):
@@ -189,7 +189,7 @@ def build_abstract(decls, desc):
             else:
                 if code_num_lines > line_limit - 1:
                     # -1 because we need to take into account
-                    # <more overloads omitted> message
+                    # < omitted declarations > message
                     limited = True
                     break
 
@@ -199,7 +199,6 @@ def build_abstract(decls, desc):
 
     if limited:
         all_code += '<pre><code> &lt; omitted declarations &gt; </code></pre>'
-
 
     # count the number of lines used
     num_lines += all_code.count('\n')
@@ -265,22 +264,28 @@ for page in proc_ins:
                 abstract = build_abstract(decls, desc)
 
             elif item_type == ITEM_TYPE_FUNCTION_INLINEMEM:
-                raise DdgException("INLINEMEM")
-                ''' (see versioned declarations, picking up the text)
-                    declaration is selected from the member table
-                    the member table is found according to the identifier (last part after :: is enough, hopefully
+                raise DdgException("INLINEMEM") # not implemented
+                ''' Implementation notes:
+                    * the declarations are possibly versioned
+                    * declaration is selected from the member table
+                    * the member table is found according to the identifier
+                      (last part after :: is enough, hopefully)
                 '''
 
             elif item_type == ITEM_TYPE_ENUM:
-                raise DdgException("ENUM")
-                ''' (see versioned declarations, picking up the text) '''
+                raise DdgException("ENUM")      # not implemented
+                ''' Implementation notes:
+                    * the declarations are possibly versioned
+                '''
 
             elif item_type == ITEM_TYPE_ENUM_CONST:
-                raise DdgException("ENUM_CONST")
-                ''' search for the const -> definition table before the first heading
-                    search for const in code, pick the definition either:
-                        within enum declaration, result in ... const ...
-                        external enum, the declaration is since the last punctuation till the ';', ',', etc
+                raise DdgException("ENUM_CONST")    # not implemented
+                ''' Implementation notes:
+                    * the abstract will come from the const -> definition table,
+                      which is always put before the first heading.
+                    * the declaration will come from the dcl template. We need
+                      to split the content at ';' and ',', then search for the
+                      name of the enum. If we find duplicates, signal an error.
                 '''
 
             # title
