@@ -299,7 +299,7 @@ for page in proc_ins:
             abstract = abstract.replace('\n','\\n')
             line += abstract + '\t'
             # source url
-            line += '[http://en.cppreference.com/w/' + link + ' Cppreference]\n'
+            line += 'http://en.cppreference.com/w/' + link + '\n'
             out.write(line)
         except DdgException as err:
             if debug:
