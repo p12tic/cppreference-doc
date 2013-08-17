@@ -3443,7 +3443,7 @@
         <function name="sputn"/>
 
         <function name="sputbackc"/>
-        <function name="ungetc"/>
+        <function name="sungetc"/>
 
         <function name="operator="/>
         <function name="swap"/>
@@ -3460,7 +3460,7 @@
         <function name="uflow"/>
         <function name="xsgetn" link="sgetn"/>
         <function name="eback" link="gptr"/>
-        <function name="gptr" />
+        <function name="gptr"/>
         <function name="egptr" link="gptr"/>
         <function name="gbump"/>
         <function name="setg"/>
@@ -3468,7 +3468,7 @@
         <function name="xsputn" link="sputn"/>
         <function name="overflow"/>
         <function name="pbase" link="pptr"/>
-        <function name="pptr" />
+        <function name="pptr"/>
         <function name="epptr" link="pptr"/>
 
         <function name="pbump"/>
