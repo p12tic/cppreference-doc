@@ -59,14 +59,26 @@ ITEM_TYPE_CLASS = 1
 # a member function or free function
 ITEM_TYPE_FUNCTION = 2
 
+# a constructor
+ITEM_TYPE_CONSTRUCTOR = 3
+
+# a constructor that is described in the same page as the class
+ITEM_TYPE_CONSTRUCTOR_INLINEMEM = 4
+
+# a destructor
+ITEM_TYPE_DESTRUCTOR = 5
+
+# a destructor that is described in the same page as the class
+ITEM_TYPE_DESTRUCTOR_INLINEMEM = 6
+
 # a member function that is described in the same page as the class
-ITEM_TYPE_FUNCTION_INLINEMEM = 3
+ITEM_TYPE_FUNCTION_INLINEMEM = 7
 
 # an enum
-ITEM_TYPE_ENUM = 4
+ITEM_TYPE_ENUM = 8
 
 # a value of an enum
-ITEM_TYPE_ENUM_CONST = 5
+ITEM_TYPE_ENUM_CONST = 9
 
 def get_item_type(el):
     if (el.tag == 'const' and el.getparent().tag == 'enum' and
@@ -77,6 +89,16 @@ def get_item_type(el):
             return ITEM_TYPE_FUNCTION_INLINEMEM
         else:
             return ITEM_TYPE_FUNCTION
+    if el.tag == 'constructor':
+        if el.get('link') == '.':
+            return ITEM_TYPE_CONSTRUCTOR_INLINEMEM
+        else:
+            return ITEM_TYPE_CONSTRUCTOR
+    if el.tag == 'destructor':
+        if el.get('link') == '.':
+            return ITEM_TYPE_DESTRUCTOR_INLINEMEM
+        else:
+            return ITEM_TYPE_DESTRUCTOR
     if el.tag == 'class':
         return ITEM_TYPE_CLASS
     if el.tag == 'enum':
@@ -219,6 +241,135 @@ def build_abstract(decls, desc):
 
     return all_code + desc
 
+''' Outputs additional redirects for an identifier.
+
+    Firstly, we replace '::' with spaces. Then we add two redirects: one with
+    unchanged text and another with '_' replaced with spaces. We strip one
+    level of namespace/class qualification and repeat the process with the
+    remaining text.
+
+    For constructors and destructors, we strip the function name and apply the
+    abovementioned algorithm, the only difference being that we append
+    (or prepend) 'constructor' or 'destructor' to the title of the redirect
+    respectively.
+
+    Each redirect has a 'priority', which is defined by the number of stripped
+    namespace/class qualifications from the entry that produced the redirect.
+    This is used to remove duplicate redirects. For each group of duplicate
+    redirects, we find the redirect with the highest priority (i.e. lowest
+    number of qualifications stripped) and remove all other redirects. If the
+    number of highest-priority redirects is more than one, then we remove all
+    redirects from the group altogether.
+
+    We don't add any redirects to specializations, overloads or operators.
+'''
+''' array of dict { 'title' -> redirect title,
+                    'target' -> redirect target,
+                    'priority' -> redirect priority as int
+                  }
+'''
+redirects = []
+
+def build_redirects(item_ident, item_type):
+    global redirects
+
+    for ch in [ '(', ')', '<', '>', 'operator' ]:
+        if ch in item_ident:
+            return
+
+    target = item_ident
+    parts = item_ident.split('::')
+
+    # -----
+    def do_parts(parts, prepend='', append=''):
+        global redirects
+        if prepend != '':
+            prepend = prepend + ' '
+        if append != '':
+            append = ' ' + append
+
+        p = 0
+        while p < len(parts):
+            redir1 = prepend + ' '.join(parts[p:]) + append
+            redir2 = prepend + ' '.join(x.replace('_',' ') for x in parts[p:]) + append
+
+            redir1 = redir1.replace('  ', ' ').replace('  ', ' ')
+            redir2 = redir2.replace('  ', ' ').replace('  ', ' ')
+
+            redirects.append({'title' : redir1, 'target' : target,
+                              'priority' : p})
+            if redir1 != redir2:
+                redirects.append({'title' : redir2, 'target' : target,
+                                'priority' : p})
+            p += 1
+    # -----
+
+    if item_type in [ ITEM_TYPE_CLASS,
+                      ITEM_TYPE_FUNCTION,
+                      ITEM_TYPE_FUNCTION_INLINEMEM,
+                      ITEM_TYPE_ENUM,
+                      ITEM_TYPE_ENUM_CONST ]:
+        do_parts(parts)
+
+    elif item_type in [ ITEM_TYPE_CONSTRUCTOR,
+                        ITEM_TYPE_CONSTRUCTOR_INLINEMEM ]:
+        parts.pop()
+        do_parts(parts, prepend='constructor')
+        do_parts(parts, append='constructor')
+    elif item_type in [ ITEM_TYPE_DESTRUCTOR,
+                        ITEM_TYPE_DESTRUCTOR_INLINEMEM ]:
+        parts.pop()
+        do_parts(parts, prepend='destructor')
+        do_parts(parts, append='destructor')
+    else:
+        pass    # should not be here
+
+def output_redirects():
+    global redirects
+
+    # convert to a convenient data structure
+    # dict { title -> dict { priority -> list ( targets ) } }
+    redir_map = {}
+
+    for r in redirects:
+        title = r['title']
+        target = r['target']
+        priority = r['priority']
+
+        if title not in redir_map:
+            redir_map[title] = {}
+        if priority not in redir_map[title]:
+            redir_map[title][priority] = []
+
+        redir_map[title][priority].append(target)
+
+    # get non-duplicate redirects
+    ok_redirects = [] # list ( dict { 'title' : title, 'target' : target  })
+
+    for title in redir_map:
+        # priority decreases with increasing values
+        highest_prio = min(redir_map[title])
+        if len(redir_map[title][highest_prio]) == 1:
+            # not duplicate
+            target = redir_map[title][highest_prio][0]
+            ok_redirects.append({ 'title' : title, 'target' : target })
+
+    # sort the redirects
+    ok_redirects = sorted(ok_redirects, key=lambda x: x['title'])
+
+    # output
+    for r in ok_redirects:
+        # title
+        line = r['title'] + '\t'
+        # type
+        line += 'R\t'
+        # redirect
+        line += r['target'] + '\t'
+        # otheruses, categories, references, see_also, further_reading,
+        # external links, disambiguation, images, abstract, source url
+        line += '\t\t\t\t\t\t\t\t\t\t\n'
+        out.write(line)
+
 if debug:
     out = sys.stdout
 else:
@@ -258,12 +409,16 @@ for page in proc_ins:
                 desc = get_short_description(root, get_version(decls), debug=debug_verbose)
                 abstract = build_abstract(decls, desc)
 
-            elif item_type == ITEM_TYPE_FUNCTION:
+            elif item_type in [ ITEM_TYPE_FUNCTION,
+                                ITEM_TYPE_CONSTRUCTOR,
+                                ITEM_TYPE_DESTRUCTOR ]:
                 decls = get_declarations(root, name)
                 desc = get_short_description(root, get_version(decls), debug=debug_verbose)
                 abstract = build_abstract(decls, desc)
 
-            elif item_type == ITEM_TYPE_FUNCTION_INLINEMEM:
+            elif item_type in [ ITEM_TYPE_FUNCTION_INLINEMEM,
+                                ITEM_TYPE_CONSTRUCTOR_INLINEMEM,
+                                ITEM_TYPE_DESTRUCTOR_INLINEMEM ]:
                 raise DdgException("INLINEMEM") # not implemented
                 ''' Implementation notes:
                     * the declarations are possibly versioned
@@ -301,10 +456,15 @@ for page in proc_ins:
             # source url
             line += 'http://en.cppreference.com/w/' + link + '\n'
             out.write(line)
+
+            build_redirects(item_ident, item_type)
+
         except DdgException as err:
             if debug:
                 line = '# error (' + str(err) + "): " + link + ": " + item_ident + "\n"
                 out.write(line)
+
+output_redirects()
 
 if debug:
     print('=============================')
