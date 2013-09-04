@@ -194,6 +194,7 @@ def build_abstract(decls, desc):
 
     for i,(code,ver) in enumerate(decls):
         code = code.strip()
+        code = code.replace('<', '&lt;').replace('>', '&gt;')
         code = '<pre><code>' + code + '</code></pre>'
         code_num_lines = code.count('\n') + 1
 
