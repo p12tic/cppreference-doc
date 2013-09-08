@@ -1,0 +1,99 @@
+.t-example-live-link {
+    display: block !important;
+    position: relative;
+    margin-top: 1em;
+    padding: 0 1em;
+    width: 55em;
+}
+
+.t-example-live-link > a {
+    display: none;
+}
+
+.coliru-btn {
+    background-color: #eeeeee;
+    background-image: linear-gradient(#ffffff, #eeeeee);
+    background-repeat: repeat-x;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    padding: 3px;
+    margin: 3px;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+.coliru-btn:hover {
+    background-color: #dddddd;
+    background-image: linear-gradient(#ffffff, #dddddd);
+}
+
+.coliru-btn-disabled {
+    color: #888888;
+}
+
+.coliru-btn-disabled:hover {
+    background-color: #eeeeee;
+    background-image: linear-gradient(#ffffff, #eeeeee);
+}
+
+.coliru-powered {
+    font-size: 0.8em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.ace_editor {
+    display: block;
+    position: relative !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30em;
+    font-family: DejaVuSansMono, "DejaVu Sans Mono", courier, monospace !important;
+}
+
+.t-example-code {
+    margin-top: 0 !important;
+}
+
+.coliru-output {
+    overflow: auto;
+    max-height: 15em;
+}
+
+.coliru-output > div {
+    display: table;
+    width: 100%;
+}
+
+.coliru-output pre {
+    border: none;
+    display: table-row;
+    padding: 0;
+    margin: 0;
+}
+
+.coliru-output-line-shell {
+    background-color: #ffd8d8;
+}
+
+.coliru-select-compiler select {
+    background-color: #EEEEEE;
+    background-image: linear-gradient(#FFFFFF, #EEEEEE);
+    background-repeat: repeat-x;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+    line-height: 1em;
+    padding: 0;
+    width: 12em;
+}
