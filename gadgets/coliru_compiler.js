@@ -157,6 +157,22 @@ function Editor(root) {
         this.editor.getSession().setValue(this.source_code);
     };
 
+    this.el.run_btn.click(function() {
+        if (!this.el.run_btn.hasClass('coliru-btn-disabled')) {
+            this.compile_now();
+        }
+    }.bind(this));
+    this.el.share_btn.click(function() {
+        if (!this.el.share_btn.hasClass('coliru-btn-disabled')) {
+            this.share();
+        }
+    }.bind(this));
+    this.el.exit_btn.click(function() {
+        if (!this.el.exit_btn.hasClass('coliru-btn-disabled')) {
+            this.restore_orig();
+        }
+    }.bind(this));
+
     this.enable_ui = function(value) {
         this.editor.setReadOnly(!value);
 
@@ -164,24 +180,10 @@ function Editor(root) {
             this.el.run_btn.removeClass('coliru-btn-disabled');
             this.el.share_btn.removeClass('coliru-btn-disabled');
             this.el.exit_btn.removeClass('coliru-btn-disabled');
-
-            this.el.run_btn.click(function() {
-                this.compile_now();
-            }.bind(this));
-            this.el.share_btn.click(function() {
-                this.share();
-            }.bind(this));
-            this.el.exit_btn.click(function() {
-                this.restore_orig();
-            }.bind(this));
         } else {
             this.el.run_btn.addClass('coliru-btn-disabled');
             this.el.share_btn.addClass('coliru-btn-disabled');
             this.el.exit_btn.addClass('coliru-btn-disabled');
-
-            this.el.run_btn.click(false);
-            this.el.share_btn.click(false);
-            this.el.exit_btn.click(false);
         }
     };
 
