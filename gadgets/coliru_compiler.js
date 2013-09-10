@@ -14,12 +14,13 @@ function Editor(root) {
         cc: [
             { title: 'GCC 4.6', cmd: 'g++-4.6 -std=c++98 ' },
             { title: 'GCC 4.7', cmd: 'g++-4.7 -std=c++98 ' },
+            { title: 'GCC 4.7 (C++11)', cmd: 'g++-4.7 -std=c++11 ' },
             { title: 'GCC 4.8', cmd: 'g++-4.8 -std=c++98 ' },
             { title: 'GCC 4.8 (C++11)', cmd: 'g++-4.8 -std=c++11 ' },
             { title: 'clang 3.4', cmd: 'clang++ -std=c++98 ' },
             { title: 'clang 3.4 (C++11)', cmd: 'clang++ -std=c++11 '}
         ],
-        default_id: 3,
+        default_id: 4,
         opt: ' -O2 -Wall -Wextra -pedantic -pthread main.cpp ',
     }
 
