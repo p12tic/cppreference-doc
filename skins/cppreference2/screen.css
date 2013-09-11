@@ -1,0 +1,1213 @@
+/*
+ * Any rules which should not be flipped automatically in right-to-left situations should be
+ * prepended with @noflip in a comment block. Images that should be embedded as base64 data-URLs
+ * should be prepended with @embed in a comment block.
+ *
+ * This style-sheet employs a few CSS trick to accomplish compatibility with a wide range of web
+ * browsers. The most common trick is to use some styles in IE6 only. This is accomplished by using
+ * a rule that makes things work in IE6, and then following it with a rule that begins with
+ * "html > body" or use a child selector ">", which is ignored by IE6 because it does not support
+ * the child selector. You can spot this by looking for the "OVERRIDDEN BY COMPLIANT BROWSERS" and
+ * "IGNORED BY IE6" comments.
+ */
+
+/* Framework */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 1em;
+}
+body {
+    min-width: 780px;
+    background: none repeat scroll 0 0 #f0f0f0;
+}
+
+div#cpp-head-first,
+div#cpp-head-second,
+div#content,
+div#footer {
+    margin: 0 auto;
+    position: relative;
+    width: 780px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* Content */
+div#cpp-content-base {
+    background: white;
+}
+
+div#content {
+    color: black;
+    direction: ltr;
+    padding: 0.5em;
+}
+
+div#bodyContent {
+    padding-top: 0em;
+}
+
+/* Head */
+div#mw-head {
+    width: 100%;
+}
+
+    div#mw-head h5 {
+        margin: 0;
+        padding: 0;
+    }
+
+    div#cpp-head-first-base {
+        border-bottom: 1px solid #eee;
+        background: white;
+    }
+
+    div#cpp-head-first {
+        padding: 0.1em 0.1em 0.1em 1em;
+        height: 22px;
+    }
+
+    div#cpp-head-first > h5 {
+        display: inline;
+    }
+
+        div#cpp-head-personal {
+            float: right;
+
+            font-size: 0.7em;
+            padding-top: 0.3em;
+            margin-right: 1em;
+
+            white-space: nowrap;
+        }
+
+        div#cpp-head-personal h5 {
+            display: none;
+        }
+
+        div#cpp-head-personal div.menu {
+            clear: both;
+            position: relative;
+            display: none;
+            z-index: 1;
+        }
+
+        div#cpp-head-personal:hover div.menu {
+            display: block;
+        }
+
+        div#cpp-head-personal ul {
+            list-style: none;
+            list-style-image: none;
+            list-style-type: none;
+
+            position: absolute;
+            left: -2em;
+            top: 0;
+
+            margin: 0;
+            padding-top: 0.2em;
+
+            background: white;
+            border: solid 1px silver;
+            border-top-width: 0;
+            border-radius: 3px;
+        }
+
+        /* @noflip */
+        div#cpp-head-personal ul li {
+            line-height: 1.125em;
+        }
+        /* This one flips! */
+        div#cpp-head-personal ul li {
+            margin-left: 0.75em;
+            margin-top: 0.25em;
+
+            display: block;
+            padding: 0;
+        }
+
+        div#cpp-head-personal ul li a {
+            display: block;
+            padding: 0.1em 0.5em;
+        }
+
+        #pt-userpage a {
+            padding-right: 21px !important;
+            /* @embed */
+            background: url(images/arrow-down-icon1.png) no-repeat scroll right;
+        }
+
+        div#cpp-head-search {
+            float: right;
+            font-size: 0.7em;
+            line-height: 1em;
+        }
+
+        div#simpleSearch input {
+            color: black;
+            direction: ltr;
+        }
+        div#simpleSearch input:focus {
+            outline: none;
+        }
+        div#simpleSearch input.placeholder {
+            color: #999999;
+        }
+        div#simpleSearch input::-webkit-input-placeholder {
+            color: #999999;
+        }
+        div#simpleSearch input#searchInput {
+            width: 90%;
+            margin: 0;
+            padding: 0;
+            padding-left: 0.1em;
+            padding-top: 0.1em;
+            padding-bottom: 0.1em;
+            outline: none;
+            border: none;
+
+            font-size: 1em;
+            background-color: transparent;
+            direction: ltr;
+        }
+        div#simpleSearch button#searchButton {
+            position: absolute;
+            width: 10%;
+            right: 0;
+            top: -0.2em;
+            padding: 0;
+            margin: 0;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            background-image: none;
+        }
+
+        div#simpleSearch button#searchButton img {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+    div#cpp-head-second-base {
+        background: white;
+        /* @embed */
+        background-image: url(images/page-fade.png);
+        background-position: bottom left;
+        background-repeat: repeat-x;
+    }
+
+    div#cpp-head-second {
+        height: 40px;
+    }
+
+    div#cpp-head-tools-left {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    div#cpp-head-tools-right {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    /* Hide empty portlets */
+    div.emptyPortlet {
+        display: none;
+    }
+
+    /* Navigation Labels */
+    div.vectorTabs h5,
+    div.vectorMenu h5 span {
+        display: none;
+    }
+    /* Namespaces and Views */
+    /* @noflip */
+    div.vectorTabs {
+        float: left;
+        height: 2.5em;
+    }
+    div.vectorTabs:nth-child(1) {
+        /* @embed */
+        background-image: url(images/tab-break.png);
+        background-position: bottom left;
+        background-repeat: no-repeat;
+        padding-left: 1px;
+    }
+    /* @noflip */
+    div.vectorTabs ul {
+        float: left;
+    }
+    div.vectorTabs ul {
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    /* @noflip */
+    div.vectorTabs ul li {
+        float: left;
+    }
+
+    div.vectorTabs ul li {
+        display: block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        /* @embed */
+        background-image: url(images/tab-normal-fade.png);
+        background-position: bottom left;
+        background-repeat: repeat-x;
+        white-space:nowrap;
+    }
+
+    div.vectorTabs ul li.selected {
+        /* @embed */
+        background-image: url(images/tab-current-fade.png);
+    }
+
+    div.vectorTabs span {
+        display: inline-block;
+        height: 100%;
+        /* @embed */
+        background-image: url(images/tab-break.png);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        padding-left: 1px;
+    }
+
+    div.vectorTabs ul li a {
+        display: block;
+        padding: 2.0em 0.5em 0.5em 0.5em;
+        line-height: 1.0em;
+        color: #0645ad;
+        cursor: pointer;
+        font-size: 0.7em;
+    }
+
+    div.vectorTabs ul li.icon a {
+        background-position: bottom right;
+        background-repeat: no-repeat;
+    }
+
+    div.vectorTabs li.selected a,
+    div.vectorTabs li.selected a:visited {
+        color: #333333;
+        text-decoration: none;
+    }
+    div.vectorTabs li.new a,
+    div.vectorTabs li.new a:visited {
+        color: #a55858;
+    }
+    /* Variants and Actions */
+    /* @noflip */
+    div.vectorMenu {
+        direction: ltr;
+        float: left;
+        cursor: pointer;
+    }
+
+    /* @noflip */
+    body.rtl div.vectorMenu {
+        direction: rtl;
+        float: left;
+    }
+
+    div.vectorMenu div.menu {
+        position: relative;
+        display: none;
+        clear: both;
+        text-align: left;
+    }
+
+    body.rtl div.vectorMenu div.menu {
+        margin-left: auto;
+    }
+
+    div.vectorMenu {
+        /* @embed */
+        background-image: url(images/tab-current-fade.png);
+        background-position: bottom left;
+        background-repeat: repeat-x;
+        height: 2.5em;
+    }
+
+    div.vectorMenu h5 {
+        /* @embed */
+        background-image: url(images/tab-break.png);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        padding-left: 1px;
+        height: 100%;
+    }
+
+    div.vectorMenu h5 span {
+        display: inline-block;
+        padding: 2.0em 22px 0.5em 0.5em;
+
+        line-height: 1.0em;
+        font-weight: normal;
+        font-size: 0.7em;
+
+        /* @embed */
+        background: url(images/arrow-down-icon1.png) no-repeat scroll right 1.6em;
+    }
+
+    div.vectorMenuFocus h5 span {
+        /* @embed */
+        background: url(images/arrow-down-icon2.png) no-repeat scroll right 1.6em;
+    }
+
+
+    div.vectorMenu div.menu {
+        position: relative;
+        display: none;
+        clear: both;
+        text-align: left;
+    }
+
+    body.rtl div.vectorMenu div.menu {
+        margin-left: auto;
+    }
+
+    /* Enable forcing showing of the menu for accessibility */
+    div.vectorMenu:hover div.menu, div.vectorMenu div.menuForceShow {
+        display: block;
+    }
+    div.vectorMenu ul {
+        position: absolute;
+        top: -0.3em;
+        z-index: 1;
+
+        background-color: white;
+        border: solid 1px silver;
+        border-top-width: 0;
+        border-radius: 3px;
+
+        list-style: none;
+        list-style-image: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-left: -1px;
+        text-align: left;
+    }
+
+    div.vectorMenu li {
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        line-height: 1em;
+    }
+
+    div.vectorMenu li a {
+        display: block;
+        padding: 0.1em 0.5em;
+        white-space: nowrap;
+        color: #0645ad;
+        cursor: pointer;
+        font-size: 0.7em;
+    }
+
+    div.vectorMenu li.selected a,
+    div.vectorMenu li.selected a:visited {
+        color: #333333;
+        text-decoration: none;
+    }
+
+    /* Search */
+    #p-search h5 {
+        display: none;
+    }
+
+    #p-search {
+        margin-right: 0.5em;
+        margin-left: 0.5em;
+    }
+
+    div#simpleSearch {
+        display: block;
+        width: 14em;
+        height: 1.4em;
+        margin-top: 0.2em;
+        position: relative;
+        border: solid 1px silver;
+        border-radius: 3px;
+
+        color: black;
+        background-color: white;
+        /* @embed */
+        background-image: url(images/search-fade.png);
+        background-position: top left;
+        background-repeat: repeat-x;
+    }
+
+/* Footer */
+div#cpp-footer-base {
+    border-top: 1px solid silver;
+    background: none repeat scroll 0 0 #f0f0f0;
+    direction: ltr;
+}
+
+div#footer {
+    padding: 0.75em;
+    font-size: 0.7em;
+    line-height: 1.4em;
+}
+
+    div#footer ul {
+        list-style: none;
+        list-style-image: none;
+        list-style-type: none;
+        margin: 0;
+        padding: 0.2em 0 0.2em 0;
+        line-height: 1.1em;
+    }
+    div#footer ul li {
+        margin: 0;
+        padding: 0;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        color: #333333;
+    }
+
+    /* Toolbox */
+    div#cpp-toolbox h5 {
+        display: none;
+    }
+
+    div#cpp-toolbox ul {
+        display: inline-block;
+    }
+
+    div#cpp-toolbox ul li {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    /* Navigation */
+
+    div#cpp-navigation {
+        display: inline-block;
+    }
+
+    div#cpp-navigation h5 {
+        display: none;
+    }
+
+    div#cpp-navigation ul {
+        display: inline-block;
+        margin: 0;
+    }
+
+    div#cpp-navigation ul li {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    /* Languages */
+    div#cpp-languages {
+        display: table;
+    }
+
+    div#cpp-languages div {
+        display: table-cell;
+    }
+
+    div#cpp-languages div:nth-child(1) {
+        white-space: nowrap;
+    }
+
+    div#cpp-languages ul li {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    div#footer #footer-icons {
+        float: right;
+        margin-top: -40px;
+    }
+    /* @noflip */
+    body.ltr div#footer #footer-places {
+        /*float: left;*/
+    }
+    div#footer #footer-info li {
+        display: inline-block;
+        line-height: 1.4em;
+    }
+    div#footer #footer-icons li {
+        float: left;
+        margin-left: 0.5em;
+        line-height: 2em;
+        text-align: right;
+    }
+    div#footer #footer-places li {
+        display: inline-block;
+        margin-right: 1em;
+        line-height: 2em;
+    }
+
+/* ORIGINAL CONFIG */
+
+/*
+ *
+ * The following code is highly modified from monobook. It would be nice if the
+ * preftoc id was more human readable like preferences-toc for instance,
+ * howerver this would require backporting the other skins.
+ */
+
+/* Preferences */
+#preftoc {
+    /* Tabs */
+    width: 100%;
+    float: left;
+    clear: both;
+    margin: 0 !important;
+    padding: 0 !important;
+    /* @embed */
+    background-image: url(images/preferences-break.png);
+    background-position: bottom left;
+    background-repeat: no-repeat;
+}
+    #preftoc li {
+        /* Tab */
+        float: left;
+        margin: 0;
+        padding: 0;
+        padding-right: 1px;
+        height: 2.25em;
+        white-space: nowrap;
+        list-style-type: none;
+        list-style-image: none;
+        /* @embed */
+        background-image: url(images/preferences-break.png);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+    }
+    /* Sadly, IE6 won't understand this */
+    #preftoc li:first-child {
+        margin-left: 1px;
+    }
+    #preftoc a,
+    #preftoc a:active {
+        display: inline-block;
+        position: relative;
+        color: #0645ad;
+        padding: 0.5em;
+        text-decoration: none;
+        background-image: none;
+        font-size: 0.9em;
+    }
+    #preftoc a:hover,
+    #preftoc a:focus {
+        text-decoration: underline;
+    }
+    #preftoc li.selected a {
+        /* @embed */
+        background-image: url(images/preferences-fade.png);
+        background-position: bottom;
+        background-repeat: repeat-x;
+        color: #333333;
+        text-decoration: none;
+    }
+#preferences {
+    float: left;
+    width: 100%;
+    margin: 0;
+    margin-top: -2px;
+    clear: both;
+    border: solid 1px #cccccc;
+    background-color: #f9f9f9;
+    /* @embed */
+    background-image: url(images/preferences-base.png);
+}
+#preferences fieldset {
+    border: none;
+    border-top: solid 1px #cccccc;
+}
+#preferences fieldset.prefsection {
+    border: none;
+    padding: 0;
+    margin: 1em;
+}
+#preferences legend {
+    color: #666666;
+}
+#preferences fieldset.prefsection legend.mainLegend {
+    display: none;
+}
+#preferences td {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+#preferences td.htmlform-tip {
+    font-size: x-small;
+    padding: .2em 2em;
+    color: #666666;
+}
+#preferences div.mw-prefs-buttons {
+    padding: 1em;
+}
+#preferences div.mw-prefs-buttons input {
+    margin-right: 0.25em;
+}
+
+/*
+ * Styles for the user login and create account forms
+ */
+#userlogin, #userloginForm {
+    border: solid 1px #cccccc;
+    padding: 1.2em;
+    margin: .5em;
+    float: left;
+}
+
+#userlogin {
+    min-width: 20em;
+    max-width: 90%;
+    width: 40em;
+}
+
+/*
+ *
+ * The following code is slightly modified from monobook
+ *
+ */
+div#content {
+    line-height: 1.5em;
+}
+#bodyContent {
+    font-size: 0.8em;
+    line-height: 1.5em;
+    width: 100%;
+}
+/* Links */
+a {
+    text-decoration: none;
+    color: #0645ad;
+    background: none;
+}
+a:visited {
+    color: #0b0080;
+}
+a:active {
+    color: #faa700;
+}
+a:hover, a:focus {
+    text-decoration: underline;
+}
+a.stub {
+    color: #772233;
+}
+a.new, #p-personal a.new {
+    color: #ba0000;
+}
+a.new:visited, #p-personal a.new:visited {
+    color: #a55858;
+}
+
+/* Inline Elements */
+img {
+    border: none;
+    vertical-align: middle;
+}
+hr {
+    height: 1px;
+    color: #aaa;
+    background-color: #aaa;
+    border: 0;
+    margin: .2em 0 .2em 0;
+}
+
+/* Structural Elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: black;
+    background: none;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden;
+    padding-top: .5em;
+    padding-bottom: .17em;
+    border-bottom: 1px solid #aaa;
+    width: auto;
+}
+h1 { font-size: 188%; }
+h1 .editsection { font-size: 53%; }
+h2 { font-size: 150%; }
+h2 .editsection { font-size: 67%; }
+h3,
+h4,
+h5,
+h6 {
+    border-bottom: none;
+    font-weight: bold;
+}
+h3 { font-size: 132%; }
+h3 .editsection { font-size: 76%; font-weight: normal; }
+h4 { font-size: 116%; }
+h4 .editsection { font-size: 86%; font-weight: normal; }
+h5 { font-size: 100%; }
+h5 .editsection { font-weight: normal; }
+h6 { font-size: 80%;  }
+h6 .editsection { font-size: 125%; font-weight: normal; }
+.editsection { float: right; }
+p {
+    margin: .4em 0 .5em 0;
+    line-height: 1.5em;
+}
+p img {
+    margin: 0;
+}
+q {
+    font-family: Times, "Times New Roman", serif;
+    font-style: italic;
+}
+/* Disabled for now
+blockquote {
+    font-family: Times, "Times New Roman", serif;
+    font-style: italic;
+}*/
+pre, code, tt, kbd, samp {
+    /*
+     * It's important for this rule to first reference an actual font name, some browsers will render the monospace text
+     * too small otherwise, namely Firefox, Chrome and Safari
+     */
+    font-family: monospace, "Courier New";
+}
+code {
+    background-color: #f9f9f9;
+}
+pre {
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: black;
+    background-color: #f9f9f9;
+    line-height: 1.3em;
+}
+ul {
+    line-height: 1.5em;
+    list-style-type: square;
+    margin: .3em 0 0 1.5em;
+    padding: 0;
+    /* @embed */
+    list-style-image: url(images/bullet-icon.png);
+}
+ol {
+    line-height: 1.5em;
+    margin: .3em 0 0 3.2em;
+    padding: 0;
+    list-style-image: none;
+}
+li {
+    margin-bottom: .1em;
+}
+dt {
+    font-weight: bold;
+    margin-bottom: .1em;
+}
+dl {
+    margin-top: .2em;
+    margin-bottom: .5em;
+}
+dd {
+    line-height: 1.5em;
+    margin-left: 2em;
+    margin-bottom: .1em;
+}
+/* Tables */
+table {
+    font-size: 100%;
+}
+/* Forms */
+fieldset {
+    border: 1px solid #2f6fab;
+    margin: 1em 0 1em 0;
+    padding: 0 1em 1em;
+    line-height: 1.5em;
+}
+    fieldset.nested {
+        margin: 0 0 0.5em 0;
+        padding: 0 0.5em 0.5em;
+    }
+legend {
+    padding: .5em;
+    font-size: 95%;
+}
+form {
+    border: none;
+    margin: 0;
+}
+textarea {
+    width: 100%;
+    padding: .1em;
+}
+select {
+    vertical-align: top;
+}
+/* Table of Contents */
+#toc,
+.toc,
+.mw-warning {
+    border: 1px solid #aaa;
+    background-color: #f9f9f9;
+    padding: 5px;
+    font-size: 95%;
+}
+#toc h2,
+.toc h2 {
+    display: inline;
+    border: none;
+    padding: 0;
+    font-size: 100%;
+    font-weight: bold;
+}
+#toc #toctitle,
+.toc #toctitle,
+#toc .toctitle,
+.toc .toctitle {
+    text-align: center;
+}
+#toc ul,
+.toc ul {
+    list-style-type: none;
+    list-style-image: none;
+    margin-left: 0;
+    padding: 0;
+    text-align: left;
+}
+#toc ul ul,
+.toc ul ul {
+    margin: 0 0 0 2em;
+}
+#toc .toctoggle,
+.toc .toctoggle {
+    font-size: 94%;
+}
+/* Images */
+/* @noflip */div.floatright, table.floatright {
+    margin: 0 0 .5em .5em;
+    border: 0;
+}
+div.floatright p { font-style: italic; }
+/* @noflip */div.floatleft, table.floatleft {
+    margin: 0 .5em .5em 0;
+    border: 0;
+}
+div.floatleft p { font-style: italic; }
+/* Thumbnails */
+div.thumb {
+    margin-bottom: .5em;
+    width: auto;
+    background-color: transparent;
+}
+div.thumbinner {
+    border: 1px solid #ccc;
+    padding: 3px !important;
+    background-color: #f9f9f9;
+    font-size: 94%;
+    text-align: center;
+    overflow: hidden;
+}
+html .thumbimage {
+    border: 1px solid #ccc;
+}
+html .thumbcaption {
+    border: none;
+    text-align: left;
+    line-height: 1.4em;
+    padding: 3px !important;
+    font-size: 94%;
+}
+div.magnify {
+    float: right;
+    border: none !important;
+    background: none !important;
+}
+div.magnify a, div.magnify img {
+    display: block;
+    border: none !important;
+    background: none !important;
+}
+/* @noflip */div.tright {
+    margin: .5em 0 1.3em 1.4em;
+}
+/* @noflip */div.tleft {
+    margin: .5em 1.4em 1.3em 0;
+}
+img.thumbborder {
+    border: 1px solid #dddddd;
+}
+/* Warning */
+.mw-warning {
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+}
+/* User Message */
+.usermessage {
+    background-color: #ffce7b;
+    border: 1px solid #ffa500;
+    color: black;
+    font-weight: bold;
+    margin: 2em 0 1em;
+    padding: .5em 1em;
+    vertical-align: middle;
+}
+/* Site Notice (includes notices from CentralNotice extension) */
+#siteNotice {
+    position: relative;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 0;
+}
+#localNotice {
+    margin-bottom: 0.9em;
+}
+/* Categories */
+.catlinks {
+    border: 1px solid #aaa;
+    background-color: #f9f9f9;
+    padding: 5px;
+    margin-top: 1em;
+    clear: both;
+}
+/* Sub-navigation */
+#siteSub {
+    display: none;
+}
+#contentSub, #contentSub2 {
+    font-size: 84%;
+    line-height: 1.2em;
+    margin: 0 0 1.4em 1em;
+    color: #7d7d7d;
+    width: auto;
+}
+span.subpages {
+    display: block;
+}
+/* Emulate Center */
+.center {
+    width: 100%;
+    text-align: center;
+}
+*.center * {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Small for tables and similar */
+.small {
+    font-size: 94%;
+}
+table.small {
+    font-size: 100%;
+}
+/* Edge Cases for Content */
+h1, h2 {
+    margin-bottom: .6em;
+}
+h3, h4, h5 {
+    margin-bottom: .3em;
+}
+#firstHeading {
+    padding-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0.1em;
+    line-height: 1.2em;
+    font-size: 1.6em;
+    padding-bottom: 0;
+}
+div#content a.external,
+div#content a.external[href ^="gopher://"] {
+    /* @embed */
+    background: url(images/external-link-ltr-icon.png) center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href ^="https://"],
+.link-https {
+    /* @embed */
+    background: url(images/lock-icon.png) center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href ^="mailto:"],
+.link-mailto {
+    /* @embed */
+    background: url(images/mail-icon.png) center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href ^="news://"] {
+    /* @embed */
+    background: url(images/news-icon.png) center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href ^="ftp://"],
+.link-ftp {
+    /* @embed */
+    background: url(images/file-icon.png) center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href ^="irc://"],
+div#content a.external[href ^="ircs://"],
+.link-irc {
+    /* @embed */
+    background: url(images/talk-icon.png) center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href $=".ogg"], div#content a.external[href $=".OGG"],
+div#content a.external[href $=".mid"], div#content a.external[href $=".MID"],
+div#content a.external[href $=".midi"], div#content a.external[href $=".MIDI"],
+div#content a.external[href $=".mp3"], div#content a.external[href $=".MP3"],
+div#content a.external[href $=".wav"], div#content a.external[href $=".WAV"],
+div#content a.external[href $=".wma"], div#content a.external[href $=".WMA"],
+.link-audio {
+    /* @embed */
+    background: url("images/audio-icon.png?2") center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href $=".ogm"], div#content a.external[href $=".OGM"],
+div#content a.external[href $=".avi"], div#content a.external[href $=".AVI"],
+div#content a.external[href $=".mpeg"], div#content a.external[href $=".MPEG"],
+div#content a.external[href $=".mpg"], div#content a.external[href $=".MPG"],
+.link-video {
+    /* @embed */
+    background: url("images/video-icon.png?2") center right no-repeat;
+    padding-right: 13px;
+}
+div#content a.external[href $=".pdf"], div#content a.external[href $=".PDF"],
+div#content a.external[href *=".pdf#"], div#content a.external[href *=".PDF#"],
+div#content a.external[href *=".pdf?"], div#content a.external[href *=".PDF?"],
+.link-document {
+    /* @embed */
+    background: url("images/document-icon.png?2") center right no-repeat;
+    padding-right: 13px;
+}
+
+/* Interwiki Styling */
+div#content a.extiw,
+div#content a.extiw:active {
+    color: #36b;
+    /* Don't show icons for interwiki links */
+    background: none;
+    padding: 0;
+}
+div#content a.extiw:visited {
+    color: #636;
+}
+div#content a.extiw:active {
+    color: #b63;
+}
+
+/* External links */
+div#content a.external {
+    color: #36b;
+}
+div#content a.external:visited {
+    color: #636; /* bug 3112 */
+}
+div#content a.external:active {
+    color: #b63;
+}
+
+
+div#content .printfooter {
+    display: none;
+}
+/* Icon for Usernames */
+#pt-userpage,
+#pt-anonuserpage,
+#pt-login {
+    /* @embed */
+    background: url(images/user-icon.png) left top no-repeat;
+    padding-left: 15px !important;
+    text-transform: none;
+}
+
+.redirectText {
+    font-size: 140%;
+}
+
+.redirectMsg img {
+    vertical-align: text-bottom;
+}
+
+.toccolours {
+    border: 1px solid #aaa;
+    background-color: #f9f9f9;
+    padding: 5px;
+    font-size: 95%;
+}
+
+#mw-js-message {
+    font-size: 0.8em;
+}
+
+/* Watch/Unwatch Icon Styling */
+#ca-unwatch.icon a,
+#ca-watch.icon a {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    display: block;
+    width: 26px;
+    /* This hides the text but shows the background image */
+    padding-top: 3.1em;
+    margin-top: 0;
+    /* Only applied in IE6 */
+    margin-top: -0.8em !ie;
+    height: 0;
+    overflow: hidden;
+    /* @embed */
+    background-image: url(images/watch-icons.png);
+}
+#ca-unwatch.icon a {
+    background-position: -43px 60%;
+}
+#ca-watch.icon a {
+    background-position: 5px 60%;
+}
+#ca-unwatch.icon a:hover,
+#ca-unwatch.icon a:focus {
+    background-position: -67px 60%;
+}
+#ca-watch.icon a:hover,
+#ca-watch.icon a:focus {
+    background-position: -19px 60%;
+}
+#ca-unwatch.icon a.loading,
+#ca-watch.icon a.loading {
+    /* @embed */
+    background-image: url(images/watch-icon-loading.gif);
+    background-position: 5px 60%;
+}
+#ca-unwatch.icon a span,
+#ca-watch.icon a span {
+    display: none;
+}
+div.vectorTabs ul {
+    /* @embed */
+    background-image:url(images/tab-break.png);
+    background-position:right bottom;
+    background-repeat:no-repeat;
+}
+
+/* Tooltips are outside of the normal body code, so this helps make the size of the text sensible */
+.tipsy {
+    font-size: 0.8em;
+}
+
+textarea#wpTextbox1 {
+    font-size: 1em;
+    line-height: 1.2em;
+}
