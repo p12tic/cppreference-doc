@@ -51,7 +51,7 @@ function Editor(root) {
         this.cmd_info = cmd_info_c;
     }
 
-    this.cmd_run_normal = ' 2>&1 | sed "s/^/C:/"; if [ -x a.out ]; then ./a.out | sed "s/^/O:/"; fi'
+    this.cmd_run_normal = ' 2>&1 | sed "s/^/☘/"; if [ -x a.out ]; then ./a.out | sed "s/^/☢/"; fi'
     this.cmd_run_share = ' && ./a.out';
 
     this.el = {};
@@ -238,11 +238,11 @@ function Editor(root) {
                 var is_compile_output = false;
                 var is_shell_output = false;
 
-                if (line.indexOf('C:') !== -1) {
+                if (line.indexOf('☘') !== -1) {
                     is_compile_output = true;
-                    line = line.substring(2);
-                } else if (line.indexOf('O:') !== -1) {
-                    line = line.substring(2);
+                    line = line.substring(1);
+                } else if (line.indexOf('☢') !== -1) {
+                    line = line.substring(1);
                 } else {
                     // everything else comes from the shell. Presumably, this
                     // indicates a serious error in the program
