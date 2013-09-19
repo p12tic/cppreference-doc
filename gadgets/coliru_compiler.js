@@ -238,10 +238,10 @@ function Editor(root) {
                 var is_compile_output = false;
                 var is_shell_output = false;
 
-                if (line.indexOf('☘') !== -1) {
+                if (line.indexOf('☘') == 0) {
                     is_compile_output = true;
                     line = line.substring(1);
-                } else if (line.indexOf('☢') !== -1) {
+                } else if (line.indexOf('☢') == 0) {
                     line = line.substring(1);
                 } else {
                     // everything else comes from the shell. Presumably, this
