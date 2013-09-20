@@ -131,12 +131,20 @@ class Cppreference2Template extends BaseTemplate {
 		}
 		// Output HTML Page
 		$this->html( 'headelement' );
+
+        global $Cppreference2SkinRootLink;
+        $root_link = '/';
+        if (isset($Cppreference2SkinRootLink)) {
+            $root_link = htmlspecialchars($Cppreference2SkinRootLink);
+        }
 ?>
         <!-- header -->
         <div id="mw-head" class="noprint">
             <div id="cpp-head-first-base">
                 <div id="cpp-head-first">
-                    <h5><a href="/"><?php global $wgSitename; echo $wgSitename;?></a></h5>
+                    <h5><a href="<?php echo $root_link; ?>">
+                        <?php global $wgSitename; echo $wgSitename;?>
+                    </a></h5>
                     <div id="cpp-head-search">
                         <?php $this->renderNavigation( 'SEARCH' ); ?>
                     </div>
@@ -230,7 +238,7 @@ class Cppreference2Template extends BaseTemplate {
         </div>
         <!-- /footer -->
         <?php $this->printTrail(); ?>
-        
+
 	</body>
 </html>
 <?php
@@ -239,13 +247,13 @@ class Cppreference2Template extends BaseTemplate {
     private function renderToolbox()
     {
         $name = 'tb';
-        
+
         $content = $this->getToolbox();
 
         $msg = 'toolbox';
         $msg_obj = wfMessage( $msg );
         $message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
-        
+
         ?>
         <div id="cpp-toolbox">
             <h5><span><?php echo $message; ?></span><a href="#"></a></h5>
@@ -259,7 +267,7 @@ class Cppreference2Template extends BaseTemplate {
         </div>
 <?php
     }
-    
+
     private function renderBottomNavigation()
     {
         $content = $this->data['sidebar']['navigation'];
@@ -267,7 +275,7 @@ class Cppreference2Template extends BaseTemplate {
         $msg = 'navigation';
         $msg_obj = wfMessage( $msg );
         $message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
-        
+
         ?>
         <div id="cpp-navigation">
             <h5><?php echo $message; ?></h5>
@@ -279,7 +287,7 @@ class Cppreference2Template extends BaseTemplate {
         </div>
 <?php
     }
-    
+
     private function renderLanguages()
     {
         $content = $this->data['language_urls'];
@@ -287,7 +295,7 @@ class Cppreference2Template extends BaseTemplate {
         $msg = 'otherlanguages';
         $msg_obj = wfMessage( $msg );
         $message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
-        
+
         ?>
         <div id="cpp-languages">
             <div><ul><li><?php echo $message; ?></li></ul></div>
@@ -426,8 +434,8 @@ class Cppreference2Template extends BaseTemplate {
 ?>
 	<div class="menu">
         <ul<?php $this->html( 'userlangattributes' ) ?>>
-<?php               foreach( $tools as $key => $item ) { 
-                        echo $this->makeListItem( $key, $item ); 
+<?php               foreach( $tools as $key => $item ) {
+                        echo $this->makeListItem( $key, $item );
                     } ?>
         </ul>
     </div>
