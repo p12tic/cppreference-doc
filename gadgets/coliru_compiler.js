@@ -333,10 +333,14 @@ function Editor(root) {
     this.get_cmd = function(is_shared) {
         var val = this.el.cc_select.val();
         var cc = this.cmd_info.cc[parseInt(val)].cmd;
+        cc = cc + this.cmd_info.opt
+        if (this.cmd_info.cc[parseInt(val)].opt_suff !== undefined) {
+            cc = cc + this.cmd_info.cc[parseInt(val)].opt_suff;
+        }
         if (is_shared) {
-            return cc + this.cmd_info.opt + this.cmd_run_share;
+            return cc + this.cmd_run_share;
         } else {
-            return cc + this.cmd_info.opt + this.cmd_run_normal;
+            return cc + this.cmd_run_normal;
         }
     };
 
