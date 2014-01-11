@@ -18,7 +18,10 @@ function Editor(root) {
             { title: 'GCC 4.8', cmd: 'g++-4.8 -std=c++98 ' },
             { title: 'GCC 4.8 (C++11)', cmd: 'g++-4.8 -std=c++11 ' },
             { title: 'clang 3.4', cmd: 'clang++ -std=c++98 ' },
-            { title: 'clang 3.4 (C++11)', cmd: 'clang++ -std=c++11 '}
+            { title: 'clang 3.4 (C++11)',
+              cmd: 'clang++ -std=c++11 -stdlib=libc++ ',
+              opt_suff: ' -lsupc++ '
+            }
         ],
         default_id: 4,
         opt: ' -O2 -Wall -Wextra -pedantic -pthread main.cpp ',
