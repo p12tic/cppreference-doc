@@ -161,6 +161,7 @@ indexes:
 	./index2highlight.py index-functions-c.xml output/indexes/highlight-c
 	./index2search.py index-functions-cpp.xml output/indexes/search-cpp
 	./index2search.py index-functions-c.xml output/indexes/search-c
+	cat index-cpp-search-app.txt >> output/indexes/search-cpp
 	./index2autolinker.py index-functions-c.xml output/indexes/autolink-c
 	./index2autolinker.py index-functions-cpp.xml output/indexes/autolink-cpp
 
