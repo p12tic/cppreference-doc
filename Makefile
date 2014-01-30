@@ -1,4 +1,4 @@
-#   Copyright (C) 2011, 2012  Povilas Kanapickas <tir5c3@yahoo.co.uk>
+#   Copyright (C) 2011-2014  Povilas Kanapickas <povilas@radix.lt>
 #
 #   This file is part of cppreference-doc
 #
@@ -58,20 +58,10 @@ DISTFILES=	\
 		README
 
 CLEANFILES= \
-		output								\
-		images/output						\
-		cppreference-doc-en-c.devhelp2		\
-		cppreference-doc-en-cpp.devhelp2	\
-		cppreference-doc-en-c.qch			\
-		cppreference-doc-en-cpp.qch			\
-		qch-help-project-cpp.xml			\
-		qch-files.xml						\
-		devhelp-index-c.xml					\
-		devhelp-index-cpp.xml				\
-		link-map.xml
+		output
 
 clean:
-	rm -rf $(CLEANFILES)
+		rm -rf $(CLEANFILES)
 
 check:
 
@@ -83,73 +73,85 @@ dist: clean
 
 install:
 	# install the devhelp documentation
-	pushd "output" > /dev/null; \
+	pushd "output/reference" > /dev/null; \
 	find . -type f \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
 	popd > /dev/null
 
-	install -DT -m 644 cppreference-doc-en-c.devhelp2 \
+	install -DT -m 644 "output/cppreference-doc-en-c.devhelp2" \
 		"$(DESTDIR)$(bookdir)/cppreference-doc-en-c/cppreference-doc-en-c.devhelp2"
-	install -DT -m 644 cppreference-doc-en-cpp.devhelp2 \
+	install -DT -m 644 "output/cppreference-doc-en-cpp.devhelp2" \
 		"$(DESTDIR)$(bookdir)/cppreference-doc-en-cpp/cppreference-doc-en-cpp.devhelp2"
 
 	# install the .qch (Qt Help) documentation
-	install -DT -m 644 cppreference-doc-en-cpp.qch $(DESTDIR)$(docdir)/qch/cppreference-doc-en-cpp.qch
+	install -DT -m 644 "output/cppreference-doc-en-cpp.qch" \
+		"$(DESTDIR)$(docdir)/qch/cppreference-doc-en-cpp.qch"
 
 uninstall:
 	rm -rf "$(DESTDIR)$(docdir)"
 	rm -rf "$(DESTDIR)$(bookdir)"
 
 #WORKER RULES
+doc_html: output/reference
 
-doc_devhelp: cppreference-doc-en-c.devhelp2 cppreference-doc-en-cpp.devhelp2
+doc_devhelp: output/cppreference-doc-en-c.devhelp2 output/cppreference-doc-en-cpp.devhelp2
 
-doc_qch: cppreference-doc-en-cpp.qch
+doc_qch: output/cppreference-doc-en-cpp.qch
 
 #builds the title<->location map
-link-map.xml: output
+output/link-map.xml: output/reference
 	./build_link_map.py
 
 #build the .devhelp2 index
-cppreference-doc-en-c.devhelp2: output link-map.xml
-	./index2devhelp.py $(docdir)/html index-chapters-c.xml 	\
+output/cppreference-doc-en-c.devhelp2: 		\
+		output/reference 		\
+		output/link-map.xml
+	./index2devhelp.py $(docdir)/html index-chapters-c.xml  \
 		"C Standard Library reference" "cppreference-doc-en-c" "c" \
 		index-functions-c.xml devhelp-index-c.xml
-	./fix_devhelp-links.py devhelp-index-c.xml cppreference-doc-en-c.devhelp2
+	./fix_devhelp-links.py "output/devhelp-index-c.xml"  \
+		"output/cppreference-doc-en-c.devhelp2"
 
-cppreference-doc-en-cpp.devhelp2: output link-map.xml
-	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml 	\
+output/cppreference-doc-en-cpp.devhelp2:	\
+		output/reference 		\
+		output/link-map.xml
+	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml  \
 		"C++ Standard Library reference" "cppreference-doc-en-cpp" "cpp" \
-		index-functions-cpp.xml devhelp-index-cpp.xml
-	./fix_devhelp-links.py devhelp-index-cpp.xml cppreference-doc-en-cpp.devhelp2
+		index-functions-cpp.xml "output/devhelp-index-cpp.xml"
+	./fix_devhelp-links.py "output/devhelp-index-cpp.xml" \
+		"output/cppreference-doc-en-cpp.devhelp2"
 
 #build the .qch (QT help) file
-cppreference-doc-en-cpp.qch: qch-help-project-cpp.xml
+output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
-	cp qch-help-project-cpp.xml output/qch.xml
+	cp "output/qch-help-project-cpp.xml" "output/reference/qch.xml"
 
-	pushd "output" > /dev/null; \
-	qhelpgenerator qch.xml -o "../cppreference-doc-en-cpp.qch"; \
+	pushd "output/reference" > /dev/null; \
+	qhelpgenerator "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
-	rm -f output/qch.xml
+	rm -f "output/reference/qch.xml"
 
-qch-help-project-cpp.xml: cppreference-doc-en-cpp.devhelp2
+output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 	#build the file list
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "qch-files.xml"
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "output/qch-files.xml"
 
-	pushd "output" > /dev/null; \
+	pushd "output/reference" > /dev/null; \
 	find . -type f -not -iname "*.ttf" \
 		-exec echo "<file>"'{}'"</file>" >> "../qch-files.xml" \; ; \
 	popd > /dev/null
 
-	echo "</files>" >> "qch-files.xml"
+	echo "</files>" >> "output/qch-files.xml"
 
 	#create the project (copies the file list)
-	xsltproc devhelp2qch.xsl cppreference-doc-en-cpp.devhelp2 > "qch-help-project-cpp.xml"
+	xsltproc devhelp2qch.xsl "output/cppreference-doc-en-cpp.devhelp2" > \
+		"output/qch-help-project-cpp.xml"
+
+output:
+	mkdir -p output
 
 #create preprocessed archive
-output:
+output/reference: output
 	./preprocess.py
 
 #redownloads the source documentation directly from en.cppreference.com

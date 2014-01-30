@@ -22,34 +22,34 @@ import re
 import os
 
 # copy the source tree
-os.system('rm -rf output')
-os.system('mkdir output')
-os.system('cp -rt output reference/*')
+os.system('rm -rf output/reference')
+os.system('mkdir -p output/reference')
+os.system('cp -rt output/reference reference/*')
 
-# rearrange the archive
+# rearrange the archive {root} here is output/reference
 
 # before
-# output/en.cppreference.com/w/ : html
-# output/en.cppreference.com/mwiki/ : data
-# output/en.cppreference.com/ : data
+# {root}/en.cppreference.com/w/ : html
+# {root}/en.cppreference.com/mwiki/ : data
+# {root}/en.cppreference.com/ : data
 # ... (other languages)
-# output/upload.cppreference.com/mwiki/ : data
+# {root}/upload.cppreference.com/mwiki/ : data
 
 # after
-# output/common/ : all data
-# output/en/ : html for en
+# {root}/common/ : all common data
+# {root}/en/ : html for en
 # ... (other languages)
 
-data_path = "output/common"
+data_path = "output/reference/common"
 os.system('mkdir ' + data_path)
-os.system('mv output/upload.cppreference.com/mwiki/* ' + data_path)
-os.system('rm -r output/upload.cppreference.com/')
+os.system('mv output/reference/upload.cppreference.com/mwiki/* ' + data_path)
+os.system('rm -r output/reference/upload.cppreference.com/')
 
 for lang in ["en"]:
-    path = "output/" + lang + ".cppreference.com/"
+    path = "output/reference/" + lang + ".cppreference.com/"
     src_html_path = path + "w/"
     src_data_path = path + "mwiki/"
-    html_path = "output/" + lang
+    html_path = "output/reference/" + lang
 
     if (os.path.isdir(src_html_path)):
         os.system('mv ' + src_html_path + ' ' + html_path)
@@ -69,7 +69,7 @@ for lang in ["en"]:
 # find all html and css files
 html_files = []
 css_files = []
-for root, dirnames, filenames in os.walk('output'):
+for root, dirnames, filenames in os.walk('output/reference/'):
     for filename in fnmatch.filter(filenames, '*.html'):
         html_files.append(os.path.join(root, filename))
     for filename in fnmatch.filter(filenames, '*.css'):

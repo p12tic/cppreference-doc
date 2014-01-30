@@ -59,7 +59,7 @@
       </keywords>
 
       <files>
-        <xsl:copy-of select="document('qch-files.xml')/files/*"/>
+        <xsl:copy-of select="document('output/qch-files.xml')/files/*"/>
       </files>
 
     </filterSection>

@@ -26,7 +26,7 @@ import re
 import os
 
 # returns a dict { title -> filename }.
-# directory - either 'output' or 'reference'
+# directory - either 'output/reference' or 'reference'
 def build_link_map(directory):
     # find all html files
     html_files = []
@@ -57,7 +57,7 @@ def build_link_map(directory):
     return link_map
 
 def main():
-    link_map = build_link_map('output')
+    link_map = build_link_map('output/reference')
 
     # create an xml file containing mapping between page title and actual location
     root = e.Element('files')
@@ -67,7 +67,7 @@ def main():
         file_el.set('from', key)
         file_el.set('to', link_map[key])
 
-    out = open('link-map.xml', 'w')
+    out = open('output/link-map.xml', 'w')
     out.write('<?xml version="1.0" encoding="UTF-8"?>')
     out.write(e.tostring(root, encoding=str, pretty_print=True))
     out.close()
