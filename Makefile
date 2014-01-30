@@ -154,6 +154,16 @@ output:
 output/reference: output
 	./preprocess.py
 
+# create indexes for the wiki
+indexes:
+	mkdir -p output/indexes
+	./index2highlight.py index-functions-cpp.xml output/indexes/highlight-cpp
+	./index2highlight.py index-functions-c.xml output/indexes/highlight-c
+	./index2search.py index-functions-cpp.xml output/indexes/search-cpp
+	./index2search.py index-functions-c.xml output/indexes/search-c
+	./index2autolinker.py index-functions-c.xml output/indexes/autolink-c
+	./index2autolinker.py index-functions-cpp.xml output/indexes/autolink-cpp
+
 #redownloads the source documentation directly from en.cppreference.com
 source:
 	rm -rf "reference"
