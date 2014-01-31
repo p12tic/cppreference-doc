@@ -53,6 +53,7 @@ return statement => cpp/language/return
 Declaration => cpp/language/declarations
 Namespace declaration => cpp/language/namespace
 Namespace alias => cpp/language/namespace_alias
+static_assert declaration => cpp/language/static_assert
 Lvalue and rvalue references => cpp/language/reference
 Pointers => cpp/language/pointer
 Arrays => cpp/language/array
