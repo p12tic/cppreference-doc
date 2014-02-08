@@ -175,6 +175,7 @@ source:
 	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* \
 	  -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* \
 	  -*/Template:* -*/Category:* -*action=* -*printable=* \
+	  -en.cppreference.com/book/* -en.cppreference.com/book \
 	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* \
 	  -*MediaWiki:Geshi.css* "+*title=-&action=raw*" --timeout=180 --retries=10 ;\
 	popd > /dev/null
