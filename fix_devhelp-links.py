@@ -30,7 +30,7 @@ if len(sys.argv) != 3:
 in_fn = sys.argv[1]
 out_fn = sys.argv[2]
 
-map_file = open('link-map.xml', 'r')
+map_file = open('output/link-map.xml', 'r')
 root = e.XML(map_file.read())
 el_files = root.xpath('/files/*')
 

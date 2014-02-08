@@ -108,7 +108,7 @@ output/cppreference-doc-en-c.devhelp2: 		\
 		output/link-map.xml
 	./index2devhelp.py $(docdir)/html index-chapters-c.xml  \
 		"C Standard Library reference" "cppreference-doc-en-c" "c" \
-		index-functions-c.xml devhelp-index-c.xml
+		index-functions-c.xml "output/devhelp-index-c.xml"
 	./fix_devhelp-links.py "output/devhelp-index-c.xml"  \
 		"output/cppreference-doc-en-c.devhelp2"
 
