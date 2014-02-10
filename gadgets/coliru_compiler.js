@@ -24,7 +24,7 @@ function Editor(root) {
             }
         ],
         default_id: 4,
-        opt: ' -O2 -Wall -Wextra -pedantic -pthread main.cpp ',
+        opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp ',
     }
 
     var cmd_info_c = {
@@ -37,7 +37,7 @@ function Editor(root) {
             { title: 'clang 3.4 (C99)', cmd: 'clang++ -x c -std=c99 '}
         ],
         default_id: 3,
-        opt: ' -O2 -Wall -Wextra -pedantic -pthread main.cpp ',
+        opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp ',
     }
 
     this.check_is_cxx = function() {
