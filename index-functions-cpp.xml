@@ -4627,17 +4627,17 @@
     <function name="std::atomic_fetch_add" link="cpp/atomic/atomic_fetch_add"/>
     <function name="std::atomic_fetch_add_explicit" link="cpp/atomic/atomic_fetch_add"/>
 
-    <function name="std::atomic_fetch_sub" link="cpp/atomic/atomic_fetch_add"/>
-    <function name="std::atomic_fetch_sub_explicit" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_sub" link="cpp/atomic/atomic_fetch_sub"/>
+    <function name="std::atomic_fetch_sub_explicit" link="cpp/atomic/atomic_fetch_sub"/>
 
     <function name="std::atomic_fetch_and" link="cpp/atomic/atomic_fetch_sub"/>
     <function name="std::atomic_fetch_and_explicit" link="cpp/atomic/atomic_fetch_sub"/>
 
-    <function name="std::atomic_fetch_or" link="cpp/atomic/atomic_fetch_add"/>
-    <function name="std::atomic_fetch_or_explicit" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_or" link="cpp/atomic/atomic_fetch_or"/>
+    <function name="std::atomic_fetch_or_explicit" link="cpp/atomic/atomic_fetch_or"/>
 
-    <function name="std::atomic_fetch_xor" link="cpp/atomic/atomic_fetch_add"/>
-    <function name="std::atomic_fetch_xor_explicit" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_xor" link="cpp/atomic/atomic_fetch_xor"/>
+    <function name="std::atomic_fetch_xor_explicit" link="cpp/atomic/atomic_fetch_xor"/>
 
     <class name="std::atomic_flag" link="cpp/atomic/atomic_flag">
         <constructor/>
