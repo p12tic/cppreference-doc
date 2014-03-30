@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #   Copyright (C) 2011, 2012  Povilas Kanapickas <tir5c3@yahoo.co.uk>
 #

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
     Copyright (C) 2012-2013  Povilas Kanapickas <tir5c3@yahoo.co.uk>
 
@@ -22,16 +22,15 @@ import lxml.etree as e
 import sys
 
 if len(sys.argv) != 3:
-    print '''Please provide the following 2 argument:
+    print('''Please provide the following 2 argument:
  * the file name of the source file
  * the file name of the destination file
-'''
+''')
 
 in_fn = sys.argv[1]
 out_fn = sys.argv[2]
 
-map_file = open('output/link-map.xml', 'r')
-root = e.XML(map_file.read())
+root = e.parse('output/link-map.xml')
 el_files = root.xpath('/files/*')
 
 mapping = dict()
@@ -41,9 +40,7 @@ for el_file in el_files:
     fn_to = el_file.get('to')
     mapping[fn_from] = fn_to
 
-in_f = open(in_fn, 'r')
-root = e.XML(in_f.read())
-in_f.close()
+root = e.parse(in_fn)
 
 el_mod = root.xpath('//*[@link]')
 for el in el_mod:
@@ -51,11 +48,11 @@ for el in el_mod:
     try:
         link = mapping[link]
     except:
-        print 'Could not find ' + link + ' in mapping'
+        print('Could not find ' + link + ' in mapping')
         link = '404'
     el.set('link', link)
 
 out_f = open(out_fn, 'w')
-out_f.write(e.tostring(root, pretty_print=True))
+out_f.write(e.tostring(root, encoding='unicode', pretty_print=True))
 out_f.close()
 
