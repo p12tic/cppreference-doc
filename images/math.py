@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#   Copyright (C) 2011, 2012  Povilas Kanapickas <tir5c3@yahoo.co.uk>
+#   Copyright (C) 2011, 2012  Povilas Kanapickas <povilas@radix.lt>
 #
 #   This file is part of cppreference-doc
 #

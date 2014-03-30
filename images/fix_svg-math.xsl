@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (C) 2012  Povilas Kanapickas <tir5c3@yahoo.co.uk>
+    Copyright (C) 2012  Povilas Kanapickas <povilas@radix.lt>
 
     This file is part of cppreference-doc
 

@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 '''
-    Copyright (C) 2013  Povilas Kanapickas <tir5c3@yahoo.co.uk>
+    Copyright (C) 2013  Povilas Kanapickas <povilas@radix.lt>
 
     This file is part of cppreference-doc
 
