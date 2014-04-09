@@ -61,7 +61,7 @@ class Index2Devhelp(IndexTransform):
         global out_f, rel_link
         out_f.write('<keyword type="' + xml_escape(self.get_mark(el))
                     + '" name="' + xml_escape(full_name)
-                    + '" link="' + xml_escape(rel_link) + '"/>\n')
+                    + '" link="' + xml_escape(full_link) + '"/>\n')
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
 out_f.write('<?xml version="1.0"?>\n'
