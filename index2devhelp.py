@@ -58,7 +58,7 @@ class Index2Devhelp(IndexTransform):
         return ''
 
     def process_item_hook(self, el, full_name, full_link):
-        global out_f, rel_link
+        global out_f
         out_f.write('<keyword type="' + xml_escape(self.get_mark(el))
                     + '" name="' + xml_escape(full_name)
                     + '" link="' + xml_escape(full_link) + '"/>\n')
