@@ -42,7 +42,7 @@ function Editor(root) {
             }
         ],
         default_id: 4,
-        opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp ',
+        opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
     var cmd_info_c = {
@@ -51,11 +51,11 @@ function Editor(root) {
             { title: 'GCC 4.7', cmd: 'gcc-4.7 -x c -std=c89 ' },
             { title: 'GCC 4.8', cmd: 'gcc-4.8 -x c -std=c89 ' },
             { title: 'GCC 4.8 (C99)', cmd: 'g++-4.8 -x c -std=c99 ' },
-            { title: 'clang 3.4', cmd: 'clang -x c -std=c89 ' },
-            { title: 'clang 3.4 (C99)', cmd: 'clang++ -x c -std=c99 '}
+            { title: 'clang 3.4', cmd: 'clang -x c -std=c89 -Wno-newline-eof ' },
+            { title: 'clang 3.4 (C99)', cmd: 'clang++ -x c -std=c99 -Wno-newline-eof '}
         ],
         default_id: 3,
-        opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp ',
+        opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
     this.check_is_cxx = function() {
@@ -438,7 +438,7 @@ function Editor(root) {
 };
 
 function get_script_cached(url, callback) {
-    $.ajax({
+    return $.ajax({
             type: "GET",
             url: url,
             success: callback,
@@ -467,35 +467,38 @@ window.jump_to_error = function(node, lineno) {
 var editors = [];
 
 $.when(
-    get_script_cached('http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js'),
-    get_script_cached('http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/mode-c_cpp.js'),
-    $.Deferred(function(deferred) {
-        $(deferred.resolve);
-    })
+    get_script_cached('http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js')
 ).done(function() {
-    $('.t-example-live-link > a').each(function() {
-        $(this).replaceWith('<div class="coliru-btn coliru-btn-run-init">Run this code</div>');
-    });
-    $('.t-example > .mw-geshi:first').each(function() {
-        $(this).addClass('t-example-code');
-    });
+    $.when(
+        get_script_cached('http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/mode-c_cpp.js'),
+        $.Deferred(function(deferred) {
+            $(deferred.resolve);
+        })
+    ).done(function() {
+        $('.t-example-live-link > a').each(function() {
+            $(this).replaceWith('<div class="coliru-btn coliru-btn-run-init">Run this code</div>');
+        });
+        $('.t-example > .mw-geshi:first').each(function() {
+            $(this).addClass('t-example-code');
+        });
 
-    $('.coliru-btn-run-init').click(function() {
-        var root = $(this).parent().parent();
+        $('.coliru-btn-run-init').click(function() {
+            var root = $(this).parent().parent();
 
-        // find the editor for this root element
-        var i;
-        for (i = 0; i < editors.length; ++i) {
-            if (editors[i].el.root.is(root)) {
-                break;
+            // find the editor for this root element
+            var i;
+            for (i = 0; i < editors.length; ++i) {
+                if (editors[i].el.root.is(root)) {
+                    break;
+                }
             }
-        }
-        if (i == editors.length) {
-            editors[i] = new Editor(root);
-        }
+            if (i == editors.length) {
+                editors[i] = new Editor(root);
+            }
 
-        var editor = editors[i];
-        editor.replace_orig();
-        editor.compile_now();
+            var editor = editors[i];
+            editor.replace_orig();
+            editor.compile_now();
+        });
     });
 });
