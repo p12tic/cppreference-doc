@@ -24,6 +24,7 @@ import fnmatch
 import lxml.etree as e
 import re
 import os
+from link_map import LinkMap
 
 # returns a dict { title -> filename }.
 # directory - either 'output/reference' or 'reference'
@@ -34,7 +35,7 @@ def build_link_map(directory):
         for filename in fnmatch.filter(filenames, '*.html'):
             html_files.append(os.path.join(root, filename))
 
-    link_map = {}
+    link_map = LinkMap()
 
     for fn in html_files:
         f = open(fn, "r")
@@ -53,24 +54,14 @@ def build_link_map(directory):
         title = m.group(1)
 
         target = os.path.relpath(os.path.abspath(fn), os.path.abspath(directory))
-        link_map[title] = target
+        link_map.add_link(title, target)
     return link_map
 
 def main():
     link_map = build_link_map('output/reference')
 
     # create an xml file containing mapping between page title and actual location
-    root = e.Element('files')
-
-    for key in link_map:
-        file_el = e.SubElement(root, 'file')
-        file_el.set('from', key)
-        file_el.set('to', link_map[key])
-
-    out = open('output/link-map.xml', 'w')
-    out.write('<?xml version="1.0" encoding="UTF-8"?>')
-    out.write(e.tostring(root, encoding=str, pretty_print=True))
-    out.close()
+    link_map.write('output/link-map.xml')
 
 if __name__ == "__main__":
     main()

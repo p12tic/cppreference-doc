@@ -19,6 +19,7 @@
 '''
 
 import lxml.etree as e
+from link_map import LinkMap
 import sys
 
 if len(sys.argv) != 3:
@@ -30,27 +31,19 @@ if len(sys.argv) != 3:
 in_fn = sys.argv[1]
 out_fn = sys.argv[2]
 
-root = e.parse('output/link-map.xml')
-el_files = root.xpath('/files/*')
-
-mapping = dict()
-
-for el_file in el_files:
-    fn_from = el_file.get('from')
-    fn_to = el_file.get('to')
-    mapping[fn_from] = fn_to
+mapping = LinkMap()
+mapping.read('output/link-map.xml')
 
 root = e.parse(in_fn)
 
 el_mod = root.xpath('//*[@link]')
 for el in el_mod:
     link = el.get('link')
-    try:
-        link = mapping[link]
-    except:
+    target = mapping.get_dest(link)
+    if target == None:
         print('Could not find ' + link + ' in mapping')
-        link = '404'
-    el.set('link', link)
+        target = '404'
+    el.set('link', target)
 
 out_f = open(out_fn, 'w')
 out_f.write(e.tostring(root, encoding='unicode', pretty_print=True))
