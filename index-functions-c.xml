@@ -634,8 +634,8 @@
     <function name="wcstoll" link="c/string/wide/wcstol"/>
     <function name="wcstoul" link="c/string/wide/wcstoul"/>
     <function name="wcstoull" link="c/string/wide/wcstoul"/>
-    <function name="wcstoimax" link="c/string/byte/wcstoimax"/>
-    <function name="wcstoumax" link="c/string/byte/wcstoimax"/>
+    <function name="wcstoimax" link="c/string/wide/wcstoimax"/>
+    <function name="wcstoumax" link="c/string/wide/wcstoimax"/>
 
     <function name="wcscpy" link="c/string/wide/wcscpy"/>
     <function name="wcsncpy" link="c/string/wide/wcsncpy"/>
@@ -991,8 +991,8 @@
     <function name="ATOMIC_VAR_INIT" link="c/atomic/ATOMIC_VAR_INIT"/>
     <function name="kill_dependency" link="c/atomic/kill_dependency"/>
 
-    <function name="atomic_load_test_and_set" link="c/atomic/atomic_load_test_and_set"/>
-    <function name="atomic_load_test_and_set_explicit" link="c/atomic/atomic_load_test_and_set"/>
+    <function name="atomic_flag_test_and_set" link="c/atomic/atomic_flag_test_and_set"/>
+    <function name="atomic_flag_test_and_set_explicit" link="c/atomic/atomic_flag_test_and_set"/>
     <function name="atomic_flag_clear" link="c/atomic/atomic_flag_clear"/>
     <function name="atomic_flag_clear_explicit" link="c/atomic/atomic_flag_clear"/>
     <function name="atomic_init" link="c/atomic/atomic_init"/>

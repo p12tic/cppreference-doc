@@ -702,7 +702,7 @@
         <constructor/>
         <function name="operator*"/>
         <function name="operator="/>
-        <function name="operator++"/>
+        <function name="operator++" link="operator_arith"/>
     </class>
 
     <function name="std::get_temporary_buffer" link="cpp/memory/get_temporary_buffer"/>
@@ -719,7 +719,7 @@
         <function name="get_deleter"/>
         <function name="operator*"/>
         <function name="operator->" link="operator*"/>
-        <function name="operator bool"/>
+        <function name="operator bool" link="operator_bool"/>
 
         <overload name="operator==" link="operator_cmp"/>
         <overload name="operator!=" link="operator_cmp"/>
@@ -742,7 +742,7 @@
         <function name="operator*"/>
         <function name="operator->" link="operator*"/>
         <function name="unique"/>
-        <function name="operator bool"/>
+        <function name="operator bool" link="operator_bool"/>
         <function name="owner_before"/>
 
         <overload name="operator==" link="operator_cmp"/>
@@ -817,7 +817,7 @@
     <class name="std::bad_weak_ptr" link="cpp/memory/bad_weak_ptr">
         <inherits name="std::exception"/>
         <constructor/>
-        <function name="what"/>
+        <function name="what" link="."/>
     </class>
 
     <class name="std::default_delete" link="cpp/memory/default_delete">
@@ -1016,7 +1016,6 @@
     <class name="std::error_category" link="cpp/error/error_category">
         <constructor/>
         <destructor/>
-        <function name="operator="/>
         <function name="name"/>
         <function name="default_error_condition"/>
         <function name="equivalent"/>
@@ -1243,7 +1242,6 @@
 
     <class name="std::chrono::duration" link="cpp/chrono/duration">
         <constructor/>
-        <destructor/>
         <function name="operator="/>
         <function name="count"/>
         <function name="zero"/>
@@ -1340,11 +1338,9 @@
 
     <class name="std::bitset" link="cpp/utility/bitset">
         <constructor/>
-        <destructor/>
 
         <class name="reference"/>
 
-        <function name="operator="/>
         <function name="operator==" link="operator_cmp"/>
         <function name="operator!=" link="operator_cmp"/>
 
@@ -1457,12 +1453,12 @@
     </class>
 
     <class name="std::unary_negate" link="cpp/utility/functional/unary_negate">
-        <constructor/>
+        <constructor link="."/>
         <function name="operator()" link="."/>
     </class>
 
     <class name="std::binary_negate" link="cpp/utility/functional/binary_negate">
-        <constructor/>
+        <constructor link="."/>
         <function name="operator()" link="."/>
     </class>
 
@@ -1494,8 +1490,8 @@
 
     <class name="std::bad_function_call" link="cpp/utility/functional/bad_function_call">
         <inherits name="std::exception"/>
-        <constructor/>
-        <function name="what"/>
+        <constructor link="."/>
+        <function name="what" link="."/>
     </class>
 
     <class name="std::placeholders" link="cpp/utility/functional/placeholders"/>
@@ -1591,7 +1587,7 @@
     <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
     <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
 
-    <class name="std::optional" link="cpp/utility/optional" since="c++14">
+    <class name="std::experimental::optional" link="cpp/experimental/optional" since="c++14">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -1609,12 +1605,7 @@
         <specialization name="std::hash" link="hash"/>
     </class>
 
-    <function name="std::make_optional" link="cpp/utility/optional/make_optional" since="c++14"/>
-
-    <class name="std::inplace_t" link="cpp/utility/inplace_t" since="c++14"/>
-    <const name="std::inplace" link="cpp/utility/inplace" since="c++14"/>
-    <class name="std::nullopt_t" link="cpp/utility/nullopt_t" since="c++14"/>
-    <const name="std::nullopt" link="cpp/utility/nullopt" since="c++14"/>
+    <function name="std::experimental::make_optional" link="cpp/experimental/optional/make_optional" since="c++14"/>
 
     <class name="std::bad_optional_access" link="cpp/utility/bad_optional_access" since="c++14">
         <inherits name="std::logic_error"/>
@@ -1850,8 +1841,8 @@
 
     <class name="std::char_traits" link="cpp/string/char_traits">
         <function name="assign"/>
-        <function name="eq"/>
-        <function name="lt"/>
+        <function name="eq" link="cmp"/>
+        <function name="lt" link="cmp"/>
         <function name="move"/>
         <function name="copy"/>
         <function name="compare"/>
@@ -2595,13 +2586,6 @@
         <function name="emplace"/>
         <function name="pop"/>
         <function name="swap"/>
-
-        <overload name="operator==" link="operator_cmp"/>
-        <overload name="operator!=" link="operator_cmp"/>
-        <overload name="operator&lt;" link="operator_cmp"/>
-        <overload name="operator&lt;=" link="operator_cmp"/>
-        <overload name="operator&gt;" link="operator_cmp"/>
-        <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
@@ -3487,7 +3471,6 @@
 
         <function name="operator="/>
         <function name="swap"/>
-        <function name="str"/>
 
         <function name="is_open"/>
         <function name="open"/>
@@ -4318,10 +4301,10 @@
         <function name="grouping"/>
         <function name="curr_symbol"/>
         <function name="positive_sign"/>
-        <function name="negative_sign"/>
+        <function name="negative_sign" link="positive_sign"/>
         <function name="frac_digits"/>
         <function name="pos_format"/>
-        <function name="neg_format"/>
+        <function name="neg_format" link="pos_format"/>
 
         <!-- protected -->
         <function name="do_decimal_point" link="decimal_point"/>
@@ -4329,60 +4312,60 @@
         <function name="do_grouping" link="grouping"/>
         <function name="do_curr_symbol" link="curr_symbol"/>
         <function name="do_positive_sign" link="positive_sign"/>
-        <function name="do_negative_sign" link="negative_sign"/>
+        <function name="do_negative_sign" link="positive_sign"/>
         <function name="do_frac_digits" link="frac_digits"/>
         <function name="do_pos_format" link="pos_format"/>
-        <function name="do_neg_format" link="neg_format"/>
+        <function name="do_neg_format" link="pos_format"/>
 
         <!-- todo id -->
     </class>
 
     <class name="std::ctype_byname" link="cpp/locale/ctype_byname">
         <inherits name="std::ctype"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::codecvt_byname" link="cpp/locale/codecvt_byname">
         <inherits name="std::codecvt"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::messages_byname" link="cpp/locale/messages_byname">
         <inherits name="std::messages"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::collate_byname" link="cpp/locale/collate_byname">
         <inherits name="std::collate"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::time_get_byname" link="cpp/locale/time_get_byname">
         <inherits name="std::time_get"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::time_put_byname" link="cpp/locale/time_put_byname">
         <inherits name="std::time_put"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::numpunct_byname" link="cpp/locale/numpunct_byname">
         <inherits name="std::numpunct"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::moneypunct_byname" link="cpp/locale/moneypunct_byname">
         <inherits name="std::moneypunct"/>
-        <constructor/>
-        <destructor/>
+        <constructor link="."/>
+        <destructor link="."/>
     </class>
 
     <class name="std::codecvt_utf8" link="cpp/locale/codecvt_utf8">
@@ -4585,7 +4568,7 @@
         <function name="is_lock_free"/>
         <function name="store"/>
         <function name="load"/>
-        <function name="operator T"/>
+        <function name="operator T" link="operator_T"/>
         <function name="exchange"/>
         <function name="compare_exchange_strong" link="compare_exchange"/>
         <function name="compare_exchange_weak" link="compare_exchange"/>
@@ -4735,7 +4718,7 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::shared_mutex" link="cpp/thread/shared_mutex" since="c++14">
+    <class name="std::shared_timed_mutex" link="cpp/thread/shared_timed_mutex" since="c++14">
         <constructor/>
         <function name="lock"/>
         <function name="try_lock"/>
@@ -4779,7 +4762,7 @@
 
         <function name="mutex"/>
         <function name="owns_lock"/>
-        <function name="operator bool"/>
+        <function name="operator bool" link="operator_bool"/>
 
         <overload name="std::swap" link="swap2"/>
     </class>
@@ -4800,7 +4783,7 @@
 
         <function name="mutex"/>
         <function name="owns_lock"/>
-        <function name="operator bool"/>
+        <function name="operator bool" link="operator_bool"/>
 
         <overload name="std::swap" link="swap2"/>
     </class>
@@ -4844,8 +4827,8 @@
     <function name="std::call_once" link="cpp/thread/call_once"/>
 
     <enum name="std::cv_status" link="cpp/thread/cv_status">
-        <const name="no_timeout"/>
-        <const name="timeout"/>
+        <const name="no_timeout" link="."/>
+        <const name="timeout" link="."/>
     </enum>
 
     <class name="std::promise" link="cpp/thread/promise">
