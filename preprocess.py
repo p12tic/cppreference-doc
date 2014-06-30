@@ -75,9 +75,6 @@ for root, dirnames, filenames in os.walk('output/reference/'):
     for filename in fnmatch.filter(filenames, '*.css'):
         css_files.append(os.path.join(root, filename))
 
-#
-r1 = re.compile('<!-- Added by HTTrack -->.*?<!-- \/Added by HTTrack -->')
-r2 = re.compile('<!-- Mirrored from .*?-->')
 
 #temporary fix
 r3 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)

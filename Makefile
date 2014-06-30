@@ -169,22 +169,17 @@ source:
 	mkdir "reference"
 
 	pushd "reference" > /dev/null; \
-	httrack http://en.cppreference.com/w/ -k --near --include-query-string \
-	  -* +en.cppreference.com/* +upload.cppreference.com/* -*index.php\?* \
-	  -*/Special:* -*/Talk:* -*/Help:* -*/File:* -*/Cppreference:* -*/WhatLinksHere:* \
-	  -*/Template:* -*/Category:* -*action=* -*printable=* \
-	  -en.cppreference.com/book/* -en.cppreference.com/book \
-	  +*MediaWiki:Common.css* +*MediaWiki:Print.css* +*MediaWiki:Vector.css* \
-	  -*MediaWiki:Geshi.css* "+*title=-&action=raw*" --timeout=180 --retries=10 ;\
+	regex=".*index\\.php.*|.*/Special:.*|.*/Talk:.*" \
+	regex+="|.*/Help:.*|.*/File:.*|.*/Cppreference:.*" \
+	regex+="|.*/WhatLinksHere:.*|.*/Template:.*|.*/Category:.*" \
+	regex+="|.*action=.*|.*printable=.*|.*en.cppreference.com/book.*" ; \
+	echo $$regex ; \
+	wget --adjust-extension --page-requisites --convert-links \
+	  --force-directories --recursive --level=15 \
+	  --span-hosts --domains=en.cppreference.com,upload.cppreference.com \
+	  --reject-regex $$regex \
+	  --timeout=180 --no-verbose \
+	  --retry-connrefused --waitretry=1 --read-timeout=20 \
+	  http://en.cppreference.com/w/ ; \
 	popd > /dev/null
-
-	#delete useless files
-	rm -rf "reference/hts-cache"
-	rm -f "reference/backblue.gif"
-	rm -f "reference/fade.gif"
-	rm -f "reference/hts-log.txt"
-	rm -f "reference/index.html"
-
-	#download files that httrack has forgotten
-	./httrack-workarounds.py
 
