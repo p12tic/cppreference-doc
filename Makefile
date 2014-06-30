@@ -147,11 +147,9 @@ output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 	xsltproc devhelp2qch.xsl "output/cppreference-doc-en-cpp.devhelp2" > \
 		"output/qch-help-project-cpp.xml"
 
-output:
-	mkdir -p output
-
 #create preprocessed archive
-output/reference: output
+output/reference:
+	mkdir -p output
 	./preprocess.py
 
 # create indexes for the wiki
