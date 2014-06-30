@@ -37,7 +37,7 @@ Simply running `make` will run generate documentation in all three formats.
   Dependencies
   ============
 
-The package depends on 'httrack', 'wget', 'python', 'python-lxml', 'xsltproc' and
+The package depends on 'wget' (>=1.15), 'python3', 'python3-lxml', 'xsltproc' and
 'qhelpgenerator' for the generation of the documentation.
 
   See also
