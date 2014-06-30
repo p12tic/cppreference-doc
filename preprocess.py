@@ -20,6 +20,10 @@
 import fnmatch
 import re
 import os
+import sys
+import shutil
+import urllib.parse
+from xml_utils import xml_escape, xml_unescape
 
 # copy the source tree
 os.system('rm -rf output/reference')
@@ -66,18 +70,80 @@ for lang in ["en"]:
     # remove what's left
     os.system('rm -r '+ path)
 
-# find all html and css files
+
+# find files that need to be renamed
+files_rename_qs = []
+files_rename_quot = []
+files_loader = []
+for root, dirnames, filenames in os.walk('output/reference/'):
+    for filename in fnmatch.filter(filenames, '*[?]*'):
+        files_rename_qs.append((root, filename))
+    for filename in fnmatch.filter(filenames, '*"*'):
+        files_rename_quot.append((root, filename))
+    for filename in fnmatch.filter(filenames, 'load.php[?]*'):
+        files_loader.append((root, filename))
+
+for root,fn in files_loader:
+    files_rename_qs.remove((root,fn))
+
+# strip query strings from filenames to support Windows filesystems
+rename_map = []
+def rename_file(root, fn, new_fn):
+    path = os.path.join(root,fn)
+    new_path = os.path.join(root,new_fn)
+    shutil.move(path, new_path)
+    rename_map.append((fn, new_fn))
+
+for root,fn in files_rename_qs:
+    rename_file(root, fn, re.sub('\?.*', '', fn))
+for root,fn in files_rename_quot:
+    rename_file(root, fn, re.sub('"', '_q_', fn))
+
+# map loader names to more recognizable names
+for root,fn in files_loader:
+    if re.search("modules=site&only=scripts", fn):
+        new_fn = "site_scripts.js"
+    elif re.search("modules=site&only=styles", fn):
+        new_fn = "site_modules.css"
+    elif re.search("modules=skins.*&only=scripts", fn):
+        new_fn = "skin_scripts.js"
+    elif re.search("modules=startup&only=scripts", fn):
+        new_fn = "startup_scripts.js"
+    elif re.search("modules=.*ext.*&only=styles", fn):
+        new_fn = "ext.css"
+    else:
+        print("Loader file " + fn + " does not match any known files")
+        sys.exit(1)
+
+    rename_file(root, fn, new_fn)
+
+# find files that need to be preprocessed
 html_files = []
-css_files = []
 for root, dirnames, filenames in os.walk('output/reference/'):
     for filename in fnmatch.filter(filenames, '*.html'):
         html_files.append(os.path.join(root, filename))
-    for filename in fnmatch.filter(filenames, '*.css'):
-        css_files.append(os.path.join(root, filename))
-
 
 #temporary fix
-r3 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)
+r1 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)
+
+# fix links to files in rename_map
+rlink = re.compile('((?:src|href)=")([^"]*)(")')
+
+def rlink_fix(match):
+    pre = match.group(1)
+    target = match.group(2)
+    post = match.group(3)
+
+    target = xml_unescape(target)
+    target = urllib.parse.unquote(target)
+    for fn,new_fn in rename_map:
+        target = target.replace(fn, new_fn)
+    target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
+    target = target.replace('../mwiki/','../common/')
+    target = re.sub('(\.php|\.css)\?.*', '\\1', target)
+    target = urllib.parse.quote(target)
+    target = xml_escape(target)
+    return pre + target + post
 
 # clean the html files
 for fn in html_files:
@@ -86,35 +152,40 @@ for fn in html_files:
     f.close()
 
     text = r1.sub('', text);
-    text = r2.sub('', text);
-    text = r3.sub('', text);
+    text = rlink.sub(rlink_fix, text)
 
     f = open(fn, "w")
     f.write(text)
     f.close()
 
     tmpfile = fn + '.tmp';
-    os.system('xsltproc --novalid --html --encoding UTF-8 preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
+    ret = os.system('xsltproc --novalid --html --encoding UTF-8 preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
+    if ret != 0:
+        print("FAIL: " + fn)
+        continue
     os.system('mv "' + tmpfile + '" "' + fn + '"')
 
-# append css modifications to the css files
+# append css modifications
 
 f = open("preprocess-css.css", "r")
 css_app = f.read()
 f.close()
+f = open("output/reference/common/site_modules.css", "a")
+f.write(css_app)
+f.close()
 
-for fn in css_files:
+# fix css files
+
+for fn in [ "output/reference/common/site_modules.css",
+            "output/reference/common/ext.css"]:
     f = open(fn, "r")
     text = f.read()
     f.close()
 
+    # note that query string is not used in css files
+
     text = text.replace('../DejaVuSansMonoCondensed60.ttf', 'DejaVuSansMonoCondensed60.ttf')
     text = text.replace('../DejaVuSansMonoCondensed75.ttf', 'DejaVuSansMonoCondensed75.ttf')
-
-    if (re.search('DejaVuSansMonoCondensed60', text)):
-        # assume this is minified MediaWiki:Common.css
-        # append the modifications
-        text += css_app
 
     # QT Help viewer doesn't understand nth-child
     text = text.replace('nth-child(1)', 'first-child')
