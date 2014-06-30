@@ -30,7 +30,7 @@ VERSION=20140323
 
 #STANDARD RULES
 
-all: doc_devhelp doc_qch
+all: doc_devhelp doc_qch doc_doxygen
 
 DISTFILES=	\
 		reference/				\
@@ -98,6 +98,8 @@ doc_devhelp: output/cppreference-doc-en-c.devhelp2 output/cppreference-doc-en-cp
 
 doc_qch: output/cppreference-doc-en-cpp.qch
 
+doc_doxygen: output/cppreference-doxygen-web.tag output/cppreference-doxygen-local.tag
+
 #builds the title<->location map
 output/link-map.xml: output/reference
 	./build_link_map.py
@@ -146,6 +148,21 @@ output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 	#create the project (copies the file list)
 	xsltproc devhelp2qch.xsl "output/cppreference-doc-en-cpp.devhelp2" > \
 		"output/qch-help-project-cpp.xml"
+
+# build doxygen tag file
+output/cppreference-doxygen-local.tag: 		\
+		output/reference 		\
+		output/link-map.xml
+	./index2doxygen-tag.py "output/link-map.xml" \
+		"index-functions-cpp.xml" \
+		"output/cppreference-doxygen-local.tag"
+
+output/cppreference-doxygen-web.tag: 		\
+		output/reference 		\
+		output/link-map.xml
+	./index2doxygen-tag.py web \
+		"index-functions-cpp.xml" \
+		"output/cppreference-doxygen-web.tag"
 
 #create preprocessed archive
 output/reference:
