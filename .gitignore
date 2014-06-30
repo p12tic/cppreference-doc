@@ -1,0 +1,5 @@
+debian
+reference*
+images/output/
+output*
+*.pyc
