@@ -83,6 +83,3 @@ out_f.write('''
   </functions>
 </book>
 ''')
-
-
-
