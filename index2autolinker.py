@@ -45,7 +45,8 @@
 import sys
 import json
 
-from index_transform import IndexTransform, xml_escape
+from index_transform import IndexTransform
+from xml_utils import xml_escape
 
 if len(sys.argv) != 3:
     print('''Please provide the file name of the index as the first argument

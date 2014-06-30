@@ -206,15 +206,3 @@ class IndexTransform:
     """ Hooks """
     def process_item_hook(self, el, full_name, full_link):
         self.process_children(el, full_name, full_link)
-
-
-html_escape_table = {
-    "&": "&amp;",
-    '"': "&quot;",
-    "'": "&apos;",
-    ">": "&gt;",
-    "<": "&lt;",
-    }
-
-def xml_escape(text):
-    return "".join(html_escape_table.get(c,c) for c in text)

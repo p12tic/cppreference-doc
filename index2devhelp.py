@@ -18,7 +18,8 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform import IndexTransform, xml_escape
+from index_transform import IndexTransform
+from xml_utils import xml_escape
 import sys
 
 if len(sys.argv) != 8:
