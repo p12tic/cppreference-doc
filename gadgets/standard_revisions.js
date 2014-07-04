@@ -458,6 +458,20 @@ $(function() {
             });
         };
 
+        this.prepare_inl_revs = function() {
+            this.rev_inl_elems = $('.t-rev-inl');
+            var self = this;
+            this.rev_inl_elems.each(function() {
+                self.tracker.add_diff_object($(this), [Rev.DIFF], 'inline');
+
+                var shown_revs = get_shown_revs($(this));
+                var copy = $(this).children().first().clone().hide()
+                                  .insertAfter($(this));
+
+                self.tracker.add_object(copy, shown_revs, 'inline');
+            });
+        };
+
         /** Prepares items in dsc lists */
         this.prepare_dscs = function() {
             this.dsc_tables = $('.t-dsc-begin');
@@ -1021,6 +1035,7 @@ $(function() {
             }
             this.prepare_navbar();
             this.prepare_revs();
+            this.prepare_inl_revs();
             this.prepare_dscs();
 
             var dcl_tables = $('.t-dcl-begin');
