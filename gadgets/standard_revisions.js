@@ -511,12 +511,6 @@ $(function() {
                     self.delete_lines(titles, marks, rev);
                     copy.insertAfter($(this));
                 }
-
-                // hide the separator when we don't show the dsc item
-                var sep = $(this).prev('.t-dsc-sep');
-                if (sep.length > 0) {
-                    self.tracker.add_diff_object(sep, sep_rev, 'table-row');
-                }
             });
         };
 
@@ -847,12 +841,6 @@ $(function() {
                         tracker.add_object(new_el, copy_info[i].revs, 'table-row');
                         sep_revs = sep_revs.concat(copy_info[i].revs);
                     }
-                }
-
-                // hide the separator if needed
-                var sep_obj = def.obj.prev('.t-dcl-sep');
-                if (sep_obj.length > 0) {
-                    tracker.add_diff_object(sep_obj, sep_revs, 'table-row');
                 }
             };
 
