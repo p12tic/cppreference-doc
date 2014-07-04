@@ -91,6 +91,29 @@ uninstall:
 	rm -rf "$(DESTDIR)$(docdir)"
 	rm -rf "$(DESTDIR)$(bookdir)"
 
+release: all
+	rm -rf release
+	mkdir -p release
+
+	# zip the distributable
+	mkdir -p "cppreference-doc-$(VERSION)"
+	cp -r $(DISTFILES) "cppreference-doc-$(VERSION)"
+	tar czf "release/cppreference-doc-$(VERSION).tar.gz" "cppreference-doc-$(VERSION)"
+	zip -r "release/cppreference-doc-$(VERSION).zip" "cppreference-doc-$(VERSION)"
+	rm -rf "cppreference-doc-$(VERSION)"
+
+	# zip the html output
+	pushd "output"; \
+	tar czf "../release/html-book-$(VERSION).tar.gz" "reference"; \
+	zip -r "../release/html-book-$(VERSION).zip" "reference"; \
+	popd
+
+	# zip qch
+	pushd "output"; \
+	tar czf "../release/qch-book-$(VERSION).tar.gz" "cppreference-doc-en-cpp.qch"; \
+	zip -r "../release/qch-book-$(VERSION).zip" "cppreference-doc-en-cpp.qch"; \
+	popd
+
 #WORKER RULES
 doc_html: output/reference
 
