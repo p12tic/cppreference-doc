@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2013  Povilas Kanapickas <povilas@radix.lt>
+    Copyright (C) 2013-2014  Povilas Kanapickas <povilas@radix.lt>
 
     This file is part of cppreference.com
 
@@ -288,7 +288,7 @@ $(function() {
             use when the object is shown.
 
             Returns the id of the new object.
-            */
+        */
         this.add_object = function(obj, revs, display) {
             var id = this.all_objects.length;
             this.all_objects[id] = obj;
@@ -425,10 +425,10 @@ $(function() {
             }
         };
 
-        /** rev list template can be perpared separately from everything else.
+        /** rev list template can be prepared separately from everything else.
             Additionally, we don't need to copy any parts of the object tree:
-            the table rev list is contained within can be styled to appear as
-            if it isn't there.
+            the elements within table rev list just need to be hidder or shown
+            depending on the revision
         */
         this.prepare_revs = function() {
             this.rev_tables = $('.t-rev-begin');
@@ -630,6 +630,11 @@ $(function() {
 
             // Get the mapping between revisions and function version numbers
 
+            /* Get the mapping between revisions and function version numbers.
+               The function returns an array:
+
+               array[revision][source version number] -> version number to display
+            */
             function get_num_map() {
                 var num_map = [];
 
