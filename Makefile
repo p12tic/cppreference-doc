@@ -39,10 +39,11 @@ DISTFILES=	\
 		ddg_parse_html.py		\
 		devhelp2qch.xsl			\
 		fix_devhelp-links.py	\
-		httrack-workarounds.py	\
+		index2autolinker.py	\
 		index2browser.py		\
 		index2ddg.py			\
 		index2devhelp.py		\
+		index2doxygen-tag.py		\
 		index2search.py			\
 		index2highlight.py		\
 		index_transform.py		\
@@ -51,11 +52,13 @@ DISTFILES=	\
 		index-functions.README	\
 		index-functions-c.xml	\
 		index-functions-cpp.xml	\
+		link_map.py		\
 		preprocess.py			\
 		preprocess.xsl			\
 		preprocess-css.css		\
 		Makefile				\
-		README
+		README				\
+		xml_utils.py
 
 CLEANFILES= \
 		output
