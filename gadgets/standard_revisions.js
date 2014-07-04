@@ -19,6 +19,8 @@
 
 $(function() {
 
+    var debug = false;
+
     function array_equal(a, b) {
         var i = a.length;
         if (i != b.length) {
@@ -211,6 +213,20 @@ $(function() {
     function is_shown_fill_c(el) {
         // DIFF: 0, C89: 1, C99: 2, C11: 3
         return [val, val, val, val];
+    }
+
+    /// Prints values returned by is_shown_on_rev
+    function debug_print_is_shown_on_rev(revs) {
+        var out = '{ ';
+        for (var i = 0; i < revs.length; i++) {
+            if (revs[i]) {
+                out += 't';
+            } else {
+                out += 'f';
+            }
+        }
+        out += ' }';
+        return out;
     }
 
     var get_mark, is_shown_on_rev, is_shown_fill;
@@ -628,7 +644,23 @@ $(function() {
                 }
             });
 
-            // Get the mapping between revisions and function version numbers
+            // Prints defs to a string
+            function debug_print_defs(defs) {
+                var out = '';
+                for (var i = 0; i < defs.length; i++) {
+                    out += ' { ' + i + ': ' + defs[i].type + ' ' + defs[i].num;
+                    out += ' ' + debug_print_is_shown_on_rev(defs[i].revs);
+                    if (defs[i].type == 'r') {
+                        out += ' { ';
+                        for (var j = 0 ; j < defs[i].children.length; ++j) {
+                            out += defs[i].children[j] + ' ';
+                        }
+                        out += '}';
+                    }
+                    out += ' }\n';
+                }
+                return out;
+            }
 
             /* Get the mapping between revisions and function version numbers.
                The function returns an array:
@@ -678,7 +710,23 @@ $(function() {
                 return num_map;
             };
 
+            // Prints num_map to a string
+            function debug_print_num_map(num_map) {
+                var out = '';
+                for (var rev = Rev.FIRST; rev != Rev.LAST; ++rev) {
+                    out += '[' + desc[rev].title + ']: { ';
+                    out +=  num_map[rev] + ' }\n';
+                }
+                return out;
+            }
+
             var num_map = get_num_map();
+
+            if (debug) {
+                alert(debug_print_defs(defs) + '\n\n' +
+                      debug_print_num_map(num_map));
+            }
+
             // Analyze the abstract description again and modify the DOM
             function clear_rev_marks(tr) {
                 marks = tr.children('td').eq(2).find('.t-mark-rev');
