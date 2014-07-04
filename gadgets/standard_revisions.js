@@ -584,7 +584,7 @@ $(function() {
                 };
 
                 // potentially empty
-                var aux_tr = el.children('t-dcl-rev-aux').first();
+                var aux_tr = el.children('.t-dcl-rev-aux').first();
                 new_def.aux = aux_tr;
 
                 // get version num
