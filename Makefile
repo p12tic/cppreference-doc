@@ -74,7 +74,7 @@ dist: clean
 	tar czf "cppreference-doc-$(VERSION).tar.gz" "cppreference-doc-$(VERSION)"
 	rm -rf "cppreference-doc-$(VERSION)"
 
-install:
+install: all
 	# install the devhelp documentation
 	pushd "output/reference" > /dev/null; \
 	find . -type f \
