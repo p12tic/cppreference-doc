@@ -111,8 +111,10 @@ release: all
 
 	# zip the html output
 	pushd "output"; \
-	tar czf "../release/html-book-$(VERSION).tar.gz" "reference"; \
-	zip -r "../release/html-book-$(VERSION).zip" "reference"; \
+	tar czf "../release/html-book-$(VERSION).tar.gz" "reference" \
+		"cppreference-doxygen-local.tag.xml" ; \
+	zip -r "../release/html-book-$(VERSION).zip" "reference" \
+		"cppreference-doxygen-local.tag.xml" ; \
 	popd
 
 	# zip qch
