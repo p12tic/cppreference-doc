@@ -85,6 +85,10 @@ install: all
 		"$(DESTDIR)$(bookdir)/cppreference-doc-en-c/cppreference-doc-en-c.devhelp2"
 	install -DT -m 644 "output/cppreference-doc-en-cpp.devhelp2" \
 		"$(DESTDIR)$(bookdir)/cppreference-doc-en-cpp/cppreference-doc-en-cpp.devhelp2"
+	install -DT -m 644 "output/cppreference-doxygen-local.tag.xml" \
+		"$(DESTDIR)$(bookdir)/cppreference-doxygen-local.tag.xml"
+	install -DT -m 644 "output/cppreference-doxygen-web.tag.xml" \
+		"$(DESTDIR)$(bookdir)/cppreference-doxygen-web.tag.xml"
 
 	# install the .qch (Qt Help) documentation
 	install -DT -m 644 "output/cppreference-doc-en-cpp.qch" \
