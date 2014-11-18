@@ -44,7 +44,7 @@ function Editor(root) {
               opt_suff: ' -lsupc++ '
             }
         ],
-        default_id: 4,
+        default_id: 7,
         opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
