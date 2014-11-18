@@ -2707,7 +2707,7 @@
     <const name="FE_INEXACT" link="cpp/numeric/fenv/FE_exceptions"/>
     <const name="FE_INVALID" link="cpp/numeric/fenv/FE_exceptions"/>
     <const name="FE_OVERFLOW" link="cpp/numeric/fenv/FE_exceptions"/>
-    <const name="FE_UNHERFLOW" link="cpp/numeric/fenv/FE_exceptions"/>
+    <const name="FE_UNDERFLOW" link="cpp/numeric/fenv/FE_exceptions"/>
 
     <const name="FE_DOWNWARD" link="cpp/numeric/fenv/FE_round"/>
     <const name="FE_TONEAREST" link="cpp/numeric/fenv/FE_round"/>

@@ -768,7 +768,7 @@
     <const name="FE_INEXACT" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_INVALID" link="c/numeric/fenv/FE_exceptions"/>
     <const name="FE_OVERFLOW" link="c/numeric/fenv/FE_exceptions"/>
-    <const name="FE_UNHERFLOW" link="c/numeric/fenv/FE_exceptions"/>
+    <const name="FE_UNDERFLOW" link="c/numeric/fenv/FE_exceptions"/>
 
     <const name="FE_DOWNWARD" link="c/numeric/fenv/FE_round"/>
     <const name="FE_TONEAREST" link="c/numeric/fenv/FE_round"/>
@@ -786,10 +786,10 @@
     <!-- cpp/numeric/random -->
 
     <const name="complex" link="c/numeric/complex/complex"/>
-    <const name="Complex_I" link="c/numeric/complex/Complex_I"/>
+    <const name="_Complex_I" link="c/numeric/complex/Complex_I"/>
     <const name="imaginary" link="c/numeric/complex/imaginary"/>
-    <const name="Imaginary_I" link="c/numeric/complex/Imaginary_I"/>
-    <const name="I" link="c/numeric/complex/I"/>
+    <const name="_Imaginary_I" link="c/numeric/complex/Imaginary_I"/>
+    <const name="_I" link="c/numeric/complex/I"/>
 
     <function name="CMPLX" link="c/numeric/complex/CMPLX"/>
     <function name="CMPLXF" link="c/numeric/complex/CMPLX"/>
