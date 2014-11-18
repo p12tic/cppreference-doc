@@ -35,6 +35,9 @@ function Editor(root) {
             { title: 'GCC 4.7 (C++11)', cmd: 'g++-4.7 -std=c++11 ' },
             { title: 'GCC 4.8', cmd: 'g++-4.8 -std=c++98 ' },
             { title: 'GCC 4.8 (C++11)', cmd: 'g++-4.8 -std=c++11 ' },
+            { title: 'GCC 4.9', cmd: 'g++-4.9 -std=c++98 ' },
+            { title: 'GCC 4.9 (C++11)', cmd: 'g++-4.9 -std=c++11 ' },
+            { title: 'GCC 4.9 (C++14)', cmd: 'g++-4.9 -std=c++14 ' },
             { title: 'clang 3.4', cmd: 'clang++ -std=c++98 ' },
             { title: 'clang 3.4 (C++11)',
               cmd: 'clang++ -std=c++11 -stdlib=libc++ ',
@@ -51,6 +54,8 @@ function Editor(root) {
             { title: 'GCC 4.7', cmd: 'gcc-4.7 -x c -std=c89 ' },
             { title: 'GCC 4.8', cmd: 'gcc-4.8 -x c -std=c89 ' },
             { title: 'GCC 4.8 (C99)', cmd: 'g++-4.8 -x c -std=c99 ' },
+            { title: 'GCC 4.9', cmd: 'gcc-4.9 -x c -std=c89 ' },
+            { title: 'GCC 4.9 (C99)', cmd: 'g++-4.9 -x c -std=c99 ' },
             { title: 'clang 3.4', cmd: 'clang -x c -std=c89 -Wno-newline-eof ' },
             { title: 'clang 3.4 (C99)', cmd: 'clang++ -x c -std=c99 -Wno-newline-eof '}
         ],
