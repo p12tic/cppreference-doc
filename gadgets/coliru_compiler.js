@@ -63,12 +63,48 @@ function Editor(root) {
         opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
+    var std_ids = {
+        'cxx98' : { c: 'cxx', id: 5 },
+        'cxx03' : { c: 'cxx', id: 5 },
+        'cxx11' : { c: 'cxx', id: 6 },
+        'cxx14' : { c: 'cxx', id: 7 },
+        'c89' : { c: 'cc', id: 4 },
+        'c99' : { c: 'cc', id: 5 },
+        'c11' : { c: 'cc', id: 5 }
+    }
+
+    this.get_std_id = function() {
+        if (this.root.hasClass('t-example-std-cxx98'))
+            return 'cxx98'
+        if (this.root.hasClass('t-example-std-cxx03'))
+            return 'cxx03'
+        if (this.root.hasClass('t-example-std-cxx11'))
+            return 'cxx11'
+        if (this.root.hasClass('t-example-std-cxx14'))
+            return 'cxx14'
+        if (this.root.hasClass('t-example-std-c89'))
+            return 'c89'
+        if (this.root.hasClass('t-example-std-c99'))
+            return 'c99'
+        if (this.root.hasClass('t-example-std-c11'))
+            return 'c11'
+        return null;
+    }
+
+    this.std_id = this.get_std_id();
+
     this.check_is_cxx = function() {
-        if (mw.config.get('wgTitle').indexOf('c/') == 0) {
-            return false;
-        } else {
-            return true;
+        if (this.std_id == null) {
+            if (mw.config.get('wgTitle').indexOf('c/') == 0) {
+                return false;
+            } else {
+                return true;
+            }
         }
+
+        if (this.std_ids[this.std_id].c == 'cc')
+            return false
+        return true
     };
 
     if (this.check_is_cxx()) {
@@ -76,6 +112,16 @@ function Editor(root) {
     } else {
         this.cmd_info = cmd_info_c;
     }
+
+    this.get_cmd_default_id = function() {
+        if (this.std_id == null) {
+            return this.cmd_info.default_id;
+        } else {
+            return this.cmd_ids[this.cmd_id].id;
+        }
+    }
+
+    this.cmd_default_id = this.get_cmd_default_id();
 
     this.cmd_run_normal = ' 2>&1 | sed "s/^/☘/"; if [ -x a.out ]; then ./a.out | sed "s/^/☢/"; fi'
     this.cmd_run_share = ' && ./a.out';
@@ -108,7 +154,7 @@ function Editor(root) {
         $('<option/>').text(cmd.title).attr('value', i.toString())
                                       .appendTo(this.el.cc_select);
     }
-    this.el.cc_select.val(this.cmd_info.default_id.toString());
+    this.el.cc_select.val(this.cmd_default_id.toString());
 
     this.el.pwr = $('<div>Powered by <a href="http://coliru.stacked-crooked.com">Coliru</a> online compiler</div>')
                         .addClass('coliru-powered')
