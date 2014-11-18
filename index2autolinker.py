@@ -147,6 +147,6 @@ json_groups = [ v for v in groups.values() ]
 json_groups = sorted(json_groups, key=lambda x: x['name'])
 links = sorted(links, key=lambda x: x['target'])
 
-out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links}, indent=0,
-                       sort_keys=True))
+out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links}, indent=None,
+                       separators=(',\n', ': '), sort_keys=True))
 out_f.close()
