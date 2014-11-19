@@ -72,9 +72,9 @@ for lang in ["en"]:
 
 
 # find files that need to be renamed
-files_rename_qs = []
-files_rename_quot = []
-files_loader = []
+files_rename_qs = []        # remove query string
+files_rename_quot = []      # remove quotes
+files_loader = []           # files served by load.php
 for root, dirnames, filenames in os.walk('output/reference/'):
     for filename in fnmatch.filter(filenames, '*[?]*'):
         files_rename_qs.append((root, filename))
@@ -90,6 +90,9 @@ for root,fn in files_loader:
 rename_map = []
 def rename_file(root, fn, new_fn):
     path = os.path.join(root,fn)
+    if not os.path.isfile(path):
+        print("Not renaming " + path)
+        return
     new_path = os.path.join(root,new_fn)
     shutil.move(path, new_path)
     rename_map.append((fn, new_fn))
@@ -116,6 +119,11 @@ for root,fn in files_loader:
         sys.exit(1)
 
     rename_file(root, fn, new_fn)
+
+# rename filenames that conflict on case-insensitive filesystems
+# TODO: perform this automatically
+rename_file('output/reference/en/cpp/numeric/math', 'NAN.html', 'NAN.2.html')
+rename_file('output/reference/en/c/numeric/math', 'NAN.html', 'NAN.2.html')
 
 # find files that need to be preprocessed
 html_files = []
