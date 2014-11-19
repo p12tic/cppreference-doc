@@ -75,6 +75,10 @@
 <xsl:template match="devhelp:keyword">
   <xsl:if test="@name != ''">
     <keyword name="{@name}" id="{@name}" ref="{@link}" />
+    <!-- Add an additional id for libc++ users -->
+    <xsl:if test="starts-with(@name, 'std::')">
+      <keyword name="{@name}" id="{concat('std::___LIBCPP_ABI_VERSION::', substring(@name, 6))}" ref="{@link}" />
+    </xsl:if>
   </xsl:if>
 </xsl:template>
 
