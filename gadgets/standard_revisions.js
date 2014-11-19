@@ -79,7 +79,7 @@ $(function() {
     /// Standard revision identification 'enums'
 
     var Rev_c = { DIFF: 0, FIRST: 1, C89: 1, C99: 2, C11: 3, LAST: 4 };
-    var Rev_cxx = { DIFF: 0, FIRST: 1, CXX98: 1, CXX11: 2, CXX14: 3, LAST: 4 };
+    var Rev_cxx = { DIFF: 0, FIRST: 1, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, LAST: 5 };
 
     var Rev;
 
@@ -102,6 +102,7 @@ $(function() {
         { rev: Rev.CXX98, title: 'C++98/03' },
         { rev: Rev.CXX11, title: 'C++11' },
         { rev: Rev.CXX14, title: 'C++14' },
+        { rev: Rev.CXX17, title: 'C++17' },
     ];
 
     var desc;
@@ -136,11 +137,17 @@ $(function() {
         if (el.hasClass('t-since-cxx14')) {
             return { since: true, rev: Rev.CXX14 };
         }
+        if (el.hasClass('t-since-cxx17')) {
+            return { since: true, rev: Rev.CXX17 };
+        }
         if (el.hasClass('t-until-cxx11')) {
             return { since: false, rev: Rev.CXX11 };
         }
         if (el.hasClass('t-until-cxx14')) {
             return { since: false, rev: Rev.CXX14 };
+        }
+        if (el.hasClass('t-until-cxx17')) {
+            return { since: false, rev: Rev.CXX17 };
         }
         return { since: true, rev: Rev.CXX98 };
     }
@@ -165,24 +172,30 @@ $(function() {
         shown on.
     */
     function is_shown_on_rev_cxx(el) {
-        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3
+        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
         // DIFF is always false
+        if (el.hasClass('t-since-cxx17')) {
+            return [false, false, false, false, true];
+        }
         if (el.hasClass('t-since-cxx14')) {
-            return [false, false, false, true];
+            return [false, false, false, true, true];
         }
         if (el.hasClass('t-since-cxx11')) {
             if (el.hasClass('t-until-cxx14')) {
-                return [false, false, true, false];
+                return [false, false, true, false, false];
             }
-            return [false, false, true, true];
+            return [false, false, true, true, true];
         }
         if (el.hasClass('t-until-cxx11')) {
-            return [false, true, false, false];
+            return [false, true, false, false, false];
         }
         if (el.hasClass('t-until-cxx14')) {
-            return [false, true, true, false];
+            return [false, true, true, false, false];
         }
-        return [false, true, true, true];
+        if (el.hasClass('t-until-cxx17')) {
+            return [false, true, true, true, false];
+        }
+        return [false, true, true, true, true];
     }
 
     function is_shown_on_rev_c(el) {
@@ -207,8 +220,8 @@ $(function() {
     }
 
     function is_shown_fill_cxx(val) {
-        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3
-        return [val, val, val, val];
+        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
+        return [val, val, val, val, val];
     }
     function is_shown_fill_c(el) {
         // DIFF: 0, C89: 1, C99: 2, C11: 3
