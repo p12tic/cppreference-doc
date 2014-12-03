@@ -38,9 +38,13 @@ function Editor(root) {
             { title: 'GCC 4.9', cmd: 'g++-4.9 -std=c++98 ' },
             { title: 'GCC 4.9 (C++11)', cmd: 'g++-4.9 -std=c++11 ' },
             { title: 'GCC 4.9 (C++14)', cmd: 'g++-4.9 -std=c++14 ' },
-            { title: 'clang 3.4', cmd: 'clang++ -std=c++98 ' },
-            { title: 'clang 3.4 (C++11)',
+            { title: 'clang 3.5', cmd: 'clang++ -std=c++98 ' },
+            { title: 'clang 3.5 (C++11)',
               cmd: 'clang++ -std=c++11 -stdlib=libc++ ',
+              opt_suff: ' -lsupc++ '
+            },
+            { title: 'clang 3.5 (C++14)',
+              cmd: 'clang++ -std=c++14 -stdlib=libc++ ',
               opt_suff: ' -lsupc++ '
             }
         ],
@@ -56,10 +60,12 @@ function Editor(root) {
             { title: 'GCC 4.8 (C99)', cmd: 'g++-4.8 -x c -std=c99 ' },
             { title: 'GCC 4.9', cmd: 'gcc-4.9 -x c -std=c89 ' },
             { title: 'GCC 4.9 (C99)', cmd: 'g++-4.9 -x c -std=c99 ' },
-            { title: 'clang 3.4', cmd: 'clang -x c -std=c89 -Wno-newline-eof ' },
-            { title: 'clang 3.4 (C99)', cmd: 'clang++ -x c -std=c99 -Wno-newline-eof '}
+            { title: 'GCC 4.9 (C11)', cmd: 'g++-4.9 -x c -std=c11 ' },
+            { title: 'clang 3.5', cmd: 'clang -x c -std=c89 -Wno-newline-eof ' },
+            { title: 'clang 3.5 (C99)', cmd: 'clang++ -x c -std=c99 -Wno-newline-eof '},
+            { title: 'clang 3.5 (C11)', cmd: 'clang++ -x c -std=c11 -Wno-newline-eof '}
         ],
-        default_id: 3,
+        default_id: 6,
         opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
@@ -70,7 +76,7 @@ function Editor(root) {
         'cxx14' : { c: 'cxx', id: 7 },
         'c89' : { c: 'cc', id: 4 },
         'c99' : { c: 'cc', id: 5 },
-        'c11' : { c: 'cc', id: 5 }
+        'c11' : { c: 'cc', id: 6 }
     }
 
     this.get_std_id = function() {
