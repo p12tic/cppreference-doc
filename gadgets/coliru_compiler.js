@@ -38,17 +38,25 @@ function Editor(root) {
             { title: 'GCC 4.9', cmd: 'g++-4.9 -std=c++98 ' },
             { title: 'GCC 4.9 (C++11)', cmd: 'g++-4.9 -std=c++11 ' },
             { title: 'GCC 4.9 (C++14)', cmd: 'g++-4.9 -std=c++14 ' },
-            { title: 'clang 3.5', cmd: 'clang++ -std=c++98 ' },
-            { title: 'clang 3.5 (C++11)',
+            { title: 'GCC 5.1 (C++98)', cmd: 'g++-5.1 -std=c++98 ' },
+            { title: 'GCC 5.1 (C++11)', cmd: 'g++-5.1 -std=c++11 ' },
+            { title: 'GCC 5.1 (C++14)', cmd: 'g++-5.1 -std=c++14 ' },
+            { title: 'GCC 5.1 (C++17)', cmd: 'g++-5.1 -std=c++1z ' },
+            { title: 'clang 3.6', cmd: 'clang++ -std=c++98 ' },
+            { title: 'clang 3.6 (C++11)',
               cmd: 'clang++ -std=c++11 -stdlib=libc++ ',
               opt_suff: ' -lsupc++ '
             },
-            { title: 'clang 3.5 (C++14)',
+            { title: 'clang 3.6 (C++14)',
               cmd: 'clang++ -std=c++14 -stdlib=libc++ ',
+              opt_suff: ' -lsupc++ '
+            },
+            { title: 'clang 3.6 (C++17)',
+              cmd: 'clang++ -std=c++1z -stdlib=libc++ ',
               opt_suff: ' -lsupc++ '
             }
         ],
-        default_id: 7,
+        default_id: 10,
         opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
@@ -61,11 +69,14 @@ function Editor(root) {
             { title: 'GCC 4.9', cmd: 'gcc-4.9 -x c -std=c89 ' },
             { title: 'GCC 4.9 (C99)', cmd: 'g++-4.9 -x c -std=c99 ' },
             { title: 'GCC 4.9 (C11)', cmd: 'g++-4.9 -x c -std=c11 ' },
-            { title: 'clang 3.5', cmd: 'clang -x c -std=c89 -Wno-newline-eof ' },
-            { title: 'clang 3.5 (C99)', cmd: 'clang++ -x c -std=c99 -Wno-newline-eof '},
-            { title: 'clang 3.5 (C11)', cmd: 'clang++ -x c -std=c11 -Wno-newline-eof '}
+            { title: 'GCC 5.1 (C89)', cmd: 'gcc-5.1 -x c -std=c89 ' },
+            { title: 'GCC 5.1 (C99)', cmd: 'g++-5.1 -x c -std=c99 ' },
+            { title: 'GCC 5.1 (C11)', cmd: 'g++-5.1 -x c -std=c11 ' },
+            { title: 'clang 3.6', cmd: 'clang -x c -std=c89 -Wno-newline-eof ' },
+            { title: 'clang 3.6 (C99)', cmd: 'clang++ -x c -std=c99 -Wno-newline-eof '},
+            { title: 'clang 3.6 (C11)', cmd: 'clang++ -x c -std=c11 -Wno-newline-eof '}
         ],
-        default_id: 6,
+        default_id: 9,
         opt: ' -O2 -Wall -Wextra -pedantic -pthread -pedantic-errors main.cpp -lm ',
     }
 
