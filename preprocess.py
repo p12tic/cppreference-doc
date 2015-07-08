@@ -151,6 +151,7 @@ def rlink_fix(match):
     target = re.sub('(\.php|\.css)\?.*', '\\1', target)
     target = urllib.parse.quote(target)
     target = xml_escape(target)
+    target = target.replace('%23', '#');
     return pre + target + post
 
 # clean the html files
