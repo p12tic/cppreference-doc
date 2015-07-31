@@ -28,7 +28,7 @@ from xml_utils import xml_escape, xml_unescape
 # copy the source tree
 os.system('rm -rf output/reference')
 os.system('mkdir -p output/reference')
-os.system('cp -rt output/reference reference/*')
+os.system('cp -r reference/* output/reference ')
 
 # rearrange the archive {root} here is output/reference
 
@@ -61,7 +61,7 @@ for lang in ["en"]:
     if (os.path.isdir(src_data_path)):
         # the skin files should be the same for all languages thus we
         # can merge everything
-        os.system('cp -rl ' + src_data_path + '/* ' + data_path)
+        os.system('cp -r ' + src_data_path + '/* ' + data_path)
         os.system('rm -r ' + src_data_path)
 
     # also copy the custom fonts
