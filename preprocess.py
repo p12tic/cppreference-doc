@@ -26,6 +26,7 @@ import urllib.parse
 from xml_utils import xml_escape, xml_unescape
 from bs4 import BeautifulSoup
 import bs4
+from build_link_map import build_link_map
 
 # copy the source tree
 os.system('rm -rf output/reference')
@@ -126,6 +127,9 @@ for root,fn in files_loader:
 # TODO: perform this automatically
 rename_file('output/reference/en/cpp/numeric/math', 'NAN.html', 'NAN.2.html')
 rename_file('output/reference/en/c/numeric/math', 'NAN.html', 'NAN.2.html')
+
+# generate link map as long as there is all information present
+build_link_map()
 
 # find files that need to be preprocessed
 html_files = []

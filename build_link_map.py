@@ -28,7 +28,7 @@ from link_map import LinkMap
 
 # returns a dict { title -> filename }.
 # directory - either 'output/reference' or 'reference'
-def build_link_map(directory):
+def build_link_map_impl(directory):
     # find all html files
     html_files = []
     for root, dirnames, filenames in os.walk(directory):
@@ -57,11 +57,14 @@ def build_link_map(directory):
         link_map.add_link(title, target)
     return link_map
 
-def main():
-    link_map = build_link_map('output/reference')
+def build_link_map():
+    link_map = build_link_map_impl('output/reference')
 
     # create an xml file containing mapping between page title and actual location
     link_map.write('output/link-map.xml')
+
+def main():
+    build_link_map()
 
 if __name__ == "__main__":
     main()

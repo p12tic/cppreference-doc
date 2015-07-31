@@ -132,14 +132,9 @@ doc_qch: output/cppreference-doc-en-cpp.qch
 
 doc_doxygen: output/cppreference-doxygen-web.tag.xml output/cppreference-doxygen-local.tag.xml
 
-#builds the title<->location map
-output/link-map.xml: output/reference
-	./build_link_map.py
-
 #build the .devhelp2 index
 output/cppreference-doc-en-c.devhelp2: 		\
-		output/reference 		\
-		output/link-map.xml
+		output/reference
 	./index2devhelp.py $(docdir)/html index-chapters-c.xml  \
 		"C Standard Library reference" "cppreference-doc-en-c" "c" \
 		index-functions-c.xml "output/devhelp-index-c.xml"
@@ -147,8 +142,7 @@ output/cppreference-doc-en-c.devhelp2: 		\
 		"output/cppreference-doc-en-c.devhelp2"
 
 output/cppreference-doc-en-cpp.devhelp2:	\
-		output/reference 		\
-		output/link-map.xml
+		output/reference
 	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml  \
 		"C++ Standard Library reference" "cppreference-doc-en-cpp" "cpp" \
 		index-functions-cpp.xml "output/devhelp-index-cpp.xml"
@@ -183,15 +177,13 @@ output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 
 # build doxygen tag file
 output/cppreference-doxygen-local.tag.xml: 		\
-		output/reference 		\
-		output/link-map.xml
+		output/reference
 	./index2doxygen-tag.py "output/link-map.xml" \
 		"index-functions-cpp.xml" \
 		"output/cppreference-doxygen-local.tag.xml"
 
 output/cppreference-doxygen-web.tag.xml: 		\
-		output/reference 		\
-		output/link-map.xml
+		output/reference
 	./index2doxygen-tag.py web \
 		"index-functions-cpp.xml" \
 		"output/cppreference-doxygen-web.tag.xml"
