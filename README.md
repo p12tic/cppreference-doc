@@ -1,5 +1,6 @@
   Information
-  ===========
+  -----------
+
 This is source package for Cppreference C++ standard library reference
 documentation available at <http://en.cppreference.com>.
 
@@ -35,13 +36,13 @@ documentation formats are currently supported:
 Simply running `make` will run generate documentation in all three formats.
 
   Dependencies
-  ============
+  ------------
 
-The package depends on 'wget' (>=1.15), 'python3', 'python3-lxml', 'xsltproc' and
-'qhelpgenerator' for the generation of the documentation.
+The package depends on 'wget' (>=1.15), 'python3', 'python3-lxml', 'xsltproc'
+and 'qhelpgenerator' for the generation of the documentation.
 
   See also
-  ========
+  --------
 
 Debian packaging information for this package is maintained at
 <https://github.com/p12tic/cppreference-doc-debian>
