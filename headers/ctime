@@ -1,0 +1,51 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CTIME_H
+#define CPPREFERENCE_CTIME_H
+
+#define CLOCKS_PER_SEC 0 // unspecified
+
+namespace std {
+
+typedef int clock_t; // actually unspecified
+typedef int time_t; // actually unspecified
+
+struct tm {
+    int tm_sec;
+    int tm_min;
+    int tm_hour;
+    int tm_mday;
+    int tm_mon;
+    int tm_year;
+    int tm_wday;
+    int tm_yday;
+    int tm_isdst;
+};
+
+double difftime(std::time_t time_end, std::time_t time_beg);
+std::time_t time(std::time_t* arg);
+std::clock_t clock();
+char* asctime(const std::tm* time_ptr);
+char* ctime(const std::time_t* time);
+std::size_t strftime(char* str, std::size_t count, const char* format, const std::tm* time);
+std::size_t wcsftime(wchar_t* str, std::size_t count, const wchar_t* format, const std::tm* time);
+std::tm* gmtime(const std::time_t* time);
+std::tm* localtime(const std::time_t* time);
+std::time_t mktime(std::tm* time);
+
+} // namespace std
+
+#endif // CPPREFERENCE_CTIME_H

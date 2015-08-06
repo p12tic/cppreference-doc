@@ -1,0 +1,571 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_REGEX_H
+#define CPPREFERENCE_REGEX_H
+
+#if CPPREFERENCE_STDVER>= 2011
+namespace std {
+namespace regex_constants {
+
+typedef int syntax_option_type; // actually unspecified
+constexpr syntax_option_type icase;
+constexpr syntax_option_type nosubs;
+constexpr syntax_option_type optimize;
+constexpr syntax_option_type collate;
+constexpr syntax_option_type ECMAScript;
+constexpr syntax_option_type basic;
+constexpr syntax_option_type extended;
+constexpr syntax_option_type awk;
+constexpr syntax_option_type grep;
+constexpr syntax_option_type egrep;
+
+typedef int match_flag_type; // actually unspecified
+
+constexpr match_flag_type match_default = 0;
+constexpr match_flag_type match_not_bol;
+constexpr match_flag_type match_not_eol;
+constexpr match_flag_type match_not_bow;
+constexpr match_flag_type match_not_eow;
+constexpr match_flag_type match_any;
+constexpr match_flag_type match_not_null;
+constexpr match_flag_type match_continuous;
+constexpr match_flag_type match_prev_avail;
+constexpr match_flag_type format_default = 0;
+constexpr match_flag_type format_sed;
+constexpr match_flag_type format_no_copy;
+constexpr match_flag_type format_first_only;
+
+typedef int error_type; // actually unspecified
+
+constexpr error_type error_collate;
+constexpr error_type error_ctype;
+constexpr error_type error_escape;
+constexpr error_type error_backref;
+constexpr error_type error_brack;
+constexpr error_type error_paren;
+constexpr error_type error_brace;
+constexpr error_type error_badbrace;
+constexpr error_type error_range;
+constexpr error_type error_space;
+constexpr error_type error_badrepeat;
+constexpr error_type error_complexity;
+constexpr error_type error_stack;
+
+} // namespace regex_constants
+
+template<class CharT>
+class regex_traits {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    typedef void* locale_type; // not specified
+    typedef int char_class_type; // unspecified bitmask type
+
+    regex_traits();
+
+    static std::size_t length(const char_type* p);
+    CharT translate(CharT c) const;
+    CharT translate_nocase(CharT c) const;
+
+    template<class ForwardIt>
+    string_type transform(ForwardIt first, ForwardIt last) const;
+
+    template<class ForwardIt>
+    string_type transform_primary(ForwardIt first, ForwardIt last) const;
+
+    template<class ForwardIt>
+    string_type lookup_collatename(ForwardIt first, ForwardIt last) const;
+
+    template<class ForwardIt>
+    char_class_type lookup_classname(ForwardIt first,
+                                     ForwardIt last,
+                                     bool icase = false) const;
+
+    bool isctype(CharT c, char_class_type f) const;
+    int value(CharT ch, int radix) const;
+    locale_type imbue(locale_type loc);
+    locale_type getloc() const;
+};
+
+class regex_error : public std::runtime_error {
+public:
+    explicit regex_error(std::regex_constants::error_type ecode);
+    std::regex_constants::error_type code() const;
+};
+
+template <
+    class CharT,
+    class Traits = std::regex_traits<CharT>
+    > class basic_regex {
+public:
+    typedef CharT value_type;
+    typedef Traits traits_type;
+    typedef typename Traits::string_type string_type;
+    typedef typename Traits::locale_type locale_type;
+    typedef regex_constants::syntax_option_type flag_type;
+
+    basic_regex();
+    explicit basic_regex(const CharT* s,
+                         flag_type f = std::regex_constants::ECMAScript);
+    basic_regex(const CharT* s, std::size_t count,
+                flag_type f = std::regex_constants::ECMAScript);
+
+    basic_regex(const basic_regex& other);
+    basic_regex(basic_regex&& other);
+
+    template<class ST, class SA>
+    explicit basic_regex(const std::basic_string<CharT, ST, SA>& str,
+                         flag_type f = std::regex_constants::ECMAScript);
+
+    template<class ForwardIt>
+    basic_regex(ForwardIt first, ForwardIt last,
+                flag_type f = std::regex_constants::ECMAScript);
+
+    basic_regex(std::initializer_list<CharT> init,
+                flag_type f = std::regex_constants::ECMAScript);
+
+    ~basic_regex();
+
+    basic_regex& operator=(const basic_regex& other);
+    basic_regex& operator=(basic_regex&& other);
+    basic_regex& operator=(const CharT* ptr);
+    basic_regex& operator=(std::initializer_list<CharT> il);
+    template<class ST, class SA>
+    basic_regex& operator=(const std::basic_string<CharT, ST, SA>& p);
+
+    basic_regex& assign(const basic_regex& other);
+    basic_regex& assign(basic_regex&& that);
+    basic_regex& assign(const CharT* s,
+                        flag_type f = std::regex_constants::ECMAScript);
+    basic_regex& assign(const charT* ptr, size_t count,
+                        flag_type f = std::regex_constants::ECMAScript);
+
+    template<class ST, class SA>
+    basic_regex& assign(const std::basic_string<CharT, ST, SA>& str,
+                        flag_type f = std::regex_constants::ECMAScript);
+
+    template<class InputIt>
+    basic_regex& assign(InputIt first, InputIt last,
+                        flag_type f = std::regex_constants::ECMAScript);
+
+    basic_regex& assign(std::initializer_list<CharT> ilist,
+                        flag_type f = std::regex_constants::ECMAScript);
+
+    unsigned mark_count() const;
+    flag_type flags() const;
+    locale_type imbue(locale_type loc);
+    void swap(basic_regex& other);
+};
+
+typedef basic_regex<char> regex;
+typedef basic_regex<wchar_t> wregex;
+
+template<class BidirIt>
+class sub_match : public pair<BidirIt, BidirIt> {
+public:
+    typedef BidirIt iterator;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef BidirIt::value_type value_type;
+    typedef ptrdiff_t difference_type;
+#else
+    typedef std::iterator_traits<BidirIt>::value_type value_type;
+    typedef std::iterator_traits<BidirIt>::difference_type difference_type;
+#endif
+    bool matched;
+
+    constexpr sub_match();
+    difference_type length() const;
+    operator string_type() const;
+    string_type str() const;
+
+    int compare(const sub_match& m) const;
+    int compare(const string_type& s) const;
+    int compare(const value_type* c) const;
+};
+
+// SIMPLIFIED: comparison operators omitted
+
+template<class CharT, class Traits, class BidirIt>
+std::basic_ostream<CharT, Traits>&
+operator<<(std::basic_ostream<CharT, Traits>& os,
+           const sub_match<BidirIt>& m);
+
+typedef sub_match<const char*> csub_match;
+typedef sub_match<const wchar_t*> wcsub_match;
+typedef sub_match<std::string::const_iterator> ssub_match;
+typedef sub_match<std::wstring::const_iterator> wssub_match;
+
+template <
+    class BidirIt,
+    class Alloc = std::allocator<std::sub_match<BidirIt>>
+    > class match_results {
+public:
+    typedef Allocator allocator_type;
+    typedef sub_match<BidirIt> value_type;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* const_iterator; // actually impl-defined
+    typedef const_iterator iterator;
+    typedef std::iterator_traits<BidirIt>::difference_type difference_type;
+    typedef std::allocator_traits<Alloc>::size_type size_type;
+    typedef std::iterator_traits<BidirIt>::value_type char_type;
+    typedef std::basic_string<char_type> string_type;
+
+    explicit match_results(const Allocator& a = Allocator());
+    match_results(const match_results& rhs);
+    match_results(match_results&& rhs);
+    ~match_results();
+    match_results& operator=(const match_results& other);
+    match_results& operator=(match_results&& other);
+
+    allocator_type get_allocator() const;
+    bool ready() const;
+
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+    difference_type length(size_type n = 0) const;
+    difference_type position(size_type sub = 0) const;
+
+    string_type str(size_type n = 0) const;
+    const_reference operator[](size_type n) const;
+    const_reference prefix() const;
+    const_reference suffix() const;
+
+    iterator begin();
+    const_iterator begin() const;
+    \
+    const_iterator cbegin() const;
+    iterator end();
+    const_iterator end() const;
+    \
+    const_iterator cend() const;
+
+    template<class OutputIt>
+    OutputIter format(OutputIt out,
+                      const char_type* fmt_first, const char_type* fmt_last,
+                      std::regex_constants::match_flag_type flags =
+                          std::regex_constants::format_default) const;
+
+    template<class OutputIt, class ST, class SA>
+    OutputIter format(OutputIt out,
+                      const basic_string<char_type, ST, SA>& fmt,
+                      std::regex_constants::match_flag_type flags =
+                          std::regex_constants::format_default) const;
+
+    template<class ST, class SA>
+    std::basic_string<char_type, ST, SA>
+    format(const std::basic_string<char_type, ST, SA>& fmt,
+           std::regex_constants::match_flag_type flags =
+               std::regex_constants::format_default) const;
+
+    string_type format(const char_type* fmt_s,
+                       std::regex_constants::match_flag_type flags =
+                           std::regex_constants::format_default) const;
+
+    void swap(match_results& other);
+};
+
+template<class BidirIt, class Alloc>
+bool operator==(match_results<BidirIt, Alloc>& lhs,
+                match_results<BidirIt, Alloc>& rhs);
+
+template<class BidirIt, class Alloc>
+bool operator!=(match_results<BidirIt, Alloc>& lhs,
+                match_results<BidirIt, Alloc>& rhs);
+
+template<class BidirIt, class Alloc>
+void swap(match_results<BidirIt, Alloc>& x1,
+          match_results<BidirIt, Alloc>& x2);
+
+typedef match_results<const char*> cmatch;
+typedef match_results<const wchar_t*> wcmatch;
+typedef match_results<std::string::const_iterator> smatch;
+typedef match_results<std::wstring::const_iterator> wsmatch;
+
+template <
+    class BidirIt,
+    class CharT = typename std::iterator_traits<BidirIt>::value_type,
+    class Traits = std::regex_traits<CharT>
+    > class regex_iterator {
+public:
+    typedef match_result<BidirIt> value_type;
+    typedef ptrdiff_t difference_type;
+    typedef const value_type* pointer;
+    typedef const value_type& reference;
+    typedef forward_iterator_tag iterator_category;
+    typedef basic_regex<CharT, Traits> regex_type;
+
+    regex_iterator();
+    regex_iterator(BidirIt a, BidirIt b,
+                   const regex_type& re,
+                   std::regex_constants::match_flag_type m =
+                       std::regex_constants::match_default);
+
+    regex_iterator(const regex_iterator&);
+
+#if CPPREFERENCE_STDVER>= 2014
+    regex_iterator(BidirIt, BidirIt,
+                   const regex_type&&,
+                   std::regex_constants::match_flag_type =
+                       std::regex_constants::match_default) = delete;
+#endif
+    regex_iterator& operator=(const regex_iterator& other);
+
+    bool operator==(const regex_iterator& rhs) const;
+    bool operator!=(const regex_iterator& rhs) const;
+
+    const value_type& operator*() const;
+    const value_type* operator->() const;
+
+    regex_iterator& operator++();
+    regex_iterator operator++(int);
+};
+
+typedef regex_iterator<const char*> cregex_iterator;
+typedef regex_iterator<const wchar_t*> wcregex_iterator;
+typedef regex_iterator<std::string::const_iterator> sregex_iterator;
+typedef regex_iterator<std::wstring::const_iterator> wsregex_iterator;
+
+template <
+    class BidirIt,
+    class CharT = typename std::iterator_traits<BidirIt>::value_type,
+    class Traits = std::regex_traits<CharT>
+    > class regex_token_iterator {
+public:
+    typedef sub_match<BidirIt> value_type;
+    typedef ptrdiff_t difference_type;
+    typedef const value_type* pointer;
+    typedef const value_type& reference;
+    typedef forward_iterator_tag iterator_category;
+    typedef basic_regex<CharT, Traits> regex_type;
+
+    regex_token_iterator();
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type& re,
+                         int submatch = 0,
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default);
+
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type& re,
+                         const std::vector<int>& submatches,
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default);
+
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type& re,
+                         std::initializer_list<int> submatches,
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default);
+
+    template <std::size_t N>
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type& re,
+                         const int (&submatches)[N],
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default);
+
+    regex_token_iterator(const regex_token_iterator& other);
+
+#if CPPREFERENCE_STDVER>= 2014
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type&& re,
+                         int submatch = 0,
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default) = delete;
+
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type&& re,
+                         const std::vector<int>& submatches,
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default) = delete;
+
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type&& re,
+                         std::initializer_list<int> submatches,
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default) = delete;
+
+    template <std::size_t N>
+    regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
+                         const regex_type&& re,
+                         const int (&submatches)[N],
+                         std::regex_constants::match_flag_type m =
+                             std::regex_constants::match_default) = delete;
+#endif
+
+    regex_token_iterator& operator=(const regex_token_iterator& other);
+
+    bool operator==(const regex_token_iterator& rhs) const;
+    bool operator!=(const regex_token_iterator& rhs) const;
+
+    const value_type& operator*() const;
+    const value_type* operator->() const;
+
+    regex_iterator& operator++();
+    regex_iterator operator++(int);
+};
+
+typedef regex_token_iterator<const char*> cregex_token_iterator;
+typedef regex_token_iterator<const wchar_t*> wcregex_token_iterator;
+typedef regex_token_iterator<std::string::const_iterator> sregex_token_iterator;
+typedef regex_token_iterator<std::wstring::const_iterator> wsregex_token_iterator;
+
+// algorithms
+template<class BidirIt,
+         class Alloc, class CharT, class Traits>
+bool regex_match(BidirIt first, BidirIt last,
+                 std::match_results<BidirIt, Alloc>& m,
+                 const std::basic_regex<CharT, Traits>& e,
+                 std::regex_constants::match_flag_type flags =
+                     std::regex_constants::match_default);
+
+template<class BidirIt,
+         class CharT, class Traits>
+bool regex_match(BidirIt first, BidirIt last,
+                 const std::basic_regex<CharT, Traits>& e,
+                 std::regex_constants::match_flag_type flags =
+                     std::regex_constants::match_default);
+
+template<class CharT, class Alloc, class Traits>
+bool regex_match(const CharT* str,
+                 std::match_results<const CharT*, Alloc>& m,
+                 const std::basic_regex<CharT, Traits>& e,
+                 std::regex_constants::match_flag_type flags =
+                     std::regex_constants::match_default);
+
+template<class STraits, class SAlloc,
+         class Alloc, class CharT, class Traits>
+bool regex_match(const std::basic_string<CharT, STraits, SAlloc>& s,
+                 std::match_results<typename std::basic_string<CharT, STraits, SAlloc>::const_iterator, Alloc>& m,
+                 const std::basic_regex<CharT, Traits>& e,
+                 std::regex_constants::match_flag_type flags =
+                     std::regex_constants::match_default);
+
+template<class CharT, class Traits>
+bool regex_match(const CharT* str,
+                 const std::basic_regex<CharT, Traits>& e,
+                 std::regex_constants::match_flag_type flags =
+                     std::regex_constants::match_default);
+
+template<class STraits, class SAlloc,
+         class CharT, class Traits>
+bool regex_match(const std::basic_string<CharT, STraits, SAlloc>& s,
+                 const std::basic_regex<CharT, Traits>& e,
+                 std::regex_constants::match_flag_type flags =
+                     std::regex_constants::match_default);
+
+template<class BidirIt,
+         class Alloc, class CharT, class Traits>
+bool regex_search(BidirIt first, BidirIt last,
+                  std::match_results<BidirIt, Alloc>& m,
+                  const std::basic_regex<CharT, Traits>& e,
+                  std::regex_constants::match_flag_type flags =
+                      std::regex_constants::match_default);
+
+template<class Alloc, class CharT, class Traits>
+bool regex_search(const CharT* str,
+                  std::match_results<BidirIt, Alloc>& m,
+                  const std::basic_regex<CharT, Traits>& e,
+                  std::regex_constants::match_flag_type flags =
+                      std::regex_constants::match_default);
+
+template<class STraits, class SAlloc,
+         class Alloc, class CharT, class Traits>
+bool regex_search(const std::basic_string<CharT, STraits, SAlloc>& s,
+                  std::match_results<typename std::basic_string<CharT, STraits, SAlloc>::const_iterator, Alloc>& m,
+                  const std::basic_regex<CharT, Traits>& e,
+                  std::regex_constants::match_flag_type flags =
+                      std::regex_constants::match_default);
+
+template<class BidirIt,
+         class CharT, class Traits>
+bool regex_search(BidirIt first, BidirIt last,
+                  const std::basic_regex<CharT, Traits>& e,
+                  std::regex_constants::match_flag_type flags =
+                      std::regex_constants::match_default);
+
+template<class CharT, class Traits>
+bool regex_search(const CharT* str,
+                  const std::basic_regex<CharT, Traits>& e,
+                  std::regex_constants::match_flag_type flags =
+                      std::regex_constants::match_default);
+
+template<class STraits, class SAlloc,
+         class CharT, class Traits>
+bool regex_search(const std::basic_string<CharT, STraits, SAlloc>& s,
+                  const std::basic_regex<CharT, Traits>& e,
+                  std::regex_constants::match_flag_type flags =
+                      std::regex_constants::match_default);
+
+template<class OutputIt, class BidirIt,
+         class Traits, class CharT,
+         class STraits, class SAlloc>
+OutputIt regex_replace(OutputIt out, BidirIt first, BidirIt last,
+                       const std::basic_regex<CharT, Traits>& re,
+                       const std::basic_string<CharT, STraits, SAlloc>& fmt,
+                       std::regex_constants::match_flag_type flags =
+                           std::regex_constants::match_default);
+
+template<class OutputIt, class BidirIt,
+         class Traits, class CharT>
+OutputIt regex_replace(OutputIt out, BidirIt first, BidirIt last,
+                       const std::basic_regex<CharT, Traits>& re,
+                       const CharT* fmt,
+                       std::regex_constants::match_flag_type flags =
+                           std::regex_constants::match_default);
+
+template<class Traits, class CharT,
+         class STraits, class SAlloc,
+         class FTraits, class FAlloc>
+std::basic_string<CharT, STraits, SAlloc>
+regex_replace(const std::basic_string<CharT, STraits, SAlloc>& s,
+              const std::basic_regex<CharT, Traits>& re,
+              const std::basic_string<CharT, FTraits, FAlloc>& fmt,
+              std::regex_constants::match_flag_type flags =
+                  std::regex_constants::match_default);
+
+template<class Traits, class CharT,
+         class STraits, class SAlloc>
+std::basic_string<CharT, STraits, SAlloc>
+regex_replace(const std::basic_string<CharT, STraits, SAlloc>& s,
+              const std::basic_regex<CharT, Traits>& re,
+              const CharT* fmt,
+              std::regex_constants::match_flag_type flags =
+                  std::regex_constants::match_default);
+
+template<class Traits, class CharT,
+         class STraits, class SAlloc>
+std::basic_string<CharT>
+regex_replace(const CharT* s,
+              const std::basic_regex<CharT, Traits>& re,
+              const std::basic_string<CharT, STraits, SAlloc>& fmt,
+              std::regex_constants::match_flag_type flags =
+                  std::regex_constants::match_default);
+
+template<class Traits, class CharT>
+std::basic_string<CharT>
+regex_replace(const CharT* s,
+              const std::basic_regex<CharT, Traits>& re,
+              const CharT* fmt,
+              std::regex_constants::match_flag_type flags =
+                  std::regex_constants::match_default);
+
+} // namespace std
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_REGEX_H

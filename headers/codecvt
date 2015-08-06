@@ -1,0 +1,61 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CODECVT_H
+#define CPPREFERENCE_CODECVT_H
+
+#if CPPREFERENCE_STDVER >= 2011
+
+namespace std {
+
+enum codecvt_mode {
+    consume_header = 4,
+    generate_header = 2,
+    little_endian = 1
+};
+
+template <
+    class Elem,
+    unsigned long Maxcode = 0x10ffff,
+    std::codecvt_mode Mode = (std::codecvt_mode)0
+    > class codecvt_utf8 : public std::codecvt<Elem, char, std::mbstate_t> {
+public:
+    explicit codecvt_utf8(std::size_t refs = 0);
+    ~codecvt_utf8();
+};
+
+template<class Elem,
+         unsigned long Maxcode = 0x10ffff,
+         std::codecvt_mode Mode = (std::codecvt_mode)0 >
+class codecvt_utf16 : public std::codecvt<Elem, char, std::mbstate_t> {
+public:
+    explicit codecvt_utf16(std::size_t refs = 0);
+    ~codecvt_utf16();
+};
+
+template<class Elem,
+         unsigned long Maxcode = 0x10ffff,
+         std::codecvt_mode Mode = (std::codecvt_mode)0 >
+class codecvt_utf8_utf16 : public std::codecvt<Elem, char, std::mbstate_t> {
+public:
+    explicit codecvt_utf8_utf16(std::size_t refs = 0);
+    ~codecvt_utf8_utf16();
+};
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER >= 2011
+
+#endif // CPPREFERENCE_CODECVT_H

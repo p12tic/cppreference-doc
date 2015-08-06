@@ -1,0 +1,587 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_MEMORY_H
+#define CPPREFERENCE_MEMORY_H
+
+namespace std {
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class T>
+struct default_delete {
+    constexpr default_delete() = default;
+    template <class U>
+    default_delete(const default_delete<U>& d);
+    template<class U>
+    default_delete(const default_delete<U[]>& d);
+
+    void operator()(T* ptr) const;
+
+    template <class U>
+    void operator()(U* ptr) const;
+};
+
+template <
+    class T,
+    class Deleter = std::default_delete<T>
+    > class unique_ptr {
+public:
+    // SIMPLIFIED: the array specialization is omitted
+
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef T* pointer;
+#else
+    typedef typename std::remove_reference<Deleter>::type::pointer pointer;
+#endif
+    typedef T element_type;
+    typedef Deleter deleter_type;
+
+    constexpr unique_ptr();
+    constexpr unique_ptr(nullptr_t);
+    explicit unique_ptr(pointer p);
+    unique_ptr(pointer p, const Deleter& d1);   // SIMPLIFIED
+    unique_ptr(pointer p, Deleter&& d2);   // SIMPLIFIED
+    unique_ptr(unique_ptr&& u);
+
+    template<class U, class E>
+    unique_ptr(unique_ptr<U, E>&& u);
+    // SIMPLIFIED: the array versions are omitted
+
+    ~unique_ptr();
+
+    unique_ptr& operator=(unique_ptr&& r);
+
+    template<class U, class E>
+    unique_ptr& operator=(unique_ptr<U, E>&& r);
+
+    unique_ptr& operator=(nullptr_t);
+
+    pointer release();
+
+    void reset(pointer ptr = pointer());
+
+    void swap(unique_ptr& other);
+    pointer get() const;
+
+    Deleter& get_deleter();
+    const Deleter& get_deleter() const;
+
+    explicit operator bool() const;
+
+    T& operator*() const; // SIMPLIFIED
+    pointer operator->();
+
+    // only in array versions
+    T& operator[](size_t i) const;
+};
+
+// simplified: the comparison operators are omitted
+
+template<class T, class Deleter>
+void swap(unique_ptr<T, Deleter>& lhs, unique_ptr<T, Deleter>& rhs);
+
+#if CPPREFERENCE_STDVER>= 2014
+
+template<class T, class... Args>
+unique_ptr<T> make_unique(Args&& ... args);
+// SIMPLIFIED: the array overload are omitted
+
+#endif
+
+
+template<class T> class shared_ptr {
+public:
+    typedef T element_type;
+
+    constexpr shared_ptr();
+
+    template<class Y>
+    explicit shared_ptr(Y* ptr);
+
+    template<class Y, class Deleter>
+    shared_ptr(Y* ptr, Deleter d);
+
+    template<class Y, class Deleter, class Alloc>
+    shared_ptr(Y* ptr, Deleter d, Alloc alloc);
+
+    constexpr shared_ptr(std::nullptr_t);
+
+    template<class Deleter>
+    shared_ptr(std::nullptr_t, Deleter d);
+
+    template<class Deleter, class Alloc>
+    shared_ptr(std::nullptr_t, Deleter d, Alloc alloc);
+
+    template<class Y>
+    shared_ptr(const shared_ptr<Y>& r, T* ptr);
+
+    shared_ptr(const shared_ptr& r);
+
+    template<class Y>
+    shared_ptr(const shared_ptr<Y>& r);
+
+    shared_ptr(shared_ptr&& r);
+
+    template<class Y>
+    shared_ptr(shared_ptr<Y>&& r);
+
+    template<class Y>
+    explicit shared_ptr(const std::weak_ptr<Y>& r);
+
+    template<class Y>
+    shared_ptr(std::auto_ptr<Y>&& r);
+
+    template<class Y, class Deleter>
+    shared_ptr(std::unique_ptr<Y, Deleter>&& r);
+
+    ~shared_ptr();
+
+    shared_ptr& operator=(const shared_ptr& r);
+
+    template<class Y>
+    shared_ptr& operator=(const shared_ptr<Y>& r);
+
+    shared_ptr& operator=(shared_ptr&& r);
+
+    template<class Y>
+    shared_ptr& operator=(shared_ptr<Y>&& r);
+
+    template<class Y>
+    shared_ptr& operator=(std::auto_ptr<Y>&& r);
+
+    template<class Y, class Deleter>
+    shared_ptr& operator=(std::unique_ptr<Y, Deleter>&& r);
+
+    void reset();
+
+    template<class Y>
+    void reset(Y* ptr);
+
+    template<class Y, class Deleter>
+    void reset(Y* ptr, Deleter d);
+
+    template<class Y, class Deleter, class Alloc>
+    void reset(Y* ptr, Deleter d, Alloc alloc);
+
+    void swap(shared_ptr& r);
+
+    T* get() const;
+    T& operator*() const;
+    T* operator->() const;
+
+    long use_count() const;
+    bool unique() const;
+
+    explicit operator bool() const;
+
+    template<class Y>
+    bool owner_before(const shared_ptr<Y>& other) const;
+
+    template<class Y>
+    bool owner_before(const std::weak_ptr<Y>& other) const;
+
+};
+
+template <class T, class U>
+bool operator==(const shared_ptr<T>& lhs, const shared_ptr<U>& rhs);
+
+template<class T, class U>
+bool operator!=(const shared_ptr<T>& lhs, const shared_ptr<U>& rhs);
+
+template<class T, class U>
+bool operator<(const shared_ptr<T>& lhs, const shared_ptr<U>& rhs);
+
+template<class T, class U>
+bool operator>(const shared_ptr<T>& lhs, const shared_ptr<U>& rhs);
+
+template<class T, class U>
+bool operator<=(const shared_ptr<T>& lhs, const shared_ptr<U>& rhs);
+
+template<class T, class U>
+bool operator>=(const shared_ptr<T>& lhs, const shared_ptr<U>& rhs);
+
+template<class T>
+bool operator==(const shared_ptr<T>& lhs, std::nullptr_t rhs);
+
+template<class T>
+bool operator==(std::nullptr_t lhs, const shared_ptr<T>& rhs);
+
+template<class T>
+bool operator!=(const shared_ptr<T>& lhs, std::nullptr_t rhs);
+
+template<class T>
+bool operator!=(std::nullptr_t lhs, const shared_ptr<T>& rhs);
+
+template<class T>
+bool operator<(const shared_ptr<T>& lhs, std::nullptr_t rhs);
+
+template<class T>
+bool operator<(std::nullptr_t lhs, const shared_ptr<T>& rhs);
+
+template<class T>
+bool operator>(const shared_ptr<T>& lhs, std::nullptr_t rhs);
+
+template<class T>
+bool operator>(std::nullptr_t lhs, const shared_ptr<T>& rhs);
+
+template<class T>
+bool operator<=(const shared_ptr<T>& lhs, std::nullptr_t rhs);
+
+template<class T>
+bool operator<=(std::nullptr_t lhs, const shared_ptr<T>& rhs);
+
+template<class T>
+bool operator>=(const shared_ptr<T>& lhs, std::nullptr_t rhs);
+
+template<class T>
+bool operator>=(std::nullptr_t lhs, const shared_ptr<T>& rhs);
+
+template <class T, class U, class V>
+basic_ostream<U, V>& operator<<(basic_ostream<U, V>& os, const shared_ptr<T>& ptr);
+
+template<class T>
+void swap(shared_ptr<T>& lhs, shared_ptr<T>& rhs);
+
+template<class T, class... Args>
+shared_ptr<T> make_shared(Args&& ... args);
+template<class T, class Alloc, class... Args>
+shared_ptr<T> allocate_shared(const Alloc& alloc, Args... args);
+
+template<class T, class U>
+std::shared_ptr<T> static_pointer_cast(const std::shared_ptr<U>& r);
+template<class T, class U>
+std::shared_ptr<T> dynamic_pointer_cast(const std::shared_ptr<U>& r);
+template<class T, class U>
+std::shared_ptr<T> const_pointer_cast(const std::shared_ptr<U>& r);
+
+template<class Deleter, class T>
+Deleter* get_deleter(const std::shared_ptr<T>& p);
+
+template<class T>
+class weak_ptr {
+public:
+    typedef T element_type;
+
+    constexpr weak_ptr();
+    weak_ptr(const weak_ptr& r);
+
+    template<class Y>
+    weak_ptr(const weak_ptr<Y>& r);
+
+    template<class Y>
+    weak_ptr(const std::shared_ptr<Y>& r);
+
+#if CPPREFERENCE_STDVER>= 2014
+    weak_ptr(weak_ptr&& r);
+
+    template<class Y>
+    weak_ptr(weak_ptr<Y>&& r);
+#endif
+
+    ~weak_ptr();
+
+    weak_ptr& operator=(const weak_ptr& r);
+
+    template<class Y>
+    weak_ptr& operator=(const weak_ptr<Y>& r);
+
+    template<class Y>
+    weak_ptr& operator=(const shared_ptr<Y>& r);
+
+#if CPPREFERENCE_STDVER>= 2014
+    weak_ptr& operator=(weak_ptr&& r);
+
+    template<class Y>
+    weak_ptr& operator=(weak_ptr<Y>&& r);
+#endif
+
+    void reset();
+    void swap(weak_ptr& r);
+    long use_count() const;
+    bool expired() const;
+    std::shared_ptr<T> lock() const;
+
+    template<class Y>
+    bool owner_before(const weak_ptr<Y>& other) const;
+
+    template<class Y>
+    bool owner_before(const std::shared_ptr<Y>& other) const;
+};
+
+template<class T>
+void swap(weak_ptr<T>& lhs, weak_ptr<T>& rhs);
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+template<class T>
+class auto_ptr {
+public:
+    typedef T element_type;
+
+    explicit auto_ptr(X* p = 0);
+
+    auto_ptr(auto_ptr& r);
+
+    template<class Y>
+    auto_ptr(auto_ptr<Y>& r);
+
+    template<class Y>
+    auto_ptr(auto_ptr_ref<Y> m);
+
+    ~auto_ptr();
+
+    auto_ptr& operator=(auto_ptr& r);
+
+    template<class Y>
+    auto_ptr& operator=(auto_ptr<Y>& r);
+
+    auto_ptr& operator=(auto_ptr_ref m);
+
+    template<class Y>
+    operator auto_ptr_ref<Y>();
+
+    template<class Y>
+    operator auto_ptr<Y>();
+
+    T* get() const;
+
+    T& operator*() const;
+    T* operator->() const;
+
+    void reset(T* p = 0);
+    T* release();
+};
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class T>
+struct owner_less {
+public:
+    // SIMPLIFIED: actually only specializations for shared_ptr<T> and
+    // weak_ptr<T> are defined
+    typedef bool result_type;
+    typedef void first_argument_type; // actually ether shared_ptr<T> or weak_ptr<T>
+    typedef void second_argument_type; // actually ether shared_ptr<T> or weak_ptr<T>
+
+    bool operator()(const shared_ptr<T>& lhs,
+                    const shared_ptr<T>& rhs) const;
+    bool operator()(const shared_ptr<T>& lhs,
+                    const weak_ptr<T>& rhs) const;
+    bool operator()(const weak_ptr<T>& lhs,
+                    const shared_ptr<T>& rhs) const;
+    bool operator()(const weak_ptr<T>& lhs,
+                    const weak_ptr<T>& rhs) const;
+};
+
+template<class T>
+class enable_shared_from_this {
+public:
+    constexpr enable_shared_from_this();
+    enable_shared_from_this(const enable_shared_from_this<T>& obj);
+    ~enable_shared_from_this();
+
+    enable_shared_from_this<T>& operator=(const enable_shared_from_this<T>& obj);
+
+    shared_ptr<T> shared_from_this();
+    shared_ptr<T const> shared_from_this() const;
+};
+
+class bad_weak_ptr : public exception {
+public:
+    bad_weak_ptr();
+};
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+template<class T>
+struct allocator {
+    // SIMPLIFIED: allocator<void> specialization is not provided
+    typedef T value_type;
+    typedef T* pointer;
+    typedef const T* const_pointer;
+    typedef T& reference;
+    typedef const T& const_reference;
+    typedef size_t size_type;
+    typedef ptrdiff_t difference_type;
+#if CPPREFERENCE_STDVER>= 2014
+    typedef true_type propagate_on_container_move_assignment;
+#endif
+    template<class U> struct rebind {
+        typedef allocator<U> other;
+    };
+
+    allocator();
+    allocator(const allocator& other);
+
+    template<class U>
+    allocator(const allocator<U>& other);
+
+    ~allocator();
+
+    pointer address(reference x) const;
+    const_pointer address(const_reference x) const;
+
+    pointer allocate(size_type n, std::allocator<void>::const_pointer hint = 0);
+    void deallocate(pointer p, size_type n);
+    size_type max_size() const;
+
+    void construct(pointer p, const_reference val);
+
+    template<class U, class... Args>
+    void construct(U* p, Args&& ... args);
+
+    void destroy(pointer p);
+
+    template<class U>
+    void destroy(U* p);
+};
+
+template<class T1, class T2>
+bool operator==(const allocator<T1>& lhs, const allocator<T2>& rhs);
+
+template<class T1, class T2>
+bool operator!=(const allocator<T1>& lhs, const allocator<T2>& rhs);
+
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class Alloc>
+struct allocator_traits {
+    // SIMPLIFIED: actual typedefs select between Alloc types and if they
+    // are not provided, fallback to pointer traits
+    typedef Alloc allocator_type;
+    typedef typename Alloc::value_type value_type;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+    typedef nullptr_t void_pointer;
+    typedef const nullptr_t const_void_pointer;
+    typedef ptrdiff_t difference_type;
+    typedef size_t size_type;
+    typedef false_type propagate_on_container_copy_assignment;
+    typedef false_type propagate_on_container_move_assignment;
+    typedef false_type propagate_on_container_swap;
+
+    // SIMPLIFIED: actually is alias template and uses Alloc::rebind
+    template<class T>
+    class rebind_alloc<T> : public Alloc {};
+    // SIMPLIFIED: actually is alias template
+    template<class T>
+    class rebind_traits<T> : public allocator_traits<rebind_alloc<T>> {};
+
+    static pointer allocate(Alloc& a, size_type n);
+    static pointer allocate(Alloc& a, size_type n, const_void_pointer hint);
+    static void deallocate(Alloc& a, pointer p, size_type n);
+
+    template<class T, class... Args>
+    static void construct(Alloc& a, T* p, Args&& ... args);
+    template<class T>
+    static void destroy(Alloc& a, T* p);
+
+    static size_type max_size(const Alloc& a);
+
+    static Alloc select_on_container_copy_construction(const Alloc& a);
+};
+
+struct allocator_arg_t {};
+constexpr std::allocator_arg_t allocator_arg;
+
+template<class T, class Alloc>
+struct uses_allocator : public integral_constant<bool, false> {};
+
+enum class pointer_safety {
+    relaxed,
+    preferred,
+    strict
+};
+
+// SIMPLIFIED: provides pointer specialization
+template<class Ptr>
+struct pointer_traits {
+    typedef Ptr pointer;
+    typedef void element_type; // SIMPLIFIED
+    typedef ptrdiff_t difference_type;
+
+    template<class U>
+    using rebind = U* ;
+
+    static pointer pointer_to(element_type& r);
+};
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+template<class InputIt, class ForwardIt>
+ForwardIt uninitialized_copy(InputIt first, InputIt last, ForwardIt d_first);
+
+template<class ForwardIt, class T>
+void uninitialized_fill(ForwardIt first, ForwardIt last, const T& value);
+
+
+#if CPPREFERENCE_STDVER <2011
+template<class ForwardIt, class Size, class T>
+void uninitialized_fill_n(ForwardIt first, Size count, const T& value);
+
+#else
+
+template<class ForwardIt, class Size, class T>
+ForwardIt uninitialized_fill_n(ForwardIt first, Size count, const T& value);
+
+template<class InputIt, class Size, class ForwardIt>
+ForwardIt uninitialized_copy_n(InputIt first, Size count, ForwardIt d_first);
+
+#endif // CPPREFERENCE_STDVER <2011
+
+template<class OutputIt, class T>
+class raw_storage_iterator {
+public:
+    typedef void value_type;
+    typedef void difference_type;
+    typedef void pointer;
+    typedef void reference;
+    typedef output_iterator_tag iterator_category;
+
+    explicit raw_storage_iterator(OutputIt it);
+    raw_storage_iterator& operator=(const T& el);
+    raw_storage_iterator& operator*();
+    raw_storage_iterator& operator++();
+    raw_storage_iterator operator++(int);
+#if CPPREFERENCE_STDVER>= 2017
+    OutputIt base() const;
+#endif
+};
+
+template<class T>
+std::pair<T*, std::ptrdiff_t> get_temporary_buffer(std::ptrdiff_t count);
+template<class T>
+void return_temporary_buffer(T* p);
+
+#if CPPREFERENCE_STDVER>= 2011
+void declare_reachable(void* p);
+template<class T>
+T* undeclare_reachable(T* p);
+void declare_no_pointers(char* p, std::size_t n);
+void undeclare_no_pointers(char* p, std::size_t n);
+std::pointer_safety get_pointer_safety();
+
+template<class T>
+T* addressof(T& arg);
+
+void* align(std::size_t alignment,
+            std::size_t size,
+            void*& ptr,
+            std::size_t& space);
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+} // namespace std
+
+#endif // CPPREFERENCE_MEMORY_H

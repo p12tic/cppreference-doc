@@ -1,0 +1,183 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_MUTEX_H
+#define CPPREFERENCE_MUTEX_H
+
+#if CPPREFERENCE_STDVER>= 2011
+
+namespace std {
+
+struct defer_lock_t { };
+struct try_to_lock_t { };
+struct adopt_lock_t { };
+
+constexpr std::defer_lock_t defer_lock;
+constexpr std::try_to_lock_t try_to_lock;
+constexpr std::adopt_lock_t adopt_lock;
+
+class mutex {
+public:
+    typedef void* native_handle_type; // actually impl-defined
+
+    constexpr mutex();
+    mutex(const mutex&) = delete;
+    mutex& operator=(const mutex&) = delete;
+
+    ~mutex();
+
+    void lock();
+    bool try_lock();
+    void unlock();
+    native_handle_type native_handle();
+};
+
+class recursive_mutex {
+public:
+    typedef void* native_handle_type; // actually impl-defined
+
+    recursive_mutex();
+    recursive_mutex(const recursive_mutex&) = delete;
+    recursive_mutex& operator=(const recursive_mutex&) = delete;
+
+    ~recursive_mutex();
+
+    void lock();
+    bool try_lock();
+    void unlock();
+    native_handle_type native_handle();
+};
+
+class timed_mutex {
+public:
+    typedef void* native_handle_type; // actually impl-defined
+
+    timed_mutex();
+    timed_mutex(const timed_mutex&) = delete;
+    timed_mutex& operator=(const timed_mutex&) = delete;
+
+    ~timed_mutex();
+
+    void lock();
+    bool try_lock();
+
+    template<class Rep, class Period>
+    bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
+
+    template<class Clock, class Duration>
+    bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    void unlock();
+    native_handle_type native_handle();
+};
+
+class recursive_timed_mutex {
+public:
+    typedef void* native_handle_type; // actually impl-defined
+
+    recursive_timed_mutex();
+    recursive_timed_mutex(const recursive_timed_mutex&) = delete;
+    recursive_timed_mutex& operator=(const recursive_timed_mutex&) = delete;
+
+    ~recursive_timed_mutex();
+
+    void lock();
+    bool try_lock();
+
+    template<class Rep, class Period>
+    bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
+
+    template<class Clock, class Duration>
+    bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    void unlock();
+    native_handle_type native_handle();
+};
+
+
+template<class Mutex>
+class lock_guard {
+public:
+    typedef Mutex mutex_type;
+
+    explicit lock_guard(mutex_type& m);
+    lock_guard(mutex_type& m, std::adopt_lock_t t);
+    lock_guard(const lock_guard&) = delete;
+    lock_guard& operator=(const lock_guard&) = delete;
+    ~lock_guard();
+};
+
+template<class Mutex>
+class unique_lock {
+public:
+    typedef Mutex mutex_type;
+
+    unique_lock();
+    unique_lock(unique_lock&& other);
+    explicit unique_lock(mutex_type& m);
+    unique_lock(mutex_type& m, std::defer_lock_t t);
+    unique_lock(mutex_type& m, std::try_to_lock_t t);
+    unique_lock(mutex_type& m, std::adopt_lock_t t);
+
+    template<class Rep, class Period>
+    unique_lock(mutex_type& m,
+                const std::chrono::duration<Rep, Period>& timeout_duration);
+
+    template<class Clock, class Duration>
+    unique_lock(mutex_type& m,
+                const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    ~unique_lock();
+    unique_lock& operator=(unique_lock&& other);
+
+    void lock();
+    bool try_lock();
+    template<class Rep, class Period>
+    bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
+    template<class Clock, class Duration>
+    bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
+    void unlock();
+
+    void swap(unique_lock<Mutex>& other);
+
+    mutex_type* release();
+    mutex_type* mutex() const;
+    bool owns_lock() const;
+    explicit operator bool() const;
+};
+
+template<class Mutex>
+void swap(unique_lock<Mutex>& lhs,
+          unique_lock<Mutex>& rhs);
+
+class once_flag {
+public:
+    constexpr once_flag();
+};
+
+template<class Lockable1, class Lockable2, class... LockableN>
+int try_lock(Lockable1& lock1, Lockable2& lock2, LockableN& ... lockn);
+
+template<class Lockable1, class Lockable2, class... LockableN>
+void lock(Lockable1& lock1, Lockable2& lock2, LockableN& ... lockn);
+
+template<class Callable, class... Args>
+void call_once(std::once_flag& flag, Callable&& f, Args&& ... args);
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_MUTEX_H

@@ -1,0 +1,88 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_NEW_H
+#define CPPREFERENCE_NEW_H
+
+namespace std {
+
+/* SIMPLIFIED: these are implicitly declared even if <new> is not included.
+   No point in declaring them
+void* operator new  ( std::size_t count );
+void* operator new[]( std::size_t count );
+void* operator new  ( std::size_t count, const std::nothrow_t& tag);
+void* operator new[]( std::size_t count, const std::nothrow_t& tag);
+
+void* operator new  ( std::size_t count, void* ptr );
+void* operator new[]( std::size_t count, void* ptr );
+void* operator new  ( std::size_t count, user-defined-args... );
+void* operator new[]( std::size_t count, user-defined-args... );
+
+void* T::operator new  ( std::size_t count );
+void* T::operator new[]( std::size_t count );
+void* T::operator new  ( std::size_t count, user-defined-args... );
+void* T::operator new[]( std::size_t count, user-defined-args... );
+
+void operator delete  ( void* ptr );
+void operator delete[]( void* ptr );
+void operator delete  ( void* ptr, const std::nothrow_t& tag );
+void operator delete[]( void* ptr, const std::nothrow_t& tag );
+
+#if CPPREFERENCE_STDVER>= 2014
+void operator delete  ( void* ptr, std::size_t sz );
+void operator delete[]( void* ptr, std::size_t sz );
+#endif
+
+void operator delete  ( void* ptr, void* place );
+void operator delete[]( void* ptr, void* place );
+void operator delete  ( void* ptr, user-defined-args... );
+void operator delete[]( void* ptr, user-defined-args... );
+
+void T::operator delete  ( void* ptr );
+void T::operator delete[]( void* ptr );
+void T::operator delete  ( void* ptr, std::size_t sz );
+void T::operator delete[]( void* ptr, std::size_t sz );
+void T::operator delete  ( void* ptr, user-defined-args... );
+void T::operator delete[]( void* ptr, user-defined-args... );
+*/
+
+typedef void (*new_handler)();
+
+#if CPPREFERENCE_STDVER>= 2011
+std::new_handler get_new_handler();
+#endif
+std::new_handler set_new_handler(std::new_handler new_p);
+
+class bad_alloc : public std::exception {
+public:
+    bad_alloc();
+    bad_alloc& operator=(const bad_alloc& other);
+    virtual const char* what() const;
+};
+
+#if CPPREFERENCE_STDVER>= 2011
+class bad_array_new_length : public bad_alloc {
+public:
+    bad_array_new_length();
+};
+#endif
+
+struct nothrow_t {};
+extern const std::nothrow_t nothrow;
+
+
+} // namespace std
+
+#endif // CPPREFERENCE_NEW_H

@@ -1,0 +1,185 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_FSTREAM_H
+#define CPPREFERENCE_FSTREAM_H
+
+namespace std {
+
+template <
+    class CharT,
+    class Traits = std::char_traits<CharT>
+    > class basic_filebuf : public std::basic_streambuf<CharT, Traits> {
+public:
+    basic_filebuf();
+#if CPPREFERENCE_STDVER>= 2011
+    basic_filebuf(const std::basic_filebuf& rhs) = delete;
+    basic_filebuf(std::basic_filebuf&& rhs);
+    std::basic_filebuf& operator=(std::basic_filebuf&& rhs);
+    std::basic_filebuf& operator=(const std::basic_filebuf& rhs) = delete;
+    void swap(std::basic_filebuf& rhs);
+#endif
+
+    virtual ~basic_filebuf();
+
+    bool is_open() const;
+    basic_filebuf* open(const char* s, ios_base::openmode mode);
+    basic_filebuf* open(const string& str, ios_base::openmode mode);
+    basic_filebuf* close();
+
+protected:
+    virtual streamsize showmanyc();
+    virtual int_type underflow();
+    virtual int_type uflow();
+    virtual int_type pbackfail(int_type c = Traits_type::eof());
+    virtual int_type overflow(int_type c = Traits_type::eof());
+    virtual basic_streambuf<CharT, Traits>* setbuf(char_type* s, streamsize n);
+    virtual pos_type seekoff(off_type off, ios_base::seekdir dir,
+                             ios_base::openmode which = ios_base::in | ios_base::out);
+    virtual pos_type seekpos(pos_type pos,
+                             ios_base::openmode which = ios_base::in | ios_base::out);
+    virtual int sync();
+    virtual void imbue(const locale& loc);
+};
+
+typedef basic_filebuf<char> filebuf;
+typedef basic_filebuf<wchar_t> wfilebuf;
+
+template <
+    class CharT,
+    class Traits = std::char_traits<CharT>
+    > class basic_fstream : public std::basic_iostream<CharT, Traits> {
+public:
+    basic_fstream();
+    explicit basic_fstream(const char* filename,
+                           ios_base::openmode mode = ios_base::in | ios_base::out);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit basic_fstream(const string& filename,
+                           ios_base::openmode mode = ios_base::in | ios_base::out);
+    basic_fstream(basic_fstream&& other);
+    basic_fstream(const basic_fstream& rhs) = delete;
+    basic_fstream& operator=(basic_fstream&& other);
+
+    void swap(basic_fstream& other);
+    std::basic_filebuf<CharT, Traits>* rdbuf() const;
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    bool is_open();
+#else
+    bool is_open() const;
+#endif
+
+    void open(const char* filename,
+              ios_base::openmode mode = ios_base::in | ios_base::out);
+
+#if CPPREFERENCE_STDVER>= 2011
+    void open(const std::string& filename,
+              ios_base::openmode mode = ios_base::in | ios_base::out);
+#endif
+    void close();
+
+    template<class T>
+    void swap(basic_fstream<T>& lhs, basic_fstream<T>& rhs);
+};
+
+typedef basic_fstream<char> fstream;
+typedef basic_fstream<wchar_t> wfstream;
+
+template <
+    class CharT,
+    class Traits = std::char_traits<CharT>
+    > class basic_ifstream : public std::basic_ostream<CharT, Traits> {
+public:
+    basic_ifstream();
+    explicit basic_ifstream(const char* filename,
+                            ios_base::openmode mode = ios_base::in);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit basic_ifstream(const string& filename,
+                            ios_base::openmode mode = ios_base::in);
+    basic_ifstream(basic_ifstream&& other);
+    basic_ifstream(const basic_ifstream& rhs) = delete;
+    basic_ifstream& operator=(basic_ifstream&& other);
+
+    void swap(basic_ifstream& other);
+    std::basic_filebuf<CharT, Traits>* rdbuf() const;
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    bool is_open();
+#else
+    bool is_open() const;
+#endif
+
+    void open(const char* filename,
+              ios_base::openmode mode = ios_base::in);
+
+#if CPPREFERENCE_STDVER>= 2011
+    void open(const std::string& filename,
+              ios_base::openmode mode = ios_base::in);
+#endif
+    void close();
+
+    template<class T>
+    void swap(basic_ifstream<T>& lhs, basic_ifstream<T>& rhs);
+};
+
+typedef basic_ifstream<char> ifstream;
+typedef basic_ifstream<wchar_t> wifstream;
+
+template <
+    class CharT,
+    class Traits = std::char_traits<CharT>
+    > class basic_ofstream : public std::basic_ostream<CharT, Traits> {
+public:
+    basic_ofstream();
+    explicit basic_ofstream(const char* filename,
+                            ios_base::openmode mode = ios_base::out);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit basic_ofstream(const string& filename,
+                            ios_base::openmode mode = ios_base::out);
+    basic_ofstream(basic_ofstream&& other);
+    basic_ofstream(const basic_ofstream& rhs) = delete;
+    basic_ofstream& operator=(basic_ofstream&& other);
+
+    void swap(basic_ofstream& other);
+    std::basic_filebuf<CharT, Traits>* rdbuf() const;
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    bool is_open();
+#else
+    bool is_open() const;
+#endif
+
+    void open(const char* filename,
+              ios_base::openmode mode = ios_base::out);
+
+#if CPPREFERENCE_STDVER>= 2011
+    void open(const std::string& filename,
+              ios_base::openmode mode = ios_base::out);
+#endif
+    void close();
+
+    template<class T>
+    void swap(basic_ofstream<T>& lhs, basic_ofstream<T>& rhs);
+};
+
+typedef basic_ofstream<char> ofstream;
+typedef basic_ofstream<wchar_t> wofstream;
+
+} // namespace std
+
+#endif // CPPREFERENCE_FSTREAM_H

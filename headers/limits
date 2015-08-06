@@ -1,0 +1,110 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_LIMITS_H
+#define CPPREFERENCE_LIMITS_H
+
+namespace std {
+
+enum float_round_style {
+    round_indeterminate       = -1,
+    round_toward_zero         = 0,
+    round_to_nearest          = 1,
+    round_toward_infinity     = 2,
+    round_toward_neg_infinity = 3
+};
+
+enum float_denorm_style {
+    denorm_indeterminate = -1,
+    denorm_absent        = 0,
+    denorm_present       = 1
+};
+
+template<class T>
+class numeric_limits {
+public:
+#if CPPREFERENCE_STDVER <2011
+    static const bool is_specialized;
+    static const bool is_signed;
+    static const bool is_integer;
+    static const bool is_exact;
+    static const bool has_infinity;
+    static const bool has_quiet_NaN;
+    static const bool has_signaling_NaN;
+    static const float_denorm_style has_denorm;
+    static const bool has_denorm_loss;
+    static const float_round_style round_style;
+    static const bool is_iec559;
+    static const bool is_bounded;
+    static const bool is_modulo;
+    static const int  digits;
+    static const int  digits10;
+    static const int  radix;
+    static const int  min_exponent;
+    static const int  min_exponent10;
+    static const int  max_exponent;
+    static const int  max_exponent10;
+    static const bool traps;
+    static const bool tinyness_before;
+
+    static T min();
+    static T lowest();
+    static T max();
+    static T epsilon();
+    static T round_error();
+    static T infinity();
+    static T quiet_NaN();
+    static T signaling_NaN();
+    static T denorm_min();
+#else
+    static constexpr bool is_specialized;
+    static constexpr bool is_signed;
+    static constexpr bool is_integer;
+    static constexpr bool is_exact;
+    static constexpr bool has_infinity;
+    static constexpr bool has_quiet_NaN;
+    static constexpr bool has_signaling_NaN;
+    static constexpr float_denorm_style has_denorm;
+    static constexpr bool has_denorm_loss;
+    static constexpr float_round_style round_style;
+    static constexpr bool is_iec559;
+    static constexpr bool is_bounded;
+    static constexpr bool is_modulo;
+    static constexpr int  digits;
+    static constexpr int  digits10;
+    static constexpr int  max_digits10; // new in C++11
+    static constexpr int  radix;
+    static constexpr int  min_exponent;
+    static constexpr int  min_exponent10;
+    static constexpr int  max_exponent;
+    static constexpr int  max_exponent10;
+    static constexpr bool traps;
+    static constexpr bool tinyness_before;
+
+    static constexpr T min();
+    static constexpr T lowest();
+    static constexpr T max();
+    static constexpr T epsilon();
+    static constexpr T round_error();
+    static constexpr T infinity();
+    static constexpr T quiet_NaN();
+    static constexpr T signaling_NaN();
+    static constexpr T denorm_min();
+#endif
+};
+
+} // namespace std
+
+#endif // CPPREFERENCE_LIMITS_H

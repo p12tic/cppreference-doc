@@ -1,0 +1,364 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_FUNCTIONAL_H
+#define CPPREFERENCE_FUNCTIONAL_H
+
+namespace std {
+
+#if CPPREFERENCE_STDVER >= 2011
+template<class R, class... Args>
+class function<R(Args...)> {
+public:
+    typedef R result_type;
+    function();
+    function(std::nullptr_t);
+    function(const function& other);
+    function(function&& other);
+    template<class F >
+    function(F f);
+    template<class Alloc >
+    function(std::allocator_arg_t, const Alloc& alloc);
+
+    template<class Alloc >
+    function(std::allocator_arg_t, const Alloc& alloc,
+             std::nullptr_t);
+
+    template<class Alloc >
+    function(std::allocator_arg_t, const Alloc& alloc,
+             const function& other);
+
+    template<class Alloc >
+    function(std::allocator_arg_t, const Alloc& alloc,
+             function&& other);
+
+    template<class F, class Alloc >
+    function(std::allocator_arg_t, const Alloc& alloc, F f);
+
+    ~function();
+
+    function& operator=(const function& other);
+    function& operator=(function&& other);
+    function& operator=(std::nullptr_t);
+
+    template<class F >
+    function& operator=(F&& f);
+
+    template<class F >
+    function& operator=(std::reference_wrapper<F> f);
+
+    void swap(function& other);
+
+    template<class F, class Alloc >
+    void assign(F&& f, const Alloc& alloc);
+
+    explicit operator bool() const;
+
+    R operator()(ArgTypes... args) const;
+
+    const std::type_info& target_type() const;
+
+    template<class T >
+    T* target();
+
+    template<class T >
+    const T* target() const;
+};
+
+template<class R, class... Args>
+void swap(function<R(Args...)>& lhs, function<R(Args...)>& rhs);
+
+template<class R, class... ArgTypes >
+bool operator==(const std::function<R(ArgTypes...)>& f, std::nullptr_t);
+
+template<class R, class... ArgTypes >
+bool operator==(std::nullptr_t, const std::function<R(ArgTypes...)>& f);
+
+template<class R, class... ArgTypes >
+bool operator!=(const std::function<R(ArgTypes...)>& f, std::nullptr_t);
+
+template<class R, class... ArgTypes >
+bool operator!=(std::nullptr_t, const std::function<R(ArgTypes...)>& f);
+
+class bad_function_call : public std::exception {
+public:
+    bad_function_call();
+};
+
+// SIMPLIFIED: actual result is unspecified, std::function<R> is only for
+// providing return type
+template<class R, class T >
+std::function<R> mem_fn(R T::* pm);
+
+template<class F, class... Args >
+std::function<R> bind(F&& f, Args&& ... args);
+
+template<class R, class F, class... Args >
+std::function<R> bind(F&& f, Args&& ... args);
+
+#if CPPREFERENCE_STDVER >= 2017
+template<class F, class... ArgTypes>
+std::result_of_t < F&& (ArgTypes&& ...) > invoke(F&& f, ArgTypes&& ... args);
+#endif
+
+// SIMPLIFIED: the inherited type is simplified
+template<class T >
+struct is_bind_expression : std::integral_constant<bool, true> {};
+
+template<class T >
+struct is_placeholder : std::integral_constant<bool, true> {};
+
+namespace placeholders { // SIMPLIFIED: the actual type is unspecified
+extern int _1;
+extern int _2;
+extern int _3;
+extern int _4;
+extern int _5;
+extern int _6;
+extern int _7;
+extern int _8;
+extern int _9;
+} // namespace placeholders
+
+template<class T>
+class reference_wrapper {
+public:
+    typedef T type;
+    // SIMPLIFIED: actual types are dependent on T
+    typedef void result_type;
+    typedef void argument_type;
+    typedef void first_argument_type;
+    typedef void second_argument_type;
+
+    reference_wrapper(T& x);
+    reference_wrapper(T&& x) = delete;
+    reference_wrapper(const reference_wrapper<T>& other);
+
+    reference_wrapper& operator=(const reference_wrapper<T>& other);
+
+    operator T& () const;
+    T& get() const;
+
+    template<class... ArgTypes >
+    typename std::result_of < T& (ArgTypes&& ...) >::type
+    operator()(ArgTypes&& ... args) const;   // only if T is function
+};
+
+template<class T >
+std::reference_wrapper<T> ref(T& t);
+
+template<class T >
+std::reference_wrapper<T> ref(std::reference_wrapper<T> t);
+
+template <class T>
+void ref(const T&&) = delete;
+
+template<class T >
+std::reference_wrapper<const T> cref(const T& t);
+
+template<class T >
+std::reference_wrapper<const T> cref(std::reference_wrapper<T> t);
+
+template <class T>
+void cref(const T&&) = delete;
+
+#endif // CPPREFERENCE_STDVER >= 2011
+
+template<class T = void>
+struct plus {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct minus {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct multiplies {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct divides {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct modulus {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct negate {
+    typedef T result_type;
+    typedef T argument_type;
+    T operator()(const T& arg) const;
+};
+
+template<class T = void>
+struct equal_to {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct not_equal_to {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct greater {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct less {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct greater_equal {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct less_equal {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct logical_and {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct logical_or {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    bool operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct logical_not {
+    typedef bool result_type;
+    typedef T argument_type;
+    bool operator()(const T& arg) const;
+};
+
+template<class T = void>
+struct bit_and {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct bit_or {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct bit_xor {
+    typedef T result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    T operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class T = void>
+struct bit_not {
+    typedef T result_type;
+    typedef T argument_type;
+    T operator()(const T& arg) const;
+};
+
+template<class Predicate >
+struct unary_negate {
+    typedef bool result_type;
+    typedef typename Predicate::argument_type argument_type;
+
+    explicit unary_negate(const Predicate& pred);
+    result_type operator()(argument_type const& x) const;
+};
+
+template<class Predicate >
+struct binary_negate {
+    typedef bool result_type;
+    typedef typename Predicate::first_argument_type first_argument_type;
+    typedef typename Predicate::second_argument_type second_argument_type;
+
+    explicit binary_negate(const Predicate& pred);
+    result_type operator()(const T& lhs, const T& rhs) const;
+};
+
+template<class Predicate >
+std::unary_negate<Predicate> not1(const Predicate& pred);
+
+template<class Predicate >
+std::binary_negate<Predicate> not2(const Predicate& pred);
+
+#if CPPREFERENCE_STDVER >= 2011
+template<class Key >
+struct hash {
+    typedef Key argument_type;
+    typedef std::size_t result_type;
+
+    std::size_t operator()(const Key&) const;
+};
+#endif
+} // namespace std
+
+#endif // CPPREFERENCE_FUNCTIONAL_H

@@ -1,0 +1,125 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_STACK_H
+#define CPPREFERENCE_STACK_H
+
+#if CPPREFERENCE_STDVER>= 2011
+#include <initializer_list>
+#endif
+
+namespace std {
+
+template <
+    class T,
+    class Container = std::deque<T>
+    > class stack {
+public:
+    typedef Container container_type;
+    typedef typename Container::value_type value_type;
+    typedef typename Container::size_type size_type;
+    typedef typename Container::reference reference;
+    typedef typename Container::const_reference const_reference;
+
+#if CPPREFERENCE_STDVER <2011
+    explicit stack(const Container& cont = Container());
+#else
+    explicit stack(const Container& cont);
+    explicit stack(Container&& cont = Container());
+    stack(const stack& other);
+    stack(stack&& other);
+
+    template<class Alloc>
+    explicit stack(const Alloc& alloc);
+
+    template<class Alloc>
+    stack(const Container& cont, const Alloc& alloc);
+
+    template<class Alloc>
+    stack(Container&& cont, const Alloc& alloc);
+
+    template<class Alloc>
+    stack(const stack& other, const Alloc& alloc);
+
+    template<class Alloc>
+    stack(stack&& other, const Alloc& alloc);
+#endif
+
+    ~stack();
+
+    stack<T, Container>&
+    operator=(const stack<T, Container>& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    stack<T, Container>&
+    operator=(stack<T, Container>&& other);
+#endif
+
+    reference top();
+    const_reference top() const;
+
+    bool empty() const;
+    size_type size() const;
+
+    void push(const T& value);
+
+#if CPPREFERENCE_STDVER>= 2011
+    void push(T&& value);
+    template<class... Args>
+    void emplace(Args&& ... args);
+#endif
+
+    void pop();
+
+#if CPPREFERENCE_STDVER>= 2011
+    void swap(stack& other);
+#endif
+
+protected:
+    Container c;
+};
+
+template<class T, class Container>
+bool operator==(stack<T, Container>& lhs,
+                stack<T, Container>& rhs);
+
+template<class T, class Container>
+bool operator!=(stack<T, Container>& lhs,
+                stack<T, Container>& rhs);
+
+template<class T, class Container>
+bool operator<(stack<T, Container>& lhs,
+               stack<T, Container>& rhs);
+
+template<class T, class Container>
+bool operator<=(stack<T, Container>& lhs,
+                stack<T, Container>& rhs);
+
+template<class T, class Container>
+bool operator>(stack<T, Container>& lhs,
+               stack<T, Container>& rhs);
+
+template<class T, class Container>
+bool operator>=(stack<T, Container>& lhs,
+                stack<T, Container>& rhs);
+
+template<class T, class Container>
+void swap(stack<T, Container>& lhs,
+          stack<T, Container>& rhs);
+
+
+} // namespace std
+
+#endif // CPPREFERENCE_STACK_H

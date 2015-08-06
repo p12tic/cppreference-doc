@@ -1,0 +1,83 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_EXCEPTION_H
+#define CPPREFERENCE_EXCEPTION_H
+
+namespace std {
+
+class exception {
+public:
+    exception();
+    exception(const exception& other);
+    exception& operator=(const exception& other);
+    virtual const char* what() const;
+};
+
+#if CPPREFERENCE_STDVER>= 2011
+class nested_exception {
+public:
+    nested_exception();
+    nested_exception(const nested_exception& other) = default;
+    virtual ~nested_exception() = default;
+    nested_exception& operator=(const nested_exception& other) = default;
+    void rethrow_nested() const;
+    std::exception_ptr nested_ptr() const;
+};
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+class bad_exception : public exception {
+public:
+    bad_exception();
+    bad_exception(const bad_exception& other);
+    bad_exception& operator=(const bad_exception& other);
+};
+
+void unexpected();
+typedef void (*unexpected_handler)();
+typedef void (*terminate_handler)();
+
+#if CPPREFERENCE_STDVER>= 2011
+typedef void* exception_ptr; // actually unspecified
+#endif // CPPREFERENCE_STDVER>= 2011
+
+bool uncaught_exception();
+#if CPPREFERENCE_STDVER>= 2017
+int uncaught_exceptions();
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class E>
+std::exception_ptr make_exception_ptr(E e);
+std::exception_ptr current_exception();
+template<class T>
+void throw_with_nested(T&& t);
+template<class E>
+void rethrow_if_nested(const E& e);
+#endif
+
+void terminate();
+#if CPPREFERENCE_STDVER>= 2011
+std::terminate_handler get_terminate();
+std::unexpected_handler get_unexpected();
+#endif
+std::terminate_handler set_terminate(std::terminate_handler f);
+std::unexpected_handler set_unexpected(std::unexpected_handler f);
+
+} // namespace std
+
+#endif // CPPREFERENCE_EXCEPTION_H
+

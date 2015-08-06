@@ -1,0 +1,443 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_UNORDERED_MAP_H
+#define CPPREFERENCE_UNORDERED_MAP_H
+
+#if CPPREFERENCE_STDVER>= 2011
+#include <initializer_list>
+
+namespace std {
+
+template <
+    class Key,
+    class T,
+    class Hash = std::hash<Key>,
+    class KeyEqual = std::equal_to<Key>,
+    class Allocator = std::allocator<std::pair<const Key, T>>
+    > class unordered_map {
+public:
+    typedef Key key_type;
+    typedef T mapped_type;
+    typedef pair<const Key, T> value_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+    typedef Allocator allocator_type;
+    typedef Hash hasher;
+    typedef KeyEqual key_equal;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#else
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef T* local_iterator; // actual type is unspecified
+    typedef const T* const_local_iterator; // actual type is unspecified
+
+    // constructor
+    // constructor
+#if CPPREFERENCE_STDVER <2014
+    explicit unordered_map(size_type bucket_count = 0 /*implementation-defined*/,
+                           const Hash& hash = Hash(),
+                           const KeyEqual& equal = KeyEqual(),
+                           const Allocator& alloc = Allocator());
+#else
+    unordered_map();
+
+    explicit unordered_map(size_type bucket_count,
+                           const Hash& hash = Hash(),
+                           const KeyEqual& equal = KeyEqual(),
+                           const Allocator& alloc = Allocator());
+
+    unordered_map(size_type bucket_count,
+                  const Allocator& alloc);
+
+    unordered_map(size_type bucket_count,
+                  const Hash& hash,
+                  const Allocator& alloc);
+#endif
+
+    explicit unordered_map(const Allocator& alloc);
+
+    template<class InputIt>
+    unordered_map(InputIt first, InputIt last,
+                  size_type bucket_count = 0 /*implementation-defined*/,
+                  const Hash& hash = Hash(),
+                  const KeyEqual& equal = KeyEqual(),
+                  const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class InputIt>
+    unordered_map(InputIt first, InputIt last,
+                  size_type bucket_count,
+                  const Allocator& alloc);
+
+    template<class InputIt>
+    unordered_map(InputIt first, InputIt last,
+                  size_type bucket_count,
+                  const Hash& hash,
+                  const Allocator& alloc);
+#endif
+
+    unordered_map(const unordered_map& other);
+    unordered_map(const unordered_map& other, const Allocator& alloc);
+    unordered_map(unordered_map&& other);
+    unordered_map(unordered_map&& other, const Allocator& alloc);
+
+    unordered_map(std::initializer_list<value_type> init,
+                  size_type bucket_count = /*implementation-defined*/,
+                  const Hash& hash = Hash(),
+                  const KeyEqual& equal = KeyEqual(),
+                  const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    unordered_map(std::initializer_list<value_type> init,
+                  size_type bucket_count,
+                  const Allocator& alloc);
+
+    unordered_map(std::initializer_list<value_type> init,
+                  size_type bucket_count,
+                  const Hash& hash,
+                  const Allocator& alloc);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2014
+    unordered_map(std::initializer_list<value_type> init, const Allocator& alloc);
+#endif
+
+    ~unordered_map();
+
+    unordered_map& operator=(const unordered_map& other);
+    unordered_map& operator=(unordered_map&& other);
+    unordered_map& operator=(initializer_list<value_type> ilist);
+
+    allocator_type get_allocator() const;
+
+    // element access
+    T& operator[](const Key& key);
+    T& operator[](Key&& key);
+    T& at(const Key& key);
+    const T& at(const Key& key) const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers
+    void clear();
+
+    std::pair<iterator, bool> insert(const value_type& value);
+    template<class P>
+    std::pair<iterator, bool> insert(P&& value);
+    std::pair<iterator, bool> insert(value_type&& value);
+    iterator insert(const_iterator hint, const value_type& value);
+
+    template<class P>
+    iterator insert(const_iterator hint, P&& value);
+
+    template<class InputIt>
+    void insert(InputIt first, InputIt last);
+
+    void insert(std::initializer_list<value_type> ilist);
+
+    template<class... Args>
+    std::pair<iterator, bool> emplace(Args&& ... args);
+
+    template <class... Args>
+    iterator emplace_hint(const_iterator hint, Args&& ... args);
+
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+    size_type erase(const key_type& key);
+
+    void swap(unordered_map& other);
+
+    // lookup
+    size_type count(const Key& key) const;
+
+    iterator find(const Key& key);
+    const_iterator find(const Key& key) const;
+
+    std::pair<iterator, iterator> equal_range(const Key& key);
+    std::pair<const_iterator, const_iterator> equal_range(const Key& key) const;
+
+    // bucket interface
+    local_iterator begin(size_type n);
+    const_local_iterator begin(size_type n) const;
+    const_local_iterator cbegin(size_type n) const;
+
+    local_iterator end(size_type n);
+    const_local_iterator end(size_type n) const;
+    const_local_iterator cend(size_type n) const;
+
+    size_type bucket_count() const;
+    size_type max_bucket_count() const;
+    size_type bucket_size(size_type n) const;
+    size_type bucket(const Key& key) const;
+    float load_factor() const;
+    float max_load_factor() const;
+    void max_load_factor(float ml);
+    void rehash(size_type count);
+    void reserve(size_type count);
+
+    // observers
+    hasher hash_function() const;
+    key_equal key_eq() const;
+};
+
+template<class Key, class T, class Hash, class KeyEqual, class Allocator>
+bool operator==(const unordered_map<Key, T, Hash, KeyEqual, Allocator>& lhs,
+                const unordered_map<Key, T, Hash, KeyEqual, Allocator>& rhs);
+
+template<class Key, class T, class Hash, class KeyEqual, class Allocator>
+bool operator!=(const unordered_map<Key, T, Hash, KeyEqual, Allocator>& lhs,
+                const unordered_map<Key, T, Hash, KeyEqual, Allocator>& rhs);
+
+template<class Key, class T, class Hash, class KeyEqual, class Alloc>
+void swap(unordered_map<Key, T, Hash, KeyEqual, Alloc>& lhs,
+          unordered_map<Key, T, Hash, KeyEqual, Alloc>& rhs);
+
+template <
+    class Key,
+    class T,
+    class Hash = std::hash<Key>,
+    class KeyEqual = std::equal_to<Key>,
+    class Allocator = std::allocator<std::pair<const Key, T>>
+    > class unordered_multimap {
+public:
+    typedef Key key_type;
+    typedef T mapped_type;
+    typedef pair<const Key, T> value_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+    typedef Allocator allocator_type;
+    typedef Hash hasher;
+    typedef KeyEqual key_equal;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#else
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef T* local_iterator; // actual type is unspecified
+    typedef const T* const_local_iterator; // actual type is unspecified
+
+    // constructor
+    // constructor
+#if CPPREFERENCE_STDVER <2014
+    explicit unordered_multimap(size_type bucket_count = 0 /*implementation-defined*/,
+                                const Hash& hash = Hash(),
+                                const KeyEqual& equal = KeyEqual(),
+                                const Allocator& alloc = Allocator());
+#else
+    unordered_multimap();
+
+    explicit unordered_multimap(size_type bucket_count,
+                                const Hash& hash = Hash(),
+                                const KeyEqual& equal = KeyEqual(),
+                                const Allocator& alloc = Allocator());
+
+    unordered_multimap(size_type bucket_count,
+                       const Allocator& alloc);
+
+    unordered_multimap(size_type bucket_count,
+                       const Hash& hash,
+                       const Allocator& alloc);
+#endif
+
+    explicit unordered_multimap(const Allocator& alloc);
+
+    template<class InputIt>
+    unordered_multimap(InputIt first, InputIt last,
+                       size_type bucket_count = 0 /*implementation-defined*/,
+                       const Hash& hash = Hash(),
+                       const KeyEqual& equal = KeyEqual(),
+                       const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class InputIt>
+    unordered_multimap(InputIt first, InputIt last,
+                       size_type bucket_count,
+                       const Allocator& alloc);
+
+    template<class InputIt>
+    unordered_multimap(InputIt first, InputIt last,
+                       size_type bucket_count,
+                       const Hash& hash,
+                       const Allocator& alloc);
+#endif
+
+    unordered_multimap(const unordered_multimap& other);
+    unordered_multimap(const unordered_multimap& other, const Allocator& alloc);
+    unordered_multimap(unordered_multimap&& other);
+    unordered_multimap(unordered_multimap&& other, const Allocator& alloc);
+
+    unordered_multimap(std::initializer_list<value_type> init,
+                       size_type bucket_count = /*implementation-defined*/,
+                       const Hash& hash = Hash(),
+                       const KeyEqual& equal = KeyEqual(),
+                       const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    unordered_multimap(std::initializer_list<value_type> init,
+                       size_type bucket_count,
+                       const Allocator& alloc);
+
+    unordered_multimap(std::initializer_list<value_type> init,
+                       size_type bucket_count,
+                       const Hash& hash,
+                       const Allocator& alloc);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2014
+    unordered_multimap(std::initializer_list<value_type> init, const Allocator& alloc);
+#endif
+
+    ~unordered_multimap();
+
+    unordered_multimap& operator=(const unordered_multimap& other);
+    unordered_multimap& operator=(unordered_multimap&& other);
+    unordered_multimap& operator=(initializer_list<value_type> ilist);
+
+    allocator_type get_allocator() const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers
+    void clear();
+
+    std::pair<iterator, bool> insert(const value_type& value);
+    template<class P>
+    std::pair<iterator, bool> insert(P&& value);
+    std::pair<iterator, bool> insert(value_type&& value);
+    iterator insert(const_iterator hint, const value_type& value);
+
+    template<class P>
+    iterator insert(const_iterator hint, P&& value);
+
+    template<class InputIt>
+    void insert(InputIt first, InputIt last);
+
+    void insert(std::initializer_list<value_type> ilist);
+
+    template<class... Args>
+    std::pair<iterator, bool> emplace(Args&& ... args);
+
+    template <class... Args>
+    iterator emplace_hint(const_iterator hint, Args&& ... args);
+
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+    size_type erase(const key_type& key);
+
+    void swap(unordered_multimap& other);
+
+    // lookup
+    size_type count(const Key& key) const;
+
+    iterator find(const Key& key);
+    const_iterator find(const Key& key) const;
+
+    std::pair<iterator, iterator> equal_range(const Key& key);
+    std::pair<const_iterator, const_iterator> equal_range(const Key& key) const;
+
+    // bucket interface
+    local_iterator begin(size_type n);
+    const_local_iterator begin(size_type n) const;
+    const_local_iterator cbegin(size_type n) const;
+
+    local_iterator end(size_type n);
+    const_local_iterator end(size_type n) const;
+    const_local_iterator cend(size_type n) const;
+
+    size_type bucket_count() const;
+    size_type max_bucket_count() const;
+    size_type bucket_size(size_type n) const;
+    size_type bucket(const Key& key) const;
+    float load_factor() const;
+    float max_load_factor() const;
+    void max_load_factor(float ml);
+    void rehash(size_type count);
+    void reserve(size_type count);
+
+    // observers
+    hasher hash_function() const;
+    key_equal key_eq() const;
+};
+
+template<class Key, class T, class Hash, class KeyEqual, class Allocator>
+bool operator==(const unordered_multimap<Key, T, Hash, KeyEqual, Allocator>& lhs,
+                const unordered_multimap<Key, T, Hash, KeyEqual, Allocator>& rhs);
+
+template<class Key, class T, class Hash, class KeyEqual, class Allocator>
+bool operator!=(const unordered_multimap<Key, T, Hash, KeyEqual, Allocator>& lhs,
+                const unordered_multimap<Key, T, Hash, KeyEqual, Allocator>& rhs);
+
+template<class Key, class T, class Hash, class KeyEqual, class Alloc>
+void swap(unordered_multimap<Key, T, Hash, KeyEqual, Alloc>& lhs,
+          unordered_multimap<Key, T, Hash, KeyEqual, Alloc>& rhs);
+
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_UNORDERED_MAP_H

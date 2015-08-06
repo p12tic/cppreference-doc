@@ -1,0 +1,472 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_SET_H
+#define CPPREFERENCE_SET_H
+
+namespace std {
+
+template <
+    class Key,
+    class Compare = std::less<Key>,
+    class Allocator = std::allocator<Key>
+    > class set {
+public:
+    typedef Key key_type;
+    typedef Key value_type;
+    typedef Compare key_compare;
+    typedef Compare value_compare;
+    typedef Allocator allocator_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#elif CPPREFERENCE_STDVER <2011
+    typedef Allocator::reference reference;
+    typedef Allocator::const_reference const_reference;
+    typedef Allocator::pointer pointer;
+    typedef Allocator::const_pointer const_pointer;
+#else
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    // constructor
+
+
+#if CPPREFERENCE_STDVER <2014
+    explicit set(const Compare& comp = Compare(),
+                 const Allocator& alloc = Allocator());
+#else
+    set();
+    explicit set(const Compare& comp,
+                 const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    explicit set(const Allocator& alloc);
+#endif
+
+    template<class InputIt>
+    set(InputIt first, InputIt last,
+        const Compare& comp = Compare(),
+        const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class InputIt>
+    set(InputIt first, InputIt last, const Allocator& alloc);
+#endif
+
+    set(const set& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    set(const set& other, const Allocator& alloc);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    set(set&& other);
+    set(const set&& other, const Allocator& alloc);
+
+    set(std::initializer_list<value_type> init,
+        const Compare& comp = Compare(),
+        const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2014
+    set(std::initializer_list<value_type> init, const Allocator& alloc);
+#endif
+
+    ~set();
+
+    set& operator=(const set& other);
+#if CPPREFERENCE_STDVER>= 2011
+    set& operator=(set&& other);
+    set& operator=(initializer_list<value_type> ilist);
+#endif
+
+    allocator_type get_allocator() const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+#endif
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers
+    void clear();
+
+    std::pair<iterator, bool> insert(const value_type& value);
+#if CPPREFERENCE_STDVER <2011
+    iterator insert(iterator hint, const value_type& value);
+#else
+    iterator insert(const_iterator hint, const value_type& value);
+    std::pair<iterator, bool> insert(value_type&& value);
+    iterator insert(const_iterator hint, value_type&& value);
+    void insert(std::initializer_list<value_type> ilist);
+#endif
+    template<class InputIt>
+    void insert(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER>= 2011
+    template<class... Args>
+    std::pair<iterator, bool> emplace(Args&& ... args);
+
+    template <class... Args>
+    iterator emplace_hint(const_iterator hint, Args&& ... args);
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    void erase(iterator pos);
+    void erase(iterator first, iterator last);
+#else
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+#endif
+    size_type erase(const key_type& key);
+
+    void swap(set& other);
+
+    // lookup
+    size_type count(const Key& key) const;
+    template<class K>
+    size_type count(const K& x) const;
+
+    iterator find(const Key& key);
+    const_iterator find(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K> iterator find(const K& x);
+    template<class K> const_iterator find(const K& x) const;
+#endif
+
+    std::pair<iterator, iterator> equal_range(const Key& key);
+    std::pair<const_iterator, const_iterator> equal_range(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    std::pair<iterator, iterator> equal_range(const K& x);
+
+    template<class K>
+    std::pair<const_iterator, const_iterator> equal_range(const K& x) const;
+#endif
+
+    iterator lower_bound(const Key& key);
+    const_iterator lower_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator lower_bound(const K& x);
+
+    template<class K>
+    const_iterator lower_bound(const K& x) const;
+#endif
+
+    iterator upper_bound(const Key& key);
+    const_iterator upper_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator upper_bound(const K& x);
+
+    template<class K>
+    const_iterator upper_bound(const K& x) const;
+#endif
+
+    // observers
+    key_compare key_comp() const;
+    value_compare value_comp() const;
+};
+
+template<class Key, class Compare, class Alloc>
+bool operator==(const set<Key, Compare, Alloc>& lhs,
+                const set<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator!=(const set<Key, Compare, Alloc>& lhs,
+                const set<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator<(const set<Key, Compare, Alloc>& lhs,
+               const set<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator<=(const set<Key, Compare, Alloc>& lhs,
+                const set<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator>(const set<Key, Compare, Alloc>& lhs,
+               const set<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator>=(const set<Key, Compare, Alloc>& lhs,
+                const set<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+void swap(set<Key, Compare, Alloc>& lhs,
+          set<Key, Compare, Alloc>& rhs);
+
+template <
+    class Key,
+    class Compare = std::less<Key>,
+    class Allocator = std::allocator<Key>
+    > class multiset {
+public:
+    typedef Key key_type;
+    typedef Key value_type;
+    typedef Compare key_compare;
+    typedef Compare value_compare;
+    typedef Allocator allocator_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#elif CPPREFERENCE_STDVER <2011
+    typedef Allocator::reference reference;
+    typedef Allocator::const_reference const_reference;
+    typedef Allocator::pointer pointer;
+    typedef Allocator::const_pointer const_pointer;
+#else
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    // constructor
+
+
+#if CPPREFERENCE_STDVER <2014
+    explicit multiset(const Compare& comp = Compare(),
+                      const Allocator& alloc = Allocator());
+#else
+    multiset();
+    explicit multiset(const Compare& comp,
+                      const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    explicit multiset(const Allocator& alloc);
+#endif
+
+    template<class InputIt>
+    multiset(InputIt first, InputIt last,
+             const Compare& comp = Compare(),
+             const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class InputIt>
+    multiset(InputIt first, InputIt last, const Allocator& alloc);
+#endif
+
+    multiset(const multiset& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    multiset(const multiset& other, const Allocator& alloc);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    multiset(multiset&& other);
+    multiset(const multiset&& other, const Allocator& alloc);
+
+    multiset(std::initializer_list<value_type> init,
+             const Compare& comp = Compare(),
+             const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2014
+    multiset(std::initializer_list<value_type> init, const Allocator& alloc);
+#endif
+
+    ~multiset();
+
+    multiset& operator=(const multiset& other);
+#if CPPREFERENCE_STDVER>= 2011
+    multiset& operator=(multiset&& other);
+    multiset& operator=(initializer_list<value_type> ilist);
+#endif
+
+    allocator_type get_allocator() const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+#endif
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers
+    void clear();
+
+    std::pair<iterator, bool> insert(const value_type& value);
+#if CPPREFERENCE_STDVER <2011
+    iterator insert(iterator hint, const value_type& value);
+#else
+    iterator insert(const_iterator hint, const value_type& value);
+    std::pair<iterator, bool> insert(value_type&& value);
+    iterator insert(const_iterator hint, value_type&& value);
+    void insert(std::initializer_list<value_type> ilist);
+#endif
+    template<class InputIt>
+    void insert(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER>= 2011
+    template<class... Args>
+    std::pair<iterator, bool> emplace(Args&& ... args);
+
+    template <class... Args>
+    iterator emplace_hint(const_iterator hint, Args&& ... args);
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    void erase(iterator pos);
+    void erase(iterator first, iterator last);
+#else
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+#endif
+    size_type erase(const key_type& key);
+
+    void swap(multiset& other);
+
+    // lookup
+    size_type count(const Key& key) const;
+    template<class K>
+    size_type count(const K& x) const;
+
+    iterator find(const Key& key);
+    const_iterator find(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K> iterator find(const K& x);
+    template<class K> const_iterator find(const K& x) const;
+#endif
+
+    std::pair<iterator, iterator> equal_range(const Key& key);
+    std::pair<const_iterator, const_iterator> equal_range(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    std::pair<iterator, iterator> equal_range(const K& x);
+
+    template<class K>
+    std::pair<const_iterator, const_iterator> equal_range(const K& x) const;
+#endif
+
+    iterator lower_bound(const Key& key);
+    const_iterator lower_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator lower_bound(const K& x);
+
+    template<class K>
+    const_iterator lower_bound(const K& x) const;
+#endif
+
+    iterator upper_bound(const Key& key);
+    const_iterator upper_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator upper_bound(const K& x);
+
+    template<class K>
+    const_iterator upper_bound(const K& x) const;
+#endif
+
+    // observers
+    key_compare key_comp() const;
+    value_compare value_comp() const;
+};
+
+template<class Key, class Compare, class Alloc>
+bool operator==(const multiset<Key, Compare, Alloc>& lhs,
+                const multiset<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator!=(const multiset<Key, Compare, Alloc>& lhs,
+                const multiset<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator<(const multiset<Key, Compare, Alloc>& lhs,
+               const multiset<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator<=(const multiset<Key, Compare, Alloc>& lhs,
+                const multiset<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator>(const multiset<Key, Compare, Alloc>& lhs,
+               const multiset<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+bool operator>=(const multiset<Key, Compare, Alloc>& lhs,
+                const multiset<Key, Compare, Alloc>& rhs);
+
+template<class Key, class Compare, class Alloc>
+void swap(multiset<Key, Compare, Alloc>& lhs,
+          multiset<Key, Compare, Alloc>& rhs);
+} // namespace std
+
+#endif // CPPREFERENCE_SET_H

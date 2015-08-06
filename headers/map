@@ -1,0 +1,529 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_MAP_H
+#define CPPREFERENCE_MAP_H
+
+namespace std {
+
+template <
+    class Key,
+    class T,
+    class Compare = std::less<Key>,
+    class Allocator = std::allocator<Key>
+    > class map {
+public:
+    typedef Key key_type;
+    typedef T mapped_type;
+    typedef pair<const Key, T> value_type;
+    typedef Compare key_compare;
+    typedef Compare value_compare;
+    typedef Allocator allocator_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#elif CPPREFERENCE_STDVER <2011
+    typedef Allocator::reference reference;
+    typedef Allocator::const_reference const_reference;
+    typedef Allocator::pointer pointer;
+    typedef Allocator::const_pointer const_pointer;
+#else
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    // constructor
+
+    class value_compare {
+    public:
+        typedef bool result_type;
+        typedef first_argument_type value_type;
+        typedef second_argument_type value_type;
+
+        bool operator()(const value_type& lhs, const value_type& rhs) const;
+    protected:
+        value_compare(Compare c);
+        Compare comp;
+    };
+
+#if CPPREFERENCE_STDVER <2014
+    explicit map(const Compare& comp = Compare(),
+                 const Allocator& alloc = Allocator());
+#else
+    map();
+    explicit map(const Compare& comp,
+                 const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    explicit map(const Allocator& alloc);
+#endif
+
+    template<class InputIt>
+    map(InputIt first, InputIt last,
+        const Compare& comp = Compare(),
+        const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class InputIt>
+    map(InputIt first, InputIt last, const Allocator& alloc);
+#endif
+
+    map(const map& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    map(const map& other, const Allocator& alloc);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    map(map&& other);
+    map(const map&& other, const Allocator& alloc);
+
+    map(std::initializer_list<value_type> init,
+        const Compare& comp = Compare(),
+        const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2014
+    map(std::initializer_list<value_type> init, const Allocator& alloc);
+#endif
+
+    ~map();
+
+    map& operator=(const map& other);
+#if CPPREFERENCE_STDVER>= 2011
+    map& operator=(map&& other);
+    map& operator=(initializer_list<value_type> ilist);
+#endif
+
+    void assign(size_type count, const value_type& value);
+    template <class InputIt>
+    void assign(InputIt first, InputIt last);
+#if CPPREFERENCE_STDVER>= 2011
+    void assign(std::initializer_list<value_type> ilist);
+#endif
+
+    allocator_type get_allocator() const;
+
+    // element access
+    T& operator[](const Key& key);
+#if CPPREFERENCE_STDVER>= 2011
+    T& operator[](Key&& key);
+    T& at(const Key& key);
+    const T& at(const Key& key) const;
+#endif
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+#endif
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers
+    void clear();
+
+    std::pair<iterator, bool> insert(const value_type& value);
+#if CPPREFERENCE_STDVER <2011
+    iterator insert(iterator hint, const value_type& value);
+#else
+    iterator insert(const_iterator hint, const value_type& value);
+    template<class P>
+    std::pair<iterator, bool> insert(P&& value);
+    std::pair<iterator, bool> insert(value_type&& value);
+    iterator insert(const_iterator hint, value_type&& value);
+    void insert(std::initializer_list<value_type> ilist);
+#endif
+    template<class InputIt>
+    void insert(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER>= 2011
+    template<class... Args>
+    std::pair<iterator, bool> emplace(Args&& ... args);
+
+    template <class... Args>
+    iterator emplace_hint(const_iterator hint, Args&& ... args);
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    void erase(iterator pos);
+    void erase(iterator first, iterator last);
+#else
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+#endif
+    size_type erase(const key_type& key);
+
+    void swap(map& other);
+
+    // lookup
+    size_type count(const Key& key) const;
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    size_type count(const K& x) const;
+#endif
+
+    iterator find(const Key& key);
+    const_iterator find(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K> iterator find(const K& x);
+    template<class K> const_iterator find(const K& x) const;
+#endif
+
+    std::pair<iterator, iterator> equal_range(const Key& key);
+    std::pair<const_iterator, const_iterator> equal_range(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    std::pair<iterator, iterator> equal_range(const K& x);
+
+    template<class K>
+    std::pair<const_iterator, const_iterator> equal_range(const K& x) const;
+#endif
+
+    iterator lower_bound(const Key& key);
+    const_iterator lower_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator lower_bound(const K& x);
+
+    template<class K>
+    const_iterator lower_bound(const K& x) const;
+#endif
+
+    iterator upper_bound(const Key& key);
+    const_iterator upper_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator upper_bound(const K& x);
+
+    template<class K>
+    const_iterator upper_bound(const K& x) const;
+#endif
+
+    // observers
+    key_compare key_comp() const;
+    value_compare value_comp() const;
+};
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator==(const map<Key, T, Compare, Alloc>& lhs,
+                const map<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator!=(const map<Key, T, Compare, Alloc>& lhs,
+                const map<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator<(const map<Key, T, Compare, Alloc>& lhs,
+               const map<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator<=(const map<Key, T, Compare, Alloc>& lhs,
+                const map<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator>(const map<Key, T, Compare, Alloc>& lhs,
+               const map<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator>=(const map<Key, T, Compare, Alloc>& lhs,
+                const map<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+void swap(map<Key, T, Compare, Alloc>& lhs,
+          map<Key, T, Compare, Alloc>& rhs);
+
+template <
+    class Key,
+    class T,
+    class Compare = std::less<Key>,
+    class Allocator = std::allocator<Key>
+    > class multimap {
+public:
+    typedef Key key_type;
+    typedef T mapped_type;
+    typedef pair<const Key, T> value_type;
+    typedef Compare key_compare;
+    typedef Compare value_compare;
+    typedef Allocator allocator_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#elif CPPREFERENCE_STDVER <2011
+    typedef Allocator::reference reference;
+    typedef Allocator::const_reference const_reference;
+    typedef Allocator::pointer pointer;
+    typedef Allocator::const_pointer const_pointer;
+#else
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    // constructor
+
+    class value_compare {
+    public:
+        typedef bool result_type;
+        typedef first_argument_type value_type;
+        typedef second_argument_type value_type;
+
+        bool operator()(const value_type& lhs, const value_type& rhs) const;
+    protected:
+        value_compare(Compare c);
+        Compare comp;
+    };
+
+#if CPPREFERENCE_STDVER <2014
+    explicit multimap(const Compare& comp = Compare(),
+                      const Allocator& alloc = Allocator());
+#else
+    multimap();
+    explicit multimap(const Compare& comp,
+                      const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    explicit multimap(const Allocator& alloc);
+#endif
+
+    template<class InputIt>
+    multimap(InputIt first, InputIt last,
+             const Compare& comp = Compare(),
+             const Allocator& alloc = Allocator());
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class InputIt>
+    multimap(InputIt first, InputIt last, const Allocator& alloc);
+#endif
+
+    multimap(const multimap& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    multimap(const multimap& other, const Allocator& alloc);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    multimap(multimap&& other);
+    multimap(const multimap&& other, const Allocator& alloc);
+
+    multimap(std::initializer_list<value_type> init,
+             const Compare& comp = Compare(),
+             const Allocator& alloc = Allocator());
+#endif
+
+#if CPPREFERENCE_STDVER>= 2014
+    multimap(std::initializer_list<value_type> init, const Allocator& alloc);
+#endif
+
+    ~multimap();
+
+    multimap& operator=(const multimap& other);
+#if CPPREFERENCE_STDVER>= 2011
+    multimap& operator=(multimap&& other);
+    multimap& operator=(initializer_list<value_type> ilist);
+#endif
+
+    void assign(size_type count, const value_type& value);
+    template <class InputIt>
+    void assign(InputIt first, InputIt last);
+#if CPPREFERENCE_STDVER>= 2011
+    void assign(std::initializer_list<value_type> ilist);
+#endif
+
+    allocator_type get_allocator() const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+#endif
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers
+    void clear();
+
+    std::pair<iterator, bool> insert(const value_type& value);
+#if CPPREFERENCE_STDVER <2011
+    iterator insert(iterator hint, const value_type& value);
+#else
+    iterator insert(const_iterator hint, const value_type& value);
+    template<class P>
+    std::pair<iterator, bool> insert(P&& value);
+    std::pair<iterator, bool> insert(value_type&& value);
+    iterator insert(const_iterator hint, value_type&& value);
+    void insert(std::initializer_list<value_type> ilist);
+#endif
+    template<class InputIt>
+    void insert(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER>= 2011
+    template<class... Args>
+    std::pair<iterator, bool> emplace(Args&& ... args);
+
+    template <class... Args>
+    iterator emplace_hint(const_iterator hint, Args&& ... args);
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    void erase(iterator pos);
+    void erase(iterator first, iterator last);
+#else
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+#endif
+    size_type erase(const key_type& key);
+
+    void swap(multimap& other);
+
+    // lookup
+    size_type count(const Key& key) const;
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    size_type count(const K& x) const;
+#endif
+
+    iterator find(const Key& key);
+    const_iterator find(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K> iterator find(const K& x);
+    template<class K> const_iterator find(const K& x) const;
+#endif
+
+    std::pair<iterator, iterator> equal_range(const Key& key);
+    std::pair<const_iterator, const_iterator> equal_range(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    std::pair<iterator, iterator> equal_range(const K& x);
+
+    template<class K>
+    std::pair<const_iterator, const_iterator> equal_range(const K& x) const;
+#endif
+
+    iterator lower_bound(const Key& key);
+    const_iterator lower_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator lower_bound(const K& x);
+
+    template<class K>
+    const_iterator lower_bound(const K& x) const;
+#endif
+
+    iterator upper_bound(const Key& key);
+    const_iterator upper_bound(const Key& key) const;
+
+#if CPPREFERENCE_STDVER>= 2014
+    template<class K>
+    iterator upper_bound(const K& x);
+
+    template<class K>
+    const_iterator upper_bound(const K& x) const;
+#endif
+
+    // observers
+    key_compare key_comp() const;
+    value_compare value_comp() const;
+};
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator==(const multimap<Key, T, Compare, Alloc>& lhs,
+                const multimap<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator!=(const multimap<Key, T, Compare, Alloc>& lhs,
+                const multimap<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator<(const multimap<Key, T, Compare, Alloc>& lhs,
+               const multimap<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator<=(const multimap<Key, T, Compare, Alloc>& lhs,
+                const multimap<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator>(const multimap<Key, T, Compare, Alloc>& lhs,
+               const multimap<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+bool operator>=(const multimap<Key, T, Compare, Alloc>& lhs,
+                const multimap<Key, T, Compare, Alloc>& rhs);
+
+template<class Key, class T, class Compare, class Alloc>
+void swap(multimap<Key, T, Compare, Alloc>& lhs,
+          multimap<Key, T, Compare, Alloc>& rhs);
+
+} // namespace std
+
+#endif // CPPREFERENCE_MAP_H

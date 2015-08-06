@@ -1,0 +1,265 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CHRONO_H
+#define CPPREFERENCE_CHRONO_H
+
+#if CPPREFERENCE_STDVER>= 2011
+#include <ratio>
+
+namespace std {
+namespace chrono {
+
+template<class Rep, class Period = std::ratio<1>>
+class duration {
+public:
+
+    constexpr duration() = default;
+    duration(const duration&) = default;
+    template<class Rep2>
+    constexpr explicit duration(const Rep2& r);
+    template<class Rep2, class Period2>
+    constexpr duration(const duration<Rep2, Period2>& d);
+
+    duration& operator=(const duration& other) = default;
+
+    constexpr rep count() const;
+
+    static constexpr duration zero();
+    static constexpr duration min();
+    static constexpr duration max();
+
+    constexpr duration operator+() const;
+    constexpr duration operator-() const;
+
+    duration& operator++();
+    duration operator++(int);
+    duration& operator--();
+    duration operator--(int);
+
+    duration& operator+=(const duration& d);
+    duration& operator-=(const duration& d);
+    duration& operator*=(const rep& rhs);
+    duration& operator/=(const rep& rhs);
+    duration& operator%=(const rep& rhs);
+    duration& operator%=(const duration& rhs);
+};
+
+// SIMPLIFIED: actually returns common_type
+template<class Rep1, class Period1, class Rep2, class Period2>
+duration<Rep1, Period1>
+constexpr operator+(const duration<Rep1, Period1>& lhs,
+                    const duration<Rep2, Period2>& rhs);
+
+template<class Rep1, class Period1, class Rep2, class Period2>
+duration<Rep1, Period1>
+constexpr operator-(const duration<Rep1, Period1>& lhs,
+                    const duration<Rep2, Period2>& rhs);
+
+template<class Rep1, class Period, class Rep2>
+duration<Rep1, Period>
+constexpr operator*(const duration<Rep1, Period>& d,
+                    const Rep2& s);
+
+template<class Rep1, class Rep2, class Period>
+duration<Rep1, Period>
+constexpr operator*(const Rep1& s,
+                    const duration<Rep2, Period>& d);
+
+template<class Rep1, class Period, class Rep2>
+duration<Rep1, Period>
+constexpr operator/(const duration<Rep1, Period>& d,
+                    const Rep2& s);
+
+template<class Rep1, class Period1, class Rep2, class Period2>
+duration<Rep1, Period1>
+constexpr operator/(const duration<Rep1, Period1>& lhs,
+                    const duration<Rep2, Period2>& rhs);
+
+template<class Rep1, class Period, class Rep2>
+duration<Rep1, Period>
+constexpr operator%(const duration<Rep1, Period>& d,
+                    const Rep2& s);
+
+template<class Rep1, class Period1, class Rep2, class Period2>
+duration<Rep1, Period1>
+constexpr operator%(const duration<Rep1, Period1>& lhs,
+                    const duration<Rep2, Period2>& rhs);
+
+// comparison operators
+template <class Rep1, class Period1, class Rep2, class Period2>
+constexpr bool operator==(const duration<Rep1, Period1>& lhs,
+                          const duration<Rep2, Period2>& rhs);
+
+template <class Rep1, class Period1, class Rep2, class Period2>
+constexpr bool operator!=(const duration<Rep1, Period1>& lhs,
+                          const duration<Rep2, Period2>& rhs);
+
+template <class Rep1, class Period1, class Rep2, class Period2>
+constexpr bool operator<(const duration<Rep1, Period1>& lhs,
+                         const duration<Rep2, Period2>& rhs);
+
+template <class Rep1, class Period1, class Rep2, class Period2>
+constexpr bool operator<=(const duration<Rep1, Period1>& lhs,
+                          const duration<Rep2, Period2>& rhs);
+
+template <class Rep1, class Period1, class Rep2, class Period2>
+constexpr bool operator>(const duration<Rep1, Period1>& lhs,
+                         const duration<Rep2, Period2>& rhs);
+
+template <class Rep1, class Period1, class Rep2, class Period2>
+constexpr bool operator>=(const duration<Rep1, Period1>& lhs,
+                          const duration<Rep2, Period2>& rhs);
+
+template <class ToDuration, class Rep, class Period>
+constexpr ToDuration duration_cast(const duration<Rep, Period>& d);
+
+typedef duration<int, std::nano> nanoseconds;
+typedef duration<int, std::micro> microseconds;
+typedef duration<int, std::milli> milliseconds;
+typedef duration<int> seconds;
+typedef duration<int, std::ratio<60>> minutes;
+typedef duration<int, std::ratio<3600>> hours;
+
+template <class Rep>
+struct treat_as_floating_point : std::is_floating_point<Rep> {};
+
+template <class Rep>
+struct duration_values {
+    static constexpr Rep zero();
+    static constexpr Rep min();
+    static constexpr Rep max();
+};
+
+// fwd decl
+class system_clock;
+
+template<class Clock, class Duration = typename Clock::duration>
+class time_point {
+public:
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef system_clock clock;
+    typedef duration<int> duration;
+    typedef int rep;
+    typedef ratio<1> period;
+#else
+    typedef Clock clock;
+    typedef Duration duration;
+    typedef Duration::rep rep;
+    typedef Duration::period period;
+#endif
+
+    time_point();
+    explicit time_point(const duration& d);
+    template<class Duration2>
+    time_point(const time_point<Clock, Duration2>& t);
+
+    duration time_since_epoch() const;
+
+    time_point& operator+=(const duration& d);
+    time_point& operator-=(const duration& d);
+
+    static constexpr time_point min();
+    static constexpr time_point max();
+};
+
+// time point operators
+// SIMPLIFIED: return type uses common_type
+template<class C, class D1, class R2, class P2>
+time_point<C, D1>
+operator+(const time_point<C, D1>& pt,
+          const duration<R2, P2>& d);
+
+template<class R1, class P1, class C, class D2>
+time_point<C, D2>
+operator+(const duration<R1, P1>& d,
+          const time_point<C, D2>& pt);
+
+template<class C, class D1, class R2, class P2>
+time_point<C, D1>
+operator-(const time_point<C, D1>& pt,
+          const duration<R2, P2>& d);
+
+template<class R1, class P1, class C, class D2>
+time_point<C, D2>
+operator-(const duration<R1, P1>& d,
+          const time_point<C, D2>& pt);
+
+template<class Clock, class Dur1, class Dur2>
+bool operator==(const time_point<Clock, Dur1>& lhs,
+                const time_point<Clock, Dur2>& rhs);
+template<class Clock, class Dur1, class Dur2>
+bool operator!=(const time_point<Clock, Dur1>& lhs,
+                const time_point<Clock, Dur2>& rhs);
+template<class Clock, class Dur1, class Dur2>
+bool operator<(const time_point<Clock, Dur1>& lhs,
+               const time_point<Clock, Dur2>& rhs);
+template<class Clock, class Dur1, class Dur2>
+bool operator<=(const time_point<Clock, Dur1>& lhs,
+                const time_point<Clock, Dur2>& rhs);
+template<class Clock, class Dur1, class Dur2>
+bool operator>(const time_point<Clock, Dur1>& lhs,
+               const time_point<Clock, Dur2>& rhs);
+template<class Clock, class Dur1, class Dur2>
+bool operator>=(const time_point<Clock, Dur1>& lhs,
+                const time_point<Clock, Dur2>& rhs);
+
+template <class ToDuration, class Clock, class Duration>
+time_point<Clock, ToDuration> time_point_cast(const time_point<Clock, Duration>& t);
+
+class system_clock {
+public:
+    typedef int rep; // SIMPLIFIED: actually unspecified
+    typedef std::ratio<1> period; // SIMPLIFIED: actually unspecified
+    typedef duration<rep, period> duration;
+    typedef time_point<system_clock> time_point;
+
+    constexpr static bool is_steady;
+
+    static std::chrono::time_point<std::chrono::system_clock> now();
+    static std::time_t to_time_t(const time_point& t);
+    static std::chrono::system_clock::time_point from_time_t(std::time_t t);
+};
+
+class steady_clock {
+public:
+    typedef int rep; // SIMPLIFIED: actually unspecified
+    typedef std::ratio<1> period; // SIMPLIFIED: actually unspecified
+    typedef duration<rep, period> duration;
+    typedef time_point<steady_clock> time_point;
+
+    constexpr static bool is_steady;
+
+    static std::chrono::time_point<std::chrono::steady_clock> now();
+};
+
+class high_resolution_clock {
+public:
+    typedef int rep; // SIMPLIFIED: actually unspecified
+    typedef std::ratio<1> period; // SIMPLIFIED: actually unspecified
+    typedef duration<rep, period> duration;
+    typedef time_point<high_resolution_clock> time_point;
+
+    constexpr static bool is_steady;
+
+    static std::chrono::time_point<std::chrono::high_resolution_clock> now();
+};
+
+} // namespace chrono
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_CHRONO_H

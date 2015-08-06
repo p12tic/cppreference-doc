@@ -1,0 +1,130 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_SCOPED_ALLOCATOR_H
+#define CPPREFERENCE_SCOPED_ALLOCATOR_H
+
+#if CPPREFERENCE_STDVER>= 2011
+
+namespace std {
+
+template<class OuterAlloc, class... InnerAlloc>
+class scoped_allocator_adaptor : public OuterAlloc {
+public:
+    typedef OuterAlloc outer_allocator_type;
+    typedef scoped_allocator_adaptor<OuterAlloc> inner_allocator_type; // SIMPLIFIED
+
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef typename OuterAlloc::value_type value_type;
+    typedef typename OuterAlloc::size_type size_type;
+    typedef typename OuterAlloc::difference_type difference_type;
+    typedef typename OuterAlloc::pointer pointer;
+    typedef typename OuterAlloc::const_pointer const_pointer;
+    typedef typename OuterAlloc::void_pointer void_pointer;
+    typedef typename OuterAlloc::const_void_pointer const_void_pointer;
+#else
+    typedef typename allocator_traits<OuterAlloc>::value_type value_type;
+    typedef typename allocator_traits<OuterAlloc>::size_type size_type;
+    typedef typename allocator_traits<OuterAlloc>::difference_type difference_type;
+    typedef typename allocator_traits<OuterAlloc>::pointer pointer;
+    typedef typename allocator_traits<OuterAlloc>::const_pointer const_pointer;
+    typedef typename allocator_traits<OuterAlloc>::void_pointer void_pointer;
+    typedef typename allocator_traits<OuterAlloc>::const_void_pointer const_void_pointer;
+#endif
+
+    // SIMPLIFIED: depends on InnerAlloc... and OuterAlloc
+    typedef std::true_type propagate_on_container_copy_assignment;
+    typedef std::true_type propagate_on_container_move_assignment;
+    typedef std::true_type propagate_on_container_swap;
+#if CPPREFERENCE_STDVER>= 2017
+    typedef std::true_type is_always_equal;
+#endif
+
+    template<class T>
+    struct rebind {
+        typedef OuterAlloc other; // SIMPLIFIED
+    };
+
+    scoped_allocator_adaptor();
+
+    template<class OuterA2>
+    scoped_allocator_adaptor(OuterA2&& outerAlloc, const InnerAllocs& ... innerAllocs);
+
+    scoped_allocator_adaptor(const scoped_allocator_adaptor& other);
+
+    scoped_allocator_adaptor(scoped_allocator_adaptor&& other);
+
+    template<class OuterA2>
+    scoped_allocator_adaptor(const scoped_allocator_adaptor<OuterA2, InnerAllocs...>& other);
+
+    template<class OuterA2>
+    scoped_allocator_adaptor(scoped_allocator_adaptor<OuterA2, InnerAllocs...>&& other);
+
+    ~scoped_allocator_adaptor();
+
+    inner_allocator_type& inner_allocator();
+    const inner_allocator_type& inner_allocator() const;
+
+    outer_allocator_type& outer_allocator();
+    const outer_allocator_type& outer_allocator() const;
+
+    pointer allocate(size_type n);
+    pointer allocate(size_type n, const_void_pointer hint);
+
+    void deallocate(pointer p, size_type n);
+
+    size_type max_size() const;
+
+    template <class T, class... Args>
+    void construct(T* p, Args&& ... args);
+
+    template<class T1, class T2, class... Args1, class... Args2>
+    void construct(std::pair<T1, T2>* p,
+                   std::piecewise_construct_t,
+                   std::tuple<Args1...> x,
+                   std::tuple<Args2...> y);
+
+    template<class T1, class T2>
+    void construct(std::pair<T1, T2>* p);
+
+    template<class T1, class T2, class U, class V>
+    void construct(std::pair<T1, T2>* p, U&& x, V&& y);
+
+    template<class T1, class T2, class U, class V>
+    void construct(std::pair<T1, T2>* p, const std::pair<U, V>& xy);
+
+    template<class T1, class T2, class U, class V>
+    void construct(std::pair<T1, T2>* p, std::pair<U, V>&& xy);
+
+    template<class T>
+    void destroy(T* p);
+
+    scoped_allocator_adaptor select_on_container_copy_construction() const;
+
+};
+
+template<class OuterAlloc1, class OuterAlloc2, class... InnerAllocs>
+bool operator==(const scoped_allocator_adaptor<OuterAlloc1, InnerAllocs...>& lhs,
+                const scoped_allocator_adaptor<OuterAlloc2, InnerAllocs...>& rhs);
+
+template<class OuterAlloc1, class OuterAlloc2, class... InnerAllocs>
+bool operator!=(const scoped_allocator_adaptor<OuterAlloc1, InnerAllocs...>& lhs,
+                const scoped_allocator_adaptor<OuterAlloc2, InnerAllocs...>& rhs);
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_SCOPED_ALLOCATOR_H

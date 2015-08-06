@@ -1,0 +1,146 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_TUPLE_H
+#define CPPREFERENCE_TUPLE_H
+
+#if CPPREFERENCE_STDVER >= 2011
+
+namespace std {
+
+template<class... Types >
+class tuple {
+public:
+    constexpr tuple();
+    template<class... UTypes >
+    explicit tuple(UTypes&& ... args);
+    template<class... UTypes >
+    tuple(const tuple<UTypes...>& other);
+    template <class... UTypes>
+    tuple(tuple<UTypes...>&& other);
+    template<class U1, class U2 >
+    tuple(const pair<U1, U2>& p);
+    template<class U1, class U2 >
+    tuple(pair<U1, U2>&& p);
+    tuple(const tuple& other) = default;
+    tuple(tuple&& other) = default;
+
+    template<class Alloc >
+    tuple(std::allocator_arg_t, const Alloc& a);
+
+    template<class Alloc >
+    tuple(std::allocator_arg_t, const Alloc& a, const Types& ... args);
+
+    template<class Alloc, class... UTypes >
+    tuple(std::allocator_arg_t, const Alloc& a, UTypes&& ... args);
+
+    template <class Alloc, class... UTypes>
+    tuple(std::allocator_arg_t, const Alloc& a, const tuple<UTypes...>& other);
+
+    template<class Alloc, class... UTypes >
+    tuple(std::allocator_arg_t, const Alloc& a, tuple<UTypes...>&& other);
+
+    template<class Alloc, class U1, class U2 >
+    tuple(std::allocator_arg_t, const Alloc& a, const pair<U1, U2>& p);
+
+    template<class Alloc, class U1, class U2 >
+    tuple(std::allocator_arg_t, const Alloc& a, pair<U1, U2>&& p);
+
+    template<class Alloc >
+    tuple(std::allocator_arg_t, const Alloc& a, const tuple& other);
+
+    template<class Alloc >
+    tuple(std::allocator_arg_t, const Alloc& a, tuple&& other);
+
+    tuple& operator=(const tuple& other);
+
+    tuple& operator=(tuple&& other);
+
+    template<class... UTypes >
+    tuple& operator=(const tuple<UTypes...>& other);
+
+    template<class... UTypes >
+    tuple& operator=(tuple<UTypes...>&& other);
+
+    template<class U1, class U2 >
+    tuple& operator=(const pair<U1, U2>& p);
+
+    template<class U1, class U2 >
+    tuple& operator=(pair<U1, U2>&& p);
+
+    void swap(tuple& other);
+};
+
+template<class... Types >
+tuple<VTypes...> make_tuple(Types&& ... args);
+
+template<class... Types >
+tuple<Types& ...> tie(Types& ... args);
+
+template<class... Types >
+tuple < Types&& ... > forward_as_tuple(Types&& ... args);
+
+template<class... Tuples >
+std::tuple<CTypes...> tuple_cat(Tuples&& ... args);
+
+template<std::size_t I, class... Types >
+typename std::tuple_element<I, tuple<Types...> >::type&
+get(tuple<Types...>& t);
+
+template<std::size_t I, class... Types >
+typename std::tuple_element<I, tuple<Types...> >::type&&
+get(tuple<Types...>&& t);
+
+template<std::size_t I, class... Types >
+typename std::tuple_element<I, tuple<Types...> >::type const&
+get(const tuple<Types...>& t);
+
+template<class... TTypes, class... UTypes >
+bool operator==(const tuple<TTypes...>& lhs,
+                const tuple<UTypes...>& rhs);
+template<class... TTypes, class... UTypes >
+bool operator!=(const tuple<TTypes...>& lhs,
+                const tuple<UTypes...>& rhs);
+template<class... TTypes, class... UTypes >
+bool operator<(const tuple<TTypes...>& lhs,
+               const tuple<UTypes...>& rhs);
+template<class... TTypes, class... UTypes >
+bool operator<=(const tuple<TTypes...>& lhs,
+                const tuple<UTypes...>& rhs);
+template<class... TTypes, class... UTypes >
+bool operator>(const tuple<TTypes...>& lhs,
+               const tuple<UTypes...>& rhs);
+template<class... TTypes, class... UTypes >
+bool operator>=(const tuple<TTypes...>& lhs,
+                const tuple<UTypes...>& rhs);
+
+template<class... Types >
+void swap(tuple<Types...>& lhs, tuple<Types...>& rhs);
+
+template<class... Types >
+class tuple_size<std::tuple<Types...> > : public std::integral_constant<std::size_t, sizeof...(Types)> { };
+
+template<std::size_t I, class... Types >
+class tuple_element<I, tuple<Types...> > {
+    typedef void type;
+}; // SIMPLIFIED
+
+const void* ignore; // SIMPLIFIED
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER >= 2011
+
+#endif // CPPREFERENCE_TUPLE_H

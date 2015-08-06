@@ -1,0 +1,122 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_SHARED_MUTEX_H
+#define CPPREFERENCE_SHARED_MUTEX_H
+
+#if CPPREFERENCE_STDVER>= 2014
+
+namespace std {
+
+#if CPPREFERENCE_STDVER>= 2017
+class shared_mutex {
+public:
+    typedef void* native_handle_type; // actually impl-defined
+
+    shared_mutex();
+    shared_mutex(const shared_mutex&) = delete;
+    shared_mutex& operator=(const shared_mutex&) = delete;
+
+    ~shared_mutex();
+
+    void lock();
+    bool try_lock();
+    void unlock();
+
+    void lock_shared();
+    bool try_lock_shared();
+    void unlock_shared();
+    native_handle_type native_handle();
+};
+#endif // CPPREFERENCE_STDVER>= 2017
+
+class shared_timed_mutex {
+public:
+    typedef void* native_handle_type; // actually impl-defined
+
+    shared_timed_mutex();
+    shared_timed_mutex(const shared_timed_mutex&) = delete;
+    shared_timed_mutex& operator=(const shared_timed_mutex&) = delete;
+
+    ~shared_timed_mutex();
+
+    void lock();
+    bool try_lock();
+    template<class Rep, class Period>
+    bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
+    template<class Clock, class Duration>
+    bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
+    void unlock();
+
+    void lock_shared();
+    bool try_lock_shared();
+
+    template<class Rep, class Period>
+    bool try_lock_shared_for(const std::chrono::duration<Rep, Period>& timeout_duration);
+    template<class Clock, class Duration>
+    bool try_lock_shared_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    void unlock_shared();
+    native_handle_type native_handle();
+};
+
+template<class Mutex>
+class shared_lock {
+public:
+    typedef Mutex mutex_type;
+
+    shared_lock();
+    shared_lock(shared_lock&& other);
+    explicit shared_lock(mutex_type& m);
+    shared_lock(mutex_type& m, std::defer_lock_t t);
+    shared_lock(mutex_type& m, std::try_to_lock_t t);
+    shared_lock(mutex_type& m, std::adopt_lock_t t);
+
+    template<class Rep, class Period>
+    shared_lock(mutex_type& m,
+                const std::chrono::duration<Rep, Period>& timeout_duration);
+
+    template<class Clock, class Duration>
+    shared_lock(mutex_type& m,
+                const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    ~shared_lock();
+    shared_lock& operator=(shared_lock&& other);
+
+    void lock();
+    bool try_lock();
+    template<class Rep, class Period>
+    bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
+    template<class Clock, class Duration>
+    bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
+    void unlock();
+
+    void swap(shared_lock<Mutex>& other);
+
+    mutex_type* release();
+    mutex_type* mutex() const;
+    bool owns_lock() const;
+    explicit operator bool() const;
+};
+
+template<class Mutex>
+void swap(shared_lock<Mutex>& lhs,
+          shared_lock<Mutex>& rhs);
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2014
+
+#endif // CPPREFERENCE_SHARED_MUTEX_H

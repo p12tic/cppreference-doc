@@ -1,0 +1,198 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CINTTYPES_H
+#define CPPREFERENCE_CINTTYPES_H
+
+#if CPPREFERENCE_STDVER>= 2011
+
+#include <cstdint>
+
+#define PRId8 ""
+#define PRId16 ""
+#define PRId32 ""
+#define PRId64 ""
+#define PRIdLEAST8 ""
+#define PRIdLEAST16 ""
+#define PRIdLEAST32 ""
+#define PRIdLEAST64 ""
+#define PRIdFAST8 ""
+#define PRIdFAST16 ""
+#define PRIdFAST32 ""
+#define PRIdFAST64 ""
+#define PRIdMAX ""
+#define PRIdPTR ""
+#define PRIi8 ""
+#define PRIi16 ""
+#define PRIi32 ""
+#define PRIi64 ""
+#define PRIiLEAST8 ""
+#define PRIiLEAST16 ""
+#define PRIiLEAST32 ""
+#define PRIiLEAST64 ""
+#define PRIiFAST8 ""
+#define PRIiFAST16 ""
+#define PRIiFAST32 ""
+#define PRIiFAST64 ""
+#define PRIiMAX ""
+#define PRIiPTR ""
+#define PRIo8 ""
+#define PRIo16 ""
+#define PRIo32 ""
+#define PRIo64 ""
+#define PRIoLEAST8 ""
+#define PRIoLEAST16 ""
+#define PRIoLEAST32 ""
+#define PRIoLEAST64 ""
+#define PRIoFAST8 ""
+#define PRIoFAST16 ""
+#define PRIoFAST32 ""
+#define PRIoFAST64 ""
+#define PRIoMAX ""
+#define PRIoPTR ""
+#define PRIu8 ""
+#define PRIu16 ""
+#define PRIu32 ""
+#define PRIu64 ""
+#define PRIuLEAST8 ""
+#define PRIuLEAST16 ""
+#define PRIuLEAST32 ""
+#define PRIuLEAST64 ""
+#define PRIuFAST8 ""
+#define PRIuFAST16 ""
+#define PRIuFAST32 ""
+#define PRIuFAST64 ""
+#define PRIuMAX ""
+#define PRIuPTR ""
+#define PRIx8 ""
+#define PRIx16 ""
+#define PRIx32 ""
+#define PRIx64 ""
+#define PRIxLEAST8 ""
+#define PRIxLEAST16 ""
+#define PRIxLEAST32 ""
+#define PRIxLEAST64 ""
+#define PRIxFAST8 ""
+#define PRIxFAST16 ""
+#define PRIxFAST32 ""
+#define PRIxFAST64 ""
+#define PRIxMAX ""
+#define PRIxPTR ""
+#define PRIX8 ""
+#define PRIX16 ""
+#define PRIX32 ""
+#define PRIX64 ""
+#define PRIXLEAST8 ""
+#define PRIXLEAST16 ""
+#define PRIXLEAST32 ""
+#define PRIXLEAST64 ""
+#define PRIXFAST8 ""
+#define PRIXFAST16 ""
+#define PRIXFAST32 ""
+#define PRIXFAST64 ""
+#define PRIXMAX ""
+#define PRIXPTR ""
+#define SCNd8 ""
+#define SCNd16 ""
+#define SCNd32 ""
+#define SCNd64 ""
+#define SCNdLEAST8 ""
+#define SCNdLEAST16 ""
+#define SCNdLEAST32 ""
+#define SCNdLEAST64 ""
+#define SCNdFAST8 ""
+#define SCNdFAST16 ""
+#define SCNdFAST32 ""
+#define SCNdFAST64 ""
+#define SCNdMAX ""
+#define SCNdPTR ""
+#define SCNi8 ""
+#define SCNi16 ""
+#define SCNi32 ""
+#define SCNi64 ""
+#define SCNiLEAST8 ""
+#define SCNiLEAST16 ""
+#define SCNiLEAST32 ""
+#define SCNiLEAST64 ""
+#define SCNiFAST8 ""
+#define SCNiFAST16 ""
+#define SCNiFAST32 ""
+#define SCNiFAST64 ""
+#define SCNiMAX ""
+#define SCNiPTR ""
+#define SCNo8 ""
+#define SCNo16 ""
+#define SCNo32 ""
+#define SCNo64 ""
+#define SCNoLEAST8 ""
+#define SCNoLEAST16 ""
+#define SCNoLEAST32 ""
+#define SCNoLEAST64 ""
+#define SCNoFAST8 ""
+#define SCNoFAST16 ""
+#define SCNoFAST32 ""
+#define SCNoFAST64 ""
+#define SCNoMAX ""
+#define SCNoPTR ""
+#define SCNu8 ""
+#define SCNu16 ""
+#define SCNu32 ""
+#define SCNu64 ""
+#define SCNuLEAST8 ""
+#define SCNuLEAST16 ""
+#define SCNuLEAST32 ""
+#define SCNuLEAST64 ""
+#define SCNuFAST8 ""
+#define SCNuFAST16 ""
+#define SCNuFAST32 ""
+#define SCNuFAST64 ""
+#define SCNuMAX ""
+#define SCNuPTR ""
+#define SCNx8 ""
+#define SCNx16 ""
+#define SCNx32 ""
+#define SCNx64 ""
+#define SCNxLEAST8 ""
+#define SCNxLEAST16 ""
+#define SCNxLEAST32 ""
+#define SCNxLEAST64 ""
+#define SCNxFAST8 ""
+#define SCNxFAST16 ""
+#define SCNxFAST32 ""
+#define SCNxFAST64 ""
+#define SCNxMAX ""
+#define SCNxPTR ""
+
+namespace std {
+
+struct imaxdiv_t {
+    std::intmax_t quot;
+    std::intmax_t rem;
+};
+
+std::intmax_t abs(std::intmax_t n);
+std::intmax_t imaxabs(std::intmax_t n);
+std::imaxdiv_t div(std::intmax_t x, std::intmax_t y);
+std::imaxdiv_t imaxdiv(std::intmax_t x, std::intmax_t y);
+std::intmax_t strtoimax(const char* nptr, char** endptr, int base);
+std::uintmax_t strtoumax(const char* nptr, char** endptr, int base);
+std::intmax_t wcstoimax(const wchar_t* nptr, wchar_t** endptr, int base);
+std::uintmax_t wcstoumax(const wchar_t* nptr, wchar_t** endptr, int base);
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_CINTTYPES_H

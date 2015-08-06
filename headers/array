@@ -1,0 +1,140 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_ARRAY_H
+#define CPPREFERENCE_ARRAY_H
+
+namespace std {
+
+#if CPPREFERENCE_STDVER>= 2011
+
+template<class T, std::size_t N>
+class array {
+public:
+    typedef T value_type;
+    typedef size_t size_type; // actual type unspecified
+    typedef ptrdiff_t difference_type; // actual type not specified
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef T& reference;
+    typedef const T& const_reference;
+    typedef T* pointer;
+    typedef const T* const_pointer;
+#else
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    // constructor
+    array& operator=(const array& other);
+#if CPPREFERENCE_STDVER>= 2011
+    array& operator=(array&& other);
+    array& operator=(initializer_list<T> ilist);
+#endif
+
+    void assign(size_type count, const value_type& value);
+    template <class InputIt>
+    void assign(InputIt first, InputIt last);
+#if CPPREFERENCE_STDVER>= 2011
+    void assign(std::initializer_list<T> ilist);
+#endif
+
+    allocator_type get_allocator() const;
+
+    // element access
+    reference       at(size_type n);
+    const_reference at(size_type n) const;
+    reference       operator[](size_type n);
+    const_reference operator[](size_type n) const;
+
+    reference       front();
+    const_reference front() const;
+    reference       back();
+    const_reference back() const;
+
+    T* data();
+    const T* data() const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+
+    bool empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    void fill(const T& value);
+
+    void swap(array& other);
+};
+
+template<class T, size_t N>
+bool operator==(const array<T, N>& lhs,
+                const array<T, N>& rhs);
+
+template<class T, size_t N>
+bool operator!=(const array<T, N>& lhs,
+                const array<T, N>& rhs);
+
+template<class T, size_t N>
+bool operator<(const array<T, N>& lhs,
+               const array<T, N>& rhs);
+
+template<class T, size_t N>
+bool operator<=(const array<T, N>& lhs,
+                const array<T, N>& rhs);
+
+template<class T, size_t N>
+bool operator>(const array<T, N>& lhs,
+               const array<T, N>& rhs);
+
+template<class T, size_t N>
+bool operator>=(const array<T, N>& lhs,
+                const array<T, N>& rhs);
+
+template<size_t I, class T, size_t N>
+constexpr T& get(array<T, N>& a);
+
+template<size_t I, class T, size_t N>
+constexpr T&& get(array<T, N>&& a);
+
+template<size_t I, class T, size_t N>
+constexpr const T& get(const array<T, N>& a);
+
+template<class T, std::size_t N>
+void swap(array<T, N>& lhs,
+          array<T, N>& rhs);
+
+#endif // CPPREFERENCE_STDVER>= 2011
+} // namespace std
+
+#endif // CPPREFERENCE_ARRAY_H

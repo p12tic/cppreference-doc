@@ -1,0 +1,102 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CERRNO_H
+#define CPPREFERENCE_CERRNO_H
+
+#define ERANGE 0
+#define EDOM 0
+
+#if CPPREFERENCE_STDVER>= 2011
+#define E2BIG 0
+#define EACCES 0
+#define EADDRINUSE 0
+#define EADDRNOTAVAIL 0
+#define EAFNOSUPPORT 0
+#define EAGAIN 0
+#define EALREADY 0
+#define EBADF 0
+#define EBADMSG 0
+#define EBUSY 0
+#define ECANCELED 0
+#define ECHILD 0
+#define ECONNABORTED 0
+#define ECONNREFUSED 0
+#define ECONNRESET 0
+#define EDEADLK 0
+#define EDESTADDRREQ 0
+#define EEXIST 0
+#define EFAULT 0
+#define EFBIG 0
+#define EHOSTUNREACH 0
+#define EIDRM 0
+#define EILSEQ 0
+#define EINPROGRESS 0
+#define EINTR 0
+#define EINVAL 0
+#define EIO 0
+#define EISCONN 0
+#define EISDIR 0
+#define ELOOP 0
+#define EMFILE 0
+#define EMLINK 0
+#define EMSGSIZE 0
+#define ENAMETOOLONG 0
+#define ENETDOWN 0
+#define ENETRESET 0
+#define ENETUNREACH 0
+#define ENFILE 0
+#define ENOBUFS 0
+#define ENODATA 0
+#define ENODEV 0
+#define ENOENT 0
+#define ENOEXEC 0
+#define ENOLCK 0
+#define ENOLINK 0
+#define ENOMEM 0
+#define ENOMSG 0
+#define ENOPROTOOPT 0
+#define ENOSPC 0
+#define ENOSR 0
+#define ENOSTR 0
+#define ENOSYS 0
+#define ENOTCONN 0
+#define ENOTDIR 0
+#define ENOTEMPTY 0
+#define ENOTRECOVERABLE 0
+#define ENOTSOCK 0
+#define ENOTSUP 0
+#define ENOTTY 0
+#define ENXIO 0
+#define EOPNOTSUPP 0
+#define EOVERFLOW 0
+#define EOWNERDEAD 0
+#define EPERM 0
+#define EPIPE 0
+#define EPROTO 0
+#define EPROTONOSUPPORT 0
+#define EPROTOTYPE 0
+#define EROFS 0
+#define ESPIPE 0
+#define ESRCH 0
+#define ETIME 0
+#define ETIMEDOUT 0
+#define ETXTBSY 0
+#define EWOULDBLOCK 0
+#define EXDEV 0
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_CERRNO_H
+

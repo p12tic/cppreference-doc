@@ -1,0 +1,426 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_ATOMIC_H
+#define CPPREFERENCE_ATOMIC_H
+
+namespace std {
+
+#if CPPREFERENCE_STDVER>= 2011
+
+enum memory_order {
+    memory_order_relaxed,
+    memory_order_consume,
+    memory_order_acquire,
+    memory_order_release,
+    memory_order_acq_rel,
+    memory_order_seq_cst
+};
+
+template<class T>
+struct atomic {
+    atomic() = default;
+    constexpr atomic(T desired);
+    atomic(const atomic&) = delete;
+
+    T operator=(T desired);
+    T operator=(T desired) volatile;
+
+    atomic& operator=(const atomic&) = delete;
+    atomic& operator=(const atomic&) volatile = delete;
+
+    bool is_lock_free() const;
+    bool is_lock_free() const volatile;
+
+    void store(T desired, std::memory_order order = std::memory_order_seq_cst);
+    void store(T desired, std::memory_order order = std::memory_order_seq_cst) volatile;
+
+    T load(std::memory_order order = std::memory_order_seq_cst) const;
+    T load(std::memory_order order = std::memory_order_seq_cst) const volatile;
+
+    operator T() const;
+    operator T() const volatile;
+
+    T exchange(T desired, std::memory_order order = std::memory_order_seq_cst);
+    T exchange(T desired, std::memory_order order = std::memory_order_seq_cst) volatile;
+
+    bool compare_exchange_weak(T& expected, T desired,
+                               std::memory_order success,
+                               std::memory_order failure);
+
+    bool compare_exchange_weak(T& expected, T desired,
+
+                               std::memory_order success,
+                               std::memory_order failure) volatile;
+
+    bool compare_exchange_weak(T& expected, T desired,
+                               std::memory_order order =
+                                   std::memory_order_seq_cst);
+
+    bool compare_exchange_weak(T& expected, T desired,
+                               std::memory_order order =
+                                   std::memory_order_seq_cst) volatile;
+
+    bool compare_exchange_strong(T& expected, T desired,
+                                 std::memory_order success,
+                                 std::memory_order failure);
+
+    bool compare_exchange_strong(T& expected, T desired,
+                                 std::memory_order success,
+                                 std::memory_order failure) volatile;
+
+    bool compare_exchange_strong(T& expected, T desired,
+                                 std::memory_order order =
+                                     std::memory_order_seq_cst);
+
+    bool compare_exchange_strong(T& expected, T desired,
+                                 std::memory_order order =
+                                     std::memory_order_seq_cst) volatile;
+
+    // member of atomic<Integral>
+    T fetch_add(T arg,
+                memory_order = std::memory_order_seq_cst);
+    T fetch_add(T arg,
+                memory_order = std::memory_order_seq_cst) volatile;
+
+    // member of atomic<T*>
+    T* fetch_add(std::ptrdiff_t arg,
+                 memory_order = std::memory_order_seq_cst);
+    T* fetch_add(std::ptrdiff_t arg,
+                 memory_order = std::memory_order_seq_cst) volatile;
+
+    // member of atomic<Integral>
+    T fetch_sub(T arg,
+                memory_order = std::memory_order_seq_cst);
+    T fetch_sub(T arg,
+                memory_order = std::memory_order_seq_cst) volatile;
+
+    // member of atomic<T*>
+    T* fetch_sub(std::ptrdiff_t arg,
+                 memory_order = std::memory_order_seq_cst);
+    T* fetch_sub(std::ptrdiff_t arg,
+                 memory_order = std::memory_order_seq_cst) volatile;
+
+    // member of atomic<Integral>
+    T fetch_and(T arg,
+                memory_order = std::memory_order_seq_cst);
+    T fetch_and(T arg,
+                memory_order = std::memory_order_seq_cst) volatile;
+
+    // member of atomic<Integral>
+    T fetch_or(T arg,
+               memory_order = std::memory_order_seq_cst);
+    T fetch_or(T arg,
+               memory_order = std::memory_order_seq_cst) volatile;
+
+    // member of atomic<Integral>
+    T fetch_xor(T arg,
+                memory_xorder = std::memory_xorder_seq_cst);
+    T fetch_xor(T arg,
+                memory_xorder = std::memory_xorder_seq_cst) volatile;
+
+    // member of atomic<Integral>
+    T operator++();
+    T operator++() volatile;
+    T operator++(int);
+    T operator++(int) volatile;
+    T operator--();
+    T operator--() volatile;
+    T operator--(int);
+    T operator--(int) volatile;
+    T operator+=(T arg);
+    T operator+=(T arg) volatile;
+    T operator-=(T arg);
+    T operator-=(T arg) volatile;
+    T operator&=(T arg);
+    T operator&=(T arg) volatile;
+    T operator|=(T arg);
+    T operator|=(T arg) volatile;
+    T operator^=(T arg);
+    T operator^=(T arg) volatile;
+
+    // member of atomic<T*>
+    T* operator++();
+    T* operator++() volatile;
+    T* operator++(int);
+    T* operator++(int) volatile;
+    T* operator--();
+    T* operator--() volatile;
+    T* operator--(int);
+    T* operator--(int) volatile;
+    T* operator+=(std::ptrdiff_t arg);
+    T* operator+=(std::ptrdiff_t arg) volatile;
+    T* operator-=(std::ptrdiff_t arg);
+    T* operator-=(std::ptrdiff_t arg) volatile;
+};
+
+typedef atomic<bool>               atomic_bool;
+typedef atomic<char>               atomic_char;
+typedef atomic<signed char>        atomic_schar;
+typedef atomic<unsigned char>      atomic_uchar;
+typedef atomic<short>              atomic_short;
+typedef atomic<unsigned short>     atomic_ushort;
+typedef atomic<int>                atomic_int;
+typedef atomic<unsigned int>       atomic_uint;
+typedef atomic<long>               atomic_long;
+typedef atomic<unsigned long>      atomic_ulong;
+typedef atomic<long long>          atomic_llong;
+typedef atomic<unsigned long long> atomic_ullong;
+typedef atomic<char16_t>           atomic_char16_t;
+typedef atomic<char32_t>           atomic_char32_t;
+typedef atomic<wchar_t>            atomic_wchar_t;
+
+typedef atomic<int_least8_t>   atomic_int_least8_t;
+typedef atomic<uint_least8_t>  atomic_uint_least8_t;
+typedef atomic<int_least16_t>  atomic_int_least16_t;
+typedef atomic<uint_least16_t> atomic_uint_least16_t;
+typedef atomic<int_least32_t>  atomic_int_least32_t;
+typedef atomic<uint_least32_t> atomic_uint_least32_t;
+typedef atomic<int_least64_t>  atomic_int_least64_t;
+typedef atomic<uint_least64_t> atomic_uint_least64_t;
+
+typedef atomic<int_fast8_t>   atomic_int_fast8_t;
+typedef atomic<uint_fast8_t>  atomic_uint_fast8_t;
+typedef atomic<int_fast16_t>  atomic_int_fast16_t;
+typedef atomic<uint_fast16_t> atomic_uint_fast16_t;
+typedef atomic<int_fast32_t>  atomic_int_fast32_t;
+typedef atomic<uint_fast32_t> atomic_uint_fast32_t;
+typedef atomic<int_fast64_t>  atomic_int_fast64_t;
+typedef atomic<uint_fast64_t> atomic_uint_fast64_t;
+
+typedef atomic<intptr_t>  atomic_intptr_t;
+typedef atomic<uintptr_t> atomic_uintptr_t;
+typedef atomic<size_t>    atomic_size_t;
+typedef atomic<ptrdiff_t> atomic_ptrdiff_t;
+typedef atomic<intmax_t>  atomic_intmax_t;
+typedef atomic<uintmax_t> atomic_uintmax_t;
+
+template<class T>
+bool atomic_is_lock_free(const volatile std::atomic<T>* obj);
+template<class T>
+bool atomic_is_lock_free(const std::atomic<T>* obj);
+
+template<class T>
+void atomic_store(std::atomic<T>* obj, T desr);
+template<class T>
+void atomic_store(volatile std::atomic<T>* obj, T desr);
+
+template<class T>
+void atomic_store_explicit(std::atomic<T>* obj, T desr,
+                           std::memory_order order);
+template<class T>
+void atomic_store_explicit(volatile std::atomic<T>* obj, T desr,
+                           std::memory_order order);
+
+template<class T>
+T atomic_load(const std::atomic<T>* obj);
+template<class T>
+T atomic_load(const volatile std::atomic<T>* obj);
+
+template<class T>
+T atomic_load_explicit(const std::atomic<T>* obj,
+                       std::memory_order order);
+template<class T>
+T atomic_load_explicit(const volatile std::atomic<T>* obj,
+                       std::memory_order order);
+
+template<class T>
+T atomic_exchange(std::atomic<T>* obj, T desr);
+template<class T>
+T atomic_exchange(volatile std::atomic<T>* obj, T desr);
+
+template<class T>
+T atomic_exchange_explicit(std::atomic<T>* obj, T desr,
+                           std::memory_order order);
+template<class T>
+T atomic_exchange_explicit(volatile std::atomic<T>* obj, T desr,
+                           std::memory_order order);
+
+template<class T>
+bool atomic_compare_exchange_weak(std::atomic<T>* obj,
+                                  T* expected, T desired);
+template<class T>
+bool atomic_compare_exchange_weak(volatile std::atomic<T>* obj,
+                                  T* expected, T desired);
+
+template<class T>
+bool atomic_compare_exchange_strong(std::atomic<T>* obj,
+                                    T* expected, T desired);
+template<class T>
+bool atomic_compare_exchange_strong(volatile std::atomic<T>* obj,
+                                    T* expected, T desired);
+
+template<class T>
+bool atomic_compare_exchange_weak_explicit(std::atomic<T>* obj,
+        T* expected, T desired,
+        std::memory_order succ,
+        std::memory_order fail);
+template<class T>
+bool atomic_compare_exchange_weak_explicit(volatile std::atomic<T>* obj,
+        T* expected, T desired,
+        std::memory_order succ,
+        std::memory_order fail);
+
+template<class T>
+bool atomic_compare_exchange_strong_explicit(std::atomic<T>* obj,
+        T* expected, T desired,
+        std::memory_order succ,
+        std::memory_order fail);
+template<class T>
+bool atomic_compare_exchange_strong_explicit(volatile std::atomic<T>* obj,
+        T* expected, T desired,
+        std::memory_order succ,
+        std::memory_order fail);
+
+template<class Integral>
+Integral atomic_fetch_add(std::atomic<Integral>* obj, Integral arg);
+template<class Integral>
+Integral atomic_fetch_add(volatile std::atomic<Integral>* obj, Integral arg);
+
+template<class Integral>
+Integral atomic_fetch_add_explicit(std::atomic<Integral>* obj, Integral arg,
+                                   std::memory_order order);
+template<class Integral>
+Integral atomic_fetch_add_explicit(volatile std::atomic<Integral>* obj, Integral arg,
+                                   std::memory_order order);
+
+template<class T>
+T* atomic_fetch_add(std::atomic<T*>* obj, std::ptrdiff_t arg);
+template<class T>
+T* atomic_fetch_add(volatile std::atomic<T*>* obj, std::ptrdiff_t arg);
+
+template<class T>
+T* atomic_fetch_add_explicit(std::atomic<T*>* obj, std::ptrdiff_t arg,
+                             std::memory_order order);
+template<class T>
+T* atomic_fetch_add_explicit(volatile std::atomic<T*>* obj, std::ptrdiff_t arg,
+                             std::memory_order order);
+
+template<class Integral>
+Integral atomic_fetch_sub(std::atomic<Integral>* obj, Integral arg);
+template<class Integral>
+Integral atomic_fetch_sub(volatile std::atomic<Integral>* obj, Integral arg);
+
+template<class Integral>
+Integral atomic_fetch_sub_explicit(std::atomic<Integral>* obj, Integral arg,
+                                   std::memory_order order);
+template<class Integral>
+Integral atomic_fetch_sub_explicit(volatile std::atomic<Integral>* obj, Integral arg,
+                                   std::memory_order order);
+
+template<class T>
+T* atomic_fetch_sub(std::atomic<T*>* obj, std::ptrdiff_t arg);
+template<class T>
+T* atomic_fetch_sub(volatile std::atomic<T*>* obj, std::ptrdiff_t arg);
+
+template<class T>
+T* atomic_fetch_sub_explicit(std::atomic<T*>* obj, std::ptrdiff_t arg,
+                             std::memory_order order);
+template<class T>
+T* atomic_fetch_sub_explicit(volatile std::atomic<T*>* obj, std::ptrdiff_t arg,
+                             std::memory_order order);
+
+template<class Integral>
+Integral atomic_fetch_and(std::atomic<Integral>* obj, Integral arg);
+template<class Integral>
+Integral atomic_fetch_and(volatile std::atomic<Integral>* obj, Integral arg);
+
+template<class Integral>
+Integral atomic_fetch_and_explicit(std::atomic<Integral>* obj,
+                                   Integral arg,
+                                   std::memory_order order);
+
+template<class Integral>
+Integral atomic_fetch_and_explicit(volatile std::atomic<Integral>* obj,
+                                   Integral arg,
+                                   std::memory_order order);
+template<class Integral>
+Integral atomic_fetch_or(std::atomic<Integral>* obj, Integral arg);
+template<class Integral>
+Integral atomic_fetch_or(volatile std::atomic<Integral>* obj, Integral arg);
+
+template<class Integral>
+Integral atomic_fetch_or_explicit(std::atomic<Integral>* obj,
+                                  Integral arg,
+                                  std::memory_order order);
+
+template<class Integral>
+Integral atomic_fetch_or_explicit(volatile std::atomic<Integral>* obj,
+                                  Integral arg,
+                                  std::memory_order order);
+
+template<class Integral>
+Integral atomic_fetch_xor(std::atomic<Integral>* obj, Integral arg);
+template<class Integral>
+Integral atomic_fetch_xor(volatile std::atomic<Integral>* obj, Integral arg);
+
+template<class Integral>
+Integral atomic_fetch_xor_explicit(std::atomic<Integral>* obj,
+                                   Integral arg,
+                                   std::memory_order order);
+
+template<class Integral>
+Integral atomic_fetch_xor_explicit(volatile std::atomic<Integral>* obj,
+                                   Integral arg,
+                                   std::memory_order order);
+
+class atomic_flag {
+public:
+    atomic_flag();
+    atomic_flag(const atomic_flag&) = delete;
+
+    atomic_flag& operator=(const atomic_flag&) = delete;
+    atomic_flag& operator=(const atomic_flag&) volatile = delete;
+
+    void clear(std::memory_order order = std::memory_order_seq_cst) volatile;
+    void clear(std::memory_order order = std::memory_order_seq_cst);
+
+    bool test_and_set(std::memory_order order = std::memory_order_seq_cst) volatile;
+    bool test_and_set(std::memory_order order = std::memory_order_seq_cst);
+};
+
+bool atomic_flag_test_and_set(volatile std::atomic_flag* p);
+bool atomic_flag_test_and_set(std::atomic_flag* p);
+bool atomic_flag_test_and_set_explicit(volatile std::atomic_flag* p,
+                                       std::memory_order order);
+bool atomic_flag_test_and_set_explicit(std::atomic_flag* p,
+                                       std::memory_order order);
+
+void atomic_flag_clear(volatile std::atomic_flag* p);
+void atomic_flag_clear(std::atomic_flag* p);
+void atomic_flag_clear_explicit(volatile std::atomic_flag* p,
+                                std::memory_order order);
+void atomic_flag_clear_explicit(std::atomic_flag* p,
+                                std::memory_order order);
+
+void atomic_signal_fence(std::memory_order order);
+void atomic_thread_fence(std::memory_order order);
+template<class T>
+T kill_dependency(T y);
+
+template<class T>
+void atomic_init(std::atomic<T>* obj, T desired);
+
+template<class T>
+void atomic_init(volatile std::atomic<T>* obj, T desired);
+
+#define ATOMIC_VAR_INIT(value) // impl-defined
+#define ATOMIC_FLAG_INIT // impl-defined
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+} // namespace std
+
+#endif // CPPREFERENCE_ATOMIC_H

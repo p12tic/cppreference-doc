@@ -1,0 +1,138 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_BITSET_H
+#define CPPREFERENCE_BITSET_H
+
+namespace std {
+
+template<std::size_t N>
+class bitset {
+public:
+
+    class reference {
+        reference();
+    public:
+        ~reference();
+        reference& operator=(bool x);
+        reference& operator=(const reference& x);
+        operator bool() const;
+        bool operator~() const;
+        reference& flip();
+    };
+
+#if CPPREFERENCE_STDVER <2011
+    bitset();
+    bitset(unsigned long val);
+    template<class CharT, class Traits, class Alloc>
+    explicit bitset(const std::basic_string<CharT, Traits, Alloc>& str,
+                    typename std::basic_string<CharT, Traits, Alloc>::size_type pos = 0,
+                    typename std::basic_string<CharT, Traits, Alloc>::size_type n =
+                        std::basic_string<CharT, Traits, Alloc>::npos);
+#else
+    constexpr bitset();
+    constexpr bitset(unsigned long long val);
+
+    template<class CharT, class Traits, class Alloc>
+    explicit bitset(const std::basic_string<CharT, Traits, Alloc>& str,
+                    typename std::basic_string<CharT, Traits, Alloc>::size_type pos = 0,
+                    typename std::basic_string<CharT, Traits, Alloc>::size_type n =
+                        std::basic_string<CharT, Traits, Alloc>::npos,
+                    CharT zero = CharT('0'),
+                    CharT one = CharT('1'));
+
+    template<class CharT>
+    explicit bitset(const CharT* str,
+                    typename std::basic_string<CharT>::size_type n =
+                        std::basic_string<CharT>::npos,
+                    CharT zero = CharT('0'),
+                    CharT one = CharT('1'));
+#endif
+
+    bool operator==(const bitset<N>& rhs) const;
+    bool operator!=(const bitset<N>& rhs) const;
+
+#if CPPREFERENCE_STDVER <2011
+    bool operator[](std::size_t pos) const;
+#else
+    constexpr bool operator[](std::size_t pos) const;
+#endif
+    reference operator[](std::size_t pos);
+    bool test(size_t pos) const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    bool all() const;
+#endif
+    bool any() const;
+    bool none() const;
+
+    size_t count() const;
+
+    std::size_t size() const;
+
+    bitset<N>& operator&=(const bitset<N>& other);
+    bitset<N>& operator|=(const bitset<N>& other);
+    bitset<N>& operator^=(const bitset<N>& other);
+    bitset<N>& operator~() const;
+
+    bitset<N> operator<<(std::size_t pos) const;
+    bitset<N>& operator<<=(std::size_t pos);
+    bitset<N> operator>>(std::size_t pos) const;
+    bitset<N>& operator>>=(std::size_t pos);
+
+    bitset<N>& set();
+    bitset<N>& set(size_t pos, bool value = true);
+
+    bitset<N>& reset();
+    bitset<N>& reset(size_t pos);
+
+    bitset<N>& flip();
+    bitset<N>& flip(size_t pos);
+
+#if CPPREFERENCE_STDVER <2011
+    template<class CharT, class Traits, class Alloc>
+    std::basic_string<CharT, Traits, Allocator> to_string() const;
+#else
+    template<class CharT = char,
+             class Traits = std::char_traits<CharT>,
+             class Allocator = std::allocator<CharT>>
+    std::basic_string<CharT, Traits, Allocator>
+    to_string(CharT zero = CharT('0'), CharT one = CharT('1')) const;
+#endif
+
+    unsigned long to_ulong() const;
+#if CPPREFERENCE_STDVER>= 2011
+    unsigned long long to_ullong() const;
+#endif
+
+};
+
+template<std::size_t N>
+bitset<N> operator&(const bitset<N>& lhs, const bitset<N>& rhs);
+template<std::size_t N>
+bitset<N> operator|(const bitset<N>& lhs, const bitset<N>& rhs);
+template<std::size_t N>
+bitset<N> operator^(const bitset<N>& lhs, const bitset<N>& rhs);
+
+template <class CharT, class Traits, size_t N>
+std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os,
+        const bitset<N>& x);
+template <class CharT, class Traits, size_t N>
+std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>& is,
+        bitset<N>& x);
+
+} // namespace std
+
+#endif // CPPREFERENCE_BITSET_H

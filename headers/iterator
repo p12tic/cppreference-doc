@@ -1,0 +1,524 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_ITERATOR_H
+#define CPPREFERENCE_ITERATOR_H
+
+namespace std {
+
+// SIMPLIFIED: template specializations are not supported, so the typedefs use
+// the T* specialization
+template<class Iterator>
+struct iterator_traits {
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef ptrdiff_t difference_type;
+    typedef T value_type;
+    typedef T* pointer;
+    typedef T& reference;
+    typedef random_access_iterator_tag iterator_category;
+#else
+    typedef typename Iterator::difference_type difference_type;
+    typedef typename Iterator::value_type value_type;
+    typedef typename Iterator::pointer pointer;
+    typedef typename Iterator::reference reference;
+    typedef typename Iterator::iterator_category iterator_category;
+#endif
+};
+
+struct input_iterator_tag { };
+struct output_iterator_tag { };
+struct forward_iterator_tag : public input_iterator_tag { };
+struct bidirectional_iterator_tag : public forward_iterator_tag { };
+struct random_access_iterator_tag : public bidirectional_iterator_tag { };
+
+template<class Category, class T, class Distance = ptrdiff_t,
+         class Pointer = T*, class Reference = T&>
+struct iterator {
+    typedef T value_type;
+    typedef Distance difference_type;
+    typedef Pointer pointer;
+    typedef Reference reference;
+    typedef Category iterator_category;
+};
+
+template <class Iterator>
+class reverse_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef Iterator iterator_type;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef typename ptrdiff_t difference_type;
+    typedef typename Iterator::value_type value_type;
+    typedef typename Iterator::pointer pointer;
+    typedef typename Iterator::reference reference;
+    typedef typename Iterator::iterator_category iterator_category;
+#else
+    typedef typename iterator_traits<Iterator>::value_type value_type;
+    typedef typename iterator_traits<Iterator>::iterator_category iterator_category;
+    typedef typename iterator_traits<Iterator>::difference_type difference_type;
+    typedef typename iterator_traits<Iterator>::reference reference;
+    typedef typename iterator_traits<Iterator>::pointer pointer;
+#endif
+
+    reverse_iterator();
+    explicit reverse_iterator(Iterator x);
+    template <class U> reverse_iterator(const reverse_iterator<U>& other);
+
+    template<class U>
+    reverse_iterator& operator=(const reverse_iterator<U>& other);
+
+    Iterator base() const;
+    reference operator*() const;
+    pointer operator->() const;
+    reference operator[](difference_type n) const; // actually unspecified
+
+    reverse_iterator& operator++();
+    reverse_iterator& operator--();
+    reverse_iterator operator++(int);
+    reverse_iterator operator--(int);
+    reverse_iterator operator+(difference_type n) const;
+    reverse_iterator operator-(difference_type n) const;
+    reverse_iterator& operator+=(difference_type n);
+    reverse_iterator& operator-=(difference_type n);
+protected:
+    Iterator current;
+};
+
+template<class Iterator1, class Iterator2 >
+bool operator==(const reverse_iterator<Iterator1>& lhs,
+                const reverse_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator!=(const reverse_iterator<Iterator1>& lhs,
+                const reverse_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator<(const reverse_iterator<Iterator1>& lhs,
+               const reverse_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator<=(const reverse_iterator<Iterator1>& lhs,
+                const reverse_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator>(const reverse_iterator<Iterator1>& lhs,
+               const reverse_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator>=(const reverse_iterator<Iterator1>& lhs,
+                const reverse_iterator<Iterator2>& rhs);
+
+template<class Iterator >
+reverse_iterator<Iterator>
+operator+(typename reverse_iterator<Iterator>::difference_type n,
+          const reverse_iterator<Iterator>& it);
+
+template<class Iterator >
+typename reverse_iterator<Iterator>::difference_type
+operator-(const reverse_iterator<Iterator>& lhs,
+          const reverse_iterator<Iterator>& rhs);
+
+#if CPPREFERENCE_STDVER >= 2011
+template <class Iterator>
+class move_iterator {
+public:
+    typedef Iterator iterator_type;
+    typedef Iterator pointer;
+    typedef value_type&& reference;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef typename ptrdiff_t difference_type;
+    typedef typename Iterator::iterator_category iterator_category;
+#else
+    typedef typename iterator_traits<Iterator>::difference_type difference_type;
+    typedef typename iterator_traits<Iterator>::iterator_category iterator_category;
+#endif
+
+    move_iterator();
+    explicit move_iterator(Iterator x);
+    template <class U> move_iterator(const move_iterator<U>& other);
+
+    template<class U>
+    move_iterator& operator=(const move_iterator<U>& other);
+
+    Iterator base() const;
+    reference operator*() const;
+    pointer operator->() const;
+    reference operator[](difference_type n) const; // actually unspecified
+
+    move_iterator& operator++();
+    move_iterator& operator--();
+    move_iterator operator++(int);
+    move_iterator operator--(int);
+    move_iterator operator+(difference_type n) const;
+    move_iterator operator-(difference_type n) const;
+    move_iterator& operator+=(difference_type n);
+    move_iterator& operator-=(difference_type n);
+};
+
+
+template<class Iterator1, class Iterator2 >
+bool operator==(const move_iterator<Iterator1>& lhs,
+                const move_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator!=(const move_iterator<Iterator1>& lhs,
+                const move_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator<(const move_iterator<Iterator1>& lhs,
+               const move_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator<=(const move_iterator<Iterator1>& lhs,
+                const move_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator>(const move_iterator<Iterator1>& lhs,
+               const move_iterator<Iterator2>& rhs);
+
+template<class Iterator1, class Iterator2 >
+bool operator>=(const move_iterator<Iterator1>& lhs,
+                const move_iterator<Iterator2>& rhs);
+
+template<class Iterator >
+move_iterator<Iterator>
+operator+(typename move_iterator<Iterator>::difference_type n,
+          const move_iterator<Iterator>& it);
+
+template<class Iterator >
+typename move_iterator<Iterator>::difference_type
+operator-(const move_iterator<Iterator>& lhs,
+          const move_iterator<Iterator>& rhs);
+
+#endif // CPPREFERENCE_STDVER >= 2011
+
+template<class Container>
+class back_insert_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef void value_type;
+    typedef void difference_type;
+    typedef void pointer;
+    typedef void reference;
+    typedef output_iterator_tag iterator_category;
+
+    typedef Container container_type;
+
+    explicit back_insert_iterator(Container& c);
+
+#if CPPREFERENCE_STDVER <2011
+    back_insert_iterator<Container>&
+    operator=(typename Container::const_reference value);
+#else
+    back_insert_iterator<Container>&
+    operator=(const typename Container::value_type& value);
+#endif
+    back_insert_iterator<Container>&
+    operator=(typename Container::value_type&& value);
+    back_insert_iterator& operator*();
+    back_insert_iterator& operator++();
+    back_insert_iterator& operator++(int);
+protected:
+    Container* container;
+};
+
+template<class Container>
+class front_insert_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef void value_type;
+    typedef void difference_type;
+    typedef void pointer;
+    typedef void reference;
+    typedef output_iterator_tag iterator_category;
+
+    typedef Container container_type;
+
+    explicit front_insert_iterator(Container& c);
+
+#if CPPREFERENCE_STDVER <2011
+    front_insert_iterator<Container>&
+    operator=(typename Container::const_reference value);
+#else
+    front_insert_iterator<Container>&
+    operator=(const typename Container::value_type& value);
+#endif
+    front_insert_iterator<Container>&
+    operator=(typename Container::value_type&& value);
+    front_insert_iterator& operator*();
+    front_insert_iterator& operator++();
+    front_insert_iterator& operator++(int);
+protected:
+    Container* container;
+};
+
+template<class Container>
+class insert_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef void value_type;
+    typedef void difference_type;
+    typedef void pointer;
+    typedef void reference;
+    typedef output_iterator_tag iterator_category;
+
+    typedef Container container_type;
+
+    explicit insert_iterator(Container& c, typename Container::iterator i);
+
+#if CPPREFERENCE_STDVER <2011
+    insert_iterator<Container>&
+    operator=(typename Container::const_reference value);
+#else
+    insert_iterator<Container>&
+    operator=(const typename Container::value_type& value);
+#endif
+    insert_iterator<Container>&
+    operator=(typename Container::value_type&& value);
+    insert_iterator& operator*();
+    insert_iterator& operator++();
+    insert_iterator& operator++(int);
+protected:
+    Container* container;
+    Container::iterator iter;
+};
+
+template<class T,
+         class CharT = char,
+         class Traits = std::char_traits<CharT>,
+         class Distance = std::ptrdiff_t >
+class istream_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef std::basic_istream<CharT, Traits> istream_type;
+
+    typedef T value_type;
+    typedef Distance difference_type;
+    typedef const T* pointer;
+    typedef const T& reference;
+    typedef input_iterator_tag iterator_category;
+
+    istream_iterator();
+
+    istream_iterator(istream_type& stream);
+
+    istream_iterator(const istream_iterator& other) = default;
+
+    const T& operator*() const;
+    const T* operator->() const;
+
+    istream_iterator& operator++();
+    istream_iterator operator++(int);
+};
+
+template<class T, class CharT, class Traits, class Dist >
+bool operator==(const istream_iterator<T, CharT, Traits, Dist>& lhs,
+                const istream_iterator<T, CharT, Traits, Dist>& rhs);
+
+template<class CharT, class Traits >
+bool operator!=(const istream_iterator<T, CharT, Traits, Dist>& lhs,
+                const istream_iterator<T, CharT, Traits, Dist>& rhs);
+
+
+template<class T,
+         class CharT = char,
+         class Traits = std::char_traits<CharT> >
+class ostream_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef std::basic_ostream<CharT, Traits> ostream_type;
+
+    typedef void value_type;
+    typedef void difference_type;
+    typedef void pointer;
+    typedef void reference;
+    typedef output_iterator_tag iterator_category;
+
+    ostream_iterator(ostream_type& stream);
+    ostream_iterator(ostream_type& stream, const CharT* delim);
+    ~ostream_iterator();
+
+    ostream_iterator& operator=(const T& value);
+    ostream_iterator& operator*();
+    ostream_iterator& operator++();
+    ostream_iterator& operator++(int);
+};
+
+template<class T, class CharT, class Traits >
+bool operator==(const ostream_iterator<T, CharT, Traits>& lhs,
+                const ostream_iterator<T, CharT, Traits>& rhs);
+
+template<class CharT, class Traits >
+bool operator!=(const ostream_iterator<T, CharT, Traits>& lhs,
+                const ostream_iterator<T, CharT, Traits>& rhs);
+
+
+template<class CharT, class Traits = std::char_traits<CharT> >
+class istreambuf_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef int int_type;
+#else
+    typedef typename Traits::int_type int_type;
+#endif
+    typedef std::basic_streambuf<CharT, Traits> streambuf_type;
+    typedef std::basic_istream<CharT, Traits> istream_type;
+
+    typedef T value_type;
+    typedef Distance difference_type;
+    typedef const T* pointer;
+    typedef const T& reference;
+    typedef input_iterator_tag iterator_category;
+
+    istreambuf_iterator();
+    istreambuf_iterator(std::basic_istream<CharT, Traits>& is);
+    istreambuf_iterator(std::basic_streambuf<CharT, Traits>* s);
+    istreambuf_iterator(const istreambuf_iterator&) = default;
+
+    CharT operator*() const;
+#if CPPREFERENCE_STDVER >= 2011
+    pointer operator->() const;
+#endif
+    istreambuf_iterator& operator++();
+    istreambuf_iterator operator++(int); // actually unspecified
+
+    bool equal(const istreambuf_iterator& it) const;
+};
+
+template<class CharT, class Traits >
+bool operator==(const istreambuf_iterator<CharT, Traits>& lhs,
+                const istreambuf_iterator<CharT, Traits>& rhs);
+
+template<class CharT, class Traits >
+bool operator!=(const istreambuf_iterator<CharT, Traits>& lhs,
+                const istreambuf_iterator<CharT, Traits>& rhs);
+
+template<class CharT,
+         class Traits = std::char_traits<CharT> >
+class ostreambuf_iterator { // SIMPLIFIED: does not inherit iterator
+public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef std::basic_streambuf<CharT, Traits> streambuf_type;
+    typedef std::basic_ostream<CharT, Traits> ostream_type;
+
+    typedef void value_type;
+    typedef void difference_type;
+    typedef void pointer;
+    typedef void reference;
+    typedef output_iterator_tag iterator_category;
+
+    ostreambuf_iterator(streambuf_type* buffer);
+    ostreambuf_iterator(ostream_type& stream);
+
+    ostreambuf_iterator& operator=(CharT c);
+    ostreambuf_iterator& operator*();
+    ostreambuf_iterator& operator++();
+    ostreambuf_iterator& operator++(int);
+    bool failed() const;
+};
+
+#if CPPREFERENCE_STDVER >= 2011 && CPPREFERENCE_STDVER <2014
+template<class Iterator >
+std::move_iterator<Iterator> make_move_iterator(const Iterator& i);
+#elif CPPREFERENCE_STDVER >= 2014
+template<class Iterator >
+std::move_iterator<Iterator> make_move_iterator(Iterator i);
+
+template <class Iterator>
+std::reverse_iterator<Iterator> make_reverse_iterator(Iterator i);
+#endif
+
+template<class Container >
+std::front_insert_iterator<Container> front_inserter(Container& c);
+
+template<class Container >
+std::back_insert_iterator<Container> back_inserter(Container& c);
+
+template<class Container >
+std::insert_iterator<Container> inserter(Container& c, typename Container::iterator i);
+
+template<class InputIt, class Distance >
+void advance(InputIt& it, Distance n);
+
+template<class InputIt >
+typename std::iterator_traits<InputIt>::difference_type
+distance(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER >= 2011
+template<class ForwardIt >
+ForwardIt next(ForwardIt it,
+               typename std::iterator_traits<ForwardIt>::difference_type n = 1);
+
+template<class BidirIt >
+BidirIt prev(BidirIt it,
+             typename std::iterator_traits<BidirIt>::difference_type n = 1);
+
+template<class C >
+auto begin(C& c) -> decltype(c.begin());
+
+template<class C >
+auto begin(const C& c) -> decltype(c.begin());
+
+template<class T, std::size_t N >
+T* begin(T(&array)[N]);
+
+template<class C >
+auto end(C& c) -> decltype(c.end());
+
+template<class C >
+auto end(const C& c) -> decltype(c.end());
+
+template<class T, std::size_t N >
+T* end(T(&array)[N]);
+
+#endif
+#if CPPREFERENCE_STDVER >= 2014
+
+template<class C >
+constexpr auto cbegin(const C& c) -> decltype(std::begin(c));
+
+template<class C >
+constexpr auto cend(const C& c) -> decltype(std::end(c));
+
+template<class C >
+auto rbegin(C& c) -> decltype(c.rbegin());
+
+template<class C >
+auto rbegin(const C& c) -> decltype(c.rbegin());
+
+template<class T, size_t N >
+reverse_iterator<T*> rbegin(T(&array)[N]);
+
+template<class C >
+auto crbegin(const C& c) -> decltype(std::rbegin(c));
+
+template<class C >
+auto rend(C& c) -> decltype(c.rend());
+
+template<class C >
+auto rend(const C& c) -> decltype(c.rend());
+
+template<class T, size_t N >
+reverse_iterator<T*> rend(T(&array)[N]);
+
+template<class C >
+auto crend(const C& c) -> decltype(std::rend(c));
+
+#endif // CPPREFERENCE_STDVER >= 2014
+
+} // namespace std
+
+#endif // CPPREFERENCE_ITERATOR_H

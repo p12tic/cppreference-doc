@@ -1,0 +1,635 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_STRING_H
+#define CPPREFERENCE_STRING_H
+
+namespace std {
+
+template<class State>
+class fpos {
+public:
+    fpos(streamoff = streamoff());
+
+    operator streamoff() const;
+
+    State state() const;
+    void state(State st);
+
+    fpos& operator+=(streamoff);
+    fpos operator+(streamoff) const;
+    fpos& operator-=(streamoff);
+    fpos operator-(streamoff) const;
+};
+
+template<class State>
+streamoff operator-(const fpos<State>& x, const fpos<State>& y);
+
+template<class State>
+bool operator==(const fpos<State>& x, const fpos<State>& y);
+template<class State>
+bool operator!=(const fpos<State>& x, const fpos<State>& y);
+
+typedef fpos<char_traits<char>::state_type> streampos;
+typedef fpos<char_traits<wchar_t>::state_type> wstreampos;
+
+#if CPPREFERENCE_STDVER>= 2011
+typedef fpos<char_traits<char16_t>::state_type> u16streampos;
+typedef fpos<char_traits<char32_t>::state_type> u32streampos;
+#endif
+
+template<class CharT>
+class char_traits {
+public:
+    typedef CharT     char_type;
+    typedef int       int_type; // impl-defined integer type
+    typedef streamoff off_type; // actually impl-defined
+    typedef streampos pos_type; // actually impl-defined
+    typedef mbstate_t state_type; // actually impl-defined
+
+    static void assign(char_type& r, const char_type& a);
+    static char_type* assign(char_type* p, size_t count, char_type a);
+    static bool eq(char_type a, char_type b);
+    static bool lt(char_type a, char_type b);
+    static char_type* move(char_type* desc, const char_type* src, size_t count);
+    static char_type* copy(char_type* desc, const char_type* src, size_t count);
+
+    static int compare(const char_type* s1, const char_type* s2, size_t count);
+    static size_t length(const char_type* s);
+    static const char_type* find(const char_type* p, size_t count, const char_type& ch);
+
+    static char_type to_char_type(int_type c);
+    static int_type  to_int_type(char_type c);
+    static bool eq_int_type(int_type c1, int_type c2);
+    static int_type eof();
+    static int_type not_eof(int_type c);
+};
+
+template <
+    class CharT,
+    class Traits = std::char_traits<CharT>,
+    class Allocator = std::allocator<CharT>
+    > class basic_string {
+public:
+    typedef Traits traits_type;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef CharT value_type;
+#else
+    typedef Traits::char_type value_type;
+#endif
+    typedef Allocator allocator_type;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    typedef size_t size_type;
+    typedef ptrdiff_t difference_type;
+    typedef T& reference;
+    typedef const T& const_reference;
+    typedef T* pointer;
+    typedef const T* const_pointer;
+#elif CPPREFERENCE_STDVER <2011
+    typedef Allocator::size_type size_type;
+    typedef Allocator::difference_type difference_type;
+    typedef Allocator::reference reference;
+    typedef Allocator::const_reference const_reference;
+    typedef Allocator::pointer pointer;
+    typedef Allocator::const_pointer const_pointer;
+#else
+    typedef std::allocator_traits<Allocator>::size_type size_type;
+    typedef std::allocator_traits<Allocator>::difference_type difference_type;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::allocator_traits<Allocator>::pointer pointer;
+    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+#endif
+    typedef T* iterator; // actual type is unspecified
+    typedef const T* const_iterator; // actual type is unspecified
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    // constructor
+#if CPPREFERENCE_STDVER <2014
+    explicit basic_string(const Allocator& alloc = Allocator());
+#else
+    basic_string();
+    explicit basic_string(const Allocator&);
+#endif
+
+    basic_string(size_type count,
+                 CharT ch,
+                 const Allocator& alloc = Allocator());
+
+    basic_string(const basic_string& other,
+                 size_type pos,
+                 size_type count = std::basic_string::npos,
+                 const Allocator& alloc = Allocator());
+
+    basic_string(const CharT* s,
+                 size_type count,
+                 const Allocator& alloc = Allocator());
+
+    basic_string(const CharT* s,
+                 const Allocator& alloc = Allocator());
+
+    template<class InputIt>
+    basic_string(InputIt first, InputIt last,
+                 const Allocator& alloc = Allocator());
+
+    basic_string(const basic_string& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    basic_string(const basic_string& other, const Allocator& alloc);
+    basic_string(basic_string&& other);
+    basic_string(basic_string&& other, const Allocator& alloc);
+    basic_string(std::initializer_list<CharT> init,
+                 const Allocator& alloc = Allocator());
+#endif
+
+    ~basic_string();
+
+    basic_string& operator=(const basic_string& str);
+    basic_string& operator=(const CharT* s);
+    basic_string& operator=(CharT ch);
+#if CPPREFERENCE_STDVER>= 2011
+    basic_string& operator=(basic_string&& other);
+    basic_string& operator=(initializer_list<CharT> ilist);
+#endif
+
+    basic_string& assign(size_type count, const CharT& ch);
+    basic_string& assign(const basic_string& str);
+#if CPPREFERENCE_STDVER>= 2014
+    basic_string& assign(const basic_string& str,
+                         size_type pos,
+                         size_type count);
+#else
+    basic_string& assign(const basic_string& str,
+                         size_type pos,
+                         size_type count = npos);
+#endif
+
+    basic_string& assign(const CharT* s,
+                         size_type count);
+
+    basic_string& assign(const CharT* s);
+
+    template<class InputIt>
+    basic_string& assign(InputIt first, InputIt last);
+
+    basic_string& assign(std::initializer_list<CharT> ilist);
+    template <class InputIt>
+    void assign(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER>= 2011
+    basic_string& assign(basic_string&& str);
+    void assign(std::initializer_list<CharT> ilist);
+#endif
+
+    allocator_type get_allocator() const;
+
+    // element access
+    reference       at(size_type n);
+    const_reference at(size_type n) const;
+    reference       operator[](size_type n);
+    const_reference operator[](size_type n) const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    CharT& front();
+    const CharT& front() const;
+    CharT& back();
+    const CharT& back() const;
+#endif
+    const CharT* data() const;
+    const CharT* c_str() const;
+
+    // iterators
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+
+    reverse_iterator       rbegin();
+    const_reverse_iterator rbegin() const;
+    reverse_iterator       rend();
+    const_reverse_iterator rend() const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    const_iterator         cbegin() const;
+    const_iterator         cend() const;
+    const_reverse_iterator crbegin() const;
+    const_reverse_iterator crend() const;
+#endif
+
+    // capacity
+    bool empty() const;
+    size_type size() const;
+    size_type length() const;
+    size_type max_size() const;
+    void reserve(size_type new_cap = 0);
+    size_type capacity() const;
+
+#if CPPREFERENCE_STDVER>= 2011
+    void shrink_to_fit();
+#endif
+
+    void clear();
+
+    basic_string& insert(size_type index, size_type count, CharT ch);
+    basic_string& insert(size_type index, const CharT* s);
+    basic_string& insert(size_type index, const CharT* s, size_type count);
+    basic_string& insert(size_type index, const basic_string& str);
+
+#if CPPREFERENCE_STDVER <2014
+    basic_string& insert(size_type index, const basic_string& str,
+                         size_type index_str, size_type count);
+#else
+    basic_string& insert(size_type index, const basic_string& str,
+                         size_type index_str, size_type count = npos);
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    iterator insert(iterator pos, CharT ch);
+    void insert(iterator pos, size_type count, CharT ch);
+    template<class InputIt>
+    void insert(iterator pos, InputIt first, InputIt last);
+#else
+    iterator insert(const_iterator pos, CharT ch);
+    iterator insert(const_iterator pos, size_type count, CharT ch);
+    template<class InputIt>
+    iterator insert(const_iterator pos, InputIt first, InputIt last);
+    iterator insert(const_iterator pos, std::initializer_list<CharT> ilist);
+#endif
+
+    basic_string& erase(size_type index = 0, size_type count = npos);
+#if CPPREFERENCE_STDVER <2011
+    iterator erase(iterator pos);
+    iterator erase(iterator first, iterator last);
+#else
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+#endif
+
+    void push_back(CharT ch);
+#if CPPREFERENCE_STDVER>= 2011
+    void pop_back();
+#endif
+
+#if CPPREFERENCE_STDVER <2011
+    void resize(size_type count, T value = T());
+#else
+    void resize(size_type count);
+    void resize(size_type count, const value_type& value);
+#endif
+
+    basic_string& append(size_type count, CharT ch);
+    basic_string& append(const basic_string& str);
+#if CPPREFERENCE_STDVER <2014
+    basic_string& append(const basic_string& str,
+                         size_type pos,
+                         size_type count);
+#else
+    basic_string& append(const basic_string& str,
+                         size_type pos,
+                         size_type count = npos);
+#endif
+    basic_string& append(const CharT* s,
+                         size_type count);
+    basic_string& append(const CharT* s);
+    template<class InputIt>
+    basic_string& append(InputIt first, InputIt last);
+
+#if CPPREFERENCE_STDVER> 2011
+    basic_string& append(std::initializer_list<CharT> ilist);
+#endif
+
+    basic_string& operator+=(const basic_string& str);
+    basic_string& operator+=(CharT ch);
+    basic_string& operator+=(const CharT* s);
+#if CPPREFERENCE_STDVER> 2011
+    basic_string& operator+=(std::initializer_list<CharT> ilist);
+#endif
+
+    int compare(const basic_string& str) const;
+    int compare(size_type pos1, size_type count1,
+                const basic_string& str) const;
+
+#if CPPREFERENCE_STDVER <2014
+    int compare(size_type pos1, size_type count1,
+
+                const basic_string& str,
+                size_type pos2, size_type count2) const;
+#else
+    int compare(size_type pos1, size_type count1,
+                const basic_string& str,
+                size_type pos2, size_type count2 = npos) const;
+#endif
+    int compare(const CharT* s) const;
+    int compare(size_type pos1, size_type count1,
+                const CharT* s) const;
+    int compare(size_type pos1, size_type count1,
+                const CharT* s, size_type count2) const;
+
+    basic_string& replace(size_type pos, size_type count,
+                          const basic_string& str);
+    basic_string& replace(const_iterator first, const_iterator last,
+                          const basic_string& str);
+
+#if CPPREFERENCE_STDVER <2014
+    basic_string& replace(size_type pos, size_type count,
+
+                          const basic_string& str,
+                          size_type pos2, size_type count2);
+#else
+    basic_string& replace(size_type pos, size_type count,
+
+                          const basic_string& str,
+                          size_type pos2, size_type count2 = npos);
+#endif
+
+    template<class InputIt>
+    basic_string& replace(const_iterator first, const_iterator last,
+                          InputIt first2, InputIt last2);
+
+    basic_string& replace(size_type pos, size_type count,
+                          const CharT* cstr, size_type count2);
+
+    basic_string& replace(const_iterator first, const_iterator last,
+                          const CharT* cstr, size_type count2);
+
+    basic_string& replace(size_type pos, size_type count,
+                          const CharT* cstr);
+
+    basic_string& replace(const_iterator first, const_iterator last,
+                          const CharT* cstr);
+
+    basic_string& replace(size_type pos, size_type count,
+                          size_type count2, CharT ch);
+
+    basic_string& replace(const_iterator first, const_iterator last,
+                          size_type count2, CharT ch);
+
+    basic_string& replace(const_iterator first, const_iterator last,
+                          std::initializer_list<CharT> ilist);
+
+    basic_string substr(size_type pos = 0,
+                        size_type count = npos) const;
+
+    size_type copy(CharT* dest,
+                   size_type count,
+                   size_type pos = 0) const;
+
+    void resize(size_type count);
+    void resize(size_type count, CharT ch);
+
+    void swap(basic_string& other);
+
+    // search
+    size_type find(const basic_string& str, size_type pos = 0) const;
+    size_type find(const CharT* s, size_type pos, size_type count) const;
+    size_type find(const CharT* s, size_type pos = 0) const;
+    size_type find(CharT ch, size_type pos = 0) const;
+
+    size_type rfind(const basic_string& str, size_type pos = npos) const;
+    size_type rfind(const CharT* s, size_type pos, size_type count) const;
+    size_type rfind(const CharT* s, size_type pos = npos) const;
+    size_type rfind(CharT ch, size_type pos = npos) const;
+
+    size_type find_first_of(const basic_string& str, size_type pos = 0) const;
+    size_type find_first_of(const CharT* s, size_type pos, size_type count) const;
+    size_type find_first_of(const CharT* s, size_type pos = 0) const;
+    size_type find_first_of(CharT ch, size_type pos = 0) const;
+
+    size_type find_first_not_of(const basic_string& str, size_type pos = 0) const;
+    size_type find_first_not_of(const CharT* s, size_type pos, size_type count) const;
+    size_type find_first_not_of(const CharT* s, size_type pos = 0) const;
+    size_type find_first_not_of(CharT ch, size_type pos = 0) const;
+
+    size_type find_last_of(const basic_string& str, size_type pos = npos) const;
+    size_type find_last_of(const CharT* s, size_type pos, size_type count) const;
+    size_type find_last_of(const CharT* s, size_type pos = npos) const;
+    size_type find_last_of(CharT ch, size_type pos = npos) const;
+
+    size_type find_last_not_of(const basic_string& str, size_type pos = npos) const;
+    size_type find_last_not_of(const CharT* s, size_type pos, size_type count) const;
+    size_type find_last_not_of(const CharT* s, size_type pos = npos) const;
+    size_type find_last_not_of(CharT ch, size_type pos = npos) const;
+
+    static const size_type npos = -1;
+};
+
+typedef std::basic_string<char> string;
+typedef std::basic_string<wchar_t> wstring;
+#if CPPREFERENCE_STDVER>= 2011
+typedef std::basic_string<char16_t> u16string;
+typedef std::basic_string<char32_t> u32string;
+#endif
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(const basic_string<CharT, Traits, Alloc>& lhs,
+          const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(const CharT* lhs,
+          const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(CharT lhs,
+          const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(const basic_string<CharT, Traits, Alloc>& lhs,
+          const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(const basic_string<CharT, Traits, Alloc>& lhs,
+          CharT rhs);
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(basic_string<CharT, Traits, Alloc>&& lhs,
+          const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(const basic_string<CharT, Traits, Alloc>& lhs,
+          basic_string<CharT, Traits, Alloc>&& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(basic_string<CharT, Traits, Alloc>&& lhs,
+          basic_string<CharT, Traits, Alloc>&& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(const CharT* lhs,
+          basic_string<CharT, Traits, Alloc>&& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(CharT lhs,
+          basic_string<CharT, Traits, Alloc>&& rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(basic_string<CharT, Traits, Alloc>&& lhs,
+          const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+basic_string<CharT, Traits, Alloc>
+operator+(basic_string<CharT, Traits, Alloc>&& lhs,
+          CharT rhs);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+template<class CharT, class Traits, class Alloc>
+bool operator==(const basic_string<CharT, Traits, Alloc>& lhs,
+                const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator!=(const basic_string<CharT, Traits, Alloc>& lhs,
+                const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator<(const basic_string<CharT, Traits, Alloc>& lhs,
+               const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator<=(const basic_string<CharT, Traits, Alloc>& lhs,
+                const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator>(const basic_string<CharT, Traits, Alloc>& lhs,
+               const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator>=(const basic_string<CharT, Traits, Alloc>& lhs,
+                const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator==(const CharT* lhs, const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator==(const basic_string<CharT, Traits, Alloc>& lhs, const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator!=(const CharT* lhs, const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator!=(const basic_string<CharT, Traits, Alloc>& lhs, const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator<(const CharT* lhs, const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator<(const basic_string<CharT, Traits, Alloc>& lhs,  const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator<=(const CharT* lhs, const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator<=(const basic_string<CharT, Traits, Alloc>& lhs, const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator>(const CharT* lhs, const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator>(const basic_string<CharT, Traits, Alloc>& lhs, const CharT* rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator>=(const CharT* lhs, const basic_string<CharT, Traits, Alloc>& rhs);
+
+template<class CharT, class Traits, class Alloc>
+bool operator>=(const basic_string<CharT, Traits, Alloc>& lhs, const CharT* rhs);
+
+template<class T, class Traits, class Alloc>
+void swap(basic_string<T, Traits, Alloc>& lhs, basic_string<T, Traits, Alloc>& rhs);
+
+template <class CharT, class Traits, class Allocator>
+std::basic_ostream<CharT, Traits>&
+operator<<(std::basic_ostream<CharT, Traits>& os,
+           const std::basic_string<CharT, Traits, Allocator>& str);
+
+template <class CharT, class Traits, class Allocator>
+std::basic_istream<CharT, Traits>&
+operator>>(std::basic_istream<CharT, Traits>& is,
+           std::basic_string<CharT, Traits, Allocator>& str);
+
+template<class CharT, class Traits, class Allocator>
+std::basic_istream<CharT, Traits>& getline(std::basic_istream<CharT, Traits>& input,
+        std::basic_string<CharT, Traits, Allocator>& str,
+        CharT delim);
+
+template<class CharT, class Traits, class Allocator>
+std::basic_istream<CharT, Traits>& getline(std::basic_istream<CharT, Traits>& input,
+        std::basic_string<CharT, Traits, Allocator>& str);
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class CharT, class Traits, class Allocator>
+std::basic_istream<CharT, Traits>& getline(std::basic_istream<CharT, Traits>&& input,
+        std::basic_string<CharT, Traits, Allocator>& str,
+        CharT delim);
+
+template<class CharT, class Traits, class Allocator>
+std::basic_istream<CharT, Traits>& getline(std::basic_istream<CharT, Traits>&& input,
+        std::basic_string<CharT, Traits, Allocator>& str);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+int       stoi(const std::string& str, std::size_t* pos = 0, int base = 10);
+int       stoi(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+
+long      stol(const std::string& str, std::size_t* pos = 0, int base = 10);
+long      stol(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+
+long long stoll(const std::string& str, std::size_t* pos = 0, int base = 10);
+long long stoll(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+
+unsigned long      stoul(const std::string& str, std::size_t* pos = 0, int base = 10);
+unsigned long      stoul(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+unsigned long long stoull(const std::string& str, std::size_t* pos = 0, int base = 10);
+unsigned long long stoull(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+
+float       stof(const std::string& str, std::size_t* pos = 0);
+float       stof(const std::wstring& str, std::size_t* pos = 0);
+double      stod(const std::string& str, std::size_t* pos = 0);
+double      stod(const std::wstring& str, std::size_t* pos = 0);
+long double stold(const std::string& str, std::size_t* pos = 0);
+long double stold(const std::wstring& str, std::size_t* pos = 0);
+
+std::string to_string(int value);
+std::string to_string(long value);
+std::string to_string(long long value);
+std::string to_string(unsigned value);
+std::string to_string(unsigned long value);
+std::string to_string(unsigned long long value);
+std::string to_string(float value);
+std::string to_string(double value);
+std::string to_string(long double value);
+
+std::wstring to_wstring(int value);
+std::wstring to_wstring(long value);
+std::wstring to_wstring(long long value);
+std::wstring to_wstring(unsigned value);
+std::wstring to_wstring(unsigned long value);
+std::wstring to_wstring(unsigned long long value);
+std::wstring to_wstring(float value);
+std::wstring to_wstring(double value);
+std::wstring to_wstring(long double value);
+#endif
+} // namespace std
+
+#endif // CPPREFERENCE_STRING_H

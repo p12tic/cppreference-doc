@@ -1,0 +1,148 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_UTILITY_H
+#define CPPREFERENCE_UTILITY_H
+
+#if CPPREFERENCE_STDVER>= 2011
+#include <initializer_list>
+#endif
+
+namespace std {
+
+#if CPPREFERENCE_STDVER>= 2011
+// defined in <algorithm> pre C++11
+template<class T>
+void swap(T& a, T& b);
+
+template<class T2, size_t N>
+void swap(T2(&a)[N], T2(&b)[N]);
+#endif
+
+namespace rel_ops {
+template<class T>
+bool operator!=(const T& lhs, const T& rhs);
+template<class T>
+bool operator>(const T& lhs, const T& rhs);
+template<class T>
+bool operator<=(const T& lhs, const T& rhs);
+template<class T>
+bool operator>=(const T& lhs, const T& rhs);
+} // namespace rel_ops
+
+#if CPPREFERENCE_STDVER>= 2014
+template<class T, class U = T>
+T exchange(T& obj, U && new_value);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class T>
+T&& forward(typename std::remove_reference<T>::type& t);
+
+template<class T>
+T&& forward(typename std::remove_reference<T>::type&& t);
+
+template<class T>
+typename T&& move(T&& t);   // SIMPLIFIED: return type
+
+template<class T>
+typename T&& move_if_noexcept(T&& t);   // SIMPLIFIED: return type
+
+template<class T>
+T declval(); // SIMPLIFIED: return type
+
+struct piecewise_construct_t { };
+constexpr piecewise_construct_t piecewise_construct;
+
+template <
+    class T1,
+    class T2
+    > struct pair {
+    typedef T1 first_type;
+    typedef T2 second_type;
+    T1 first;
+    T2 second;
+
+    pair();
+    pair(const T1& x, const T2& y);
+
+    template<class U1, class U2>
+    pair(const pair<U1, U2>& p);
+
+#if CPPREFERENCE_STDVER>= 2011
+    template<class U1, class U2>
+    pair(U1&& x, U2&& y);
+
+    template<class U1, class U2>
+    pair(pair<U1, U2>&& p);
+
+    template<class... Args1, class... Args2>
+    pair(std::piecewise_construct_t,
+         std::tuple<Args1...> first_args,
+         std::tuple<Args2...> second_args);
+#endif
+
+    pair(const pair& p);
+    pair(pair&& p);
+
+    pair& operator=(const pair& other);
+
+    template<class U1, class U2>
+    pair& operator=(const pair<U1, U2>& other);
+
+#if CPPREFERENCE_STDVER>= 2011
+    pair& operator=(pair&& other);
+
+    template<class U1, class U2>
+    pair& operator=(pair<U1, U2>&& other);
+#endif
+
+    void swap(pair& other);
+};
+
+template<class T1, class T2>
+bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+bool operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+bool operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+
+#if CPPREFERENCE_STDVER <2011
+template<class T1, class T2>
+std::pair<T1, T2> make_pair(T1 t, T2 u);
+#else
+template<class T1, class T2>
+std::pair<T1, T2> make_pair(T1&& t, T2&& u);
+#endif
+
+template<class T1, class T2>
+void swap(pair<T1, T2>& lhs, pair<T1, T2>& rhs);
+
+#if CPPREFERENCE_STDVER>= 2011
+template<size_t N, class T1, class T2>
+typename std::tuple_element<I, std::pair<T1, T2>>::type&
+        get(pair<T1, T2>& p);
+// SIMPLIFIED: additional overloads omitted
+#endif
+
+} // namespace std
+
+#endif // CPPREFERENCE_UTILITY_H

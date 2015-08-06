@@ -1,0 +1,301 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CMATH_H
+#define CPPREFERENCE_CMATH_H
+
+namespace std {
+
+#define HUGE_VAL 0
+
+#if CPPREFERENCE_STDVER>= 2011
+#define HUGE_VALF 0
+#define HUGE_VALL 0
+#define INFINITY 0
+#define NAN 0
+#define MATH_ERRNO 0
+#define MATH_ERREXCEPT 0
+#define math_errhandling 0
+#define FP_NORMAL 0
+#define FP_SUBNORMAL 0
+#define FP_ZERO 0
+#define FP_INFINITE 0
+#define FP_NAN 0
+typedef float float_t;
+typedef double double_t;
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       abs(float arg);
+double      abs(double arg);
+long double abs(long double arg);
+float       fabs(float arg);
+double      fabs(double arg);
+long double fabs(long double arg);
+float       fmod(float x, float y);
+double      fmod(double x, double y);
+long double fmod(long double x, long double y);
+
+#if CPPREFERENCE_STDVER>= 2011
+float       remainder(float x, float y);
+double      remainder(double x, double y);
+long double remainder(long double x, long double y);
+float       remquo(float x, float y, int* quo);
+double      remquo(double x, double y, int* quo);
+long double remquo(long double x, long double y, int* quo);
+float       fma(float x, float y, float z);
+double      fma(double x, double y, double z);
+long double fma(long double x, long double y, long double z);
+float       fmax(float x, float y);
+double      fmax(double x, double y);
+long double fmax(long double x, long double y);
+float       fmin(float x, float y);
+double      fmin(double x, double y);
+long double fmin(long double x, long double y);
+float       fdim(float x, float y);
+double      fdim(double x, double y);
+long double fdim(long double x, long double y);
+float nanf(const char* arg);
+double nan(const char* arg);
+long double nanl(const char* arg);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       exp(float arg);
+double      exp(double arg);
+long double exp(long double arg);
+
+#if CPPREFERENCE_STDVER>= 2011
+double      exp2(double n);
+float       exp2(float n);
+long double exp2(long double n);
+float       expm1(float arg);
+double      expm1(double arg);
+long double expm1(long double arg);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       log(float arg);
+double      log(double arg);
+long double log(long double arg);
+float       log10(float arg);
+double      log10(double arg);
+long double log10(long double arg);
+
+#if CPPREFERENCE_STDVER>= 2011
+float       log2(float arg);
+double      log2(double arg);
+long double log2(long double arg);
+float       log1p(float arg);
+double      log1p(double arg);
+long double log1p(long double arg);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       pow(float base, float exp);
+double      pow(double base, double exp);
+long double pow(long double base, long double exp);
+float       pow(float base, int iexp);
+double      pow(double base, int iexp);
+long double pow(long double base, int iexp);
+float       sqrt(float arg);
+double      sqrt(double arg);
+long double sqrt(long double arg);
+
+#if CPPREFERENCE_STDVER>= 2011
+float       cbrt(float arg);
+double      cbrt(double arg);
+long double cbrt(long double arg);
+float       hypot(float x, float y);
+double      hypot(double x, double y);
+long double hypot(long double x, long double y);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       sin(float arg);
+double      sin(double arg);
+long double sin(long double arg);
+float       cos(float arg);
+double      cos(double arg);
+long double cos(long double arg);
+float       tan(float arg);
+double      tan(double arg);
+long double tan(long double arg);
+float       asin(float arg);
+double      asin(double arg);
+long double asin(long double arg);
+float       acos(float arg);
+double      acos(double arg);
+long double acos(long double arg);
+float       atan(float arg);
+double      atan(double arg);
+long double atan(long double arg);
+float       atan2(float y, float x);
+double      atan2(double y, double x);
+long double atan2(long double y, long double x);
+float       sinh(float arg);
+double      sinh(double arg);
+long double sinh(long double arg);
+float       cosh(float arg);
+double      cosh(double arg);
+long double cosh(long double arg);
+float       tanh(float arg);
+double      tanh(double arg);
+long double tanh(long double arg);
+
+#if CPPREFERENCE_STDVER>= 2011
+float       asinh(float arg);
+double      asinh(double arg);
+long double asinh(long double arg);
+float       acosh(float arg);
+double      acosh(double arg);
+long double acosh(long double arg);
+float       atanh(float arg);
+double      atanh(double arg);
+long double atanh(long double arg);
+float       erf(float arg);
+double      erf(double arg);
+long double erf(long double arg);
+float       erfc(float arg);
+double      erfc(double arg);
+long double erfc(long double arg);
+float       tgamma(float arg);
+double      tgamma(double arg);
+long double tgamma(long double arg);
+float       lgamma(float arg);
+double      lgamma(double arg);
+long double lgamma(long double arg);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       ceil(float arg);
+double      ceil(double arg);
+long double ceil(long double arg);
+float       floor(float arg);
+double      floor(double arg);
+long double floor(long double arg);
+float       trunc(float arg);
+double      trunc(double arg);
+long double trunc(long double arg);
+
+#if CPPREFERENCE_STDVER>= 2011
+float round(float arg);
+double round(double arg);
+long double round(long double arg);
+long lround(float arg);
+long lround(double arg);
+long lround(long double arg);
+long long llround(float arg);
+long long llround(double arg);
+long long llround(long double arg);
+float       nearbyint(float arg);
+double      nearbyint(double arg);
+long double nearbyint(long double arg);
+
+float rint(float arg);
+double rint(double arg);
+long double rint(long double arg);
+long lrint(float arg);
+long lrint(double arg);
+long lrint(long double arg);
+long long llrint(float arg);
+long long llrint(double arg);
+long long llrint(long double arg);
+#endif // CPPREFERENCE_STDVER>= 2011
+
+float       frexp(float arg, int* exp);
+double      frexp(double arg, int* exp);
+long double frexp(long double arg, int* exp);
+
+float       ldexp(float x, int exp);
+double      ldexp(double x, int exp);
+long double ldexp(long double x, int exp);
+
+float       modf(float x, float* iptr);
+double      modf(double x, double* iptr);
+long double modf(long double x, long double* iptr);
+
+#if CPPREFERENCE_STDVER>= 2011
+float       scalbn(float x, int exp);
+double      scalbn(double x, int exp);
+long double scalbn(long double x, int exp);
+float       scalbln(float x, long exp);
+double      scalbln(double x, long exp);
+long double scalbln(long double x, long exp);
+
+int         ilogb(float arg);
+int         ilogb(double arg);
+int         ilogb(long double arg);
+
+float       logb(float arg);
+double      logb(double arg);
+long double logb(long double arg);
+
+float       nextafter(float from, float to);
+double      nextafter(double from, double to);
+long double nextafter(long double from, long double to);
+float       nexttoward(float from, long double to);
+double      nexttoward(double from, long double to);
+long double nexttoward(long double from, long double to);
+
+float       copysign(float x, float y);
+double      copysign(double x, double y);
+long double copysign(long double x, long double y);
+
+int fpclassify(float arg);
+int fpclassify(double arg);
+int fpclassify(long double arg);
+
+bool isfinite(float arg);
+bool isfinite(double arg);
+bool isfinite(long double arg);
+
+bool isinf(float arg);
+bool isinf(double arg);
+bool isinf(long double arg);
+
+bool isnan(float arg);
+bool isnan(double arg);
+bool isnan(long double arg);
+
+bool isnormal(float arg);
+bool isnormal(double arg);
+bool isnormal(long double arg);
+
+bool signbit(float arg);
+bool signbit(double arg);
+bool signbit(long double arg);
+
+bool isgreater(float x, float y);
+bool isgreater(double x, double y);
+bool isgreater(long double x, long double y);
+
+bool isgreaterequal(float x, float y);
+bool isgreaterequal(double x, double y);
+bool isgreaterequal(long double x, long double y);
+
+bool isless(float x, float y);
+bool isless(double x, double y);
+bool isless(long double x, long double y);
+
+bool islessequal(float x, float y);
+bool islessequal(double x, double y);
+bool islessequal(long double x, long double y);
+
+bool islessgreater(float x, float y);
+bool islessgreater(double x, double y);
+bool islessgreater(long double x, long double y);
+
+bool isunordered(float x, float y);
+bool isunordered(double x, double y);
+bool isunordered(long double x, long double y);
+#endif // CPPREFERENCE_STDVER>= 2011
+} // namespace std
+
+#endif // CPPREFERENCE_CMATH_H

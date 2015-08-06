@@ -1,0 +1,126 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CSTDLIB_H
+#define CPPREFERENCE_CSTDLIB_H
+
+namespace std {
+
+// math utils
+int abs(int n);
+long      abs(long n);
+#if CPPREFERENCE_STDVER>= 2011
+long long abs(long long n);
+#endif
+long       labs(long n);
+#if CPPREFERENCE_STDVER>= 2011
+long long llabs(long long n);
+#endif
+
+struct div_t {
+    int quot;
+    int rem;
+};
+
+struct ldiv_t {
+    long quot;
+    long rem;
+};
+
+#if CPPREFERENCE_STDVER>= 2011
+struct lldiv_t {
+    long long quot;
+    long long rem;
+};
+#endif
+
+std::div_t     div(int x, int y);
+std::ldiv_t    div(long x, long y);
+#if CPPREFERENCE_STDVER>= 2011
+std::lldiv_t   div(long long x, long long y);
+#endif
+std::ldiv_t   ldiv(long x, long y);
+#if CPPREFERENCE_STDVER>= 2011
+std::lldiv_t lldiv(long long x, long long y);
+#endif
+
+// string conversions
+
+double atof(const char* nptr);
+int atoi(const char* nptr);
+long atol(const char* nptr);
+
+#if CPPREFERENCE_STDVER>= 2011
+long long atoll(const char* nptr);
+#endif
+
+double strtod(const char* nptr, char** endptr);
+#if CPPREFERENCE_STDVER>= 2011
+float strtof(const char* nptr, char** endptr);
+long double strtold(const char* nptr, char** endptr);
+#endif
+long strtol(const char* nptr, char** endptr, int base);
+#if CPPREFERENCE_STDVER>= 2011
+long long strtoll(const char* nptr, char** endptr, int base);
+#endif
+unsigned long strtoul(const char* nptr, char** endptr, int base);
+unsigned long long strtoull(const char* nptr, char** endptr, int base);
+
+// multibyte string operations
+#define MB_CUR_MAX 0 // actually unspecified
+int mblen(const char* s, std::size_t n);
+int mbtowc(wchar_t* pwc, const char* s, std::size_t n);
+int wctomb(char* s, wchar_t wc);
+std::size_t mbstowcs(wchar_t* dst, const char* src, std::size_t len);
+std::size_t wcstombs(char* dst, const wchar_t* src, std::size_t len);
+
+// random numbers
+#define RAND_MAX 0 // actually unspecified
+int rand();
+void srand(unsigned seed);
+
+// sorting
+void qsort(void* ptr, std::size_t count, std::size_t size,
+           int (*comp)(const void*, const void*));
+
+void* bsearch(const void* key, const void* ptr, std::size_t count,
+              std::size_t size, int (*comp)(const void*, const void*));
+
+// program support utils
+void abort();
+void exit(int exit_code);
+int atexit(void (*func)());
+
+#define EXIT_SUCCESS 0 // actually impl-defined
+#define EXIT_FAILURE 0 // actually impl-defined
+
+#if CPPREFERENCE_STDVER>= 2011
+void _Exit(int exit_code);
+void quick_exit(int exit_code);
+int at_quick_exit(void (*func)());
+#endif
+
+int system(const char* command);
+char* getenv(const char* env_var);
+
+// dynamic memory management
+void* malloc(std::size_t size);
+void* calloc(std::size_t num, std::size_t size);
+void* realloc(void* ptr, std::size_t new_size);
+void free(void* ptr);
+
+} // namespace std
+
+#endif // CPPREFERENCE_CSTDLIB_H

@@ -1,0 +1,719 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_LOCALE_H
+#define CPPREFERENCE_LOCALE_H
+
+namespace std {
+
+class locale {
+public:
+    class id {
+    public:
+        id();
+    };
+
+    class facet {
+    public:
+        explicit facet(std::size_t refs = 0);
+    protected:
+        virtual ~facet();
+    };
+
+    typedef int category;
+
+    static const category none;
+    static const category collate;
+    static const category ctype;
+    static const category monetary;
+    static const category numeric;
+    static const category time;
+    static const category messages;
+    static const category all;
+
+    locale();
+    locale(const locale& other);
+    explicit locale(const char* std_name);
+    explicit locale(const std::string& std_name);
+    locale(const locale& other, const char* std_name, category cat);
+    locale(const locale& other, const std::string& std_name, category cat);
+    template<class Facet >
+    locale(const locale& other, Facet* f);
+    locale(const locale& other, const locale& one, category cat);
+
+    ~locale();
+
+    const locale& operator=(const locale& other);
+
+    template<class Facet >
+    locale combine(const locale& other) const;
+
+    std::string name() const;
+
+    bool operator==(const locale& other) const;
+    bool operator!=(const locale& other) const;
+
+    template<class CharT, class Traits, class Alloc >
+    bool operator()(const basic_string<CharT, Traits, Alloc>& s1,
+                    const basic_string<CharT, Traits, Alloc>& s2) const;
+
+    static locale global(const locale& loc);
+    static const locale& classic();
+};
+
+#if CPPREFERENCE_STDVER >= 2011
+template<class Codecvt,
+         class Elem = wchar_t,
+         class Wide_alloc = std::allocator<Elem>,
+         class Byte_alloc = std::allocator<char> >
+class wstring_convert {
+public:
+    explicit wstring_convert(Codecvt* pcvt = new Codecvt);
+    wstring_convert(Codecvt* pcvt, state_type state);
+    explicit wstring_convert(const byte_string& byte_err,
+                             const wide_string& wide_err = wide_string());
+#if CPPREFERENCE_STDVER >= 2014
+    wstring_convert(const std::wstring_convert&) = delete;
+#endif
+
+    ~wstring_convert();
+
+    wide_string from_bytes(char byte);
+    wide_string from_bytes(const char* ptr);
+    wide_string from_bytes(const byte_string& str);
+    wide_string from_bytes(const char* first, const char* last);
+
+    byte_string to_bytes(Elem wchar);
+    byte_string to_bytes(const Elem* wptr);
+    byte_string to_bytes(const wide_string& wstr);
+    byte_string to_bytes(const Elem* first, const Elem* last);
+
+    std::size_t converted() const;
+
+    state_type state() const;
+};
+
+template<class Codecvt,
+         class Elem = wchar_t,
+         class Tr = std::char_traits<Elem> >
+class wbuffer_convert : public std::basic_streambuf<Elem, Tr> {
+public:
+    typedef typename Codecvt::state_type state_type;
+
+    explicit wbuffer_convert(std::streambuf* bytebuf = 0,
+                             Codecvt* pcvt = new Codecvt,
+                             state_type state = state_type());
+#if CPPREFERENCE_STDVER >= 2014
+    wbuffer_convert(const std::wbuffer_convert&) = delete;
+#endif
+
+    ~wbuffer_convert();
+
+    std::streambuf* rdbuf() const;
+    std::streambuf* rdbuf(std::streambuf* bytebuf);
+
+    state_type state() const;
+};
+
+#endif // CPPREFERENCE_STDVER >= 2011
+
+class ctype_base {
+public:
+    typedef int mask; // actually unspecified
+    static const mask space;
+    static const mask print;
+    static const mask cntrl;
+    static const mask upper;
+    static const mask lower;
+    static const mask alpha;
+    static const mask digit;
+    static const mask punct;
+    static const mask xdigit;
+#if CPPREFERENCE_STDVER >= 2011
+    static const mask blank;
+#endif
+    static const mask alnum;
+    static const mask graph;
+};
+
+class codecvt_base {
+public:
+    enum result {
+        ok,
+        partial,
+        error,
+        noconv
+    };
+};
+
+class messages_base {
+public:
+    typedef int catalog; // actually unspecified
+};
+
+class time_base {
+public:
+    enum dateorder {
+        no_order, dmy, mdy, ymd, ydm
+    };
+};
+
+class money_base {
+public:
+    enum part {
+        none, space, symbol, sign, value
+    };
+    struct pattern {
+        char field[4];
+    };
+};
+
+template<class CharT>
+class ctype : public ctype_base, public locale::facet {
+public:
+    typedef CharT char_type;
+    static locale::id id;
+
+    explicit ctype(std::size_t refs = 0);
+
+    const mask* table() const; // only in char specialization
+    static const mask* classic_table(); // only in char specialization
+
+    bool is(mask m, CharT c) const;
+    const CharT* is(const CharT* low, const CharT* high, mask* vec) const;
+    const CharT* scan_is(mask m, const CharT* beg, const CharT* end) const;
+    const CharT* scan_not(mask m, const CharT* beg, const CharT* end) const;
+    CharT toupper(CharT c) const;
+    const CharT* toupper(CharT* beg, const CharT* end) const;
+    CharT tolower(CharT c) const;
+    const CharT* tolower(CharT* beg, const CharT* end) const;
+    CharT widen(char c) const;
+    const char* widen(const char* beg, const char* end, CharT* dst) const;
+    char narrow(CharT c, char dflt) const;
+    const CharT* narrow(const CharT* beg, const CharT* end,
+                        char dflt, char* dst) const;
+
+protected:
+    virtual bool do_is(mask m, CharT c) const;
+    virtual const CharT* do_is(const CharT* low, const CharT* high, mask* vec) const;
+    virtual const CharT* do_scan_is(mask m, const CharT* beg, const CharT* end) const;
+    virtual const CharT* do_scan_not(mask m, const CharT* beg, const CharT* end) const;
+    virtual CharT do_toupper(CharT c) const;
+    virtual const CharT* do_toupper(CharT* beg, const CharT* end) const;
+    virtual CharT do_tolower(CharT c) const;
+    virtual const CharT* do_tolower(CharT* beg, const CharT* end) const;
+    virtual CharT do_widen(char c) const;
+    virtual const char* do_widen(const char* beg, const char* end, CharT* dst) const;
+    virtual char do_narrow(CharT c, char dflt) const;
+    virtual const CharT* do_narrow(const CharT* beg, const CharT* end,
+                                   char dflt, char* dst) const;
+    virtual ~ctype();
+};
+
+template<class InternT, class ExternT, class State>
+class codecvt : public codecvt_base, public locale::facet {
+public:
+    typedef InternT intern_type;
+    typedef ExternT extern_type;
+    typedef State state_type;
+
+    static locale::id id;
+
+    explicit codecvt(std::size_t refs = 0);
+
+    result out(StateT& state,
+               const InternT* from,
+               const InternT* from_end,
+               const InternT*& from_next,
+               ExternT* to,
+               ExternT* to_end,
+               ExternT*& to_next) const;
+    result in(stateT& state,
+              const externT* from,
+              const externT* from_end,
+              const externT*& from_next,
+              internT* to,
+              internT* to_end,
+              internT*& to_next) const;
+    result unshift(StateT& state,
+                   ExternT* to,
+                   ExternT* to_end,
+                   ExternT*& to_next) const;
+    int encoding() const;
+    bool always_noconv() const;
+    int length(StateT& state,
+               const ExternT* from,
+               const ExternT* from_end,
+               std::size_t max) const;
+    int max_length() const;
+
+protected:
+    virtual result do_out(StateT& state,
+                          const InternT* from,
+                          const InternT* from_end,
+                          const InternT*& from_next,
+                          ExternT* to,
+                          ExternT* to_end,
+                          ExternT*& to_next) const;
+    virtual result do_in(stateT& state,
+                         const externT* from,
+                         const externT* from_end,
+                         const externT*& from_next,
+                         internT* to,
+                         internT* to_end,
+                         internT*& to_next) const;
+    virtual result do_unshift(StateT& state,
+                              ExternT* to,
+                              ExternT* to_end,
+                              ExternT*& to_next) const;
+    virtual int do_encoding() const;
+    virtual bool do_always_noconv() const;
+    virtual int do_length(StateT& state,
+                          const ExternT* from,
+                          const ExternT* from_end,
+                          std::size_t max) const;
+    virtual int do_max_length() const;
+    virtual ~codecvt();
+};
+
+template<class CharT>
+class collate : public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    static locale::id id;
+
+    explicit collate(std::size_t refs = 0);
+
+    int compare(const CharT* low1, const CharT* high1,
+                const CharT* low2, const CharT* high2) const;
+    string_type transform(const CharT* low, const CharT* high) const;
+    long hash(const CharT* beg, const CharT* end) const;
+
+protected:
+    virtual int do_compare(const CharT* low1, const CharT* high1,
+                           const CharT* low2, const CharT* high2) const;
+    virtual string_type do_transform(const CharT* low, const CharT* high) const;
+    virtual long do_hash(const CharT* beg, const CharT* end) const;
+    virtual ~collate();
+};
+
+template<class CharT>
+class messages : public messages_base, public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    static locale::id id;
+
+    explicit messages(std::size_t refs = 0);
+
+    catalog open(const std::basic_string<char>& name, const std::locale& loc) const;
+    string_type get(catalog cat, int set, int msgid, const string_type& dfault) const;
+    void close(catalog c) const;
+
+protected:
+    virtual catalog do_open(const std::basic_string<char>& name, const std::locale& loc) const;
+    virtual string_type do_get(catalog cat, int set, int msgid, const string_type& dfault) const;
+    virtual void do_close(catalog c) const;
+    virtual ~messages();
+};
+
+template <
+    class CharT,
+    class InputIt = std::istreambuf_iterator<CharT>
+    > class time_get : public time_base, public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef InputIt iter_type;
+    static locale::id id;
+
+    explicit time_get(std::size_t refs = 0);
+
+public:
+    dateorder date_order() const;
+    iter_type get_time(iter_type beg, iter_type end, std::ios_base& str,
+                       std::ios_base::iostate& err, std::tm* t) const;
+    iter_type get_date(iter_type beg, iter_type end, std::ios_base& str,
+                       std::ios_base::iostate& err, std::tm* t) const;
+    iter_type get_weekday(iter_type beg, iter_type end, std::ios_base& str,
+                          std::ios_base::iostate& err, std::tm* t) const;
+    iter_type get_monthname(iter_type beg, iter_type end, std::ios_base& str,
+                            std::ios_base::iostate& err, std::tm* t) const;
+    iter_type do_get_year(iter_type s, iter_type end, std::ios_base& str,
+                          std::ios_base::iostate& err, std::tm* t) const;
+
+#if CPPREFERENCE_STDVER >= 2011
+    iter_type get(iter_type beg, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, std::tm* t,
+                  const char_type* fmtbeg, const char_type* fmtend) const;
+#endif
+
+protected:
+    virtual dateorder do_date_order() const;
+    virtual iter_type get_time(iter_type beg, iter_type end, std::ios_base& str,
+                               std::ios_base::iostate& err, std::tm* t) const;
+    virtual iter_type do_get_date(iter_type beg, iter_type end, std::ios_base& str,
+                                  std::ios_base::iostate& err, std::tm* t) const;
+    virtual iter_type do_get_weekday(iter_type beg, iter_type end, std::ios_base& str,
+                                     std::ios_base::iostate& err, std::tm* t) const;
+    virtual iter_type do_get_monthname(iter_type beg, iter_type end, std::ios_base& str,
+                                       std::ios_base::iostate& err, std::tm* t) const;
+    virtual iter_type do_get_year(iter_type s, iter_type end, std::ios_base& str,
+                                  std::ios_base::iostate& err, std::tm* t) const;
+#if CPPREFERENCE_STDVER >= 2011
+    virtual iter_type do_get(iter_type neg, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, std::tm* t,
+                             char format, char modifier) const;
+#endif
+    virtual ~time_get();
+};
+
+template <
+    class CharT,
+    class OutputIt = std::ostreambuf_iterator<CharT>
+    > class time_put : public time_base, public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef OutputIt iter_type;
+    static locale::id id;
+
+    explicit time_put(std::size_t refs = 0);
+
+
+    iter_type put(iter_type out, std::ios_base& str,
+                  char_type fill, const std::tm* t,
+                  const CharT* fmtbeg, const CharT* fmtend) const;
+    iter_type put(iter_type out, std::ios_base& str,
+                  char_type fill, const std::tm* t,
+                  char format, char modifier = 0) const;
+
+protected:
+    virtual iter_type do_put(iter_type out, std::ios_base& str,
+                             char_type fill, const std::tm* t,
+                             char format, char modifier) const;
+    virtual ~time_put();
+};
+
+template <
+    class CharT,
+    class InputIt = std::istreambuf_iterator<CharT>
+    > class num_get : public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef InputIt iter_type;
+    static locale::id id;
+
+    explicit num_get(std::size_t refs = 0);
+
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, bool& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, long& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, long long& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, unsigned short& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, unsigned int& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, unsigned long& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, unsigned long long& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, float& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, double& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, long double& v) const;
+    iter_type get(iter_type in, iter_type end, std::ios_base& str,
+                  std::ios_base::iostate& err, void*& v) const;
+
+protected:
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, bool& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, long& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, long long& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, unsigned short& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, unsigned int& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, unsigned long& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, unsigned long long& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, float& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, double& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, long double& v) const;
+    virtual iter_type do_get(iter_type in, iter_type end, std::ios_base& str,
+                             std::ios_base::iostate& err, void*& v) const;
+    virtual ~num_get();
+};
+
+template <
+    class CharT,
+    class OutputIt = std::ostreambuf_iterator<CharT>
+    > class num_put : public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef OutputIt iter_type;
+    static locale::id id;
+
+    explicit num_put(std::size_t refs = 0);
+
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, bool v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, long v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, long long v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, unsigned long v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, unsigned long long v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, double v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, long double v) const;
+    iter_type put(iter_type out, std::ios_base& str, char_type fill, const void* v) const;
+
+protected:
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, bool v) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, long v) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, long long v) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, unsigned long) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, unsigned long long) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, double v) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, long double v) const;
+    virtual iter_type do_put(iter_type out, std::ios_base& str, char_type fill, const void* v) const;
+    virtual ~num_put();
+};
+
+template<class CharT>
+class numpunct : public locale::facet  {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    static locale::id id;
+
+    explicit numpunct(std::size_t refs = 0);
+
+    char_type decimal_point() const;
+    char_type thousands_sep() const;
+    std::string grouping() const;
+    string_type truename() const;
+    string_type falsename() const;
+
+protected:
+    virtual char_type do_decimal_point() const;
+    virtual char_type do_thousands_sep() const;
+    virtual std::string do_grouping() const;
+    virtual string_type do_truename() const;
+    virtual string_type do_falsename() const;
+    virtual ~numpunct();
+};
+
+template <
+    class CharT,
+    class InputIt = std::istreambuf_iterator<CharT>
+    > class money_get : public locale::facet  {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    typedef InputIt iter_type;
+    static locale::id id;
+
+    explicit money_get(std::size_t refs = 0);
+    iter_type get(iter_type beg, iter_type end, bool intl, std::ios_base& str,
+                  std::ios_base::iostate& err, long double& units) const;
+    iter_type get(iter_type beg, iter_type end, bool intl, std::ios_base& str,
+                  std::ios_base::iostate& err, string_type& digits) const;
+
+protected:
+    virtual iter_type do_get(iter_type beg, iter_type end, bool intl, std::ios_base& str,
+                             std::ios_base::iostate& err, long double& units) const;
+    virtual iter_type do_get(iter_type beg, iter_type end, bool intl, std::ios_base& str,
+                             std::ios_base::iostate& err, string_type& digits) const;
+    virtual ~money_get();
+};
+
+template <
+    class CharT,
+    class OutputIt = std::ostreambuf_iterator<CharT>
+    > class money_put : public locale::facet  {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    typedef OutputIt iter_type;
+    static locale::id id;
+
+    explicit money_put(std::size_t refs = 0);
+
+    iter_type put(iter_type out, bool intl, std::ios_base& f,
+                  char_type fill, long double quant) const;
+    iter_type put(iter_type out, bool intl, std::ios_base& f,
+                  char_type fill, const string_type& quant) const;
+
+protected:
+    virtual iter_type do_put(iter_type out, bool intl, std::ios_base& str,
+                             char_type fill, long double units) const;
+    virtual iter_type do_put(iter_type out, bool intl, std::ios_base& str,
+                             char_type fill, const string_type& digits) const;
+    virtual ~money_put();
+};
+
+template<class CharT, bool International = false >
+class moneypunct : public money_base, public locale::facet {
+public:
+    typedef CharT char_type;
+    typedef std::basic_string<CharT> string_type;
+    typedef typename money_base::pattern pattern;
+
+    explicit moneypunct(std::size_t refs = 0);
+
+    CharT decimal_point() const;
+    char_type thousands_sep() const;
+    std::string grouping() const;
+    string_type curr_symbol() const;
+    string_type positive_sign() const;
+    string_type negative_sign() const;
+    int frac_digits() const;
+    pattern pos_format() const;
+    pattern neg_format() const;
+
+protected:
+    virtual CharT do_decimal_point() const;
+    virtual char_type do_thousands_sep() const;
+    virtual std::string do_grouping() const;
+    virtual string_type do_curr_symbol() const;
+    virtual string_type do_positive_sign() const;
+    virtual string_type do_negative_sign() const;
+    virtual int do_frac_digits() const;
+    virtual pattern do_pos_format() const;
+    virtual pattern do_neg_format() const;
+    virtual ~moneypunct();
+};
+
+template<class CharT>
+class ctype_byname : public ctype<CharT> {
+public:
+    explicit ctype_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit ctype_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~ctype_byname();
+};
+
+template<class InternT, class ExternT, class State>
+class codecvt_byname : public codecvt<InternT, ExternT, State> {
+public:
+    explicit codecvt_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit codecvt_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~codecvt_byname();
+};
+
+template<class CharT>
+class messages_byname : public messages<CharT> {
+public:
+    explicit messages_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit messages_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~messages_byname();
+};
+
+template<class CharT>
+class collate_byname : public collate<CharT> {
+public:
+    explicit collate_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit collate_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~collate_byname();
+};
+
+template<class CharT, class InputIt>
+class time_get_byname : public time_get<CharT, InputIt> {
+public:
+    explicit time_get_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit time_get_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~time_get_byname();
+};
+
+template<class CharT, class OutputIt>
+class time_put_byname : public time_put<CharT, OutputIt> {
+public:
+    explicit time_put_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit time_put_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~time_put_byname();
+};
+
+template<class CharT>
+class numpunct_byname : public numpunct<CharT> {
+public:
+    explicit numpunct_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit numpunct_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~numpunct_byname();
+};
+
+template<class CharT, bool International = false>
+class moneypunct_byname : public moneypunct<CharT, International> {
+public:
+    typedef typename money_base::pattern pattern;
+
+    explicit moneypunct_byname(const char* name, std::size_t refs = 0);
+#if CPPREFERENCE_STDVER >= 2011
+    explicit moneypunct_byname(const std::string& name, std::size_t refs = 0);
+#endif
+protected:
+    ~moneypunct_byname();
+};
+
+template<class Facet>
+const Facet& use_facet(const locale& loc);
+template<class Facet>
+const Facet& has_facet(const locale& loc);
+
+template<class CharT> bool isspace(CharT c, const locale& loc);
+#if CPPREFERENCE_STDVER >= 2011
+template<class CharT> bool isblank(CharT c, const locale& loc);
+#endif
+template<class CharT> bool iscntrl(CharT c, const locale& loc);
+template<class CharT> bool isupper(CharT c, const locale& loc);
+template<class CharT> bool islower(CharT c, const locale& loc);
+template<class CharT> bool isalpha(CharT c, const locale& loc);
+template<class CharT> bool isdigit(CharT c, const locale& loc);
+template<class CharT> bool ispunct(CharT c, const locale& loc);
+template<class CharT> bool isxdigit(CharT c, const locale& loc);
+template<class CharT> bool isalnum(CharT c, const locale& loc);
+template<class CharT> bool isprint(CharT c, const locale& loc);
+template<class CharT> bool isgraph(CharT c, const locale& loc);
+template<class CharT> CharT toupper(CharT c, const locale& loc);
+template<class CharT> CharT tolower(CharT c, const locale& loc);
+} // namespace std
+
+#endif // CPPREFERENCE_LOCALE_H

@@ -1,0 +1,146 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_OSTREAM_H
+#define CPPREFERENCE_OSTREAM_H
+
+namespace std {
+
+template <
+    class CharT,
+    class Traits = std::char_traits<CharT>
+    > class basic_ostream : virtual public std::basic_ios<CharT, Traits> {
+public:
+    explicit basic_ostream(std::basic_streambuf<CharT, Traits>* sb);
+    virtual ~basic_ostream();
+
+    basic_ostream& operator<<(short value);
+    basic_ostream& operator<<(unsigned short value);
+    basic_ostream& operator<<(int value);
+    basic_ostream& operator<<(unsigned int value);
+    basic_ostream& operator<<(long value);
+    basic_ostream& operator<<(unsigned long value);
+#if CPPREFERENCE_STDVER>= 2011
+    basic_ostream& operator<<(long long value);
+    basic_ostream& operator<<(unsigned long long value);
+#endif
+    basic_ostream& operator<<(float value);
+    basic_ostream& operator<<(double value);
+    basic_ostream& operator<<(long double value);
+    basic_ostream& operator<<(bool value);
+    basic_ostream& operator<<(const void* value);
+    basic_ostream& operator<<(std::basic_streambuf<CharT, Traits>* sb);
+    basic_ostream& operator<<(std::ios_base & (*func)(std::ios_base&));
+    basic_ostream& operator<<(std::basic_ios<CharT, Traits>& (*func)(std::basic_ios<CharT, Traits>&));
+    basic_ostream& operator<<(std::basic_ostream<CharT, Traits>& (*func)(std::basic_ostream<CharT, Traits>&));
+
+    basic_ostream& put(char_type ch);
+    basic_ostream& write(const char_type* s, std::streamsize count);
+    pos_type tellp();
+    basic_ostream& seekp(pos_type pos);
+    basic_ostream& seekp(off_type off, std::ios_base::seekdir dir);
+    basic_ostream& flush();
+
+    class sentry {
+    public:
+        typedef Traits traits_type;
+        explicit sentry(std::basic_ostream<CharT, Traits>& is, bool noskipws = false);
+        ~sentry();
+        explicit operator bool() const;
+    };
+
+protected:
+#if CPPREFERENCE_STDVER>= 2011
+    basic_ostream(const basic_ostream& rhs) = delete;
+    basic_ostream(basic_ostream&& rhs);
+#endif
+
+#if CPPREFERENCE_STDVER>= 2011
+    basic_ostream& operator=(const basic_ostream& rhs) = delete;
+    basic_ostream& operator=(basic_ostream&& rhs);
+    void swap(basic_ostream& rhs);
+#endif
+};
+
+template<class CharT, class Traits>
+basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>& os,
+        CharT ch);
+
+template<class CharT, class Traits>
+basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>& os,
+        char ch);
+
+template<class Traits>
+basic_ostream<char, Traits>& operator<<(basic_ostream<char, Traits>& os,
+                                        char ch);
+
+template<class Traits>
+basic_ostream<char, Traits>& operator<<(basic_ostream<char, Traits>& os,
+                                        signed char ch);
+
+template<class Traits>
+
+basic_ostream<char, Traits>& operator<<(basic_ostream<char, Traits>& os,
+                                        unsigned char ch);
+
+template<class CharT, class Traits>
+basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>& os,
+        const CharT* s);
+
+template<class CharT, class Traits>
+basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>& os,
+        const char* s);
+
+template<class Traits>
+basic_ostream<char, Traits>& operator<<(basic_ostream<char, Traits>& os,
+                                        const char* s);
+
+template<class Traits>
+basic_ostream<char, Traits>& operator<<(basic_ostream<char, Traits>& os,
+                                        const signed char* s);
+
+template<class Traits>
+basic_ostream<char, Traits>& operator<<(basic_ostream<char, Traits>& os,
+                                        const unsigned char* s);
+
+#if CPPREFERENCE_STDVER>= 2011
+template<class CharT, class Traits, class T>
+basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>&& os,
+        const T& value);
+#endif
+
+typedef basic_ostream<char> ostream;
+typedef basic_ostream<wchar_t> wostream;
+
+extern ostream cout;
+extern wostream wcout;
+extern ostream cerr;
+extern wostream wcerr;
+extern ostream clog;
+extern wostream wclog;
+
+// manipulators
+template<class CharT, class Traits>
+std::basic_ostream<CharT, Traits>& ends(std::basic_ostream<CharT, Traits>& os);
+
+template<class CharT, class Traits>
+std::basic_ostream<CharT, Traits>& flush(std::basic_ostream<CharT, Traits>& os);
+
+template<class CharT, class Traits>
+std::basic_ostream<CharT, Traits>& endl(std::basic_ostream<CharT, Traits>& os);
+
+} // namespace std
+
+#endif // CPPREFERENCE_OSTREAM_H

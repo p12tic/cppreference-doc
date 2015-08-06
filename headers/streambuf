@@ -1,0 +1,91 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_STREAMBUF_H
+#define CPPREFERENCE_STREAMBUF_H
+
+namespace std {
+
+template<class CharT, class Traits = char_traits<CharT>>
+class basic_streambuf {
+public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef typename traits_type::int_type int_type;
+    typedef typename traits_type::pos_type pos_type;
+    typedef typename traits_type::off_type off_type;
+
+    virtual ~basic_streambuf();
+
+    locale pubimbue(const locale& loc);
+    locale getloc() const;
+
+    basic_streambuf* pubsetbuf(char_type* s, streamsize n);
+    pos_type pubseekoff(off_type off, ios_base::seekdir dir,
+                        ios_base::openmode which = ios_base::in | ios_base::out);
+    pos_type pubseekpos(pos_type pos,
+                        ios_base::openmode which = ios_base::in | ios_base::out);
+    int pubsync();
+
+    streamsize in_avail();
+    int_type snextc();
+    int_type sbumpc();
+    int_type sgetc();
+    streamsize sgetn(char_type* s, streamsize n);
+    int_type sputc(char_type c);
+    streamsize sputn(const char_type* s, streamsize n);
+
+    int_type sputbackc(char_type c);
+    int_type sungetc();
+
+protected:
+    basic_streambuf();
+#if CPPREFERENCE_STDVER>= 2011
+    basic_streambuf(const basic_streambuf& rhs);
+    basic_streambuf& operator=(const basic_streambuf& rhs);
+    void swap(basic_streambuf& rhs);
+#endif
+
+    virtual void imbue(const std::locale& loc);
+    virtual basic_streambuf* setbuf(char_type* s, streamsize n);
+    virtual pos_type seekoff(off_type off, ios_base::seekdir dir,
+                             ios_base::openmode which = ios_base::in | ios_base::out);
+    virtual pos_type seekpos(pos_type pos,
+                             ios_base::openmode which = ios_base::in | ios_base::out);
+    virtual int sync();
+    virtual streamsize showmanyc();
+    virtual int_type underflow();
+    virtual int_type uflow();
+    virtual streamsize xsgetn(char_type* s, streamsize n);
+
+    char_type* eback() const;
+    char_type* gptr() const;
+    char_type* egptr() const;
+    void gbump(int n);
+    void setg(char_type* gbeg, char_type* gnext, char_type* gend);
+
+    virtual streamsize xsputn(const char_type* s, streamsize n);
+    virtual int_type overflow(int_type c = traits_type::eof());
+    char_type* pbase() const;
+    char_type* pptr() const;
+    char_type* epptr() const;
+    void pbump(int n);
+    void setp(char_type* pbeg, char_type* pend);
+    virtual int_type pbackfail(int_type c = traits_type::eof());
+};
+
+} // namespace std
+
+#endif // CPPREFERENCE_STREAMBUF_H

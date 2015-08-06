@@ -1,0 +1,100 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_STDEXCEPT_H
+#define CPPREFERENCE_STDEXCEPT_H
+
+#include <exception>
+
+namespace std {
+
+class logic_error : public exception {
+public:
+    explicit logic_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit logic_error(const char* what_arg);
+#endif
+};
+
+class domain_error : public logic_error {
+public:
+    explicit domain_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit domain_error(const char* what_arg);
+#endif
+};
+
+
+class invalid_argument : public logic_error {
+public:
+    explicit invalid_argument(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit invalid_argument(const char* what_arg);
+#endif
+};
+
+
+class length_error : public logic_error {
+public:
+    explicit length_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit length_error(const char* what_arg);
+#endif
+};
+
+
+class out_of_range : public logic_error {
+public:
+    explicit out_of_range(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit out_of_range(const char* what_arg);
+#endif
+};
+
+class runtime_error : public exception {
+public:
+    explicit runtime_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit runtime_error(const char* what_arg);
+#endif
+};
+
+class range_error : public runtime_error {
+public:
+    explicit range_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit range_error(const char* what_arg);
+#endif
+};
+
+class overflow_error : public runtime_error {
+public:
+    explicit overflow_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit overflow_error(const char* what_arg);
+#endif
+};
+
+class underflow_error : public runtime_error {
+public:
+    explicit underflow_error(const string& what_arg);
+#if CPPREFERENCE_STDVER>= 2011
+    explicit underflow_error(const char* what_arg);
+#endif
+};
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDEXCEPT_H

@@ -1,0 +1,108 @@
+/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_CONDITION_VARIABLE_H
+#define CPPREFERENCE_CONDITION_VARIABLE_H
+
+#if CPPREFERENCE_STDVER>= 2011
+
+namespace std {
+
+enum class cv_status {
+    no_timeout,
+    timeout
+};
+
+class condition_variable {
+public:
+    typedef void* native_handle_type; // actually implementation-defined
+
+    condition_variable();
+    condition_variable(const condition_variable&) = delete;
+    condition_variable& operator=(const condition_variable&) = delete;
+    ~condition_variable();
+
+    void notify_one();
+    void notify_all();
+
+    void wait(std::unique_lock<std::mutex>& lock);
+
+    template<class Predicate>
+    void wait(std::unique_lock<std::mutex>& lock, Predicate pred);
+
+    template<class Rep, class Period>
+    std::cv_status wait_for(std::unique_lock<std::mutex>& lock,
+                            const std::chrono::duration<Rep, Period>& rel_time);
+
+    template<class Rep, class Period, class Predicate>
+    bool wait_for(std::unique_lock<std::mutex>& lock,
+                  const std::chrono::duration<Rep, Period>& rel_time,
+                  Predicate pred);
+
+    template<class Clock, class Duration>
+    std::cv_status wait_until(std::unique_lock<std::mutex>& lock,
+                              const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    template<class Clock, class Duration, class Predicate>
+    bool wait_until(std::unique_lock<std::mutex>& lock,
+                    const std::chrono::time_point<Clock, Duration>& timeout_time,
+                    Predicate pred);
+
+    native_handle_type native_handle();
+};
+
+class condition_variable_any {
+public:
+    condition_variable_any();
+    condition_variable_any(const condition_variable_any&) = delete;
+    condition_variable_any& operator=(const condition_variable_any&) = delete;
+    ~condition_variable_any();
+
+    void notify_one();
+    void notify_all();
+
+    template<class Lock>
+    void wait(Lock& lock);
+
+    template<class Lock, class Predicate>
+    void wait(Lock& lock, Predicate pred);
+
+    template<class Lock, class Rep, class Period>
+    std::cv_status wait_for(Lock& lock,
+                            const std::chrono::duration<Rep, Period>& rel_time);
+
+    template<class Lock, class Rep, class Period, class Predicate>
+    bool wait_for(Lock& lock,
+                  const std::chrono::duration<Rep, Period>& rel_time,
+                  Predicate pred);
+
+    template<class Lock, class Clock, class Duration>
+    std::cv_status wait_until(Lock& lock,
+                              const std::chrono::time_point<Clock, Duration>& timeout_time);
+
+    template<class Lock, class Clock, class Duration, class Predicate>
+    bool wait_until(Lock& lock,
+                    const std::chrono::time_point<Clock, Duration>& timeout_time,
+                    Predicate pred);
+};
+
+void notify_all_at_thread_exit(std::condition_variable& cond,
+                               std::unique_lock<std::mutex> lk);
+
+} // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_CONDITION_VARIABLE_H
