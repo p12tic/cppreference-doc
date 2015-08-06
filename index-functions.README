@@ -4,6 +4,7 @@ This file defines the schema of the index-functions-*.xml files.
     /index/function     defines a global function
     /index/class        defines a class
     /index/enum         defines an enum
+    /index/variable     defines a variable
 
         "name" attribute: name of the identifier (with the namespace prefix)
         "link" attribute: link relative to the wiki root
@@ -14,6 +15,7 @@ This file defines the schema of the index-functions-*.xml files.
     //class/function    defines a member function
     //class/class       defines a member class
     //class/enum        defines a member enum
+    //class/variable    defines a member variable
 
         "name" attribute: name of the function/class (without the parent
                           class/namespace prefix)
