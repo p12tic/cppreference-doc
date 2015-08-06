@@ -2602,6 +2602,24 @@
     <function name="std::fabs" link="cpp/numeric/math/fabs"/>
     <function name="std::div" link="cpp/numeric/math/div"/>
     <function name="std::ldiv" link="cpp/numeric/math/div"/>
+    <function name="std::lldiv" link="cpp/numeric/math/div" since="c++11"/>
+    <function name="std::imaxdiv" link="cpp/numeric/math/div" since="c++11"/>
+    <class name="std::div_t" link="cpp/numeric/math/div">
+        <variable name="quot" link="."/>
+        <variable name="rem" link="."/>
+    </class>
+    <class name="std::ldiv_t" link="cpp/numeric/math/div">
+        <variable name="quot" link="."/>
+        <variable name="rem" link="."/>
+    </class>
+    <class name="std::lldiv_t" link="cpp/numeric/math/div" since="c++11">
+        <variable name="quot" link="."/>
+        <variable name="rem" link="."/>
+    </class>
+    <class name="std::imaxdiv_t" link="cpp/numeric/math/div" since="c++11">
+        <variable name="quot" link="."/>
+        <variable name="rem" link="."/>
+    </class>
     <function name="std::fmod" link="cpp/numeric/math/fmod"/>
     <function name="std::remainder" link="cpp/numeric/math/remainder"/>
     <function name="std::remquo" link="cpp/numeric/math/remquo"/>
