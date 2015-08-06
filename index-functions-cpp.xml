@@ -1514,6 +1514,8 @@
 
     <class name="std::pair" link="cpp/utility/pair">
         <constructor/>
+        <variable name="first" link="."/>
+        <variable name="second" link="."/>
         <function name="operator="/>
         <function name="swap"/>
 
