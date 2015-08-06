@@ -3912,6 +3912,8 @@
         <overload name="std::make_error_condition" link="make_error_condition"/>
     </enum>
 
+    <function name="std::iostream_category" link="cpp/io/iostream_category" since="c++11"/>
+
     <!-- cpp/io/c -->
 
     <function name="std::fopen" link="cpp/io/c/fopen"/>
