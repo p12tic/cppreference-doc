@@ -25,7 +25,6 @@ import shutil
 import urllib.parse
 from xml_utils import xml_escape, xml_unescape
 from bs4 import BeautifulSoup
-import bs4
 from build_link_map import build_link_map
 
 # copy the source tree
