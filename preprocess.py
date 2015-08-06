@@ -192,6 +192,8 @@ for idx, fn in enumerate(html_files):
                 bad.append(tag)
         elif tag_name == "meta" and tag.has_attr("content"):
             bad.append(tag)
+        elif tag_name == "a" and tag.has_attr("title") and tag["title"] == "About this image":
+            bad.append(tag.parent)
         else:
             try:
                 if len(bad_classes.intersection(tag["class"])):
