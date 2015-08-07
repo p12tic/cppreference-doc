@@ -24,6 +24,8 @@ datarootdir = $(prefix)/share
 docdir = $(datarootdir)/cppreference/doc
 bookdir = $(datarootdir)/devhelp/books
 
+qhelpgenerator = qhelpgenerator
+
 #Version
 
 VERSION=20141118
@@ -39,6 +41,7 @@ DISTFILES=	\
 		ddg_parse_html.py		\
 		devhelp2qch.xsl			\
 		fix_devhelp-links.py	\
+		gen_chapter_index.py	\
 		index2autolinker.py	\
 		index2browser.py		\
 		index2ddg.py			\
@@ -47,12 +50,11 @@ DISTFILES=	\
 		index2search.py			\
 		index2highlight.py		\
 		index_transform.py		\
-		index-chapters-c.xml	\
-		index-chapters-cpp.xml	\
 		index-functions.README	\
 		index-functions-c.xml	\
 		index-functions-cpp.xml	\
 		link_map.py		\
+		merge_devhelp.py	\
 		preprocess.py			\
 		preprocess.xsl			\
 		preprocess-css.css		\
@@ -126,47 +128,47 @@ release: all
 #WORKER RULES
 doc_html: output/reference
 
-doc_devhelp: output/cppreference-doc-en-c.devhelp2 output/cppreference-doc-en-cpp.devhelp2
+doc_devhelp: output/cppreference-doc-en-c.devhelp2 output/cppreference-doc-en-cpp.devhelp2 output/complete.devhelp2
 
 doc_qch: output/cppreference-doc-en-cpp.qch
 
 doc_doxygen: output/cppreference-doxygen-web.tag.xml output/cppreference-doxygen-local.tag.xml
 
-#builds the title<->location map
-output/link-map.xml: output/reference
-	./build_link_map.py
-
 #build the .devhelp2 index
 output/cppreference-doc-en-c.devhelp2: 		\
-		output/reference 		\
-		output/link-map.xml
-	./index2devhelp.py $(docdir)/html index-chapters-c.xml  \
+		output/reference
+	./gen_chapter_index.py --i output/reference/en/c.html --o output/index-chapters-c.xml
+	./index2devhelp.py $(docdir)/html output/index-chapters-c.xml  \
 		"C Standard Library reference" "cppreference-doc-en-c" "c" \
-		index-functions-c.xml "output/devhelp-index-c.xml"
-	./fix_devhelp-links.py "output/devhelp-index-c.xml"  \
-		"output/cppreference-doc-en-c.devhelp2"
+		index-functions-c.xml "output/cppreference-doc-en-c.devhelp2"
+
 
 output/cppreference-doc-en-cpp.devhelp2:	\
-		output/reference 		\
-		output/link-map.xml
-	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml  \
+		output/reference
+	./gen_chapter_index.py --i output/reference/en/cpp.html --o output/index-chapters-cpp.xml
+	./index2devhelp.py $(docdir)/html output/index-chapters-cpp.xml  \
 		"C++ Standard Library reference" "cppreference-doc-en-cpp" "cpp" \
-		index-functions-cpp.xml "output/devhelp-index-cpp.xml"
-	./fix_devhelp-links.py "output/devhelp-index-cpp.xml" \
-		"output/cppreference-doc-en-cpp.devhelp2"
+		index-functions-cpp.xml "output/cppreference-doc-en-cpp.devhelp2"
+
+output/complete.devhelp2:	\
+		output/reference output/cppreference-doc-en-c.devhelp2 output/cppreference-doc-en-cpp.devhelp2
+	./merge_devhelp.py \
+		--c "output/cppreference-doc-en-c.devhelp2" \
+		--cpp "output/cppreference-doc-en-cpp.devhelp2" \
+		--out "output/complete.devhelp2"
 
 #build the .qch (QT help) file
-output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
+output/cppreference-doc-en-cpp.qch: output/complete.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
-	cp "output/qch-help-project-cpp.xml" "output/reference/qch.xml"
+	cp "output/complete.xml" "output/reference/qch.xml"
 
 	pushd "output/reference" > /dev/null; \
-	qhelpgenerator "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
+	$(qhelpgenerator) "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
 	rm -f "output/reference/qch.xml"
 
-output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
+output/complete.xml: output/complete.devhelp2
 	#build the file list
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "output/qch-files.xml"
 
@@ -178,20 +180,18 @@ output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 	echo "</files>" >> "output/qch-files.xml"
 
 	#create the project (copies the file list)
-	xsltproc devhelp2qch.xsl "output/cppreference-doc-en-cpp.devhelp2" > \
-		"output/qch-help-project-cpp.xml"
+	xsltproc devhelp2qch.xsl "output/complete.devhelp2" > \
+		"output/complete.xml"
 
 # build doxygen tag file
 output/cppreference-doxygen-local.tag.xml: 		\
-		output/reference 		\
-		output/link-map.xml
+		output/reference
 	./index2doxygen-tag.py "output/link-map.xml" \
 		"index-functions-cpp.xml" \
 		"output/cppreference-doxygen-local.tag.xml"
 
 output/cppreference-doxygen-web.tag.xml: 		\
-		output/reference 		\
-		output/link-map.xml
+		output/reference
 	./index2doxygen-tag.py web \
 		"index-functions-cpp.xml" \
 		"output/cppreference-doxygen-web.tag.xml"

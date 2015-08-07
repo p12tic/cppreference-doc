@@ -8,7 +8,7 @@ div#cpp-content-base {
 }
 
 div#content {
-    margin: 0;
+    margin: auto;
     position: static;
     width: 48.75em;
 }
@@ -20,6 +20,7 @@ html, body {
 
 .t-navbar {
     height: 1.72em;
+    left: inherit;
 }
 
 tt,

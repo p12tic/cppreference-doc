@@ -24,11 +24,13 @@ import sys
 import shutil
 import urllib.parse
 from xml_utils import xml_escape, xml_unescape
+from bs4 import BeautifulSoup
+from build_link_map import build_link_map
 
 # copy the source tree
 os.system('rm -rf output/reference')
 os.system('mkdir -p output/reference')
-os.system('cp -rt output/reference reference/*')
+os.system('cp -r reference/* output/reference ')
 
 # rearrange the archive {root} here is output/reference
 
@@ -61,7 +63,7 @@ for lang in ["en"]:
     if (os.path.isdir(src_data_path)):
         # the skin files should be the same for all languages thus we
         # can merge everything
-        os.system('cp -rl ' + src_data_path + '/* ' + data_path)
+        os.system('cp -r ' + src_data_path + '/* ' + data_path)
         os.system('rm -r ' + src_data_path)
 
     # also copy the custom fonts
@@ -125,6 +127,9 @@ for root,fn in files_loader:
 rename_file('output/reference/en/cpp/numeric/math', 'NAN.html', 'NAN.2.html')
 rename_file('output/reference/en/c/numeric/math', 'NAN.html', 'NAN.2.html')
 
+# generate link map as long as there is all information present
+build_link_map()
+
 # find files that need to be preprocessed
 html_files = []
 for root, dirnames, filenames in os.walk('output/reference/'):
@@ -132,10 +137,12 @@ for root, dirnames, filenames in os.walk('output/reference/'):
         html_files.append(os.path.join(root, filename))
 
 #temporary fix
-r1 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)
+# r1 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)
 
 # fix links to files in rename_map
 rlink = re.compile('((?:src|href)=")([^"]*)(")')
+
+html_comment = re.compile("<!--(.|\s)*?-->")
 
 def rlink_fix(match):
     pre = match.group(1)
@@ -154,25 +161,51 @@ def rlink_fix(match):
     target = target.replace('%23', '#');
     return pre + target + post
 
+
 # clean the html files
-for fn in html_files:
-    f = open(fn, "r")
-    text = f.read()
-    f.close()
+bad_classes = {"noprint", "editsection", "printfooter", "catlinks"}
 
-    text = r1.sub('', text);
+count = len(html_files)
+for idx, fn in enumerate(html_files):
+    if idx % 50 == 0:
+        print("{} of {}".format(idx, count))
+    with open(fn, 'r') as f:
+        text = f.read()
+
+    # text = r1.sub('', text);
+    text = html_comment.sub('', text);
     text = rlink.sub(rlink_fix, text)
+    soup = BeautifulSoup(text, "lxml")
 
-    f = open(fn, "w")
-    f.write(text)
-    f.close()
+    bad = []
+    for tag in soup():
+        tag_name = tag.name
+        if tag_name == "script":
+            bad.append(tag)
+        elif tag_name == "link" and not "stylesheet" in tag["rel"]:
+            bad.append(tag)
+        elif tag_name == "style":
+            try:
+                if "text/css" not in tag["type"]:
+                    bad.append(tag)
+            except KeyError:
+                bad.append(tag)
+        elif tag_name == "meta" and tag.has_attr("content"):
+            bad.append(tag)
+        elif tag_name == "a" and tag.has_attr("title") and tag["title"] == "About this image":
+            bad.append(tag.parent)
+        else:
+            try:
+                if len(bad_classes.intersection(tag["class"])):
+                    bad.append(tag)
+            except KeyError:
+                pass
 
-    tmpfile = fn + '.tmp';
-    ret = os.system('xsltproc --novalid --html --encoding UTF-8 preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
-    if ret != 0:
-        print("FAIL: " + fn)
-        continue
-    os.system('mv "' + tmpfile + '" "' + fn + '"')
+    [s.extract() for s in bad]
+
+    with open(fn, 'w') as f:
+        f.write(soup.prettify())
+
 
 # append css modifications
 

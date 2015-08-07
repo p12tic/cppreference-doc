@@ -39,11 +39,17 @@
 
     <customFilter name="{@title}">
       <filterAttribute>
+        <xsl:value-of select="$qch-namespace" />
+      </filterAttribute>
+      <filterAttribute>
         <xsl:value-of select="@name" />
       </filterAttribute>
     </customFilter>
 
     <filterSection>
+      <filterAttribute>
+        <xsl:value-of select="$qch-namespace" />
+      </filterAttribute>
       <filterAttribute>
         <xsl:value-of select="@name" />
       </filterAttribute>
@@ -77,7 +83,8 @@
     <keyword name="{@name}" id="{@name}" ref="{@link}" />
     <!-- Add an additional id for libc++ users -->
     <xsl:if test="starts-with(@name, 'std::')">
-      <keyword name="{@name}" id="{concat('std::___LIBCPP_ABI_VERSION::', substring(@name, 6))}" ref="{@link}" />
+      <keyword id="{concat('std::__LIBCPP_ABI_VERSION::', substring(@name, 6))}" ref="{@link}" />
+      <keyword id="{concat('std::__1::', substring(@name, 6))}" ref="{@link}" />
     </xsl:if>
   </xsl:if>
 </xsl:template>
