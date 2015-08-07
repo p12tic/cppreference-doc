@@ -35,6 +35,7 @@ all: doc_devhelp doc_qch doc_doxygen
 DISTFILES=	\
 		reference/				\
 		images/					\
+		headers/				\
 		build_link_map.py		\
 		ddg_parse_html.py		\
 		devhelp2qch.xsl			\
