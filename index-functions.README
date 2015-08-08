@@ -95,7 +95,8 @@ This file defines the schema of the index-functions-*.xml files.
         "name" attribute: name of the identifier whose contents to import.
                           Allowed identifiers: '/index/class' and '/index/enum'
 
-    "since" attribute: one of "c99", "c11", "c++03", "c++11", "c++14"
+    "since" attribute: one of "c99", "c11", "c++03", "c++11", "c++14", "c++17",
+        "exp" (experimental)
 
     Note: replace spaces in all links with '_'
 
