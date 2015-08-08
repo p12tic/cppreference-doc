@@ -776,6 +776,7 @@
         <function name="operator*"/>
         <function name="operator->" link="operator*"/>
         <function name="unique"/>
+        <function name="use_count"/>
         <function name="operator bool" link="operator_bool"/>
         <function name="owner_before"/>
 
