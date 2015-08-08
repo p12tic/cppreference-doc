@@ -2835,6 +2835,24 @@
     <class name="std::valarray" link="cpp/numeric/valarray">
         <!-- todo -->
     </class>
+    <class name="std::slice" link="cpp/numeric/valarray/slice">
+        <!-- todo -->
+    </class>
+    <class name="std::gslice" link="cpp/numeric/valarray/gslice">
+        <!-- todo -->
+    </class>
+    <class name="std::slice_array" link="cpp/numeric/valarray/slice_array">
+        <!-- todo -->
+    </class>
+    <class name="std::gslice_array" link="cpp/numeric/valarray/gslice_array">
+        <!-- todo -->
+    </class>
+    <class name="std::mask_array" link="cpp/numeric/valarray/mask_array">
+        <!-- todo -->
+    </class>
+    <class name="std::indirect_array" link="cpp/numeric/valarray/indirect_array">
+        <!-- todo -->
+    </class>
 
     <!-- cpp/numeric/random -->
 
