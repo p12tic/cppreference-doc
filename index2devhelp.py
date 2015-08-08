@@ -56,6 +56,8 @@ class Index2Devhelp(IndexTransform):
         elif el.tag == 'typedef': return 'typedef'
         elif el.tag == 'specialization': return 'class'
         elif el.tag == 'overload': return 'function'
+        # devhelp does not support variables in its format
+        elif el.tag == 'variable': return ''
         return ''
 
     def process_item_hook(self, el, full_name, full_link):

@@ -77,6 +77,7 @@ def needs_entry_in_group(el):
     if el.tag == 'function': return True
     if el.tag == 'class': return True
     if el.tag == 'enum': return True
+    if el.tag == 'variable': return True
     return False
 
 class Index2AutolinkerGroups(IndexTransform):

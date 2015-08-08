@@ -30,11 +30,20 @@ out_f = open(sys.argv[2], 'w')
 
 class Index2Highlight(IndexTransform):
 
+    def check_is_member(self, el):
+        if el.getparent().tag == 'index':
+            return False
+        if el.tag == 'function': return True
+        elif el.tag == 'variable': return True
+        elif el.tag == 'constructor': return True
+        elif el.tag == 'destructor': return True
+        return False
+
     def process_item_hook(self, el, full_name, full_link):
         global out_f
 
-        if el.getparent().tag != 'index' and (
-            el.tag == 'function' or el.tag == 'constructor' or el.tag == 'destructor'): pass
+        is_member = False
+        if self.check_is_member(el): pass
         elif '<' in full_name: pass
         elif '>' in full_name: pass
         elif '(' in full_name: pass

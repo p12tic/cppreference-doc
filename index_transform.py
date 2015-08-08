@@ -134,7 +134,7 @@ class IndexTransform:
 
     """ Processes one item """
     def process_item(self, el, parent_name, parent_link):
-        if el.tag in ['const','function','class','enum','typedef',
+        if el.tag in ['const','function','class','enum','variable','typedef',
                       'constructor','destructor','specialization','overload']:
 
             full_name = self.get_full_name(el, parent_name)

@@ -174,6 +174,7 @@ class Index2Devhelp(IndexTransform):
         elif el.tag == 'typedef': return ItemKind.CLASS
         elif el.tag == 'specialization': return None
         elif el.tag == 'overload': return None
+        elif el.tag == 'variable': return ItemKind.VARIABLE
         return None
 
     def process_item_hook(self, el, full_name, full_link):

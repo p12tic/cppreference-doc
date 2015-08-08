@@ -39,6 +39,7 @@ class Index2Browser(IndexTransform):
         elif el.tag == 'destructor': mark = '(function)'
         elif el.tag == 'class': mark = '(class)'
         elif el.tag == 'enum': mark = '(enum)'
+        elif el.tag == 'variable': mark = '(variable)'
         elif el.tag == 'typedef': mark = '(typedef)'
         elif el.tag == 'specialization': mark = '(class)'
         elif el.tag == 'overload': mark = '(function)'

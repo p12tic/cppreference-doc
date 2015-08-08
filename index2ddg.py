@@ -81,6 +81,12 @@ ITEM_TYPE_ENUM = 8
 # a value of an enum
 ITEM_TYPE_ENUM_CONST = 9
 
+# a variable
+ITEM_TYPE_VARIABLE = 10
+
+# a member variable that is described in the same page as the containing class
+ITEM_TYPE_VARIABLE_INLINEMEM = 11
+
 def get_item_type(el):
     if (el.tag == 'const' and el.getparent().tag == 'enum' and
         el.get('link') == '.'):
@@ -90,6 +96,11 @@ def get_item_type(el):
             return ITEM_TYPE_FUNCTION_INLINEMEM
         else:
             return ITEM_TYPE_FUNCTION
+        if el.tag == 'variable':
+            if el.get('link') == '.':
+                return ITEM_TYPE_VARIABLE_INLINEMEM
+            else:
+                return ITEM_TYPE_VARIABLE
     if el.tag == 'constructor':
         if el.get('link') == '.':
             return ITEM_TYPE_CONSTRUCTOR_INLINEMEM
@@ -309,6 +320,8 @@ def build_redirects(item_ident, item_type):
     if item_type in [ ITEM_TYPE_CLASS,
                       ITEM_TYPE_FUNCTION,
                       ITEM_TYPE_FUNCTION_INLINEMEM,
+                      ITEM_TYPE_VARIABLE,
+                      ITEM_TYPE_VARIABLE_INLINEMEM,
                       ITEM_TYPE_ENUM,
                       ITEM_TYPE_ENUM_CONST ]:
         do_parts(parts)
@@ -429,6 +442,8 @@ for page in proc_ins:
                       (last part after :: is enough, hopefully)
                 '''
 
+            elif item_type == ITEM_TYPE_VARIABLE:
+            elif item_type == ITEM_TYPE_VARIABLE_INLINEMEM:
             elif item_type == ITEM_TYPE_ENUM:
                 raise DdgException("ENUM")      # not implemented
                 ''' Implementation notes:
