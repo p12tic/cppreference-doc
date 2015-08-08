@@ -458,6 +458,8 @@
         <!-- type traits -->
 
     <class name="std::is_void" link="cpp/types/is_void"/>
+    <class name="std::is_null_pointer" link="cpp/types/is_null_pointer" since="c++14"/>
+    <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
     <class name="std::is_integral" link="cpp/types/is_integral"/>
     <class name="std::is_floating_point" link="cpp/types/is_floating_point"/>
     <class name="std::is_array" link="cpp/types/is_array"/>
@@ -528,35 +530,61 @@
     <class name="std::is_base_of" link="cpp/types/is_base_of"/>
     <class name="std::is_convertible" link="cpp/types/is_convertible"/>
 
-    <class name="std::remove_cv" link="cpp/types/remove_cv"/>
-    <class name="std::remove_const" link="cpp/types/remove_cv"/>
-    <class name="std::remove_volatile" link="cpp/types/remove_cv"/>
-    <class name="std::add_cv" link="cpp/types/add_cv"/>
-    <class name="std::add_const" link="cpp/types/add_cv"/>
-    <class name="std::add_volatile" link="cpp/types/add_cv"/>
+    <class name="std::remove_cv" link="cpp/types/remove_cv" since="c++11"/>
+    <class name="std::remove_const" link="cpp/types/remove_cv" since="c++11"/>
+    <class name="std::remove_volatile" link="cpp/types/remove_cv" since="c++11"/>
+    <typedef name="std::remove_cv_t" alias="std::remove_cv" since="c++14"/>
+    <typedef name="std::remove_const_t" alias="std::remove_const" since="c++14"/>
+    <typedef name="std::remove_volatile_t" alias="std::remove_volatile" since="c++14"/>
 
-    <class name="std::remove_reference" link="cpp/types/remove_reference"/>
-    <class name="std::add_lvalue_reference" link="cpp/types/add_reference"/>
-    <class name="std::add_rvalue_reference" link="cpp/types/add_reference"/>
+    <class name="std::add_cv" link="cpp/types/add_cv" since="c++11"/>
+    <class name="std::add_const" link="cpp/types/add_cv" since="c++11"/>
+    <class name="std::add_volatile" link="cpp/types/add_cv" since="c++11"/>
+    <typedef name="std::add_cv_t" alias="std::add_cv" since="c++14"/>
+    <typedef name="std::add_const_t" alias="std::add_const" since="c++14"/>
+    <typedef name="std::add_volatile_t" alias="std::add_volatile" since="c++14"/>
 
-    <class name="std::remove_pointer" link="cpp/types/remove_pointer"/>
-    <class name="std::add_pointer" link="cpp/types/add_pointer"/>
+    <class name="std::remove_reference" link="cpp/types/remove_reference" since="c++11"/>
+    <typedef name="std::remove_reference_t" alias="std::remove_reference" since="c++14"/>
+    <class name="std::add_lvalue_reference" link="cpp/types/add_reference" since="c++11"/>
+    <typedef name="std::add_lvalue_reference_t" alias="std::add_lvalue_reference" since="c++14"/>
+    <class name="std::add_rvalue_reference" link="cpp/types/add_reference" since="c++11"/>
+    <typedef name="std::add_rvalue_reference_t" alias="std::add_rvalue_reference" since="c++14"/>
 
-    <class name="std::make_signed" link="cpp/types/make_signed"/>
-    <class name="std::make_unsigned" link="cpp/types/make_unsigned"/>
+    <class name="std::remove_pointer" link="cpp/types/remove_pointer" since="c++11"/>
+    <typedef name="std::remove_pointer_t" alias="std::remove_pointer" since="c++14"/>
+    <class name="std::add_pointer" link="cpp/types/add_pointer" since="c++11"/>
+    <typedef name="std::add_pointer_t" alias="std::add_pointer" since="c++14"/>
 
-    <class name="std::remove_extent" link="cpp/types/remove_extent"/>
-    <class name="std::remove_all_extents" link="cpp/types/remove_all_extents"/>
+    <class name="std::make_signed" link="cpp/types/make_signed" since="c++11"/>
+    <typedef name="std::make_signed_t" alias="std::make_signed" since="c++14"/>
+    <class name="std::make_unsigned" link="cpp/types/make_unsigned" since="c++11"/>
+    <typedef name="std::make_unsigned_t" alias="std::make_unsigned" since="c++14"/>
+
+    <class name="std::remove_extent" link="cpp/types/remove_extent" since="c++11"/>
+    <typedef name="std::remove_extent_t" alias="std::remove_extent" since="c++14"/>
+    <class name="std::remove_all_extents" link="cpp/types/remove_all_extents" since="c++11"/>
+    <typedef name="std::remove_all_extents_t" alias="std::remove_all_extents" since="c++14"/>
 
     <class name="std::aligned_storage" link="cpp/types/aligned_storage"/>
+    <typedef name="std::aligned_storage_t" alias="std::aligned_storage" since="c++14"/>
     <class name="std::aligned_union" link="cpp/types/aligned_union"/>
+    <typedef name="std::aligned_union_t" alias="std::aligned_union" since="c++14"/>
     <class name="std::decay" link="cpp/types/decay"/>
+    <typedef name="std::decay_t" alias="std::decay" since="c++14"/>
     <class name="std::enable_if" link="cpp/types/enable_if"/>
+    <typedef name="std::enable_if_t" alias="std::enable_if" since="c++14"/>
+    <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
     <class name="std::conditional" link="cpp/types/conditional"/>
+    <typedef name="std::conditional_t" alias="std::conditional" since="c++14"/>
     <class name="std::common_type" link="cpp/types/common_type"/>
+    <typedef name="std::common_type_t" alias="std::common_type" since="c++14"/>
     <class name="std::underlying_type" link="cpp/types/underlying_type"/>
+    <typedef name="std::underlying_type_t" alias="std::underlying_type" since="c++14"/>
     <class name="std::result_of" link="cpp/types/result_of"/>
+    <typedef name="std::result_of_t" alias="std::result_of" since="c++14"/>
     <class name="std::integral_constant" link="cpp/types/integral_constant"/>
+    <typedef name="std::bool_constant" alias="std::integral_constant" since="c++17"/>
     <typedef name="std::true_type" alias="std::integral_constant"/>
     <typedef name="std::false_type" alias="std::integral_constant"/>
 
@@ -609,8 +637,14 @@
     <function name="std::distance" link="cpp/iterator/distance"/>
     <function name="std::next" link="cpp/iterator/next"/>
     <function name="std::prev" link="cpp/iterator/prev"/>
-    <function name="std::begin" link="cpp/iterator/begin"/>
-    <function name="std::end" link="cpp/iterator/end"/>
+    <function name="std::begin" link="cpp/iterator/begin" since="c++11"/>
+    <function name="std::cbegin" link="cpp/iterator/begin" since="c++14"/>
+    <function name="std::rbegin" link="cpp/iterator/rbegin" since="c++14"/>
+    <function name="std::crbegin" link="cpp/iterator/rbegin" since="c++14"/>
+    <function name="std::end" link="cpp/iterator/end" since="c++11"/>
+    <function name="std::cend" link="cpp/iterator/end" since="c++14"/>
+    <function name="std::rend" link="cpp/iterator/rend" since="c++14"/>
+    <function name="std::crend" link="cpp/iterator/rend" since="c++14"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/memory -->
@@ -770,6 +804,7 @@
         <specialization name="std::hash" link="hash"/>
     </class>
 
+    <function name="std::make_unique" link="cpp/memory/unique_ptr/make_unique" since="c++14"/>
     <function name="std::make_shared" link="cpp/memory/shared_ptr/make_shared"/>
     <function name="std::allocate_shared" link="cpp/memory/shared_ptr/allocate_shared"/>
     <function name="std::static_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
@@ -1470,6 +1505,7 @@
     <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"/>
 
     <function name="std::mem_fn" link="cpp/utility/functional/mem_fn"/>
+    <function name="std::invoke" link="cpp/utility/functional/invoke" since="c++17"/>
     <class name="std::function" link="cpp/utility/functional/function">
         <constructor/>
         <destructor/>
@@ -1568,11 +1604,11 @@
     <function name="std::tie" link="cpp/utility/tuple/tie"/>
     <function name="std::forward_as_tuple" link="cpp/utility/tuple/forward_as_tuple"/>
     <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat"/>
-    <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat"/>
     <const name="std::ignore" link="cpp/utility/tuple/ignore"/>
 
     <function name="std::forward" link="cpp/utility/forward"/>
-    <function name="std::move" link="cpp/utility/move"/>
+    <function name="std::exchange" link="cpp/utility/exchange" since="c++14"/>
+    <function name="std::move (utility)" link="cpp/utility/move"/>
     <function name="std::move_if_noexcept" link="cpp/utility/move_if_noexcept"/>
     <function name="std::declval" link="cpp/utility/declval"/>
 
@@ -3343,7 +3379,7 @@
     <function name="std::copy_if" link="cpp/algorithm/copy"/>
     <function name="std::copy_n" link="cpp/algorithm/copy_n"/>
     <function name="std::copy_backward" link="cpp/algorithm/copy_backward"/>
-    <function name="std::move" link="cpp/algorithm/move"/>
+    <function name="std::move (algorithm)" link="cpp/algorithm/move"/>
     <function name="std::move_backward" link="cpp/algorithm/move_backward"/>
     <function name="std::fill" link="cpp/algorithm/fill"/>
     <function name="std::fill_n" link="cpp/algorithm/fill_n"/>
@@ -3894,6 +3930,7 @@
     <function name="std::put_time" link="cpp/io/manip/put_time"/>
 
     <!-- misc -->
+    <function name="std::quoted" link="cpp/io/manip/quoted" since="c++14"/>
     <typedef name="std::streamoff" link="cpp/io/streamoff"/>
     <typedef name="std::streamsize" link="cpp/io/streamsize"/>
     <class name="std::fpos" link="cpp/io/fpos">
@@ -4753,6 +4790,18 @@
         <function name="try_lock_shared_for"/>
         <function name="try_lock_shared_until"/>
         <function name="unlock_shared"/>
+    </class>
+
+    <class name="std::shared_mutex" link="cpp/thread/shared_mutex" since="c++17">
+        <constructor/>
+        <function name="lock"/>
+        <function name="try_lock"/>
+        <function name="unlock"/>
+
+        <function name="lock_shared"/>
+        <function name="try_lock_shared"/>
+        <function name="unlock_shared"/>
+        <function name="native_handle"/>
     </class>
 
     <class name="std::defer_lock_t" link="cpp/thread/lock_tag_t"/>
