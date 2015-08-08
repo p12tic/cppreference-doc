@@ -24,6 +24,8 @@ datarootdir = $(prefix)/share
 docdir = $(datarootdir)/cppreference/doc
 bookdir = $(datarootdir)/devhelp/books
 
+qhelpgenerator = qhelpgenerator
+
 #Version
 
 VERSION=20141118
@@ -162,7 +164,7 @@ output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
 	cp "output/qch-help-project-cpp.xml" "output/reference/qch.xml"
 
 	pushd "output/reference" > /dev/null; \
-	qhelpgenerator "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
+	$(qhelpgenerator) "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
 	rm -f "output/reference/qch.xml"
