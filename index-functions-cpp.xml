@@ -3896,14 +3896,14 @@
     </class>
 
     <!-- class doesn't fit here, but whatever -->
-    <class name="std::cin" link="cpp/io/basic_istream"/>
-    <class name="std::wcin" link="cpp/io/basic_istream"/>
-    <class name="std::cout" link="cpp/io/basic_ostream"/>
-    <class name="std::wcout" link="cpp/io/basic_ostream"/>
-    <class name="std::cerr" link="cpp/io/basic_ostream"/>
-    <class name="std::wcerr" link="cpp/io/basic_ostream"/>
-    <class name="std::clog" link="cpp/io/basic_ostream"/>
-    <class name="std::wclog" link="cpp/io/basic_ostream"/>
+    <class name="std::cin" link="cpp/io/cin"/>
+    <class name="std::wcin" link="cpp/io/cin"/>
+    <class name="std::cout" link="cpp/io/cout"/>
+    <class name="std::wcout" link="cpp/io/cout"/>
+    <class name="std::cerr" link="cpp/io/cerr"/>
+    <class name="std::wcerr" link="cpp/io/cerr"/>
+    <class name="std::clog" link="cpp/io/clog"/>
+    <class name="std::wclog" link="cpp/io/clog"/>
 
     <!-- manipulators-->
 
