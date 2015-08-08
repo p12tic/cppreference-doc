@@ -596,7 +596,7 @@
     <function name="mbrtowc" link="c/string/multibyte/mbrtowc"/>
     <function name="wcrtomb" link="c/string/multibyte/wcrtomb"/>
     <function name="mbsrtowcs" link="c/string/multibyte/mbsrtowcs"/>
-    <function name="wcstombs" link="c/string/multibyte/wcstombs"/>
+    <function name="wcsrtombs" link="c/string/multibyte/wcsrtombs"/>
 
     <function name="mbrtoc16" link="c/string/multibyte/mbrtoc16"/>
     <function name="c16rtomb" link="c/string/multibyte/c16rtomb"/>

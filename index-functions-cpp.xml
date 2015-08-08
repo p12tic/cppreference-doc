@@ -1687,7 +1687,7 @@
     <function name="std::mbrtowc" link="cpp/string/multibyte/mbrtowc"/>
     <function name="std::wcrtomb" link="cpp/string/multibyte/wcrtomb"/>
     <function name="std::mbsrtowcs" link="cpp/string/multibyte/mbsrtowcs"/>
-    <function name="std::wcstombs" link="cpp/string/multibyte/wcstombs"/>
+    <function name="std::wcsrtombs" link="cpp/string/multibyte/wcsrtombs"/>
 
     <function name="std::mbrtoc16" link="cpp/string/multibyte/mbrtoc16"/>
     <function name="std::c16rtomb" link="cpp/string/multibyte/c16rtomb"/>
