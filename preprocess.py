@@ -149,15 +149,16 @@ def rlink_fix(match):
     target = match.group(2)
     post = match.group(3)
 
-    target = xml_unescape(target)
-    target = urllib.parse.unquote(target)
-    for fn,new_fn in rename_map:
-        target = target.replace(fn, new_fn)
-    target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
-    target = target.replace('../mwiki/','../common/')
-    target = re.sub('(\.php|\.css)\?.*', '\\1', target)
-    target = urllib.parse.quote(target)
-    target = xml_escape(target)
+    if "http://" not in target:
+        target = xml_unescape(target)
+        target = urllib.parse.unquote(target)
+        for fn,new_fn in rename_map:
+            target = target.replace(fn, new_fn)
+        target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
+        target = target.replace('../mwiki/','../common/')
+        target = re.sub('(\.php|\.css)\?.*', '\\1', target)
+        target = urllib.parse.quote(target)
+        target = xml_escape(target)
     target = target.replace('%23', '#');
     return pre + target + post
 
