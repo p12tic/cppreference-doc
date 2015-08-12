@@ -28,7 +28,7 @@ qhelpgenerator = qhelpgenerator
 
 #Version
 
-VERSION=20141118
+VERSION=20150809
 
 #STANDARD RULES
 
@@ -230,5 +230,9 @@ source:
 	  --timeout=180 --no-verbose \
 	  --retry-connrefused --waitretry=1 --read-timeout=20 \
 	  http://en.cppreference.com/w/ ; \
+	wget --adjust-extension --page-requisites --convert-links \
+	  --timeout=180 --no-verbose \
+	  --retry-connrefused --waitretry=1 --read-timeout=20 \
+	  http://en.cppreference.com/w/Cppreference:FAQ ; \
 	popd > /dev/null
 

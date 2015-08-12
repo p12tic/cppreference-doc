@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 #   Copyright (C) 2011, 2012  Povilas Kanapickas <povilas@radix.lt>
+#   Copyright (C) 2015  Michael Munzert <info@mm-log.com>
 #
 #   This file is part of cppreference-doc
 #
@@ -26,6 +27,7 @@ import urllib.parse
 from xml_utils import xml_escape, xml_unescape
 from bs4 import BeautifulSoup
 from build_link_map import build_link_map
+from clean_faq import clean_faq
 
 # copy the source tree
 os.system('rm -rf output/reference')
@@ -126,6 +128,9 @@ for root,fn in files_loader:
 # TODO: perform this automatically
 rename_file('output/reference/en/cpp/numeric/math', 'NAN.html', 'NAN.2.html')
 rename_file('output/reference/en/c/numeric/math', 'NAN.html', 'NAN.2.html')
+
+# clean FAQ
+clean_faq('output')
 
 # generate link map as long as there is all information present
 build_link_map()
