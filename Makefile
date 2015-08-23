@@ -60,7 +60,7 @@ DISTFILES=	\
 		preprocess.xsl			\
 		preprocess-css.css		\
 		Makefile				\
-		README				\
+		README.md			\
 		xml_utils.py
 
 CLEANFILES= \
