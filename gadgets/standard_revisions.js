@@ -496,14 +496,13 @@ $(function() {
         this.prepare_dscs = function() {
             this.dsc_tables = $('.t-dsc-begin');
             var dsc_elems = this.dsc_tables.children('tbody').children('.t-dsc');
-
-            // FIXME: handle type tables
             var self = this;
-            dsc_elems.each(function(){
-                var member = $(this).children().children('.t-dsc-member-div');
-                if (member.length == 0) {
-                    return;
-                }
+
+            /*  Handles the case one of the specialized wrapper templates is
+                used. This case is special in that the description may contain
+                several names, each with standard tag attached.
+            */
+            function process_dsc_specialized(el, member) {
                 var lines = member.find('.t-lines');
                 if (lines.length != 2) {
                     return;
@@ -511,16 +510,14 @@ $(function() {
                 var marks = lines.last();
 
                 var rev_map = self.get_revision_map(marks.children());
-                self.tracker.add_diff_object($(this), rev_map[Rev.DIFF], 'table-row');
+                self.tracker.add_diff_object(el, rev_map[Rev.DIFF], 'table-row');
 
-                var sep_rev = rev_map[Rev.DIFF]; // separator visibility
                 for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
                     if (rev_map[rev].length == 0) {
                         continue;
                     }
-                    sep_rev = sep_rev.concat(rev_map[rev]);
 
-                    var copy = $(this).clone().hide();
+                    var copy = el.clone().hide();
                     self.tracker.add_object(copy, rev_map[rev], 'table-row');
 
                     var member = copy.children().children('.t-dsc-member-div');
@@ -529,7 +526,38 @@ $(function() {
                     var marks = lines.last().children();
 
                     self.delete_lines(titles, marks, rev);
-                    copy.insertAfter($(this));
+                    copy.insertAfter(el);
+                }
+            };
+
+            // Handles the generic dsc template case
+            function process_dsc_generic(el) {
+                var td = el.children().first();
+                if (td.find('.t-mark-rev').length == 0) {
+                    return;
+                }
+                var rev_map = self.get_revision_map(td);
+                self.tracker.add_diff_object(el, rev_map[Rev.DIFF], 'table-row');
+
+                for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
+                    if (rev_map[rev].length == 0) {
+                        continue;
+                    }
+
+                    var copy = el.clone().hide();
+                    self.tracker.add_object(copy, rev_map[rev], 'table-row');
+                    // remove marks, but only in the first column
+                    copy.children().first().find('.t-mark-rev').remove();
+                    copy.insertAfter(el);
+                }
+            };
+
+            dsc_elems.each(function(){
+                var member = $(this).children().children('.t-dsc-member-div');
+                if (member.length != 0) {
+                    process_dsc_specialized($(this), member);
+                } else {
+                    process_dsc_generic($(this));
                 }
             });
         };
