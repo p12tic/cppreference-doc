@@ -1203,6 +1203,7 @@ $(function() {
             selection box
         */
         this.on_selection_change = function() {
+            this.prepare();
             var rev = parseInt(this.el.select.val());
             this.tracker.to_rev(rev);
 
