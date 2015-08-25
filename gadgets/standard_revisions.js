@@ -1234,7 +1234,7 @@ $(function() {
 
     // get the important elements of the page
     this.get_core_elements = function() {
-        this.el.root = $('#mw-content-text');j
+        this.el.root = $('#mw-content-text');
         this.el.dcl_tables = this.el.root.find('.t-dcl-begin');
         this.el.dcl_rev_tables = this.el.dcl_tables.filter('.t-dcl-rev-begin');
         this.el.dsc_tables = this.el.root.find('.t-dsc-begin');
