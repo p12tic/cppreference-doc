@@ -462,7 +462,7 @@ $(function() {
             in on_selection_table. Note, that in order for this to work, the
             revision marks must not be touched.
         */
-        this.prepare_revs = function() {
+        this.prepare_all_revs = function() {
             this.rev_tables = $('.t-rev-begin');
             var rev_elems = this.rev_tables.children('tbody').children('.t-rev');
             var self = this;
@@ -476,7 +476,7 @@ $(function() {
 
         /** Handles rev_inl template
         */
-        this.prepare_inl_revs = function() {
+        this.prepare_all_inl_revs = function() {
             this.rev_inl_elems = $('.t-rev-inl');
             var self = this;
             this.rev_inl_elems.each(function() {
@@ -493,9 +493,18 @@ $(function() {
         /** Handles all dsc_* templates.
             Prepares items in dsc lists
         */
-        this.prepare_dscs = function() {
+        this.prepare_all_dscs = function() {
             this.dsc_tables = $('.t-dsc-begin');
             var dsc_elems = this.dsc_tables.children('tbody').children('.t-dsc');
+            var self = this;
+
+            var self = this;
+            dsc_elems.each(function() {
+                self.prepare_dsc($(this));
+            });
+        };
+
+        this.prepare_dsc = function(el) {
             var self = this;
 
             /*  Handles the case one of the specialized wrapper templates is
@@ -552,14 +561,12 @@ $(function() {
                 }
             };
 
-            dsc_elems.each(function(){
-                var member = $(this).children().children('.t-dsc-member-div');
-                if (member.length != 0) {
-                    process_dsc_specialized($(this), member);
-                } else {
-                    process_dsc_generic($(this));
-                }
-            });
+            var member = el.children().children('.t-dsc-member-div');
+            if (member.length != 0) {
+                process_dsc_specialized(el, member);
+            } else {
+                process_dsc_generic(el);
+            }
         };
 
         /** Handles dcl_* templates.
@@ -573,7 +580,7 @@ $(function() {
 
             array[revision][orig_num] -> target_num or -1
         */
-        this.prepare_dcls = function(dcl_table) {
+        this.prepare_all_dcls = function(dcl_table) {
 
             var tracker = this.tracker;
 
@@ -949,7 +956,7 @@ $(function() {
 
         /** Renumbers and hides the list items according to the given @a num_map
         */
-        this.prepare_li = function(num_map) {
+        this.prepare_all_li = function(num_map) {
             // FIXME: currently we process only the first t-li element out of
             // each block of elements assigned a single num.
             var el_li = $('.t-li1').add($('.t-li2')).add($('.t-li3'));
@@ -1070,14 +1077,14 @@ $(function() {
                 return;
             }
             this.prepare_navbar();
-            this.prepare_revs();
-            this.prepare_inl_revs();
-            this.prepare_dscs();
+            this.prepare_all_revs();
+            this.prepare_all_inl_revs();
+            this.prepare_all_dscs();
 
             var dcl_tables = $('.t-dcl-begin');
             if (dcl_tables.length > 0) {
-                var num_map = this.prepare_dcls(dcl_tables.first());
-                this.prepare_li(num_map);
+                var num_map = this.prepare_all_dcls(dcl_tables.first());
+                this.prepare_all_li(num_map);
             }
             this.is_prepared = true;
         };
