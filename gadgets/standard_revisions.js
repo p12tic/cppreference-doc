@@ -66,6 +66,7 @@ $(function() {
         return res;
     }
 
+    /// Exit if we are not in view mode
     if (mw.config.get('wgAction') != 'view') {
         return;
     }
@@ -454,10 +455,12 @@ $(function() {
             }
         };
 
-        /** rev list template can be prepared separately from everything else.
-            Additionally, we don't need to copy any parts of the object tree:
-            the elements within table rev list just need to be hidder or shown
-            depending on the revision
+        /** Handles rev_begin, rev, rev_end templates
+            We don't copy the contents of this template around. We just add
+            the rows to the element tracker and show and hide them as needed.
+            To hide the frame on non-diff revisions, we have special treatment
+            in on_selection_table. Note, that in order for this to work, the
+            revision marks must not be touched.
         */
         this.prepare_revs = function() {
             this.rev_tables = $('.t-rev-begin');
@@ -471,6 +474,8 @@ $(function() {
             });
         };
 
+        /** Handles rev_inl template
+        */
         this.prepare_inl_revs = function() {
             this.rev_inl_elems = $('.t-rev-inl');
             var self = this;
@@ -485,7 +490,9 @@ $(function() {
             });
         };
 
-        /** Prepares items in dsc lists */
+        /** Handles all dsc_* templates.
+            Prepares items in dsc lists
+        */
         this.prepare_dscs = function() {
             this.dsc_tables = $('.t-dsc-begin');
             var dsc_elems = this.dsc_tables.children('tbody').children('.t-dsc');
@@ -527,9 +534,9 @@ $(function() {
             });
         };
 
-        /** Prepares items in dcl list identified by @a dcl_table. Returns
-            "numbering map", which defines how the list items are renumbered
-            (or deleted) for each revision. The numbering map is a an
+        /** Handles dcl_* templates.
+            Returns "numbering map", which defines how the list items are
+            renumbered (or deleted) for each revision. The numbering map is a an
             two-dimensional array - the first index identifies the revision,
             the second -- original number. The value obtained this way
             identifies whether the entry should be hidden and if not, what
@@ -1047,8 +1054,12 @@ $(function() {
             this.is_prepared = true;
         };
 
-        /** Returns an a list of revisions for which a the node should be copied
-            and for which revisions each of the copy would be shown.
+        /** Utility function. Takes an jQuery object containing an array of
+            elements that may or may not contain revision marker.
+            Returns an a list of revisions for which a the node should be copied
+            and for which revisions each of the copy would be shown. The result
+            is an associative array: key identifies the revision to build the
+            DOM for; the value identifies the revisions to show the result for.
         */
         this.get_revision_map = function(lines) {
             var res = [];
@@ -1095,7 +1106,7 @@ $(function() {
                 }
 
                 // Maybe nothing has changed from the previous revision and we
-                // can simply keep the node created for the previus revision
+                // can simply keep the node created for the previous revision
                 if (array_equal(curr_visible, prev_visible)) {
                     res[prev_rev].push(rev);
                 } else {
@@ -1108,7 +1119,8 @@ $(function() {
             return res;
         };
 
-        /** Deletes lines from multi-line links that have marks nearby.
+        /** Utility function. Deletes lines from multi-line links (such as these
+            in dsc tables) that have marks nearby.
             Returns true if no lines are left. @a titles and @a marks must both
             refer to the children of .t-lines elements.
          */
