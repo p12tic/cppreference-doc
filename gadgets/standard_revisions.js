@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2013-2014  Povilas Kanapickas <povilas@radix.lt>
+    Copyright (C) 2013-2015  Povilas Kanapickas <povilas@radix.lt>
 
     This file is part of cppreference.com
 
@@ -117,8 +117,6 @@ $(function() {
     /// Several helper arrays and functions to identify on which revisions
     /// certain mark is shown.
 
-    var is_shown = [];
-
     function should_be_shown(rev, mark) {
         if (rev == Rev.DIFF) {
             return true;
@@ -169,10 +167,11 @@ $(function() {
         return { since: true, rev: Rev.C89 };
     }
 
-    /** Returns an array of revisions (DIFF not included) an element should be
-        shown on.
+    /** Returns a "visibility map": a bool array indexed by revisions. If
+        result[rev] is true for particular revision rev, then the element
+        should be visible on that revision.
     */
-    function is_shown_on_rev_cxx(el) {
+    function get_visibility_on_rev_cxx(el) {
         // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
         // DIFF is always false
         if (el.hasClass('t-since-cxx17')) {
@@ -199,7 +198,7 @@ $(function() {
         return [false, true, true, true, true];
     }
 
-    function is_shown_on_rev_c(el) {
+    function get_visibility_on_rev_c(el) {
         // DIFF: 0, C89: 1, C99: 2, C11: 3
         // DIFF is always false
         if (el.hasClass('t-since-c11')) {
@@ -220,17 +219,20 @@ $(function() {
         return [false, true, true, true];
     }
 
-    function is_shown_fill_cxx(val) {
+    /* Result is similar to get_visibility_on_rev, except that all values are set to
+       val
+    */
+    function visibility_fill_cxx(val) {
         // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
         return [val, val, val, val, val];
     }
-    function is_shown_fill_c(el) {
+    function visibility_fill_c(el) {
         // DIFF: 0, C89: 1, C99: 2, C11: 3
         return [val, val, val, val];
     }
 
-    /// Prints values returned by is_shown_on_rev
-    function debug_print_is_shown_on_rev(revs) {
+    /// Prints values returned by get_visibility_on_rev
+    function debug_print_visibility_map(revs) {
         var out = '{ ';
         for (var i = 0; i < revs.length; i++) {
             if (revs[i]) {
@@ -243,34 +245,22 @@ $(function() {
         return out;
     }
 
-    var get_mark, is_shown_on_rev, is_shown_fill;
+    var get_mark, get_visibility_on_rev, visibility_fill;
 
     if (is_cxx) {   // select either C or C++ version
         get_mark = get_mark_cxx;
-        is_shown_on_rev = is_shown_on_rev_cxx;
-        is_shown_fill = is_shown_fill_cxx;
+        get_visibility_on_rev = get_visibility_on_rev_cxx;
+        visibility_fill = visibility_fill_cxx;
     } else {
         get_mark = get_mark_c;
-        is_shown_on_rev = is_shown_on_rev_c;
-        is_shown_fill = is_shown_fill_c;
+        get_visibility_on_rev = get_visibility_on_rev_c;
+        visibility_fill = visibility_fill_c;
     }
 
-    function get_shown_revs(el) {
-        var is_shown = is_shown_on_rev(el);
-        var res = [];
-        for (var i = Rev.FIRST; i != Rev.LAST; ++i) {
-            if (is_shown[i]) {
-                res.push(i);
-            }
-        }
-        return res;
-    }
-
-    /** Converts array of bool as returned by @c is_shown_on_rev or
-        @c is_shown_fill to an array of revisions as accepted by ObjectTracker's
-        add_* methods
+    /** Converts visibility map to an array of revisions as accepted by
+        ObjectTracker's add_* methods
     */
-    function is_shown2revs(revs) {
+    function visibility_to_shown_revs(revs) {
         var res = [];
         for (var rev = Rev.DIFF; rev != Rev.LAST; ++rev) {
             if (revs[rev]) {
@@ -278,6 +268,10 @@ $(function() {
             }
         }
         return res;
+    }
+
+    function get_shown_revs(el) {
+        return visibility_to_shown_revs(get_visibility_on_rev(el));
     }
 
     /** This class keeps track of objects that need to be shown or hidden for
@@ -628,7 +622,7 @@ $(function() {
                     type: 's',
                     obj: el,
                     num: -1,
-                    revs: is_shown_fill(true)
+                    revs: visibility_fill(true)
                 };
 
                 // get version num
@@ -644,7 +638,7 @@ $(function() {
                 if (!is_rev_overridden) {
                     var notes_td = el.children('td').eq(2);
                     if (notes_td.find('.t-mark-rev').length > 0) {
-                        new_def.revs = is_shown_on_rev(el);
+                        new_def.revs = get_visibility_on_rev(el);
                     }
                 } else {
                     new_def.revs = overridden_revs;
@@ -658,7 +652,7 @@ $(function() {
                     type: 'r',
                     obj: el,
                     num: -1,
-                    revs: is_shown_fill(true),
+                    revs: visibility_fill(true),
                     children: []
                 };
 
@@ -682,7 +676,7 @@ $(function() {
                 if (el.hasClass('t-dcl-rev-notes')) {
                     var mark_revs = aux_tr.children('td').eq(2).find('.t-mark-rev');
                     if (mark_revs.length > 0) {
-                        new_def.revs = is_shown_on_rev(el);
+                        new_def.revs = get_visibility_on_rev(el);
                         has_revs = true;
                     }
                 }
@@ -712,7 +706,7 @@ $(function() {
                 var out = '';
                 for (var i = 0; i < defs.length; i++) {
                     out += ' { ' + i + ': ' + defs[i].type + ' ' + defs[i].num;
-                    out += ' ' + debug_print_is_shown_on_rev(defs[i].revs);
+                    out += ' ' + debug_print_visibility_map(defs[i].revs);
                     if (defs[i].type == 'r') {
                         out += ' { ';
                         for (var j = 0 ; j < defs[i].children.length; ++j) {
@@ -814,8 +808,8 @@ $(function() {
 
             /// Checks whether any children of a rev-list identified by @a def
             /// are shown in revision @a rev
-            function is_children_shown_on_rev(def) {
-                var res = is_shown_fill(false);
+            function any_children_visible_on_rev(def) {
+                var res = visibility_fill(false);
 
                 for (var i = 0; i != def.children.length; ++i) {
                     res = array_or(res, defs[def.children[i]].revs);
@@ -866,7 +860,7 @@ $(function() {
                 var sep_revs;
 
                 if (def.num == -1) {
-                    var tr_revs = is_shown2revs(def.revs);
+                    var tr_revs = visibility_to_shown_revs(def.revs);
                     sep_revs = tr_revs;
                     if (def.revs[Rev.DIFF] == true) {
                         // no num and no rev-marks -- shown always
@@ -905,9 +899,9 @@ $(function() {
             function finalize_rev_tbody(def) {
                 // The rev-list tbody does not ever change - we only need to
                 // hide it sometimes
-                var tbody_revs = array_and(def.revs, is_children_shown_on_rev(def));
+                var tbody_revs = array_and(def.revs, any_children_visible_on_rev(def));
                 tbody_revs[Rev.DIFF] = true;
-                tracker.add_diff_object(def.obj, is_shown2revs(tbody_revs), 'table-row');
+                tracker.add_diff_object(def.obj, visibility_to_shown_revs(tbody_revs), 'table-row');
 
                 if (def.num == -1) {
                     if (def.revs[Rev.DIFF] == true) {
@@ -923,7 +917,7 @@ $(function() {
                         var revs = tbody_revs.slice();
                         revs[Rev.DIFF] = false;
 
-                        tracker.add_object(new_el, is_shown2revs(revs), 'table-row');
+                        tracker.add_object(new_el, visibility_to_shown_revs(revs), 'table-row');
                     }
                 } else {
                     // need to handle numbering
@@ -1010,7 +1004,7 @@ $(function() {
                 // get the description of what numbers to display for which
                 // revision
 
-                var revs_show = is_shown_fill(true);
+                var revs_show = visibility_fill(true);
                 var revs_show_all = true;
 
                 var disp_desc = [];
@@ -1047,7 +1041,7 @@ $(function() {
                 // hide entire t-liX element if needed
                 if (!revs_show_all) {
                     this.tracker.add_diff_object(descs[i].obj,
-                                                 is_shown2revs(revs_show),
+                                                 visibility_to_shown_revs(revs_show),
                                                  'block');
                 }
 
@@ -1100,14 +1094,14 @@ $(function() {
             var res = [];
             res[Rev.DIFF] = [Rev.DIFF];
 
-            var is_shown = [];
+            var visible_by_line = [];
 
             // create separate elements when diff has rev marks
             var is_diff_clean = true;
 
             lines.each(function() {
                 var rev_mark = $(this).find('.t-mark-rev').first();
-                is_shown.push(is_shown_on_rev(rev_mark));
+                visible_by_line.push(get_visibility_on_rev(rev_mark));
                 if (rev_mark.length > 0) {
                     is_diff_clean = false;
                 }
@@ -1121,7 +1115,7 @@ $(function() {
             if (is_diff_clean) {
                 // any further revisions will match this this array only if
                 // original version of the element does not contain rev marks
-                for (var i = 0; i < is_shown.length; i++) {
+                for (var i = 0; i < visible_by_line.length; i++) {
                     prev_visible.push(i); // DIFF shows all lines
                 }
             }
@@ -1130,8 +1124,8 @@ $(function() {
                 res[rev] = [];
 
                 var curr_visible = [];
-                for (var i = 0; i < is_shown.length; i++) {
-                    if (is_shown[i][rev] == true) {
+                for (var i = 0; i < visible_by_line.length; i++) {
+                    if (visible_by_line[i][rev] == true) {
                         curr_visible.push(i);
                     }
                 }
