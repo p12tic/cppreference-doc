@@ -21,6 +21,12 @@ $(function() {
 
     var debug = false;
 
+    // Add console.log() if not present
+    if (!window.console)
+        window.console = {};
+    if (!window.console.log)
+        window.console.log = function() { };
+
     function array_equal(a, b) {
         var i = a.length;
         if (i != b.length) {
@@ -337,6 +343,219 @@ $(function() {
         };
     };
 
+    /** This class tracks object visibility throughout section hierarchy. That
+        is, for example, when section contents are not visible on a certain
+        revision, then related visual objects such as section title are hidden
+        too.
+
+        In the context of this class, visual objects can be of one of the
+        following three kinds:
+
+         - primary: define the visibility of the section the objects are in.
+         - secondary: visibility depends on visibility of primary objects.
+         - unknown: it's unknown how the object should behave. Effectively
+            identical to primary elements that are visible on all revisions.
+         - container: Contains other visual objects. Such objects are
+            explicitly tracked in cases when in order to completely hide the
+            container, it's not enough to hide its contents (e.g. when
+            container has padding).
+
+        When all primary and unknown elements within a section are not visible
+        in certain revision, then all secondary elements are hidden too. The
+        process is repeated throughout entire section hierarchy.
+
+        The section hierarchy tree is built by specifying hierarchy level via
+        set_level() and adding elements via add_*() functions. Hierarchy levels
+        are identified by ascending integer numbers. Container objects are set
+        independently via enter_container() and exit_container() functions -
+        these functions effectively form a parallel hierarchy.
+    */
+    var SectionContentsTracker = function() {
+        this.root_section = new SectionNode(null);
+        this.root_container = new ContainerNode(null, null);
+        this.curr_section = this.root_section;
+        this.curr_container = this.root_container;
+    };
+
+    var ObjectType = {
+        PRIMARY : 0,
+        SECONDARY : 1,
+        UNKNOWN : 2,
+        SECTION : 3,
+        CONTAINER : 4
+    };
+
+    // internal classes for SectionContentsTracker
+    var ObjectNode = function(parent_section, parent_container, type, obj) {
+        this.parent_section = parent_section;
+        this.parent_container = parent_container;
+        this.level = parent_section.level + 1;
+        this.children = null;
+        this.obj = obj;
+        this.type = type;
+        this.visible = null;
+    };
+
+    var SectionNode = function(parent) {
+        this.parent_section = parent;
+        if (parent === null) {
+            this.level = 0;
+        } else {
+            this.level = this.parent_section.level + 1;
+        }
+        this.children = [];
+        this.obj = null;
+        this.type = ObjectType.SECTION;
+        this.visible = null;
+    };
+
+    var ContainerNode = function(parent, obj) {
+        this.parent_container = parent;
+        this.children = [];
+        this.obj = obj;
+        this.type = ObjectType.CONTAINER;
+        this.visible = null;
+    };
+
+    /** Walks the internal section hierarchy tree to the specified level. If
+        level is higher than current level, then new section nodes are created as
+        descendants of the current section node. If the current level is the
+        same, a new node is created.
+    */
+    SectionContentsTracker.prototype.set_level = function(level) {
+        if (level < 0) {
+            console.log("Level must be positive");
+            return;
+        }
+
+        while (this.curr_section.level >= level && this.curr_section.level > 0) {
+            this.curr_section = this.curr_section.parent_section;
+        }
+        while (this.curr_section.level < level) {
+            var new_section = new SectionNode(this.curr_section);
+            this.curr_section.children.push(new_section);
+            this.curr_section = new_section;
+        }
+    };
+
+    SectionContentsTracker.prototype.add_object = function(obj, type, visible) {
+        var new_node = new ObjectNode(this.curr_section, this.curr_container, type, obj);
+        new_node.visible = visible;
+        this.curr_section.children.push(new_node);
+        this.curr_container.children.push(new_node);
+    };
+
+    SectionContentsTracker.prototype.add_primary = function(obj, visible) {
+        this.add_object(obj, ObjectType.PRIMARY, visible);
+    };
+
+    SectionContentsTracker.prototype.add_secondary = function(obj) {
+        this.add_object(obj, ObjectType.SECONDARY, null);
+    };
+
+    SectionContentsTracker.prototype.add_unknown = function(obj) {
+        this.add_object(obj, ObjectType.UNKNOWN, visibility_fill(true));
+    };
+
+    SectionContentsTracker.prototype.enter_container = function(obj) {
+        var new_node = new ContainerNode(this.curr_container, obj);
+        this.curr_container.children.push(new_node);
+        this.curr_container = new_node;
+    };
+
+    SectionContentsTracker.prototype.exit_container = function() {
+        this.curr_container = this.curr_container.parent_container;
+    };
+
+    // Recursively evaluates visibility of a section object
+    SectionContentsTracker.prototype.eval_section_visibility = function(obj) {
+        var visible = visibility_fill(false);
+        var i, child;
+        for (i = 0; i < obj.children.length; i++) {
+            child = obj.children[i];
+            switch (child.type) {
+            case ObjectType.PRIMARY:
+            case ObjectType.UNKNOWN:
+                visible = array_or(visible, child.visible);
+                break;
+            case ObjectType.SECONDARY: // ignoring secondary objects
+                break;
+            case ObjectType.SECTION:
+                visible = array_or(visible, this.eval_section_visibility(child));
+                break;
+            }
+        }
+
+        for (i = 0; i < obj.children.length; i++) {
+            child = obj.children[i];
+            if (child.type === ObjectType.SECONDARY) {
+                child.visible = visible;
+            }
+        }
+
+        obj.visible = visible;
+        return visible;
+    };
+
+    // Recursively evaluates visibility of container objects. Assumes that
+    // visibility of secondary objects is already set
+    SectionContentsTracker.prototype.eval_container_visibility = function(obj) {
+        var visible = visibility_fill(false);
+        for (var i = 0; i < obj.children.length; i++) {
+            var child = obj.children[i];
+            if (child.type === ObjectType.CONTAINER) {
+                visible = array_or(visible, this.eval_container_visibility(child));
+            } else {
+                visible = array_or(visible, child.visible);
+            }
+        }
+        obj.visible = visible;
+        return visible;
+    };
+
+    // Checks if the object needs to be hidden in any revisions identified in
+    // mask and if yes, performs the hide operation.
+    SectionContentsTracker.prototype.perform_hide_obj =  function(obj, tracker, visible_mask) {
+        var wanted_visible = array_and(obj.visible, visible_mask);
+        if (!array_equal(wanted_visible, visible_mask)) {
+            tracker.add_diff_object(obj.obj, visibility_to_shown_revs(wanted_visible));
+            return wanted_visible;
+        }
+        return visible_mask;
+    };
+
+    // Recursively evaluates the contents of a container and hides container
+    // and secondary elements if needed. visible_mask identifies which
+    // revisions the object may be visible in certain revision (it may not be
+    // visible in case parent container is not visible).
+    SectionContentsTracker.prototype.perform_hide = function(obj, tracker, visible_mask) {
+        // handle visibility of the container
+        if (obj !== this.root_container) {
+            visible_mask = this.perform_hide_obj(obj, tracker, visible_mask);
+        }
+
+        // handle visibility of contents
+        for (var i = 0; i < obj.children.length; ++i) {
+            var child = obj.children[i];
+            switch (child.type) {
+            case ObjectType.CONTAINER:
+                this.perform_hide(child, tracker, visible_mask);
+                break;
+            case ObjectType.SECONDARY:
+                this.perform_hide_obj(child, tracker, visible_mask);
+                break;
+            }
+        }
+    };
+
+    SectionContentsTracker.prototype.run = function(tracker) {
+        // evaluate visibility of sections and containers
+        this.eval_section_visibility(this.root_section);
+        this.eval_container_visibility(this.root_container);
+
+        this.perform_hide(this.root_container, tracker, visibility_fill(true));
+    };
+
     function StandardRevisionPlugin() {
 
         this.el = {};
@@ -478,15 +697,80 @@ $(function() {
         */
         this.prepare_all_dscs = function() {
             this.dsc_tables = $('.t-dsc-begin');
-            var dsc_elems = this.dsc_tables.children('tbody').children('.t-dsc');
             var self = this;
-
-            var self = this;
-            dsc_elems.each(function() {
-                self.prepare_dsc($(this));
+            this.dsc_tables.each(function() {
+                self.prepare_dsc_table($(this));
             });
         };
 
+        this.is_secondary = function(el) {
+            if (el.is('h3') ||
+                el.is('h5') ||
+                el.is('p') ||
+                (el.is('tr') && el.has('td > h5').length) ||
+                el.is('.t-dsc-header'))
+            {
+                return true;
+            }
+            return false;
+        };
+
+        this.get_level = function(el) {
+            if (el.is('h3'))
+                return 0;
+            if (el.is('h5'))
+                return 1;
+            if (el.is('tr') && el.has('td > h5').length)
+                return 1;
+            if (el.is('.t-dsc-header'))
+                return 2;
+            return -1;
+        }
+
+        this.set_level_if_needed = function(section_tracker, el) {
+            var level = this.get_level(el);
+            if (level >= 0) {
+                section_tracker.set_level(level);
+            }
+        };
+
+        this.prepare_dsc_table = function(el) {
+            var section_tracker = new SectionContentsTracker();
+
+            var start_el = el.prev();
+            while (start_el.length !== 0 && this.is_secondary(start_el)) {
+                start_el = start_el.prev();
+            }
+            start_el = start_el.next();
+
+            while (start_el[0] !== el[0]) {
+                this.set_level_if_needed(section_tracker, start_el);
+                section_tracker.add_secondary(start_el);
+                start_el = start_el.next();
+            }
+
+            section_tracker.enter_container(el);
+
+            var rows = el.children('tbody').children();
+            var self = this;
+            rows.each(function() {
+                var el = $(this);
+                if (el.is('.t-dsc')) {
+                    section_tracker.add_primary(el, self.prepare_dsc(el));
+                } else {
+                    self.set_level_if_needed(section_tracker, el);
+                    if (self.is_secondary(el)) {
+                        section_tracker.add_secondary(el);
+                    } else {
+                        section_tracker.add_unknown(el);
+                    }
+                }
+            });
+            section_tracker.exit_container();
+            section_tracker.run(this.tracker);
+        };
+
+        // Handles one dsc item. Returns a visibility map for that item.
         this.prepare_dsc = function(el) {
             var self = this;
 
@@ -497,7 +781,7 @@ $(function() {
             function process_dsc_specialized(el, member) {
                 var lines = member.find('.t-lines');
                 if (lines.length != 2) {
-                    return;
+                    return visibility_fill(true);
                 }
                 var marks = lines.last();
 
@@ -520,13 +804,14 @@ $(function() {
                     self.delete_lines(titles, marks, rev);
                     copy.insertAfter(el);
                 }
+                return self.revision_map_to_visibility(rev_map);
             };
 
             // Handles the generic dsc template case
             function process_dsc_generic(el) {
                 var td = el.children().first();
                 if (td.find('.t-mark-rev').length == 0) {
-                    return;
+                    return visibility_fill(true);
                 }
                 var rev_map = self.get_revision_map(td);
                 self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
@@ -542,13 +827,14 @@ $(function() {
                     copy.children().first().find('.t-mark-rev').remove();
                     copy.insertAfter(el);
                 }
+                return self.revision_map_to_visibility(rev_map);
             };
 
             var member = el.children().children('.t-dsc-member-div');
             if (member.length != 0) {
-                process_dsc_specialized(el, member);
+                return process_dsc_specialized(el, member);
             } else {
-                process_dsc_generic(el);
+                return process_dsc_generic(el);
             }
         };
 
@@ -1132,6 +1418,17 @@ $(function() {
             }
 
             return res;
+        };
+
+        /** Utility function. Takes a revision map as returned by
+            get_revision_map and produces visibility map from that.
+        */
+        this.revision_map_to_visibility = function(revs) {
+            var visible = visibility_fill(false);
+            for (var i in revs) {
+                visible[revs[i]] = true;
+            }
+            return visible;
         };
 
         /** Utility function. Deletes lines from multi-line links (such as these
