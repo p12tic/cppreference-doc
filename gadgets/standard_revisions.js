@@ -470,7 +470,7 @@ $(function() {
                 var shown_revs = get_shown_revs($(this));
                 shown_revs.push(Rev.DIFF);
 
-                self.tracker.add_object($(this), shown_revs, 'block');
+                self.tracker.add_object($(this), shown_revs, 'table-row');
             });
         };
 
