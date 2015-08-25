@@ -292,37 +292,26 @@ $(function() {
             this.rev2id_map[i] = [];
         }
 
-        /** Adds a jQuery object @a obj from the original document DOM. @a revs
-            define for which standard revisions to display the object. @a
-            display defines the CSS display property to use when the object is
-            shown.
-
-            Returns the id of the new object.
+        /** Adds a jQuery object @a obj that should be shown only on specific
+            revisions identified by @a revs. @a orig_obj is used to compute the
+            display property that should be set to the object when the
+            visibility is restored.
         */
-        this.add_diff_object = function(obj, revs, display) {
-            var id = this.add_object(obj, revs, display);
-            this.diff_ids.push(id);
-            return id;
-        };
-
-        /** Adds a jQuery object @a obj that is newly created, i.e. modified
-            version of an object that has been/will be passed to
-            add_diff_object. @a revs define for which standard revisions to
-            display the object. @a display defines the CSS display property to
-            use when the object is shown.
-
-            Returns the id of the new object.
-        */
-        this.add_object = function(obj, revs, display) {
+        this.add_object = function(obj, orig_obj, revs) {
             var id = this.all_objects.length;
             this.all_objects[id] = obj;
-            this.all_display[id] = display;
+            this.all_display[id] = orig_obj.css('display');
 
             for (var i = 0; i < revs.length; ++i) {
                 this.rev2id_map[revs[i]].push(id);
             }
-            return id;
         };
+
+        // Same as add_object except that obj is used to compute the display
+        // property. The object must be already attached to DOM.
+        this.add_diff_object = function(obj, revs) {
+            this.add_object(obj, obj, revs);
+        }
 
         /** Changes the visibility of objects */
         this.to_rev = function(rev) {
@@ -368,14 +357,14 @@ $(function() {
                 return; // no navbar
             }
 
-            this.tracker.add_diff_object(nv, [Rev.DIFF], 'block');
+            this.tracker.add_diff_object(nv, [Rev.DIFF]);
 
             var self = this;
 
             for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
                 // Create new navbar and insert it to the tracker
                 var rev_nv = nv.clone().hide().insertAfter(nv);
-                this.tracker.add_object(rev_nv, [rev], 'block');
+                this.tracker.add_object(rev_nv, nv, [rev]);
 
                 // Get interesting elements
                 var nv_tables = rev_nv.find('.t-nv-begin');
@@ -464,7 +453,7 @@ $(function() {
                 var shown_revs = get_shown_revs($(this));
                 shown_revs.push(Rev.DIFF);
 
-                self.tracker.add_object($(this), shown_revs, 'table-row');
+                self.tracker.add_diff_object($(this), shown_revs);
             });
         };
 
@@ -474,13 +463,13 @@ $(function() {
             this.rev_inl_elems = $('.t-rev-inl');
             var self = this;
             this.rev_inl_elems.each(function() {
-                self.tracker.add_diff_object($(this), [Rev.DIFF], 'inline');
+                self.tracker.add_diff_object($(this), [Rev.DIFF]);
 
                 var shown_revs = get_shown_revs($(this));
                 var copy = $(this).children().first().clone().hide()
                                   .insertAfter($(this));
 
-                self.tracker.add_object(copy, shown_revs, 'inline');
+                self.tracker.add_object(copy, $(this), shown_revs);
             });
         };
 
@@ -513,7 +502,7 @@ $(function() {
                 var marks = lines.last();
 
                 var rev_map = self.get_revision_map(marks.children());
-                self.tracker.add_diff_object(el, rev_map[Rev.DIFF], 'table-row');
+                self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
 
                 for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
                     if (rev_map[rev].length == 0) {
@@ -521,7 +510,7 @@ $(function() {
                     }
 
                     var copy = el.clone().hide();
-                    self.tracker.add_object(copy, rev_map[rev], 'table-row');
+                    self.tracker.add_object(copy, el, rev_map[rev]);
 
                     var member = copy.children().children('.t-dsc-member-div');
                     var lines = member.find('.t-lines');
@@ -540,7 +529,7 @@ $(function() {
                     return;
                 }
                 var rev_map = self.get_revision_map(td);
-                self.tracker.add_diff_object(el, rev_map[Rev.DIFF], 'table-row');
+                self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
 
                 for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
                     if (rev_map[rev].length == 0) {
@@ -548,7 +537,7 @@ $(function() {
                     }
 
                     var copy = el.clone().hide();
-                    self.tracker.add_object(copy, rev_map[rev], 'table-row');
+                    self.tracker.add_object(copy, el, rev_map[rev]);
                     // remove marks, but only in the first column
                     copy.children().first().find('.t-mark-rev').remove();
                     copy.insertAfter(el);
@@ -864,21 +853,21 @@ $(function() {
                     sep_revs = tr_revs;
                     if (def.revs[Rev.DIFF] == true) {
                         // no num and no rev-marks -- shown always
-                        tracker.add_diff_object(def.obj, tr_revs, 'table-row');
+                        tracker.add_diff_object(def.obj, tr_revs);
                     } else {
                         // no num -- two versions: one with rev-marks and
                         // one without
                         var new_el = def.obj.clone().hide().insertAfter(def.obj);
                         clear_rev_marks(new_el);
-                        tracker.add_diff_object(def.obj, [Rev.DIFF], 'table-row');
-                        tracker.add_object(new_el, tr_revs, 'table-row');
+                        tracker.add_diff_object(def.obj, [Rev.DIFF]);
+                        tracker.add_object(new_el, def.obj, tr_revs);
                         sep_revs.push(Rev.DIFF);
                     }
                 } else {
                     // need to handle numbering
                     var nums = get_tr_nums(def.num);
 
-                    tracker.add_diff_object(def.obj, [Rev.DIFF], 'table-row');
+                    tracker.add_diff_object(def.obj, [Rev.DIFF]);
 
                     var copy_info = get_copy_info(def.revs, nums);
 
@@ -887,7 +876,7 @@ $(function() {
                         var new_el = def.obj.clone().hide().insertAfter(def.obj);
                         clear_rev_marks(new_el);
                         set_number(new_el, copy_info[i].num);
-                        tracker.add_object(new_el, copy_info[i].revs, 'table-row');
+                        tracker.add_object(new_el, def.obj, copy_info[i].revs);
                         sep_revs = sep_revs.concat(copy_info[i].revs);
                     }
                 }
@@ -901,7 +890,7 @@ $(function() {
                 // hide it sometimes
                 var tbody_revs = array_and(def.revs, any_children_visible_on_rev(def));
                 tbody_revs[Rev.DIFF] = true;
-                tracker.add_diff_object(def.obj, visibility_to_shown_revs(tbody_revs), 'table-row');
+                tracker.add_diff_object(def.obj, visibility_to_shown_revs(tbody_revs));
 
                 if (def.num == -1) {
                     if (def.revs[Rev.DIFF] == true) {
@@ -913,17 +902,17 @@ $(function() {
                         // one without
                         var new_el = def.aux.clone().hide().insertAfter(def.aux);
                         clear_rev_marks(new_el);
-                        tracker.add_diff_object(def.aux, [Rev.DIFF], 'table-row');
+                        tracker.add_diff_object(def.aux, [Rev.DIFF]);
                         var revs = tbody_revs.slice();
                         revs[Rev.DIFF] = false;
 
-                        tracker.add_object(new_el, visibility_to_shown_revs(revs), 'table-row');
+                        tracker.add_object(new_el, def.aux, visibility_to_shown_revs(revs));
                     }
                 } else {
                     // need to handle numbering
                     var nums = get_tr_nums(def.num);
 
-                    tracker.add_diff_object(def.aux, [Rev.DIFF], 'table-row');
+                    tracker.add_diff_object(def.aux, [Rev.DIFF]);
 
                     var copy_info = get_copy_info(def.revs, nums);
 
@@ -931,7 +920,7 @@ $(function() {
                         var new_el = def.aux.clone().hide().insertAfter(def.aux);
                         clear_rev_marks(new_el);
                         set_number(new_el, copy_info[i].num);
-                        tracker.add_object(new_el, copy_info[i].revs, 'table-row');
+                        tracker.add_object(new_el, def.aux, copy_info[i].revs);
                     }
                 }
             };
@@ -1041,15 +1030,13 @@ $(function() {
                 // hide entire t-liX element if needed
                 if (!revs_show_all) {
                     this.tracker.add_diff_object(descs[i].obj,
-                                                 visibility_to_shown_revs(revs_show),
-                                                 'block');
+                                                 visibility_to_shown_revs(revs_show));
                 }
 
                 // Add t-li elements with different text if needed
                 // the first item always includes Rev.DIFF in .revs
                 if (disp_desc.length > 1) {
-                    this.tracker.add_diff_object(descs[i].obj_num, disp_desc[0].revs,
-                                                 'inline-block');
+                    this.tracker.add_diff_object(descs[i].obj_num, disp_desc[0].revs);
                     for (var j = 1; j < disp_desc.length; ++j) {
                         var new_el = descs[i].obj_num.clone().hide()
                                             .insertAfter(descs[i].obj_num);
@@ -1059,8 +1046,7 @@ $(function() {
                             text = text + ',' + disp_desc[j].nums[k].toString();
                         }
                         new_el.text(text + ')');
-                        this.tracker.add_object(new_el, disp_desc[j].revs,
-                                                'inline-block');
+                        this.tracker.add_object(new_el, descs[i].obj_num, disp_desc[j].revs);
                     }
                 }
             }
