@@ -37,7 +37,7 @@ def build_link_map(directory):
 
     link_map = LinkMap()
 
-    for fn in html_files:
+    for fn in sorted(html_files):
         f = open(fn, "r")
         text = f.read()
         f.close()

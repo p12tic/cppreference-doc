@@ -175,7 +175,7 @@ output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 
 	pushd "output/reference" > /dev/null; \
 	find . -type f -not -iname "*.ttf" \
-		-exec echo "<file>"'{}'"</file>" >> "../qch-files.xml" \; ; \
+		-exec echo "<file>"'{}'"</file>" \; | LC_ALL=C sort >> "../qch-files.xml" ; \
 	popd > /dev/null
 
 	echo "</files>" >> "output/qch-files.xml"

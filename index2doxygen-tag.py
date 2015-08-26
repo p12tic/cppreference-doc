@@ -21,6 +21,7 @@
 from index_transform import IndexTransform
 from xml_utils import xml_escape
 from link_map import LinkMap
+from functools import total_ordering
 import sys
 
 if len(sys.argv) != 4:
@@ -51,6 +52,7 @@ class ItemKind:
     TYPEDEF = 3,
     NAMESPACE = 4
 
+@total_ordering
 class Item:
 
     def __init__(self):
@@ -59,6 +61,12 @@ class Item:
         self.kind = ItemKind.NAMESPACE
         self.link = ""
         self.members = {}
+
+    def __eq__(self, other):
+        return self.full_name == other.full_name
+
+    def __lt__(self, other):
+        return self.full_name < other.full_name
 
 ns_map = Item()
 
@@ -108,7 +116,7 @@ def add_to_map(full_name, full_link, item_kind):
 
 def print_members(out_f, curr_item):
     global link_map
-    for item in curr_item.members.values():
+    for item in sorted(curr_item.members.values()):
         if link_map:
             link = link_map.get_dest(item.link)
             if link == None and item.kind != ItemKind.NAMESPACE:
@@ -151,12 +159,12 @@ def print_map_item(out_f, curr_item):
     print_members(out_f, curr_item)
     out_f.write('  </compound>\n')
 
-    for item in curr_item.members.values():
+    for item in sorted(curr_item.members.values()):
         if item.kind in [ ItemKind.NAMESPACE, ItemKind.CLASS ]:
             print_map_item(out_f, item)
 
 def print_map(out_f, ns_map):
-    for item in ns_map.members.values():
+    for item in sorted(ns_map.members.values()):
         if item.kind in [ ItemKind.NAMESPACE, ItemKind.CLASS ]:
             print_map_item(out_f, item)
         else:
