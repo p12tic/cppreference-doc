@@ -1429,8 +1429,10 @@ $(function() {
     */
     StandardRevisionPlugin.prototype.revision_map_to_visibility = function(revs) {
         var visible = visibility_fill(false);
-        for (var i in revs) {
-            visible[revs[i]] = true;
+        for (var i = 0; i < revs.length; ++i) {
+            for (var j = 0; j < revs[i].length; ++j) {
+                visible[revs[i][j]] = true;
+            }
         }
         return visible;
     };
