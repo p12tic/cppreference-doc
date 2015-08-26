@@ -29,7 +29,7 @@ $(function() {
 
     function array_equal(a, b) {
         var i = a.length;
-        if (i != b.length) {
+        if (i !== b.length) {
             return false;
         }
         while (i--) {
@@ -124,7 +124,7 @@ $(function() {
     /// certain mark is shown.
 
     function should_be_shown(rev, mark) {
-        if (rev == Rev.DIFF) {
+        if (rev === Rev.DIFF) {
             return true;
         }
         if (mark.since) {
@@ -283,7 +283,7 @@ $(function() {
     /** This class keeps track of objects that need to be shown or hidden for
         specific standard revision.
     */
-    function ObjectTracker() {
+    var ObjectTracker = function() {
 
         this.all_objects = [];
         // jQuery screws up restoring correct display property
@@ -297,50 +297,50 @@ $(function() {
         for (var i = 0; i < Rev.LAST; ++i) {
             this.rev2id_map[i] = [];
         }
+    }
 
-        /** Adds a jQuery object @a obj that should be shown only on specific
-            revisions identified by @a revs. @a orig_obj is used to compute the
-            display property that should be set to the object when the
-            visibility is restored.
-        */
-        this.add_object = function(obj, orig_obj, revs) {
-            var id = this.all_objects.length;
-            this.all_objects[id] = obj;
-            this.all_display[id] = orig_obj.css('display');
+    /** Adds a jQuery object @a obj that should be shown only on specific
+        revisions identified by @a revs. @a orig_obj is used to compute the
+        display property that should be set to the object when the visibility
+        is restored.
+    */
+    ObjectTracker.prototype.add_object = function(obj, orig_obj, revs) {
+        var id = this.all_objects.length;
+        this.all_objects[id] = obj;
+        this.all_display[id] = orig_obj.css('display');
 
-            for (var i = 0; i < revs.length; ++i) {
-                this.rev2id_map[revs[i]].push(id);
-            }
-        };
-
-        // Same as add_object except that obj is used to compute the display
-        // property. The object must be already attached to DOM.
-        this.add_diff_object = function(obj, revs) {
-            this.add_object(obj, obj, revs);
+        for (var i = 0; i < revs.length; ++i) {
+            this.rev2id_map[revs[i]].push(id);
         }
+    };
 
-        /** Changes the visibility of objects */
-        this.to_rev = function(rev) {
-            if (rev == this.curr_rev) {
-                return;
-            }
-            var visible_before = this.rev2id_map[this.curr_rev];
-            var visible_after = this.rev2id_map[rev];
+    // Same as add_object except that obj is used to compute the display
+    // property. The object must be already attached to DOM.
+    ObjectTracker.prototype.add_diff_object = function(obj, revs) {
+        this.add_object(obj, obj, revs);
+    }
 
-            for (var i = 0; i < visible_before.length; ++i) {
-                var curr = visible_before[i];
-                if ($.inArray(curr, visible_after) == -1) {
-                    this.all_objects[curr].css('display', 'none');
-                }
+    /** Changes the visibility of objects */
+    ObjectTracker.prototype.to_rev = function(rev) {
+        if (rev === this.curr_rev) {
+            return;
+        }
+        var visible_before = this.rev2id_map[this.curr_rev];
+        var visible_after = this.rev2id_map[rev];
+
+        for (var i = 0; i < visible_before.length; ++i) {
+            var curr = visible_before[i];
+            if ($.inArray(curr, visible_after) === -1) {
+                this.all_objects[curr].css('display', 'none');
             }
-            for (var i = 0; i < visible_after.length; ++i) {
-                var curr = visible_after[i];
-                if ($.inArray(curr, visible_before) == -1) {
-                    this.all_objects[curr].css('display', this.all_display[curr]);
-                }
+        }
+        for (var i = 0; i < visible_after.length; ++i) {
+            var curr = visible_after[i];
+            if ($.inArray(curr, visible_before) === -1) {
+                this.all_objects[curr].css('display', this.all_display[curr]);
             }
-            this.curr_rev = rev;
-        };
+        }
+        this.curr_rev = rev;
     };
 
     /** This class tracks object visibility throughout section hierarchy. That
@@ -556,7 +556,7 @@ $(function() {
         this.perform_hide(this.root_container, tracker, visibility_fill(true));
     };
 
-    function StandardRevisionPlugin() {
+    var StandardRevisionPlugin = function() {
 
         this.el = {};
         this.el.root = $('#mw-content-text').first();
@@ -564,947 +564,950 @@ $(function() {
 
         this.tracker = new ObjectTracker();
         this.is_prepared = false;
+    };
 
-        /** Prepares the navbar for versioning using object tracker. As the
-            navbar contains many items, committing each of them to the object
-            tracker, we make as many copies of the original navbar as there are
-            revisions and customize each copy in-place.
-        */
-        this.prepare_navbar = function() {
-            var nv = this.el.root.children('.t-navbar'); // main navbar
-            if (nv.length == 0) {
-                return; // no navbar
-            }
-
-            this.tracker.add_diff_object(nv, [Rev.DIFF]);
-
-            var self = this;
-
-            for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-                // Create new navbar and insert it to the tracker
-                var rev_nv = nv.clone().hide().insertAfter(nv);
-                this.tracker.add_object(rev_nv, nv, [rev]);
-
-                // Get interesting elements
-                var nv_tables = rev_nv.find('.t-nv-begin');
-                var nv_tables_tb = nv_tables.children('tbody');
-
-                var el_h1 = nv_tables_tb.children('.t-nv-h1');
-                var el_h2 = nv_tables_tb.children('.t-nv-h2');
-                var el_col_tables = nv_tables_tb.children('.t-nv-col-table');
-                var el_nv = nv_tables_tb.children('.t-nv');
-
-                // Remove entries from the link tables that should not be visible
-                // for the revision in question
-                el_nv.each(function(){
-
-                    // Get the link table
-                    var link_tds = $(this).find('.t-nv-ln-table div');
-
-                    if (link_tds.length == 0) {
-                        // bare nv template used. Check if we don't have a mark
-                        // template by chance
-                        var marks = $(this).find('.t-mark-rev');
-                        if (marks.length > 0) {
-                            var mark = get_mark(marks.first());
-                            if (!should_be_shown(rev, mark)) {
-                                $(this).remove();
-                            } else {
-                                marks.remove(); // do not show marks in any case
-                            }
-                        }
-                        return;
-                    }
-
-                    if (link_tds.length == 1) {
-                        // The earliest standard (always visible)
-                        return;
-                    }
-                    var titles = link_tds.first().children().children().first().children();
-                    var marks = link_tds.last().children().first().children();
-
-                    // Delete the lines
-                    if (self.delete_lines(titles, marks, rev)) {
-                        $(this).remove();
-                    }
-                });
-
-                // Remove all empty column tables
-                el_col_tables.each(function() {
-                    if ($(this).find('.t-nv').length == 0) {
-                        $(this).remove();
-                    }
-                });
-
-                // Look for any headings that do not have items after them
-                el_h2.each(function() {
-                    if ($(this).next().length == 0 ||
-                        $(this).next().is('.t-nv-h2, .t-nv-h1')
-                    ) {
-                        $(this).remove();
-                    }
-                });
-
-                el_h1.each(function() {
-                    if ($(this).next().length == 0 ||
-                        $(this).next().is('.t-nv-h1')
-                    ) {
-                        $(this).remove();
-                    }
-                });
-
-                // TODO: perhaps it's worth to reflow the remaining columns
-            }
-        };
-
-        /** Handles rev_begin, rev, rev_end templates
-            We don't copy the contents of this template around. We just add
-            the rows to the element tracker and show and hide them as needed.
-            To hide the frame on non-diff revisions, we have special treatment
-            in on_selection_table. Note, that in order for this to work, the
-            revision marks must not be touched.
-        */
-        this.prepare_all_revs = function() {
-            this.rev_tables = $('.t-rev-begin');
-            var rev_elems = this.rev_tables.children('tbody').children('.t-rev');
-            var self = this;
-            rev_elems.each(function() {
-                var shown_revs = get_shown_revs($(this));
-                shown_revs.push(Rev.DIFF);
-
-                self.tracker.add_diff_object($(this), shown_revs);
-            });
-        };
-
-        /** Handles rev_inl template
-        */
-        this.prepare_all_inl_revs = function() {
-            this.rev_inl_elems = $('.t-rev-inl');
-            var self = this;
-            this.rev_inl_elems.each(function() {
-                self.tracker.add_diff_object($(this), [Rev.DIFF]);
-
-                var shown_revs = get_shown_revs($(this));
-                var copy = $(this).children().first().clone().hide()
-                                  .insertAfter($(this));
-
-                self.tracker.add_object(copy, $(this), shown_revs);
-            });
-        };
-
-        /** Handles all dsc_* templates.
-            Prepares items in dsc lists
-        */
-        this.prepare_all_dscs = function() {
-            this.dsc_tables = $('.t-dsc-begin');
-            var self = this;
-            this.dsc_tables.each(function() {
-                self.prepare_dsc_table($(this));
-            });
-        };
-
-        this.is_secondary = function(el) {
-            if (el.is('h3') ||
-                el.is('h5') ||
-                el.is('p') ||
-                (el.is('tr') && el.has('td > h5').length) ||
-                el.is('.t-dsc-header'))
-            {
-                return true;
-            }
-            return false;
-        };
-
-        this.get_level = function(el) {
-            if (el.is('h3'))
-                return 0;
-            if (el.is('h5'))
-                return 1;
-            if (el.is('tr') && el.has('td > h5').length)
-                return 1;
-            if (el.is('.t-dsc-header'))
-                return 2;
-            return -1;
+    /** Prepares the navbar for versioning using object tracker. As the navbar
+        contains many items, committing each of them to the object tracker, we
+        make as many copies of the original navbar as there are revisions and
+        customize each copy in-place.
+    */
+    StandardRevisionPlugin.prototype.prepare_navbar = function() {
+        var nv = this.el.root.children('.t-navbar'); // main navbar
+        if (nv.length === 0) {
+            return; // no navbar
         }
 
-        this.set_level_if_needed = function(section_tracker, el) {
-            var level = this.get_level(el);
-            if (level >= 0) {
-                section_tracker.set_level(level);
-            }
-        };
+        this.tracker.add_diff_object(nv, [Rev.DIFF]);
 
-        this.prepare_dsc_table = function(el) {
-            var section_tracker = new SectionContentsTracker();
+        var self = this;
 
-            var start_el = el.prev();
-            while (start_el.length !== 0 && this.is_secondary(start_el)) {
-                start_el = start_el.prev();
-            }
-            start_el = start_el.next();
+        for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
+            // Create new navbar and insert it to the tracker
+            var rev_nv = nv.clone().hide().insertAfter(nv);
+            this.tracker.add_object(rev_nv, nv, [rev]);
 
-            while (start_el[0] !== el[0]) {
-                this.set_level_if_needed(section_tracker, start_el);
-                section_tracker.add_secondary(start_el);
-                start_el = start_el.next();
-            }
+            // Get interesting elements
+            var nv_tables = rev_nv.find('.t-nv-begin');
+            var nv_tables_tb = nv_tables.children('tbody');
 
-            section_tracker.enter_container(el);
+            var el_h1 = nv_tables_tb.children('.t-nv-h1');
+            var el_h2 = nv_tables_tb.children('.t-nv-h2');
+            var el_col_tables = nv_tables_tb.children('.t-nv-col-table');
+            var el_nv = nv_tables_tb.children('.t-nv');
 
-            var rows = el.children('tbody').children();
-            var self = this;
-            rows.each(function() {
-                var el = $(this);
-                if (el.is('.t-dsc')) {
-                    section_tracker.add_primary(el, self.prepare_dsc(el));
-                } else {
-                    self.set_level_if_needed(section_tracker, el);
-                    if (self.is_secondary(el)) {
-                        section_tracker.add_secondary(el);
-                    } else {
-                        section_tracker.add_unknown(el);
-                    }
-                }
-            });
-            section_tracker.exit_container();
-            section_tracker.run(this.tracker);
-        };
+            // Remove entries from the link tables that should not be visible
+            // for the revision in question
+            el_nv.each(function(){
 
-        // Handles one dsc item. Returns a visibility map for that item.
-        this.prepare_dsc = function(el) {
-            var self = this;
+                // Get the link table
+                var link_tds = $(this).find('.t-nv-ln-table div');
+                var marks;
 
-            /*  Handles the case one of the specialized wrapper templates is
-                used. This case is special in that the description may contain
-                several names, each with standard tag attached.
-            */
-            function process_dsc_specialized(el, member) {
-                var lines = member.find('.t-lines');
-                if (lines.length != 2) {
-                    return visibility_fill(true);
-                }
-                var marks = lines.last();
-
-                var rev_map = self.get_revision_map(marks.children());
-                self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
-
-                for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-                    if (rev_map[rev].length == 0) {
-                        continue;
-                    }
-
-                    var copy = el.clone().hide();
-                    self.tracker.add_object(copy, el, rev_map[rev]);
-
-                    var member = copy.children().children('.t-dsc-member-div');
-                    var lines = member.find('.t-lines');
-                    var titles = lines.first().children();
-                    var marks = lines.last().children();
-
-                    self.delete_lines(titles, marks, rev);
-                    copy.insertAfter(el);
-                }
-                return self.revision_map_to_visibility(rev_map);
-            };
-
-            // Handles the generic dsc template case
-            function process_dsc_generic(el) {
-                var td = el.children().first();
-                if (td.find('.t-mark-rev').length == 0) {
-                    return visibility_fill(true);
-                }
-                var rev_map = self.get_revision_map(td);
-                self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
-
-                for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-                    if (rev_map[rev].length == 0) {
-                        continue;
-                    }
-
-                    var copy = el.clone().hide();
-                    self.tracker.add_object(copy, el, rev_map[rev]);
-                    // remove marks, but only in the first column
-                    copy.children().first().find('.t-mark-rev').remove();
-                    copy.insertAfter(el);
-                }
-                return self.revision_map_to_visibility(rev_map);
-            };
-
-            var member = el.children().children('.t-dsc-member-div');
-            if (member.length != 0) {
-                return process_dsc_specialized(el, member);
-            } else {
-                return process_dsc_generic(el);
-            }
-        };
-
-        /** Handles dcl_* templates.
-            Returns "numbering map", which defines how the list items are
-            renumbered (or deleted) for each revision. The numbering map is a an
-            two-dimensional array - the first index identifies the revision,
-            the second -- original number. The value obtained this way
-            identifies whether the entry should be hidden and if not, what
-            version number should be displayed on the specific revision. Hidden
-            entry is identified by -1.
-
-            array[revision][orig_num] -> target_num or -1
-        */
-        this.prepare_all_dcls = function(dcl_table) {
-
-            var tracker = this.tracker;
-
-            // get abstract description of the contents
-            defs = [];
-
-            /*
-                <Simple dcl> :== {
-                    type: 'i',
-                    obj: <jQuery object>
-
-                    // The format is the same as returned by is_shown_on_ref
-                    // revs[Rev.DIFF] being true identifies that no versioning
-                    // information has been provided.
-                    revs: 'shown_revs',
-
-                    // -1 if not defined
-                    num: 'orig_num'
-                }
-
-                <Rev-list dcl> :== {
-                    type: 'r',
-                    obj: <jQuery object>,
-                    revs: 'shown_revs',  // see notes for <Simple dcl>
-                    num: 'orig_num',     // -1 if not defined
-                    aux: <jQuery object>, // potentially empty
-
-                    // The list of indexes of entries in defs array identifying
-                    // children dcls
-                    children: [ <child id>, ... ]
-                }
-
-                defs: [ <either Simple dcl or rev-list dcl>, ... ]
-
-                If rev-list dcl has 'revs' defined, then those override revs for
-                all children dcls.
-
-                If rev-list dcl has 'num' defined, then 'num' for all children
-                dcls is -1.
-            */
-            var num_regex = /\s*\((\d+)\)\s*/;
-            function process_tr(el, is_num_overridden, is_rev_overridden,
-                                overridden_revs) {
-                var new_def = {
-                    type: 's',
-                    obj: el,
-                    num: -1,
-                    revs: visibility_fill(true)
-                };
-
-                // get version num
-                if (!is_num_overridden) {
-                    var num_text = el.children('td').eq(1).text();
-                    var match = num_text.match(num_regex);
-                    if (match !== null) {
-                        new_def.num = parseInt(match[1]);
-                    }
-                }
-
-                // get revision info
-                if (!is_rev_overridden) {
-                    var notes_td = el.children('td').eq(2);
-                    if (notes_td.find('.t-mark-rev').length > 0) {
-                        new_def.revs = get_visibility_on_rev(el);
-                    }
-                } else {
-                    new_def.revs = overridden_revs;
-                }
-
-                return defs.push(new_def) - 1;
-            };
-
-            function process_rev_tbody(el) {
-                var new_def = {
-                    type: 'r',
-                    obj: el,
-                    num: -1,
-                    revs: visibility_fill(true),
-                    children: []
-                };
-
-                // potentially empty
-                var aux_tr = el.children('.t-dcl-rev-aux').first();
-                new_def.aux = aux_tr;
-
-                // get version num
-                var has_num = false;
-                if (el.hasClass('t-dcl-rev-num')) {
-                    var num_text = aux_tr.children('td').eq(1).text();
-                    var match = num_text.match(num_regex);
-                    if (match !== null) {
-                        new_def.num = parseInt(match[1]);
-                        has_num = true;
-                    }
-                }
-
-                // get revision info
-                var has_revs = false;
-                if (el.hasClass('t-dcl-rev-notes')) {
-                    var mark_revs = aux_tr.children('td').eq(2).find('.t-mark-rev');
-                    if (mark_revs.length > 0) {
-                        new_def.revs = get_visibility_on_rev(el);
-                        has_revs = true;
-                    }
-                }
-
-                // process the member dcls
-                el.children('.t-dcl').each(function() {
-                    var new_id = process_tr($(this), has_num, has_revs,
-                                            new_def.revs.slice());
-                    new_def.children.push(new_id);
-                });
-
-                defs.push(new_def);
-            };
-
-            $(dcl_table).children('tbody').each(function() {
-                if ($(this).hasClass('t-dcl-rev')) {
-                    process_rev_tbody($(this));
-                } else {
-                    $(this).children('.t-dcl').each(function() {
-                        process_tr($(this), false, false, []);
-                    });
-                }
-            });
-
-            // Prints defs to a string
-            function debug_print_defs(defs) {
-                var out = '';
-                for (var i = 0; i < defs.length; i++) {
-                    out += ' { ' + i + ': ' + defs[i].type + ' ' + defs[i].num;
-                    out += ' ' + debug_print_visibility_map(defs[i].revs);
-                    if (defs[i].type == 'r') {
-                        out += ' { ';
-                        for (var j = 0 ; j < defs[i].children.length; ++j) {
-                            out += defs[i].children[j] + ' ';
+                if (link_tds.length === 0) {
+                    // bare nv template used. Check if we don't have a mark
+                    // template by chance
+                    marks = $(this).find('.t-mark-rev');
+                    if (marks.length > 0) {
+                        var mark = get_mark(marks.first());
+                        if (!should_be_shown(rev, mark)) {
+                            $(this).remove();
+                        } else {
+                            marks.remove(); // do not show marks in any case
                         }
-                        out += '}';
                     }
-                    out += ' }\n';
-                }
-                return out;
-            }
-
-            /* Get the mapping between revisions and function version numbers.
-               The function returns an array:
-
-               array[revision][source version number] -> version number to display
-            */
-            function get_num_map() {
-                var num_map = [];
-
-                // We need the maximum visible num to initialize the result array
-                // properly
-                var max_num = -1;
-                for (var i = 0; i < defs.length; ++i) {
-                    if (defs[i].num > max_num) {
-                        max_num = defs[i].num;
-                    }
+                    return;
                 }
 
-                if (max_num > -1) {
-
-                    for (var rev = Rev.FIRST; rev != Rev.LAST; ++rev) {
-
-                        var visible_nums = [];
-
-                        for (var i = 0; i < defs.length; ++i) {
-                            if (defs[i].revs[rev] == true &&
-                                defs[i].num != -1) {
-                                visible_nums.push(defs[i].num);
-                            }
-                        }
-
-                        visible_nums = array_sort_unique(visible_nums);
-
-                        var curr_map = [-1];
-                        for (var num = 1; num <= max_num; ++num) {
-                            curr_map[num] = -1;
-                        }
-
-                        var curr_num = 1;
-                        for (var i = 0; i < visible_nums.length; ++i) {
-                            curr_map[visible_nums[i]] = curr_num;
-                            curr_num++;
-                        }
-                        num_map[rev] = curr_map;
-                    }
+                if (link_tds.length === 1) {
+                    // The earliest standard (always visible)
+                    return;
                 }
-                return num_map;
-            };
+                var titles = link_tds.first().children().children().first().children();
+                marks = link_tds.last().children().first().children();
 
-            // Prints num_map to a string
-            function debug_print_num_map(num_map) {
-                var out = '';
-                for (var rev = Rev.FIRST; rev != Rev.LAST; ++rev) {
-                    out += '[' + desc[rev].title + ']: { ';
-                    out +=  num_map[rev] + ' }\n';
-                }
-                return out;
-            }
-
-            var num_map = get_num_map();
-
-            if (debug) {
-                alert(debug_print_defs(defs) + '\n\n' +
-                      debug_print_num_map(num_map));
-            }
-
-            // Analyze the abstract description again and modify the DOM
-            function clear_rev_marks(tr) {
-                marks = tr.children('td').eq(2).find('.t-mark-rev');
-                marks.each(function() {
-                    // remove only one <br>
-                    $(this).prev('br').add($(this).next('br')).first().remove();
+                // Delete the lines
+                if (self.delete_lines(titles, marks, rev)) {
                     $(this).remove();
+                }
+            });
+
+            // Remove all empty column tables
+            el_col_tables.each(function() {
+                if ($(this).find('.t-nv').length === 0) {
+                    $(this).remove();
+                }
+            });
+
+            // Look for any headings that do not have items after them
+            el_h2.each(function() {
+                if ($(this).next().length === 0 ||
+                    $(this).next().is('.t-nv-h2, .t-nv-h1')
+                ) {
+                    $(this).remove();
+                }
+            });
+
+            el_h1.each(function() {
+                if ($(this).next().length === 0 ||
+                    $(this).next().is('.t-nv-h1')
+                ) {
+                    $(this).remove();
+                }
+            });
+
+            // TODO: perhaps it's worth to reflow the remaining columns
+        }
+    };
+
+    /** Handles rev_begin, rev, rev_end templates
+        We don't copy the contents of this template around. We just add the
+        rows to the element tracker and show and hide them as needed. To hide
+        the frame on non-diff revisions, we have special treatment in
+        on_selection_table. Note, that in order for this to work, the revision
+        marks must not be touched.
+    */
+    StandardRevisionPlugin.prototype.prepare_all_revs = function() {
+        this.rev_tables = $('.t-rev-begin');
+        var rev_elems = this.rev_tables.children('tbody').children('.t-rev');
+        var self = this;
+        rev_elems.each(function() {
+            var shown_revs = get_shown_revs($(this));
+            shown_revs.push(Rev.DIFF);
+
+            self.tracker.add_diff_object($(this), shown_revs);
+        });
+    };
+
+    /** Handles rev_inl template
+    */
+    StandardRevisionPlugin.prototype.prepare_all_inl_revs = function() {
+        this.rev_inl_elems = $('.t-rev-inl');
+        var self = this;
+        this.rev_inl_elems.each(function() {
+            self.tracker.add_diff_object($(this), [Rev.DIFF]);
+
+            var shown_revs = get_shown_revs($(this));
+            var copy = $(this).children().first().clone().hide()
+                              .insertAfter($(this));
+
+            self.tracker.add_object(copy, $(this), shown_revs);
+        });
+    };
+
+    /** Handles all dsc_* templates.
+        Prepares items in dsc lists
+    */
+    StandardRevisionPlugin.prototype.prepare_all_dscs = function() {
+        this.dsc_tables = $('.t-dsc-begin');
+        var self = this;
+        this.dsc_tables.each(function() {
+            self.prepare_dsc_table($(this));
+        });
+    };
+
+    StandardRevisionPlugin.prototype.is_secondary = function(el) {
+        if (el.is('h3') ||
+            el.is('h5') ||
+            el.is('p') ||
+            (el.is('tr') && el.has('td > h5').length) ||
+            el.is('.t-dsc-header'))
+        {
+            return true;
+        }
+        return false;
+    };
+
+    StandardRevisionPlugin.prototype.get_level = function(el) {
+        if (el.is('h3'))
+            return 0;
+        if (el.is('h5'))
+            return 1;
+        if (el.is('tr') && el.has('td > h5').length)
+            return 1;
+        if (el.is('.t-dsc-header'))
+            return 2;
+        return -1;
+    }
+
+    StandardRevisionPlugin.prototype.set_level_if_needed = function(section_tracker, el) {
+        var level = this.get_level(el);
+        if (level >= 0) {
+            section_tracker.set_level(level);
+        }
+    };
+
+    StandardRevisionPlugin.prototype.prepare_dsc_table = function(el) {
+        var section_tracker = new SectionContentsTracker();
+
+        var start_el = el.prev();
+        while (start_el.length !== 0 && this.is_secondary(start_el)) {
+            start_el = start_el.prev();
+        }
+        start_el = start_el.next();
+
+        while (start_el[0] !== el[0]) {
+            this.set_level_if_needed(section_tracker, start_el);
+            section_tracker.add_secondary(start_el);
+            start_el = start_el.next();
+        }
+
+        section_tracker.enter_container(el);
+
+        var rows = el.children('tbody').children();
+        var self = this;
+        rows.each(function() {
+            var el = $(this);
+            if (el.is('.t-dsc')) {
+                section_tracker.add_primary(el, self.prepare_dsc(el));
+            } else {
+                self.set_level_if_needed(section_tracker, el);
+                if (self.is_secondary(el)) {
+                    section_tracker.add_secondary(el);
+                } else {
+                    section_tracker.add_unknown(el);
+                }
+            }
+        });
+        section_tracker.exit_container();
+        section_tracker.run(this.tracker);
+    };
+
+    // Handles one dsc item. Returns a visibility map for that item.
+    StandardRevisionPlugin.prototype.prepare_dsc = function(el) {
+        var self = this;
+
+        /*  Handles the case one of the specialized wrapper templates is
+            used. This case is special in that the description may contain
+            several names, each with standard tag attached.
+        */
+        function process_dsc_specialized(el, member) {
+            var lines = member.find('.t-lines');
+            if (lines.length !== 2) {
+                return visibility_fill(true);
+            }
+            var marks = lines.last();
+
+            var rev_map = self.get_revision_map(marks.children());
+            self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
+
+            for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
+                if (rev_map[rev].length === 0) {
+                    continue;
+                }
+
+                var copy = el.clone().hide();
+                self.tracker.add_object(copy, el, rev_map[rev]);
+
+                member = copy.children().children('.t-dsc-member-div');
+                lines = member.find('.t-lines');
+                var titles = lines.first().children();
+                marks = lines.last().children();
+
+                self.delete_lines(titles, marks, rev);
+                copy.insertAfter(el);
+            }
+            return self.revision_map_to_visibility(rev_map);
+        };
+
+        // Handles the generic dsc template case
+        function process_dsc_generic(el) {
+            var td = el.children().first();
+            if (td.find('.t-mark-rev').length === 0) {
+                return visibility_fill(true);
+            }
+            var rev_map = self.get_revision_map(td);
+            self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
+
+            for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
+                if (rev_map[rev].length === 0) {
+                    continue;
+                }
+
+                var copy = el.clone().hide();
+                self.tracker.add_object(copy, el, rev_map[rev]);
+                // remove marks, but only in the first column
+                copy.children().first().find('.t-mark-rev').remove();
+                copy.insertAfter(el);
+            }
+            return self.revision_map_to_visibility(rev_map);
+        };
+
+        var member = el.children().children('.t-dsc-member-div');
+        if (member.length !== 0) {
+            return process_dsc_specialized(el, member);
+        } else {
+            return process_dsc_generic(el);
+        }
+    };
+
+    /** Handles dcl_* templates.
+        Returns "numbering map", which defines how the list items are
+        renumbered (or deleted) for each revision. The numbering map is a an
+        two-dimensional array - the first index identifies the revision,
+        the second -- original number. The value obtained this way
+        identifies whether the entry should be hidden and if not, what
+        version number should be displayed on the specific revision. Hidden
+        entry is identified by -1.
+
+        array[revision][orig_num] -> target_num or -1
+    */
+    StandardRevisionPlugin.prototype.prepare_all_dcls = function(dcl_table) {
+
+        var tracker = this.tracker;
+
+        // get abstract description of the contents
+        defs = [];
+
+        /*
+            <Simple dcl> :== {
+                type: 'i',
+                obj: <jQuery object>
+
+                // The format is the same as returned by is_shown_on_ref
+                // revs[Rev.DIFF] being true identifies that no versioning
+                // information has been provided.
+                revs: 'shown_revs',
+
+                // -1 if not defined
+                num: 'orig_num'
+            }
+
+            <Rev-list dcl> :== {
+                type: 'r',
+                obj: <jQuery object>,
+                revs: 'shown_revs',  // see notes for <Simple dcl>
+                num: 'orig_num',     // -1 if not defined
+                aux: <jQuery object>, // potentially empty
+
+                // The list of indexes of entries in defs array identifying
+                // children dcls
+                children: [ <child id>, ... ]
+            }
+
+            defs: [ <either Simple dcl or rev-list dcl>, ... ]
+
+            If rev-list dcl has 'revs' defined, then those override revs for
+            all children dcls.
+
+            If rev-list dcl has 'num' defined, then 'num' for all children
+            dcls is -1.
+        */
+        var num_regex = /\s*\((\d+)\)\s*/;
+        function process_tr(el, is_num_overridden, is_rev_overridden,
+                            overridden_revs) {
+            var new_def = {
+                type: 's',
+                obj: el,
+                num: -1,
+                revs: visibility_fill(true)
+            };
+
+            // get version num
+            if (!is_num_overridden) {
+                var num_text = el.children('td').eq(1).text();
+                var match = num_text.match(num_regex);
+                if (match !== null) {
+                    new_def.num = parseInt(match[1]);
+                }
+            }
+
+            // get revision info
+            if (!is_rev_overridden) {
+                var notes_td = el.children('td').eq(2);
+                if (notes_td.find('.t-mark-rev').length > 0) {
+                    new_def.revs = get_visibility_on_rev(el);
+                }
+            } else {
+                new_def.revs = overridden_revs;
+            }
+
+            return defs.push(new_def) - 1;
+        };
+
+        function process_rev_tbody(el) {
+            var new_def = {
+                type: 'r',
+                obj: el,
+                num: -1,
+                revs: visibility_fill(true),
+                children: []
+            };
+
+            // potentially empty
+            var aux_tr = el.children('.t-dcl-rev-aux').first();
+            new_def.aux = aux_tr;
+
+            // get version num
+            var has_num = false;
+            if (el.hasClass('t-dcl-rev-num')) {
+                var num_text = aux_tr.children('td').eq(1).text();
+                var match = num_text.match(num_regex);
+                if (match !== null) {
+                    new_def.num = parseInt(match[1]);
+                    has_num = true;
+                }
+            }
+
+            // get revision info
+            var has_revs = false;
+            if (el.hasClass('t-dcl-rev-notes')) {
+                var mark_revs = aux_tr.children('td').eq(2).find('.t-mark-rev');
+                if (mark_revs.length > 0) {
+                    new_def.revs = get_visibility_on_rev(el);
+                    has_revs = true;
+                }
+            }
+
+            // process the member dcls
+            el.children('.t-dcl').each(function() {
+                var new_id = process_tr($(this), has_num, has_revs,
+                                        new_def.revs.slice());
+                new_def.children.push(new_id);
+            });
+
+            defs.push(new_def);
+        };
+
+        $(dcl_table).children('tbody').each(function() {
+            if ($(this).hasClass('t-dcl-rev')) {
+                process_rev_tbody($(this));
+            } else {
+                $(this).children('.t-dcl').each(function() {
+                    process_tr($(this), false, false, []);
                 });
-            };
+            }
+        });
 
-            function set_number(tr, num) {
-                tr.children('td').eq(1).text('('+num.toString()+')');
-            };
-
-            function get_tr_nums(num) {
-                var nums = [];
-                for (var rev = Rev.FIRST; rev != Rev.LAST; ++rev) {
-                    nums[rev] = num_map[rev][num];
-                }
-                return nums;
-            };
-
-            /// Checks whether any children of a rev-list identified by @a def
-            /// are shown in revision @a rev
-            function any_children_visible_on_rev(def) {
-                var res = visibility_fill(false);
-
-                for (var i = 0; i != def.children.length; ++i) {
-                    res = array_or(res, defs[def.children[i]].revs);
-                }
-                res[Rev.DIFF] = false;
-                return res;
-            };
-
-            /** Returns infomation about the required copies of the base
-                element.
-            */
-            function get_copy_info(revs, nums) {
-                var res = [];
-
-                var base_rev;   // Don't create a new element if it would
-                var new_num;    // be identical to previous one
-                var new_revs;
-                var is_first = true;
-
-                for (var rev = Rev.FIRST; rev != Rev.LAST; ++rev) {
-                    if (!revs[rev]) {
-                        continue;
+        // Prints defs to a string
+        function debug_print_defs(defs) {
+            var out = '';
+            for (var i = 0; i < defs.length; i++) {
+                out += ' { ' + i + ': ' + defs[i].type + ' ' + defs[i].num;
+                out += ' ' + debug_print_visibility_map(defs[i].revs);
+                if (defs[i].type === 'r') {
+                    out += ' { ';
+                    for (var j = 0 ; j < defs[i].children.length; ++j) {
+                        out += defs[i].children[j] + ' ';
                     }
-                    if (!is_first && new_num == nums[rev]) {
-                        // Identical element already exists
-                        new_revs.push(rev);
-                        continue;
-                    }
-
-                    if (!is_first) {
-                        res.push({ base_rev: base_rev, revs: new_revs,
-                                   num: new_num });
-                    }
-
-                    base_rev = rev;
-                    new_num = nums[rev];
-                    new_revs = [rev];
-                    is_first = false;
+                    out += '}';
                 }
+                out += ' }\n';
+            }
+            return out;
+        }
+
+        /* Get the mapping between revisions and function version numbers.
+           The function returns an array:
+
+           array[revision][source version number] -> version number to display
+        */
+        function get_num_map() {
+            var num_map = [];
+
+            // We need the maximum visible num to initialize the result array
+            // properly
+            var max_num = -1;
+            for (var i = 0; i < defs.length; ++i) {
+                if (defs[i].num > max_num) {
+                    max_num = defs[i].num;
+                }
+            }
+
+            if (max_num > -1) {
+
+                for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
+
+                    var visible_nums = [];
+
+                    for (var i = 0; i < defs.length; ++i) {
+                        if (defs[i].revs[rev] === true &&
+                            defs[i].num !== -1) {
+                            visible_nums.push(defs[i].num);
+                        }
+                    }
+
+                    visible_nums = array_sort_unique(visible_nums);
+
+                    var curr_map = [-1];
+                    for (var num = 1; num <= max_num; ++num) {
+                        curr_map[num] = -1;
+                    }
+
+                    var curr_num = 1;
+                    for (var i = 0; i < visible_nums.length; ++i) {
+                        curr_map[visible_nums[i]] = curr_num;
+                        curr_num++;
+                    }
+                    num_map[rev] = curr_map;
+                }
+            }
+            return num_map;
+        };
+
+        // Prints num_map to a string
+        function debug_print_num_map(num_map) {
+            var out = '';
+            for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
+                out += '[' + desc[rev].title + ']: { ';
+                out +=  num_map[rev] + ' }\n';
+            }
+            return out;
+        }
+
+        var num_map = get_num_map();
+
+        if (debug) {
+            alert(debug_print_defs(defs) + '\n\n' +
+                  debug_print_num_map(num_map));
+        }
+
+        // Analyze the abstract description again and modify the DOM
+        function clear_rev_marks(tr) {
+            marks = tr.children('td').eq(2).find('.t-mark-rev');
+            marks.each(function() {
+                // remove only one <br>
+                $(this).prev('br').add($(this).next('br')).first().remove();
+                $(this).remove();
+            });
+        };
+
+        function set_number(tr, num) {
+            tr.children('td').eq(1).text('('+num.toString()+')');
+        };
+
+        function get_tr_nums(num) {
+            var nums = [];
+            for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
+                nums[rev] = num_map[rev][num];
+            }
+            return nums;
+        };
+
+        /// Checks whether any children of a rev-list identified by @a def
+        /// are shown in revision @a rev
+        function any_children_visible_on_rev(def) {
+            var res = visibility_fill(false);
+
+            for (var i = 0; i !== def.children.length; ++i) {
+                res = array_or(res, defs[def.children[i]].revs);
+            }
+            res[Rev.DIFF] = false;
+            return res;
+        };
+
+        /** Returns infomation about the required copies of the base
+            element.
+        */
+        function get_copy_info(revs, nums) {
+            var res = [];
+
+            var base_rev;   // Don't create a new element if it would
+            var new_num;    // be identical to previous one
+            var new_revs;
+            var is_first = true;
+
+            for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
+                if (!revs[rev]) {
+                    continue;
+                }
+                if (!is_first && new_num === nums[rev]) {
+                    // Identical element already exists
+                    new_revs.push(rev);
+                    continue;
+                }
+
                 if (!is_first) {
                     res.push({ base_rev: base_rev, revs: new_revs,
                                num: new_num });
                 }
-                return res;
-            };
 
-            function finalize_tr(def) {
-                var sep_revs;
-
-                if (def.num == -1) {
-                    var tr_revs = visibility_to_shown_revs(def.revs);
-                    sep_revs = tr_revs;
-                    if (def.revs[Rev.DIFF] == true) {
-                        // no num and no rev-marks -- shown always
-                        tracker.add_diff_object(def.obj, tr_revs);
-                    } else {
-                        // no num -- two versions: one with rev-marks and
-                        // one without
-                        var new_el = def.obj.clone().hide().insertAfter(def.obj);
-                        clear_rev_marks(new_el);
-                        tracker.add_diff_object(def.obj, [Rev.DIFF]);
-                        tracker.add_object(new_el, def.obj, tr_revs);
-                        sep_revs.push(Rev.DIFF);
-                    }
-                } else {
-                    // need to handle numbering
-                    var nums = get_tr_nums(def.num);
-
-                    tracker.add_diff_object(def.obj, [Rev.DIFF]);
-
-                    var copy_info = get_copy_info(def.revs, nums);
-
-                    sep_revs = [Rev.DIFF];
-                    for (var i = 0; i < copy_info.length; i++) {
-                        var new_el = def.obj.clone().hide().insertAfter(def.obj);
-                        clear_rev_marks(new_el);
-                        set_number(new_el, copy_info[i].num);
-                        tracker.add_object(new_el, def.obj, copy_info[i].revs);
-                        sep_revs = sep_revs.concat(copy_info[i].revs);
-                    }
-                }
-            };
-
-            // Roughly the same as finalize_tr, but while all modifications are
-            // applied to the t-dcl-rev-aux element, we hide entire tbody
-            // section when it has no contents or defs[i].revs[rev] == false
-            function finalize_rev_tbody(def) {
-                // The rev-list tbody does not ever change - we only need to
-                // hide it sometimes
-                var tbody_revs = array_and(def.revs, any_children_visible_on_rev(def));
-                tbody_revs[Rev.DIFF] = true;
-                tracker.add_diff_object(def.obj, visibility_to_shown_revs(tbody_revs));
-
-                if (def.num == -1) {
-                    if (def.revs[Rev.DIFF] == true) {
-                        // No num and no rev-marks -- no further modifications
-                        // needed.
-
-                    } else {
-                        // No num -- two versions: one with rev-marks and
-                        // one without
-                        var new_el = def.aux.clone().hide().insertAfter(def.aux);
-                        clear_rev_marks(new_el);
-                        tracker.add_diff_object(def.aux, [Rev.DIFF]);
-                        var revs = tbody_revs.slice();
-                        revs[Rev.DIFF] = false;
-
-                        tracker.add_object(new_el, def.aux, visibility_to_shown_revs(revs));
-                    }
-                } else {
-                    // need to handle numbering
-                    var nums = get_tr_nums(def.num);
-
-                    tracker.add_diff_object(def.aux, [Rev.DIFF]);
-
-                    var copy_info = get_copy_info(def.revs, nums);
-
-                    for (var i = 0; i < copy_info.length; i++) {
-                        var new_el = def.aux.clone().hide().insertAfter(def.aux);
-                        clear_rev_marks(new_el);
-                        set_number(new_el, copy_info[i].num);
-                        tracker.add_object(new_el, def.aux, copy_info[i].revs);
-                    }
-                }
-            };
-
-
-            for (var i = 0; i < defs.length; ++i) {
-                if (defs[i].type == 's') {
-                    finalize_tr(defs[i]);
-                } else {
-                    finalize_rev_tbody(defs[i]);
-                }
+                base_rev = rev;
+                new_num = nums[rev];
+                new_revs = [rev];
+                is_first = false;
             }
-
-            return num_map;
-        };
-
-        /** Renumbers and hides the list items according to the given @a num_map
-        */
-        this.prepare_all_li = function(num_map) {
-            // FIXME: currently we process only the first t-li element out of
-            // each block of elements assigned a single num.
-            var el_li = $('.t-li1').add($('.t-li2')).add($('.t-li3'));
-
-            var descs = [];
-            /*
-               { obj: <jQuery object>,
-                 obj_num: <jQuery object>
-                 num: [<num>, <num>, ...],
-               }
-            */
-            var num_regex = /^\s*(\d+)\s*$/;
-            var range_regex = /^\s*(\d+)-(\d+)\s*$/;
-            el_li.each(function() {
-                var el_num = $(this).children().first('.t-li');
-                if (el_num.length == 0) {
-                    return;
-                }
-
-                var nums = [];
-                var items = el_num.text().replace(')','').split(',');
-                for (var i = 0; i < items.length; ++i) {
-                    var match = items[i].match(num_regex);
-                    if (match !== null) {
-                        nums.push(parseInt(match[1]));
-                        continue;
-                    }
-                    match = items[i].match(range_regex);
-                    if (match !== null) {
-                        var first = parseInt(match[1]);
-                        var last = parseInt(match[2]);
-                        if (first > last) {
-                            continue;
-                        }
-                        for (; first <= last; ++first) {
-                            nums.push(first);
-                        }
-                        continue;
-                    }
-                }
-
-                if (nums.length != 0) {
-                    descs.push({ obj: $(this), nums: nums, obj_num: el_num });
-                }
-            });
-
-
-            for (var i = 0; i < descs.length; ++i) {
-                var nums = descs[i].nums;
-
-                // get the description of what numbers to display for which
-                // revision
-
-                var revs_show = visibility_fill(true);
-                var revs_show_all = true;
-
-                var disp_desc = [];
-                var prev_nums = nums;
-                var prev_revs = [ Rev.DIFF ];
-
-                for (var rev = Rev.FIRST; rev != Rev.LAST; ++rev) {
-                    var target_nums = [];
-                    for (var j = 0; j < nums.length; ++j) {
-                        if (nums[j] < num_map[rev].length) {
-                            var target_num = num_map[rev][nums[j]];
-                            if (target_num != -1) {
-                                target_nums.push(target_num);
-                            }
-                        }
-                    }
-
-                    if (target_nums.length == 0) {
-                        // will hide entire t-liX element
-                        revs_show[rev] = false;
-                        revs_show_all = false;
-                        continue;
-                    }
-
-                    if (array_equal(target_nums, prev_nums)) {
-                        prev_revs.push(rev);
-                    } else {
-                        disp_desc.push({ revs: prev_revs, nums: prev_nums });
-                        prev_revs = [rev];
-                        prev_nums = target_nums;
-                    }
-                }
-                disp_desc.push({ revs: prev_revs, nums: prev_nums });
-                // hide entire t-liX element if needed
-                if (!revs_show_all) {
-                    this.tracker.add_diff_object(descs[i].obj,
-                                                 visibility_to_shown_revs(revs_show));
-                }
-
-                // Add t-li elements with different text if needed
-                // the first item always includes Rev.DIFF in .revs
-                if (disp_desc.length > 1) {
-                    this.tracker.add_diff_object(descs[i].obj_num, disp_desc[0].revs);
-                    for (var j = 1; j < disp_desc.length; ++j) {
-                        var new_el = descs[i].obj_num.clone().hide()
-                                            .insertAfter(descs[i].obj_num);
-                        var text = disp_desc[j].nums[0].toString();
-                        // TODO: reduce to ranges
-                        for (var k = 1; k < disp_desc[j].nums.length; ++k) {
-                            text = text + ',' + disp_desc[j].nums[k].toString();
-                        }
-                        new_el.text(text + ')');
-                        this.tracker.add_object(new_el, descs[i].obj_num, disp_desc[j].revs);
-                    }
-                }
+            if (!is_first) {
+                res.push({ base_rev: base_rev, revs: new_revs,
+                           num: new_num });
             }
-        };
-
-        this.prepare = function() {
-            if (this.is_prepared) {
-                return;
-            }
-            this.prepare_navbar();
-            this.prepare_all_revs();
-            this.prepare_all_inl_revs();
-            this.prepare_all_dscs();
-
-            var dcl_tables = $('.t-dcl-begin');
-            if (dcl_tables.length > 0) {
-                var num_map = this.prepare_all_dcls(dcl_tables.first());
-                this.prepare_all_li(num_map);
-            }
-            this.is_prepared = true;
-        };
-
-        /** Utility function. Takes an jQuery object containing an array of
-            elements that may or may not contain revision marker.
-            Returns an a list of revisions for which a the node should be copied
-            and for which revisions each of the copy would be shown. The result
-            is an associative array: key identifies the revision to build the
-            DOM for; the value identifies the revisions to show the result for.
-        */
-        this.get_revision_map = function(lines) {
-            var res = [];
-            res[Rev.DIFF] = [Rev.DIFF];
-
-            var visible_by_line = [];
-
-            // create separate elements when diff has rev marks
-            var is_diff_clean = true;
-
-            lines.each(function() {
-                var rev_mark = $(this).find('.t-mark-rev').first();
-                visible_by_line.push(get_visibility_on_rev(rev_mark));
-                if (rev_mark.length > 0) {
-                    is_diff_clean = false;
-                }
-            });
-
-            // Track the lines shown in the previous revision. If the same lines
-            // are shown in the current revision, simply display the element
-            // of the previous revision, instead of creating a new one.
-            var prev_rev = Rev.DIFF;
-            var prev_visible = [];
-            if (is_diff_clean) {
-                // any further revisions will match this this array only if
-                // original version of the element does not contain rev marks
-                for (var i = 0; i < visible_by_line.length; i++) {
-                    prev_visible.push(i); // DIFF shows all lines
-                }
-            }
-
-            for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-                res[rev] = [];
-
-                var curr_visible = [];
-                for (var i = 0; i < visible_by_line.length; i++) {
-                    if (visible_by_line[i][rev] == true) {
-                        curr_visible.push(i);
-                    }
-                }
-
-                if (curr_visible.length == 0) {
-                    continue;
-                }
-
-                // Maybe nothing has changed from the previous revision and we
-                // can simply keep the node created for the previous revision
-                if (array_equal(curr_visible, prev_visible)) {
-                    res[prev_rev].push(rev);
-                } else {
-                    res[rev].push(rev);
-                    prev_visible = curr_visible;
-                    prev_rev = rev;
-                }
-            }
-
             return res;
         };
 
-        /** Utility function. Takes a revision map as returned by
-            get_revision_map and produces visibility map from that.
-        */
-        this.revision_map_to_visibility = function(revs) {
-            var visible = visibility_fill(false);
-            for (var i in revs) {
-                visible[revs[i]] = true;
+        function finalize_tr(def) {
+            var sep_revs;
+
+            var new_el;
+            if (def.num === -1) {
+                var tr_revs = visibility_to_shown_revs(def.revs);
+                sep_revs = tr_revs;
+                if (def.revs[Rev.DIFF] === true) {
+                    // no num and no rev-marks -- shown always
+                    tracker.add_diff_object(def.obj, tr_revs);
+                } else {
+                    // no num -- two versions: one with rev-marks and
+                    // one without
+                    new_el = def.obj.clone().hide().insertAfter(def.obj);
+                    clear_rev_marks(new_el);
+                    tracker.add_diff_object(def.obj, [Rev.DIFF]);
+                    tracker.add_object(new_el, def.obj, tr_revs);
+                    sep_revs.push(Rev.DIFF);
+                }
+            } else {
+                // need to handle numbering
+                var nums = get_tr_nums(def.num);
+
+                tracker.add_diff_object(def.obj, [Rev.DIFF]);
+
+                var copy_info = get_copy_info(def.revs, nums);
+
+                sep_revs = [Rev.DIFF];
+                for (var i = 0; i < copy_info.length; i++) {
+                    new_el = def.obj.clone().hide().insertAfter(def.obj);
+                    clear_rev_marks(new_el);
+                    set_number(new_el, copy_info[i].num);
+                    tracker.add_object(new_el, def.obj, copy_info[i].revs);
+                    sep_revs = sep_revs.concat(copy_info[i].revs);
+                }
             }
-            return visible;
         };
 
-        /** Utility function. Deletes lines from multi-line links (such as these
-            in dsc tables) that have marks nearby.
-            Returns true if no lines are left. @a titles and @a marks must both
-            refer to the children of .t-lines elements.
-         */
-        this.delete_lines = function(titles, marks, rev) {
-            // Delete the lines
-            var num_deleted = 0;
-            var num_total = titles.length;
+        // Roughly the same as finalize_tr, but while all modifications are
+        // applied to the t-dcl-rev-aux element, we hide entire tbody
+        // section when it has no contents or defs[i].revs[rev] == false
+        function finalize_rev_tbody(def) {
+            // The rev-list tbody does not ever change - we only need to
+            // hide it sometimes
+            var tbody_revs = array_and(def.revs, any_children_visible_on_rev(def));
+            tbody_revs[Rev.DIFF] = true;
+            tracker.add_diff_object(def.obj, visibility_to_shown_revs(tbody_revs));
+            var new_el;
 
-            marks.each(function(index) {
-                var mark_span = $(this).children('.t-mark-rev');
-                if (mark_span.length > 0) {
-                    var mark = get_mark(mark_span.first());
-                    if (!should_be_shown(rev, mark)) {
-                        titles.eq(index).remove();
-                        $(this).remove();
-                        num_deleted++;
-                        return;
+            if (def.num === -1) {
+                if (def.revs[Rev.DIFF] === true) {
+                    // No num and no rev-marks -- no further modifications
+                    // needed.
+
+                } else {
+                    // No num -- two versions: one with rev-marks and
+                    // one without
+                    new_el = def.aux.clone().hide().insertAfter(def.aux);
+                    clear_rev_marks(new_el);
+                    tracker.add_diff_object(def.aux, [Rev.DIFF]);
+                    var revs = tbody_revs.slice();
+                    revs[Rev.DIFF] = false;
+
+                    tracker.add_object(new_el, def.aux, visibility_to_shown_revs(revs));
+                }
+            } else {
+                // need to handle numbering
+                var nums = get_tr_nums(def.num);
+
+                tracker.add_diff_object(def.aux, [Rev.DIFF]);
+
+                var copy_info = get_copy_info(def.revs, nums);
+
+                for (var i = 0; i < copy_info.length; i++) {
+                    new_el = def.aux.clone().hide().insertAfter(def.aux);
+                    clear_rev_marks(new_el);
+                    set_number(new_el, copy_info[i].num);
+                    tracker.add_object(new_el, def.aux, copy_info[i].revs);
+                }
+            }
+        };
+
+
+        for (var i = 0; i < defs.length; ++i) {
+            if (defs[i].type === 's') {
+                finalize_tr(defs[i]);
+            } else {
+                finalize_rev_tbody(defs[i]);
+            }
+        }
+
+        return num_map;
+    };
+
+    /** Renumbers and hides the list items according to the given @a num_map
+    */
+    StandardRevisionPlugin.prototype.prepare_all_li = function(num_map) {
+        // FIXME: currently we process only the first t-li element out of
+        // each block of elements assigned a single num.
+        var el_li = $('.t-li1').add($('.t-li2')).add($('.t-li3'));
+
+        var descs = [];
+        /*
+           { obj: <jQuery object>,
+             obj_num: <jQuery object>
+             num: [<num>, <num>, ...],
+           }
+        */
+        var num_regex = /^\s*(\d+)\s*$/;
+        var range_regex = /^\s*(\d+)-(\d+)\s*$/;
+        el_li.each(function() {
+            var el_num = $(this).children().first('.t-li');
+            if (el_num.length === 0) {
+                return;
+            }
+
+            var nums = [];
+            var items = el_num.text().replace(')','').split(',');
+            for (var i = 0; i < items.length; ++i) {
+                var match = items[i].match(num_regex);
+                if (match !== null) {
+                    nums.push(parseInt(match[1]));
+                    continue;
+                }
+                match = items[i].match(range_regex);
+                if (match !== null) {
+                    var first = parseInt(match[1]);
+                    var last = parseInt(match[2]);
+                    if (first > last) {
+                        continue;
+                    }
+                    for (; first <= last; ++first) {
+                        nums.push(first);
+                    }
+                    continue;
+                }
+            }
+
+            if (nums.length != 0) {
+                descs.push({ obj: $(this), nums: nums, obj_num: el_num });
+            }
+        });
+
+
+        for (var i = 0; i < descs.length; ++i) {
+            var nums = descs[i].nums;
+
+            // get the description of what numbers to display for which
+            // revision
+
+            var revs_show = visibility_fill(true);
+            var revs_show_all = true;
+
+            var disp_desc = [];
+            var prev_nums = nums;
+            var prev_revs = [ Rev.DIFF ];
+
+            for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
+                var target_nums = [];
+                for (var j = 0; j < nums.length; ++j) {
+                    if (nums[j] < num_map[rev].length) {
+                        var target_num = num_map[rev][nums[j]];
+                        if (target_num !== -1) {
+                            target_nums.push(target_num);
+                        }
                     }
                 }
-                mark_span.remove(); // delete marks in any case
-            });
 
-            // Delete this if empty
-            return (num_deleted == num_total);
-        };
+                if (target_nums.length === 0) {
+                    // will hide entire t-liX element
+                    revs_show[rev] = false;
+                    revs_show_all = false;
+                    continue;
+                }
 
-        /** Creates the standard revision selection box
-        */
-        this.create_selection_box = function() {
-            var head_parent = $('#cpp-head-tools-right');
-
-            this.el.select_div = $('<div/>').addClass('stdrev-select');
-
-            var inner_div = $('<div/>').appendTo(this.el.select_div);
-            var span = $('<span/>').addClass('stdrev-text')
-                                   .text('Standard revision: ')
-                                   .appendTo(inner_div);
-            this.el.select = $('<select/>').appendTo(inner_div);
-
-            for (var i = 0; i < desc.length; ++i) {
-                $('<option/>').text(desc[i].title)
-                              .attr('value', desc[i].rev.toString())
-                              .appendTo(this.el.select);
+                if (array_equal(target_nums, prev_nums)) {
+                    prev_revs.push(rev);
+                } else {
+                    disp_desc.push({ revs: prev_revs, nums: prev_nums });
+                    prev_revs = [rev];
+                    prev_nums = target_nums;
+                }
+            }
+            disp_desc.push({ revs: prev_revs, nums: prev_nums });
+            // hide entire t-liX element if needed
+            if (!revs_show_all) {
+                this.tracker.add_diff_object(descs[i].obj,
+                                             visibility_to_shown_revs(revs_show));
             }
 
-            this.el.select.one('mouseover', this.prepare.bind(this));
-            this.el.select.change(this.on_selection_change.bind(this));
-            this.el.select_div.prependTo(head_parent);
-        };
-
-        /** Callback to be run when the user changes the option selected in the
-            selection box
-        */
-        this.on_selection_change = function() {
-            this.prepare();
-            var rev = parseInt(this.el.select.val());
-            this.tracker.to_rev(rev);
-
-            // special treatment for rev boxes
-            if (this.curr_rev == Rev.DIFF && rev != Rev.DIFF) {
-                this.rev_tables.each(function() {
-                    $(this).addClass('stdrev-rev-hide');
-                });
+            // Add t-li elements with different text if needed
+            // the first item always includes Rev.DIFF in .revs
+            if (disp_desc.length > 1) {
+                this.tracker.add_diff_object(descs[i].obj_num, disp_desc[0].revs);
+                for (var j = 1; j < disp_desc.length; ++j) {
+                    var new_el = descs[i].obj_num.clone().hide()
+                                        .insertAfter(descs[i].obj_num);
+                    var text = disp_desc[j].nums[0].toString();
+                    // TODO: reduce to ranges
+                    for (var k = 1; k < disp_desc[j].nums.length; ++k) {
+                        text = text + ',' + disp_desc[j].nums[k].toString();
+                    }
+                    new_el.text(text + ')');
+                    this.tracker.add_object(new_el, descs[i].obj_num, disp_desc[j].revs);
+                }
             }
-            if (this.curr_rev != Rev.DIFF && rev == Rev.DIFF) {
-                this.rev_tables.each(function() {
-                    $(this).removeClass('stdrev-rev-hide');
-                });
-            }
-
-            this.curr_rev = rev;
         }
+    };
+
+    StandardRevisionPlugin.prototype.prepare = function() {
+        if (this.is_prepared) {
+            return;
+        }
+        this.prepare_navbar();
+        this.prepare_all_revs();
+        this.prepare_all_inl_revs();
+        this.prepare_all_dscs();
+
+        var dcl_tables = $('.t-dcl-begin');
+        if (dcl_tables.length > 0) {
+            var num_map = this.prepare_all_dcls(dcl_tables.first());
+            this.prepare_all_li(num_map);
+        }
+        this.is_prepared = true;
+    };
+
+    /** Utility function. Takes an jQuery object containing an array of
+        elements that may or may not contain revision marker.
+        Returns an a list of revisions for which a the node should be copied
+        and for which revisions each of the copy would be shown. The result
+        is an associative array: key identifies the revision to build the
+        DOM for; the value identifies the revisions to show the result for.
+    */
+    StandardRevisionPlugin.prototype.get_revision_map = function(lines) {
+        var res = [];
+        res[Rev.DIFF] = [Rev.DIFF];
+
+        var visible_by_line = [];
+
+        // create separate elements when diff has rev marks
+        var is_diff_clean = true;
+
+        lines.each(function() {
+            var rev_mark = $(this).find('.t-mark-rev').first();
+            visible_by_line.push(get_visibility_on_rev(rev_mark));
+            if (rev_mark.length > 0) {
+                is_diff_clean = false;
+            }
+        });
+
+        // Track the lines shown in the previous revision. If the same lines
+        // are shown in the current revision, simply display the element
+        // of the previous revision, instead of creating a new one.
+        var prev_rev = Rev.DIFF;
+        var prev_visible = [];
+        if (is_diff_clean) {
+            // any further revisions will match this this array only if
+            // original version of the element does not contain rev marks
+            for (var i = 0; i < visible_by_line.length; i++) {
+                prev_visible.push(i); // DIFF shows all lines
+            }
+        }
+
+        for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
+            res[rev] = [];
+
+            var curr_visible = [];
+            for (var i = 0; i < visible_by_line.length; i++) {
+                if (visible_by_line[i][rev] === true) {
+                    curr_visible.push(i);
+                }
+            }
+
+            if (curr_visible.length === 0) {
+                continue;
+            }
+
+            // Maybe nothing has changed from the previous revision and we
+            // can simply keep the node created for the previous revision
+            if (array_equal(curr_visible, prev_visible)) {
+                res[prev_rev].push(rev);
+            } else {
+                res[rev].push(rev);
+                prev_visible = curr_visible;
+                prev_rev = rev;
+            }
+        }
+
+        return res;
+    };
+
+    /** Utility function. Takes a revision map as returned by
+        get_revision_map and produces visibility map from that.
+    */
+    StandardRevisionPlugin.prototype.revision_map_to_visibility = function(revs) {
+        var visible = visibility_fill(false);
+        for (var i in revs) {
+            visible[revs[i]] = true;
+        }
+        return visible;
+    };
+
+    /** Utility function. Deletes lines from multi-line links (such as these
+        in dsc tables) that have marks nearby.
+        Returns true if no lines are left. @a titles and @a marks must both
+        refer to the children of .t-lines elements.
+     */
+    StandardRevisionPlugin.prototype.delete_lines = function(titles, marks, rev) {
+        // Delete the lines
+        var num_deleted = 0;
+        var num_total = titles.length;
+
+        marks.each(function(index) {
+            var mark_span = $(this).children('.t-mark-rev');
+            if (mark_span.length > 0) {
+                var mark = get_mark(mark_span.first());
+                if (!should_be_shown(rev, mark)) {
+                    titles.eq(index).remove();
+                    $(this).remove();
+                    num_deleted++;
+                    return;
+                }
+            }
+            mark_span.remove(); // delete marks in any case
+        });
+
+        // Delete this if empty
+        return (num_deleted === num_total);
+    };
+
+    /** Creates the standard revision selection box
+    */
+    StandardRevisionPlugin.prototype.create_selection_box = function() {
+        var head_parent = $('#cpp-head-tools-right');
+
+        this.el.select_div = $('<div/>').addClass('stdrev-select');
+
+        var inner_div = $('<div/>').appendTo(this.el.select_div);
+        var span = $('<span/>').addClass('stdrev-text')
+                               .text('Standard revision: ')
+                               .appendTo(inner_div);
+        this.el.select = $('<select/>').appendTo(inner_div);
+
+        for (var i = 0; i < desc.length; ++i) {
+            $('<option/>').text(desc[i].title)
+                          .attr('value', desc[i].rev.toString())
+                          .appendTo(this.el.select);
+        }
+
+        this.el.select.one('mouseover', this.prepare.bind(this));
+        this.el.select.change(this.on_selection_change.bind(this));
+        this.el.select_div.prependTo(head_parent);
+    };
+
+    /** Callback to be run when the user changes the option selected in the
+        selection box
+    */
+    StandardRevisionPlugin.prototype.on_selection_change = function() {
+        this.prepare();
+        var rev = parseInt(this.el.select.val());
+        this.tracker.to_rev(rev);
+
+        // special treatment for rev boxes
+        if (this.curr_rev === Rev.DIFF && rev !== Rev.DIFF) {
+            this.rev_tables.each(function() {
+                $(this).addClass('stdrev-rev-hide');
+            });
+        }
+        if (this.curr_rev !== Rev.DIFF && rev === Rev.DIFF) {
+            this.rev_tables.each(function() {
+                $(this).removeClass('stdrev-rev-hide');
+            });
+        }
+
+        this.curr_rev = rev;
     };
 
     /** Each instance of this class is responsible for versioning either member
