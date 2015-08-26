@@ -4,22 +4,27 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://en.cppreference.com/" />
-<title>cpp-string-basic_string</title>
+<title>cpp-error-demain_error</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">cpp-string-basic_string</td></tr>
+<tr><td rowspan="1" colspan="3">cpp-error-demain_error</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/w/cpp/string/basic_string</td>
+	<td>/w/cpp/error/domain_error</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td></td>
-	<td>1000</td>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*const char? what_arg*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*(since C++11)*</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -27,19 +32,9 @@
 	<td>label=C++98/03</td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td></td>
-	<td>1000</td>
-</tr>
-<tr>
 	<td>verifyNotText</td>
 	<td>//body</td>
-	<td>glob:*std::allocator_traits&lt;Allocator&gt;::size_type*</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//body</td>
-	<td>glob:*std::u16string*</td>
+	<td>glob:*const char? what_arg*</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -47,24 +42,9 @@
 	<td>label=C++11</td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td></td>
-	<td>1000</td>
-</tr>
-<tr>
-	<td>verifyText</td>
+	<td>verifyNotText</td>
 	<td>//body</td>
-	<td>glob:*std::allocator_traits&lt;Allocator&gt;::const_pointer*</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>css=select</td>
-	<td>label=C++14</td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td></td>
-	<td>1000</td>
+	<td>glob:*(since C++11)*</td>
 </tr>
 </tbody></table>
 </body>
