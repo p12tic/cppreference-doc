@@ -556,10 +556,66 @@ $(function() {
         this.perform_hide(this.root_container, tracker, visibility_fill(true));
     };
 
-    var StandardRevisionPlugin = function() {
+    /** Used to aggregate a set of objects that need to be versioned. The set
+        may be created from objects only in certain part of the DOM tree, this
+        allows to perform independent versioning execution in different parts
+        of the page.
+    */
+    var Scope = function(root) {
+        this.root = root;
+    };
 
-        this.el = {};
-        this.el.root = $('#mw-content-text').first();
+    /** Creates a new scope and initializes it with the objects gathered from
+        the given jQuery object. Returns the new scope.
+    */
+    Scope.create_root = function(obj) {
+        var scope = new Scope(obj);
+        scope.nv = scope.root.find('.t-navbar');
+        scope.dcl_tables = scope.root.find('.t-dcl-begin');
+        scope.dcl_rev_tables = scope.dcl_tables.filter('.t-dcl-rev-begin');
+        scope.dsc_tables = scope.root.find('.t-dsc-begin');
+        scope.rev_tables = scope.root.find('.t-rev-begin');
+        scope.rev_inl_tables = scope.root.find('.t-rev-inl');
+        scope.list_items = scope.root.find('.t-li1');
+        scope.list_items.add(scope.root.find('.t-li2'));
+        scope.list_items.add(scope.root.find('.t-li3'));
+        return scope;
+    };
+
+    /** Given two scopes: parent scope and child scope, moves the elements
+        contained within jQuery object in parent_scope[prop] to
+        child_scope[prop] whenever they have child_scope.root as parent.
+    */
+    Scope.split_scope = function(parent_scope, child_scope, prop) {
+
+        // get elements to move
+        var to_move = parent_scope[prop].filter(function() {
+            return $.contains(child_scope.root[0], this);
+        });
+
+        // remove elements from parent and add to child
+        parent_scope[prop] = parent_scope[prop].not(to_move);
+        child_scope[prop] = to_move;
+    };
+
+    /** Creates a new scope and initializes it with the objects from the given
+        parent scope that also have the given jQuery object obj as parent. The
+        filtered objects are removed from the parent scope. The function returns
+        the new scope.
+    */
+    Scope.create_child = function(parent, obj) {
+        var scope = new Scope(obj);
+        Scope.split_scope(parent, scope, 'nv');
+        Scope.split_scope(parent, scope, 'dcl_tables');
+        Scope.split_scope(parent, scope, 'dcl_rev_tables');
+        Scope.split_scope(parent, scope, 'dsc_tables');
+        Scope.split_scope(parent, scope, 'rev_tables');
+        Scope.split_scope(parent, scope, 'rev_inl_tables');
+        Scope.split_scope(parent, scope, 'list_items');
+        return scope;
+    };
+
+    var StandardRevisionPlugin = function() {
         this.curr_rev = Rev.DIFF;
 
         this.tracker = new ObjectTracker();
@@ -571,8 +627,8 @@ $(function() {
         make as many copies of the original navbar as there are revisions and
         customize each copy in-place.
     */
-    StandardRevisionPlugin.prototype.prepare_navbar = function() {
-        var nv = this.el.root.children('.t-navbar'); // main navbar
+    StandardRevisionPlugin.prototype.prepare_navbar = function(scope) {
+        var nv = scope.nv // main navbar
         if (nv.length === 0) {
             return; // no navbar
         }
@@ -666,9 +722,8 @@ $(function() {
         on_selection_table. Note, that in order for this to work, the revision
         marks must not be touched.
     */
-    StandardRevisionPlugin.prototype.prepare_all_revs = function() {
-        this.rev_tables = $('.t-rev-begin');
-        var rev_elems = this.rev_tables.children('tbody').children('.t-rev');
+    StandardRevisionPlugin.prototype.prepare_all_revs = function(scope) {
+        var rev_elems = scope.rev_tables.children('tbody').children('.t-rev');
         var self = this;
         rev_elems.each(function() {
             var shown_revs = get_shown_revs($(this));
@@ -680,10 +735,9 @@ $(function() {
 
     /** Handles rev_inl template
     */
-    StandardRevisionPlugin.prototype.prepare_all_inl_revs = function() {
-        this.rev_inl_elems = $('.t-rev-inl');
+    StandardRevisionPlugin.prototype.prepare_all_inl_revs = function(scope) {
         var self = this;
-        this.rev_inl_elems.each(function() {
+        scope.rev_inl_tables.each(function() {
             self.tracker.add_diff_object($(this), [Rev.DIFF]);
 
             var shown_revs = get_shown_revs($(this));
@@ -697,16 +751,16 @@ $(function() {
     /** Handles all dsc_* templates.
         Prepares items in dsc lists
     */
-    StandardRevisionPlugin.prototype.prepare_all_dscs = function() {
-        this.dsc_tables = $('.t-dsc-begin');
+    StandardRevisionPlugin.prototype.prepare_all_dscs = function(scope) {
         var self = this;
-        this.dsc_tables.each(function() {
+        scope.dsc_tables.each(function() {
             self.prepare_dsc_table($(this));
         });
     };
 
     StandardRevisionPlugin.prototype.is_secondary = function(el) {
-        if (el.is('h3') ||
+        if (el.is('h2') ||
+            el.is('h3') ||
             el.is('h5') ||
             el.is('p') ||
             (el.is('tr') && el.has('td > h5').length) ||
@@ -718,14 +772,16 @@ $(function() {
     };
 
     StandardRevisionPlugin.prototype.get_level = function(el) {
-        if (el.is('h3'))
+        if (el.is('h2'))
             return 0;
+        if (el.is('h3'))
+            return 1;
         if (el.is('h5'))
-            return 1;
-        if (el.is('tr') && el.has('td > h5').length)
-            return 1;
-        if (el.is('.t-dsc-header'))
             return 2;
+        if (el.is('tr') && el.has('td > h5').length)
+            return 2;
+        if (el.is('.t-dsc-header'))
+            return 3;
         return -1;
     }
 
@@ -739,11 +795,13 @@ $(function() {
     StandardRevisionPlugin.prototype.prepare_dsc_table = function(el) {
         var section_tracker = new SectionContentsTracker();
 
-        var start_el = el.prev();
-        while (start_el.length !== 0 && this.is_secondary(start_el)) {
-            start_el = start_el.prev();
+        var start_el = el;
+        while (true) {
+            var prev = start_el.prev();
+            if (prev.length === 0 || !this.is_secondary(prev))
+                break;
+            start_el = prev;
         }
-        start_el = start_el.next();
 
         while (start_el[0] !== el[0]) {
             this.set_level_if_needed(section_tracker, start_el);
@@ -1229,11 +1287,9 @@ $(function() {
 
     /** Renumbers and hides the list items according to the given @a num_map
     */
-    StandardRevisionPlugin.prototype.prepare_all_li = function(num_map) {
+    StandardRevisionPlugin.prototype.prepare_all_li = function(scope, num_map) {
         // FIXME: currently we process only the first t-li element out of
         // each block of elements assigned a single num.
-        var el_li = $('.t-li1').add($('.t-li2')).add($('.t-li3'));
-
         var descs = [];
         /*
            { obj: <jQuery object>,
@@ -1243,7 +1299,7 @@ $(function() {
         */
         var num_regex = /^\s*(\d+)\s*$/;
         var range_regex = /^\s*(\d+)-(\d+)\s*$/;
-        el_li.each(function() {
+        scope.list_items.each(function() {
             var el_num = $(this).children().first('.t-li');
             if (el_num.length === 0) {
                 return;
@@ -1342,20 +1398,43 @@ $(function() {
         }
     };
 
+    StandardRevisionPlugin.prototype.for_all_scopes = function(fun) {
+        fun.call(this.root_scope);
+        for (var i = 0; i < this.child_scopes.length; ++i) {
+            fun.call(this.child_scopes[i]);
+        }
+    };
+
     StandardRevisionPlugin.prototype.prepare = function() {
         if (this.is_prepared) {
             return;
         }
-        this.prepare_navbar();
-        this.prepare_all_revs();
-        this.prepare_all_inl_revs();
-        this.prepare_all_dscs();
 
-        var dcl_tables = $('.t-dcl-begin');
-        if (dcl_tables.length > 0) {
-            var num_map = this.prepare_all_dcls(dcl_tables.first());
-            this.prepare_all_li(num_map);
-        }
+        // initialize scopes
+        this.root_scope = Scope.create_root($('#mw-content-text').first());
+        this.child_scopes = [];
+
+        var self = this;
+        this.root_scope.root.find('.t-member').each(function() {
+            self.child_scopes.push(Scope.create_child(self.root_scope, $(this)));
+        });
+
+        // prepare scopes
+        this.for_all_scopes(function() {
+
+            var scope = this;
+            self.prepare_navbar(scope);
+            self.prepare_all_revs(scope);
+            self.prepare_all_inl_revs(scope);
+            self.prepare_all_dscs(scope);
+
+            if (scope.dcl_tables.length > 0) {
+                var num_map = self.prepare_all_dcls(scope.dcl_tables.first());
+                self.prepare_all_li(scope, num_map);
+            }
+
+        });
+
         this.is_prepared = true;
     };
 
@@ -1470,23 +1549,23 @@ $(function() {
     StandardRevisionPlugin.prototype.create_selection_box = function() {
         var head_parent = $('#cpp-head-tools-right');
 
-        this.el.select_div = $('<div/>').addClass('stdrev-select');
+        this.select_div = $('<div/>').addClass('stdrev-select');
 
-        var inner_div = $('<div/>').appendTo(this.el.select_div);
+        var inner_div = $('<div/>').appendTo(this.select_div);
         var span = $('<span/>').addClass('stdrev-text')
                                .text('Standard revision: ')
                                .appendTo(inner_div);
-        this.el.select = $('<select/>').appendTo(inner_div);
+        this.select = $('<select/>').appendTo(inner_div);
 
         for (var i = 0; i < desc.length; ++i) {
             $('<option/>').text(desc[i].title)
                           .attr('value', desc[i].rev.toString())
-                          .appendTo(this.el.select);
+                          .appendTo(this.select);
         }
 
-        this.el.select.one('mouseover', this.prepare.bind(this));
-        this.el.select.change(this.on_selection_change.bind(this));
-        this.el.select_div.prependTo(head_parent);
+        this.select.one('mouseover', this.prepare.bind(this));
+        this.select.change(this.on_selection_change.bind(this));
+        this.select_div.prependTo(head_parent);
     };
 
     /** Callback to be run when the user changes the option selected in the
@@ -1494,41 +1573,26 @@ $(function() {
     */
     StandardRevisionPlugin.prototype.on_selection_change = function() {
         this.prepare();
-        var rev = parseInt(this.el.select.val());
+        var rev = parseInt(this.select.val());
         this.tracker.to_rev(rev);
 
         // special treatment for rev boxes
         if (this.curr_rev === Rev.DIFF && rev !== Rev.DIFF) {
-            this.rev_tables.each(function() {
-                $(this).addClass('stdrev-rev-hide');
+            this.for_all_scopes(function() {
+                this.rev_tables.each(function() {
+                    $(this).addClass('stdrev-rev-hide');
+                });
             });
         }
         if (this.curr_rev !== Rev.DIFF && rev === Rev.DIFF) {
-            this.rev_tables.each(function() {
-                $(this).removeClass('stdrev-rev-hide');
+            this.for_all_scopes(function() {
+                this.rev_tables.each(function() {
+                    $(this).removeClass('stdrev-rev-hide');
+                });
             });
         }
 
         this.curr_rev = rev;
-    };
-
-    /** Each instance of this class is responsible for versioning either member
-        'scopes' (those within {{member}} templates) or the main scope (everything
-        what's left)
-    */
-    function Scope(root, is_main) {
-
-    };
-
-    // get the important elements of the page
-    this.get_core_elements = function() {
-        this.el.root = $('#mw-content-text');
-        this.el.dcl_tables = this.el.root.find('.t-dcl-begin');
-        this.el.dcl_rev_tables = this.el.dcl_tables.filter('.t-dcl-rev-begin');
-        this.el.dsc_tables = this.el.root.find('.t-dsc-begin');
-        this.el.rev_tables = this.el.root.find('.t-rev-begin');
-        this.el.rev_inl_tables = this.el.root.find('.t-rev-inl');
-        this.el.list_items = this.el.root.find('.t-li');
     };
 
     var plugin = new StandardRevisionPlugin();
