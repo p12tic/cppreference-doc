@@ -615,6 +615,7 @@
         <!-- todo -->
     </class>
 
+    <function name="std::make_reverse_iterator" link="cpp/iterator/make_reverse_iterator" since="c++14"/>
     <function name="std::make_move_iterator" link="cpp/iterator/make_move_iterator"/>
     <function name="std::back_inserter" link="cpp/iterator/back_inserter"/>
     <function name="std::front_inserter" link="cpp/iterator/front_inserter"/>
