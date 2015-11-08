@@ -3627,6 +3627,8 @@
         <const name="copyfmt_event" link="event"/>
 
         <typedef name="event_callback"/>
+        
+        <class name="Init"/>
     </class>
 
     <class name="std::basic_ios" link="cpp/io/basic_ios">
