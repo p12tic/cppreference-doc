@@ -455,80 +455,144 @@
         <constructor/>
     </class>
 
-        <!-- type traits -->
-
+    <!-- type traits -->
     <class name="std::is_void" link="cpp/types/is_void"/>
+    <variable name="std::is_void_v" link="cpp/types/is_void" since="c++17"/>
     <class name="std::is_null_pointer" link="cpp/types/is_null_pointer" since="c++14"/>
+    <variable name="std::is_null_pointer_v" link="cpp/types/is_null_pointer" since="c++17"/>
     <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
+    <variable name="std::is_final_v" link="cpp/types/is_final" since="c++17"/>
     <class name="std::is_integral" link="cpp/types/is_integral"/>
+    <variable name="std::is_integral_v" link="cpp/types/is_integral" since="c++17"/>
     <class name="std::is_floating_point" link="cpp/types/is_floating_point"/>
+    <variable name="std::is_floating_point_v" link="cpp/types/is_floating_point" since="c++17"/>
     <class name="std::is_array" link="cpp/types/is_array"/>
+    <variable name="std::is_array_v" link="cpp/types/is_array" since="c++17"/>
     <class name="std::is_pointer" link="cpp/types/is_pointer"/>
+    <variable name="std::is_pointer_v" link="cpp/types/is_pointer" since="c++17"/>
     <class name="std::is_lvalue_reference" link="cpp/types/is_lvalue_reference"/>
+    <variable name="std::is_lvalue_reference_v" link="cpp/types/is_lvalue_reference" since="c++17"/>
     <class name="std::is_rvalue_reference" link="cpp/types/is_rvalue_reference"/>
+    <variable name="std::is_rvalue_reference_v" link="cpp/types/is_rvalue_reference" since="c++17"/>
     <class name="std::is_member_object_pointer" link="cpp/types/is_member_object_pointer"/>
+    <variable name="std::is_member_object_pointer_v" link="cpp/types/is_member_object_pointer" since="c++17"/>
     <class name="std::is_member_function_pointer" link="cpp/types/is_member_function_pointer"/>
+    <variable name="std::is_member_function_pointer_v" link="cpp/types/is_member_function_pointer" since="c++17"/>
     <class name="std::is_enum" link="cpp/types/is_enum"/>
+    <variable name="std::is_enum_v" link="cpp/types/is_enum" since="c++17"/>
     <class name="std::is_union" link="cpp/types/is_union"/>
+    <variable name="std::is_union_v" link="cpp/types/is_union" since="c++17"/>
     <class name="std::is_class" link="cpp/types/is_class"/>
+    <variable name="std::is_class_v" link="cpp/types/is_class" since="c++17"/>
     <class name="std::is_function" link="cpp/types/is_function"/>
+    <variable name="std::is_function_v" link="cpp/types/is_function" since="c++17"/>
 
     <class name="std::is_reference" link="cpp/types/is_reference"/>
+    <variable name="std::is_reference_v" link="cpp/types/is_reference" since="c++17"/>
     <class name="std::is_arithmetic" link="cpp/types/is_arithmetic"/>
+    <variable name="std::is_arithmetic_v" link="cpp/types/is_arithmetic" since="c++17"/>
     <class name="std::is_fundamental" link="cpp/types/is_fundamental"/>
+    <variable name="std::is_fundamental_v" link="cpp/types/is_fundamental" since="c++17"/>
     <class name="std::is_object" link="cpp/types/is_object"/>
+    <variable name="std::is_object_v" link="cpp/types/is_object" since="c++17"/>
     <class name="std::is_scalar" link="cpp/types/is_scalar"/>
+    <variable name="std::is_scalar_v" link="cpp/types/is_scalar" since="c++17"/>
     <class name="std::is_compound" link="cpp/types/is_compound"/>
+    <variable name="std::is_compound_v" link="cpp/types/is_compound" since="c++17"/>
     <class name="std::is_member_pointer" link="cpp/types/is_member_pointer"/>
+    <variable name="std::is_member_pointer_v" link="cpp/types/is_member_pointer" since="c++17"/>
 
     <class name="std::is_const" link="cpp/types/is_const"/>
+    <variable name="std::is_const_v" link="cpp/types/is_const" since="c++17"/>
     <class name="std::is_volatile" link="cpp/types/is_volatile"/>
+    <variable name="std::is_volatile_v" link="cpp/types/is_volatile" since="c++17"/>
     <class name="std::is_trivial" link="cpp/types/is_trivial"/>
+    <variable name="std::is_trivial_v" link="cpp/types/is_trivial" since="c++17"/>
     <class name="std::is_trivially_copyable" link="cpp/types/is_trivially_copyable"/>
+    <variable name="std::is_trivially_copyable_v" link="cpp/types/is_trivially_copyable" since="c++17"/>
     <class name="std::is_standard_layout" link="cpp/types/is_standard_layout"/>
+    <variable name="std::is_standard_layout_v" link="cpp/types/is_standard_layout" since="c++17"/>
     <class name="std::is_pod" link="cpp/types/is_pod"/>
+    <variable name="std::is_pod_v" link="cpp/types/is_pod" since="c++17"/>
     <class name="std::is_literal_type" link="cpp/types/is_literal_type"/>
+    <variable name="std::is_literal_type_v" link="cpp/types/is_literal_type" since="c++17"/>
     <class name="std::is_empty" link="cpp/types/is_empty"/>
+    <variable name="std::is_empty_v" link="cpp/types/is_empty" since="c++17"/>
     <class name="std::is_polymorphic" link="cpp/types/is_polymorphic"/>
+    <variable name="std::is_polymorphic_v" link="cpp/types/is_polymorphic" since="c++17"/>
     <class name="std::is_abstract" link="cpp/types/is_abstract"/>
+    <variable name="std::is_abstract_v" link="cpp/types/is_abstract" since="c++17"/>
     <class name="std::is_signed" link="cpp/types/is_signed"/>
+    <variable name="std::is_signed_v" link="cpp/types/is_signed" since="c++17"/>
     <class name="std::is_unsigned" link="cpp/types/is_unsigned"/>
+    <variable name="std::is_unsigned_v" link="cpp/types/is_unsigned" since="c++17"/>
 
     <class name="std::is_constructible" link="cpp/types/is_constructible"/>
+    <variable name="std::is_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
     <class name="std::is_trivially_constructible" link="cpp/types/is_constructible"/>
+    <variable name="std::is_trivially_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
     <class name="std::is_nothrow_constructible" link="cpp/types/is_constructible"/>
+    <variable name="std::is_nothrow_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
     <class name="std::is_default_constructible" link="cpp/types/is_default_constructible"/>
+    <variable name="std::is_default_constructible_v" link="cpp/types/is_default_constructible" since="c++17"/>
     <class name="std::is_trivially_default_constructible" link="cpp/types/is_default_constructible"/>
+    <variable name="std::is_trivially_default_constructible_v" link="cpp/types/is_default_constructible" since="c++17"/>
     <class name="std::is_nothrow_default_constructible" link="cpp/types/is_default_constructible"/>
+    <variable name="std::is_nothrow_default_constructible_v" link="cpp/types/is_default_constructible" since="c++17"/>
     <class name="std::is_copy_constructible" link="cpp/types/is_copy_constructible"/>
+    <variable name="std::is_copy_constructible_v" link="cpp/types/is_copy_constructible" since="c++17"/>
     <class name="std::is_trivially_copy_constructible" link="cpp/types/is_copy_constructible"/>
+    <variable name="std::is_trivially_copy_constructible_v" link="cpp/types/is_copy_constructible" since="c++17"/>
     <class name="std::is_nothrow_copy_constructible" link="cpp/types/is_copy_constructible"/>
+    <variable name="std::is_nothrow_copy_constructible_v" link="cpp/types/is_copy_constructible" since="c++17"/>
     <class name="std::is_move_constructible" link="cpp/types/is_move_constructible"/>
+    <variable name="std::is_move_constructible_v" link="cpp/types/is_move_constructible" since="c++17"/>
     <class name="std::is_trivially_move_constructible" link="cpp/types/is_move_constructible"/>
+    <variable name="std::is_trivially_move_constructible_v" link="cpp/types/is_move_constructible" since="c++17"/>
     <class name="std::is_nothrow_move_constructible" link="cpp/types/is_move_constructible"/>
+    <variable name="std::is_nothrow_move_constructible_v" link="cpp/types/is_move_constructible" since="c++17"/>
 
     <class name="std::is_assignable" link="cpp/types/is_assignable"/>
+    <variable name="std::is_assignable_v" link="cpp/types/is_assignable" since="c++17"/>
     <class name="std::is_trivially_assignable" link="cpp/types/is_assignable"/>
+    <variable name="std::is_trivially_assignable_v" link="cpp/types/is_assignable" since="c++17"/>
     <class name="std::is_nothrow_assignable" link="cpp/types/is_assignable"/>
+    <variable name="std::is_nothrow_assignable_v" link="cpp/types/is_assignable" since="c++17"/>
     <class name="std::is_copy_assignable" link="cpp/types/is_copy_assignable"/>
+    <variable name="std::is_copy_assignable_v" link="cpp/types/is_copy_assignable" since="c++17"/>
     <class name="std::is_trivially_copy_assignable" link="cpp/types/is_copy_assignable"/>
+    <variable name="std::is_trivially_copy_assignable_v" link="cpp/types/is_copy_assignable" since="c++17"/>
     <class name="std::is_nothrow_copy_assignable" link="cpp/types/is_copy_assignable"/>
+    <variable name="std::is_nothrow_copy_assignable_v" link="cpp/types/is_copy_assignable" since="c++17"/>
     <class name="std::is_move_assignable" link="cpp/types/is_move_assignable"/>
+    <variable name="std::is_move_assignable_v" link="cpp/types/is_move_assignable" since="c++17"/>
     <class name="std::is_trivially_move_assignable" link="cpp/types/is_move_assignable"/>
+    <variable name="std::is_trivially_move_assignable_v" link="cpp/types/is_move_assignable" since="c++17"/>
     <class name="std::is_nothrow_move_assignable" link="cpp/types/is_move_assignable"/>
+    <variable name="std::is_nothrow_move_assignable_v" link="cpp/types/is_move_assignable" since="c++17"/>
     <class name="std::is_destructible" link="cpp/types/is_destructible"/>
+    <variable name="std::is_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
     <class name="std::is_trivially_destructible" link="cpp/types/is_destructible"/>
+    <variable name="std::is_trivially_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
     <class name="std::is_nothrow_destructible" link="cpp/types/is_destructible"/>
+    <variable name="std::is_nothrow_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
 
     <class name="std::has_virtual_destructor" link="cpp/types/has_virtual_destructor"/>
+    <variable name="std::has_virtual_destructor_v" link="cpp/types/has_virtual_destructor" since="c++17"/>
 
     <class name="std::alignment_of" link="cpp/types/alignment_of"/>
+    <variable name="std::alignment_of_v" link="cpp/types/alignment_of" since="c++17"/>
     <class name="std::rank" link="cpp/types/rank"/>
+    <variable name="std::rank_v" link="cpp/types/rank" since="c++17"/>
     <class name="std::extent" link="cpp/types/extent"/>
+    <variable name="std::extent_v" link="cpp/types/extent" since="c++17"/>
 
     <class name="std::is_same" link="cpp/types/is_same"/>
+    <variable name="std::is_same_v" link="cpp/types/is_same" since="c++17"/>
     <class name="std::is_base_of" link="cpp/types/is_base_of"/>
+    <variable name="std::is_base_of_v" link="cpp/types/is_base_of" since="c++17"/>
     <class name="std::is_convertible" link="cpp/types/is_convertible"/>
+    <variable name="std::is_convertible_v" link="cpp/types/is_convertible" since="c++17"/>
 
     <class name="std::remove_cv" link="cpp/types/remove_cv" since="c++11"/>
     <class name="std::remove_const" link="cpp/types/remove_cv" since="c++11"/>
@@ -583,6 +647,14 @@
     <typedef name="std::underlying_type_t" alias="std::underlying_type" since="c++14"/>
     <class name="std::result_of" link="cpp/types/result_of"/>
     <typedef name="std::result_of_t" alias="std::result_of" since="c++14"/>
+
+    <class name="std::conjunction" link="cpp/types/conjunction" since="c++17"/>
+    <variable name="std::conjunction_v" link="cpp/types/conjunction" since="c++17"/>
+    <class name="std::disjunction" link="cpp/types/disjunction" since="c++17"/>
+    <variable name="std::disjunction_v" link="cpp/types/disjunction" since="c++17"/>
+    <class name="std::negation" link="cpp/types/negation" since="c++17"/>
+    <variable name="std::negation_v" link="cpp/types/negation" since="c++17"/>
+
     <class name="std::integral_constant" link="cpp/types/integral_constant"/>
     <typedef name="std::bool_constant" alias="std::integral_constant" since="c++17"/>
     <typedef name="std::true_type" alias="std::integral_constant"/>
@@ -711,6 +783,7 @@
     <const name="std::allocator_arg" link="cpp/memory/allocator_arg"/>
 
     <class name="std::uses_allocator" link="cpp/memory/uses_allocator"/>
+    <variable name="std::uses_allocator_v" link="cpp/memory/uses_allocator" since="c++17"/>
 
     <class name="std::scoped_allocator_adaptor" link="cpp/memory/scoped_allocator_adaptor">
         <constructor/>
@@ -1081,6 +1154,7 @@
     </class>
 
     <class name="std::is_error_condition_enum" link="cpp/error/error_condition/is_error_condition_enum"/>
+    <variable name="std::is_error_condition_enum_v" link="cpp/error/error_condition/is_error_condition_enum" since="c++17"/>
 
     <class name="std::error_code" link="cpp/error/error_code">
         <constructor/>
@@ -1100,6 +1174,7 @@
     </class>
 
     <class name="std::is_error_code_enum" link="cpp/error/error_code/is_error_code_enum"/>
+    <class name="std::is_error_code_enum_v" link="cpp/error/error_code/is_error_code_enum" since="c++17"/>
 
     <class name="std::errc" link="cpp/error/errc">
         <const name="address_family_not_supported" link="."/>
@@ -1326,6 +1401,7 @@
 
     <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point">
     </class>
+    <variable name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point" since="c++11"/>
 
     <class name="std::chrono::duration_values" link="cpp/chrono/duration_values">
         <function name="zero"/>
@@ -1505,6 +1581,8 @@
     <function name="std::bind" link="cpp/utility/functional/bind"/>
     <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"/>
     <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"/>
+    <variable name="std::is_bind_expression_v" link="cpp/utility/functional/is_bind_expression" since="c++17"/>
+    <variable name="std::is_placeholder_v" link="cpp/utility/functional/is_placeholder" since="c++17"/>
 
     <function name="std::mem_fn" link="cpp/utility/functional/mem_fn"/>
     <function name="std::invoke" link="cpp/utility/functional/invoke" since="c++17"/>
@@ -1592,6 +1670,8 @@
         <specialization name="std::tuple_element" link="tuple_element"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
+
+    <variable name="std::tuple_size_v" link="cpp/utility/tuple/tuple_size" since="c++17"/>
 
     <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
     <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
@@ -3345,12 +3425,17 @@
     <class name="std::ratio_divide" link="cpp/numeric/ratio/ratio_divide"/>
 
     <class name="std::ratio_equal" link="cpp/numeric/ratio/ratio_equal"/>
+    <variable name="std::ratio_equal_v" link="cpp/numeric/ratio/ratio_equal" since="c++17"/>
     <class name="std::ratio_not_equal" link="cpp/numeric/ratio/ratio_not_equal"/>
+    <variable name="std::ratio_not_equal_v" link="cpp/numeric/ratio/ratio_not_equal" since="c++17"/>
     <class name="std::ratio_less" link="cpp/numeric/ratio/ratio_less"/>
+    <variable name="std::ratio_less_v" link="cpp/numeric/ratio/ratio_less" since="c++17"/>
     <class name="std::ratio_less_equal" link="cpp/numeric/ratio/ratio_less_equal"/>
+    <variable name="std::ratio_less_equal_v" link="cpp/numeric/ratio/ratio_less_equal" since="c++17"/>
     <class name="std::ratio_greater" link="cpp/numeric/ratio/ratio_greater"/>
+    <variable name="std::ratio_greater_v" link="cpp/numeric/ratio/ratio_greater" since="c++17"/>
     <class name="std::ratio_greater_equal" link="cpp/numeric/ratio/ratio_greater_equal"/>
-
+    <variable name="std::ratio_greater_equal_v" link="cpp/numeric/ratio/ratio_greater_equal" since="c++17"/>
     <!-- cpp/algorithm -->
 
     <function name="std::all_of" link="cpp/algorithm/all_any_none_of"/>
