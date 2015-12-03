@@ -5296,4 +5296,26 @@
     <variable name="std::experimental::is_placeholder_v" link="cpp/experimental/type_trait_variable_templates" since="exp"/>
     <variable name="std::experimental::uses_allocator_v" link="cpp/experimental/type_trait_variable_templates" since="exp"/>
 
+    <class name="std::experimental::is_detected" link="cpp/experimental/is_detected" since="exp"/>
+    <variable name="std::experimental::is_detected_v" link="cpp/experimental/is_detected" since="exp"/>
+    <class name="std::experimental::detected_or" link="cpp/experimental/is_detected" since="exp"/>
+    <typedef name="std::experimental::detected_or_t" link="cpp/experimental/is_detected" since="exp"/>
+    <class name="std::experimental::is_detected_exact" link="cpp/experimental/is_detected" since="exp"/>
+    <variable name="std::experimental::is_detected_exact_v" link="cpp/experimental/is_detected" since="exp"/>
+    <class name="std::experimental::is_detected_convertible" link="cpp/experimental/is_detected" since="exp"/>
+    <variable name="std::experimental::is_detected_convertible_v" link="cpp/experimental/is_detected" since="exp"/>
+
+    <class name="std::experimental::nonesuch" link="cpp/experimental/nonesuch" since="exp"/>
+
+    <class name="std::experimental::propagate_const" link="cpp/experimental/propagate_const" since="exp"/>
+    <function name="std::experimental::not_fn" link="cpp/experimental/not_fn" since="exp"/>
+    <class name="std::experimental::observer_ptr" link="cpp/experimental/observer_ptr" since="exp"/>
+    <function name="std::experimental::make_array" link="cpp/experimental/make_array" since="exp"/>
+    <function name="std::experimental::to_array" link="cpp/experimental/to_array" since="exp"/>
+    <class name="std::experimental::ostream_joiner" link="cpp/experimental/ostream_joiner" since="exp"/>
+    <function name="std::experimental::gcd" link="cpp/experimental/gcd" since="exp"/>
+    <function name="std::experimental::lcm" link="cpp/experimental/lcm" since="exp"/>
+    <class name="std::experimental::source_location" link="cpp/experimental/source_location" since="exp"/>
+    <function name="std::as_const" link="cpp/utility/as_const" since="exp"/>
+
 </index>
