@@ -2349,8 +2349,10 @@
 
         <function name="clear"/>
         <function name="insert"/>
-        <function name="emplace"/>
-        <function name="emplace_hint"/>
+        <function name="insert_or_assign" since="c++17"/>
+        <function name="emplace" since="c++11"/>
+        <function name="emplace_hint" since="c++11"/>
+        <function name="try_emplace" since="c++17"/>
         <function name="erase"/>
         <function name="swap"/>
 
@@ -2397,8 +2399,8 @@
 
         <function name="clear"/>
         <function name="insert"/>
-        <function name="emplace"/>
-        <function name="emplace_hint"/>
+        <function name="emplace" since="c++11"/>
+        <function name="emplace_hint" since="c++11"/>
         <function name="erase"/>
         <function name="swap"/>
 
@@ -2421,7 +2423,7 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
-    <class name="std::unordered_set" link="cpp/container/unordered_set">
+    <class name="std::unordered_set" link="cpp/container/unordered_set" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -2471,7 +2473,7 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
-    <class name="std::unordered_multiset" link="cpp/container/unordered_multiset">
+    <class name="std::unordered_multiset" link="cpp/container/unordered_multiset" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -2521,7 +2523,7 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
-    <class name="std::unordered_map" link="cpp/container/unordered_map">
+    <class name="std::unordered_map" link="cpp/container/unordered_map" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -2538,8 +2540,10 @@
 
         <function name="clear"/>
         <function name="insert"/>
+        <function name="insert_or_assign" since="c++17"/>
         <function name="emplace"/>
         <function name="emplace_hint"/>
+        <function name="try_emplace" since="c++17"/>
         <function name="erase"/>
         <function name="swap"/>
 
@@ -2573,7 +2577,7 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
-    <class name="std::unordered_multimap" link="cpp/container/unordered_multimap">
+    <class name="std::unordered_multimap" link="cpp/container/unordered_multimap" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
