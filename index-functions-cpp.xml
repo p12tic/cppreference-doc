@@ -1347,10 +1347,14 @@
         <overload name="operator&gt;" link="operator_cmp"/>
         <overload name="operator&gt;=" link="operator_cmp"/>
 
+        <overload name="std::chrono::floor" link="floor" since="c++17"/>
+        <overload name="std::chrono::ceil" link="ceil" since="c++17"/>
+        <overload name="std::chrono::round" link="round" since="c++17"/>
+
         <specialization name="std::common_type" link="common_type"/>
     </class>
 
-    <function name="std::chrono::time_point_cast" link="cpp/chrono/time_point/time_point_cast"/>
+    <function name="std::chrono::time_point_cast" link="cpp/chrono/duration/time_point_cast"/>
 
     <class name="std::chrono::duration" link="cpp/chrono/duration">
         <constructor/>
@@ -1386,6 +1390,11 @@
         <overload name="operator&lt;=" link="operator_cmp"/>
         <overload name="operator&gt;" link="operator_cmp"/>
         <overload name="operator&gt;=" link="operator_cmp"/>
+
+        <overload name="std::chrono::floor" link="floor" since="c++17"/>
+        <overload name="std::chrono::ceil" link="ceil" since="c++17"/>
+        <overload name="std::chrono::round" link="round" since="c++17"/>
+        <overload name="std::chrono::abs" link="abs" since="c++17"/>
 
         <specialization name="std::common_type" link="common_type"/>
     </class>
