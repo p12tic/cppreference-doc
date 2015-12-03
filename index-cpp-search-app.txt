@@ -260,3 +260,6 @@ using directive => cpp/language/namespace
 using declaration (namespace) => cpp/language/namespace
 using declaration (class member) => cpp/language/using
 using (type alias, alias template) => cpp/language/type_alias
+ODR => cpp/language/definition#One_Definition_Rule
+odr-use => cpp/language/definition#One_Definition_Rule
+__has_include => cpp/preprocessor/include
