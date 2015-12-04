@@ -35,6 +35,7 @@ VERSION=20151129
 all: doc_devhelp doc_qch doc_doxygen
 
 DISTFILES=	\
+		gadgets/				\
 		reference/				\
 		images/					\
 		headers/				\
