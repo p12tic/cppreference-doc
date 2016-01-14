@@ -1719,20 +1719,20 @@
     <!--=======================================================================-->
     <!-- cpp/string/byte -->
 
-    <function name="std::isalnum" link="cpp/string/byte/isalnum"/>
-    <function name="std::isalpha" link="cpp/string/byte/isalpha"/>
-    <function name="std::islower" link="cpp/string/byte/islower"/>
-    <function name="std::isupper" link="cpp/string/byte/isupper"/>
-    <function name="std::isdigit" link="cpp/string/byte/isdigit"/>
-    <function name="std::isxdigit" link="cpp/string/byte/isxdigit"/>
-    <function name="std::iscntrl" link="cpp/string/byte/iscntrl"/>
-    <function name="std::isgraph" link="cpp/string/byte/isgraph"/>
-    <function name="std::isspace" link="cpp/string/byte/isspace"/>
-    <function name="std::isblank" link="cpp/string/byte/isblank"/>
-    <function name="std::isprint" link="cpp/string/byte/isprint"/>
-    <function name="std::ispunct" link="cpp/string/byte/ispunct"/>
-    <function name="std::tolower" link="cpp/string/byte/tolower"/>
-    <function name="std::toupper" link="cpp/string/byte/toupper"/>
+    <function name="std::isalnum (&lt;cctype&gt;)" link="cpp/string/byte/isalnum"/>
+    <function name="std::isalpha (&lt;cctype&gt;)" link="cpp/string/byte/isalpha"/>
+    <function name="std::islower (&lt;cctype&gt;)" link="cpp/string/byte/islower"/>
+    <function name="std::isupper (&lt;cctype&gt;)" link="cpp/string/byte/isupper"/>
+    <function name="std::isdigit (&lt;cctype&gt;)" link="cpp/string/byte/isdigit"/>
+    <function name="std::isxdigit (&lt;cctype&gt;)" link="cpp/string/byte/isxdigit"/>
+    <function name="std::iscntrl (&lt;cctype&gt;)" link="cpp/string/byte/iscntrl"/>
+    <function name="std::isgraph (&lt;cctype&gt;)" link="cpp/string/byte/isgraph"/>
+    <function name="std::isspace (&lt;cctype&gt;)" link="cpp/string/byte/isspace"/>
+    <function name="std::isblank (&lt;cctype&gt;)" link="cpp/string/byte/isblank"/>
+    <function name="std::isprint (&lt;cctype&gt;)" link="cpp/string/byte/isprint"/>
+    <function name="std::ispunct (&lt;cctype&gt;)" link="cpp/string/byte/ispunct"/>
+    <function name="std::tolower (&lt;cctype&gt;)" link="cpp/string/byte/tolower"/>
+    <function name="std::toupper (&lt;cctype&gt;)" link="cpp/string/byte/toupper"/>
 
     <function name="std::atof" link="cpp/string/byte/atof"/>
     <function name="std::atoi" link="cpp/string/byte/atoi"/>
@@ -3479,7 +3479,7 @@
     <function name="std::transform" link="cpp/algorithm/transform"/>
     <function name="std::generate" link="cpp/algorithm/generate"/>
     <function name="std::generate_n" link="cpp/algorithm/generate_n"/>
-    <function name="std::remove" link="cpp/algorithm/remove"/>
+    <function name="std::remove (&lt;algorithm&gt;)" link="cpp/algorithm/remove"/>
     <function name="std::remove_if" link="cpp/algorithm/remove"/>
     <function name="std::remove_copy" link="cpp/algorithm/remove_copy"/>
     <function name="std::remove_copy_if" link="cpp/algorithm/remove_copy"/>
@@ -4109,7 +4109,7 @@
     <function name="std::feof" link="cpp/io/c/feof"/>
     <function name="std::ferror" link="cpp/io/c/ferror"/>
     <function name="std::perror" link="cpp/io/c/perror"/>
-    <function name="std::remove" link="cpp/io/c/remove"/>
+    <function name="std::remove (&lt;cstdio&gt;)" link="cpp/io/c/remove"/>
     <function name="std::rename" link="cpp/io/c/rename"/>
     <function name="std::tmpfile" link="cpp/io/c/tmpfile"/>
     <function name="std::tmpnam" link="cpp/io/c/tmpnam"/>
@@ -4133,6 +4133,21 @@
     <const name="L_tmpnam" link="cpp/io/c"/>
 
     <!-- cpp/locale -->
+
+    <function name="std::isalnum (&lt;clocale&gt;)" link="cpp/locale/isalnum"/>
+    <function name="std::isalpha (&lt;clocale&gt;)" link="cpp/locale/isalpha"/>
+    <function name="std::islower (&lt;clocale&gt;)" link="cpp/locale/islower"/>
+    <function name="std::isupper (&lt;clocale&gt;)" link="cpp/locale/isupper"/>
+    <function name="std::isdigit (&lt;clocale&gt;)" link="cpp/locale/isdigit"/>
+    <function name="std::isxdigit (&lt;clocale&gt;)" link="cpp/locale/isxdigit"/>
+    <function name="std::iscntrl (&lt;clocale&gt;)" link="cpp/locale/iscntrl"/>
+    <function name="std::isgraph (&lt;clocale&gt;)" link="cpp/locale/isgraph"/>
+    <function name="std::isspace (&lt;clocale&gt;)" link="cpp/locale/isspace"/>
+    <function name="std::isblank (&lt;clocale&gt;)" link="cpp/locale/isblank"/>
+    <function name="std::isprint (&lt;clocale&gt;)" link="cpp/locale/isprint"/>
+    <function name="std::ispunct (&lt;clocale&gt;)" link="cpp/locale/ispunct"/>
+    <function name="std::tolower (&lt;clocale&gt;)" link="cpp/locale/tolower"/>
+    <function name="std::toupper (&lt;clocale&gt;)" link="cpp/locale/toupper"/>
 
     <class name="std::locale" link="cpp/locale/locale">
         <constructor/>
