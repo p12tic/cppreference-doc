@@ -1354,7 +1354,7 @@
         <specialization name="std::common_type" link="common_type"/>
     </class>
 
-    <function name="std::chrono::time_point_cast" link="cpp/chrono/duration/time_point_cast"/>
+    <function name="std::chrono::time_point_cast" link="cpp/chrono/time_point/time_point_cast"/>
 
     <class name="std::chrono::duration" link="cpp/chrono/duration">
         <constructor/>
