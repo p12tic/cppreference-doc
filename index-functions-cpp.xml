@@ -5333,4 +5333,244 @@
     <class name="std::experimental::source_location" link="cpp/experimental/source_location" since="exp"/>
     <function name="std::as_const" link="cpp/utility/as_const" since="exp"/>
 
+    <function name="std::experimental::randint" link="cpp/experimental/randint" since="exp"/>
+    <function name="std::experimental::reseed" link="cpp/experimental/reseed" since="exp"/>
+
+    <!-- experimental/filesystem -->
+    <class name="std::experimental::filesystem::path" link="cpp/experimental/fs/path" since="exp">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+
+        <function name="append"/>
+        <function name="operator/=" link="append"/>
+        <function name="concat"/>
+        <function name="operator+=" link="concat"/>
+
+        <function name="clear"/>
+        <function name="make_preferred"/>
+        <function name="remove_filename"/>
+        <function name="replace_filename"/>
+        <function name="replace_extension"/>
+        <function name="swap"/>
+
+        <function name="c_str" link="native"/>
+        <function name="native"/>
+        <function name="operator string_type" link="native"/>
+
+        <function name="string"/>
+        <function name="wstring"/>
+        <function name="u8string"/>
+        <function name="u16string"/>
+        <function name="u32string"/>
+
+        <function name="generic_string"/>
+        <function name="generic_wstring"/>
+        <function name="generic_u8string"/>
+        <function name="generic_u16string"/>
+        <function name="generic_u32string"/>
+
+        <function name="compare"/>
+        <function name="root_name"/>
+        <function name="root_directory"/>
+        <function name="root_path"/>
+        <function name="relative_path"/>
+        <function name="parent_path"/>
+        <function name="filename"/>
+        <function name="stem"/>
+        <function name="extension"/>
+
+        <function name="empty"/>
+        <function name="has_root_path" link="has_path"/>
+        <function name="has_root_name" link="has_path"/>
+        <function name="has_root_directory" link="has_path"/>
+        <function name="has_relative_path" link="has_path"/>
+        <function name="has_parent_path" link="has_path"/>
+        <function name="has_filename" link="has_path"/>
+        <function name="has_stem" link="has_path"/>
+        <function name="has_extension" link="has_path"/>
+
+        <function name="begin"/>
+        <function name="end" link="begin"/>
+
+        <overload name="swap" link="swap2"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator/" link="operator_slash"/>
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+        <overload name="u8path"/>
+    </class>
+
+    <class name="std::experimental::filesystem::filesystem_error" link="cpp/experimental/fs/filesystem_error" since="exp">
+        <constructor/>
+        <function name="path1" link="path"/>
+        <function name="path2" link="path"/>
+        <function name="what"/>
+    </class>
+
+    <class name="std::experimental::filesystem::directory_entry" link="cpp/experimental/fs/directory_entry" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="replace_filename"/>
+
+        <function name="path"/>
+        <function name="status"/>
+        <function name="symlink_status"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+    </class>
+
+    <class name="std::experimental::filesystem::directory_iterator" link="cpp/experimental/fs/directory_iterator" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="increment"/>
+        <function name="operator++" link="increment"/>
+
+        <overload name="filesystem::begin" link="begin"/>
+        <overload name="filesystem::end" link="begin"/>
+    </class>
+
+    <class name="std::experimental::filesystem::recursive_directory_iterator" link="cpp/experimental/fs/recursive_directory_iterator" since="exp">
+        <constructor/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="options"/>
+        <function name="depth"/>
+        <function name="recursion_pending"/>
+
+        <function name="operator="/>
+        <function name="increment"/>
+        <function name="operator++" link="increment"/>
+        <function name="pop"/>
+        <function name="disable_recursion_pending"/>
+
+        <overload name="filesystem::begin" link="begin"/>
+        <overload name="filesystem::end" link="begin"/>
+    </class>
+
+    <class name="std::experimental::filesystem::file_status" link="cpp/experimental/fs/file_status" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="type"/>
+        <function name="permissions"/>
+    </class>
+
+    <class name="std::experimental::filesystem::space_info" link="cpp/experimental/fs/space_info" since="exp">
+        <variable name="capacity" link="."/>
+        <variable name="free" link="."/>
+        <variable name="available" link="."/>
+    </class>
+
+    <class name="std::experimental::filesystem::file_type" link="cpp/experimental/fs/file_type" since="exp">
+        <const name="none" link="."/>
+        <const name="not_found" link="."/>
+        <const name="regular" link="."/>
+        <const name="directory" link="."/>
+        <const name="symlink" link="."/>
+        <const name="block" link="."/>
+        <const name="character" link="."/>
+        <const name="fifo" link="."/>
+        <const name="socket" link="."/>
+        <const name="unknown" link="."/>
+    </class>
+
+    <class name="std::experimental::filesystem::perms" link="cpp/experimental/fs/perms" since="exp">
+        <const name="none" link="."/>
+        <const name="owner_read" link="."/>
+        <const name="owner_write" link="."/>
+        <const name="owner_exec" link="."/>
+        <const name="owner_all" link="."/>
+        <const name="group_read" link="."/>
+        <const name="group_write" link="."/>
+        <const name="group_exec" link="."/>
+        <const name="group_all" link="."/>
+        <const name="others_read" link="."/>
+        <const name="others_write" link="."/>
+        <const name="others_exec" link="."/>
+        <const name="others_all" link="."/>
+        <const name="all" link="."/>
+        <const name="set_uid" link="."/>
+        <const name="set_gid" link="."/>
+        <const name="sticky_bit" link="."/>
+        <const name="mask" link="."/>
+
+        <const name="unknown" link="."/>
+        <const name="add_perms" link="."/>
+        <const name="remove_perms" link="."/>
+        <const name="resolve_symlinks" link="."/>
+    </class>
+
+    <class name="std::experimental::filesystem::copy_options" link="cpp/experimental/fs/copy_options" since="exp">
+        <const name="none" link="."/>
+        <const name="skip_existing" link="."/>
+        <const name="overwrite_existing" link="."/>
+        <const name="update_existing" link="."/>
+        <const name="recursive" link="."/>
+        <const name="copy_symlinks" link="."/>
+        <const name="skip_symlinks" link="."/>
+        <const name="directories_only" link="."/>
+        <const name="create_symlinks" link="."/>
+        <const name="create_hard_links" link="."/>
+    </class>
+    <class name="std::experimental::filesystem::directory_options" link="cpp/experimental/fs/directory_options" since="exp">
+        <const name="none" link="."/>
+        <const name="follow_directory_symlink" link="."/>
+        <const name="overwrite_existing" link="."/>
+        <const name="skip_permission_denied" link="."/>
+    </class>
+    <typedef name="std::experimental::filesystem::file_time_type" link="cpp/experimental/fs/file_time_type" since="exp"/>
+
+    <function name="std::experimental::filesystem::absolute" link="cpp/experimental/fs/absolute" since="exp"/>
+    <function name="std::experimental::filesystem::system_complete" link="cpp/experimental/fs/absolute" since="exp"/>
+    <function name="std::experimental::filesystem::canonical" link="cpp/experimental/fs/canonical" since="exp"/>
+    <function name="std::experimental::filesystem::copy" link="cpp/experimental/fs/copy" since="exp"/>
+    <function name="std::experimental::filesystem::copy_file" link="cpp/experimental/fs/copy_file" since="exp"/>
+    <function name="std::experimental::filesystem::copy_symlink" link="cpp/experimental/fs/copy_symlink" since="exp"/>
+    <function name="std::experimental::filesystem::create_directory" link="cpp/experimental/fs/create_directory" since="exp"/>
+    <function name="std::experimental::filesystem::create_directories" link="cpp/experimental/fs/create_directory" since="exp"/>
+    <function name="std::experimental::filesystem::create_hard_link" link="cpp/experimental/fs/create_hard_link" since="exp"/>
+    <function name="std::experimental::filesystem::create_symlink" link="cpp/experimental/fs/create_symlink" since="exp"/>
+    <function name="std::experimental::filesystem::create_directory_symlink" link="cpp/experimental/fs/create_symlink" since="exp"/>
+    <function name="std::experimental::filesystem::current_path" link="cpp/experimental/fs/current_path" since="exp"/>
+    <function name="std::experimental::filesystem::exists" link="cpp/experimental/fs/exists" since="exp"/>
+    <function name="std::experimental::filesystem::equivalent" link="cpp/experimental/fs/equivalent" since="exp"/>
+    <function name="std::experimental::filesystem::file_size" link="cpp/experimental/fs/file_size" since="exp"/>
+    <function name="std::experimental::filesystem::hard_link_count" link="cpp/experimental/fs/hard_link_count" since="exp"/>
+    <function name="std::experimental::filesystem::last_write_time" link="cpp/experimental/fs/last_write_time" since="exp"/>
+    <function name="std::experimental::filesystem::permissions" link="cpp/experimental/fs/permissions" since="exp"/>
+    <function name="std::experimental::filesystem::read_symlink" link="cpp/experimental/fs/read_symlink" since="exp"/>
+    <function name="std::experimental::filesystem::remove" link="cpp/experimental/fs/remove" since="exp"/>
+    <function name="std::experimental::filesystem::remove_all" link="cpp/experimental/fs/remove" since="exp"/>
+    <function name="std::experimental::filesystem::rename" link="cpp/experimental/fs/rename" since="exp"/>
+    <function name="std::experimental::filesystem::resize_file" link="cpp/experimental/fs/resize_file" since="exp"/>
+    <function name="std::experimental::filesystem::space" link="cpp/experimental/fs/space" since="exp"/>
+    <function name="std::experimental::filesystem::status" link="cpp/experimental/fs/status" since="exp"/>
+    <function name="std::experimental::filesystem::symlink_status" link="cpp/experimental/fs/status" since="exp"/>
+    <function name="std::experimental::filesystem::temp_directory_path" link="cpp/experimental/fs/temp_directory_path" since="exp"/>
+    <function name="std::experimental::filesystem::is_block_file" link="cpp/experimental/fs/is_block_file" since="exp"/>
+    <function name="std::experimental::filesystem::is_character_file" link="cpp/experimental/fs/is_character_file" since="exp"/>
+    <function name="std::experimental::filesystem::is_directory" link="cpp/experimental/fs/is_directory" since="exp"/>
+    <function name="std::experimental::filesystem::is_empty" link="cpp/experimental/fs/is_empty" since="exp"/>
+    <function name="std::experimental::filesystem::is_fifo" link="cpp/experimental/fs/is_fifo" since="exp"/>
+    <function name="std::experimental::filesystem::is_other" link="cpp/experimental/fs/is_other" since="exp"/>
+    <function name="std::experimental::filesystem::is_regular_file" link="cpp/experimental/fs/is_regular_file" since="exp"/>
+    <function name="std::experimental::filesystem::is_socket" link="cpp/experimental/fs/is_socket" since="exp"/>
+    <function name="std::experimental::filesystem::is_symlink" link="cpp/experimental/fs/is_symlink" since="exp"/>
+    <function name="std::experimental::filesystem::status_known" link="cpp/experimental/fs/status_known" since="exp"/>
+
+
 </index>
