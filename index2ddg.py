@@ -152,8 +152,8 @@ link_map = build_link_map('reference')
 proc_ins = {}
 
 for link in items:
-    if link in link_map:
-        fn = link_map[link]
+    if link in link_map.mapping:
+        fn = link_map.mapping[link]
         if fn not in proc_ins:
             proc_ins[fn] = { 'fn': fn, 'link': link, 'idents': {}}
         for ident in items[link]:
@@ -442,9 +442,9 @@ for page in proc_ins:
                       (last part after :: is enough, hopefully)
                 '''
 
-            elif item_type == ITEM_TYPE_VARIABLE:
-            elif item_type == ITEM_TYPE_VARIABLE_INLINEMEM:
-            elif item_type == ITEM_TYPE_ENUM:
+            elif item_type in [ ITEM_TYPE_VARIABLE,
+                                ITEM_TYPE_VARIABLE_INLINEMEM,
+                                ITEM_TYPE_ENUM ]:
                 raise DdgException("ENUM")      # not implemented
                 ''' Implementation notes:
                     * the declarations are possibly versioned
