@@ -1558,6 +1558,8 @@
     <function name="std::difftime" link="cpp/chrono/c/difftime"/>
     <function name="std::time" link="cpp/chrono/c/time"/>
     <function name="std::clock" link="cpp/chrono/c/clock"/>
+    <function name="std::timespec_get" link="cpp/chrono/c/timespec_get" since="c++17"/>
+    <const name="TIME_UTC" link="cpp/chrono/c/timespec_get" since="c++17"/>
 
     <function name="std::asctime" link="cpp/chrono/c/asctime"/>
     <function name="std::ctime" link="cpp/chrono/c/ctime"/>
@@ -1572,6 +1574,7 @@
     <class name="std::tm" link="cpp/chrono/c/tm"/>
     <typedef name="std::time_t" link="cpp/chrono/c/time_t"/>
     <typedef name="std::clock_t" link="cpp/chrono/c/clock_t"/>
+    <function name="std::timespec" link="cpp/chrono/c/timespec" since="c++17"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/bitset -->
