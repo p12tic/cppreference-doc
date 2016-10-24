@@ -534,6 +534,8 @@
     <variable name="std::is_polymorphic_v" link="cpp/types/is_polymorphic" since="c++17"/>
     <class name="std::is_abstract" link="cpp/types/is_abstract"/>
     <variable name="std::is_abstract_v" link="cpp/types/is_abstract" since="c++17"/>
+    <class name="std::has_unique_object_representations" link="cpp/types/has_unique_object_representations" since="c++17"/>
+    <variable name="std::has_unique_object_representations_v" link="cpp/types/has_unique_object_representations" since="c++17"/>
     <class name="std::is_signed" link="cpp/types/is_signed"/>
     <variable name="std::is_signed_v" link="cpp/types/is_signed" since="c++17"/>
     <class name="std::is_unsigned" link="cpp/types/is_unsigned"/>
@@ -588,6 +590,19 @@
     <variable name="std::is_trivially_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
     <class name="std::is_nothrow_destructible" link="cpp/types/is_destructible"/>
     <variable name="std::is_nothrow_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
+
+    <class name="std::is_callable" link="cpp/types/is_callable" since="c++17"/>
+    <variable name="std::is_callable_v" link="cpp/types/is_callable" since="c++17"/>
+    <class name="std::is_nothrow_callable" link="cpp/types/is_callable" since="c++17"/>
+    <variable name="std::is_nothrow_callable_v" link="cpp/types/is_callable" since="c++17"/>
+    <class name="std::is_swappable" link="cpp/types/is_swappable" since="c++17"/>
+    <variable name="std::is_swappable_v" link="cpp/types/is_swappable" since="c++17"/>
+    <class name="std::is_swappable_with" link="cpp/types/is_swappable_with" since="c++17"/>
+    <variable name="std::is_swappable_with_v" link="cpp/types/is_swappable_with" since="c++17"/>
+    <class name="std::is_nothrow_swappable" link="cpp/types/is_swappable" since="c++17"/>
+    <variable name="std::is_nothrow_swappable_v" link="cpp/types/is_swappable" since="c++17"/>
+    <class name="std::is_nothrow_swappable_with" link="cpp/types/is_swappable_with" since="c++17"/>
+    <variable name="std::is_nothrow_swappable_with_v" link="cpp/types/is_swappable_with" since="c++17"/>
 
     <class name="std::has_virtual_destructor" link="cpp/types/has_virtual_destructor"/>
     <variable name="std::has_virtual_destructor_v" link="cpp/types/has_virtual_destructor" since="c++17"/>
