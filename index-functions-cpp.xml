@@ -5249,6 +5249,51 @@
     <function name="std::atomic_thread_fence" link="cpp/atomic/atomic_thread_fence"/>
     <function name="std::atomic_signal_fence" link="cpp/atomic/atomic_signal_fence"/>
 
+    <typedef name="std::atomic_bool" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_schar" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uchar" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_short" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_ushort" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_long" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_ulong" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_llong" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_ullong" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_char16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_char32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_wchar_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int8_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint8_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int64_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint64_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_least8_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_least8_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_least16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_least16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_least32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_least32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_least64_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_least64_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_fast8_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_fast8_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_fast16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_fast16_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_fast32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_fast32_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_int_fast64_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uint_fast64_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_intptr_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uintptr_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_size_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_ptrdiff_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_intmax_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_uintmax_t" alias="std::atomic" since="c++11"/>
+
     <!-- cpp/thread -->
 
     <class name="std::thread" link="cpp/thread/thread">
