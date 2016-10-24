@@ -263,3 +263,5 @@ using (type alias, alias template) => cpp/language/type_alias
 ODR => cpp/language/definition#One_Definition_Rule
 odr-use => cpp/language/definition#One_Definition_Rule
 __has_include => cpp/preprocessor/include
+final => cpp/language/final
+override => cpp/language/override
