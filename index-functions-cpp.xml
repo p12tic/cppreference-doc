@@ -5581,6 +5581,263 @@
         <overload name="std::make_error_condition" link="make_error_condition"/>
     </enum>
 
+    <!-- filesystem -->
+    <class name="std::filesystem::path" link="cpp/filesystem/path" since="c++17">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+
+        <const name="preferred_separator" link="."/>
+
+        <function name="append"/>
+        <function name="operator/=" link="append"/>
+        <function name="concat"/>
+        <function name="operator+=" link="concat"/>
+
+        <function name="clear"/>
+        <function name="make_preferred"/>
+        <function name="remove_filename"/>
+        <function name="replace_filename"/>
+        <function name="replace_extension"/>
+        <function name="swap"/>
+
+        <function name="c_str" link="native"/>
+        <function name="native"/>
+        <function name="operator string_type" link="native"/>
+
+        <function name="string"/>
+        <function name="wstring" link="string"/>
+        <function name="u8string" link="string"/>
+        <function name="u16string" link="string"/>
+        <function name="u32string" link="string"/>
+
+        <function name="generic_string"/>
+        <function name="generic_wstring" link="generic_string"/>
+        <function name="generic_u8string" link="generic_string"/>
+        <function name="generic_u16string" link="generic_string"/>
+        <function name="generic_u32string" link="generic_string"/>
+
+        <function name="compare"/>
+
+        <function name="lexically_normal"/>
+        <function name="lexically_proximate" link="lexically_normal"/>
+        <function name="lexically_relative" link="lexically_normal"/>
+
+        <function name="root_name"/>
+        <function name="root_directory"/>
+        <function name="root_path"/>
+        <function name="relative_path"/>
+        <function name="parent_path"/>
+        <function name="filename"/>
+        <function name="stem"/>
+        <function name="extension"/>
+
+        <function name="empty"/>
+        <function name="has_root_path" link="has_path"/>
+        <function name="has_root_name" link="has_path"/>
+        <function name="has_root_directory" link="has_path"/>
+        <function name="has_relative_path" link="has_path"/>
+        <function name="has_parent_path" link="has_path"/>
+        <function name="has_filename" link="has_path"/>
+        <function name="has_stem" link="has_path"/>
+        <function name="has_extension" link="has_path"/>
+
+        <function name="is_absolute" link="is_absrel"/>
+        <function name="is_relative" link="is_absrel"/>
+
+        <function name="begin"/>
+        <function name="end" link="begin"/>
+
+        <overload name="std::swap" link="swap2"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator/" link="operator_slash"/>
+        <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
+        <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
+
+        <overload name="std::filesystem::hash_value" link="hash_value"/>
+    </class>
+    <function name="std::filesystem::u8path" link="cpp/filesystem/path/u8path" since="c++17"/>
+
+    <class name="std::filesystem::filesystem_error" link="cpp/filesystem/filesystem_error" since="c++17">
+        <constructor/>
+        <function name="path1" link="path"/>
+        <function name="path2" link="path"/>
+        <function name="what"/>
+    </class>
+
+    <class name="std::filesystem::directory_entry" link="cpp/filesystem/directory_entry" since="c++17">
+        <constructor/>
+        <function name="operator="/>
+        <function name="assign"/>
+        <function name="replace_filename"/>
+
+        <function name="path"/>
+        <overload name="operator const path&amp;" link="path"/>
+        <function name="status"/>
+        <function name="symlink_status" link="status"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+    </class>
+
+    <class name="std::filesystem::directory_iterator" link="cpp/filesystem/directory_iterator" since="c++17">
+        <constructor/>
+        <function name="operator="/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="increment"/>
+        <function name="operator++" link="increment"/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="std::filesystem::begin" link="begin"/>
+        <overload name="std::filesystem::end" link="begin"/>
+    </class>
+
+    <class name="std::filesystem::recursive_directory_iterator" link="cpp/filesystem/recursive_directory_iterator" since="c++17">
+        <constructor/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+        <function name="options"/>
+        <function name="depth"/>
+        <function name="recursion_pending"/>
+
+        <function name="operator="/>
+        <function name="increment"/>
+        <function name="operator++" link="increment"/>
+        <function name="pop"/>
+        <function name="disable_recursion_pending"/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="std::filesystem::begin" link="begin"/>
+        <overload name="std::filesystem::end" link="begin"/>
+    </class>
+
+    <class name="std::filesystem::file_status" link="cpp/filesystem/file_status" since="c++17">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="type"/>
+        <function name="permissions"/>
+    </class>
+
+    <class name="std::filesystem::space_info" link="cpp/filesystem/space_info" since="c++17">
+        <variable name="capacity" link="."/>
+        <variable name="free" link="."/>
+        <variable name="available" link="."/>
+    </class>
+
+    <class name="std::filesystem::file_type" link="cpp/filesystem/file_type" since="c++17">
+        <const name="none" link="."/>
+        <const name="not_found" link="."/>
+        <const name="regular" link="."/>
+        <const name="directory" link="."/>
+        <const name="symlink" link="."/>
+        <const name="block" link="."/>
+        <const name="character" link="."/>
+        <const name="fifo" link="."/>
+        <const name="socket" link="."/>
+        <const name="unknown" link="."/>
+    </class>
+
+    <class name="std::filesystem::perms" link="cpp/filesystem/perms" since="c++17">
+        <const name="none" link="."/>
+        <const name="owner_read" link="."/>
+        <const name="owner_write" link="."/>
+        <const name="owner_exec" link="."/>
+        <const name="owner_all" link="."/>
+        <const name="group_read" link="."/>
+        <const name="group_write" link="."/>
+        <const name="group_exec" link="."/>
+        <const name="group_all" link="."/>
+        <const name="others_read" link="."/>
+        <const name="others_write" link="."/>
+        <const name="others_exec" link="."/>
+        <const name="others_all" link="."/>
+        <const name="all" link="."/>
+        <const name="set_uid" link="."/>
+        <const name="set_gid" link="."/>
+        <const name="sticky_bit" link="."/>
+        <const name="mask" link="."/>
+
+        <const name="unknown" link="."/>
+        <const name="add_perms" link="."/>
+        <const name="remove_perms" link="."/>
+        <const name="resolve_symlinks" link="."/>
+    </class>
+
+    <class name="std::filesystem::copy_options" link="cpp/filesystem/copy_options" since="c++17">
+        <const name="none" link="."/>
+        <const name="skip_existing" link="."/>
+        <const name="overwrite_existing" link="."/>
+        <const name="update_existing" link="."/>
+        <const name="recursive" link="."/>
+        <const name="copy_symlinks" link="."/>
+        <const name="skip_symlinks" link="."/>
+        <const name="directories_only" link="."/>
+        <const name="create_symlinks" link="."/>
+        <const name="create_hard_links" link="."/>
+    </class>
+    <class name="std::filesystem::directory_options" link="cpp/filesystem/directory_options" since="c++17">
+        <const name="none" link="."/>
+        <const name="follow_directory_symlink" link="."/>
+        <const name="overwrite_existing" link="."/>
+        <const name="skip_permission_denied" link="."/>
+    </class>
+    <typedef name="std::filesystem::file_time_type" link="cpp/filesystem/file_time_type" since="c++17"/>
+
+    <function name="std::filesystem::absolute" link="cpp/filesystem/absolute" since="c++17"/>
+    <function name="std::filesystem::system_complete" link="cpp/filesystem/absolute" since="c++17"/>
+    <function name="std::filesystem::canonical" link="cpp/filesystem/canonical" since="c++17"/>
+    <function name="std::filesystem::weakly_canonical" link="cpp/filesystem/canonical" since="c++17"/>
+    <function name="std::filesystem::relative" link="cpp/filesystem/relative" since="c++17"/>
+    <function name="std::filesystem::proximate" link="cpp/filesystem/relative" since="c++17"/>
+    <function name="std::filesystem::copy" link="cpp/filesystem/copy" since="c++17"/>
+    <function name="std::filesystem::copy_file" link="cpp/filesystem/copy_file" since="c++17"/>
+    <function name="std::filesystem::copy_symlink" link="cpp/filesystem/copy_symlink" since="c++17"/>
+    <function name="std::filesystem::create_directory" link="cpp/filesystem/create_directory" since="c++17"/>
+    <function name="std::filesystem::create_directories" link="cpp/filesystem/create_directory" since="c++17"/>
+    <function name="std::filesystem::create_hard_link" link="cpp/filesystem/create_hard_link" since="c++17"/>
+    <function name="std::filesystem::create_symlink" link="cpp/filesystem/create_symlink" since="c++17"/>
+    <function name="std::filesystem::create_directory_symlink" link="cpp/filesystem/create_symlink" since="c++17"/>
+    <function name="std::filesystem::current_path" link="cpp/filesystem/current_path" since="c++17"/>
+    <function name="std::filesystem::exists" link="cpp/filesystem/exists" since="c++17"/>
+    <function name="std::filesystem::equivalent" link="cpp/filesystem/equivalent" since="c++17"/>
+    <function name="std::filesystem::file_size" link="cpp/filesystem/file_size" since="c++17"/>
+    <function name="std::filesystem::hard_link_count" link="cpp/filesystem/hard_link_count" since="c++17"/>
+    <function name="std::filesystem::last_write_time" link="cpp/filesystem/last_write_time" since="c++17"/>
+    <function name="std::filesystem::permissions" link="cpp/filesystem/permissions" since="c++17"/>
+    <function name="std::filesystem::read_symlink" link="cpp/filesystem/read_symlink" since="c++17"/>
+    <function name="std::filesystem::remove" link="cpp/filesystem/remove" since="c++17"/>
+    <function name="std::filesystem::remove_all" link="cpp/filesystem/remove" since="c++17"/>
+    <function name="std::filesystem::rename" link="cpp/filesystem/rename" since="c++17"/>
+    <function name="std::filesystem::resize_file" link="cpp/filesystem/resize_file" since="c++17"/>
+    <function name="std::filesystem::space" link="cpp/filesystem/space" since="c++17"/>
+    <function name="std::filesystem::status" link="cpp/filesystem/status" since="c++17"/>
+    <function name="std::filesystem::symlink_status" link="cpp/filesystem/status" since="c++17"/>
+    <function name="std::filesystem::temp_directory_path" link="cpp/filesystem/temp_directory_path" since="c++17"/>
+    <function name="std::filesystem::is_block_file" link="cpp/filesystem/is_block_file" since="c++17"/>
+    <function name="std::filesystem::is_character_file" link="cpp/filesystem/is_character_file" since="c++17"/>
+    <function name="std::filesystem::is_directory" link="cpp/filesystem/is_directory" since="c++17"/>
+    <function name="std::filesystem::is_empty" link="cpp/filesystem/is_empty" since="c++17"/>
+    <function name="std::filesystem::is_fifo" link="cpp/filesystem/is_fifo" since="c++17"/>
+    <function name="std::filesystem::is_other" link="cpp/filesystem/is_other" since="c++17"/>
+    <function name="std::filesystem::is_regular_file" link="cpp/filesystem/is_regular_file" since="c++17"/>
+    <function name="std::filesystem::is_socket" link="cpp/filesystem/is_socket" since="c++17"/>
+    <function name="std::filesystem::is_symlink" link="cpp/filesystem/is_symlink" since="c++17"/>
+    <function name="std::filesystem::status_known" link="cpp/filesystem/status_known" since="c++17"/>
+
     <!--=======================================================================-->
     <!-- experimental -->
 
