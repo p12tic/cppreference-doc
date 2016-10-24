@@ -6103,16 +6103,16 @@
         <function name="operator string_type" link="native"/>
 
         <function name="string"/>
-        <function name="wstring"/>
-        <function name="u8string"/>
-        <function name="u16string"/>
-        <function name="u32string"/>
+        <function name="wstring" link="string"/>
+        <function name="u8string" link="string"/>
+        <function name="u16string" link="string"/>
+        <function name="u32string" link="string"/>
 
         <function name="generic_string"/>
-        <function name="generic_wstring"/>
-        <function name="generic_u8string"/>
-        <function name="generic_u16string"/>
-        <function name="generic_u32string"/>
+        <function name="generic_wstring" link="generic_string"/>
+        <function name="generic_u8string" link="generic_string"/>
+        <function name="generic_u16string" link="generic_string"/>
+        <function name="generic_u32string" link="generic_string"/>
 
         <function name="compare"/>
         <function name="root_name"/>
@@ -6165,7 +6165,7 @@
 
         <function name="path"/>
         <function name="status"/>
-        <function name="symlink_status"/>
+        <function name="symlink_status" link="status"/>
 
         <overload name="operator==" link="operator_cmp"/>
         <overload name="operator!=" link="operator_cmp"/>
