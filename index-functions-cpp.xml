@@ -380,11 +380,19 @@
     <const name="ULLONG_MAX" link="cpp/types/climits"/>
 
     <const name="FLT_RADIX" link="cpp/types/climits"/>
-    <const name="DECIMAL_DIG" link="cpp/types/climits"/>
+    <const name="DECIMAL_DIG" link="cpp/types/climits" since="c++11"/>
+
+    <const name="FLT_DECIMAL_DIG" link="cpp/types/climits" since="c++17"/>
+    <const name="DBL_DECIMAL_DIG" link="cpp/types/climits" since="c++17"/>
+    <const name="LDBL_DECIMAL_DIG" link="cpp/types/climits" since="c++17"/>
 
     <const name="FLT_MIN" link="cpp/types/climits"/>
     <const name="DBL_MIN" link="cpp/types/climits"/>
     <const name="LDBL_MIN" link="cpp/types/climits"/>
+
+    <const name="FLT_TRUE_MIN" link="cpp/types/climits" since="c++17"/>
+    <const name="DBL_TRUE_MIN" link="cpp/types/climits" since="c++17"/>
+    <const name="LDBL_TRUE_MIN" link="cpp/types/climits" since="c++17"/>
 
     <const name="FLT_MAX" link="cpp/types/climits"/>
     <const name="DBL_MAX" link="cpp/types/climits"/>
@@ -420,6 +428,10 @@
 
     <const name="FLT_ROUNDS" link="cpp/types/climits/FLT_ROUNDS"/>
     <const name="FLT_EVAL_METHOD" link="cpp/types/climits/FLT_EVAL_METHOD"/>
+
+    <const name="FLT_HAS_SUBNORM" link="cpp/types/climits" since="c++17"/>
+    <const name="DBL_HAS_SUBNORM" link="cpp/types/climits" since="c++17"/>
+    <const name="LDBL_HAS_SUBNORM" link="cpp/types/climits" since="c++17"/>
 
         <!-- RTTI -->
 
