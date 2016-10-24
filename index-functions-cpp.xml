@@ -5920,7 +5920,7 @@
     <class name="std::experimental::invocation_type" link="cpp/experimental/invocation_type" since="exp"/>
     <class name="std::experimental::raw_invocation_type" link="cpp/experimental/raw_invocation_type" since="exp"/>
 
-    <class name="std::experimental::string_view" link="cpp/experimental/basic_string_view" since="exp">
+    <class name="std::experimental::basic_string_view" link="cpp/experimental/basic_string_view" since="exp">
         <constructor/>
         <function name="operator="/>
 
@@ -5970,9 +5970,10 @@
         <specialization name="std::hash" link="hash"/>
     </class>
 
-    <typedef name="std::experimental::wstring_view" alias="std::experimental::string_view" since="exp"/>
-    <typedef name="std::experimental::u16string_view" alias="std::experimental::string_view" since="exp"/>
-    <typedef name="std::experimental::u32string_view" alias="std::experimental::string_view" since="exp"/>
+    <typedef name="std::experimental::string_view" alias="std::experimental::basic_string_view" since="exp"/>
+    <typedef name="std::experimental::wstring_view" alias="std::experimental::basic_string_view" since="exp"/>
+    <typedef name="std::experimental::u16string_view" alias="std::experimental::basic_string_view" since="exp"/>
+    <typedef name="std::experimental::u32string_view" alias="std::experimental::basic_string_view" since="exp"/>
 
     <variable name="std::experimental::is_void_v" link="cpp/experimental/type_trait_variable_templates" since="exp"/>
     <variable name="std::experimental::is_null_pointer_v" link="cpp/experimental/type_trait_variable_templates" since="exp"/>
