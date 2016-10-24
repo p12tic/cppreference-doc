@@ -6183,8 +6183,8 @@
         <function name="increment"/>
         <function name="operator++" link="increment"/>
 
-        <overload name="filesystem::begin" link="begin"/>
-        <overload name="filesystem::end" link="begin"/>
+        <overload name="std::experimental::filesystem::begin" link="begin"/>
+        <overload name="std::experimental::filesystem::end" link="begin"/>
     </class>
 
     <class name="std::experimental::filesystem::recursive_directory_iterator" link="cpp/experimental/fs/recursive_directory_iterator" since="exp">
@@ -6201,8 +6201,8 @@
         <function name="pop"/>
         <function name="disable_recursion_pending"/>
 
-        <overload name="filesystem::begin" link="begin"/>
-        <overload name="filesystem::end" link="begin"/>
+        <overload name="std::experimental::filesystem::begin" link="begin"/>
+        <overload name="std::experimental::filesystem::end" link="begin"/>
     </class>
 
     <class name="std::experimental::filesystem::file_status" link="cpp/experimental/fs/file_status" since="exp">
