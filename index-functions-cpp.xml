@@ -781,6 +781,7 @@
     </class>
 
     <class name="std::nothrow_t" link="cpp/memory/new/nothrow_t"/>
+    <class name="std::align_val_t" link="cpp/memory/new/align_val_t" since="c++11"/>
     <typedef name="std::new_handler" link="cpp/memory/new/new_handler"/>
 
     <const name="std::nothrow" link="cpp/memory/new/nothrow"/>
@@ -832,10 +833,93 @@
         <overload name="operator!=" link="operator_cmp"/>
     </class>
 
+    <class name="std::pmr::polymorphic_allocator" link="cpp/memory/polymorphic_allocator" since="c++17">
+        <constructor/>
+        <destructor link="."/>
+        <function name="allocate"/>
+        <function name="deallocate"/>
+        <function name="construct"/>
+        <function name="destroy"/>
+        <function name="select_on_container_copy_contruction"/>
+        <function name="resource"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+    </class>
+
+    <class name="std::pmr::memory_resource" link="cpp/memory/memory_resource" since="c++17">
+        <constructor/>
+        <function name="allocate"/>
+        <function name="deallocate"/>
+        <function name="is_equal"/>
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+
+        <overload name="operator==" link="operator_eq"/>
+        <overload name="operator!=" link="operator_eq"/>
+    </class>
+
+    <class name="std::pmr::pool_options" link="cpp/memory/pool_options" since="c++17">
+        <variable name="max_blocks_per_chunk" link="."/>
+        <variable name="largest_required_pool_block" link="."/>
+    </class>
+
+    <class name="std::pmr::synchronized_pool_resource" link="cpp/memory/synchronized_pool_resource" since="c++17">
+        <inherits name="std::pmr::memory_resource"/>
+        <constructor/>
+        <destructor link="."/>
+        <function name="release"/>
+        <function name="upstream_resource"/>
+        <function name="options"/>
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+    </class>
+
+    <class name="std::pmr::unsynchronized_pool_resource" link="cpp/memory/unsynchronized_pool_resource" since="c++17">
+        <inherits name="std::pmr::memory_resource"/>
+        <constructor/>
+        <destructor link="."/>
+        <function name="release"/>
+        <function name="upstream_resource"/>
+        <function name="options"/>
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+    </class>
+
+    <class name="std::pmr::monotonic_buffer_resource" link="cpp/memory/monotonic_buffer_resource" since="c++17">
+        <inherits name="std::pmr::memory_resource"/>
+        <constructor/>
+        <destructor link="."/>
+        <function name="release"/>
+        <function name="upstream_resource"/>
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+    </class>
+
+    <function name="std::pmr::new_delete_resource" link="cpp/memory/new_delete_resource" since="c++17"/>
+    <function name="std::pmr::null_memory_resource" link="cpp/memory/null_memory_resource" since="c++17"/>
+    <function name="std::pmr::get_default_resource" link="cpp/memory/get_default_resource" since="c++17"/>
+    <function name="std::pmr::set_default_resource" link="cpp/memory/set_default_resource" since="c++17"/>
+
     <function name="std::uninitialized_copy" link="cpp/memory/uninitialized_copy"/>
     <function name="std::uninitialized_copy_n" link="cpp/memory/uninitialized_copy_n"/>
     <function name="std::uninitialized_fill" link="cpp/memory/uninitialized_fill"/>
     <function name="std::uninitialized_fill_n" link="cpp/memory/uninitialized_fill_n"/>
+
+    <function name="std::uninitialized_move" link="cpp/memory/uninitialized_move" since="c++17"/>
+    <function name="std::uninitialized_move_n" link="cpp/memory/uninitialized_move_n" since="c++17"/>
+    <function name="std::uninitialized_default_construct" link="cpp/memory/uninitialized_default_construct" since="c++17"/>
+    <function name="std::uninitialized_default_construct_n" link="cpp/memory/uninitialized_default_construct_n" since="c++17"/>
+    <function name="std::uninitialized_value_construct" link="cpp/memory/uninitialized_value_construct" since="c++17"/>
+    <function name="std::uninitialized_value_construct_n" link="cpp/memory/uninitialized_value_construct_n" since="c++17"/>
+
+    <function name="std::destroy" link="cpp/memory/destroy" since="c++17"/>
+    <function name="std::destroy_at" link="cpp/memory/destroy_at" since="c++17"/>
+    <function name="std::destroy_n" link="cpp/memory/destroy_n" since="c++17"/>
 
     <class name="std::raw_storage_iterator" link="cpp/memory/raw_storage_iterator">
         <constructor/>
@@ -880,6 +964,7 @@
         <function name="get"/>
         <function name="operator*"/>
         <function name="operator->" link="operator*"/>
+        <function name="operator[]" link="operator_at"/>
         <function name="unique"/>
         <function name="use_count"/>
         <function name="operator bool" link="operator_bool"/>
@@ -953,6 +1038,7 @@
         <destructor/>
         <function name="operator="/>
         <function name="shared_from_this"/>
+        <function name="weak_from_this" since="c++17"/>
     </class>
 
     <class name="std::bad_weak_ptr" link="cpp/memory/bad_weak_ptr">
@@ -986,6 +1072,7 @@
     <function name="std::align" link="cpp/memory/align"/>
 
     <function name="std::malloc" link="cpp/memory/c/malloc"/>
+    <function name="std::aligned_alloc" link="cpp/memory/c/aligned_alloc" since="c++11"/>
     <function name="std::calloc" link="cpp/memory/c/calloc"/>
     <function name="std::realloc" link="cpp/memory/c/realloc"/>
     <function name="std::free" link="cpp/memory/c/free"/>
