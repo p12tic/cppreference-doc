@@ -2185,6 +2185,66 @@
     <typedef name="std::u16string" alias="std::basic_string"/>
     <typedef name="std::u32string" alias="std::basic_string"/>
 
+    <typedef name="std::pmr::string" alias="std::basic_string" since="c++17"/>
+    <typedef name="std::pmr::wstring" alias="std::basic_string" since="c++17"/>
+    <typedef name="std::pmr::u16string" alias="std::basic_string" since="c++17"/>
+    <typedef name="std::pmr::u32string" alias="std::basic_string" since="c++17"/>
+
+    <!-- cpp/string/basic_string_view -->
+
+    <class name="std::basic_string_view" link="cpp/string/basic_string_view" since="c++17">
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="operator[]" link="operator_at"/>
+        <function name="at"/>
+        <function name="front"/>
+        <function name="back"/>
+        <function name="data"/>
+
+        <function name="size"/>
+        <function name="length" link="size"/>
+        <function name="max_size"/>
+        <function name="empty"/>
+        <function name="remove_prefix"/>
+        <function name="remove_suffix"/>
+        <function name="swap"/>
+
+        <function name="copy"/>
+        <function name="substr"/>
+        <function name="compare"/>
+        <function name="find"/>
+        <function name="rfind"/>
+        <function name="find_first_of"/>
+        <function name="find_last_of"/>
+        <function name="find_first_not_of"/>
+        <function name="find_last_not_of"/>
+        <const name="npos"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::hash" link="hash"/>
+    </class>
+
+    <typedef name="std::string_view" alias="std::basic_string_view" since="c++17"/>
+    <typedef name="std::wstring_view" alias="std::basic_string_view" since="c++17"/>
+    <typedef name="std::u16string_view" alias="std::basic_string_view" since="c++17"/>
+    <typedef name="std::u32string_view" alias="std::basic_string_view" since="c++17"/>
+
     <!-- cpp/string -->
 
     <function name="std::getline" link="cpp/string/basic_string/getline"/>
