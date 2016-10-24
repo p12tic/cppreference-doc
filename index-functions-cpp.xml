@@ -3861,12 +3861,23 @@
     <variable name="std::ratio_greater_v" link="cpp/numeric/ratio/ratio_greater" since="c++17"/>
     <class name="std::ratio_greater_equal" link="cpp/numeric/ratio/ratio_greater_equal"/>
     <variable name="std::ratio_greater_equal_v" link="cpp/numeric/ratio/ratio_greater_equal" since="c++17"/>
+
     <!-- cpp/algorithm -->
+
+    <class name="std::execution::sequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
+    <class name="std::execution::parallel_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
+    <class name="std::execution::parallel_unsequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
+    <const name="std::execution::seq" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
+    <const name="std::execution::par" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
+    <const name="std::execution::par_unseq" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
+    <class name="std::is_execution_policy" link="cpp/algorithm/is_execution_policy" since="c++17"/>
+    <variable name="std::is_execution_policy_v" link="cpp/algorithm/is_execution_policy" since="c++17"/>
 
     <function name="std::all_of" link="cpp/algorithm/all_any_none_of"/>
     <function name="std::any_of" link="cpp/algorithm/all_any_none_of"/>
     <function name="std::none_of" link="cpp/algorithm/all_any_none_of"/>
     <function name="std::for_each" link="cpp/algorithm/for_each"/>
+    <function name="std::for_each_n" link="cpp/algorithm/for_each_n" since="c++11"/>
     <function name="std::count" link="cpp/algorithm/count"/>
     <function name="std::count_if" link="cpp/algorithm/count"/>
     <function name="std::mismatch" link="cpp/algorithm/mismatch"/>
@@ -3908,6 +3919,7 @@
     <function name="std::rotate_copy" link="cpp/algorithm/rotate_copy"/>
     <function name="std::random_shuffle" link="cpp/algorithm/random_shuffle"/>
     <function name="std::shuffle" link="cpp/algorithm/random_shuffle"/>
+    <function name="std::sample" link="cpp/algorithm/sample" since="c++17"/>
     <function name="std::unique" link="cpp/algorithm/unique"/>
     <function name="std::unique_copy" link="cpp/algorithm/unique_copy"/>
 
@@ -3951,6 +3963,7 @@
     <function name="std::min_element" link="cpp/algorithm/min_element"/>
     <function name="std::minmax" link="cpp/algorithm/minmax"/>
     <function name="std::minmax_element" link="cpp/algorithm/minmax_element"/>
+    <function name="std::clamp" link="cpp/algorithm/clamp" since="c++17"/>
 
     <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
     <function name="std::is_permutation" link="cpp/algorithm/is_permutation"/>
@@ -3962,6 +3975,16 @@
     <function name="std::adjacent_difference" link="cpp/algorithm/adjacent_difference"/>
     <function name="std::partial_sum" link="cpp/algorithm/partial_sum"/>
     <function name="std::iota" link="cpp/algorithm/iota"/>
+
+    <function name="std::reduce" link="cpp/algorithm/reduce" since="c++17"/>
+    <function name="std::inclusive_scan" link="cpp/algorithm/inclusive_scan" since="c++17"/>
+    <function name="std::exclusive_scan" link="cpp/algorithm/exclusive_scan" since="c++17"/>
+    <function name="std::transform_reduce" link="cpp/algorithm/transform_reduce" since="c++17"/>
+    <function name="std::transform_inclusive_scan" link="cpp/algorithm/transform_inclusive_scan" since="c++17"/>
+    <function name="std::transform_exclusive_scan" link="cpp/algorithm/transform_exclusive_scan" since="c++17"/>
+
+    <function name="std::gcd" link="cpp/numeric/gcd" since="c++17"/>
+    <function name="std::lcm" link="cpp/numeric/lcm" since="c++17"/>
 
     <function name="std::qsort" link="cpp/algorithm/qsort"/>
     <function name="std::bsearch" link="cpp/algorithm/bsearch"/>
