@@ -5331,6 +5331,11 @@
     <function name="std::this_thread::sleep_until" link="cpp/thread/sleep_until"/>
     <function name="std::this_thread::yield" link="cpp/thread/yield"/>
 
+    <const name="std::hardware_constructive_interference_size"
+           link="cpp/thread/hardware_destructive_interference_size" since="c++17"/>
+    <const name="std::hardware_destructive_interference_size"
+           link="cpp/thread/hardware_destructive_interference_size" since="c++17"/>
+
     <class name="std::mutex" link="cpp/thread/mutex">
         <constructor/>
         <function name="lock"/>
