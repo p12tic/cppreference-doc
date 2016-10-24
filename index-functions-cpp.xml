@@ -746,6 +746,10 @@
     <function name="std::rend" link="cpp/iterator/rend" since="c++14"/>
     <function name="std::crend" link="cpp/iterator/rend" since="c++14"/>
 
+    <function name="std::size" link="cpp/iterator/size" since="c++17"/>
+    <function name="std::empty" link="cpp/iterator/empty" since="c++17"/>
+    <function name="std::data" link="cpp/iterator/data" since="c++17"/>
+
     <!--=======================================================================-->
     <!-- cpp/utility/memory -->
 
