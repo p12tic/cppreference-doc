@@ -1773,6 +1773,120 @@
     <!-- todo: deprecated content of <functional> -->
 
     <!--=======================================================================-->
+    <!-- cpp/utility/any -->
+
+    <class name="std::any" link="cpp/utility/any" since="c++17">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="emplace"/>
+        <function name="reset"/>
+        <function name="swap"/>
+        <function name="has_value"/>
+        <function name="type"/>
+
+        <overload name="std::swap" link="swap2"/>
+    </class>
+
+    <function name="std::any_cast" link="cpp/utility/any/any_cast" since="c++17"/>
+    <function name="std::make_any" link="cpp/utility/any/make_any" since="c++17"/>
+
+    <class name="std::bad_any_cast" link="cpp/utility/any/bad_any_cast" since="c++17">
+    </class>
+
+    <!--=======================================================================-->
+    <!-- cpp/utility/optional -->
+    <class name="std::optional" link="cpp/utility/optional" since="c++17">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator bool" link="operator_bool"/>
+        <function name="has_value" link="operator_bool"/>
+        <function name="value"/>
+        <function name="value_or"/>
+        <function name="swap"/>
+        <function name="reset"/>
+        <function name="emplace"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+
+        <overload name="std::swap" link="swap2"/>
+        <specialization name="std::hash" link="hash"/>
+
+    </class>
+    <function name="std::make_optional" link="cpp/utility/optional/make_optional" since="c++17"/>
+    <class name="std::bad_optional_access" link="cpp/utility/optional/bad_optional_access" since="c++17"/>
+
+    <class name="std::nullopt_t" link="cpp/utility/optional/nullopt_t" since="c++17"/>
+    <const name="std::nullopt" link="cpp/utility/optional/nullopt" since="c++17"/>
+
+    <class name="std::in_place_tag" link="cpp/utility/in_place_tag" since="c++17"/>
+    <function name="std::in_place" link="cpp/utility/in_place" since="c++17"/>
+    <typedef name="std::in_place_t" link="cpp/utility/in_place" since="c++17"/>
+    <typedef name="std::in_place_type_t" link="cpp/utility/in_place" since="c++17"/>
+    <typedef name="std::in_place_index_t" link="cpp/utility/in_place" since="c++17"/>
+
+    <!--=======================================================================-->
+    <!-- cpp/utility/variant -->
+    <class name="std::variant" link="cpp/utility/variant" since="c++17">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="index"/>
+        <function name="valueless_by_exception"/>
+        <function name="swap"/>
+        <function name="emplace"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+
+        <overload name="std::swap" link="swap2"/>
+        <overload name="std::get" link="get"/>
+        <specialization name="std::hash" link="hash"/>
+        <specialization name="std::uses_allocator" link="uses_allocator"/>
+    </class>
+
+    <function name="std::visit" link="cpp/utility/variant/visit" since="c++17"/>
+    <function name="std::holds_alternative" link="cpp/utility/variant/holds_alternative" since="c++17"/>
+    <function name="std::get_if" link="cpp/utility/variant/get_if" since="c++17"/>
+    <class name="std::bad_variant_access" link="cpp/utility/variant/bad_variant_access" since="c++17"/>
+    <const name="std::variant_npos" link="cpp/utility/variant/variant_npos" since="c++17"/>
+
+    <class name="std::variant_size" link="cpp/utility/variant/variant_size" since="c++17"/>
+    <variable name="std::variant_size_v" link="cpp/utility/variant/variant_size" since="c++17"/>
+    <class name="std::variant_alternative" link="cpp/utility/variant/variant_alternative" since="c++17"/>
+    <typedef name="std::variant_alternative_t" link="cpp/utility/variant/variant_alternative" since="c++17"/>
+
+    <class name="std::monostate" link="cpp/utility/variant/monostate" since="c++17">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+
+        <specialization name="std::hash" link="hash"/>
+    </class>
+
+    <!--=======================================================================-->
     <!-- cpp/utility -->
 
     <class name="std::pair" link="cpp/utility/pair">
@@ -1820,6 +1934,8 @@
 
     <variable name="std::tuple_size_v" link="cpp/utility/tuple/tuple_size" since="c++17"/>
 
+    <function name="std::apply" link="cpp/utility/apply" since="c++17"/>
+    <function name="std::make_from_tuple" link="cpp/utility/make_from_tuple" since="c++17"/>
     <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
     <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
 
@@ -1840,6 +1956,8 @@
     <function name="std::move (utility)" link="cpp/utility/move"/>
     <function name="std::move_if_noexcept" link="cpp/utility/move_if_noexcept"/>
     <function name="std::declval" link="cpp/utility/declval"/>
+    <function name="std::as_const" link="cpp/utility/as_const" since="c++17"/>
+    <function name="std::launder" link="cpp/utility/launder" since="c++17"/>
 
     <function name="std::rel_ops::operator!=" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&gt;" link="cpp/utility/rel_ops/operator_cmp"/>
