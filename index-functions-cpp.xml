@@ -1705,6 +1705,7 @@
         <function name="operator()" link="."/>
     </class>
 
+    <function name="std::not_fn" link="cpp/utility/functional/not_fn" since="c++17"/>
     <function name="std::not1" link="cpp/utility/functional/not1"/>
     <function name="std::not2" link="cpp/utility/functional/not2"/>
 
@@ -1741,6 +1742,22 @@
     </class>
 
     <class name="std::placeholders" link="cpp/utility/functional/placeholders"/>
+
+    <class name="std::default_searcher" link="cpp/utility/functional/default_searcher" since="c++17">
+        <constructor link="."/>
+        <operator name="operator()" link="."/>
+    </class>
+    <class name="std::boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17">
+        <constructor link="."/>
+        <operator name="operator()" link="."/>
+    </class>
+    <class name="std::boyer_moore_horspool_searcher" link="cpp/utility/functional/boyer_moore_horspool_searcher" since="c++17">
+        <constructor link="."/>
+        <operator name="operator()" link="."/>
+    </class>
+    <class name="std::make_default_searcher" link="cpp/utility/functional/default_searcher" since="c++17"/>
+    <class name="std::make_boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17"/>
+    <class name="std::make_boyer_moore_horspool_searcher" link="cpp/utility/functional/boyer_moore_horspool_searcher" since="c++17"/>
 
     <class name="std::reference_wrapper" link="cpp/utility/functional/reference_wrapper">
         <constructor/>
