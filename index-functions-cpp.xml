@@ -2315,6 +2315,7 @@
         <specialization name="std::tuple_element" link="tuple_element"/>
     </class>
 
+    <!--
     <class name="std::dynarray" link="cpp/container/dynarray" since="c++14">
         <constructor/>
         <destructor/>
@@ -2349,6 +2350,7 @@
 
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
+    -->
 
     <class name="std::vector" link="cpp/container/vector">
         <constructor/>
