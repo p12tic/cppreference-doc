@@ -3160,6 +3160,72 @@
     <const name="FP_SUBNORMAL" link="cpp/numeric/math/FP_categories"/>
     <const name="FP_ZERO" link="cpp/numeric/math/FP_categories"/>
 
+    <!-- cpp/numeric/special_math -->
+
+    <function name="std::assoc_laguerre" link="cpp/numeric/special_math/assoc_laguerre" since="c++17"/>
+    <function name="std::assoc_laguerref" link="cpp/numeric/special_math/assoc_laguerre" since="c++17"/>
+    <function name="std::assoc_laguerrel" link="cpp/numeric/special_math/assoc_laguerre" since="c++17"/>
+    <function name="std::assoc_legendre" link="cpp/numeric/special_math/assoc_legendre" since="c++17"/>
+    <function name="std::assoc_legendref" link="cpp/numeric/special_math/assoc_legendre" since="c++17"/>
+    <function name="std::assoc_legendrel" link="cpp/numeric/special_math/assoc_legendre" since="c++17"/>
+    <function name="std::beta" link="cpp/numeric/special_math/beta" since="c++17"/>
+    <function name="std::betaf" link="cpp/numeric/special_math/beta" since="c++17"/>
+    <function name="std::betal" link="cpp/numeric/special_math/beta" since="c++17"/>
+    <function name="std::comp_ellint_1" link="cpp/numeric/special_math/comp_ellint_1" since="c++17"/>
+    <function name="std::comp_ellint_1f" link="cpp/numeric/special_math/comp_ellint_1" since="c++17"/>
+    <function name="std::comp_ellint_1l" link="cpp/numeric/special_math/comp_ellint_1" since="c++17"/>
+    <function name="std::comp_ellint_2" link="cpp/numeric/special_math/comp_ellint_2" since="c++17"/>
+    <function name="std::comp_ellint_2f" link="cpp/numeric/special_math/comp_ellint_2" since="c++17"/>
+    <function name="std::comp_ellint_2l" link="cpp/numeric/special_math/comp_ellint_2" since="c++17"/>
+    <function name="std::comp_ellint_3" link="cpp/numeric/special_math/comp_ellint_3" since="c++17"/>
+    <function name="std::comp_ellint_3f" link="cpp/numeric/special_math/comp_ellint_3" since="c++17"/>
+    <function name="std::comp_ellint_3l" link="cpp/numeric/special_math/comp_ellint_3" since="c++17"/>
+    <function name="std::cyl_bessel_i" link="cpp/numeric/special_math/cyl_bessel_i" since="c++17"/>
+    <function name="std::cyl_bessel_if" link="cpp/numeric/special_math/cyl_bessel_i" since="c++17"/>
+    <function name="std::cyl_bessel_il" link="cpp/numeric/special_math/cyl_bessel_i" since="c++17"/>
+    <function name="std::cyl_bessel_j" link="cpp/numeric/special_math/cyl_bessel_j" since="c++17"/>
+    <function name="std::cyl_bessel_jf" link="cpp/numeric/special_math/cyl_bessel_j" since="c++17"/>
+    <function name="std::cyl_bessel_jl" link="cpp/numeric/special_math/cyl_bessel_j" since="c++17"/>
+    <function name="std::cyl_bessel_k" link="cpp/numeric/special_math/cyl_bessel_k" since="c++17"/>
+    <function name="std::cyl_bessel_kf" link="cpp/numeric/special_math/cyl_bessel_k" since="c++17"/>
+    <function name="std::cyl_bessel_kl" link="cpp/numeric/special_math/cyl_bessel_k" since="c++17"/>
+    <function name="std::cyl_neumann" link="cpp/numeric/special_math/cyl_neumann" since="c++17"/>
+    <function name="std::cyl_neumannf" link="cpp/numeric/special_math/cyl_neumann" since="c++17"/>
+    <function name="std::cyl_neumannl" link="cpp/numeric/special_math/cyl_neumann" since="c++17"/>
+    <function name="std::ellint_1" link="cpp/numeric/special_math/ellint_1" since="c++17"/>
+    <function name="std::ellint_1f" link="cpp/numeric/special_math/ellint_1" since="c++17"/>
+    <function name="std::ellint_1l" link="cpp/numeric/special_math/ellint_1" since="c++17"/>
+    <function name="std::ellint_2" link="cpp/numeric/special_math/ellint_2" since="c++17"/>
+    <function name="std::ellint_2f" link="cpp/numeric/special_math/ellint_2" since="c++17"/>
+    <function name="std::ellint_2l" link="cpp/numeric/special_math/ellint_2" since="c++17"/>
+    <function name="std::ellint_3" link="cpp/numeric/special_math/ellint_3" since="c++17"/>
+    <function name="std::ellint_3f" link="cpp/numeric/special_math/ellint_3" since="c++17"/>
+    <function name="std::ellint_3l" link="cpp/numeric/special_math/ellint_3" since="c++17"/>
+    <function name="std::expint" link="cpp/numeric/special_math/expint" since="c++17"/>
+    <function name="std::expintf" link="cpp/numeric/special_math/expint" since="c++17"/>
+    <function name="std::expintl" link="cpp/numeric/special_math/expint" since="c++17"/>
+    <function name="std::hermite" link="cpp/numeric/special_math/hermite" since="c++17"/>
+    <function name="std::hermitef" link="cpp/numeric/special_math/hermite" since="c++17"/>
+    <function name="std::hermitel" link="cpp/numeric/special_math/hermite" since="c++17"/>
+    <function name="std::legendre" link="cpp/numeric/special_math/legendre" since="c++17"/>
+    <function name="std::legendref" link="cpp/numeric/special_math/legendre" since="c++17"/>
+    <function name="std::legendrel" link="cpp/numeric/special_math/legendre" since="c++17"/>
+    <function name="std::laguerre" link="cpp/numeric/special_math/laguerre" since="c++17"/>
+    <function name="std::laguerref" link="cpp/numeric/special_math/laguerre" since="c++17"/>
+    <function name="std::laguerrel" link="cpp/numeric/special_math/laguerre" since="c++17"/>
+    <function name="std::riemann_zeta" link="cpp/numeric/special_math/riemann_zeta" since="c++17"/>
+    <function name="std::riemann_zetaf" link="cpp/numeric/special_math/riemann_zeta" since="c++17"/>
+    <function name="std::riemann_zetal" link="cpp/numeric/special_math/riemann_zeta" since="c++17"/>
+    <function name="std::sph_bessel" link="cpp/numeric/special_math/sph_bessel" since="c++17"/>
+    <function name="std::sph_besself" link="cpp/numeric/special_math/sph_bessel" since="c++17"/>
+    <function name="std::sph_bessell" link="cpp/numeric/special_math/sph_bessel" since="c++17"/>
+    <function name="std::sph_legendre" link="cpp/numeric/special_math/sph_legendre" since="c++17"/>
+    <function name="std::sph_legendref" link="cpp/numeric/special_math/sph_legendre" since="c++17"/>
+    <function name="std::sph_legendrel" link="cpp/numeric/special_math/sph_legendre" since="c++17"/>
+    <function name="std::sph_neumann" link="cpp/numeric/special_math/sph_neumann" since="c++17"/>
+    <function name="std::sph_neumannf" link="cpp/numeric/special_math/sph_neumann" since="c++17"/>
+    <function name="std::sph_neumannl" link="cpp/numeric/special_math/sph_neumann" since="c++17"/>
+
     <!-- cpp/numeric/fenv -->
 
     <function name="std::feclearexcept" link="cpp/numeric/fenv/feclearexcept"/>
