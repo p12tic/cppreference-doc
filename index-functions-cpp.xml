@@ -5866,7 +5866,7 @@
 
     <function name="std::experimental::make_optional" link="cpp/experimental/optional/make_optional" since="exp"/>
 
-    <class name="std::bad_optional_access" link="cpp/utility/bad_optional_access" since="exp">
+    <class name="std::experimental::bad_optional_access" link="cpp/utility/optional/bad_optional_access" since="c++11">
         <inherits name="std::logic_error"/>
         <constructor link="."/>
     </class>
