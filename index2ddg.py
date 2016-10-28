@@ -252,7 +252,13 @@ def build_abstract(decls, desc):
         print(all_code + desc)
         print("# END ========")
 
-    return all_code + desc
+    result_lines = [
+        '<section class="prog__container">',
+        '<p>' + desc + '</p>',
+        all_code,
+        '</section>'
+    ]
+    return ''.join(result_lines)
 
 ''' Outputs additional redirects for an identifier.
 
