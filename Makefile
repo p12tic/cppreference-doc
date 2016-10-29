@@ -231,8 +231,8 @@ source:
 	  --force-directories --recursive --level=15 \
 	  --span-hosts --domains=en.cppreference.com,upload.cppreference.com \
 	  --reject-regex $$regex \
-	  --timeout=180 --no-verbose \
-	  --retry-connrefused --waitretry=1 --read-timeout=20 \
+	  --timeout=5 --tries=50 --no-verbose \
+	  --retry-connrefused --waitretry=10 --read-timeout=20 \
 	  http://en.cppreference.com/w/ ; \
 	popd > /dev/null
 
