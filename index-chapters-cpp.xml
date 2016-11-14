@@ -15,7 +15,95 @@
 -->
 <chapters xmlns="http://www.devhelp.net/book">
     <sub name="Language" link="cpp/language" />
-    <sub name="Headers" link="cpp/header" />
+    <sub name="Headers" link="cpp/header">
+        <sub name="algorithm" link="cpp/header/algorithm"/>
+        <sub name="any" link="cpp/header/any"/>
+        <sub name="array" link="cpp/header/array"/>
+        <sub name="atomic" link="cpp/header/atomic"/>
+        <sub name="bitset" link="cpp/header/bitset"/>
+        <sub name="cassert" link="cpp/header/cassert"/>
+        <sub name="ccomplex" link="cpp/header/ccomplex"/>
+        <sub name="cctype" link="cpp/header/cctype"/>
+        <sub name="cerrno" link="cpp/header/cerrno"/>
+        <sub name="cfenv" link="cpp/header/cfenv"/>
+        <sub name="cfloat" link="cpp/header/cfloat"/>
+        <sub name="chrono" link="cpp/header/chrono"/>
+        <sub name="cinttypes" link="cpp/header/cinttypes"/>
+        <sub name="ciso646" link="cpp/header/ciso646"/>
+        <sub name="climits" link="cpp/header/climits"/>
+        <sub name="clocale" link="cpp/header/clocale"/>
+        <sub name="cmath" link="cpp/header/cmath"/>
+        <sub name="codecvt" link="cpp/header/codecvt"/>
+        <sub name="complex" link="cpp/header/complex"/>
+        <sub name="condition_variable" link="cpp/header/condition_variable"/>
+        <sub name="csetjmp" link="cpp/header/csetjmp"/>
+        <sub name="csignal" link="cpp/header/csignal"/>
+        <sub name="cstdalign" link="cpp/header/cstdalign"/>
+        <sub name="cstdarg" link="cpp/header/cstdarg"/>
+        <sub name="cstdbool" link="cpp/header/cstdbool"/>
+        <sub name="cstddef" link="cpp/header/cstddef"/>
+        <sub name="cstdint" link="cpp/header/cstdint"/>
+        <sub name="cstdio" link="cpp/header/cstdio"/>
+        <sub name="cstdlib" link="cpp/header/cstdlib"/>
+        <sub name="cstring" link="cpp/header/cstring"/>
+        <sub name="ctgmath" link="cpp/header/ctgmath"/>
+        <sub name="ctime" link="cpp/header/ctime"/>
+        <sub name="cuchar" link="cpp/header/cuchar"/>
+        <sub name="cwchar" link="cpp/header/cwchar"/>
+        <sub name="cwctype" link="cpp/header/cwctype"/>
+        <sub name="deque" link="cpp/header/deque"/>
+        <sub name="exception" link="cpp/header/exception"/>
+        <sub name="execution" link="cpp/header/execution"/>
+        <sub name="filesystem" link="cpp/header/filesystem"/>
+        <sub name="forward_list" link="cpp/header/forward_list"/>
+        <sub name="fstream" link="cpp/header/fstream"/>
+        <sub name="functional" link="cpp/header/functional"/>
+        <sub name="future" link="cpp/header/future"/>
+        <sub name="initializer_list" link="cpp/header/initializer_list"/>
+        <sub name="iomanip" link="cpp/header/iomanip"/>
+        <sub name="ios" link="cpp/header/ios"/>
+        <sub name="iosfwd" link="cpp/header/iosfwd"/>
+        <sub name="iostream" link="cpp/header/iostream"/>
+        <sub name="istream" link="cpp/header/istream"/>
+        <sub name="iterator" link="cpp/header/iterator"/>
+        <sub name="limits" link="cpp/header/limits"/>
+        <sub name="list" link="cpp/header/list"/>
+        <sub name="locale" link="cpp/header/locale"/>
+        <sub name="map" link="cpp/header/map"/>
+        <sub name="memory" link="cpp/header/memory"/>
+        <sub name="memory_resource" link="cpp/header/memory_resource"/>
+        <sub name="mutex" link="cpp/header/mutex"/>
+        <sub name="new" link="cpp/header/new"/>
+        <sub name="numeric" link="cpp/header/numeric"/>
+        <sub name="optional" link="cpp/header/optional"/>
+        <sub name="ostream" link="cpp/header/ostream"/>
+        <sub name="queue" link="cpp/header/queue"/>
+        <sub name="random" link="cpp/header/random"/>
+        <sub name="ratio" link="cpp/header/ratio"/>
+        <sub name="regex" link="cpp/header/regex"/>
+        <sub name="scoped_allocator" link="cpp/header/scoped_allocator"/>
+        <sub name="set" link="cpp/header/set"/>
+        <sub name="shared_mutex" link="cpp/header/shared_mutex"/>
+        <sub name="sstream" link="cpp/header/sstream"/>
+        <sub name="stack" link="cpp/header/stack"/>
+        <sub name="stdexcept" link="cpp/header/stdexcept"/>
+        <sub name="streambuf" link="cpp/header/streambuf"/>
+        <sub name="string" link="cpp/header/string"/>
+        <sub name="string_view" link="cpp/header/string_view"/>
+        <sub name="strstream" link="cpp/header/strstream"/>
+        <sub name="system_error" link="cpp/header/system_error"/>
+        <sub name="thread" link="cpp/header/thread"/>
+        <sub name="tuple" link="cpp/header/tuple"/>
+        <sub name="type_traits" link="cpp/header/type_traits"/>
+        <sub name="typeindex" link="cpp/header/typeindex"/>
+        <sub name="typeinfo" link="cpp/header/typeinfo"/>
+        <sub name="unordered_map" link="cpp/header/unordered_map"/>
+        <sub name="unordered_set" link="cpp/header/unordered_set"/>
+        <sub name="utility" link="cpp/header/utility"/>
+        <sub name="valarray" link="cpp/header/valarray"/>
+        <sub name="variant" link="cpp/header/variant"/>
+        <sub name="vector" link="cpp/header/vector"/>
+    </sub>
     <sub name="Utilities library" link="cpp/utility">
         <sub name="Type support" link="cpp/types"/>
         <sub name="Dynamic memory management" link="cpp/memory"/>
@@ -24,7 +112,7 @@
         <sub name="Program utilities" link="cpp/utility/program"/>
         <sub name="Date and time" link="cpp/chrono"/>
         <sub name="std::bitset" link="cpp/utility/bitset"/>
-        <sub name="Fenction objects" link="cpp/utility/functional"/>
+        <sub name="Function objects" link="cpp/utility/functional"/>
     </sub>
     <sub name="Strings library" link="cpp/string">
         <sub name="Null terminated byte strings" link="cpp/string/byte"/>
