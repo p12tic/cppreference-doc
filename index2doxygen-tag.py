@@ -22,9 +22,10 @@ from index_transform import IndexTransform
 from xml_utils import xml_escape
 from link_map import LinkMap
 from functools import total_ordering
+from lxml import etree
 import sys
 
-if len(sys.argv) != 4:
+if len(sys.argv) != 5:
     print ('''Please provide the following 3 arguments:
  * the file name of the link map or 'web' if no link remap should be done
  * the file name of the source file
@@ -34,7 +35,8 @@ if len(sys.argv) != 4:
 
 link_map_fn = sys.argv[1]
 in_fn = sys.argv[2]
-dest_fn = sys.argv[3]
+chapters_fn = sys.argv[3]
+dest_fn = sys.argv[4]
 
 indent_level_inc = 2
 
@@ -193,6 +195,15 @@ class Index2Devhelp(IndexTransform):
 
 out_f.write('<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n')
 out_f.write('<tagfile>\n')
+
+with open(chapters_fn) as chapters_f:
+    chapters_tree = etree.parse(chapters_f)
+    for header_chapter in chapters_tree.getroot().findall(".//*[@name='Headers']/*"):
+        out_f.write('  <compound kind="file">\n')
+        out_f.write('    <name>%s</name>\n' % header_chapter.attrib['name'])
+        out_f.write('    <filename>%s</filename>\n' % header_chapter.attrib['link'])
+        out_f.write('    <namespace>std</namespace>\n')
+        out_f.write('  </compound>\n')
 
 tr = Index2Devhelp()
 tr.transform(in_fn)
