@@ -19,6 +19,7 @@
 
 import argparse
 import fnmatch
+from lxml import etree
 import re
 import os
 import sys
@@ -161,27 +162,89 @@ def rlink_fix(rename_map, match):
     target = target.replace('%23', '#');
     return pre + target + post
 
+def has_class(el, classes_to_check):
+    value = el.get('class')
+    if value is None:
+        return False
+    classes = value.split(' ')
+    for cl in classes_to_check:
+        if cl in classes:
+            return True
+    return False
+
 def preprocess_html_file(root, fn, rename_map):
+
+    parser = etree.HTMLParser()
+    html = etree.parse(fn, parser)
+
+    # remove non-printable elements
+    for el in html.xpath('//*[@class]'):
+        if has_class(el, ['noprint']):
+            el.getparent().remove(el)
+
+    # remove see also links between C and C++ documentations
+    for el in html.xpath('//tr[@class]'):
+        if not has_class(el, ['t-dcl-list-item']):
+            continue
+
+        child_tds = el.xpath('.//td/div[@class]')
+        if not any(has_class(td, ['t-dcl-list-see']) for td in child_tds):
+            continue
+
+        # remove preceding separator, if any
+        prev = el.getprevious()
+        if prev is not None:
+            child_tds = prev.xpath('.//td[@class')
+            if any(has_class(td, 't-dcl-list-sep') for td in child_tds):
+                prev.getparent().remove(prev)
+
+        el.getparent().remove(el)
+
+    for el in html.xpath('//h3'):
+        if len(el.xpath(".//span[@id = 'See_also']")) == 0:
+            continue
+
+        next = el.getnext()
+        if next is None:
+            el.getparent().remove(el)
+            continue
+
+        if next.tag != 'table':
+            continue
+
+        if not has_class(next, 't-dcl-list-begin'):
+            continue
+
+        if len(next.xpath('.//tr')) > 0:
+            continue
+
+        el.getparent().remove(el)
+        next.getparent().remove(next)
+
+    # remove external links to unused resources
+    for el in html.xpath('/html/head/link'):
+        if el.get('rel') in [ 'alternate', 'search', 'edit', 'EditURI' ]:
+            el.getparent().remove(el)
+
+    # remove Google Analytics scripts
+    for el in html.xpath('/html/body/script'):
+        if el.get('src') is not None and 'google-analytics.com/ga.js' in el.get('src'):
+            el.getparent().remove(el)
+        elif el.text is not None and ('google-analytics.com/ga.js' in el.text or 'pageTracker' in el.text):
+            el.getparent().remove(el)
+
+    for err in parser.error_log:
+        print("HTML WARN: {0}".format(err))
+    text = etree.tostring(html, encoding=str, method="html")
 
     # fix links to files in rename_map
     rlink = re.compile('((?:src|href)=")([^"]*)(")')
-
-    f = open(fn, "r")
-    text = f.read()
-    f.close()
 
     text = rlink.sub(lambda match: rlink_fix(rename_map, match), text)
 
     f = open(fn, "w")
     f.write(text)
     f.close()
-
-    tmpfile = fn + '.tmp';
-    ret = os.system('xsltproc --novalid --html --encoding UTF-8 preprocess.xsl "' + fn + '" > "' + tmpfile + '"')
-    if ret != 0:
-        print("FAIL: " + fn)
-        return
-    shutil.move(tmpfile, fn)
 
 def preprocess_css_file(fn):
 
