@@ -191,6 +191,7 @@ output/cppreference-doxygen-local.tag.xml: 		\
 		output/link-map.xml
 	./index2doxygen-tag.py "output/link-map.xml" \
 		"index-functions-cpp.xml" \
+		"index-chapters-cpp.xml" \
 		"output/cppreference-doxygen-local.tag.xml"
 
 output/cppreference-doxygen-web.tag.xml: 		\
@@ -198,6 +199,7 @@ output/cppreference-doxygen-web.tag.xml: 		\
 		output/link-map.xml
 	./index2doxygen-tag.py web \
 		"index-functions-cpp.xml" \
+		"index-chapters-cpp.xml" \
 		"output/cppreference-doxygen-web.tag.xml"
 
 #create preprocessed archive
