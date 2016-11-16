@@ -163,9 +163,6 @@ def rlink_fix(rename_map, match):
 
 def preprocess_html_file(root, fn, rename_map):
 
-    #temporary fix
-    r1 = re.compile('<style[^<]*?<[^<]*?MediaWiki:Geshi\.css[^<]*?<\/style>', re.MULTILINE)
-
     # fix links to files in rename_map
     rlink = re.compile('((?:src|href)=")([^"]*)(")')
 
@@ -173,7 +170,6 @@ def preprocess_html_file(root, fn, rename_map):
     text = f.read()
     f.close()
 
-    text = r1.sub('', text);
     text = rlink.sub(lambda match: rlink_fix(rename_map, match), text)
 
     f = open(fn, "w")
