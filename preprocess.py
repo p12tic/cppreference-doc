@@ -145,12 +145,7 @@ def find_html_files(root):
             html_files.append(os.path.join(dir, filename))
     return html_files
 
-def rlink_fix(rename_map, match):
-    pre = match.group(1)
-    target = match.group(2)
-    post = match.group(3)
-
-    target = xml_unescape(target)
+def fix_relative_link(rename_map, target):
     target = urllib.parse.unquote(target)
     for dir,fn,new_fn in rename_map:
         target = target.replace(fn, new_fn)
@@ -158,9 +153,8 @@ def rlink_fix(rename_map, match):
     target = target.replace('../mwiki/','../common/')
     target = re.sub('(\.php|\.css)\?.*', '\\1', target)
     target = urllib.parse.quote(target)
-    target = xml_escape(target)
-    target = target.replace('%23', '#');
-    return pre + target + post
+    target = target.replace('%23', '#')
+    return target
 
 def has_class(el, classes_to_check):
     value = el.get('class')
@@ -233,14 +227,16 @@ def preprocess_html_file(root, fn, rename_map):
         elif el.text is not None and ('google-analytics.com/ga.js' in el.text or 'pageTracker' in el.text):
             el.getparent().remove(el)
 
+    # apply changes to links caused by file renames
+    for el in html.xpath('//*[@src or @href]'):
+        if el.get('src') is not None:
+            el.set('src', fix_relative_link(rename_map, el.get('src')))
+        elif el.get('href') is not None:
+            el.set('href', fix_relative_link(rename_map, el.get('href')))
+
     for err in parser.error_log:
         print("HTML WARN: {0}".format(err))
     text = etree.tostring(html, encoding=str, method="html")
-
-    # fix links to files in rename_map
-    rlink = re.compile('((?:src|href)=")([^"]*)(")')
-
-    text = rlink.sub(lambda match: rlink_fix(rename_map, match), text)
 
     f = open(fn, "w")
     f.write(text)
