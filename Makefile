@@ -203,7 +203,7 @@ output/cppreference-doxygen-web.tag.xml: 		\
 #create preprocessed archive
 output/reference:
 	mkdir -p output
-	./preprocess.py
+	./preprocess.py --src reference --dst output/reference
 
 # create indexes for the wiki
 indexes:
