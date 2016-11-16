@@ -25,12 +25,15 @@ import shutil
 import urllib.parse
 from xml_utils import xml_escape, xml_unescape
 
-# copy the source tree
-os.system('rm -rf output/reference')
-os.system('mkdir -p output/reference')
-os.system('cp -r reference/* output/reference ')
+def rmtree_if_exists(dir):
+    if os.path.isdir(dir):
+        shutil.rmtree(dir)
 
-# rearrange the archive {root} here is output/reference
+# copy the source tree
+rmtree_if_exists('output/reference')
+shutil.copytree('reference', 'output/reference')
+
+# rearrange the archive. {root} here is output/reference
 
 # before
 # {root}/en.cppreference.com/w/ : html
@@ -45,9 +48,9 @@ os.system('cp -r reference/* output/reference ')
 # ... (other languages)
 
 data_path = "output/reference/common"
-os.system('mkdir ' + data_path)
-os.system('mv output/reference/upload.cppreference.com/mwiki/* ' + data_path)
-os.system('rm -r output/reference/upload.cppreference.com/')
+rmtree_if_exists(data_path)
+shutil.move('output/reference/upload.cppreference.com/mwiki', data_path)
+shutil.rmtree('output/reference/upload.cppreference.com')
 
 for lang in ["en"]:
     path = "output/reference/" + lang + ".cppreference.com/"
@@ -55,21 +58,22 @@ for lang in ["en"]:
     src_data_path = path + "mwiki/"
     html_path = "output/reference/" + lang
 
-    if (os.path.isdir(src_html_path)):
-        os.system('mv ' + src_html_path + ' ' + html_path)
+    if os.path.isdir(src_html_path):
+        shutil.move(src_html_path, html_path)
 
-    if (os.path.isdir(src_data_path)):
+    if os.path.isdir(src_data_path):
         # the skin files should be the same for all languages thus we
         # can merge everything
-        os.system('cp -r ' + src_data_path + '/* ' + data_path)
-        os.system('rm -r ' + src_data_path)
+        for fn in os.listdir(src_data_path):
+            shutil.move(os.path.join(src_data_path, fn),
+                        os.path.join(data_path, fn))
 
     # also copy the custom fonts
-    os.system('cp ' + path + 'DejaVuSansMonoCondensed60.ttf ' +
-                      path + 'DejaVuSansMonoCondensed75.ttf ' + data_path)
-    # remove what's left
-    os.system('rm -r '+ path)
+    shutil.copy(os.path.join(path, 'DejaVuSansMonoCondensed60.ttf'), data_path)
+    shutil.copy(os.path.join(path, 'DejaVuSansMonoCondensed75.ttf'), data_path)
 
+    # remove what's left
+    shutil.rmtree(path)
 
 # find files that need to be renamed
 files_rename_qs = []        # remove query string
@@ -86,7 +90,7 @@ for root, dirnames, filenames in os.walk('output/reference/'):
 for root,fn in files_loader:
     files_rename_qs.remove((root,fn))
 
-# strip query strings from filenames to support Windows filesystems
+# strip query strings from filenames to support Windows filesystems.
 rename_map = []
 def rename_file(root, fn, new_fn):
     path = os.path.join(root,fn)
@@ -172,7 +176,7 @@ for fn in html_files:
     if ret != 0:
         print("FAIL: " + fn)
         continue
-    os.system('mv "' + tmpfile + '" "' + fn + '"')
+    shutil.move(tmpfile, fn)
 
 # append css modifications
 
