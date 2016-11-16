@@ -175,8 +175,10 @@ def preprocess_html_file(root, fn, rename_map):
     html = etree.parse(fn, parser)
 
     # remove non-printable elements
-    for el in html.xpath('//*[@class]'):
-        if has_class(el, ['noprint']):
+    for el in html.xpath('//*'):
+        if has_class(el, ['noprint', 'editsection']):
+            el.getparent().remove(el)
+        if el.get('id') == 'toc':
             el.getparent().remove(el)
 
     # remove see also links between C and C++ documentations
