@@ -33,8 +33,6 @@ from xml_utils import xml_escape
 from build_link_map import build_link_map
 from ddg_parse_html import get_declarations, get_short_description, DdgException
 
-MAX_CODE_LINES = 6
-
 # Entry types
 # a class or struct
 ITEM_TYPE_CLASS = 1
@@ -187,8 +185,7 @@ def get_version(decls):
                 return None
     return rv
 
-def build_abstract(decls, desc, debug=DDGDebug()):
-    line_limit = MAX_CODE_LINES
+def build_abstract(decls, desc, max_code_lines, debug=DDGDebug()):
     num_lines = 0
 
     limited = False
@@ -201,18 +198,18 @@ def build_abstract(decls, desc, debug=DDGDebug()):
         code_num_lines = code.count('\n') + 1
 
         # limit the number of code snippets to be included so that total number
-        # of lines is less than MAX_CODE_LINES. The limit becomes active only
+        # of lines is less than max_code_lines. The limit becomes active only
         # for the second and subsequent snippets.
         first = True if i == 0 else False;
         last = True if i == len(decls)-1 else False;
 
         if not first:
             if last:
-                if code_num_lines > line_limit:
+                if code_num_lines > max_code_lines:
                     limited = True
                     break
             else:
-                if code_num_lines > line_limit - 1:
+                if code_num_lines > max_code_lines - 1:
                     # -1 because we need to take into account
                     # < omitted declarations > message
                     limited = True
@@ -220,7 +217,7 @@ def build_abstract(decls, desc, debug=DDGDebug()):
 
         all_code += code
         num_lines += 1
-        line_limit -= code_num_lines
+        max_code_lines -= code_num_lines
 
     if limited:
         all_code += '<pre><code> &lt; omitted declarations &gt; </code></pre>'
@@ -372,7 +369,7 @@ def output_redirects(out, redirects):
         out.write(line)
 
 def process_identifier(out, redirects, root, link, item_ident, item_type,
-                       debug=DDGDebug()):
+                       max_code_lines, debug=DDGDebug()):
     # get the name by extracting the unqualified identifier
     name = get_name(item_ident)
     debug_verbose = True if debug.enabled and debug.ident_match is not None else False
@@ -381,14 +378,14 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
         if item_type == ITEM_TYPE_CLASS:
             decls = get_declarations(root, name)
             desc = get_short_description(root, get_version(decls), debug=debug_verbose)
-            abstract = build_abstract(decls, desc, debug=debug)
+            abstract = build_abstract(decls, desc, max_code_lines, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION,
                             ITEM_TYPE_CONSTRUCTOR,
                             ITEM_TYPE_DESTRUCTOR ]:
             decls = get_declarations(root, name)
             desc = get_short_description(root, get_version(decls), debug=debug_verbose)
-            abstract = build_abstract(decls, desc, debug=debug)
+            abstract = build_abstract(decls, desc, max_code_lines, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION_INLINEMEM,
                             ITEM_TYPE_CONSTRUCTOR_INLINEMEM,
@@ -447,6 +444,8 @@ def main():
                         help='The path to the XML index containing identifier data')
     parser.add_argument('output', type=str,
                         help='The path to destination output.txt file')
+    parser.add_argument('--max_code_lines', type=int, default=6,
+                        help='Maximum number of lines of code to show in abstract')
     parser.add_argument('--debug', action='store_true', default=False,
                         help='Enables debug mode.')
     parser.add_argument('--debug_ident', type=str, default=None,
@@ -461,6 +460,7 @@ def main():
 
     index_file = args.index
     output_file = args.output
+    max_code_lines = args.max_code_lines
 
     # a map that stores information about location and type of identifiers
     # it's two level map: full_link maps to a dict that has full_name map to
@@ -518,7 +518,7 @@ def main():
             item_type = ident['type']
 
             process_identifier(out, redirects, root, link, item_ident, item_type,
-                               debug=debug)
+                               max_code_lines, debug=debug)
 
     output_redirects(out, redirects)
 
