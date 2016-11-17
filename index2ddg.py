@@ -19,6 +19,7 @@
 '''
 
 import sys, json, os, sys, re, fnmatch
+import argparse
 import lxml.etree as e
 import lxml.html as html
 
@@ -409,29 +410,30 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
             out.write(line)
 
 def main():
-    if len(sys.argv) != 3 and not (len(sys.argv) > 2 and sys.argv[2] == 'debug'):
-        print('''Please provide the file name of the index as the first argument
-     and the file name of the output as the second ''')
-        sys.exit(1)
 
-    MAX_CODE_LINES = 6
+    parser = argparse.ArgumentParser(prog='index2ddg.py')
+    parser.add_argument('index', type=str,
+                        help='The path to the XML index containing identifier data')
+    parser.add_argument('output', type=str,
+                        help='The path to destination output.txt file')
+    parser.add_argument('--debug', action='store_true', default=False,
+                        help='Enables debug mode.')
+    parser.add_argument('--debug_ident', type=str, default=None,
+                        help='Processes only the identifiers that match debug_ident')
+    args = parser.parse_args()
 
     # If a the second argument is 'debug', the program switches to debug mode and
     # prints everything to stdout. If the third argument is provided, the program
     # processes only the identifiers that match the provided string
 
-    debug = False
-    debug_ident = None
-    if len(sys.argv) > 2 and sys.argv[2] == 'debug':
-        debug = True
-        if len(sys.argv) > 3:
-            debug_ident = sys.argv[3]
+    debug = args.debug
+    debug_ident = args.debug_ident
 
     # track the statistics of number of lines used by the entries
     debug_num_lines = [0 for i in range(40)]
 
-    index_file = sys.argv[1]
-    output_file = sys.argv[2]
+    index_file = args.index
+    output_file = args.output
 
     # a map that stores information about location and type of identifiers
     # it's two level map: full_link maps to a dict that has full_name map to
