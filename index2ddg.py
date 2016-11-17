@@ -18,8 +18,13 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-import sys, json, os, sys, re, fnmatch
 import argparse
+import fnmatch
+import json
+import os
+import sys
+import re
+
 import lxml.etree as e
 import lxml.html as html
 
@@ -94,6 +99,32 @@ def get_item_type(el):
         return ITEM_TYPE_ENUM
     return None # not recognized
 
+class DDGDebug:
+
+    def __init__(self, enabled=False, ident_match=None):
+        self.enabled = enabled
+        self.ident_match = ident_match
+        self.stat_line_nums = []
+
+    # track the statistics of number of lines used by the entries
+    def submit_line_num(self, line_num):
+        while len(self.stat_line_nums) <= line_num:
+            self.stat_line_nums.append(0)
+        self.stat_line_nums[line_num] += 1
+
+    def should_skip_ident(self, ident):
+        if self.ident_match is None:
+            return False
+
+        if isinstance(ident, list):
+            for i in ident:
+                if self.ident_match in i:
+                    return False
+        else:
+            if self.ident_match in ident:
+                return False
+        return True
+
 class Index2DuckDuckGoList(IndexTransform):
 
     def __init__(self, ident_map):
@@ -156,7 +187,7 @@ def get_version(decls):
                 return None
     return rv
 
-def build_abstract(decls, desc, debug, debug_num_lines):
+def build_abstract(decls, desc, debug=DDGDebug()):
     line_limit = MAX_CODE_LINES
     num_lines = 0
 
@@ -203,9 +234,9 @@ def build_abstract(decls, desc, debug, debug_num_lines):
     if limited:
         num_lines += 1
 
-    debug_num_lines[num_lines] += 1
+    debug.submit_line_num(num_lines)
 
-    if debug and num_lines >= 10:
+    if debug.enabled and num_lines >= 10:
         print("# error : large number of lines: ")
         print("# BEGIN ======")
         print(all_code + desc)
@@ -341,23 +372,23 @@ def output_redirects(out, redirects):
         out.write(line)
 
 def process_identifier(out, redirects, root, link, item_ident, item_type,
-                       debug=False, debug_ident=False, debug_num_lines=[]):
+                       debug=DDGDebug()):
     # get the name by extracting the unqualified identifier
     name = get_name(item_ident)
+    debug_verbose = True if debug.enabled and debug.ident_match is not None else False
 
     try:
-        debug_verbose = True if debug and debug_ident != None else False
         if item_type == ITEM_TYPE_CLASS:
             decls = get_declarations(root, name)
             desc = get_short_description(root, get_version(decls), debug=debug_verbose)
-            abstract = build_abstract(decls, desc, debug, debug_num_lines)
+            abstract = build_abstract(decls, desc, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION,
                             ITEM_TYPE_CONSTRUCTOR,
                             ITEM_TYPE_DESTRUCTOR ]:
             decls = get_declarations(root, name)
             desc = get_short_description(root, get_version(decls), debug=debug_verbose)
-            abstract = build_abstract(decls, desc, debug, debug_num_lines)
+            abstract = build_abstract(decls, desc, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION_INLINEMEM,
                             ITEM_TYPE_CONSTRUCTOR_INLINEMEM,
@@ -405,7 +436,7 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
         build_redirects(redirects, item_ident, item_type)
 
     except DdgException as err:
-        if debug:
+        if debug.enabled:
             line = '# error (' + str(err) + "): " + link + ": " + item_ident + "\n"
             out.write(line)
 
@@ -426,11 +457,7 @@ def main():
     # prints everything to stdout. If the third argument is provided, the program
     # processes only the identifiers that match the provided string
 
-    debug = args.debug
-    debug_ident = args.debug_ident
-
-    # track the statistics of number of lines used by the entries
-    debug_num_lines = [0 for i in range(40)]
+    debug = DDGDebug(args.debug, args.debug_ident)
 
     index_file = args.index
     output_file = args.output
@@ -466,7 +493,7 @@ def main():
 
     redirects = []
 
-    if debug:
+    if debug.enabled:
         out = sys.stdout
     else:
         out = open(output_file, 'w')
@@ -477,14 +504,8 @@ def main():
         link = page['link']
         fn = page['fn']
 
-        if debug_ident:
-            ignore = True
-            for ident in idents:
-                if ident['ident'].find(debug_ident) != -1:
-                    ignore = False
-                    break
-            if ignore:
-                continue
+        if debug.should_skip_ident([ i['ident'] for i in idents ]):
+            continue
 
         #print(str(i) + '/' + str(len(proc_ins)) + ': ' + link)
         #i+=1
@@ -497,14 +518,14 @@ def main():
             item_type = ident['type']
 
             process_identifier(out, redirects, root, link, item_ident, item_type,
-                               debug=debug, debug_ident=debug_ident, debug_num_lines=debug_num_lines)
+                               debug=debug)
 
     output_redirects(out, redirects)
 
-    if debug:
+    if debug.enabled:
         print('=============================')
         print('Numbers of lines used:')
-        for i,l in enumerate(debug_num_lines):
+        for i,l in enumerate(debug.stat_line_nums):
             print(str(i) + ': ' + str(l) + ' result(s)')
 
 if __name__ == "__main__":
