@@ -44,9 +44,6 @@ VERSION_CXX03 = 101
 VERSION_CXX11 = 102
 VERSION_CXX14 = 103
 
-DESC_CHAR_LIMIT = 200
-MAX_PAREN_SIZE = 40
-
 ''' Returns the declaration of the feature with name 'name'.
     If several declarations with the same name are present, and entries
     superseded in the later standards (as determined by the presence of until
@@ -118,13 +115,155 @@ def get_declarations(root_el, name):
 def del_all_attrs(el):
     for key in el.attrib:
         del el.attrib[key]
+
+def iterate_top_text(text, on_text=None):
+    last_close = 0
+    open_count = 0
+
+    for match in re.finditer('(<code>|</code>|<i>|</i>|<b>|</b>)', text):
+        if match.group(1)[1] != '/':
+            if open_count == 0:
+                on_text(last_close, text[last_close:match.start()])
+            open_count += 1
+
+        else:
+            open_count -= 1
+            if open_count == 0:
+                last_close = match.start() + len(match.group(1))
+
+    if open_count == 0:
+        on_text(last_close, text[last_close:])
+
+def remove_parentheses(desc, max_paren_text_size):
+
+    open_paren_count = 0
+    last_paren_open = 0
+
+    del_ranges = []
+
+    def on_text(pos, text):
+        nonlocal open_paren_count, last_paren_open, del_ranges
+        for match in re.finditer('(\(|\))', text):
+            gr = match.group(1)
+            if gr == '(':
+                if open_paren_count == 0:
+                    last_paren_open = pos + match.start()
+                open_paren_count += 1
+            else:
+                open_paren_count -= 1
+                if open_paren_count == 0:
+                    end = pos + match.start()+1
+
+                    if end - last_paren_open > max_paren_text_size:
+                        del_ranges.append((last_paren_open, end))
+
+                    if last_paren_open >= pos:
+                        if text.find('ᚃ') != -1 or text.find('ᚄ') != -1:
+                            del_ranges.append((last_paren_open, end))
+
+    for r in reversed(del_ranges):
+        begin,end = r
+        desc = desc[:begin] + desc[end:]
+    return desc
+
+def split_sentences(desc):
+
+    sentences = []
+
+    sentence_start_pos = 0
+
+    def on_text(pos, text):
+        nonlocal sentence_start_pos
+        dot_pos = text.find('.')
+        if dot_pos != -1:
+            dot_pos += pos
+            sentences.append(desc[sentence_start_pos:dot_pos+1])
+            sentence_start_pos = dot_pos+1
+
+    iterate_top_text(desc, on_text)
+
+    if len(desc[sentence_start_pos:].strip()) > 0:
+        sentences.append(desc[sentence_start_pos:])
+
+    return sentences
+
+def remove_punctuation_at_end(sentence):
+    return sentence.rstrip(' .,:;')
+
+def trim_single_sentence_at_word(sentence, max_chars):
+
+    last_valid_chunk = None
+    last_valid_chunk_pos = 0
+
+    def on_text(pos, text):
+        nonlocal last_valid_chunk, last_valid_chunk_pos
+        if pos <= max_chars:
+            last_valid_chunk = text
+            last_valid_chunk_pos = pos
+
+    iterate_top_text(sentence, on_text)
+
+    # split only single top-level chunk
+    words = last_valid_chunk.split(' ')
+    last_word = 0
+    curr_pos = last_valid_chunk_pos
+    for i, word in enumerate(words):
+        curr_pos += len(word) + 1
+        if curr_pos > max_chars:
+            break
+        last_word = i
+
+    last_valid_chunk = ' '.join(words[:last_word+1])
+
+    return sentence[:last_valid_chunk_pos] + last_valid_chunk
+
+def trim_single_sentence(text, max_chars):
+    if len(text) <= max_chars:
+        return text
+
+    # If the sentence is longer than the limit, then try to cut desc at "i.e."
+    # if present. Otherwise, cut desc in the middle of the sentence, preferably
+    # at the end of a word
+
+    #find the first match
+    ie_pos = None
+
+    def on_ie_text(pos, match_text):
+        nonlocal ie_pos
+        m = next(re.finditer('[ᚃᚄ]', match_text), None)
+        if m is not None and ie_pos is None:
+            ie_pos = pos + m.start()
+
+    iterate_top_text(text, on_ie_text)
+
+    if ie_pos is not None:
+        if ie_pos <= 2:
+            return ''
+
+        if ie_pos > max_chars:
+            text = trim_single_sentence_at_word(text, max_chars)
+        else:
+            text = text[:ie_pos]
+
+        return remove_punctuation_at_end(text) + '...'
+
+    text = trim_single_sentence_at_word(text, max_chars)
+    return remove_punctuation_at_end(text) + '...'
+
 ''' Processes description text. Drops all tags except <code> and <i>. Replaces
     <b> with <i>. Replaces span.mw-geshi with <code>. Returns the processed
-    description as str. The description is limited to one sentence (delimited
-    by a dot) and a maximum of 200 characters. If the sentence is longer than
-    200 characters, '...' is appended.
+    description as str.
+
+    The description is limited to max_sentences number of sentences and
+    max_chars number of characters (each delimited by a dot).
+    If a single sentence is longer than max_chars characters, '...' is appended.
+
+    Setting max_paren_text_size to controls the maximum number of characters in
+    parenthesized text. If the size of parenthesized block exceeds that, it is
+    removed. Such blocks within <code>, <b> or <i> tag are ignored.
 '''
-def process_description(el, debug=False):
+def process_description(el, max_sentences=1, max_chars=200,
+                        max_paren_text_size=40, debug=False):
 
     el = deepcopy(el)   # we'll modify the tree
     el.tag = 'root'
@@ -151,163 +290,40 @@ def process_description(el, debug=False):
     desc = desc.replace('that is,', 'ᚄ')
 
     # process the description:
-    # remove text in parentheses (except when it's within a tags
+    # remove text in parentheses (except when it's within some tag)
     # get the position of the cut of the description
 
     open_count = 0
     open_paren_count = 0
 
-    del_ranges = []
+    desc = remove_parentheses(desc, max_paren_text_size)
+    sentences = split_sentences(desc)
 
-    # remove parentheses
-    for t in re.finditer('(<code>|</code>|<i>|</i>|<b>|</b>|\(|\))', desc):
-        mt = t.group(1)
+    # limit sentence count
+    if len(sentences) > max_sentences:
+        sentences = sentences[:max_sentences]
 
-        if mt == '(':
-            if open_count == 0:
-                open_paren_count += 1
-                if open_paren_count == 1:
-                    last_paren_open = t.start()
-
-        elif mt == ')':
-            if open_count == 0 and open_paren_count > 0:
-                open_paren_count -= 1
-                if open_paren_count == 0:
-                    end = t.start()+1
-                    text = desc[last_paren_open:end]
-                    if (text.find('ᚃ') != -1 or
-                        text.find('ᚄ') != -1 or
-                        len(text) > MAX_PAREN_SIZE):
-                        del_ranges.append((last_paren_open, t.start()+1))
-
-        else:
-            if mt[1] != '/':
-                open_count += 1
-            else:
-                open_count -= 1
-
-    for r in reversed(del_ranges):
-        begin,end = r
-        desc = desc[:begin] + desc[end:]
-
-    if debug:
-        print("PAREN: " + desc)
-
-    # find the first dot, actual limit when ignoring the tags
-    last_open = -1
-    last_close = 0
-    open_count = 0
-    first_dot = -1
-
-    curr_limit= DESC_CHAR_LIMIT
-
-    for t in re.finditer('(<code>|</code>|<i>|</i>|<b>|</b>)', desc):
-        mt = t.group(1)
-
-        if t.start() > curr_limit + len(mt):
+    # coarse character limit
+    char_count = 0
+    last_sentence = len(sentences)
+    for i, s in enumerate(sentences):
+        char_count += len(s)
+        if char_count > max_chars:
+            last_sentence = i+1
             break
+    sentences = sentences[:last_sentence]
 
-        curr_limit += len(mt)
-
-        if t.group(1)[1] != '/':
-            if open_count == 0:
-                last_open = t.start()
-                # find any dots in the top level text
-                pos = desc[last_close:last_open].find('.')
-                if pos != -1 and first_dot == -1:
-                    first_dot = last_close + pos
-
-            open_count += 1
-
-        else:
-            open_count -= 1
-            if open_count == 0:
-                last_close = t.start()
-
-    # find dot if there were no tags (last_close == 0) or in the range after
-    # the last close tag
-    if first_dot == -1:
-        pos = desc[last_close:].find('.')
-        if pos != -1:
-            first_dot = last_close + pos
-
-    # limit desc to the adjusted limit
-    # additionally strip unclosed tags (last_open < curr_limit)
-    if debug:
-        print("open_count: " + str(open_count))
-        print("last_open: " + str(last_open))
-        print("first_dot: " + str(first_dot))
-        print("len: " + str(len(desc)))
-
-    limited = False
-    if len(desc) > curr_limit:
-        limited = True
-        if open_count == 0:
-            desc = desc[:curr_limit]
-        else:
-            desc = desc[:last_open]
-
-    if debug:
-        print("limited: " + str(limited))
-        print("open_count: " + str(open_count))
-        print("last_open: " + str(last_open))
-        print("first_dot: " + str(first_dot))
-        print("LIMIT: " + desc)
-
-    # limit desc to the first sentence. If first sentence is longer than the
-    # limit, then try to cut desc at "i.e." if present. Otherwise, cut desc
-    # in the middle of the sentence, preferably at the end of a word
-    if limited and (first_dot == -1 or first_dot > len(desc)):
-        # interrupted in the middle of a sentence. Polish the result
-
-        #find the last match
-        m = None
-        for m in re.finditer('[ᚃᚄ]', desc):
-            pass
-        if m and m.start() > 2:
-            pos = m.start()
-            char = m.group(0)
-
-            # string is too long but we can cut it at 'i.e.'
-            if desc[pos-2:pos+1] == ', '+char:
-                desc = desc[:pos-2] + '.'
-            elif desc[pos-2:pos+1] == ' ,'+char:
-                desc = desc[:pos-2] + '.'
-            elif desc[pos-1:pos+1] == ','+char:
-                desc = desc[:pos-1] + '.'
-            elif desc[pos-1:pos+1] == ' '+char:
-                desc = desc[:pos-1] + '.'
-            else:
-                desc = desc[:pos]
-        else:
-            # open_count != 0 means that we are not within a word already
-            if open_count == 0:
-                m = None
-                for m in re.finditer('[\s]+', desc):
-                    pass
-                if m:
-                    desc = desc[:m.start()]
-
-            desc = desc + '...'
+    # trim the single sentence if needed
+    if char_count > max_chars and len(sentences) == 1:
+        sentences[0] = trim_single_sentence(sentences[0], max_chars)
     else:
-        desc = desc.rstrip()
-        if first_dot == -1:
-            # fix the punctuation at the end
-            if desc[-1] in [';', ',']:
-                desc = desc[:-1] + '.'
-            if desc[-1] in [':', '-']:
-                desc = desc + ' ...'
-            elif desc[-1] != '.':
-                desc = desc + '.'
-        else:
-            # cut the summary at the end of the first sentence
-            desc = desc[:first_dot] + '.'
+        if sentences[-1].rstrip()[-1] != '.':
+            sentences[-1] = remove_punctuation_at_end(sentences[-1]) + '...'
 
+    desc = '\n'.join(sentences)
     desc = desc.replace('ᚃ', 'i.e.')
     desc = desc.replace('ᚄ', 'that is,')
 
-    if debug:
-        print("FINAL: " + desc)
     return desc
 
 ''' Returns a short description of a feature. This is the first sentence after
