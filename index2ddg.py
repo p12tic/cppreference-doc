@@ -376,7 +376,7 @@ def output_redirects(out, redirects):
         out.write(line)
 
 def process_identifier(out, redirects, root, link, item_ident, item_type,
-                       max_code_lines, debug=DDGDebug()):
+                       opts, debug=DDGDebug()):
     # get the name by extracting the unqualified identifier
     name = get_name(item_ident)
     debug_verbose = True if debug.enabled and debug.ident_match is not None else False
@@ -384,15 +384,17 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
     try:
         if item_type == ITEM_TYPE_CLASS:
             decls = get_declarations(root, name)
-            desc = get_short_description(root, get_version(decls), debug=debug_verbose)
-            abstract = build_abstract(decls, desc, max_code_lines, debug=debug)
+            desc = get_short_description(root, get_version(decls), opts.max_sentences, opts.max_characters,
+                                         opts.max_paren_chars, debug=debug_verbose)
+            abstract = build_abstract(decls, desc, opts.max_code_lines, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION,
                             ITEM_TYPE_CONSTRUCTOR,
                             ITEM_TYPE_DESTRUCTOR ]:
             decls = get_declarations(root, name)
-            desc = get_short_description(root, get_version(decls), debug=debug_verbose)
-            abstract = build_abstract(decls, desc, max_code_lines, debug=debug)
+            desc = get_short_description(root, get_version(decls), opts.max_sentences, opts.max_characters,
+                                         opts.max_paren_chars, debug=debug_verbose)
+            abstract = build_abstract(decls, desc, opts.max_code_lines, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION_INLINEMEM,
                             ITEM_TYPE_CONSTRUCTOR_INLINEMEM,
@@ -458,6 +460,14 @@ def main():
                         help='The path to destination output.txt file')
     parser.add_argument('--max_code_lines', type=int, default=6,
                         help='Maximum number of lines of code to show in abstract')
+    parser.add_argument('--max_sentences', type=int, default=1,
+                        help='Maximum number of sentences to use for the description')
+    parser.add_argument('--max_characters', type=int, default=200,
+                        help='Maximum number of characters to use for the description')
+    parser.add_argument('--max_paren_chars', type=int, default=40,
+                        help='Maximum size of parenthesized text in the description. '+
+                        'Parenthesized chunks longer than that is removed, unless '+
+                        'they are within <code>, <b> or <i> tags')
     parser.add_argument('--debug', action='store_true', default=False,
                         help='Enables debug mode.')
     parser.add_argument('--debug_ident', type=str, default=None,
@@ -474,7 +484,6 @@ def main():
 
     index_file = args.index
     output_file = args.output
-    max_code_lines = args.max_code_lines
 
     # a map that stores information about location and type of identifiers
     # it's two level map: full_link maps to a dict that has full_name map to
@@ -529,7 +538,7 @@ def main():
             item_type = ident['type']
 
             process_identifier(out, redirects, root, link, item_ident, item_type,
-                               max_code_lines, debug=debug)
+                               args, debug=debug)
 
     output_redirects(out, redirects)
 

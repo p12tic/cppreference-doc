@@ -262,8 +262,8 @@ def trim_single_sentence(text, max_chars):
     parenthesized text. If the size of parenthesized block exceeds that, it is
     removed. Such blocks within <code>, <b> or <i> tag are ignored.
 '''
-def process_description(el, max_sentences=1, max_chars=200,
-                        max_paren_text_size=40, debug=False):
+def process_description(el, max_sentences, max_chars,
+                        max_paren_text_size, debug=False):
 
     el = deepcopy(el)   # we'll modify the tree
     el.tag = 'root'
@@ -332,7 +332,8 @@ def process_description(el, max_sentences=1, max_chars=200,
 
     Raises DdgException on error
 '''
-def get_short_description(root_el, num, debug=False):
+def get_short_description(root_el, num, max_sentences=1, max_chars=200,
+                          max_paren_text_size=40, debug=False):
 
     content_el = get_content_el(root_el)
 
@@ -349,7 +350,8 @@ def get_short_description(root_el, num, debug=False):
         raise DdgException("No elements after dcl table")
 
     if desc_el.tag == 'p':
-        return process_description(desc_el, debug=debug)
+        return process_description(desc_el, max_sentences, max_chars,
+                                   max_paren_text_size, debug=debug)
     elif desc_el.tag == 'div' and desc_el.get('class') == 't-li1':
         if num == None:
             raise DdgException("Versioned summary with no version supplied")
@@ -367,17 +369,20 @@ def get_short_description(root_el, num, debug=False):
             m = re.match('^\s*(\d+)\)\s*$', index)
             if m and int(m.group(1)) == num:
                 index_el.drop_tree()
-                return process_description(desc_el, debug=debug)
+                return process_description(desc_el, max_sentences, max_chars,
+                                           max_paren_text_size, debug=debug)
 
             m = re.match('^\s*(\d+)-(\d+)\)\s*$', index)
             if m and int(m.group(1)) <= num and int(m.group(2)) >= num:
                 index_el.drop_tree()
-                return process_description(desc_el, debug=debug)
+                return process_description(desc_el, max_sentences, max_chars,
+                                           max_paren_text_size, debug=debug)
 
             m = re.match('^\s*(\d+),(\d+)\)\s*$', index)
             if m and num in [int(m.group(1)), int(m.group(2))]:
                 index_el.drop_tree()
-                return process_description(desc_el, debug=debug)
+                return process_description(desc_el, max_sentences, max_chars,
+                                           max_paren_text_size, debug=debug)
 
             desc_el = desc_el.getnext()
         raise DdgException("List items are not numbered")
