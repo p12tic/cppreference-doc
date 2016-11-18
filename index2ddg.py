@@ -99,10 +99,13 @@ def get_item_type(el):
 
 class DDGDebug:
 
-    def __init__(self, enabled=False, ident_match=None):
+    def __init__(self, enabled=False, ident_match=None, debug_abstracts_path=None):
         self.enabled = enabled
         self.ident_match = ident_match
         self.stat_line_nums = []
+        self.debug_abstracts_file = sys.stdout
+        if debug_abstracts_path is not None:
+            self.debug_abstracts_file = open(debug_abstracts_path, 'w')
 
     # track the statistics of number of lines used by the entries
     def submit_line_num(self, line_num):
@@ -421,9 +424,9 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
             '''
 
         if debug.enabled:
-            print("--------------")
-            print(item_ident)
-            print(abstract)
+            debug.debug_abstracts_file.write("--------------\n")
+            debug.debug_abstracts_file.write(item_ident + '\n')
+            debug.debug_abstracts_file.write(abstract + '\n')
 
         # title
         line = item_ident + '\t'
@@ -459,13 +462,15 @@ def main():
                         help='Enables debug mode.')
     parser.add_argument('--debug_ident', type=str, default=None,
                         help='Processes only the identifiers that match debug_ident')
+    parser.add_argument('--debug_abstracts_path', type=str, default=None,
+                        help='Path to print the abstracts before newline stripping occurs')
     args = parser.parse_args()
 
     # If a the second argument is 'debug', the program switches to debug mode and
     # prints everything to stdout. If the third argument is provided, the program
     # processes only the identifiers that match the provided string
 
-    debug = DDGDebug(args.debug, args.debug_ident)
+    debug = DDGDebug(args.debug, args.debug_ident, args.debug_abstracts_path)
 
     index_file = args.index
     output_file = args.output
