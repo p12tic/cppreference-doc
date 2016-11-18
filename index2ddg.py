@@ -422,6 +422,11 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
                   name of the enum. If we find duplicates, signal an error.
             '''
 
+        if debug.enabled:
+            print("--------------")
+            print(item_ident)
+            print(abstract)
+
         # title
         line = item_ident + '\t'
         # type
@@ -499,10 +504,7 @@ def main():
 
     redirects = []
 
-    if debug.enabled:
-        out = sys.stdout
-    else:
-        out = open(output_file, 'w')
+    out = open(output_file, 'w')
 
     #i=1
     for page in proc_ins:
