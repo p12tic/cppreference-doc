@@ -186,15 +186,13 @@ def get_version(decls):
     return rv
 
 def build_abstract(decls, desc, max_code_lines, debug=DDGDebug()):
-    num_lines = 0
 
     limited = False
-    all_code = ''
+    code_snippets = []
 
     for i,(code,ver) in enumerate(decls):
         code = code.strip()
         code = code.replace('<', '&lt;').replace('>', '&gt;')
-        code = '<pre><code>' + code + '</code></pre>'
         code_num_lines = code.count('\n') + 1
 
         # limit the number of code snippets to be included so that total number
@@ -215,37 +213,37 @@ def build_abstract(decls, desc, max_code_lines, debug=DDGDebug()):
                     limited = True
                     break
 
-        all_code += code
-        num_lines += 1
+        code_snippets.append(code)
         max_code_lines -= code_num_lines
 
+    code_text = '<pre><code>' + '\n\n'.join(code_snippets) + '</code></pre>'
+
     if limited:
-        all_code += '<p><em>Additional declarations have been omitted</em></p>'
+        code_text += '\n<p><em>Additional declarations have been omitted</em></p>'
 
     # count the number of lines used
-    num_lines += all_code.count('\n')
+    num_lines = code_text.count('\n') + 1 # last line has no newline after it
     if len(desc) > 110:
         num_lines += 2
     else:
         num_lines += 1
-    if limited:
-        num_lines += 1
 
     debug.submit_line_num(num_lines)
-
-    if debug.enabled and num_lines >= 10:
-        print("# error : large number of lines: ")
-        print("# BEGIN ======")
-        print(all_code + desc)
-        print("# END ========")
 
     result_lines = [
         '<section class="prog__container">',
         '<p>' + desc + '</p>',
-        all_code,
+        code_text,
         '</section>'
     ]
-    return ''.join(result_lines)
+    result_text = '\n'.join(result_lines)
+
+    if debug.enabled and num_lines >= 10:
+        print("# error : large number of lines: ")
+        print("# BEGIN ======")
+        print(result_text)
+        print("# END ========")
+    return result_text
 
 ''' Outputs additional redirects for an identifier.
 
