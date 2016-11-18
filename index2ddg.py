@@ -220,7 +220,7 @@ def build_abstract(decls, desc, max_code_lines, debug=DDGDebug()):
         max_code_lines -= code_num_lines
 
     if limited:
-        all_code += '<pre><code> &lt; omitted declarations &gt; </code></pre>'
+        all_code += '<p><em>Additional declarations have been omitted</em></p>'
 
     # count the number of lines used
     num_lines += all_code.count('\n')
