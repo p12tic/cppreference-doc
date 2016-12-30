@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://en.cppreference.com/" />
+<title>cpp-luko</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">cpp-luko</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/w/cpp/container</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=firstHeading</td>
+	<td>Containers library</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select</td>
+	<td>label=Diff</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//h3[span/@id='Sequence_containers']/following-sibling::table[1]</td>
+	<td>glob:*(since C++11)*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//h3[span/@id='Unordered_associative_containers']/following-sibling::table[1]</td>
+	<td>glob:*(since C++11)*</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select</td>
+	<td>label=C++98/03</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>id=content</td>
+	<td>since C++11</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>glob:*(since C++11)*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>//h3[span/@id='Sequence_containers']/following-sibling::table[1]</td>
+	<td>glob:*(since C++11)*</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>//h3[span/@id='Unordered_associative_containers']/following-sibling::table[1]</td>
+	<td>glob:*(since C++11)*</td>
+</tr>
+<tr>
+	<td>verifyNotVisible</td>
+	<td>id=Unordered_associative_containers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotVisible</td>
+	<td>//*[span/@id='Unordered_associative_containers']/following-sibling::p[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select</td>
+	<td>label=C++11</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//h3[span/@id='Sequence_containers']/following-sibling::table[1]</td>
+	<td>glob:*array*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//h3[span/@id='Unordered_associative_containers']/following-sibling::table[1]</td>
+	<td>glob:*unordered_set*</td>
+</tr>
+<tr>
+	<td>verifyVisible</td>
+	<td>id=Unordered_associative_containers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyVisible</td>
+	<td>//*[span/@id='Unordered_associative_containers']/following-sibling::p[1]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
