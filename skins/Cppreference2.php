@@ -134,208 +134,208 @@ class Cppreference2Template extends BaseTemplate {
 		// Output HTML Page
 		$this->html( 'headelement' );
 
-        global $Cppreference2SkinRootLink;
-        $root_link = '/';
-        if (isset($Cppreference2SkinRootLink)) {
-            $root_link = htmlspecialchars($Cppreference2SkinRootLink);
-        }
+		global $Cppreference2SkinRootLink;
+		$root_link = '/';
+		if (isset($Cppreference2SkinRootLink)) {
+			$root_link = htmlspecialchars($Cppreference2SkinRootLink);
+		}
 ?>
-        <!-- header -->
-        <div id="mw-head" class="noprint">
-            <div id="cpp-head-first-base">
-                <div id="cpp-head-first">
-                    <h5><a href="<?php echo $root_link; ?>">
-                        <?php global $wgSitename; echo $wgSitename;?>
-                    </a></h5>
-                    <div id="cpp-head-search">
-                        <?php $this->renderNavigation( 'SEARCH' ); ?>
-                    </div>
-                    <div id="cpp-head-personal">
-                        <?php $this->renderNavigation( 'PERSONAL' ); ?>
-                    </div>
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			<div id="cpp-head-first-base">
+				<div id="cpp-head-first">
+					<h5><a href="<?php echo $root_link; ?>">
+						<?php global $wgSitename; echo $wgSitename;?>
+					</a></h5>
+					<div id="cpp-head-search">
+						<?php $this->renderNavigation( 'SEARCH' ); ?>
+					</div>
+					<div id="cpp-head-personal">
+						<?php $this->renderNavigation( 'PERSONAL' ); ?>
+					</div>
 
-                </div>
-            </div>
-            <div id="cpp-head-second-base">
-                <div id="cpp-head-second">
-                    <div id="cpp-head-tools-left">
-                        <?php $this->renderNavigation( array( 'NAMESPACES', 'VARIANTS' ) ); ?>
-                    </div>
-                    <div id="cpp-head-tools-right">
-                        <?php $this->renderNavigation( array( 'VIEWS', 'ACTIONS' ) ); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /header -->
-        <!-- content -->
-        <div id="cpp-content-base">
-            <div id="content">
-                <a id="top"></a>
-                <div id="mw-js-message" style="display:none;"<?php $this->html( 'userlangattributes' ) ?>></div>
-                <?php if ( $this->data['sitenotice'] ): ?>
-                <!-- sitenotice -->
-                <div id="siteNotice"><?php $this->html( 'sitenotice' ) ?></div>
-                <!-- /sitenotice -->
-                <?php endif; ?>
-                <!-- firstHeading -->
-                <h1 id="firstHeading" class="firstHeading"><?php $this->html( 'title' ) ?></h1>
-                <!-- /firstHeading -->
-                <!-- bodyContent -->
-                <div id="bodyContent">
-                    <?php if ( $this->data['isarticle'] ): ?>
-                    <!-- tagline -->
-                    <div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
-                    <!-- /tagline -->
-                    <?php endif; ?>
-                    <!-- subtitle -->
-                    <div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-                    <!-- /subtitle -->
-                    <?php if ( $this->data['undelete'] ): ?>
-                    <!-- undelete -->
-                    <div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
-                    <!-- /undelete -->
-                    <?php endif; ?>
-                    <?php if( $this->data['newtalk'] ): ?>
-                    <!-- newtalk -->
-                    <div class="usermessage"><?php $this->html( 'newtalk' )  ?></div>
-                    <!-- /newtalk -->
-                    <?php endif; ?>
-                    <!-- bodycontent -->
-                    <?php $this->html( 'bodycontent' ) ?>
-                    <!-- /bodycontent -->
-                    <?php if ( $this->data['printfooter'] ): ?>
-                    <!-- printfooter -->
-                    <div class="printfooter">
-                    <?php $this->html( 'printfooter' ); ?>
-                    </div>
-                    <!-- /printfooter -->
-                    <?php endif; ?>
-                    <?php if ( $this->data['catlinks'] ): ?>
-                    <!-- catlinks -->
-                    <?php $this->html( 'catlinks' ); ?>
-                    <!-- /catlinks -->
-                    <?php endif; ?>
-                    <?php if ( $this->data['dataAfterContent'] ): ?>
-                    <!-- dataAfterContent -->
-                    <?php $this->html( 'dataAfterContent' ); ?>
-                    <!-- /dataAfterContent -->
-                    <?php endif; ?>
-                    <div class="visualClear"></div>
-                    <!-- debughtml -->
-                    <?php $this->html( 'debughtml' ); ?>
-                    <!-- /debughtml -->
-                </div>
-                <!-- /bodyContent -->
-            </div>
-        </div>
-        <!-- /content -->
-        <!-- footer -->
-        <div id="cpp-footer-base" class="noprint">
-            <div id="footer"<?php $this->html( 'userlangattributes' ) ?>>
-                <?php $this->renderBottomNavigation();?>
-                <?php $this->renderToolbox(); ?>
-                <?php $this->renderFooter(); ?>
-            </div>
-        </div>
-        <!-- /footer -->
-        <?php $this->printTrail(); ?>
+				</div>
+			</div>
+			<div id="cpp-head-second-base">
+				<div id="cpp-head-second">
+					<div id="cpp-head-tools-left">
+						<?php $this->renderNavigation( array( 'NAMESPACES', 'VARIANTS' ) ); ?>
+					</div>
+					<div id="cpp-head-tools-right">
+						<?php $this->renderNavigation( array( 'VIEWS', 'ACTIONS' ) ); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- content -->
+		<div id="cpp-content-base">
+			<div id="content">
+				<a id="top"></a>
+				<div id="mw-js-message" style="display:none;"<?php $this->html( 'userlangattributes' ) ?>></div>
+				<?php if ( $this->data['sitenotice'] ): ?>
+				<!-- sitenotice -->
+				<div id="siteNotice"><?php $this->html( 'sitenotice' ) ?></div>
+				<!-- /sitenotice -->
+				<?php endif; ?>
+				<!-- firstHeading -->
+				<h1 id="firstHeading" class="firstHeading"><?php $this->html( 'title' ) ?></h1>
+				<!-- /firstHeading -->
+				<!-- bodyContent -->
+				<div id="bodyContent">
+					<?php if ( $this->data['isarticle'] ): ?>
+					<!-- tagline -->
+					<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
+					<!-- /tagline -->
+					<?php endif; ?>
+					<!-- subtitle -->
+					<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
+					<!-- /subtitle -->
+					<?php if ( $this->data['undelete'] ): ?>
+					<!-- undelete -->
+					<div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
+					<!-- /undelete -->
+					<?php endif; ?>
+					<?php if( $this->data['newtalk'] ): ?>
+					<!-- newtalk -->
+					<div class="usermessage"><?php $this->html( 'newtalk' )  ?></div>
+					<!-- /newtalk -->
+					<?php endif; ?>
+					<!-- bodycontent -->
+					<?php $this->html( 'bodycontent' ) ?>
+					<!-- /bodycontent -->
+					<?php if ( $this->data['printfooter'] ): ?>
+					<!-- printfooter -->
+					<div class="printfooter">
+					<?php $this->html( 'printfooter' ); ?>
+					</div>
+					<!-- /printfooter -->
+					<?php endif; ?>
+					<?php if ( $this->data['catlinks'] ): ?>
+					<!-- catlinks -->
+					<?php $this->html( 'catlinks' ); ?>
+					<!-- /catlinks -->
+					<?php endif; ?>
+					<?php if ( $this->data['dataAfterContent'] ): ?>
+					<!-- dataAfterContent -->
+					<?php $this->html( 'dataAfterContent' ); ?>
+					<!-- /dataAfterContent -->
+					<?php endif; ?>
+					<div class="visualClear"></div>
+					<!-- debughtml -->
+					<?php $this->html( 'debughtml' ); ?>
+					<!-- /debughtml -->
+				</div>
+				<!-- /bodyContent -->
+			</div>
+		</div>
+		<!-- /content -->
+		<!-- footer -->
+		<div id="cpp-footer-base" class="noprint">
+			<div id="footer"<?php $this->html( 'userlangattributes' ) ?>>
+				<?php $this->renderBottomNavigation();?>
+				<?php $this->renderToolbox(); ?>
+				<?php $this->renderFooter(); ?>
+			</div>
+		</div>
+		<!-- /footer -->
+		<?php $this->printTrail(); ?>
 
 	</body>
 </html>
 <?php
 	}
 
-    private function renderToolbox()
-    {
-        $name = 'tb';
+	private function renderToolbox()
+	{
+		$name = 'tb';
 
-        $content = $this->getToolbox();
+		$content = $this->getToolbox();
 
-        $msg = 'toolbox';
-        $msg_obj = wfMessage( $msg );
-        $message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
+		$msg = 'toolbox';
+		$msg_obj = wfMessage( $msg );
+		$message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
 
-        ?>
-        <div id="cpp-toolbox">
-            <h5><span><?php echo $message; ?></span><a href="#"></a></h5>
-            <ul>
-<?php       foreach( $content as $key => $val ):
-                echo $this->makeListItem( $key, $val );
-            endforeach;
-            wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ));
-            ?>
-            </ul>
-        </div>
+		?>
+		<div id="cpp-toolbox">
+			<h5><span><?php echo $message; ?></span><a href="#"></a></h5>
+			<ul>
+<?php	   foreach( $content as $key => $val ):
+				echo $this->makeListItem( $key, $val );
+			endforeach;
+			wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ));
+			?>
+			</ul>
+		</div>
 <?php
-    }
+	}
 
-    private function renderBottomNavigation()
-    {
-        $content = $this->data['sidebar']['navigation'];
+	private function renderBottomNavigation()
+	{
+		$content = $this->data['sidebar']['navigation'];
 
-        $msg = 'navigation';
-        $msg_obj = wfMessage( $msg );
-        $message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
+		$msg = 'navigation';
+		$msg_obj = wfMessage( $msg );
+		$message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
 
-        ?>
-        <div id="cpp-navigation">
-            <h5><?php echo $message; ?></h5>
-            <ul>
-<?php       foreach( $content as $key => $val ):
-                echo $this->makeListItem( $key, $val );
-            endforeach; ?>
-            </ul>
-        </div>
+		?>
+		<div id="cpp-navigation">
+			<h5><?php echo $message; ?></h5>
+			<ul>
+<?php	   foreach( $content as $key => $val ):
+				echo $this->makeListItem( $key, $val );
+			endforeach; ?>
+			</ul>
+		</div>
 <?php
-    }
+	}
 
-    private function renderLanguages()
-    {
-        $content = $this->data['language_urls'];
+	private function renderLanguages()
+	{
+		$content = $this->data['language_urls'];
 
-        $msg = 'otherlanguages';
-        $msg_obj = wfMessage( $msg );
-        $message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
+		$msg = 'otherlanguages';
+		$msg_obj = wfMessage( $msg );
+		$message = htmlspecialchars($msg_obj->exists() ? $msg_obj->text() : $msg);
 
-        ?>
-        <div id="cpp-languages">
-            <div><ul><li><?php echo $message; ?></li></ul></div>
-            <div><ul>
-<?php       foreach( $content as $key => $val ):
-                echo $this->makeListItem( $key, $val );
-            endforeach; ?>
-            </ul></div>
-        </div>
+		?>
+		<div id="cpp-languages">
+			<div><ul><li><?php echo $message; ?></li></ul></div>
+			<div><ul>
+<?php	   foreach( $content as $key => $val ):
+				echo $this->makeListItem( $key, $val );
+			endforeach; ?>
+			</ul></div>
+		</div>
 <?php
-    }
+	}
 
-    private function renderFooter()
-    {
-        if ( $this->data['language_urls'] ) { $this->renderLanguages(); }
-        foreach( $this->getFooterLinks() as $category => $links ): ?>
-            <ul id="footer-<?php echo $category ?>">
-                <?php foreach( $links as $link ): ?>
-                    <li id="footer-<?php echo $category ?>-<?php echo $link ?>"><?php $this->html( $link ) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endforeach; ?>
-        <?php $footericons = $this->getFooterIcons("icononly");
-                if ( count( $footericons ) > 0 ): ?>
-                    <ul id="footer-icons" class="noprint">
-            <?php   foreach ( $footericons as $blockName => $footerIcons ): ?>
-                        <li id="footer-<?php echo htmlspecialchars( $blockName ); ?>ico">
-                <?php   foreach ( $footerIcons as $icon ): ?>
-                            <?php echo $this->skin->makeFooterIcon( $icon ); ?>
-                <?php   endforeach; ?>
-                        </li>
-            <?php   endforeach; ?>
-                    </ul>
-        <?php   endif; ?>
-                <div style="clear:both">
-            </div>
+	private function renderFooter()
+	{
+		if ( $this->data['language_urls'] ) { $this->renderLanguages(); }
+		foreach( $this->getFooterLinks() as $category => $links ): ?>
+			<ul id="footer-<?php echo $category ?>">
+				<?php foreach( $links as $link ): ?>
+					<li id="footer-<?php echo $category ?>-<?php echo $link ?>"><?php $this->html( $link ) ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endforeach; ?>
+		<?php $footericons = $this->getFooterIcons("icononly");
+				if ( count( $footericons ) > 0 ): ?>
+					<ul id="footer-icons" class="noprint">
+			<?php   foreach ( $footericons as $blockName => $footerIcons ): ?>
+						<li id="footer-<?php echo htmlspecialchars( $blockName ); ?>ico">
+				<?php   foreach ( $footerIcons as $icon ): ?>
+							<?php echo $this->skin->makeFooterIcon( $icon ); ?>
+				<?php   endforeach; ?>
+						</li>
+			<?php   endforeach; ?>
+					</ul>
+		<?php   endif; ?>
+				<div style="clear:both">
+			</div>
 <?php
-    }
+	}
 
 	/**
 	 * Render one or more navigations elements by name, automatically reveresed
@@ -426,21 +426,21 @@ class Cppreference2Template extends BaseTemplate {
 ?>
 <div id="p-personal" class="<?php if ( count( $this->data['personal_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
 <?php
-        $tools = $this->getPersonalTools();
-        $item = reset($tools);
-        $key = key($tools);
-        array_shift($tools);
+		$tools = $this->getPersonalTools();
+		$item = reset($tools);
+		$key = key($tools);
+		array_shift($tools);
 
-        echo $this->makeListItem( $key, $item, array( 'tag' => 'span' ) );
-        if ( count( $tools ) > 0 ) {
+		echo $this->makeListItem( $key, $item, array( 'tag' => 'span' ) );
+		if ( count( $tools ) > 0 ) {
 ?>
 	<div class="menu">
-        <ul<?php $this->html( 'userlangattributes' ) ?>>
-<?php               foreach( $tools as $key => $item ) {
-                        echo $this->makeListItem( $key, $item );
-                    } ?>
-        </ul>
-    </div>
+		<ul<?php $this->html( 'userlangattributes' ) ?>>
+<?php			   foreach( $tools as $key => $item ) {
+						echo $this->makeListItem( $key, $item );
+					} ?>
+		</ul>
+	</div>
 <?php   } ?>
 </div>
 <?php
