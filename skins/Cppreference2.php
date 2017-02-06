@@ -26,9 +26,19 @@
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( -1 );
+	die( 'This is an extension to the MediaWiki package and cannot be run standalone.' );
 }
 
+$wgExtensionCredits['skin'][] = array(
+	'path' => __FILE__,
+	'name' => 'Cppreference2 (based on Vector skin)',
+	'namemsg' => 'cppreference2',
+	'version' => '2.1',
+	'url' => 'https://github.com/p12tic/cppreference-doc/tree/master/skins/cppreference2',
+	'author' => 'Povilas Kanapickas',
+	'descriptionmsg' => 'cppreference2-desc', // see the section on "Localisation messages" below
+	'license' => 'GPL-2.0+',
+);
 #require_once(dirname(__FILE__)."/cppreference2/resourcemodules.php");
 
 /**
