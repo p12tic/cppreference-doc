@@ -25,7 +25,7 @@
  * @ingroup Skins
  */
 
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( -1 );
 }
 
@@ -52,7 +52,7 @@ class SkinCppreference2 extends SkinTemplate {
 		parent::initPage( $out );
 
 		// Append CSS which includes IE only behavior fixes for hover support -
-		// this is better than including this in a CSS fille since it doesn't
+		// this is better than including this in a CSS file since it doesn't
 		// wait for the CSS file to load before fetching the HTC file.
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '' : '.min';
 		$out->addHeadItem( 'csshover',
@@ -61,7 +61,7 @@ class SkinCppreference2 extends SkinTemplate {
 				"/{$this->stylename}/csshover{$min}.htc\")}</style><![endif]-->"
 		);
 
-		$out->addModules( 'skins.cppreference2.js' );
+		$out->addModules( array( 'skins.cppreference2.js' ) );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class SkinCppreference2 extends SkinTemplate {
 	 */
 	function setupSkinUserCss( OutputPage $out ) {
 		parent::setupSkinUserCss( $out );
-		$out->addModuleStyles( 'skins.cppreference2' );
+		$out->addModuleStyles( array( 'skins.cppreference2' ) );
 	}
 
 	/**
@@ -161,7 +161,6 @@ class Cppreference2Template extends BaseTemplate {
 			$root_link = htmlspecialchars($Cppreference2SkinRootLink);
 		}
 ?>
-		<!-- header -->
 		<div id="mw-head" class="noprint">
 			<div id="cpp-head-first-base">
 				<div id="cpp-head-first">
@@ -188,73 +187,45 @@ class Cppreference2Template extends BaseTemplate {
 				</div>
 			</div>
 		</div>
-		<!-- /header -->
-		<!-- content -->
 		<div id="cpp-content-base">
 			<div id="content" class="mw-body" role="main">
 				<a id="top"></a>
 				<div id="mw-js-message" style="display:none;"<?php $this->html( 'userlangattributes' ) ?>></div>
-				<?php if ( $this->data['sitenotice'] ): ?>
-				<!-- sitenotice -->
+				<?php if ( $this->data['sitenotice'] ) { ?>
 				<div id="siteNotice"><?php $this->html( 'sitenotice' ) ?></div>
-				<!-- /sitenotice -->
-				<?php endif; ?>
-				<!-- firstHeading -->
+				<?php } ?>
 				<h1 id="firstHeading" class="firstHeading" lang="<?php
-					$this->data['pageLanguage'] = $this->getSkin()->getTitle()->getPageViewLanguage()->getCode();
-					$this->html( 'pageLanguage' );
+					$this->data['pageLanguage'] = $this->getSkin()->getTitle()->getPageViewLanguage()->getHtmlCode();
+					$this->text( 'pageLanguage' );
 				?>"><span dir="auto"><?php $this->html( 'title' ) ?></span></h1>
-				<!-- /firstHeading -->
-				<!-- bodyContent -->
 				<div id="bodyContent">
-					<?php if ( $this->data['isarticle'] ): ?>
-					<!-- tagline -->
+					<?php if ( $this->data['isarticle'] ) { ?>
 					<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
-					<!-- /tagline -->
-					<?php endif; ?>
-					<!-- subtitle -->
+					<?php } ?>
 					<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-					<!-- /subtitle -->
-					<?php if ( $this->data['undelete'] ): ?>
-					<!-- undelete -->
+					<?php if ( $this->data['undelete'] ) { ?>
 					<div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
-					<!-- /undelete -->
-					<?php endif; ?>
-					<?php if( $this->data['newtalk'] ): ?>
-					<!-- newtalk -->
+					<?php } ?>
+					<?php if( $this->data['newtalk'] ) { ?>
 					<div class="usermessage"><?php $this->html( 'newtalk' )  ?></div>
-					<!-- /newtalk -->
-					<?php endif; ?>
-					<!-- bodycontent -->
+					<?php } ?>
 					<?php $this->html( 'bodycontent' ) ?>
-					<!-- /bodycontent -->
-					<?php if ( $this->data['printfooter'] ): ?>
-					<!-- printfooter -->
+					<?php if ( $this->data['printfooter'] ) { ?>
 					<div class="printfooter">
 					<?php $this->html( 'printfooter' ); ?>
 					</div>
-					<!-- /printfooter -->
-					<?php endif; ?>
-					<?php if ( $this->data['catlinks'] ): ?>
-					<!-- catlinks -->
+					<?php } ?>
+					<?php if ( $this->data['catlinks'] ) { ?>
 					<?php $this->html( 'catlinks' ); ?>
-					<!-- /catlinks -->
-					<?php endif; ?>
-					<?php if ( $this->data['dataAfterContent'] ): ?>
-					<!-- dataAfterContent -->
+					<?php } ?>
+					<?php if ( $this->data['dataAfterContent'] ) { ?>
 					<?php $this->html( 'dataAfterContent' ); ?>
-					<!-- /dataAfterContent -->
-					<?php endif; ?>
+					<?php } ?>
 					<div class="visualClear"></div>
-					<!-- debughtml -->
 					<?php $this->html( 'debughtml' ); ?>
-					<!-- /debughtml -->
 				</div>
-				<!-- /bodyContent -->
 			</div>
 		</div>
-		<!-- /content -->
-		<!-- footer -->
 		<div id="cpp-footer-base" class="noprint">
 			<div id="footer" role="contentinfo"<?php $this->html( 'userlangattributes' ) ?>>
 				<?php $this->renderBottomNavigation();?>
@@ -262,7 +233,6 @@ class Cppreference2Template extends BaseTemplate {
 				<?php $this->renderFooter(); ?>
 			</div>
 		</div>
-		<!-- /footer -->
 		<?php $this->printTrail(); ?>
 
 	</body>
@@ -337,25 +307,25 @@ class Cppreference2Template extends BaseTemplate {
 	private function renderFooter()
 	{
 		if ( $this->data['language_urls'] ) { $this->renderLanguages(); }
-		foreach( $this->getFooterLinks() as $category => $links ): ?>
+		foreach ( $this->getFooterLinks() as $category => $links ) { ?>
 			<ul id="footer-<?php echo $category ?>">
-				<?php foreach( $links as $link ): ?>
+				<?php foreach( $links as $link ) { ?>
 					<li id="footer-<?php echo $category ?>-<?php echo $link ?>"><?php $this->html( $link ) ?></li>
-				<?php endforeach; ?>
+				<?php } ?>
 			</ul>
-		<?php endforeach; ?>
-		<?php $footericons = $this->getFooterIcons("icononly");
-				if ( count( $footericons ) > 0 ): ?>
+		<?php } ?>
+		<?php $footericons = $this->getFooterIcons( "icononly" );
+				if ( count( $footericons ) > 0 ) { ?>
 					<ul id="footer-icons" class="noprint">
-			<?php   foreach ( $footericons as $blockName => $footerIcons ): ?>
+<?php   			foreach ( $footericons as $blockName => $footerIcons ) { ?>
 						<li id="footer-<?php echo htmlspecialchars( $blockName ); ?>ico">
-				<?php   foreach ( $footerIcons as $icon ): ?>
+<?php   				foreach ( $footerIcons as $icon ) { ?>
 							<?php echo $this->getSkin()->makeFooterIcon( $icon ); ?>
-				<?php   endforeach; ?>
+<?php   				} ?>
 						</li>
-			<?php   endforeach; ?>
+<?php   			} ?>
 					</ul>
-		<?php   endif; ?>
+<?php   		} ?>
 				<div style="clear:both">
 			</div>
 <?php
@@ -384,12 +354,12 @@ class Cppreference2Template extends BaseTemplate {
 			switch ( $element ) {
 				case 'NAMESPACES':
 ?>
-<div id="p-namespaces" role="navigation" class="vectorTabs<?php if ( count( $this->data['namespace_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
-	<h3><?php $this->msg( 'namespaces' ) ?></h3>
+<div id="p-namespaces" role="navigation" class="vectorTabs<?php if ( count( $this->data['namespace_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label"><?php $this->msg( 'namespaces' ) ?></h3>
 	<ul<?php $this->html( 'userlangattributes' ) ?>>
-		<?php foreach ( $this->data['namespace_urls'] as $link ): ?>
+		<?php foreach ( $this->data['namespace_urls'] as $link ) { ?>
 			<li <?php echo $link['attributes'] ?>><span><a href="<?php echo htmlspecialchars( $link['href'] ) ?>" <?php echo $link['key'] ?>><?php echo htmlspecialchars( $link['text'] ) ?></a></span></li>
-		<?php endforeach; ?>
+		<?php } ?>
 	</ul>
 </div>
 <?php
@@ -398,18 +368,18 @@ class Cppreference2Template extends BaseTemplate {
 ?>
 <div id="p-variants" role="navigation" class="vectorMenu<?php if ( count( $this->data['variant_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
 	<h3 id="mw-vector-current-variant">
-	<?php foreach ( $this->data['variant_urls'] as $link ): ?>
-		<?php if ( stripos( $link['attributes'], 'selected' ) !== false ): ?>
+	<?php foreach ( $this->data['variant_urls'] as $link ) { ?>
+		<?php if ( stripos( $link['attributes'], 'selected' ) !== false ) { ?>
 			<?php echo htmlspecialchars( $link['text'] ) ?>
-		<?php endif; ?>
-	<?php endforeach; ?>
+		<?php } ?>
+	<?php } ?>
 	</h3>
-	<h3><span><?php $this->msg( 'variants' ) ?></span><a href="#"></a></h3>
+	<h3 id="p-variants-label"><span><?php $this->msg( 'variants' ) ?></span><a href="#"></a></h3>
 	<div class="menu">
 		<ul>
-			<?php foreach ( $this->data['variant_urls'] as $link ): ?>
+			<?php foreach ( $this->data['variant_urls'] as $link ) { ?>
 				<li<?php echo $link['attributes'] ?>><a href="<?php echo htmlspecialchars( $link['href'] ) ?>" lang="<?php echo htmlspecialchars( $link['lang'] ) ?>" hreflang="<?php echo htmlspecialchars( $link['hreflang'] ) ?>" <?php echo $link['key'] ?>><?php echo htmlspecialchars( $link['text'] ) ?></a></li>
-			<?php endforeach; ?>
+			<?php } ?>
 		</ul>
 	</div>
 </div>
@@ -417,30 +387,30 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'VIEWS':
 ?>
-<div id="p-views" role="navigation" class="vectorTabs<?php if ( count( $this->data['view_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>">
-	<h3><?php $this->msg('views') ?></h3>
-	<ul<?php $this->html('userlangattributes') ?>>
-		<?php foreach ( $this->data['view_urls'] as $link ): ?>
+<div id="p-views" role="navigation" class="vectorTabs<?php if ( count( $this->data['view_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>" aria-labelledby="p-views-label">
+	<h3 id="p-views-label"><?php $this->msg( 'views' ) ?></h3>
+	<ul<?php $this->html( 'userlangattributes' ) ?>>
+		<?php foreach ( $this->data['view_urls'] as $link ) { ?>
 			<li<?php echo $link['attributes'] ?>><span><a href="<?php echo htmlspecialchars( $link['href'] ) ?>" <?php echo $link['key'] ?>><?php
 				// $link['text'] can be undefined - bug 27764
 				if ( array_key_exists( 'text', $link ) ) {
-					echo array_key_exists( 'img', $link ) ?  '<img src="' . $link['img'] . '" alt="' . $link['text'] . '" />' : htmlspecialchars( $link['text'] );
+					echo array_key_exists( 'img', $link ) ? '<img src="' . $link['img'] . '" alt="' . $link['text'] . '" />' : htmlspecialchars( $link['text'] );
 				}
 				?></a></span></li>
-		<?php endforeach; ?>
+		<?php } ?>
 	</ul>
 </div>
 <?php
 				break;
 				case 'ACTIONS':
 ?>
-<div id="p-cactions" role="navigation" class="vectorMenu<?php if ( count( $this->data['action_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
+<div id="p-cactions" role="navigation" class="vectorMenu<?php if ( count( $this->data['action_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>" aria-labelledby="p-cactions-label">
 	<h3><span><?php $this->msg( 'actions' ) ?></span><a href="#"></a></h3>
 	<div class="menu">
 		<ul<?php $this->html( 'userlangattributes' ) ?>>
-			<?php foreach ( $this->data['action_urls'] as $link ): ?>
+			<?php foreach ( $this->data['action_urls'] as $link ) { ?>
 				<li<?php echo $link['attributes'] ?>><a href="<?php echo htmlspecialchars( $link['href'] ) ?>" <?php echo $link['key'] ?>><?php echo htmlspecialchars( $link['text'] ) ?></a></li>
-			<?php endforeach; ?>
+			<?php } ?>
 		</ul>
 	</div>
 </div>
@@ -448,7 +418,7 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'PERSONAL':
 ?>
-<div id="p-personal" role="navigation" class="<?php if ( count( $this->data['personal_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
+<div id="p-personal" role="navigation" class="<?php if ( count( $this->data['personal_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>" aria-labelledby="p-personal-label">
 <?php
 		$personalTools = $this->getPersonalTools();
 		$item = reset($personalTools);
@@ -474,31 +444,30 @@ class Cppreference2Template extends BaseTemplate {
 <div id="p-search" role="search">
 	<h3<?php $this->html( 'userlangattributes' ) ?>><label for="searchInput"><?php $this->msg( 'search' ) ?></label></h3>
 	<form action="<?php $this->text( 'wgScript' ) ?>" id="searchform">
-		<?php if ( true ): ?>
+		<?php if ( true ) { ?>
 		<div id="simpleSearch">
-			<?php if ( $this->data['rtl'] ): ?>
+			<?php if ( $this->data['rtl'] ) { ?>
 			<?php echo $this->makeSearchButton( 'image', array( 'id' => 'searchButton', 'src' => $this->getSkin()->getSkinStylePath( 'images/search-rtl.png' ), 'width' => '12', 'height' => '13' ) ); ?>
-			<?php endif; ?>
+			<?php } ?>
 			<?php echo $this->makeSearchInput( array( 'id' => 'searchInput', 'type' => 'text' ) ); ?>
-			<?php if ( !$this->data['rtl'] ): ?>
+			<?php if ( !$this->data['rtl'] ) { ?>
 			<?php echo $this->makeSearchButton( 'image', array( 'id' => 'searchButton', 'src' => $this->getSkin()->getSkinStylePath( 'images/search-ltr.png' ), 'width' => '12', 'height' => '13' ) ); ?>
-			<?php endif; ?>
+			<?php } ?>
 		</div>
-		<?php else: ?>
+		<?php } else { ?>
 		<div>
 			<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
 			<?php echo $this->makeSearchButton( 'go', array( 'id' => 'searchGoButton', 'class' => 'searchButton' ) ); ?>
 			<?php echo $this->makeSearchButton( 'fulltext', array( 'id' => 'mw-searchButton', 'class' => 'searchButton' ) ); ?>
 			<input type='hidden' name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
 		</div>
-		<?php endif; ?>
+		<?php } ?>
 	</form>
 </div>
 <?php
 
 				break;
 			}
-			echo "\n<!-- /{$name} -->\n";
 		}
 	}
 }
