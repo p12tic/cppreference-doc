@@ -61,7 +61,7 @@ class SkinCppreference2 extends SkinTemplate {
 				"/{$this->stylename}/csshover{$min}.htc\")}</style><![endif]-->"
 		);
 
-		$out->addModuleScripts( 'skins.cppreference2' );
+		$out->addModules( 'skins.cppreference2.js' );
 	}
 
 	/**
@@ -69,14 +69,14 @@ class SkinCppreference2 extends SkinTemplate {
 	 * fixes bug 22916
 	 * @param $out OutputPage object
 	 */
-	function setupSkinUserCss( OutputPage $out ){
+	function setupSkinUserCss( OutputPage $out ) {
 		parent::setupSkinUserCss( $out );
 		$out->addModuleStyles( 'skins.cppreference2' );
 	}
 
 	/**
 	 * Adds classes to the body element.
-	 * 
+	 *
 	 * @param $out OutputPage object
 	 * @param &$bodyAttrs Array of attributes that will be set on the body element
 	 */
@@ -191,7 +191,7 @@ class Cppreference2Template extends BaseTemplate {
 		<!-- /header -->
 		<!-- content -->
 		<div id="cpp-content-base">
-			<div id="content" class="mw-body">
+			<div id="content" class="mw-body" role="main">
 				<a id="top"></a>
 				<div id="mw-js-message" style="display:none;"<?php $this->html( 'userlangattributes' ) ?>></div>
 				<?php if ( $this->data['sitenotice'] ): ?>
@@ -200,7 +200,10 @@ class Cppreference2Template extends BaseTemplate {
 				<!-- /sitenotice -->
 				<?php endif; ?>
 				<!-- firstHeading -->
-				<h1 id="firstHeading" class="firstHeading"><span dir="auto"><?php $this->html( 'title' ) ?></span></h1>
+				<h1 id="firstHeading" class="firstHeading" lang="<?php
+					$this->data['pageLanguage'] = $this->getSkin()->getTitle()->getPageViewLanguage()->getCode();
+					$this->html( 'pageLanguage' );
+				?>"><span dir="auto"><?php $this->html( 'title' ) ?></span></h1>
 				<!-- /firstHeading -->
 				<!-- bodyContent -->
 				<div id="bodyContent">
@@ -253,7 +256,7 @@ class Cppreference2Template extends BaseTemplate {
 		<!-- /content -->
 		<!-- footer -->
 		<div id="cpp-footer-base" class="noprint">
-			<div id="footer"<?php $this->html( 'userlangattributes' ) ?>>
+			<div id="footer" role="contentinfo"<?php $this->html( 'userlangattributes' ) ?>>
 				<?php $this->renderBottomNavigation();?>
 				<?php $this->renderToolbox(); ?>
 				<?php $this->renderFooter(); ?>
@@ -381,8 +384,8 @@ class Cppreference2Template extends BaseTemplate {
 			switch ( $element ) {
 				case 'NAMESPACES':
 ?>
-<div id="p-namespaces" class="vectorTabs<?php if ( count( $this->data['namespace_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
-	<h5><?php $this->msg( 'namespaces' ) ?></h5>
+<div id="p-namespaces" role="navigation" class="vectorTabs<?php if ( count( $this->data['namespace_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
+	<h3><?php $this->msg( 'namespaces' ) ?></h3>
 	<ul<?php $this->html( 'userlangattributes' ) ?>>
 		<?php foreach ( $this->data['namespace_urls'] as $link ): ?>
 			<li <?php echo $link['attributes'] ?>><span><a href="<?php echo htmlspecialchars( $link['href'] ) ?>" <?php echo $link['key'] ?>><?php echo htmlspecialchars( $link['text'] ) ?></a></span></li>
@@ -393,15 +396,15 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'VARIANTS':
 ?>
-<div id="p-variants" class="vectorMenu<?php if ( count( $this->data['variant_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
-	<h4>
+<div id="p-variants" role="navigation" class="vectorMenu<?php if ( count( $this->data['variant_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
+	<h3 id="mw-vector-current-variant">
 	<?php foreach ( $this->data['variant_urls'] as $link ): ?>
 		<?php if ( stripos( $link['attributes'], 'selected' ) !== false ): ?>
 			<?php echo htmlspecialchars( $link['text'] ) ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
-	</h4>
-	<h5><span><?php $this->msg( 'variants' ) ?></span><a href="#"></a></h5>
+	</h3>
+	<h3><span><?php $this->msg( 'variants' ) ?></span><a href="#"></a></h3>
 	<div class="menu">
 		<ul>
 			<?php foreach ( $this->data['variant_urls'] as $link ): ?>
@@ -414,8 +417,8 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'VIEWS':
 ?>
-<div id="p-views" class="vectorTabs<?php if ( count( $this->data['view_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>">
-	<h5><?php $this->msg('views') ?></h5>
+<div id="p-views" role="navigation" class="vectorTabs<?php if ( count( $this->data['view_urls'] ) == 0 ) { echo ' emptyPortlet'; } ?>">
+	<h3><?php $this->msg('views') ?></h3>
 	<ul<?php $this->html('userlangattributes') ?>>
 		<?php foreach ( $this->data['view_urls'] as $link ): ?>
 			<li<?php echo $link['attributes'] ?>><span><a href="<?php echo htmlspecialchars( $link['href'] ) ?>" <?php echo $link['key'] ?>><?php
@@ -431,8 +434,8 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'ACTIONS':
 ?>
-<div id="p-cactions" class="vectorMenu<?php if ( count( $this->data['action_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
-	<h5><span><?php $this->msg( 'actions' ) ?></span><a href="#"></a></h5>
+<div id="p-cactions" role="navigation" class="vectorMenu<?php if ( count( $this->data['action_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
+	<h3><span><?php $this->msg( 'actions' ) ?></span><a href="#"></a></h3>
 	<div class="menu">
 		<ul<?php $this->html( 'userlangattributes' ) ?>>
 			<?php foreach ( $this->data['action_urls'] as $link ): ?>
@@ -445,19 +448,19 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'PERSONAL':
 ?>
-<div id="p-personal" class="<?php if ( count( $this->data['personal_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
+<div id="p-personal" role="navigation" class="<?php if ( count( $this->data['personal_urls'] ) == 0 ) echo ' emptyPortlet'; ?>">
 <?php
-		$tools = $this->getPersonalTools();
-		$item = reset($tools);
-		$key = key($tools);
-		array_shift($tools);
+		$personalTools = $this->getPersonalTools();
+		$item = reset($personalTools);
+		$key = key($personalTools);
+		array_shift($personalTools);
 
 		echo $this->makeListItem( $key, $item, array( 'tag' => 'span' ) );
-		if ( count( $tools ) > 0 ) {
+		if ( count( $personalTools ) > 0 ) {
 ?>
 	<div class="menu">
 		<ul<?php $this->html( 'userlangattributes' ) ?>>
-<?php			   foreach( $tools as $key => $item ) {
+<?php			   foreach( $personalTools as $key => $item ) {
 						echo $this->makeListItem( $key, $item );
 					} ?>
 		</ul>
@@ -468,8 +471,8 @@ class Cppreference2Template extends BaseTemplate {
 				break;
 				case 'SEARCH':
 ?>
-<div id="p-search">
-	<h5<?php $this->html( 'userlangattributes' ) ?>><label for="searchInput"><?php $this->msg( 'search' ) ?></label></h5>
+<div id="p-search" role="search">
+	<h3<?php $this->html( 'userlangattributes' ) ?>><label for="searchInput"><?php $this->msg( 'search' ) ?></label></h3>
 	<form action="<?php $this->text( 'wgScript' ) ?>" id="searchform">
 		<?php if ( true ): ?>
 		<div id="simpleSearch">
