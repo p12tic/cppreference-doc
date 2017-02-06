@@ -1,5 +1,7 @@
 <?php
 /**
+ * Cppreference2 skin. Based on Vector skin as of Mediawiki 1.18.
+ *
  * Vector - Modern version of MonoBook with fresh look and many usability
  * improvements.
  *
