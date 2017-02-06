@@ -1,0 +1,25 @@
+commit e3a3070d130cfbc7df72c354f1603b5091cb057d
+Author: Povilas Kanapickas <povilas@radix.lt>
+Date:   Mon Feb 6 17:50:03 2017 +0200
+
+    Allow thead, tbody and tfoot tags
+
+diff --git a/includes/Sanitizer.php b/includes/Sanitizer.php
+index 245714d..3b950d9 100644
+--- a/includes/Sanitizer.php
++++ b/includes/Sanitizer.php
+@@ -397,12 +397,12 @@ class Sanitizer {
+ 				$htmlsingle[] = $htmlsingleonly[] = 'link';
+ 			}
+ 			$htmlnest = array( # Tags that can be nested--??
+-				'table', 'tr', 'td', 'th', 'div', 'blockquote', 'ol', 'ul',
++				'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th', 'div', 'blockquote', 'ol', 'ul',
+ 				'li', 'dl', 'dt', 'dd', 'font', 'big', 'small', 'sub', 'sup', 'span',
+ 				'var', 'kbd', 'samp', 'em', 'strong', 'q', 'ruby', 'bdo'
+ 			);
+ 			$tabletags = array( # Can only appear inside table, we will close them
+-				'td', 'th', 'tr',
++				'td', 'th', 'tr', 'thead', 'tbody', 'tfoot',
+ 			);
+ 			$htmllist = array( # Tags used by list
+ 				'ul', 'ol',

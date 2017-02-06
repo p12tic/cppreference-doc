@@ -1,0 +1,28 @@
+commit d2441d49874a0e08674cffd4bf70953cad5b1bcf
+Author: Povilas Kanapickas <povilas@radix.lt>
+Date:   Mon Feb 6 17:43:59 2017 +0200
+
+    Increase page limit in Special:Export
+
+diff --git a/includes/specials/SpecialExport.php b/includes/specials/SpecialExport.php
+index 6fb5e8c..c2947da 100644
+--- a/includes/specials/SpecialExport.php
++++ b/includes/specials/SpecialExport.php
+@@ -411,7 +411,7 @@ class SpecialExport extends SpecialPage {
+ 			array( 'page_namespace', 'page_title' ),
+ 			array( 'cl_from=page_id', 'cl_to' => $name ),
+ 			__METHOD__,
+-			array( 'LIMIT' => '5000' )
++			array( 'LIMIT' => '50000' )
+ 		);
+ 
+ 		$pages = array();
+@@ -442,7 +442,7 @@ class SpecialExport extends SpecialPage {
+ 			array( 'page_namespace', 'page_title' ),
+ 			array( 'page_namespace' => $nsindex ),
+ 			__METHOD__,
+-			array( 'LIMIT' => '5000' )
++			array( 'LIMIT' => '50000' )
+ 		);
+ 
+ 		$pages = array();
