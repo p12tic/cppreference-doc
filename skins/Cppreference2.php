@@ -175,9 +175,9 @@ class Cppreference2Template extends BaseTemplate {
 		<div id="mw-head" class="noprint">
 			<div id="cpp-head-first-base">
 				<div id="cpp-head-first">
-					<h5><a href="<?php echo $root_link; ?>">
+					<h3><a href="<?php echo $root_link; ?>">
 						<?php global $wgSitename; echo $wgSitename;?>
-					</a></h5>
+					</a></h3>
 					<div id="cpp-head-search">
 						<?php $this->renderNavigation( 'SEARCH' ); ?>
 					</div>
@@ -264,7 +264,7 @@ class Cppreference2Template extends BaseTemplate {
 
 		?>
 		<div id="cpp-toolbox">
-			<h5><span><?php echo $message; ?></span><a href="#"></a></h5>
+			<h3><span><?php echo $message; ?></span><a href="#"></a></h3>
 			<ul>
 <?php	   foreach( $content as $key => $val ):
 				echo $this->makeListItem( $key, $val );
@@ -286,7 +286,7 @@ class Cppreference2Template extends BaseTemplate {
 
 		?>
 		<div id="cpp-navigation">
-			<h5><?php echo $message; ?></h5>
+			<h3><?php echo $message; ?></h3>
 			<ul>
 <?php	   foreach( $content as $key => $val ):
 				echo $this->makeListItem( $key, $val );

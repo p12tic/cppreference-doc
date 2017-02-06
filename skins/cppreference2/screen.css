@@ -56,7 +56,7 @@ div#mw-head {
     width: 100%;
 }
 
-    div#mw-head h5 {
+    div#mw-head h3 {
         margin: 0;
         padding: 0;
     }
@@ -71,7 +71,7 @@ div#mw-head {
         height: 22px;
     }
 
-    div#cpp-head-first > h5 {
+    div#cpp-head-first > h3 {
         display: inline;
     }
 
@@ -85,7 +85,7 @@ div#mw-head {
             white-space: nowrap;
         }
 
-        div#cpp-head-personal h5 {
+        div#cpp-head-personal h3 {
             display: none;
         }
 
@@ -224,8 +224,7 @@ div#mw-head {
     }
 
     /* Navigation Labels */
-    div.vectorTabs h5,
-    div.vectorMenu h5 span {
+    div.vectorTabs h3 {
         display: none;
     }
     /* Namespaces and Views */
@@ -339,7 +338,7 @@ div#mw-head {
         height: 2.5em;
     }
 
-    div.vectorMenu h5 {
+    div.vectorMenu#p-cactions h3 {
         /* @embed */
         background-image: url(images/tab-break.png);
         background-position: bottom right;
@@ -348,7 +347,11 @@ div#mw-head {
         height: 100%;
     }
 
-    div.vectorMenu h5 span {
+    div.vectorMenu h3 {
+        font-size: 100%;
+    }
+
+    div.vectorMenu h3 span {
         display: inline-block;
         padding: 2.0em 22px 0.5em 0.5em;
 
@@ -360,7 +363,7 @@ div#mw-head {
         background: url(images/arrow-down-icon1.png) no-repeat scroll right 1.6em;
     }
 
-    div.vectorMenuFocus h5 span {
+    div.vectorMenuFocus h3 span {
         /* @embed */
         background: url(images/arrow-down-icon2.png) no-repeat scroll right 1.6em;
     }
@@ -422,8 +425,12 @@ div#mw-head {
         text-decoration: none;
     }
 
+    #ca-unwatch.icon a, #ca-watch.icon a {
+        padding-top: 4.3em !important;
+    }
+
     /* Search */
-    #p-search h5 {
+    #p-search h3 {
         display: none;
     }
 
@@ -479,7 +486,7 @@ div#footer {
     }
 
     /* Toolbox */
-    div#cpp-toolbox h5 {
+    div#cpp-toolbox h3 {
         display: none;
     }
 
@@ -498,7 +505,7 @@ div#footer {
         display: inline-block;
     }
 
-    div#cpp-navigation h5 {
+    div#cpp-navigation h3 {
         display: none;
     }
 
