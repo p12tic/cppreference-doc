@@ -36,9 +36,10 @@ all: doc_devhelp doc_qch doc_doxygen
 
 DISTFILES=	\
 		gadgets/				\
-		reference/				\
-		images/					\
 		headers/				\
+		images/					\
+		reference/				\
+		skins/					\
 		build_link_map.py		\
 		ddg_parse_html.py		\
 		devhelp2qch.xsl			\
@@ -48,17 +49,17 @@ DISTFILES=	\
 		index2ddg.py			\
 		index2devhelp.py		\
 		index2doxygen-tag.py		\
-		index2search.py			\
 		index2highlight.py		\
+		index2search.py			\
 		index_transform.py		\
 		index-chapters-c.xml	\
 		index-chapters-cpp.xml	\
+		index-cpp-search-app.txt \
 		index-functions.README	\
 		index-functions-c.xml	\
 		index-functions-cpp.xml	\
 		link_map.py		\
 		preprocess.py			\
-		preprocess.xsl			\
 		preprocess-css.css		\
 		Makefile				\
 		README.md			\
