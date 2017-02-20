@@ -65,6 +65,7 @@ T declval(); // SIMPLIFIED: return type
 
 struct piecewise_construct_t { };
 constexpr piecewise_construct_t piecewise_construct;
+#endif
 
 template <
     class T1,
