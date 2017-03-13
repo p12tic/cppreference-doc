@@ -27,6 +27,8 @@ $(function() {
     if (!window.console.log)
         window.console.log = function() { };
 
+    // Returns true if the given arrays have the same length and equal elements
+    // at specific positions, false otherwise
     function array_equal(a, b) {
         var i = a.length;
         if (i !== b.length) {
@@ -40,6 +42,8 @@ $(function() {
         return true;
     };
 
+    // Given an array of numbers, sorts them, removes non-unique elements and
+    // returns the resulting array. The argument array is not modified.
     function array_sort_unique(a) {
         a = a.sort(function(x, y) { return x - y; });
         var c = a[0];
@@ -53,7 +57,8 @@ $(function() {
         return res;
     }
 
-    // supports only arrays of bool
+    // Performs piecewise logical AND of the contents of two given arrays of
+    // bool and returns the resulting array
     function array_and(a, b) {
         var res = [];
         var length = a.length < b.length ? a.length : b.length;
@@ -62,7 +67,9 @@ $(function() {
         }
         return res;
     }
-    // supports only arrays of bool
+
+    // Performs piecewise logical OR of the contents of two given arrays of
+    // bool and returns the resulting array
     function array_or(a, b) {
         var res = [];
         var length = a.length < b.length ? a.length : b.length;
@@ -80,11 +87,12 @@ $(function() {
         return;
     }
 
-    /// Are we dealing with C or C++
+    /// Are we dealing with C or C++?
     var is_cxx = (mw.config.get('wgTitle').indexOf('c/') != 0);
 
-    /// Standard revision identification 'enums'
-
+    // Standard revision identification 'enums'. Thoughout the plugin it is
+    // assumed that the values are integers starting at zero and thus they can
+    // be used as an index in regular arrays.
     var Rev_c = { DIFF: 0, FIRST: 1, C89: 1, C99: 2, C11: 3, LAST: 4 };
     var Rev_cxx = { DIFF: 0, FIRST: 1, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, LAST: 5 };
 
@@ -120,9 +128,16 @@ $(function() {
         desc = desc_c;
     }
 
-    /// Several helper arrays and functions to identify on which revisions
-    /// certain mark is shown.
+    /** A 'mark identifier' is an object that specifies a half-open range of
+        standards. It contains the following fields:
+         'since' - a bool value identifying which half of the range is open.
+         'rev' - the revision of the standard. Rev.DIFF is not an accepted
+            value.
+    */
 
+    /*  Given a mark identifier and a revision, returns true if the range
+        specified by the mark identifier includes the revision in question
+    */
     function should_be_shown(rev, mark) {
         if (rev === Rev.DIFF) {
             return true;
@@ -134,7 +149,9 @@ $(function() {
         }
     }
 
-    /** Returns mark for element. Use when at most single mark can be present */
+    /*  Returns a mark identifier for a jQuery object. This function only
+        supports elements that may contain at most one mark css tag.
+    */
     function get_mark_cxx(el) {
         if (el.hasClass('t-since-cxx11')) {
             return { since: true, rev: Rev.CXX11 };
@@ -173,10 +190,12 @@ $(function() {
         return { since: true, rev: Rev.C89 };
     }
 
-    /** Returns a "visibility map": a bool array indexed by revisions. If
-        result[rev] is true for particular revision rev, then the element
-        should be visible on that revision.
+    /*  Given an jQuery object, inspects mark css classes and returns a
+        'visibility map' corresponding to these css classes. A visibility map
+        is a bool array indexed by revisions. Each element specifies whether
+        the object should be visible on that revision.
     */
+    // FIXME: this function handles only certain cases of fully closed ranges
     function get_visibility_on_rev_cxx(el) {
         // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
         // DIFF is always false
@@ -225,8 +244,7 @@ $(function() {
         return [false, true, true, true];
     }
 
-    /* Result is similar to get_visibility_on_rev, except that all values are set to
-       val
+    /* Returns a 'visibility map' filled with the given bool value.
     */
     function visibility_fill_cxx(val) {
         // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
@@ -237,7 +255,7 @@ $(function() {
         return [val, val, val, val];
     }
 
-    /// Prints values returned by get_visibility_on_rev
+    /// Prints values in a 'visibility map'
     function debug_print_visibility_map(revs) {
         var out = '{ ';
         for (var i = 0; i < revs.length; i++) {
@@ -320,7 +338,9 @@ $(function() {
         this.add_object(obj, obj, revs);
     }
 
-    /** Changes the visibility of objects */
+    /*  Changes the visibility of objects to what it should be at the given
+        revision rev.
+    */
     ObjectTracker.prototype.to_rev = function(rev) {
         if (rev === this.curr_rev) {
             return;
@@ -343,22 +363,44 @@ $(function() {
         this.curr_rev = rev;
     };
 
-    /** This class tracks object visibility throughout section hierarchy. That
-        is, for example, when section contents are not visible on a certain
+    /*  This class tracks object visibility throughout the section hierarchy.
+        For example, when section contents are not visible on a certain
         revision, then related visual objects such as section title are hidden
         too.
 
         In the context of this class, visual objects can be of one of the
-        following three kinds:
+        following four kinds: primary, secondary, unknown and container. A
+        visual object is a certain DOM node in the tree. Section boundaries
+        and hierarchy has no relation to the DOM hierarchy.
 
-         - primary: define the visibility of the section the objects are in.
-         - secondary: visibility depends on visibility of primary objects.
-         - unknown: it's unknown how the object should behave. Effectively
-            identical to primary elements that are visible on all revisions.
-         - container: Contains other visual objects. Such objects are
-            explicitly tracked in cases when in order to completely hide the
-            container, it's not enough to hide its contents (e.g. when
-            container has padding).
+            Primary
+
+        Primary objects define the visibility of the whole section the objects
+        are in. If all primary and unknown objects are not visible, the whole
+        section is hidden. The reason why unknown objects affect the visibility
+        of sections is that we want to be conservative and if we can't
+        determine the kind of an object, better treat it as primary.
+
+        Primary objects do not contain other objects.
+
+            Secondary
+
+        Secondary objects don't affect the visibility of sections. Secondary
+        objects do not contain other objects.
+
+            Container
+
+        Container objects contain other visual objects and add some visual
+        "effect" such as padding, so that in order to hide the presence
+        of the contained objects completely, the container must be hidden too.
+
+            Unknown
+
+        Unknown objects are those objects for which any other kind was not
+        defined. They are treated the same way as primary objects.
+
+        Unknown objects do not contain other objects.
+
 
         When all primary and unknown elements within a section are not visible
         in certain revision, then all secondary elements are hidden too. The
@@ -396,6 +438,9 @@ $(function() {
         this.visible = null;
     };
 
+    // Creates a section node given a parent node. For root section parent
+    // should be null. The level of the created section is determined
+    // automatically from the level of the parent section.
     var SectionNode = function(parent) {
         this.parent_section = parent;
         if (parent === null) {
@@ -409,6 +454,8 @@ $(function() {
         this.visible = null;
     };
 
+    // Creates a container node given a parent container and the jQuery object
+    // representing the object. For root container parent should be null.
     var ContainerNode = function(parent, obj) {
         this.parent_container = parent;
         this.children = [];
@@ -417,10 +464,13 @@ $(function() {
         this.visible = null;
     };
 
-    /** Walks the internal section hierarchy tree to the specified level. If
+    /*  Walks the internal section hierarchy tree to the specified level. If
         level is higher than current level, then new section nodes are created as
         descendants of the current section node. If the current level is the
         same, a new node is created.
+
+        Sections are portions of the html tree delimited by the heading
+        elements (<h1>, <h2>, etc.)
     */
     SectionContentsTracker.prototype.set_level = function(level) {
         if (level < 0) {
@@ -438,6 +488,10 @@ $(function() {
         }
     };
 
+    /*  Adds an jQuery object to the current section and container. type is the
+        kind of the object and visible is the visibility map. Don't use this
+        method, use add_primary, add_secondary and add_unknown instead
+    */
     SectionContentsTracker.prototype.add_object = function(obj, type, visible) {
         var new_node = new ObjectNode(this.curr_section, this.curr_container, type, obj);
         new_node.visible = visible;
@@ -445,18 +499,25 @@ $(function() {
         this.curr_container.children.push(new_node);
     };
 
+    // Adds a primary object to the current section and container with the
+    // given visibility map.
     SectionContentsTracker.prototype.add_primary = function(obj, visible) {
         this.add_object(obj, ObjectType.PRIMARY, visible);
     };
 
+    // Adds a secondary object to the current section and container
     SectionContentsTracker.prototype.add_secondary = function(obj) {
         this.add_object(obj, ObjectType.SECONDARY, null);
     };
 
+    // Adds an unknown object to the current section and container
     SectionContentsTracker.prototype.add_unknown = function(obj) {
         this.add_object(obj, ObjectType.UNKNOWN, visibility_fill(true));
     };
 
+    // Interprets a given object as a container and "enters" it. From this call
+    // until call to exit_container, all added objects are added as descendants
+    // of this container. Multiple containers may be nested.
     SectionContentsTracker.prototype.enter_container = function(obj) {
         var new_node = new ContainerNode(this.curr_container, obj);
         this.curr_container.children.push(new_node);
@@ -556,10 +617,14 @@ $(function() {
         this.perform_hide(this.root_container, tracker, visibility_fill(true));
     };
 
-    /** Used to aggregate a set of objects that need to be versioned. The set
+    /*  Used to aggregate a set of objects that need to be versioned. The set
         may be created from objects only in certain part of the DOM tree, this
         allows to perform independent versioning execution in different parts
         of the page.
+
+        This is used for example to support inclusions of Template:member. It
+        almost always contains a separate set declaration and description lists
+        whose numbering needs to be versioned separately.
     */
     var Scope = function(root) {
         this.root = root;
@@ -622,10 +687,12 @@ $(function() {
         this.is_prepared = false;
     };
 
-    /** Prepares the navbar for versioning using object tracker. As the navbar
-        contains many items, committing each of them to the object tracker, we
-        make as many copies of the original navbar as there are revisions and
-        customize each copy in-place.
+    /*  Prepares the navbar for versioning using object tracker. As the navbar
+        contains many items and we might want to reflow the columns in the
+        future, instead of committing each item to the object tracker we make
+        as many copies of the original navbar as there needed, customize each
+        copy in-place and commit the results to the object tracker. This gives
+        us both performance and flexibility benefits.
     */
     StandardRevisionPlugin.prototype.prepare_navbar = function(scope) {
         var nv = scope.nv // main navbar
@@ -715,11 +782,13 @@ $(function() {
         }
     };
 
-    /** Handles rev_begin, rev, rev_end templates
-        We don't copy the contents of this template around. We just add the
+    /*  Handles inclusions of Template:rev_begin, Template:rev and
+        Template:rev_end.
+
+        We don't copy the contents of this templates around. We just add the
         rows to the element tracker and show and hide them as needed. To hide
         the frame on non-diff revisions, we have special treatment in
-        on_selection_table. Note, that in order for this to work, the revision
+        on_selection_change. Note, that in order for this to work, the revision
         marks must not be touched.
     */
     StandardRevisionPlugin.prototype.prepare_all_revs = function(scope) {
@@ -733,7 +802,7 @@ $(function() {
         });
     };
 
-    /** Handles rev_inl template
+    /** Handles inclusions of Template:rev_inl
     */
     StandardRevisionPlugin.prototype.prepare_all_inl_revs = function(scope) {
         var self = this;
@@ -748,7 +817,9 @@ $(function() {
         });
     };
 
-    /** Handles all dsc_* templates.
+    /*  Handles the description lists and their contents - inclusions of
+        Template:dsc_* ('t-dsc-*' CSS classes)
+
         Prepares items in dsc lists
     */
     StandardRevisionPlugin.prototype.prepare_all_dscs = function(scope) {
@@ -758,6 +829,7 @@ $(function() {
         });
     };
 
+    // Returns true if the given jQuery object defines a secondary visual object
     StandardRevisionPlugin.prototype.is_secondary = function(el) {
         if (el.is('h2') ||
             el.is('h3') ||
@@ -771,6 +843,7 @@ $(function() {
         return false;
     };
 
+    // Returns the section level for the given jQuery object.
     StandardRevisionPlugin.prototype.get_level = function(el) {
         if (el.is('h2'))
             return 0;
@@ -785,6 +858,11 @@ $(function() {
         return -1;
     }
 
+    /*  If jQuery object el has a known section level, then we enter that
+        section level by exiting section nodes or creating new section nodes
+        and entering them as needed.
+    */
+    // FIXME: get_level and set_level naming is quite confusing
     StandardRevisionPlugin.prototype.set_level_if_needed = function(section_tracker, el) {
         var level = this.get_level(el);
         if (level >= 0) {
@@ -792,6 +870,7 @@ $(function() {
         }
     };
 
+    // Handles a description list
     StandardRevisionPlugin.prototype.prepare_dsc_table = function(el) {
         var section_tracker = new SectionContentsTracker();
 
@@ -830,7 +909,11 @@ $(function() {
         section_tracker.run(this.tracker);
     };
 
-    // Handles one dsc item. Returns a visibility map for that item.
+    /*  Handles one description list item (inclusion of Template:dsc_*,
+        't-dsc-*' CSS classes).
+
+        Returns a visibility map for that item.
+    */
     StandardRevisionPlugin.prototype.prepare_dsc = function(el) {
         var self = this;
 
@@ -898,7 +981,9 @@ $(function() {
         }
     };
 
-    /** Handles dcl_* templates.
+    /** Handles declaration tables and their contents. These are implemented
+        by including Template:dcl_* templates ('t-dcl-*' CSS classes)
+
         Returns "numbering map", which defines how the list items are
         renumbered (or deleted) for each revision. The numbering map is a an
         two-dimensional array - the first index identifies the revision,
@@ -1398,6 +1483,7 @@ $(function() {
         }
     };
 
+    // An utility function that calls fun on all known scopes
     StandardRevisionPlugin.prototype.for_all_scopes = function(fun) {
         fun.call(this.root_scope);
         for (var i = 0; i < this.child_scopes.length; ++i) {
@@ -1405,6 +1491,10 @@ $(function() {
         }
     };
 
+    /*  An utility function that gathers information about visible objects and
+        pushes it to various internal trackers. New DOM objects may be created
+        and others deleted, but the visual appearance should not change.
+    */
     StandardRevisionPlugin.prototype.prepare = function() {
         if (this.is_prepared) {
             return;
@@ -1504,7 +1594,7 @@ $(function() {
     };
 
     /** Utility function. Takes a revision map as returned by
-        get_revision_map and produces visibility map from that.
+        get_revision_map and produces a visibility map from that.
     */
     StandardRevisionPlugin.prototype.revision_map_to_visibility = function(revs) {
         var visible = visibility_fill(false);
@@ -1544,7 +1634,8 @@ $(function() {
         return (num_deleted === num_total);
     };
 
-    /** Creates the standard revision selection box
+    /** Creates the standard revision selection menu in the page and registers
+        on_selection_change to be called whenever the seceltion changes.
     */
     StandardRevisionPlugin.prototype.create_selection_box = function() {
         var head_parent = $('#cpp-head-tools-right');
@@ -1568,8 +1659,9 @@ $(function() {
         this.select_div.prependTo(head_parent);
     };
 
-    /** Callback to be run when the user changes the option selected in the
-        selection box
+    /** This function is called whenever the user changes the option selected
+        in the selection box. The implementation hides the items that shouldn't
+        be visible and reveals those that no longer need to be hidden (if any).
     */
     StandardRevisionPlugin.prototype.on_selection_change = function() {
         this.prepare();
