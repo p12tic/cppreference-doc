@@ -165,7 +165,7 @@ def get_processing_instructions(ident_map, link_map):
 # process the files
 
 # returns the unqualified name of an identifier
-def get_name(ident):
+def get_unqualified_name(ident):
     if ident.find('(') != -1:
         ident = re.sub('\(.*?\)', '', ident)
     if ident.find('<') != -1:
@@ -188,7 +188,7 @@ def get_version(decls):
                 return None
     return rv
 
-def build_abstract(decls, desc, max_code_lines, debug=DDGDebug()):
+def build_abstract(decls, desc, max_code_lines, split_code_lines, debug=DDGDebug()):
 
     limited = False
     code_snippets = []
@@ -219,7 +219,11 @@ def build_abstract(decls, desc, max_code_lines, debug=DDGDebug()):
         code_snippets.append(code)
         max_code_lines -= code_num_lines
 
-    code_text = '<pre><code>' + '\n\n'.join(code_snippets) + '</code></pre>'
+    if split_code_lines:
+        code_snippets = ['<pre><code>' + s + '</code></pre>' for s in code_snippets]
+        code_text = ''.join(code_snippets)
+    else:
+        code_text = '<pre><code>' + '\n\n'.join(code_snippets) + '</code></pre>'
 
     if limited:
         code_text += '\n<p><em>Additional declarations have been omitted</em></p>'
@@ -378,7 +382,7 @@ def output_redirects(out, redirects):
 def process_identifier(out, redirects, root, link, item_ident, item_type,
                        opts, debug=DDGDebug()):
     # get the name by extracting the unqualified identifier
-    name = get_name(item_ident)
+    name = get_unqualified_name(item_ident)
     debug_verbose = True if debug.enabled and debug.ident_match is not None else False
 
     try:
@@ -386,7 +390,8 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
             decls = get_declarations(root, name)
             desc = get_short_description(root, get_version(decls), opts.max_sentences, opts.max_characters,
                                          opts.max_paren_chars, debug=debug_verbose)
-            abstract = build_abstract(decls, desc, opts.max_code_lines, debug=debug)
+            abstract = build_abstract(decls, desc, opts.max_code_lines,
+                                      opts.split_code_snippets, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION,
                             ITEM_TYPE_CONSTRUCTOR,
@@ -394,7 +399,8 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
             decls = get_declarations(root, name)
             desc = get_short_description(root, get_version(decls), opts.max_sentences, opts.max_characters,
                                          opts.max_paren_chars, debug=debug_verbose)
-            abstract = build_abstract(decls, desc, opts.max_code_lines, debug=debug)
+            abstract = build_abstract(decls, desc, opts.max_code_lines,
+                                      opts.split_code_snippets, debug=debug)
 
         elif item_type in [ ITEM_TYPE_FUNCTION_INLINEMEM,
                             ITEM_TYPE_CONSTRUCTOR_INLINEMEM,
@@ -458,6 +464,8 @@ def main():
                         help='The path to the XML index containing identifier data')
     parser.add_argument('output', type=str,
                         help='The path to destination output.txt file')
+    parser.add_argument('--split_code_snippets', action='store_true', default=False,
+                        help='Puts each declaration into a separate code snippet.')
     parser.add_argument('--max_code_lines', type=int, default=6,
                         help='Maximum number of lines of code to show in abstract')
     parser.add_argument('--max_sentences', type=int, default=1,
