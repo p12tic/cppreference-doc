@@ -43,7 +43,7 @@ class LinkMap:
             file_el.set('from', key)
             file_el.set('to', self.mapping[key])
 
-        out = open(fn, 'w')
+        out = open(fn, 'w', encoding='utf-8')
         out.write('<?xml version="1.0" encoding="UTF-8"?>')
         out.write(e.tostring(root, encoding=str, pretty_print=True))
         out.close()

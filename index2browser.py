@@ -27,7 +27,7 @@ if len(sys.argv) != 3:
  and the file name of the destination as the second ''')
     sys.exit(1)
 
-out_f = open(sys.argv[2], 'w')
+out_f = open(sys.argv[2], 'w', encoding='utf-8')
 
 class Index2Browser(IndexTransform):
 

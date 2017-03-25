@@ -105,7 +105,7 @@ class DDGDebug:
         self.stat_line_nums = []
         self.debug_abstracts_file = sys.stdout
         if debug_abstracts_path is not None:
-            self.debug_abstracts_file = open(debug_abstracts_path, 'w')
+            self.debug_abstracts_file = open(debug_abstracts_path, 'w', encoding='utf-8')
 
     # track the statistics of number of lines used by the entries
     def submit_line_num(self, line_num):
@@ -524,7 +524,7 @@ def main():
 
     redirects = []
 
-    out = open(output_file, 'w')
+    out = open(output_file, 'w', encoding='utf-8')
 
     #i=1
     for page in proc_ins:

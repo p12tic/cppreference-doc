@@ -40,7 +40,7 @@ dest_fn = sys.argv[4]
 
 indent_level_inc = 2
 
-out_f = open(dest_fn, 'w')
+out_f = open(dest_fn, 'w', encoding='utf-8')
 
 link_map = None
 if link_map_fn != 'web':
@@ -196,7 +196,7 @@ class Index2Devhelp(IndexTransform):
 out_f.write('<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n')
 out_f.write('<tagfile>\n')
 
-with open(chapters_fn) as chapters_f:
+with open(chapters_fn, encoding='utf-8') as chapters_f:
     chapters_tree = etree.parse(chapters_f)
     for header_chapter in chapters_tree.getroot().findall(".//*[@name='Headers']/*"):
         out_f.write('  <compound kind="file">\n')

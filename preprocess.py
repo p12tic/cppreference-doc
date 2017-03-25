@@ -243,13 +243,13 @@ def preprocess_html_file(root, fn, rename_map):
         print("HTML WARN: {0}".format(err))
     text = etree.tostring(html, encoding=str, method="html")
 
-    f = open(fn, "w")
+    f = open(fn, "w", encoding='utf-8')
     f.write(text)
     f.close()
 
 def preprocess_css_file(fn):
 
-    f = open(fn, "r")
+    f = open(fn, "r", encoding='utf-8')
     text = f.read()
     f.close()
 
@@ -261,7 +261,7 @@ def preprocess_css_file(fn):
     # QT Help viewer doesn't understand nth-child
     text = text.replace('nth-child(1)', 'first-child')
 
-    f = open(fn, "w")
+    f = open(fn, "w", encoding='utf-8')
     f.write(text)
     f.close()
 
@@ -290,10 +290,10 @@ def main():
 
     # append css modifications
 
-    f = open("preprocess-css.css", "r")
+    f = open("preprocess-css.css", "r", encoding='utf-8')
     css_app = f.read()
     f.close()
-    f = open(os.path.join(root, 'common/site_modules.css'), "a")
+    f = open(os.path.join(root, 'common/site_modules.css'), "a", encoding='utf-8')
     f.write(css_app)
     f.close()
 
