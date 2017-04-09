@@ -77,37 +77,44 @@ def rearrange_archive(root):
         # remove what's left
         shutil.rmtree(path)
 
-# strip query strings from filenames to support Windows filesystems.
 def add_file_to_rename_map(rename_map, dir, fn, new_fn):
     path = os.path.join(dir, fn)
     if not os.path.isfile(path):
-        print("Not renaming " + path)
+        print("ERROR: Not renaming '{0}' because path does not exist".format(path))
         return
     rename_map.append((dir, fn, new_fn))
 
 def find_files_to_be_renamed(root):
-    # returns a rename map: array of tuples each of which contain three strings:
-    # the directory the file resides in, the source and destination filenames
+    # Returns a rename map: array of tuples each of which contain three strings:
+    # the directory the file resides in, the source and destination filenames.
+
+    # The rename map specifies files to be renamed in order to support them on
+    # windows filesystems which don't support certain characters in file names
     rename_map = []
 
-    files_rename_qs = []        # remove query string
-    files_rename_quot = []      # remove quotes
-    files_loader = []           # files served by load.php
+    files_rename = []           # general files to be renamed
+    files_loader = []           # files served by load.php. These should map to
+                                # consistent and short file names because we
+                                # modify some of them later in the pipeline
+
     for dir, dirnames, filenames in os.walk(root):
-        for filename in fnmatch.filter(filenames, '*[?]*'):
-            files_rename_qs.append((dir, filename))
-        for filename in fnmatch.filter(filenames, '*"*'):
-            files_rename_quot.append((dir, filename))
-        for filename in fnmatch.filter(filenames, 'load.php[?]*'):
-            files_loader.append((dir, filename))
+        filenames_loader = set(fnmatch.filter(filenames, 'load.php[?]*'))
+        # match any filenames with '?"' characters
+        filenames_rename = set(fnmatch.filter(filenames, '*[?"]*'))
 
-    for dir,fn in files_loader:
-        files_rename_qs.remove((dir, fn))
+        # don't process load.php files in general rename handler
+        filenames_rename -= filenames_loader
 
-    for dir,fn in files_rename_qs:
-        add_file_to_rename_map(rename_map, dir, fn, re.sub('\?.*', '', fn))
-    for dir,fn in files_rename_quot:
-        add_file_to_rename_map(rename_map, dir, fn, re.sub('"', '_q_', fn))
+        for fn in filenames_loader:
+            files_loader.append((dir, fn))
+        for fn in filenames_rename:
+            files_rename.append((dir, fn))
+
+    for dir,orig_fn in files_rename:
+        fn = orig_fn
+        fn = re.sub('\?.*', '', fn)
+        fn = re.sub('"', '_q_', fn)
+        add_file_to_rename_map(rename_map, dir, orig_fn, fn)
 
     # map loader names to more recognizable names
     for dir,fn in files_loader:
@@ -135,7 +142,10 @@ def find_files_to_be_renamed(root):
 
 def rename_files(rename_map):
     for dir, old_fn, new_fn in rename_map:
-        shutil.move(os.path.join(dir, old_fn), os.path.join(dir, new_fn))
+        src_path = os.path.join(dir, old_fn)
+        dst_path = os.path.join(dir, new_fn)
+        print("Renaming '{0}' to \n         '{1}'".format(src_path, dst_path))
+        shutil.move(src_path, dst_path)
 
 def find_html_files(root):
     # find files that need to be preprocessed
