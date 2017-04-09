@@ -99,8 +99,8 @@ def find_files_to_be_renamed(root):
 
     for dir, dirnames, filenames in os.walk(root):
         filenames_loader = set(fnmatch.filter(filenames, 'load.php[?]*'))
-        # match any filenames with '?"' characters
-        filenames_rename = set(fnmatch.filter(filenames, '*[?"]*'))
+        # match any filenames with '?"*' characters
+        filenames_rename = set(fnmatch.filter(filenames, '*[?"*]*'))
 
         # don't process load.php files in general rename handler
         filenames_rename -= filenames_loader
@@ -114,6 +114,7 @@ def find_files_to_be_renamed(root):
         fn = orig_fn
         fn = re.sub('\?.*', '', fn)
         fn = re.sub('"', '_q_', fn)
+        fn = re.sub('\*', '_star_', fn)
         add_file_to_rename_map(rename_map, dir, orig_fn, fn)
 
     # map loader names to more recognizable names
