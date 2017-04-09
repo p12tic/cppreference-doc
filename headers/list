@@ -55,7 +55,7 @@ public:
     explicit list(const Allocator& alloc = Allocator());
 #else
     list();
-    explicit list(const Allocator&);
+    explicit list(const Allocator& alloc);
 #endif
 
 #if CPPREFERENCE_STDVER <2011

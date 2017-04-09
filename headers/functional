@@ -356,7 +356,7 @@ struct hash {
     typedef Key argument_type;
     typedef std::size_t result_type;
 
-    std::size_t operator()(const Key&) const;
+    std::size_t operator()(const Key& key) const;
 };
 #endif
 } // namespace std

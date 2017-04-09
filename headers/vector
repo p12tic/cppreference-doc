@@ -55,7 +55,7 @@ public:
     explicit vector(const Allocator& alloc = Allocator());
 #else
     vector();
-    explicit vector(const Allocator&);
+    explicit vector(const Allocator& alloc);
 #endif
 
 #if CPPREFERENCE_STDVER <2011

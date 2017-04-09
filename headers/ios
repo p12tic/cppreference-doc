@@ -28,7 +28,7 @@ template<class StateT> class fpos;
 
 class ios_base {
 private:
-    ios_base(const ios_base&);
+    ios_base(const ios_base& other);
 protected:
     ios_base();
 public:
@@ -185,7 +185,7 @@ protected:
     void swap(basic_ios& other);
 #endif
 private:
-    basic_ios(const basic_ios&);
+    basic_ios(const basic_ios& other);
 };
 
 typedef basic_ios<char> ios;

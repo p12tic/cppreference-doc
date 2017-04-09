@@ -315,7 +315,7 @@ public:
                    std::regex_constants::match_flag_type m =
                        std::regex_constants::match_default);
 
-    regex_iterator(const regex_iterator&);
+    regex_iterator(const regex_iterator& other);
 
 #if CPPREFERENCE_STDVER>= 2014
     regex_iterator(BidirIt, BidirIt,

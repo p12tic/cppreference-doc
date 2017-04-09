@@ -39,7 +39,7 @@ public:
     template<class Sseq >
     explicit linear_congruential_engine(Sseq& s);
 
-    linear_congruential_engine(const linear_congruential_engine&);
+    linear_congruential_engine(const linear_congruential_engine& other);
 
     void seed(result_type value = default_seed);
 
@@ -105,7 +105,7 @@ public:
     template<class Sseq >
     explicit mersenne_twister_engine(Sseq& s);
 
-    mersenne_twister_engine(const mersenne_twister_engine&);
+    mersenne_twister_engine(const mersenne_twister_engine& other);
 
     void seed(result_type value = default_seed);
 
@@ -186,7 +186,7 @@ public:
     template<class Sseq >
     explicit subtract_with_carry_engine(Sseq& s);
 
-    subtract_with_carry_engine(const subtract_with_carry_engine&);
+    subtract_with_carry_engine(const subtract_with_carry_engine& other);
 
     void seed(result_type value = default_seed);
 

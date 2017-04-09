@@ -55,7 +55,7 @@ public:
     explicit deque(const Allocator& alloc = Allocator());
 #else
     deque();
-    explicit deque(const Allocator&);
+    explicit deque(const Allocator& alloc);
 #endif
 
 #if CPPREFERENCE_STDVER <2011

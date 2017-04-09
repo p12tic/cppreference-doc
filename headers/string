@@ -122,7 +122,7 @@ public:
     explicit basic_string(const Allocator& alloc = Allocator());
 #else
     basic_string();
-    explicit basic_string(const Allocator&);
+    explicit basic_string(const Allocator& alloc);
 #endif
 
     basic_string(size_type count,

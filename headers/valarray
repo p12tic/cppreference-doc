@@ -31,12 +31,12 @@ public:
 #if CPPREFERENCE_STDVER>= 2011
     valarray(valarray&& other);
 #endif
-    valarray(const std::slice_array<T>&);
-    valarray(const std::gslice_array<T>&);
-    valarray(const std::mask_array<T>&);
-    valarray(const std::indirect_array<T>&);
+    valarray(const std::slice_array<T>& array);
+    valarray(const std::gslice_array<T>& array);
+    valarray(const std::mask_array<T>& array);
+    valarray(const std::indirect_array<T>& array);
 #if CPPREFERENCE_STDVER>= 2011
-    valarray(std::initializer_list<T> il);
+    valarray(std::initializer_list<T> ilist);
 #endif
 
     ~valarray();
