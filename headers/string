@@ -185,13 +185,9 @@ public:
     template<class InputIt>
     basic_string& assign(InputIt first, InputIt last);
 
-    basic_string& assign(std::initializer_list<CharT> ilist);
-    template <class InputIt>
-    void assign(InputIt first, InputIt last);
-
 #if CPPREFERENCE_STDVER>= 2011
     basic_string& assign(basic_string&& str);
-    void assign(std::initializer_list<CharT> ilist);
+    basic_string& assign(std::initializer_list<CharT> ilist);
 #endif
 
     allocator_type get_allocator() const;
@@ -386,9 +382,6 @@ public:
     size_type copy(CharT* dest,
                    size_type count,
                    size_type pos = 0) const;
-
-    void resize(size_type count);
-    void resize(size_type count, CharT ch);
 
     void swap(basic_string& other);
 
