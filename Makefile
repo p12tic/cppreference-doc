@@ -239,4 +239,4 @@ source:
 	  http://en.cppreference.com/w/ ; \
 	popd > /dev/null
 
-	./export.py --url=http://en.cppreference.com/mwiki reference/cppreference-export-ns0-ns4-ns10.xml 0 4 10
+	./export.py --url=http://en.cppreference.com/mwiki reference/cppreference-export-ns0,4,8,10.xml 0 4 8 10
