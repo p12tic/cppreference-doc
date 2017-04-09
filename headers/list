@@ -84,7 +84,7 @@ public:
 
     list(list&& other);
 #if CPPREFERENCE_STDVER>= 2011
-    list(const list&& other, const Allocator& alloc);
+    list(list&& other, const Allocator& alloc);
 
     list(std::initializer_list<T> init,
          const Allocator& alloc = Allocator());

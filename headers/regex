@@ -319,7 +319,7 @@ public:
 
 #if CPPREFERENCE_STDVER>= 2014
     regex_iterator(BidirIt, BidirIt,
-                   const regex_type&&,
+                   regex_type&&,
                    std::regex_constants::match_flag_type =
                        std::regex_constants::match_default) = delete;
 #endif
@@ -383,26 +383,26 @@ public:
 
 #if CPPREFERENCE_STDVER>= 2014
     regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
-                         const regex_type&& re,
+                         regex_type&& re,
                          int submatch = 0,
                          std::regex_constants::match_flag_type m =
                              std::regex_constants::match_default) = delete;
 
     regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
-                         const regex_type&& re,
+                         regex_type&& re,
                          const std::vector<int>& submatches,
                          std::regex_constants::match_flag_type m =
                              std::regex_constants::match_default) = delete;
 
     regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
-                         const regex_type&& re,
+                         regex_type&& re,
                          std::initializer_list<int> submatches,
                          std::regex_constants::match_flag_type m =
                              std::regex_constants::match_default) = delete;
 
     template <std::size_t N>
     regex_token_iterator(BidirectionalIterator a, BidirectionalIterator b,
-                         const regex_type&& re,
+                         regex_type&& re,
                          const int (&submatches)[N],
                          std::regex_constants::match_flag_type m =
                              std::regex_constants::match_default) = delete;

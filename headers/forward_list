@@ -68,7 +68,7 @@ public:
     forward_list(const forward_list& other, const Allocator& alloc);
 
     forward_list(forward_list&& other);
-    forward_list(const forward_list&& other, const Allocator& alloc);
+    forward_list(forward_list&& other, const Allocator& alloc);
 
     forward_list(std::initializer_list<T> init,
                  const Allocator& alloc = Allocator());

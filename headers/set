@@ -86,7 +86,7 @@ public:
 
 #if CPPREFERENCE_STDVER>= 2011
     set(set&& other);
-    set(const set&& other, const Allocator& alloc);
+    set(set&& other, const Allocator& alloc);
 
     set(std::initializer_list<value_type> init,
         const Compare& comp = Compare(),
@@ -311,7 +311,7 @@ public:
 
 #if CPPREFERENCE_STDVER>= 2011
     multiset(multiset&& other);
-    multiset(const multiset&& other, const Allocator& alloc);
+    multiset(multiset&& other, const Allocator& alloc);
 
     multiset(std::initializer_list<value_type> init,
              const Compare& comp = Compare(),

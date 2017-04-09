@@ -84,7 +84,7 @@ public:
 
     deque(deque&& other);
 #if CPPREFERENCE_STDVER>= 2011
-    deque(const deque&& other, const Allocator& alloc);
+    deque(deque&& other, const Allocator& alloc);
 
     deque(std::initializer_list<T> init,
           const Allocator& alloc = Allocator());

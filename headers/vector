@@ -85,7 +85,7 @@ public:
 
     vector(vector&& other);
 #if CPPREFERENCE_STDVER>= 2011
-    vector(const vector&& other, const Allocator& alloc);
+    vector(vector&& other, const Allocator& alloc);
 
     vector(std::initializer_list<T> init,
            const Allocator& alloc = Allocator());

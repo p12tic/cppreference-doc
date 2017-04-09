@@ -99,7 +99,7 @@ public:
 
 #if CPPREFERENCE_STDVER>= 2011
     map(map&& other);
-    map(const map&& other, const Allocator& alloc);
+    map(map&& other, const Allocator& alloc);
 
     map(std::initializer_list<value_type> init,
         const Compare& comp = Compare(),
@@ -356,7 +356,7 @@ public:
 
 #if CPPREFERENCE_STDVER>= 2011
     multimap(multimap&& other);
-    multimap(const multimap&& other, const Allocator& alloc);
+    multimap(multimap&& other, const Allocator& alloc);
 
     multimap(std::initializer_list<value_type> init,
              const Compare& comp = Compare(),
