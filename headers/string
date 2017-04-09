@@ -93,10 +93,10 @@ public:
 #if CPPREFERENCE_SIMPLIFY_TYPEDEFS
     typedef size_t size_type;
     typedef ptrdiff_t difference_type;
-    typedef T& reference;
-    typedef const T& const_reference;
-    typedef T* pointer;
-    typedef const T* const_pointer;
+    typedef CharT& reference;
+    typedef const CharT& const_reference;
+    typedef CharT* pointer;
+    typedef const CharT* const_pointer;
 #elif CPPREFERENCE_STDVER <2011
     typedef typename Allocator::size_type size_type;
     typedef typename Allocator::difference_type difference_type;
@@ -112,8 +112,8 @@ public:
     typedef typename std::allocator_traits<Allocator>::pointer pointer;
     typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
-    typedef T* iterator; // actual type is unspecified
-    typedef const T* const_iterator; // actual type is unspecified
+    typedef CharT* iterator; // actual type is unspecified
+    typedef const CharT* const_iterator; // actual type is unspecified
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
