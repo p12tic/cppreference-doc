@@ -16,9 +16,10 @@
 #ifndef CPPREFERENCE_ARRAY_H
 #define CPPREFERENCE_ARRAY_H
 
-namespace std {
-
 #if CPPREFERENCE_STDVER>= 2011
+#include <initializer_list>
+
+namespace std {
 
 template<class T, std::size_t N>
 class array {
@@ -134,7 +135,8 @@ template<class T, std::size_t N>
 void swap(array<T, N>& lhs,
           array<T, N>& rhs);
 
-#endif // CPPREFERENCE_STDVER>= 2011
 } // namespace std
+
+#endif // CPPREFERENCE_STDVER>= 2011
 
 #endif // CPPREFERENCE_ARRAY_H

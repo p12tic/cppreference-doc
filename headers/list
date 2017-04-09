@@ -16,6 +16,10 @@
 #ifndef CPPREFERENCE_LIST_H
 #define CPPREFERENCE_LIST_H
 
+#if CPPREFERENCE_STDVER>= 2011
+#include <initializer_list>
+#endif
+
 namespace std {
 
 template<class T, class Allocator = allocator<T>>

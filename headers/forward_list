@@ -17,6 +17,7 @@
 #define CPPREFERENCE_FORWARD_LIST_H
 
 #if CPPREFERENCE_STDVER>= 2011
+#include <initializer_list>
 
 namespace std {
 
