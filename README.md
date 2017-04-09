@@ -33,7 +33,10 @@ documentation formats are currently supported:
  3) QT Help documentation format (.qch). Can be generated using `make doc_qch`.
  `make install` installs the documentation into proper locations.
 
-Simply running `make` will run generate documentation in all three formats.
+Simply running `make all` will generate documentation in all three formats.
+
+Running `make release` will generate the release archives which are uploaded
+to <http://en.cppreference.com/w/Cppreference:Archives>.
 
 Dependencies
 ------------
@@ -45,4 +48,4 @@ See also
 --------
 
 Debian packaging information for this package is maintained at
-<https://github.com/p12tic/cppreference-doc-debian>
+<https://github.com/p12tic/cppreference-doc_debian>
