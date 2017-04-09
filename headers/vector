@@ -35,15 +35,15 @@ public:
     typedef T* pointer;
     typedef const T* const_pointer;
 #elif CPPREFERENCE_STDVER <2011
-    typedef Allocator::reference reference;
-    typedef Allocator::const_reference const_reference;
-    typedef Allocator::pointer pointer;
-    typedef Allocator::const_pointer const_pointer;
+    typedef typename Allocator::reference reference;
+    typedef typename Allocator::const_reference const_reference;
+    typedef typename Allocator::pointer pointer;
+    typedef typename Allocator::const_pointer const_pointer;
 #else
     typedef value_type& reference;
     typedef const value_type& const_reference;
-    typedef std::allocator_traits<Allocator>::pointer pointer;
-    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+    typedef typename std::allocator_traits<Allocator>::pointer pointer;
+    typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
     typedef T* iterator; // actual type is unspecified
     typedef const T* const_iterator; // actual type is unspecified

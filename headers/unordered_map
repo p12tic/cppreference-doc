@@ -43,8 +43,8 @@ public:
     typedef value_type* pointer;
     typedef const value_type* const_pointer;
 #else
-    typedef std::allocator_traits<Allocator>::pointer pointer;
-    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+    typedef typename std::allocator_traits<Allocator>::pointer pointer;
+    typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
     typedef T* iterator; // actual type is unspecified
     typedef const T* const_iterator; // actual type is unspecified
@@ -253,8 +253,8 @@ public:
     typedef value_type* pointer;
     typedef const value_type* const_pointer;
 #else
-    typedef std::allocator_traits<Allocator>::pointer pointer;
-    typedef std::allocator_traits<Allocator>::const_pointer const_pointer;
+    typedef typename std::allocator_traits<Allocator>::pointer pointer;
+    typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
     typedef T* iterator; // actual type is unspecified
     typedef const T* const_iterator; // actual type is unspecified
