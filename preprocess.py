@@ -77,6 +77,10 @@ def rearrange_archive(root):
         # remove what's left
         shutil.rmtree(path)
 
+    # remove the XML source file
+    for fn in fnmatch.filter(os.listdir(root), 'cppreference-export*.xml'):
+        os.remove(os.path.join(root, fn))
+
 def add_file_to_rename_map(rename_map, dir, fn, new_fn):
     path = os.path.join(dir, fn)
     if not os.path.isfile(path):
