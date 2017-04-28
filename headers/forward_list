@@ -24,7 +24,7 @@
 
 namespace std {
 
-template<class T, class Allocator = allocator<T>>
+template<class T, class Allocator = std::allocator<T>>
 class forward_list {
 public:
     typedef T value_type;

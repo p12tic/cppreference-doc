@@ -23,29 +23,29 @@ template<class CharT> struct char_traits;
 template<class T> class allocator;
 
 class ios_base;
-template<class CharT, class Traits = char_traits<CharT>> class basic_ios;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_ios;
 
-template<class CharT, class Traits = char_traits<CharT>> class basic_streambuf;
-template<class CharT, class Traits = char_traits<CharT>> class basic_istream;
-template<class CharT, class Traits = char_traits<CharT>> class basic_ostream;
-template<class CharT, class Traits = char_traits<CharT>> class basic_iostream;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_streambuf;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_istream;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_ostream;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_iostream;
 
-template<class CharT, class Traits = char_traits<CharT>> class basic_filebuf;
-template<class CharT, class Traits = char_traits<CharT>> class basic_ifstream;
-template<class CharT, class Traits = char_traits<CharT>> class basic_ofstream;
-template<class CharT, class Traits = char_traits<CharT>> class basic_fstream;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_filebuf;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_ifstream;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_ofstream;
+template<class CharT, class Traits = std::char_traits<CharT>> class basic_fstream;
 
-template<class CharT, class Traits = char_traits<CharT>, class Alloc = allocator<CharT>>
+template<class CharT, class Traits = std::char_traits<CharT>, class Alloc = std::allocator<CharT>>
 class basic_stringbuf;
-template<class CharT, class Traits = char_traits<CharT>, class Alloc = allocator<CharT>>
+template<class CharT, class Traits = std::char_traits<CharT>, class Alloc = std::allocator<CharT>>
 class basic_istringstream;
-template<class CharT, class Traits = char_traits<CharT>, class Alloc = allocator<CharT>>
+template<class CharT, class Traits = std::char_traits<CharT>, class Alloc = std::allocator<CharT>>
 class basic_ostringstream;
-template<class CharT, class Traits = char_traits<CharT>, class Alloc = allocator<CharT>>
+template<class CharT, class Traits = std::char_traits<CharT>, class Alloc = std::allocator<CharT>>
 class basic_stringstream;
 
-template<class CharT, class Traits = char_traits<CharT>> class istreambuf_iterator;
-template<class CharT, class Traits = char_traits<CharT>> class ostreambuf_iterator;
+template<class CharT, class Traits = std::char_traits<CharT>> class istreambuf_iterator;
+template<class CharT, class Traits = std::char_traits<CharT>> class ostreambuf_iterator;
 
 typedef basic_ios<char> ios;
 typedef basic_ios<wchar_t> wios;
