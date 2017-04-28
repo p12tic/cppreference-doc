@@ -1171,8 +1171,8 @@ $(function() {
         function debug_print_defs(defs) {
             var out = '';
             for (var i = 0; i < defs.length; i++) {
-                out += ' { ' + i + ': ' + defs[i].type + ' ' + defs[i].num;
-                out += ' ' + defs[i].revs.debug_to_string();
+                out += ' { i:' + i + ' type:' + defs[i].type + ' num:' + defs[i].num;
+                out += ' visible:' + defs[i].revs.debug_to_string();
                 if (defs[i].type === 'r') {
                     out += ' { ';
                     for (var j = 0 ; j < defs[i].children.length; ++j) {
