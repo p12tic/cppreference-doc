@@ -16,6 +16,10 @@
 #ifndef CPPREFERENCE_VALARRAY_H
 #define CPPREFERENCE_VALARRAY_H
 
+#if CPPREFERENCE_STDVER >= 2011
+#include <initializer_list> // for std::initializer_list
+#endif
+
 namespace std {
 
 template<class T>

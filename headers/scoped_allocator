@@ -18,6 +18,9 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <utility> // for std::pair
+#include <type_traits> // for std::true_type
+
 namespace std {
 
 template<class OuterAlloc, class... InnerAlloc>

@@ -19,6 +19,9 @@
 #if CPPREFERENCE_STDVER>= 2011
 #include <initializer_list>
 
+#include <cstddef> // for size_t, ptrdiff_t
+#include <iterator> // for std::reverse_iterator
+
 namespace std {
 
 template<class T, std::size_t N>

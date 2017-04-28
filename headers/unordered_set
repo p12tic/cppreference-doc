@@ -19,6 +19,10 @@
 #if CPPREFERENCE_STDVER>= 2011
 #include <initializer_list>
 
+#include <cstddef> // for size_t, ptrdiff_t
+#include <memory> // for std::allocator
+#include <utility> // for std::pair
+
 namespace std {
 
 template <

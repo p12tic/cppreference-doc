@@ -16,6 +16,8 @@
 #ifndef CPPREFERENCE_MEMORY_H
 #define CPPREFERENCE_MEMORY_H
 
+#include <utility> // for std::pair
+
 namespace std {
 
 #if CPPREFERENCE_STDVER>= 2011

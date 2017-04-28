@@ -16,6 +16,9 @@
 #ifndef CPPREFERENCE_SSTREAM_H
 #define CPPREFERENCE_SSTREAM_H
 
+#include <iostream> // for streams
+#include <memory> // for std::allocator
+
 namespace std {
 
 template <

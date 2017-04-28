@@ -16,6 +16,8 @@
 #ifndef CPPREFERENCE_LOCALE_H
 #define CPPREFERENCE_LOCALE_H
 
+#include <memory> // for std::allocator
+
 namespace std {
 
 class locale {

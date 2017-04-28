@@ -17,6 +17,10 @@
 #define CPPREFERENCE_REGEX_H
 
 #if CPPREFERENCE_STDVER>= 2011
+
+#include <initializer_list> // for std::initializer_list
+#include <memory> // for std::allocator
+
 namespace std {
 namespace regex_constants {
 

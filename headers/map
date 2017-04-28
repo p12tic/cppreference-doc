@@ -16,7 +16,16 @@
 #ifndef CPPREFERENCE_MAP_H
 #define CPPREFERENCE_MAP_H
 
+#if CPPREFERENCE_STDVER >= 2011
+#include <initializer_list>
+#endif
+
 namespace std {
+
+#include <cstddef> // for size_t, ptrdiff_t
+#include <iterator> // for std::reverse_iterator
+#include <memory> // for std::allocator
+#include <utility> // for std::pair
 
 template <
     class Key,

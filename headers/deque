@@ -20,6 +20,10 @@
 #include <initializer_list>
 #endif
 
+#include <cstddef> // for size_t, ptrdiff_t
+#include <iterator> // for std::reverse_iterator
+#include <memory> // for std::allocator
+
 namespace std {
 
 template<class T, class Allocator = allocator<T>>

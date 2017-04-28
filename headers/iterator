@@ -16,6 +16,8 @@
 #ifndef CPPREFERENCE_ITERATOR_H
 #define CPPREFERENCE_ITERATOR_H
 
+#include <cstddef> // for size_t, ptrdiff_t
+
 namespace std {
 
 // SIMPLIFIED: template specializations are not supported, so the typedefs use
