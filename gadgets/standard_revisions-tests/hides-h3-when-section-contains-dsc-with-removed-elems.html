@@ -4,27 +4,22 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://en.cppreference.com/" />
-<title>cpp-error-demain_error</title>
+<title>hides-h3-when-section-contains-dsc-with-removed-elems</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">cpp-error-demain_error</td></tr>
+<tr><td rowspan="1" colspan="3">hides-h3-when-section-contains-dsc-with-removed-elems</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/w/cpp/error/domain_error</td>
+	<td>/w/test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-elems</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>//body</td>
-	<td>glob:*const char? what_arg*</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//body</td>
-	<td>glob:*(since C++11)*</td>
+	<td>verifyVisible</td>
+	<td>id=Should_be_removed_when_c.2B.2B98</td>
+	<td></td>
 </tr>
 <tr>
 	<td>select</td>
@@ -32,9 +27,9 @@
 	<td>label=C++98/03</td>
 </tr>
 <tr>
-	<td>verifyNotText</td>
-	<td>//body</td>
-	<td>glob:*const char? what_arg*</td>
+	<td>verifyNotVisible</td>
+	<td>id=Should_be_removed_when_c.2B.2B98</td>
+	<td></td>
 </tr>
 <tr>
 	<td>select</td>
@@ -42,9 +37,9 @@
 	<td>label=C++11</td>
 </tr>
 <tr>
-	<td>verifyNotText</td>
-	<td>//body</td>
-	<td>glob:*(since C++11)*</td>
+	<td>verifyVisible</td>
+	<td>id=Should_be_removed_when_c.2B.2B98</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

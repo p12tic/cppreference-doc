@@ -4,17 +4,32 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://en.cppreference.com/" />
-<title>cpp-string-basic_string</title>
+<title>hides-dcl-items-in-member</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">cpp-string-basic_string</td></tr>
+<tr><td rowspan="1" colspan="3">hides-dcl-items-in-member</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/w/cpp/string/basic_string</td>
+    <td>/w/test-gadget-stdrev/hides-dcl-items-in-member</td>
 	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*void always_visible*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*void not_visible_in_cxx98*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*void not_visible_in_cxx11*</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -22,19 +37,19 @@
 	<td>label=C++98/03</td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td></td>
-	<td>1000</td>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*void always_visible*</td>
 </tr>
 <tr>
 	<td>verifyNotText</td>
 	<td>//body</td>
-	<td>glob:*std::allocator_traits&lt;Allocator&gt;::size_type*</td>
+	<td>glob:*void not_visible_in_cxx98*</td>
 </tr>
 <tr>
-	<td>verifyNotText</td>
+	<td>verifyText</td>
 	<td>//body</td>
-	<td>glob:*std::u16string*</td>
+	<td>glob:*void not_visible_in_cxx11*</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -42,14 +57,19 @@
 	<td>label=C++11</td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td></td>
-	<td>1000</td>
+	<td>verifyText</td>
+	<td>//body</td>
+	<td>glob:*void always_visible*</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//body</td>
-	<td>glob:*std::allocator_traits&lt;Allocator&gt;::const_pointer*</td>
+	<td>glob:*void not_visible_in_cxx98*</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>//body</td>
+	<td>glob:*void not_visible_in_cxx11*</td>
 </tr>
 </tbody></table>
 </body>
