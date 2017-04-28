@@ -48,10 +48,10 @@ public:
     typedef typename std::allocator_traits<Allocator>::pointer pointer;
     typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
-    typedef T* iterator; // actual type is unspecified
-    typedef const T* const_iterator; // actual type is unspecified
-    typedef T* local_iterator; // actual type is unspecified
-    typedef const T* const_local_iterator; // actual type is unspecified
+    typedef value_type* iterator; // actual type is unspecified
+    typedef const value_type* const_iterator; // actual type is unspecified
+    typedef value_type* local_iterator; // actual type is unspecified
+    typedef const value_type* const_local_iterator; // actual type is unspecified
 
     // constructor
 #if CPPREFERENCE_STDVER <2014

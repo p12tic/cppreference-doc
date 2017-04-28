@@ -58,8 +58,8 @@ public:
     typedef typename std::allocator_traits<Allocator>::pointer pointer;
     typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
-    typedef T* iterator; // actual type is unspecified
-    typedef const T* const_iterator; // actual type is unspecified
+    typedef value_type* iterator; // actual type is unspecified
+    typedef const value_type* const_iterator; // actual type is unspecified
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
