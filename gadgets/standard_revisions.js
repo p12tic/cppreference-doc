@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2013-2015  Povilas Kanapickas <povilas@radix.lt>
+    Copyright (C) 2013-2017  Povilas Kanapickas <povilas@radix.lt>
 
     This file is part of cppreference.com
 
@@ -53,28 +53,6 @@ $(function() {
                 res.push(a[i]);
                 c = a[i];
             }
-        }
-        return res;
-    }
-
-    // Performs piecewise logical AND of the contents of two given arrays of
-    // bool and returns the resulting array
-    function array_and(a, b) {
-        var res = [];
-        var length = a.length < b.length ? a.length : b.length;
-        for (var i = 0; i < length; i++) {
-            res.push(a[i] && b[i]);
-        }
-        return res;
-    }
-
-    // Performs piecewise logical OR of the contents of two given arrays of
-    // bool and returns the resulting array
-    function array_or(a, b) {
-        var res = [];
-        var length = a.length < b.length ? a.length : b.length;
-        for (var i = 0; i < length; i++) {
-            res.push(a[i] || b[i]);
         }
         return res;
     }
@@ -190,112 +168,175 @@ $(function() {
         return { since: true, rev: Rev.C89 };
     }
 
-    /*  Given an jQuery object, inspects mark css classes and returns a
-        'visibility map' corresponding to these css classes. A visibility map
-        is a bool array indexed by revisions. Each element specifies whether
-        the object should be visible on that revision.
+    /*  This class stores information about what revisions a certain object
+        should be shown on. A number of convenience functions are provided.
     */
-    // FIXME: this function handles only certain cases of fully closed ranges
-    function get_visibility_on_rev_cxx(el) {
-        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
-        // DIFF is always false
-        if (el.hasClass('t-since-cxx17')) {
-            return [false, false, false, false, true];
+    var VisibilityMap = function(revs) {
+        this.map = [];
+
+        // initialize the map to "not shown"
+        var i;
+        for (i = 0; i < Rev.LAST; i++) {
+            this.map.push(false);
         }
-        if (el.hasClass('t-since-cxx14')) {
-            return [false, false, false, true, true];
-        }
-        if (el.hasClass('t-since-cxx11')) {
-            if (el.hasClass('t-until-cxx14')) {
-                return [false, false, true, false, false];
+
+        if (typeof(revs) !== 'undefined') {
+            for (i = 0; i < revs.length; i++) {
+                this.map[revs[i]] = true;
             }
-            return [false, false, true, true, true];
         }
-        if (el.hasClass('t-until-cxx11')) {
-            return [false, true, false, false, false];
-        }
-        if (el.hasClass('t-until-cxx14')) {
-            return [false, true, true, false, false];
-        }
-        if (el.hasClass('t-until-cxx17')) {
-            return [false, true, true, true, false];
-        }
-        return [false, true, true, true, true];
     }
 
-    function get_visibility_on_rev_c(el) {
-        // DIFF: 0, C89: 1, C99: 2, C11: 3
-        // DIFF is always false
-        if (el.hasClass('t-since-c11')) {
-            return [false, false, false, true];
-        }
-        if (el.hasClass('t-since-c99')) {
-            if (el.hasClass('t-until-c11')) {
-                return [false, false, true, false];
-            }
-            return [false, false, true, true];
-        }
-        if (el.hasClass('t-until-c99')) {
-            return [false, true, false, false];
-        }
-        if (el.hasClass('t-until-c11')) {
-            return [false, true, true, false];
-        }
-        return [false, true, true, true];
+    // Checks the visibility on the given revision.
+    VisibilityMap.prototype.is_visible_on = function(rev) {
+        return this.map[rev];
     }
 
-    /* Returns a 'visibility map' filled with the given bool value.
+    // Checks whether all revisions are hidden in this visibility map
+    VisibilityMap.prototype.is_visible_on_none = function() {
+        for (var i = 0; i < Rev.LAST; i++) {
+            if (this.map[i] === true) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Checks whether all revisions are shown in this visibility map
+    VisibilityMap.prototype.is_visible_on_all = function() {
+        for (var i = 0; i < Rev.LAST; i++) {
+            if (this.map[i] === false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Sets the visibility on the given revision to true.
+    VisibilityMap.prototype.add = function(rev) {
+        this.map[rev] = true;
+    }
+
+
+    /*  Fills the visibility map with the given value. After the operation
+        map.is_visible_on(rev) == value for all valid revisions.
     */
-    function visibility_fill_cxx(val) {
-        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
-        return [val, val, val, val, val];
-    }
-    function visibility_fill_c(el) {
-        // DIFF: 0, C89: 1, C99: 2, C11: 3
-        return [val, val, val, val];
+    VisibilityMap.prototype.fill = function(value) {
+        for (var i = 0; i < this.map.length; i++)
+            this.map[i] = value;
     }
 
-    /// Prints values in a 'visibility map'
-    function debug_print_visibility_map(revs) {
+    var visibility_fill = function(value) {
+        var ret = new VisibilityMap();
+        ret.fill(value);
+        return ret;
+    }
+
+    // Clones the visibility map
+    VisibilityMap.prototype.clone = function() {
+        var ret = new VisibilityMap();
+        ret.map = this.map.slice();
+        return ret;
+    }
+
+    // Checks whether two visibility maps are equal
+    VisibilityMap.prototype.equal = function(other) {
+        return array_equal(this.map, other.map);
+    }
+
+    /*  Combines the map with another visibility map. The resulting map
+        indicates visibility on particular revision if both argument maps
+        indicated so. Returns this.
+    */
+    VisibilityMap.prototype.combine_and = function(map) {
+        for (var i = 0; i < Rev.LAST; i++) {
+            this.map[i] = this.map[i] && map.map[i];
+        }
+    }
+
+    /*  Combines the map with another visibility map. The resulting map
+        indicates visibility on particular revision if either argument maps
+        indicated so.
+    */
+    VisibilityMap.prototype.combine_or = function(map) {
+        for (var i = 0; i < Rev.LAST; i++) {
+            this.map[i] = this.map[i] || map.map[i];
+        }
+    }
+
+    // Prints the contents to a string
+    VisibilityMap.prototype.debug_to_string = function() {
         var out = '{ ';
-        for (var i = 0; i < revs.length; i++) {
-            if (revs[i]) {
-                out += 't';
+        for (var i = 0; i < this.map.length; i++) {
+            if (this.map[i]) {
+                out += 'T';
             } else {
-                out += 'f';
+                out += 'F';
             }
         }
         out += ' }';
         return out;
     }
 
-    var get_mark, get_visibility_on_rev, visibility_fill;
+    /*  Given an jQuery object, inspects mark css classes and returns a
+        visibility map corresponding to these css classes. Rev.DIFF is not
+        included into the returned visibility map.
+    */
+    // FIXME: this function handles only certain cases of fully closed ranges
+    function get_visibility_map_cxx(el) {
+        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
+        if (el.hasClass('t-since-cxx17')) {
+            return new VisibilityMap([Rev.CXX17]);
+        }
+        if (el.hasClass('t-since-cxx14')) {
+            return new VisibilityMap([Rev.CXX14, Rev.CXX17]);
+        }
+        if (el.hasClass('t-since-cxx11')) {
+            if (el.hasClass('t-until-cxx14')) {
+                return new VisibilityMap([Rev.CXX11]);
+            }
+            return new VisibilityMap([Rev.CXX11, Rev.CXX14, Rev.CXX17]);
+        }
+        if (el.hasClass('t-until-cxx11')) {
+            return new VisibilityMap([Rev.CXX98]);
+        }
+        if (el.hasClass('t-until-cxx14')) {
+            return new VisibilityMap([Rev.CXX98, Rev.CXX11]);
+        }
+        if (el.hasClass('t-until-cxx17')) {
+            return new VisibilityMap([Rev.CXX98, Rev.CXX11, Rev.CXX14]);
+        }
+        return new VisibilityMap([Rev.CXX98, Rev.CXX11, Rev.CXX14, Rev.CXX17]);
+    }
+
+    function get_visibility_map_c(el) {
+        // DIFF: 0, C89: 1, C99: 2, C11: 3
+        if (el.hasClass('t-since-c11')) {
+            return new VisibilityMap([Rev.C11]);
+        }
+        if (el.hasClass('t-since-c99')) {
+            if (el.hasClass('t-until-c11')) {
+                return new VisibilityMap([Rev.C99]);
+            }
+            return new VisibilityMap([Rev.C99, Rev.C11]);
+        }
+        if (el.hasClass('t-until-c99')) {
+            return new VisibilityMap([Rev.C89]);
+        }
+        if (el.hasClass('t-until-c11')) {
+            return new VisibilityMap([Rev.C89, Rev.C99]);
+        }
+        return new VisibilityMap([Rev.C89, Rev.C99, Rev.C11]);
+    }
+
+    var get_mark, get_visibility_map;
 
     if (is_cxx) {   // select either C or C++ version
         get_mark = get_mark_cxx;
-        get_visibility_on_rev = get_visibility_on_rev_cxx;
-        visibility_fill = visibility_fill_cxx;
+        get_visibility_map = get_visibility_map_cxx;
     } else {
         get_mark = get_mark_c;
-        get_visibility_on_rev = get_visibility_on_rev_c;
-        visibility_fill = visibility_fill_c;
-    }
-
-    /** Converts visibility map to an array of revisions as accepted by
-        ObjectTracker's add_* methods
-    */
-    function visibility_to_shown_revs(revs) {
-        var res = [];
-        for (var rev = Rev.DIFF; rev != Rev.LAST; ++rev) {
-            if (revs[rev]) {
-                res.push(rev);
-            }
-        }
-        return res;
-    }
-
-    function get_shown_revs(el) {
-        return visibility_to_shown_revs(get_visibility_on_rev(el));
+        get_visibility_map = get_visibility_map_c;
     }
 
     /** This class keeps track of objects that need to be shown or hidden for
@@ -322,20 +363,22 @@ $(function() {
         display property that should be set to the object when the visibility
         is restored.
     */
-    ObjectTracker.prototype.add_object = function(obj, orig_obj, revs) {
+    ObjectTracker.prototype.add_object = function(obj, orig_obj, visibility_map) {
         var id = this.all_objects.length;
         this.all_objects[id] = obj;
         this.all_display[id] = orig_obj.css('display');
 
-        for (var i = 0; i < revs.length; ++i) {
-            this.rev2id_map[revs[i]].push(id);
+        for (var rev = 0; rev < Rev.LAST; rev++) {
+            if (visibility_map.is_visible_on(rev)) {
+                this.rev2id_map[rev].push(id);
+            }
         }
     };
 
     // Same as add_object except that obj is used to compute the display
     // property. The object must be already attached to DOM.
-    ObjectTracker.prototype.add_diff_object = function(obj, revs) {
-        this.add_object(obj, obj, revs);
+    ObjectTracker.prototype.add_diff_object = function(obj, visibility_map) {
+        this.add_object(obj, obj, visibility_map);
     }
 
     /*  Changes the visibility of objects to what it should be at the given
@@ -348,14 +391,15 @@ $(function() {
         var visible_before = this.rev2id_map[this.curr_rev];
         var visible_after = this.rev2id_map[rev];
 
-        for (var i = 0; i < visible_before.length; ++i) {
-            var curr = visible_before[i];
+        var i, curr;
+        for (i = 0; i < visible_before.length; ++i) {
+            curr = visible_before[i];
             if ($.inArray(curr, visible_after) === -1) {
                 this.all_objects[curr].css('display', 'none');
             }
         }
-        for (var i = 0; i < visible_after.length; ++i) {
-            var curr = visible_after[i];
+        for (i = 0; i < visible_after.length; ++i) {
+            curr = visible_after[i];
             if ($.inArray(curr, visible_before) === -1) {
                 this.all_objects[curr].css('display', this.all_display[curr]);
             }
@@ -530,19 +574,19 @@ $(function() {
 
     // Recursively evaluates visibility of a section object
     SectionContentsTracker.prototype.eval_section_visibility = function(obj) {
-        var visible = visibility_fill(false);
+        var visible = new VisibilityMap();
         var i, child;
         for (i = 0; i < obj.children.length; i++) {
             child = obj.children[i];
             switch (child.type) {
             case ObjectType.PRIMARY:
             case ObjectType.UNKNOWN:
-                visible = array_or(visible, child.visible);
+                visible.combine_or(child.visible);
                 break;
             case ObjectType.SECONDARY: // ignoring secondary objects
                 break;
             case ObjectType.SECTION:
-                visible = array_or(visible, this.eval_section_visibility(child));
+                visible.combine_or(this.eval_section_visibility(child));
                 break;
             }
         }
@@ -561,25 +605,28 @@ $(function() {
     // Recursively evaluates visibility of container objects. Assumes that
     // visibility of secondary objects is already set
     SectionContentsTracker.prototype.eval_container_visibility = function(obj) {
-        var visible = visibility_fill(false);
+        var visible = new VisibilityMap();
         for (var i = 0; i < obj.children.length; i++) {
             var child = obj.children[i];
             if (child.type === ObjectType.CONTAINER) {
-                visible = array_or(visible, this.eval_container_visibility(child));
+                visible.combine_or(this.eval_container_visibility(child));
             } else {
-                visible = array_or(visible, child.visible);
+                visible.combine_or(child.visible);
             }
         }
         obj.visible = visible;
         return visible;
     };
 
-    // Checks if the object needs to be hidden in any revisions identified in
-    // mask and if yes, performs the hide operation.
+    /*  Checks if the object needs to be hidden in any revisions identified in
+        mask and if yes, performs the hide operation. visible_mask is a
+        visibility map. Returns the visibility of the object ANDed with the mask.
+    */
     SectionContentsTracker.prototype.perform_hide_obj =  function(obj, tracker, visible_mask) {
-        var wanted_visible = array_and(obj.visible, visible_mask);
-        if (!array_equal(wanted_visible, visible_mask)) {
-            tracker.add_diff_object(obj.obj, visibility_to_shown_revs(wanted_visible));
+        var wanted_visible = obj.visible.clone();
+        wanted_visible.combine_and(visible_mask);
+        if (!wanted_visible.equal(visible_mask)) {
+            tracker.add_diff_object(obj.obj, wanted_visible);
             return wanted_visible;
         }
         return visible_mask;
@@ -700,14 +747,14 @@ $(function() {
             return; // no navbar
         }
 
-        this.tracker.add_diff_object(nv, [Rev.DIFF]);
+        this.tracker.add_diff_object(nv, new VisibilityMap([Rev.DIFF]));
 
         var self = this;
 
         for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
             // Create new navbar and insert it to the tracker
             var rev_nv = nv.clone().hide().insertAfter(nv);
-            this.tracker.add_object(rev_nv, nv, [rev]);
+            this.tracker.add_object(rev_nv, nv, new VisibilityMap([rev]));
 
             // Get interesting elements
             var nv_tables = rev_nv.find('.t-nv-begin');
@@ -795,10 +842,10 @@ $(function() {
         var rev_elems = scope.rev_tables.children('tbody').children('.t-rev');
         var self = this;
         rev_elems.each(function() {
-            var shown_revs = get_shown_revs($(this));
-            shown_revs.push(Rev.DIFF);
+            var visible = get_visibility_map($(this));
+            visible.add(Rev.DIFF);
 
-            self.tracker.add_diff_object($(this), shown_revs);
+            self.tracker.add_diff_object($(this), visible);
         });
     };
 
@@ -807,13 +854,13 @@ $(function() {
     StandardRevisionPlugin.prototype.prepare_all_inl_revs = function(scope) {
         var self = this;
         scope.rev_inl_tables.each(function() {
-            self.tracker.add_diff_object($(this), [Rev.DIFF]);
+            self.tracker.add_diff_object($(this), new VisibilityMap([Rev.DIFF]));
 
-            var shown_revs = get_shown_revs($(this));
+            var visible = get_visibility_map($(this));
             var copy = $(this).children().first().clone().hide()
                               .insertAfter($(this));
 
-            self.tracker.add_object(copy, $(this), shown_revs);
+            self.tracker.add_object(copy, $(this), visible);
         });
     };
 
@@ -935,7 +982,7 @@ $(function() {
             self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
 
             for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-                if (rev_map[rev].length === 0) {
+                if (rev_map[rev].is_visible_on_none()) {
                     continue;
                 }
 
@@ -963,7 +1010,7 @@ $(function() {
             self.tracker.add_diff_object(el, rev_map[Rev.DIFF]);
 
             for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-                if (rev_map[rev].length === 0) {
+                if (rev_map[rev].is_visible_on_none()) {
                     continue;
                 }
 
@@ -1008,11 +1055,7 @@ $(function() {
             <Simple dcl> :== {
                 type: 'i',
                 obj: <jQuery object>
-
-                // The format is the same as returned by is_shown_on_ref
-                // revs[Rev.DIFF] being true identifies that no versioning
-                // information has been provided.
-                revs: 'shown_revs',
+                revs: <visibility map>,
 
                 // -1 if not defined
                 num: 'orig_num'
@@ -1021,7 +1064,7 @@ $(function() {
             <Rev-list dcl> :== {
                 type: 'r',
                 obj: <jQuery object>,
-                revs: 'shown_revs',  // see notes for <Simple dcl>
+                revs: <visibility map>',
                 num: 'orig_num',     // -1 if not defined
                 aux: <jQuery object>, // potentially empty
 
@@ -1061,7 +1104,7 @@ $(function() {
             if (!is_rev_overridden) {
                 var notes_td = el.children('td').eq(2);
                 if (notes_td.find('.t-mark-rev').length > 0) {
-                    new_def.revs = get_visibility_on_rev(el);
+                    new_def.revs = get_visibility_map(el);
                 }
             } else {
                 new_def.revs = overridden_revs;
@@ -1099,7 +1142,7 @@ $(function() {
             if (el.hasClass('t-dcl-rev-notes')) {
                 var mark_revs = aux_tr.children('td').eq(2).find('.t-mark-rev');
                 if (mark_revs.length > 0) {
-                    new_def.revs = get_visibility_on_rev(el);
+                    new_def.revs = get_visibility_map(el);
                     has_revs = true;
                 }
             }
@@ -1129,7 +1172,7 @@ $(function() {
             var out = '';
             for (var i = 0; i < defs.length; i++) {
                 out += ' { ' + i + ': ' + defs[i].type + ' ' + defs[i].num;
-                out += ' ' + debug_print_visibility_map(defs[i].revs);
+                out += ' ' + defs[i].revs.debug_to_string();
                 if (defs[i].type === 'r') {
                     out += ' { ';
                     for (var j = 0 ; j < defs[i].children.length; ++j) {
@@ -1153,7 +1196,8 @@ $(function() {
             // We need the maximum visible num to initialize the result array
             // properly
             var max_num = -1;
-            for (var i = 0; i < defs.length; ++i) {
+            var i;
+            for (i = 0; i < defs.length; ++i) {
                 if (defs[i].num > max_num) {
                     max_num = defs[i].num;
                 }
@@ -1165,8 +1209,8 @@ $(function() {
 
                     var visible_nums = [];
 
-                    for (var i = 0; i < defs.length; ++i) {
-                        if (defs[i].revs[rev] === true &&
+                    for (i = 0; i < defs.length; ++i) {
+                        if (defs[i].revs.is_visible_on(rev) &&
                             defs[i].num !== -1) {
                             visible_nums.push(defs[i].num);
                         }
@@ -1180,7 +1224,7 @@ $(function() {
                     }
 
                     var curr_num = 1;
-                    for (var i = 0; i < visible_nums.length; ++i) {
+                    for (i = 0; i < visible_nums.length; ++i) {
                         curr_map[visible_nums[i]] = curr_num;
                         curr_num++;
                     }
@@ -1229,107 +1273,104 @@ $(function() {
             return nums;
         };
 
-        /// Checks whether any children of a rev-list identified by @a def
-        /// are shown in revision @a rev
+        /*  Returns a visibility map that identifies whether any children of
+            rev-list identified by def are shown on particular revision.
+        */
         function any_children_visible_on_rev(def) {
-            var res = visibility_fill(false);
+            var ret = new VisibilityMap();
 
             for (var i = 0; i !== def.children.length; ++i) {
-                res = array_or(res, defs[def.children[i]].revs);
+                ret.combine_or(defs[def.children[i]].revs);
             }
-            res[Rev.DIFF] = false;
-            return res;
+            ret.remove(Rev.DIFF);
+            return ret;
         };
 
         /** Returns infomation about the required copies of the base
             element.
         */
-        function get_copy_info(revs, nums) {
+        function get_copy_info(visible, nums) {
             var res = [];
 
             var base_rev;   // Don't create a new element if it would
             var new_num;    // be identical to previous one
-            var new_revs;
+            var new_visible;
             var is_first = true;
 
             for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
-                if (!revs[rev]) {
+                if (!visible.is_visible_on(rev)) {
                     continue;
                 }
                 if (!is_first && new_num === nums[rev]) {
                     // Identical element already exists
-                    new_revs.push(rev);
+                    new_visible.add(rev);
                     continue;
                 }
 
                 if (!is_first) {
-                    res.push({ base_rev: base_rev, revs: new_revs,
+                    res.push({ base_rev: base_rev, revs: new_visible,
                                num: new_num });
                 }
 
                 base_rev = rev;
                 new_num = nums[rev];
-                new_revs = [rev];
+                new_visible = new VisibilityMap([rev]);
                 is_first = false;
             }
             if (!is_first) {
-                res.push({ base_rev: base_rev, revs: new_revs,
+                res.push({ base_rev: base_rev, revs: new_visible,
                            num: new_num });
             }
             return res;
         };
 
         function finalize_tr(def) {
-            var sep_revs;
-
             var new_el;
             if (def.num === -1) {
-                var tr_revs = visibility_to_shown_revs(def.revs);
-                sep_revs = tr_revs;
-                if (def.revs[Rev.DIFF] === true) {
+                if (def.revs.is_visible_on(Rev.DIFF)) {
                     // no num and no rev-marks -- shown always
-                    tracker.add_diff_object(def.obj, tr_revs);
+                    tracker.add_diff_object(def.obj, def.revs);
                 } else {
                     // no num -- two versions: one with rev-marks and
                     // one without
                     new_el = def.obj.clone().hide().insertAfter(def.obj);
                     clear_rev_marks(new_el);
-                    tracker.add_diff_object(def.obj, [Rev.DIFF]);
-                    tracker.add_object(new_el, def.obj, tr_revs);
-                    sep_revs.push(Rev.DIFF);
+                    tracker.add_diff_object(def.obj, new VisibilityMap([Rev.DIFF]));
+                    tracker.add_object(new_el, def.obj, def.revs);
                 }
             } else {
                 // need to handle numbering
                 var nums = get_tr_nums(def.num);
 
-                tracker.add_diff_object(def.obj, [Rev.DIFF]);
+                tracker.add_diff_object(def.obj, new VisibilityMap([Rev.DIFF]));
 
                 var copy_info = get_copy_info(def.revs, nums);
 
-                sep_revs = [Rev.DIFF];
                 for (var i = 0; i < copy_info.length; i++) {
                     new_el = def.obj.clone().hide().insertAfter(def.obj);
                     clear_rev_marks(new_el);
                     set_number(new_el, copy_info[i].num);
                     tracker.add_object(new_el, def.obj, copy_info[i].revs);
-                    sep_revs = sep_revs.concat(copy_info[i].revs);
                 }
             }
         };
 
-        // Roughly the same as finalize_tr, but while all modifications are
-        // applied to the t-dcl-rev-aux element, we hide entire tbody
-        // section when it has no contents or defs[i].revs[rev] == false
+        /*  Roughly the same as finalize_tr, but while all modifications are
+            applied to the t-dcl-rev-aux element, we hide entire tbody
+            section when it has no contents or defs[i].revs.is_visible_on(rev)
+            is false
+        */
         function finalize_rev_tbody(def) {
             // The rev-list tbody does not ever change - we only need to
             // hide it sometimes
-            var tbody_revs = array_and(def.revs, any_children_visible_on_rev(def));
-            tbody_revs[Rev.DIFF] = true;
-            tracker.add_diff_object(def.obj, visibility_to_shown_revs(tbody_revs));
+            var tbody_visible = def.revs.clone();
+            tbody_visible.combine_and(any_children_visible_on_rev(def));
+            tbody_visible.add(Rev.DIFF);
+            tracker.add_diff_object(def.obj, tbody_visible);
             var new_el;
 
             if (def.num === -1) {
-                if (def.revs[Rev.DIFF] === true) {
+                if (def.revs.is_visible_on(Rev.DIFF)) {
                     // No num and no rev-marks -- no further modifications
                     // needed.
 
@@ -1338,17 +1379,17 @@ $(function() {
                     // one without
                     new_el = def.aux.clone().hide().insertAfter(def.aux);
                     clear_rev_marks(new_el);
-                    tracker.add_diff_object(def.aux, [Rev.DIFF]);
-                    var revs = tbody_revs.slice();
-                    revs[Rev.DIFF] = false;
+                    tracker.add_diff_object(def.aux, new VisibilityMap([Rev.DIFF]));
 
-                    tracker.add_object(new_el, def.aux, visibility_to_shown_revs(revs));
+                    var aux_visible = tbody_visible; // no need to clone
+                    aux_visible.remove(Rev.DIFF);
+                    tracker.add_object(new_el, def.aux, aux_visible);
                 }
             } else {
                 // need to handle numbering
                 var nums = get_tr_nums(def.num);
 
-                tracker.add_diff_object(def.aux, [Rev.DIFF]);
+                tracker.add_diff_object(def.aux, new VisibilityMap([Rev.DIFF]));
 
                 var copy_info = get_copy_info(def.revs, nums);
 
@@ -1427,8 +1468,7 @@ $(function() {
             // get the description of what numbers to display for which
             // revision
 
-            var revs_show = visibility_fill(true);
-            var revs_show_all = true;
+            var visible = visibility_fill(true);
 
             var disp_desc = [];
             var prev_nums = nums;
@@ -1447,8 +1487,7 @@ $(function() {
 
                 if (target_nums.length === 0) {
                     // will hide entire t-liX element
-                    revs_show[rev] = false;
-                    revs_show_all = false;
+                    visible.remove(rev);
                     continue;
                 }
 
@@ -1462,9 +1501,8 @@ $(function() {
             }
             disp_desc.push({ revs: prev_revs, nums: prev_nums });
             // hide entire t-liX element if needed
-            if (!revs_show_all) {
-                this.tracker.add_diff_object(descs[i].obj,
-                                             visibility_to_shown_revs(revs_show));
+            if (!visible.is_visible_on_all()) {
+                this.tracker.add_diff_object(descs[i].obj, visible);
             }
 
             // Add t-li elements with different text if needed
@@ -1536,11 +1574,11 @@ $(function() {
         Returns an a list of revisions for which a the node should be copied
         and for which revisions each of the copy would be shown. The result
         is an associative array: key identifies the revision to build the
-        DOM for; the value identifies the revisions to show the result for.
+        DOM for; the value is visibility map.
     */
     StandardRevisionPlugin.prototype.get_revision_map = function(lines) {
         var res = [];
-        res[Rev.DIFF] = [Rev.DIFF];
+        res[Rev.DIFF] = new VisibilityMap([Rev.DIFF]);
 
         var visible_by_line = [];
 
@@ -1549,7 +1587,7 @@ $(function() {
 
         lines.each(function() {
             var rev_mark = $(this).find('.t-mark-rev').first();
-            visible_by_line.push(get_visibility_on_rev(rev_mark));
+            visible_by_line.push(get_visibility_map(rev_mark));
             if (rev_mark.length > 0) {
                 is_diff_clean = false;
             }
@@ -1560,20 +1598,23 @@ $(function() {
         // of the previous revision, instead of creating a new one.
         var prev_rev = Rev.DIFF;
         var prev_visible = [];
+        var i;
+
         if (is_diff_clean) {
-            // any further revisions will match this this array only if
-            // original version of the element does not contain rev marks
-            for (var i = 0; i < visible_by_line.length; i++) {
-                prev_visible.push(i); // DIFF shows all lines
+            // in case the Rev.DIFF version does not contain rev marks, then
+            // we can reuse the objects for other revisions. Rev.DIFF version
+            // is fully visibily, so reflect that in the prev_visible array.
+            for (i = 0; i < visible_by_line.length; i++) {
+                prev_visible.push(i);
             }
         }
 
         for (var rev = Rev.FIRST; rev < Rev.LAST; ++rev) {
-            res[rev] = [];
+            res[rev] = new VisibilityMap();
 
             var curr_visible = [];
-            for (var i = 0; i < visible_by_line.length; i++) {
-                if (visible_by_line[i][rev] === true) {
+            for (i = 0; i < visible_by_line.length; i++) {
+                if (visible_by_line[i].is_visible_on(rev)) {
                     curr_visible.push(i);
                 }
             }
@@ -1585,9 +1626,9 @@ $(function() {
             // Maybe nothing has changed from the previous revision and we
             // can simply keep the node created for the previous revision
             if (array_equal(curr_visible, prev_visible)) {
-                res[prev_rev].push(rev);
+                res[prev_rev].add(rev);
             } else {
-                res[rev].push(rev);
+                res[rev].add(rev);
                 prev_visible = curr_visible;
                 prev_rev = rev;
             }
@@ -1600,10 +1641,10 @@ $(function() {
         get_revision_map and produces a visibility map from that.
     */
     StandardRevisionPlugin.prototype.revision_map_to_visibility = function(revs) {
-        var visible = visibility_fill(false);
+        var visible = new VisibilityMap();
         for (var i = 0; i < revs.length; ++i) {
             for (var j = 0; j < revs[i].length; ++j) {
-                visible[revs[i][j]] = true;
+                visible.add(revs[i][j]);
             }
         }
         return visible;
