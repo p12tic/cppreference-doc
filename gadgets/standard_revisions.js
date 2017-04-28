@@ -843,8 +843,12 @@ $(function() {
         return false;
     };
 
-    // Returns the section level for the given jQuery object.
-    StandardRevisionPlugin.prototype.get_level = function(el) {
+    /*  If the given jQuery object refers to a heading element, then returns
+        the section level for that heading. More "important" heading elements
+        have lower section levels, the lowest being 0. If the given jQuery
+        object does not refer to a heading, then the function returns -1.
+    */
+    StandardRevisionPlugin.prototype.get_heading_level = function(el) {
         if (el.is('h2'))
             return 0;
         if (el.is('h3'))
@@ -862,9 +866,8 @@ $(function() {
         section level by exiting section nodes or creating new section nodes
         and entering them as needed.
     */
-    // FIXME: get_level and set_level naming is quite confusing
     StandardRevisionPlugin.prototype.set_level_if_needed = function(section_tracker, el) {
-        var level = this.get_level(el);
+        var level = this.get_heading_level(el);
         if (level >= 0) {
             section_tracker.set_level(level);
         }
