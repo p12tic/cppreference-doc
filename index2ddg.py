@@ -462,6 +462,9 @@ def main():
     parser = argparse.ArgumentParser(prog='index2ddg.py')
     parser.add_argument('index', type=str,
                         help='The path to the XML index containing identifier data')
+    parser.add_argument('reference', type=str,
+                        help=('The path to the downloaded reference (reference '
+                              'directory in the downloaded archive)'))
     parser.add_argument('output', type=str,
                         help='The path to destination output.txt file')
     parser.add_argument('--split_code_snippets', action='store_true', default=False,
@@ -503,11 +506,11 @@ def main():
     tr.transform(index_file)
 
     # get a list of existing pages
-    html_files = get_html_files('reference')
+    html_files = get_html_files(args.reference)
 
     # get a mapping between titles and pages
     # linkmap = dict { title -> filename }
-    link_map = build_link_map('reference')
+    link_map = build_link_map(args.reference)
 
     # create a list of processing instructions for each page
     proc_ins = get_processing_instructions(ident_map, link_map)
@@ -538,7 +541,7 @@ def main():
         #print(str(i) + '/' + str(len(proc_ins)) + ': ' + link)
         #i+=1
 
-        root = e.parse('reference/'+fn, parser=html.HTMLParser())
+        root = e.parse(os.path.join(args.reference, fn), parser=html.HTMLParser())
 
         for ident in idents:
 
