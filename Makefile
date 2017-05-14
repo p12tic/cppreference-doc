@@ -119,21 +119,21 @@ release: all
 	mkdir -p "cppreference-doc-$(VERSION)"
 	cp -r $(DISTFILES) "cppreference-doc-$(VERSION)"
 	tar c$(TAR_OPTION)f "release/cppreference-doc-$(VERSION).tar.$(TAR_FORMAT)" "cppreference-doc-$(VERSION)"
-	zip -r "release/cppreference-doc-$(VERSION).zip" "cppreference-doc-$(VERSION)"
+	zip -qr "release/cppreference-doc-$(VERSION).zip" "cppreference-doc-$(VERSION)"
 	rm -rf "cppreference-doc-$(VERSION)"
 
 	# zip the html output
 	pushd "output"; \
 	tar c$(TAR_OPTION)f "../release/html-book-$(VERSION).tar.$(TAR_FORMAT)" "reference" \
 		"cppreference-doxygen-local.tag.xml" ; \
-	zip -r "../release/html-book-$(VERSION).zip" "reference" \
+	zip -qr "../release/html-book-$(VERSION).zip" "reference" \
 		"cppreference-doxygen-local.tag.xml" ; \
 	popd
 
 	# zip qch
 	pushd "output"; \
 	tar c$(TAR_OPTION)f "../release/qch-book-$(VERSION).tar.$(TAR_FORMAT)" "cppreference-doc-en-cpp.qch"; \
-	zip -r "../release/qch-book-$(VERSION).zip" "cppreference-doc-en-cpp.qch"; \
+	zip -qr "../release/qch-book-$(VERSION).zip" "cppreference-doc-en-cpp.qch"; \
 	popd
 
 #WORKER RULES
