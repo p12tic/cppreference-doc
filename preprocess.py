@@ -256,11 +256,8 @@ def preprocess_html_file(root, fn, rename_map):
 
     for err in parser.error_log:
         print("HTML WARN: {0}".format(err))
-    text = etree.tostring(html, encoding=str, method="html")
 
-    f = open(fn, "w", encoding='utf-8')
-    f.write(text)
-    f.close()
+    html.write(fn, encoding='utf-8', method='html')
 
 def preprocess_css_file(fn):
 
@@ -304,13 +301,9 @@ def main():
         preprocess_html_file(root, fn, rename_map)
 
     # append css modifications
-
-    f = open("preprocess-css.css", "r", encoding='utf-8')
-    css_app = f.read()
-    f.close()
-    f = open(os.path.join(root, 'common/site_modules.css'), "a", encoding='utf-8')
-    f.write(css_app)
-    f.close()
+    with open(os.path.join(root, 'common/site_modules.css'), "a") as out:
+        with open("preprocess-css.css", "r") as pp:
+            out.writelines(pp)
 
     # clean the css files
 
