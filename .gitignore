@@ -2,4 +2,5 @@ debian
 reference*
 images/output/
 output*
+release/
 *.pyc
