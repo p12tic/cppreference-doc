@@ -161,8 +161,14 @@ def find_html_files(root):
     return html_files
 
 def fix_relative_link(rename_map, target):
-    if 'http://' in target or 'https://' in target:
-        return target
+    external_link_patterns = [
+        'http://',
+        'https://',
+        'ftp://'
+    ]
+    for pattern in external_link_patterns:
+        if pattern in target:
+            return target
 
     target = urllib.parse.unquote(target)
     for dir,fn,new_fn in rename_map:
