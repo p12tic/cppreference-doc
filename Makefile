@@ -42,7 +42,7 @@ DISTFILES=	\
 		skins/					\
 		build_link_map.py		\
 		ddg_parse_html.py		\
-		devhelp2qch.xsl			\
+		devhelp2qch.py			\
 		fix_devhelp-links.py	\
 		index2autolinker.py	\
 		index2browser.py		\
@@ -191,8 +191,9 @@ output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
 	echo "</files>" >> "output/qch-files.xml"
 
 	#create the project (copies the file list)
-	xsltproc devhelp2qch.xsl "output/cppreference-doc-en-cpp.devhelp2" > \
-		"output/qch-help-project-cpp.xml"
+	./devhelp2qch.py --src=output/cppreference-doc-en-cpp.devhelp2 \
+		--dst=output/qch-help-project-cpp.xml \
+		--virtual_folder=cpp --file_list=output/qch-files.xml
 
 # build doxygen tag file
 output/cppreference-doxygen-local.tag.xml: 		\

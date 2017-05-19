@@ -41,7 +41,7 @@ to <http://en.cppreference.com/w/Cppreference:Archives>.
 Dependencies
 ------------
 
-The package depends on 'wget' (>=1.15), 'python3', 'python3-lxml', 'xsltproc'
+The package depends on 'wget' (>=1.15), 'python3', 'python3-lxml',
 and 'qhelpgenerator' for the generation of the documentation.
 
 See also
