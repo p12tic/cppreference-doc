@@ -1,4 +1,3 @@
-
 /*
     Copyright (C) 2013-2017  Povilas Kanapickas <povilas@radix.lt>
 
@@ -288,7 +287,6 @@ $(function() {
         visibility map corresponding to these css classes. Rev.DIFF is not
         included into the returned visibility map.
     */
-    // FIXME: this function handles only certain cases of fully closed ranges
     function get_visibility_map_cxx(el) {
         // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
         var classes_cxx = [
