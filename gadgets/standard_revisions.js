@@ -1,3 +1,4 @@
+
 /*
     Copyright (C) 2013-2017  Povilas Kanapickas <povilas@radix.lt>
 
@@ -217,6 +218,11 @@ $(function() {
         this.map[rev] = true;
     }
 
+    // Sets the visibility on the given revision to true.
+    VisibilityMap.prototype.remove = function(rev) {
+        this.map[rev] = false;
+    }
+
 
     /*  Fills the visibility map with the given value. After the operation
         map.is_visible_on(rev) == value for all valid revisions.
@@ -285,28 +291,28 @@ $(function() {
     // FIXME: this function handles only certain cases of fully closed ranges
     function get_visibility_map_cxx(el) {
         // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
-        if (el.hasClass('t-since-cxx17')) {
-            return new VisibilityMap([Rev.CXX17]);
-        }
-        if (el.hasClass('t-since-cxx14')) {
-            return new VisibilityMap([Rev.CXX14, Rev.CXX17]);
-        }
-        if (el.hasClass('t-since-cxx11')) {
-            if (el.hasClass('t-until-cxx14')) {
-                return new VisibilityMap([Rev.CXX11]);
+        var classes_cxx = [
+            { rev: Rev.CXX11, since: 't-since-cxx11', until: 't-until-cxx11' },
+            { rev: Rev.CXX14, since: 't-since-cxx14', until: 't-until-cxx14' },
+            { rev: Rev.CXX17, since: 't-since-cxx17', until: 't-until-cxx17' },
+        ];
+        var map = new VisibilityMap();
+        for (var i = 0; i < classes_cxx.length; i++) {
+            if (el.hasClass(classes_cxx[i].since)) {
+                break;
             }
-            return new VisibilityMap([Rev.CXX11, Rev.CXX14, Rev.CXX17]);
         }
-        if (el.hasClass('t-until-cxx11')) {
-            return new VisibilityMap([Rev.CXX98]);
+        if (i === classes_cxx.length) {
+            map.add(Rev.CXX98);
+            i = 0;
         }
-        if (el.hasClass('t-until-cxx14')) {
-            return new VisibilityMap([Rev.CXX98, Rev.CXX11]);
+        for (; i < classes_cxx.length; i++) {
+            if (el.hasClass(classes_cxx[i].until)) {
+                break;
+            }
+            map.add(classes_cxx[i].rev);
         }
-        if (el.hasClass('t-until-cxx17')) {
-            return new VisibilityMap([Rev.CXX98, Rev.CXX11, Rev.CXX14]);
-        }
-        return new VisibilityMap([Rev.CXX98, Rev.CXX11, Rev.CXX14, Rev.CXX17]);
+        return map;
     }
 
     function get_visibility_map_c(el) {
@@ -1150,7 +1156,7 @@ $(function() {
             // process the member dcls
             el.children('.t-dcl').each(function() {
                 var new_id = process_tr($(this), has_num, has_revs,
-                                        new_def.revs.slice());
+                                        new_def.revs.clone());
                 new_def.children.push(new_id);
             });
 
