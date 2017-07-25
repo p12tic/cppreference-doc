@@ -72,7 +72,7 @@ $(function() {
     // assumed that the values are integers starting at zero and thus they can
     // be used as an index in regular arrays.
     var Rev_c = { DIFF: 0, FIRST: 1, C89: 1, C99: 2, C11: 3, LAST: 4 };
-    var Rev_cxx = { DIFF: 0, FIRST: 1, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, LAST: 5 };
+    var Rev_cxx = { DIFF: 0, FIRST: 1, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, CXX20: 5, LAST: 6 };
 
     var Rev;
 
@@ -96,6 +96,7 @@ $(function() {
         { rev: Rev.CXX11, title: 'C++11' },
         { rev: Rev.CXX14, title: 'C++14' },
         { rev: Rev.CXX17, title: 'C++17' },
+        { rev: Rev.CXX20, title: 'C++20' },
     ];
 
     var desc;
@@ -140,6 +141,9 @@ $(function() {
         if (el.hasClass('t-since-cxx17')) {
             return { since: true, rev: Rev.CXX17 };
         }
+        if (el.hasClass('t-since-cxx20')) {
+            return { since: true, rev: Rev.CXX20 };
+        }
         if (el.hasClass('t-until-cxx11')) {
             return { since: false, rev: Rev.CXX11 };
         }
@@ -148,6 +152,9 @@ $(function() {
         }
         if (el.hasClass('t-until-cxx17')) {
             return { since: false, rev: Rev.CXX17 };
+        }
+        if (el.hasClass('t-until-cxx20')) {
+            return { since: false, rev: Rev.CXX20 };
         }
         return { since: true, rev: Rev.CXX98 };
     }
@@ -288,11 +295,12 @@ $(function() {
         included into the returned visibility map.
     */
     function get_visibility_map_cxx(el) {
-        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4
+        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, CXX20: 5
         var classes_cxx = [
             { rev: Rev.CXX11, since: 't-since-cxx11', until: 't-until-cxx11' },
             { rev: Rev.CXX14, since: 't-since-cxx14', until: 't-until-cxx14' },
             { rev: Rev.CXX17, since: 't-since-cxx17', until: 't-until-cxx17' },
+            { rev: Rev.CXX20, since: 't-since-cxx20', until: 't-until-cxx20' },
         ];
         var map = new VisibilityMap();
         for (var i = 0; i < classes_cxx.length; i++) {
