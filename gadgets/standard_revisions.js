@@ -71,8 +71,25 @@ $(function() {
     // Standard revision identification 'enums'. Thoughout the plugin it is
     // assumed that the values are integers starting at zero and thus they can
     // be used as an index in regular arrays.
-    var Rev_c = { DIFF: 0, FIRST: 1, C89: 1, C99: 2, C11: 3, LAST: 4 };
-    var Rev_cxx = { DIFF: 0, FIRST: 1, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, CXX20: 5, LAST: 6 };
+    var Rev_c = {
+        DIFF: 0,
+        FIRST: 1,
+        C89: 1,
+        C99: 2,
+        C11: 3,
+        LAST: 4
+    };
+    var Rev_cxx = {
+        DIFF: 0,
+        FIRST: 1,
+        CXX98: 1,
+        CXX03: 2,
+        CXX11: 3,
+        CXX14: 4,
+        CXX17: 5,
+        CXX20: 6,
+        LAST: 7,
+    };
 
     var Rev;
 
@@ -105,6 +122,7 @@ $(function() {
     ];
 
     var rev_css_classes_cxx = [
+        { rev: Rev.CXX03, since: 't-since-cxx03', until: 't-until-cxx03' },
         { rev: Rev.CXX11, since: 't-since-cxx11', until: 't-until-cxx11' },
         { rev: Rev.CXX14, since: 't-since-cxx14', until: 't-until-cxx14' },
         { rev: Rev.CXX17, since: 't-since-cxx17', until: 't-until-cxx17' },
