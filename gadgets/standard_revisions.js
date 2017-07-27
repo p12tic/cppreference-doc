@@ -122,74 +122,6 @@ $(function() {
         rev_css_classes = rev_css_classes_c;
     }
 
-    /** A 'mark identifier' is an object that specifies a half-open range of
-        standards. It contains the following fields:
-         'since' - a bool value identifying which half of the range is open.
-         'rev' - the revision of the standard. Rev.DIFF is not an accepted
-            value.
-    */
-
-    /*  Given a mark identifier and a revision, returns true if the range
-        specified by the mark identifier includes the revision in question
-    */
-    function should_be_shown(rev, mark) {
-        if (rev === Rev.DIFF) {
-            return true;
-        }
-        if (mark.since) {
-            return (rev >= mark.rev);
-        } else {
-            return (rev < mark.rev);
-        }
-    }
-
-    /*  Returns a mark identifier for a jQuery object. This function only
-        supports elements that may contain at most one mark css tag.
-    */
-    function get_mark_cxx(el) {
-        if (el.hasClass('t-since-cxx11')) {
-            return { since: true, rev: Rev.CXX11 };
-        }
-        if (el.hasClass('t-since-cxx14')) {
-            return { since: true, rev: Rev.CXX14 };
-        }
-        if (el.hasClass('t-since-cxx17')) {
-            return { since: true, rev: Rev.CXX17 };
-        }
-        if (el.hasClass('t-since-cxx20')) {
-            return { since: true, rev: Rev.CXX20 };
-        }
-        if (el.hasClass('t-until-cxx11')) {
-            return { since: false, rev: Rev.CXX11 };
-        }
-        if (el.hasClass('t-until-cxx14')) {
-            return { since: false, rev: Rev.CXX14 };
-        }
-        if (el.hasClass('t-until-cxx17')) {
-            return { since: false, rev: Rev.CXX17 };
-        }
-        if (el.hasClass('t-until-cxx20')) {
-            return { since: false, rev: Rev.CXX20 };
-        }
-        return { since: true, rev: Rev.CXX98 };
-    }
-
-    function get_mark_c(el) {
-        if (el.hasClass('t-since-c99')) {
-            return { since: true, rev: Rev.C99 };
-        }
-        if (el.hasClass('t-since-c11')) {
-            return { since: true, rev: Rev.C11 };
-        }
-        if (el.hasClass('t-until-c99')) {
-            return { since: false, rev: Rev.C99 };
-        }
-        if (el.hasClass('t-until-c11')) {
-            return { since: false, rev: Rev.C11 };
-        }
-        return { since: true, rev: Rev.C89 };
-    }
-
     /*  This class stores information about what revisions a certain object
         should be shown on. A number of convenience functions are provided.
     */
@@ -327,14 +259,6 @@ $(function() {
             map.add(rev_css_classes[i].rev);
         }
         return map;
-    }
-
-    var get_mark;
-
-    if (is_cxx) {   // select either C or C++ version
-        get_mark = get_mark_cxx;
-    } else {
-        get_mark = get_mark_c;
     }
 
     /** This class keeps track of objects that need to be shown or hidden for
@@ -776,8 +700,9 @@ $(function() {
                     // template by chance
                     marks = $(this).find('.t-mark-rev');
                     if (marks.length > 0) {
-                        var mark = get_mark(marks.first());
-                        if (!should_be_shown(rev, mark)) {
+                        var visible = get_visibility_map(marks.first());
+                        visible.add(Rev.DIFF);
+                        if (!visible.is_visible_on(rev)) {
                             $(this).remove();
                         } else {
                             marks.remove(); // do not show marks in any case
@@ -1661,8 +1586,9 @@ $(function() {
         marks.each(function(index) {
             var mark_span = $(this).children('.t-mark-rev');
             if (mark_span.length > 0) {
-                var mark = get_mark(mark_span.first());
-                if (!should_be_shown(rev, mark)) {
+                var visible = get_visibility_map(mark_span.first());
+                visible.add(Rev.DIFF);
+                if (!visible.is_visible_on(rev)) {
                     titles.eq(index).remove();
                     $(this).remove();
                     num_deleted++;
