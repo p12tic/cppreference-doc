@@ -109,7 +109,7 @@ $(function() {
 
     var desc_cxx = [
         { rev: Rev.DIFF, title: 'Diff' },
-        { rev: Rev.CXX98, title: 'C++98/03' },
+        { rev: Rev.CXX03, title: 'C++98/03' },
         { rev: Rev.CXX11, title: 'C++11' },
         { rev: Rev.CXX14, title: 'C++14' },
         { rev: Rev.CXX17, title: 'C++17' },
