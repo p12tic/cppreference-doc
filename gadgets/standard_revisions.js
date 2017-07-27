@@ -99,12 +99,27 @@ $(function() {
         { rev: Rev.CXX20, title: 'C++20' },
     ];
 
+    var rev_css_classes_c = [
+        { rev: Rev.C99, since: 't-since-c99', until: 't-until-c99' },
+        { rev: Rev.C11, since: 't-since-c11', until: 't-until-c11' },
+    ];
+
+    var rev_css_classes_cxx = [
+        { rev: Rev.CXX11, since: 't-since-cxx11', until: 't-until-cxx11' },
+        { rev: Rev.CXX14, since: 't-since-cxx14', until: 't-until-cxx14' },
+        { rev: Rev.CXX17, since: 't-since-cxx17', until: 't-until-cxx17' },
+        { rev: Rev.CXX20, since: 't-since-cxx20', until: 't-until-cxx20' },
+    ];
+
     var desc;
+    var rev_css_classes;
 
     if (is_cxx) {   // select either C or C++ version
         desc = desc_cxx;
+        rev_css_classes = rev_css_classes_cxx;
     } else {
         desc = desc_c;
+        rev_css_classes = rev_css_classes_c;
     }
 
     /** A 'mark identifier' is an object that specifies a half-open range of
@@ -294,61 +309,32 @@ $(function() {
         visibility map corresponding to these css classes. Rev.DIFF is not
         included into the returned visibility map.
     */
-    function get_visibility_map_cxx(el) {
-        // DIFF: 0, CXX98: 1, CXX11: 2, CXX14: 3, CXX17: 4, CXX20: 5
-        var classes_cxx = [
-            { rev: Rev.CXX11, since: 't-since-cxx11', until: 't-until-cxx11' },
-            { rev: Rev.CXX14, since: 't-since-cxx14', until: 't-until-cxx14' },
-            { rev: Rev.CXX17, since: 't-since-cxx17', until: 't-until-cxx17' },
-            { rev: Rev.CXX20, since: 't-since-cxx20', until: 't-until-cxx20' },
-        ];
+    function get_visibility_map(el) {
         var map = new VisibilityMap();
-        for (var i = 0; i < classes_cxx.length; i++) {
-            if (el.hasClass(classes_cxx[i].since)) {
+        for (var i = 0; i < rev_css_classes.length; i++) {
+            if (el.hasClass(rev_css_classes[i].since)) {
                 break;
             }
         }
-        if (i === classes_cxx.length) {
-            map.add(Rev.CXX98);
+        if (i === rev_css_classes.length) {
+            map.add(Rev.FIRST);
             i = 0;
         }
-        for (; i < classes_cxx.length; i++) {
-            if (el.hasClass(classes_cxx[i].until)) {
+        for (; i < rev_css_classes.length; i++) {
+            if (el.hasClass(rev_css_classes[i].until)) {
                 break;
             }
-            map.add(classes_cxx[i].rev);
+            map.add(rev_css_classes[i].rev);
         }
         return map;
     }
 
-    function get_visibility_map_c(el) {
-        // DIFF: 0, C89: 1, C99: 2, C11: 3
-        if (el.hasClass('t-since-c11')) {
-            return new VisibilityMap([Rev.C11]);
-        }
-        if (el.hasClass('t-since-c99')) {
-            if (el.hasClass('t-until-c11')) {
-                return new VisibilityMap([Rev.C99]);
-            }
-            return new VisibilityMap([Rev.C99, Rev.C11]);
-        }
-        if (el.hasClass('t-until-c99')) {
-            return new VisibilityMap([Rev.C89]);
-        }
-        if (el.hasClass('t-until-c11')) {
-            return new VisibilityMap([Rev.C89, Rev.C99]);
-        }
-        return new VisibilityMap([Rev.C89, Rev.C99, Rev.C11]);
-    }
-
-    var get_mark, get_visibility_map;
+    var get_mark;
 
     if (is_cxx) {   // select either C or C++ version
         get_mark = get_mark_cxx;
-        get_visibility_map = get_visibility_map_cxx;
     } else {
         get_mark = get_mark_c;
-        get_visibility_map = get_visibility_map_c;
     }
 
     /** This class keeps track of objects that need to be shown or hidden for
