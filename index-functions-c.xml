@@ -522,6 +522,7 @@
     <class name="tm" link="c/chrono/tm"/>
     <typedef name="time_t" link="c/chrono/time_t"/>
     <typedef name="clock_t" link="c/chrono/clock_t"/>
+    <typedef name="timespec" link="c/chrono/timespec"/>
 
     <!--=======================================================================-->
     <!-- c/string/byte -->
