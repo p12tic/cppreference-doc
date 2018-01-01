@@ -2,5 +2,7 @@ debian
 reference*
 images/output/
 output*
+pywiki
 release/
+venv
 *.pyc
