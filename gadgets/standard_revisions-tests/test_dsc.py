@@ -17,16 +17,9 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
 from base import *
 
-class HidesDscItemsWithExplicitMark(CppTestCase):
+class TestDsc(CppTestCase):
     def test_hides_dsc_items_with_explicit_mark(self):
         self.get_page("test-gadget-stdrev/hides-dsc-items-with-explicit-mark")
         self.assert_text_in_body("std::not_visible_in_cxx98")

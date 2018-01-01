@@ -17,16 +17,25 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
 from base import *
 
-class HidesDclItemsInMember(CppTestCase):
+class TestDcl(CppTestCase):
+    def test_hides_dcl_items_in_dcl_rev(self):
+        self.get_page("test-gadget-stdrev/hides-dcl-items-in-dcl-rev")
+        self.assert_text_in_body("void always_visible")
+        self.assert_text_in_body("void not_visible_in_cxx98")
+        self.assert_text_in_body("void not_visible_in_cxx11")
+
+        self.select_cxx98()
+        self.assert_text_in_body("void always_visible")
+        self.assert_text_not_in_body("void not_visible_in_cxx98")
+        self.assert_text_in_body("void not_visible_in_cxx11")
+
+        self.select_cxx11()
+        self.assert_text_in_body("void always_visible")
+        self.assert_text_in_body("void not_visible_in_cxx98")
+        self.assert_text_not_in_body("void not_visible_in_cxx11")
+
     def test_hides_dcl_items_in_member(self):
         self.get_page("test-gadget-stdrev/hides-dcl-items-in-member")
         self.assert_text_in_body("void always_visible")

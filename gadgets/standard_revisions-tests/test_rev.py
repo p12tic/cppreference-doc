@@ -17,16 +17,36 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 from base import *
 
-class RevWorksWithFullyClosedRanges(CppTestCase):
+class TestRev(CppTestCase):
+    def test_revlist_works_in_dsc_item(self):
+        self.get_page("test-gadget-stdrev/revlist-works-in-dsc-item")
+        self.assert_text_in_body("std::not_visible_in_cxx98")
+        self.assert_text_in_body("std::not_visible_in_cxx11")
+
+        self.select_cxx98()
+        self.assert_text_not_in_body("std::not_visible_in_cxx98")
+        self.assert_text_in_body("std::not_visible_in_cxx11")
+
+        self.select_cxx11()
+        self.assert_text_in_body("std::not_visible_in_cxx98")
+        self.assert_text_not_in_body("std::not_visible_in_cxx11")
+
+    def test_rev_inl_works_in_text(self):
+        self.get_page("test-gadget-stdrev/rev-inl-works-in-text")
+        self.assert_text_in_body("not_visible_in_cxx98")
+        self.assert_text_in_body("not_visible_in_cxx11")
+
+        self.select_cxx98()
+        self.assert_text_not_in_body("not_visible_in_cxx98")
+        self.assert_text_in_body("not_visible_in_cxx11")
+
+        self.select_cxx11()
+        self.assert_text_in_body("not_visible_in_cxx98")
+        self.assert_text_not_in_body("not_visible_in_cxx11")
+
     def test_rev_works_with_fully_closed_ranges(self):
         driver = self.driver
         self.get_page("test-gadget-stdrev/rev-works-with-fully-closed-ranges")
