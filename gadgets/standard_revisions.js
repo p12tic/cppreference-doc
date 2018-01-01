@@ -613,12 +613,71 @@ $(function() {
         }
     };
 
+    SectionContentsTracker.prototype.debug_obj_impl =
+            function(obj, desc, level) {
+        // note that obj.level only considers section hierarchy. When printing
+        // container hierarchy the depth level will be different and must be
+        // calculated explicitly
+        var indent = ' '.repeat(level);
+        var tag = '';
+        if (obj.obj !== null)
+            tag = obj.obj.prop("tagName");
+
+        return indent + desc + ' ' + tag + '\n';
+    };
+
+    SectionContentsTracker.prototype.debug_obj = function(obj, level) {
+        switch (obj.type) {
+        case ObjectType.PRIMARY:
+            return this.debug_obj_impl(obj, 'primary object', level);
+        case ObjectType.SECONDARY:
+            return this.debug_obj_impl(obj, 'secondary object', level);
+        case ObjectType.UNKNOWN:
+            return this.debug_obj_impl(obj, 'unknown object', level);
+        }
+        return '';
+    };
+
+    SectionContentsTracker.prototype.debug_section_obj = function(obj, level) {
+        if (obj.type === ObjectType.SECTION) {
+            var out = this.debug_obj_impl(obj, 'section', level);
+            for (var i = 0; i < obj.children.length; ++i) {
+                out += this.debug_section_obj(obj.children[i], level+1);
+            }
+            return out;
+        }
+        return this.debug_obj(obj, level);
+    };
+
+    SectionContentsTracker.prototype.debug_container_obj = function(obj, level) {
+        if (obj.type === ObjectType.CONTAINER) {
+            var out = this.debug_obj_impl(obj, 'container', level);
+            for (var i = 0; i < obj.children.length; ++i) {
+                out += this.debug_container_obj(obj.children[i], level+1);
+            }
+            return out;
+        }
+        return this.debug_obj(obj, level);
+    };
+
+    SectionContentsTracker.prototype.debug_all = function() {
+        var out = 'Section hierarchy:\n\n';
+        out += this.debug_section_obj(this.root_section, 0);
+        out += '\nContainer hierarchy:\n\n';
+        out += this.debug_container_obj(this.root_container, 0);
+        return out;
+    };
+
     SectionContentsTracker.prototype.run = function(tracker) {
         // evaluate visibility of sections and containers
         this.eval_section_visibility(this.root_section);
         this.eval_container_visibility(this.root_container);
 
         this.perform_hide(this.root_container, tracker, visibility_fill(true));
+
+        if (debug) {
+            alert(this.debug_all());
+        }
     };
 
     /*  Used to aggregate a set of objects that need to be versioned. The set
