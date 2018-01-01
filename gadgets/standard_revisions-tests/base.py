@@ -58,12 +58,16 @@ class CppTestCase(unittest.TestCase):
         self.base_url = driver_instance.base_url
         self.driver = driver_instance.driver
 
+    def setUp(self):
+        self.cached_body = None
+
     def get_page(self, title):
         self.driver.get(self.base_url + "/w/" + title)
 
     def select_standard(self, std):
         s = Select(self.driver.find_element_by_css_selector("select"))
         s.select_by_visible_text(std)
+        self.cached_body = None
 
     def select_diff(self):
         self.select_standard("C++98/03")
@@ -83,10 +87,15 @@ class CppTestCase(unittest.TestCase):
     def select_cxx20(self):
         self.select_standard("C++20")
 
+    def get_body_cached(self):
+        if self.cached_body is None:
+            self.cached_body = self.driver.find_element_by_xpath("//body").text
+        return self.cached_body
+
     def assert_text_in_body(self, pattern):
-        text = self.driver.find_element_by_xpath("//body").text
+        text = self.get_body_cached()
         self.assertIn(pattern, text)
 
     def assert_text_not_in_body(self, pattern):
-        text = self.driver.find_element_by_xpath("//body").text
+        text = self.get_body_cached()
         self.assertNotIn(pattern, text)
