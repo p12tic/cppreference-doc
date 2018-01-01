@@ -1555,7 +1555,7 @@ $(function() {
 
             var disp_desc = [];
             var prev_nums = nums;
-            var prev_visibe = new VisibilityMap([Rev.DIFF]);
+            var prev_visible = new VisibilityMap([Rev.DIFF]);
 
             for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
                 var target_nums = [];
@@ -1575,14 +1575,14 @@ $(function() {
                 }
 
                 if (array_equal(target_nums, prev_nums)) {
-                    prev_visibe.add(rev);
+                    prev_visible.add(rev);
                 } else {
-                    disp_desc.push({ visible: prev_visibe, nums: prev_nums });
-                    prev_visibe = new VisibilityMap([rev]);
+                    disp_desc.push({ visible: prev_visible, nums: prev_nums });
+                    prev_visible = new VisibilityMap([rev]);
                     prev_nums = target_nums;
                 }
             }
-            disp_desc.push({ visible: prev_visibe, nums: prev_nums });
+            disp_desc.push({ visible: prev_visible, nums: prev_nums });
             // hide entire t-liX element if needed
             if (!visible.is_visible_on_all()) {
                 this.tracker.add_diff_object(descs[i].obj, visible);
