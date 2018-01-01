@@ -1555,7 +1555,7 @@ $(function() {
 
             var disp_desc = [];
             var prev_nums = nums;
-            var prev_revs = [ Rev.DIFF ];
+            var prev_visibe = new VisibilityMap([Rev.DIFF]);
 
             for (var rev = Rev.FIRST; rev !== Rev.LAST; ++rev) {
                 var target_nums = [];
@@ -1575,14 +1575,14 @@ $(function() {
                 }
 
                 if (array_equal(target_nums, prev_nums)) {
-                    prev_revs.push(rev);
+                    prev_visibe.add(rev);
                 } else {
-                    disp_desc.push({ revs: prev_revs, nums: prev_nums });
-                    prev_revs = [rev];
+                    disp_desc.push({ visible: prev_visibe, nums: prev_nums });
+                    prev_visibe = new VisibilityMap([rev]);
                     prev_nums = target_nums;
                 }
             }
-            disp_desc.push({ revs: prev_revs, nums: prev_nums });
+            disp_desc.push({ visible: prev_visibe, nums: prev_nums });
             // hide entire t-liX element if needed
             if (!visible.is_visible_on_all()) {
                 this.tracker.add_diff_object(descs[i].obj, visible);
@@ -1591,7 +1591,7 @@ $(function() {
             // Add t-li elements with different text if needed
             // the first item always includes Rev.DIFF in .revs
             if (disp_desc.length > 1) {
-                this.tracker.add_diff_object(descs[i].obj_num, disp_desc[0].revs);
+                this.tracker.add_diff_object(descs[i].obj_num, disp_desc[0].visible);
                 for (var j = 1; j < disp_desc.length; ++j) {
                     var new_el = descs[i].obj_num.clone().hide()
                                         .insertAfter(descs[i].obj_num);
@@ -1601,7 +1601,7 @@ $(function() {
                         text = text + ',' + disp_desc[j].nums[k].toString();
                     }
                     new_el.text(text + ')');
-                    this.tracker.add_object(new_el, descs[i].obj_num, disp_desc[j].revs);
+                    this.tracker.add_object(new_el, descs[i].obj_num, disp_desc[j].visible);
                 }
             }
         }
