@@ -844,7 +844,7 @@ $(function() {
         }
     };
 
-    /*  Handles inclusions of Template:rev_begin, Template:rev and
+    /*  Handles inclusion of Template:rev_begin, Template:rev and
         Template:rev_end.
 
         We don't copy the contents of this templates around. We just add the
@@ -852,15 +852,29 @@ $(function() {
         the frame on non-diff revisions, we have special treatment in
         on_selection_change. Note, that in order for this to work, the revision
         marks must not be touched.
+
+        The visibility map of whole table is stored as 'visible' data member
+        of the jquery element.
     */
-    StandardRevisionPlugin.prototype.prepare_all_revs = function(scope) {
-        var rev_elems = scope.rev_tables.children('tbody').children('.t-rev');
+    StandardRevisionPlugin.prototype.prepare_rev = function(el) {
+        var rev_elems = el.children('tbody').children('.t-rev');
         var self = this;
+        var table_visible = new VisibilityMap();
+
         rev_elems.each(function() {
             var visible = get_visibility_map($(this));
             visible.add(Rev.DIFF);
+            total_visible.combine_or(visible);
 
             self.tracker.add_diff_object($(this), visible);
+        });
+        el.data('visible', table_visible);
+    };
+
+    StandardRevisionPlugin.prototype.prepare_all_revs = function(scope) {
+        var self = this;
+        scope.rev_tables.each(function() {
+            self.prepare_rev($(this));
         });
     };
 
