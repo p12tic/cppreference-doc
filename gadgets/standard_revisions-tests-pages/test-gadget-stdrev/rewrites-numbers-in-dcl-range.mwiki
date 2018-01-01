@@ -1,0 +1,17 @@
+{{dcl begin}}
+{{dcl | num=1 | since=c++11 | 1=
+void visible_since_cxx11_1();
+}}
+{{dcl rev begin | num=2}}
+{{dcl | since=c++11 | until=c++14 | 1=
+void visible_on_cxx11_2();
+}}
+{{dcl | since=c++14 | 1=
+void visible_since_cxx14_2();
+}}
+{{dcl rev end}}
+{{dcl end}}
+
+text text
+
+@1-2@ text

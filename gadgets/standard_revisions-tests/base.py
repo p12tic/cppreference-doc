@@ -63,6 +63,7 @@ class CppTestCase(unittest.TestCase):
 
     def get_page(self, title):
         self.driver.get(self.base_url + "/w/" + title)
+        self.cached_body = None
 
     def select_standard(self, std):
         s = Select(self.driver.find_element_by_css_selector("select"))
@@ -99,3 +100,13 @@ class CppTestCase(unittest.TestCase):
     def assert_text_not_in_body(self, pattern):
         text = self.get_body_cached()
         self.assertNotIn(pattern, text)
+
+    def text_occurrences_in_body(self, pattern):
+        return self.driver.find_element_by_xpath("//body").text.count(pattern)
+
+    def assert_text_occurrences_in_body(self, num, pattern):
+        occurrences = self.text_occurrences_in_body(pattern)
+        self.assertEqual(num, occurrences)
+
+    def assert_text_once_in_body(self, pattern):
+        self.assert_text_occurrences_in_body(1, pattern)

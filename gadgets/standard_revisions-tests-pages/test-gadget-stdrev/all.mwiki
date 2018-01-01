@@ -6,6 +6,8 @@
 :[[test-gadget-stdrev/hides-h3-when-section-contains-only-stdrev]]
 :[[test-gadget-stdrev/preserves-h3-when-section-with-h5-visible]]
 :[[test-gadget-stdrev/preserves-h3-when-section-visible]]
+:[[test-gadget-stdrev/rewrites-numbers-in-dcl]]
+:[[test-gadget-stdrev/rewrites-numbers-in-dcl-range]]
 :[[test-gadget-stdrev/rev-inl-works-in-text]]
 :[[test-gadget-stdrev/rev-works-with-fully-closed-ranges]]
 :[[test-gadget-stdrev/revlist-works-in-dsc-item]]

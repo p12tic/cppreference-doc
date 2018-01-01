@@ -1,0 +1,19 @@
+{{dcl begin}}
+{{dcl | num=1 | since=c++11 | 1=
+void visible_since_cxx11_1();
+}}
+{{dcl | num=2 | 1=
+void visible_always_2();
+}}
+{{dcl | num=3 | until=c++14 | 1=
+void visible_until_cxx14_3();
+}}
+{{dcl end}}
+
+text text
+
+@1@ option_1_visible_since_cxx11
+
+@2@ option_2_visible_always
+
+@3@ option_3_visible_until_cxx14
