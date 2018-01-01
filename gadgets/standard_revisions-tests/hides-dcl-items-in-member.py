@@ -24,22 +24,21 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
-from base import CppTestCase
+from base import *
 
 class HidesDclItemsInMember(CppTestCase):
     def test_hides_dcl_items_in_member(self):
-        driver = self.driver
-        driver.get(self.base_url + "/w/test-gadget-stdrev/hides-dcl-items-in-member")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void always_visible[\s\S]*$")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void not_visible_in_cxx98[\s\S]*$")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void not_visible_in_cxx11[\s\S]*$")
+        self.get_page("test-gadget-stdrev/hides-dcl-items-in-member")
+        self.assert_text_in_body("void always_visible")
+        self.assert_text_in_body("void not_visible_in_cxx98")
+        self.assert_text_in_body("void not_visible_in_cxx11")
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++98/03")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void always_visible[\s\S]*$")
-        self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void not_visible_in_cxx98[\s\S]*$")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void not_visible_in_cxx11[\s\S]*$")
+        self.select_cxx98()
+        self.assert_text_in_body("void always_visible")
+        self.assert_text_not_in_body("void not_visible_in_cxx98")
+        self.assert_text_in_body("void not_visible_in_cxx11")
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++11")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void always_visible[\s\S]*$")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void not_visible_in_cxx98[\s\S]*$")
-        self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*void not_visible_in_cxx11[\s\S]*$")
+        self.select_cxx11()
+        self.assert_text_in_body("void always_visible")
+        self.assert_text_in_body("void not_visible_in_cxx98")
+        self.assert_text_not_in_body("void not_visible_in_cxx11")

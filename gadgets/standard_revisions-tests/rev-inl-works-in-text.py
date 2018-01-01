@@ -24,19 +24,18 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
-from base import CppTestCase
+from base import *
 
 class RevInlWorksInText(CppTestCase):
     def test_rev_inl_works_in_text(self):
-        driver = self.driver
-        driver.get(self.base_url + "/w/test-gadget-stdrev/rev-inl-works-in-text")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*not_visible_in_cxx98[\s\S]*$")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*not_visible_in_cxx11[\s\S]*$")
+        self.get_page("test-gadget-stdrev/rev-inl-works-in-text")
+        self.assert_text_in_body("not_visible_in_cxx98")
+        self.assert_text_in_body("not_visible_in_cxx11")
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++98/03")
-        self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*not_visible_in_cxx98[\s\S]*$")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*not_visible_in_cxx11[\s\S]*$")
+        self.select_cxx98()
+        self.assert_text_not_in_body("not_visible_in_cxx98")
+        self.assert_text_in_body("not_visible_in_cxx11")
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++11")
-        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*not_visible_in_cxx98[\s\S]*$")
-        self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*not_visible_in_cxx11[\s\S]*$")
+        self.select_cxx11()
+        self.assert_text_in_body("not_visible_in_cxx98")
+        self.assert_text_not_in_body("not_visible_in_cxx11")

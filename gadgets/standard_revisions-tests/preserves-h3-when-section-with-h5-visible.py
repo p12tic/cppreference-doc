@@ -24,22 +24,22 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
-from base import CppTestCase
+from base import *
 
 class PreservesH3WhenSectionWithH5Visible(CppTestCase):
     def test_preserves_h3_when_section_with_h5_visible(self):
         driver = self.driver
-        driver.get(self.base_url + "/w/test-gadget-stdrev/preserves-h3-when-section-with-h5-visible")
+        self.get_page("test-gadget-stdrev/preserves-h3-when-section-with-h5-visible")
         self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
         self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())
         self.assertTrue(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++98/03")
+        self.select_cxx98()
         self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
         self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())
         self.assertFalse(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++11")
+        self.select_cxx11()
         self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
         self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())
         self.assertTrue(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())

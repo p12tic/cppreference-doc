@@ -24,18 +24,18 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
-from base import CppTestCase
+from base import *
 
 class HidesH3WhenSectionContainsDscWithRemovedElems(CppTestCase):
     
     def test_hides_h3_when_section_contains_dsc_with_removed_elems(self):
         driver = self.driver
-        driver.get(self.base_url + "/w/test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-elems")
+        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-elems")
         self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++98/03")
+        self.select_cxx98()
         self.assertFalse(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())
 
-        Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++11")
+        self.select_cxx11()
         self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())
 

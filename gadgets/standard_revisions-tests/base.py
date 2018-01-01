@@ -46,3 +46,35 @@ class CppTestCase(unittest.TestCase):
     def tearDownClass(self):
         self.driver.quit()
 
+    def get_page(self, title):
+        self.driver.get(self.base_url + "/w/" + title)
+
+    def select_standard(self, std):
+        s = Select(self.driver.find_element_by_css_selector("select"))
+        s.select_by_visible_text(std)
+
+    def select_diff(self):
+        self.select_standard("C++98/03")
+
+    def select_cxx98(self):
+        self.select_standard("C++98/03")
+
+    def select_cxx11(self):
+        self.select_standard("C++11")
+
+    def select_cxx14(self):
+        self.select_standard("C++14")
+
+    def select_cxx17(self):
+        self.select_standard("C++17")
+
+    def select_cxx20(self):
+        self.select_standard("C++20")
+
+    def assert_text_in_body(self, pattern):
+        text = self.driver.find_element_by_xpath("//body").text
+        self.assertIn(pattern, text)
+
+    def assert_text_not_in_body(self, pattern):
+        text = self.driver.find_element_by_xpath("//body").text
+        self.assertNotIn(pattern, text)
