@@ -25,16 +25,14 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-class CppTestCase(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
-        self.base_url = "http://en.cppreference.com/"
-
+class Driver:
+    def __init__(self):
+        base_url = "http://en.cppreference.com/"
         driver = webdriver.Firefox()
         driver.implicitly_wait(30)
         try:
-            driver.get(self.base_url + "/mwiki/index.php?title=Special:UserLogout&returnto=Main+Page")
-            driver.get(self.base_url + "/mwiki/index.php?title=Special:UserLogin&returnto=Main+Page")
+            driver.get(base_url + "/mwiki/index.php?title=Special:UserLogout&returnto=Main+Page")
+            driver.get(base_url + "/mwiki/index.php?title=Special:UserLogin&returnto=Main+Page")
             driver.find_element_by_id("wpName1").clear()
             driver.find_element_by_id("wpName1").send_keys("test5")
             driver.find_element_by_id("wpPassword1").clear()
@@ -46,10 +44,19 @@ class CppTestCase(unittest.TestCase):
             driver.quit()
             raise
         self.driver = driver
+        self.base_url = base_url
 
-    @classmethod
-    def tearDownClass(self):
+
+    def __del__(self):
         self.driver.quit()
+
+driver_instance = Driver()
+
+class CppTestCase(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.base_url = driver_instance.base_url
+        self.driver = driver_instance.driver
 
     def get_page(self, title):
         self.driver.get(self.base_url + "/w/" + title)
