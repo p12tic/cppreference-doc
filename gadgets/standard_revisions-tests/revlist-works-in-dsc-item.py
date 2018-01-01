@@ -13,7 +13,6 @@ class RevlistWorksInDscItem(unittest.TestCase):
         self.driver.implicitly_wait(30)
         self.base_url = "http://en.cppreference.com/"
         self.verificationErrors = []
-        self.accept_next_alert = True
     
     def test_revlist_works_in_dsc_item(self):
         driver = self.driver
@@ -32,28 +31,7 @@ class RevlistWorksInDscItem(unittest.TestCase):
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
         except AssertionError as e: self.verificationErrors.append(str(e))
-    
-    def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException as e: return False
-        return True
-    
-    def is_alert_present(self):
-        try: self.driver.switch_to_alert()
-        except NoAlertPresentException as e: return False
-        return True
-    
-    def close_alert_and_get_its_text(self):
-        try:
-            alert = self.driver.switch_to_alert()
-            alert_text = alert.text
-            if self.accept_next_alert:
-                alert.accept()
-            else:
-                alert.dismiss()
-            return alert_text
-        finally: self.accept_next_alert = True
-    
+
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
