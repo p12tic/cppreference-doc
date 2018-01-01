@@ -24,14 +24,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+from base import CppTestCase
 
-class RevWorksWithFullyClosedRanges(unittest.TestCase):
-    def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
-        self.base_url = "http://en.cppreference.com/"
-        self.verificationErrors = []
-    
+class RevWorksWithFullyClosedRanges(CppTestCase):
     def test_rev_works_with_fully_closed_ranges(self):
         driver = self.driver
         driver.get(self.base_url + "/w/test-gadget-stdrev/rev-works-with-fully-closed-ranges")
@@ -280,10 +275,3 @@ class RevWorksWithFullyClosedRanges(unittest.TestCase):
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*since-none-until-cxx20[\s\S]*$")
         except AssertionError as e: self.verificationErrors.append(str(e))
-    
-    def tearDown(self):
-        self.driver.quit()
-        self.assertEqual([], self.verificationErrors)
-
-if __name__ == "__main__":
-    unittest.main()
