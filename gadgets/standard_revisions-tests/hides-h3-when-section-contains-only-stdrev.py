@@ -30,11 +30,11 @@ class HidesH3WhenSectionContainsOnlyStdrev(CppTestCase):
     def test_hides_h3_when_section_contains_only_stdrev(self):
         driver = self.driver
         driver.get(self.base_url + "/w/test-gadget-stdrev/hides-h3-when-section-contains-only-stdrev")
-        try: self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
+
         Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++98/03")
-        try: self.assertFalse(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertFalse(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
+
         Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++11")
-        try: self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
+

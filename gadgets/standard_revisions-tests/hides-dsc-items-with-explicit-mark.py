@@ -30,17 +30,14 @@ class HidesDscItemsWithExplicitMark(CppTestCase):
     def test_hides_dsc_items_with_explicit_mark(self):
         driver = self.driver
         driver.get(self.base_url + "/w/test-gadget-stdrev/hides-dsc-items-with-explicit-mark")
-        try: self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx98[\s\S]*$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx98[\s\S]*$")
+        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
+
         Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++98/03")
-        try: self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx98[\s\S]*$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx98[\s\S]*$")
+        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
+
         Select(driver.find_element_by_css_selector("select")).select_by_visible_text("C++11")
-        try: self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx98[\s\S]*$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx98[\s\S]*$")
+        self.assertNotRegexpMatches(driver.find_element_by_xpath("//body").text, r"^[\s\S]*std::not_visible_in_cxx11[\s\S]*$")
+
