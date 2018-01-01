@@ -38,6 +38,7 @@ import argparse
 import itertools
 import shutil
 import sys
+import urllib
 
 SYNC_DIRECTION_UPLOAD = 1
 SYNC_DIRECTION_DOWNLOAD = 2
@@ -102,7 +103,8 @@ def remove_no_longer_existing_pages(pages, dest_root):
     for path in deleted_paths:
         os.remove(os.path.join(dest_root, path))
 
-def perform_sync(url, direction, dest_root, title_filter, user, password):
+def perform_sync(url, direction, dest_root, title_filter, user, password,
+                 http_user, http_pass):
 
     if direction == SYNC_DIRECTION_DOWNLOAD:
         if os.path.exists(dest_root):
@@ -116,6 +118,10 @@ def perform_sync(url, direction, dest_root, title_filter, user, password):
     pywikibot.config2.family_files['cppreference'] = url
     pywikibot.config2.step = 100
     pywikibot.config2.put_throttle = 0
+
+    if http_user is not None:
+        netloc = urllib.parse.urlparse(url).netloc
+        pywikibot.config2.authenticate[netloc] = (http_user, http_pass)
 
     site = pywikibot.Site(user=user, fam='cppreference')
 
@@ -166,6 +172,10 @@ def main():
                         help='Username to perform bot operations under')
     parser.add_argument('password', type=str,
                         help='User password to authenticate with')
+    parser.add_argument('--http_user', type=str, default=None,
+            help='Username to use for HTTP authentication, if needed')
+    parser.add_argument('--http_pass', type=str, default=None,
+            help='Password to use for HTTP authentication, if needed')
     args = parser.parse_args()
 
     direction = None
@@ -183,7 +193,7 @@ def main():
 
     title_filter = create_filter_for_titles_beginning_with('test-gadget-stdrev/')
     perform_sync(args.url, direction, args.destination_root, title_filter,
-                 args.user, args.password)
+                 args.user, args.password, args.http_user, args.http_pass)
 
 if __name__ == '__main__':
     main()
