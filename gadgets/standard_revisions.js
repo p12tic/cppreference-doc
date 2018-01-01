@@ -19,13 +19,30 @@
 
 $(function() {
 
-    var debug = false;
 
     // Add console.log() if not present
     if (!window.console)
         window.console = {};
     if (!window.console.log)
         window.console.log = function() { };
+
+    var get_url_parameter = function(name) {
+        var url = decodeURIComponent(window.location.search.substring(1));
+        var params = url.split('&');
+
+        for (i = 0; i < params.length; i++) {
+            var param = params[i].split('=');
+
+            if (param[0] === name) {
+                return param[1] === undefined ? true : param[1];
+            }
+        }
+        return null;
+    };
+
+    var debug = false;
+    if (get_url_parameter('stdrev_debug') !== null)
+        debug = true;
 
     // Returns true if the given arrays have the same length and equal elements
     // at specific positions, false otherwise
