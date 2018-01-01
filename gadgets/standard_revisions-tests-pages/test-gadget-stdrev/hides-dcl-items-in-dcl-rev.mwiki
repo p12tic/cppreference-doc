@@ -1,0 +1,16 @@
+{{dcl begin}}
+{{dcl header | tuple }}
+{{dcl rev begin|num=num_1_only_once}}
+{{dcl | 1=
+void always_visible();
+}}
+{{dcl | until=c++11 |
+void not_visible_in_cxx11();
+}}
+{{dcl | since=c++11 |
+void not_visible_in_cxx98();
+}}
+{{dcl rev end}}
+{{dcl end}}
+
+test
