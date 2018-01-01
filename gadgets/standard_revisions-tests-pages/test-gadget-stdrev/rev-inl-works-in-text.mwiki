@@ -1,0 +1,7 @@
+===Section===
+
+Text text {{rev inl|since=c++11|not_visible_in_cxx98}}. Text text {{rev inl|until=c++11|not_visible_in_cxx11}}.
+
+===Other section===
+
+Text text.

@@ -1,0 +1,27 @@
+{{rev begin}}
+{{rev|since=c++03|since-cxx03-until-none}}
+{{rev|since=c++11|since-cxx11-until-none}}
+{{rev|since=c++14|since-cxx14-until-none}}
+{{rev|since=c++17|since-cxx17-until-none}}
+{{rev|since=c++20|since-cxx20-until-none}}
+
+{{rev|since=c++03|until=c++11|since-cxx03-until-cxx11}}
+
+{{rev|since=c++03|until=c++14|since-cxx03-until-cxx14}}
+{{rev|since=c++11|until=c++14|since-cxx11-until-cxx14}}
+
+{{rev|since=c++03|until=c++17|since-cxx03-until-cxx17}}
+{{rev|since=c++11|until=c++17|since-cxx11-until-cxx17}}
+{{rev|since=c++14|until=c++17|since-cxx14-until-cxx17}}
+
+{{rev|since=c++03|until=c++20|since-cxx03-until-cxx20}}
+{{rev|since=c++11|until=c++20|since-cxx11-until-cxx20}}
+{{rev|since=c++14|until=c++20|since-cxx14-until-cxx20}}
+{{rev|since=c++17|until=c++20|since-cxx17-until-cxx20}}
+
+{{rev|until=c++03|since-none-until-cxx03}}
+{{rev|until=c++11|since-none-until-cxx11}}
+{{rev|until=c++14|since-none-until-cxx14}}
+{{rev|until=c++17|since-none-until-cxx17}}
+{{rev|until=c++20|since-none-until-cxx20}}
+{{rev end}}

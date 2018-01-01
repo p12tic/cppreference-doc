@@ -1,0 +1,13 @@
+===Section===
+
+Text text.
+
+{{dsc begin}}
+{{dsc hitem | Type | Definition}}
+{{dsc | {{c|std::always_visible}} |
+{{rev begin|noborder=true}}{{rev|until=c++11|{{c|std::not_visible_in_cxx11}}}}{{rev|since=c++11|{{c|std::not_visible_in_cxx98}}}}{{rev end}}}}
+{{dsc | {{c|std::always_visible}} | {{c|code}}}}
+{{dsc end}}
+
+===Other section===
+Text text.

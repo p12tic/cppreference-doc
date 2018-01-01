@@ -1,0 +1,9 @@
+===Should never be removed===
+{{rev begin}}
+{{rev | since=c++11 | Text text text}}
+{{rev end}}
+
+Text text
+
+===Other section===
+Text text text

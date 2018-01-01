@@ -1,0 +1,11 @@
+===Should be removed when c++98===
+
+Text text
+
+{{dsc begin}}
+{{dsc tclass | cpp/container | text text | notes={{mark c++11}}}}
+{{dsc tclass | cpp/container | text text | notes={{mark c++17}}}}
+{{dsc end}}
+
+===Other section===
+Text text

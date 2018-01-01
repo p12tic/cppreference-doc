@@ -1,0 +1,7 @@
+===Should be removed in cxx98===
+{{rev begin}}
+{{rev | since=c++11 | Text text text}}
+{{rev end}}
+
+===Other section===
+Text text text

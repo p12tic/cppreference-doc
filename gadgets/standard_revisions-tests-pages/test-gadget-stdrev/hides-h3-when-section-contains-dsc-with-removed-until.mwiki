@@ -1,0 +1,11 @@
+===Should be removed when c++11===
+
+Text text
+
+{{dsc begin}}
+{{dsc tclass | cpp/container | text text | notes={{mark until c++11}}}}
+{{dsc tclass | cpp/container | text text | notes={{mark until c++11}}}}
+{{dsc end}}
+
+===Other section===
+Text text

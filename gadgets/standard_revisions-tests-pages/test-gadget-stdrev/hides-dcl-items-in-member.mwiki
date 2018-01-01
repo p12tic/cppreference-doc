@@ -1,0 +1,19 @@
+===Section===
+
+Text text.
+
+{{member | {{small|std::klass::}}fun | 2=
+{{dcl begin}}
+{{dcl | num=1 |
+void always_visible();
+}}
+{{dcl | num=2 | until=c++11 |
+void not_visible_in_cxx11();
+}}
+{{dcl | num=3 | since=c++11 |
+void not_visible_in_cxx98();
+}}
+{{dcl end}}
+
+Text text.
+}}

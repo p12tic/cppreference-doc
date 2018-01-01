@@ -1,0 +1,11 @@
+===Should always be visible===
+=====Should not be visible in cxx98=====
+{{rev begin}}
+{{rev | since=c++11 | Text text text}}
+{{rev end}}
+
+=====Should always be visible2=====
+Text text
+
+===Other section===
+Text text text
