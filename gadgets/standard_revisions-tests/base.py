@@ -32,14 +32,19 @@ class CppTestCase(unittest.TestCase):
 
         driver = webdriver.Firefox()
         driver.implicitly_wait(30)
-        driver.get(self.base_url + "/mwiki/index.php?title=Special:UserLogout&returnto=Main+Page")
-        driver.find_element_by_link_text("Log in").click()
-        driver.find_element_by_id("wpName1").clear()
-        driver.find_element_by_id("wpName1").send_keys("test5")
-        driver.find_element_by_id("wpPassword1").clear()
-        driver.find_element_by_id("wpPassword1").send_keys("test4")
-        driver.find_element_by_id("wpLoginAttempt").click()
-        self.assertEqual("Test5", driver.find_element_by_link_text("Test5").text)
+        try:
+            driver.get(self.base_url + "/mwiki/index.php?title=Special:UserLogout&returnto=Main+Page")
+            driver.get(self.base_url + "/mwiki/index.php?title=Special:UserLogin&returnto=Main+Page")
+            driver.find_element_by_id("wpName1").clear()
+            driver.find_element_by_id("wpName1").send_keys("test5")
+            driver.find_element_by_id("wpPassword1").clear()
+            driver.find_element_by_id("wpPassword1").send_keys("test4")
+            driver.find_element_by_id("wpLoginAttempt").click()
+            if driver.find_element_by_link_text("Test5").text != "Test5":
+                raise Exception("Could not login")
+        except:
+            driver.quit()
+            raise
         self.driver = driver
 
     @classmethod
