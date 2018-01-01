@@ -1660,9 +1660,7 @@ $(function() {
     StandardRevisionPlugin.prototype.revision_map_to_visibility = function(revs) {
         var visible = new VisibilityMap();
         for (var i = 0; i < revs.length; ++i) {
-            for (var j = 0; j < revs[i].length; ++j) {
-                visible.add(revs[i][j]);
-            }
+            visible.combine_or(revs[i]);
         }
         return visible;
     };
