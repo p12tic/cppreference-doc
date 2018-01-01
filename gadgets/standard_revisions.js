@@ -625,7 +625,6 @@ $(function() {
         scope.nv = scope.root.find('.t-navbar');
         scope.dcl_tables = scope.root.find('.t-dcl-begin');
         scope.dcl_rev_tables = scope.dcl_tables.filter('.t-dcl-rev-begin');
-        scope.dsc_tables = scope.root.find('.t-dsc-begin');
         scope.rev_tables = scope.root.find('.t-rev-begin');
         scope.rev_inl_tables = scope.root.find('.t-rev-inl');
         scope.list_items = scope.root.find('.t-li1');
@@ -660,7 +659,6 @@ $(function() {
         Scope.split_scope(parent, scope, 'nv');
         Scope.split_scope(parent, scope, 'dcl_tables');
         Scope.split_scope(parent, scope, 'dcl_rev_tables');
-        Scope.split_scope(parent, scope, 'dsc_tables');
         Scope.split_scope(parent, scope, 'rev_tables');
         Scope.split_scope(parent, scope, 'rev_inl_tables');
         Scope.split_scope(parent, scope, 'list_items');
@@ -805,18 +803,6 @@ $(function() {
         });
     };
 
-    /*  Handles the description lists and their contents - inclusions of
-        Template:dsc_* ('t-dsc-*' CSS classes)
-
-        Prepares items in dsc lists
-    */
-    StandardRevisionPlugin.prototype.prepare_all_dscs = function(scope) {
-        var self = this;
-        scope.dsc_tables.each(function() {
-            self.prepare_dsc_table($(this));
-        });
-    };
-
     // Returns true if the given jQuery object defines a secondary visual object
     StandardRevisionPlugin.prototype.is_secondary = function(el) {
         if (el.is('h2') ||
@@ -861,24 +847,39 @@ $(function() {
         }
     };
 
-    // Handles a description list
-    StandardRevisionPlugin.prototype.prepare_dsc_table = function(el) {
+    /*  Handles the section hierarchy in a scope as defined by description
+        lists and their contents. Description lists are inclusions of
+        Template:dsc_* ('t-dsc-*' CSS classes).
+        See the documentation of SectionContentsTracker for more information.
+
+        Also prepares items in dsc lists
+    */
+    StandardRevisionPlugin.prototype.prepare_sections_and_dscs = function(scope) {
+        var self = this;
+
         var section_tracker = new SectionContentsTracker();
 
-        var start_el = el;
-        while (true) {
-            var prev = start_el.prev();
-            if (prev.length === 0 || !this.is_secondary(prev))
-                break;
-            start_el = prev;
-        }
+        scope.root.children().each(function(){
+            var el = $(this);
+            if (el.hasClass('t-dsc-begin')) {
+                // currently this is the only element that may contain primary
+                // elements. Note that the set of primary elements may be
+                // expanded in the future.
+                self.prepare_dsc_table(section_tracker, el);
+            } else {
+                self.set_level_if_needed(section_tracker, el);
+                if (self.is_secondary(el)) {
+                    section_tracker.add_secondary(el);
+                } else {
+                    section_tracker.add_unknown(el);
+                }
+            }
+        });
+        section_tracker.run(this.tracker);
+    };
 
-        while (start_el[0] !== el[0]) {
-            this.set_level_if_needed(section_tracker, start_el);
-            section_tracker.add_secondary(start_el);
-            start_el = start_el.next();
-        }
-
+    // Handles a description list
+    StandardRevisionPlugin.prototype.prepare_dsc_table = function(section_tracker, el) {
         section_tracker.enter_container(el);
 
         var rows = el.children('tbody').children();
@@ -897,7 +898,6 @@ $(function() {
             }
         });
         section_tracker.exit_container();
-        section_tracker.run(this.tracker);
     };
 
     /*  Handles one description list item (inclusion of Template:dsc_*,
@@ -1498,7 +1498,7 @@ $(function() {
             self.prepare_navbar(scope);
             self.prepare_all_revs(scope);
             self.prepare_all_inl_revs(scope);
-            self.prepare_all_dscs(scope);
+            self.prepare_sections_and_dscs(scope);
 
             if (scope.dcl_tables.length > 0) {
                 var num_map = self.prepare_all_dcls(scope.dcl_tables.first());
