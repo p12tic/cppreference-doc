@@ -370,9 +370,9 @@ $(function() {
         too.
 
         In the context of this class, visual objects can be of one of the
-        following four kinds: primary, secondary, unknown and container. A
-        visual object is a certain DOM node in the tree. Section boundaries
-        and hierarchy has no relation to the DOM hierarchy.
+        following four kinds: primary, secondary, heading, unknown and
+        container. A visual object is a certain DOM node in the tree. Section
+        boundaries and hierarchy has no relation to the DOM hierarchy.
 
             Primary
 
@@ -386,8 +386,17 @@ $(function() {
 
             Secondary
 
-        Secondary objects don't affect the visibility of sections. Secondary
-        objects do not contain other objects.
+        Secondary objects don't affect the visibility of sections if there are
+        primary on unknown elements in it. If the section contains only
+        secondary elements, it is are hidden if all secondary elements are
+        hidden.
+
+        Secondary objects do not contain other objects.
+
+            Heading
+
+        Heading elements never affect the visibility of sections. All other
+        elements in the section are hidden, headings are hidden too.
 
             Container
 
@@ -423,9 +432,10 @@ $(function() {
     var ObjectType = {
         PRIMARY : 0,
         SECONDARY : 1,
-        UNKNOWN : 2,
-        SECTION : 3,
-        CONTAINER : 4
+        HEADING : 2,
+        UNKNOWN : 3,
+        SECTION : 4,
+        CONTAINER : 5
     };
 
     // internal classes for SectionContentsTracker
@@ -507,8 +517,13 @@ $(function() {
     };
 
     // Adds a secondary object to the current section and container
-    SectionContentsTracker.prototype.add_secondary = function(obj) {
-        this.add_object(obj, ObjectType.SECONDARY, null);
+    SectionContentsTracker.prototype.add_secondary = function(obj, visible) {
+        this.add_object(obj, ObjectType.SECONDARY, visible);
+    };
+
+    // Adds a heading object to the current section and container
+    SectionContentsTracker.prototype.add_heading = function(obj) {
+        this.add_object(obj, ObjectType.HEADING, null);
     };
 
     // Adds an unknown object to the current section and container
@@ -532,25 +547,46 @@ $(function() {
     // Recursively evaluates visibility of a section object
     SectionContentsTracker.prototype.eval_section_visibility = function(obj) {
         var visible = new VisibilityMap();
+        var secondary_visible = new VisibilityMap();
         var i, child;
+        var has_non_secondary = false;
+
         for (i = 0; i < obj.children.length; i++) {
             child = obj.children[i];
             switch (child.type) {
             case ObjectType.PRIMARY:
             case ObjectType.UNKNOWN:
                 visible.combine_or(child.visible);
+                has_non_secondary = true;
                 break;
-            case ObjectType.SECONDARY: // ignoring secondary objects
+            case ObjectType.SECONDARY:
+                secondary_visible.combine_or(child.visible);
+                break;
+            case ObjectType.HEADING:
                 break;
             case ObjectType.SECTION:
                 visible.combine_or(this.eval_section_visibility(child));
+                has_non_secondary = true;
                 break;
             }
         }
 
+        if (has_non_secondary) {
+            // Apply the resolved visibility to secondary children elements, if any
+            for (i = 0; i < obj.children.length; i++) {
+                child = obj.children[i];
+                if (child.type === ObjectType.SECONDARY) {
+                    child.visible = visible;
+                }
+            }
+        } else {
+            visible = secondary_visible;
+        }
+
+        // Apply the resolved visibility to heading children elements, if any
         for (i = 0; i < obj.children.length; i++) {
             child = obj.children[i];
-            if (child.type === ObjectType.SECONDARY) {
+            if (child.type === ObjectType.HEADING) {
                 child.visible = visible;
             }
         }
@@ -589,8 +625,8 @@ $(function() {
         return visible_mask;
     };
 
-    // Recursively evaluates the contents of a container and hides container
-    // and secondary elements if needed. visible_mask identifies which
+    // Recursively evaluates the contents of a container and hides container,
+    // heading and secondary elements if needed. visible_mask identifies which
     // revisions the object may be visible in certain revision (it may not be
     // visible in case parent container is not visible).
     SectionContentsTracker.prototype.perform_hide = function(obj, tracker, visible_mask) {
@@ -607,6 +643,7 @@ $(function() {
                 this.perform_hide(child, tracker, visible_mask);
                 break;
             case ObjectType.SECONDARY:
+            case ObjectType.HEADING:
                 this.perform_hide_obj(child, tracker, visible_mask);
                 break;
             }
@@ -634,6 +671,8 @@ $(function() {
             return this.debug_obj_impl(obj, 'secondary object', level);
         case ObjectType.UNKNOWN:
             return this.debug_obj_impl(obj, 'unknown object', level);
+        case ObjectType.HEADING:
+            return this.debug_obj_impl(obj, 'heading object', level);
         }
         return '';
     };
@@ -864,7 +903,7 @@ $(function() {
         rev_elems.each(function() {
             var visible = get_visibility_map($(this));
             visible.add(Rev.DIFF);
-            total_visible.combine_or(visible);
+            table_visible.combine_or(visible);
 
             self.tracker.add_diff_object($(this), visible);
         });
@@ -895,10 +934,19 @@ $(function() {
 
     // Returns true if the given jQuery object defines a secondary visual object
     StandardRevisionPlugin.prototype.is_secondary = function(el) {
+        if (el.is('p') ||
+            el.is('.t-rev-begin'))
+        {
+            return true;
+        }
+        return false;
+    };
+
+    // Returns true if the given jQuery object defines a heading visual object
+    StandardRevisionPlugin.prototype.is_heading = function(el) {
         if (el.is('h2') ||
             el.is('h3') ||
             el.is('h5') ||
-            el.is('p') ||
             (el.is('tr') && el.has('td > h5').length) ||
             el.is('.t-dsc-header'))
         {
@@ -956,13 +1004,17 @@ $(function() {
                 // elements. Note that the set of primary elements may be
                 // expanded in the future.
                 self.prepare_dsc_table(section_tracker, el);
-            } else {
-                self.set_level_if_needed(section_tracker, el);
-                if (self.is_secondary(el)) {
-                    section_tracker.add_secondary(el);
+            } else if (self.is_secondary(el)) {
+                if (el.is('.t-rev-begin')) {
+                    section_tracker.add_secondary(el, el.data('visible'));
                 } else {
-                    section_tracker.add_unknown(el);
+                    section_tracker.add_secondary(el, visibility_fill(true));
                 }
+            } else if (self.is_heading(el)) {
+                self.set_level_if_needed(section_tracker, el);
+                section_tracker.add_heading(el);
+            } else {
+                section_tracker.add_unknown(el);
             }
         });
         section_tracker.run(this.tracker);
@@ -978,13 +1030,13 @@ $(function() {
             var el = $(this);
             if (el.is('.t-dsc')) {
                 section_tracker.add_primary(el, self.prepare_dsc(el));
-            } else {
+            } else if (self.is_secondary(el)) {
+                section_tracker.add_secondary(el, visibility_fill(true));
+            } else if (self.is_heading(el)) {
                 self.set_level_if_needed(section_tracker, el);
-                if (self.is_secondary(el)) {
-                    section_tracker.add_secondary(el);
-                } else {
-                    section_tracker.add_unknown(el);
-                }
+                section_tracker.add_heading(el);
+            } else {
+                section_tracker.add_unknown(el);
             }
         });
         section_tracker.exit_container();
@@ -1742,7 +1794,9 @@ $(function() {
         var rev = parseInt(this.select.val());
         this.tracker.to_rev(rev);
 
-        // special treatment for rev boxes
+        // special treatment for rev boxes. Since these containers are very
+        // simple, we can apply a CSS class to hide the border and rev markers
+        // on non-diff revision.
         if (this.curr_rev === Rev.DIFF && rev !== Rev.DIFF) {
             this.for_all_scopes(function() {
                 this.rev_tables.each(function() {
