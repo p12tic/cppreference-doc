@@ -1,0 +1,33 @@
+How to run tests
+----------------
+
+Tests depend on non-standard software being installed. The instructions below
+apply to Linux. Tests should work on other operating systems, but the
+prerequisites might be sligtly differents.
+
+Tests are written in python and depend on non-standard python packages. It's
+best to install these in virtual python environment so that packages installed
+to the system are not affected.
+
+    cd path/to/cppreference
+    virtualenv --no-site-packages --python=/usr/bin/python3 venv
+    . venv/bin/activate
+
+Now install Selenium python bindings:
+
+    pip install selenium
+
+The tests use Selenium Firefox Webdriver which depends on geckodriver being
+installed. Download applicable release from
+[here](https://github.com/mozilla/geckodriver/releases/), extract the executable
+and put it somewhere in PATH.
+
+Now just run tests:
+
+    cd gadgets/standard_revisions-tests
+    ./test.sh
+
+Note that the tests at the moment hardcode official cppreference.com MediaWiki
+instance. The test pages there are not always updated - if that's the case,
+please sync them to the sources stored at gadgets/standard_revisions-tests-pages
+in this repository.
