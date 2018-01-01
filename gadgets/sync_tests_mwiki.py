@@ -102,7 +102,7 @@ def remove_no_longer_existing_pages(pages, dest_root):
     for path in deleted_paths:
         os.remove(os.path.join(dest_root, path))
 
-def perform_sync(url, direction, dest_root, user, password):
+def perform_sync(url, direction, dest_root, title_filter, user, password):
 
     if direction == SYNC_DIRECTION_DOWNLOAD:
         if os.path.exists(dest_root):
@@ -134,10 +134,25 @@ def perform_sync(url, direction, dest_root, user, password):
 
     pages = list(pages)
     for page in pages:
-        sync_single_page(page, direction, dest_root)
+        if title_filter(page.title()):
+            sync_single_page(page, direction, dest_root)
 
     if direction == SYNC_DIRECTION_DOWNLOAD:
         remove_no_longer_existing_pages(pages, dest_root)
+
+def create_filter_empty():
+    def filter_fun(title):
+        return True
+    return filter_fun
+
+def create_filter_for_titles_beginning_with(filter_paths):
+    def filter_fun(title):
+        for path in filter_paths:
+            if title.startswith(path):
+                return True
+        return False
+
+    return filter_fun
 
 def main():
     parser = argparse.ArgumentParser(prog='sync_mediawiki')
@@ -166,7 +181,8 @@ def main():
         print("The output directory can not be the current directory")
         sys.exit(1)
 
-    perform_sync(args.url, direction, args.destination_root,
+    title_filter = create_filter_for_titles_beginning_with('test-gadget-stdrev/')
+    perform_sync(args.url, direction, args.destination_root, title_filter,
                  args.user, args.password)
 
 if __name__ == '__main__':
