@@ -88,6 +88,21 @@ def add_file_to_rename_map(rename_map, dir, fn, new_fn):
         return
     rename_map.append((dir, fn, new_fn))
 
+def convert_loader_name(fn):
+    if re.search("modules=site&only=scripts", fn):
+        return "site_scripts.js"
+    elif re.search("modules=site&only=styles", fn):
+        return "site_modules.css"
+    elif re.search("modules=skins.*&only=scripts", fn):
+        return "skin_scripts.js"
+    elif re.search("modules=startup&only=scripts", fn):
+        return "startup_scripts.js"
+    elif re.search("modules=.*ext.*&only=styles", fn):
+        return "ext.css"
+    else:
+        print("Loader file " + fn + " does not match any known files")
+        sys.exit(1)
+
 def find_files_to_be_renamed(root):
     # Returns a rename map: array of tuples each of which contain three strings:
     # the directory the file resides in, the source and destination filenames.
@@ -123,20 +138,7 @@ def find_files_to_be_renamed(root):
 
     # map loader names to more recognizable names
     for dir,fn in files_loader:
-        if re.search("modules=site&only=scripts", fn):
-            new_fn = "site_scripts.js"
-        elif re.search("modules=site&only=styles", fn):
-            new_fn = "site_modules.css"
-        elif re.search("modules=skins.*&only=scripts", fn):
-            new_fn = "skin_scripts.js"
-        elif re.search("modules=startup&only=scripts", fn):
-            new_fn = "startup_scripts.js"
-        elif re.search("modules=.*ext.*&only=styles", fn):
-            new_fn = "ext.css"
-        else:
-            print("Loader file " + fn + " does not match any known files")
-            sys.exit(1)
-
+        new_fn = convert_loader_name(fn)
         add_file_to_rename_map(rename_map, dir, fn, new_fn)
 
     # rename filenames that conflict on case-insensitive filesystems
@@ -160,15 +162,20 @@ def find_html_files(root):
             html_files.append(os.path.join(dir, filename))
     return html_files
 
-def fix_relative_link(rename_map, target):
+def fix_relative_link(rename_map, target, file, root):
     external_link_patterns = [
         'http://',
         'https://',
         'ftp://'
     ]
-    for pattern in external_link_patterns:
-        if pattern in target:
-            return target
+    if re.match('https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
+        # Absolute loader.php links need to be made relative
+        abstarget = os.path.join(root, "common/" + convert_loader_name(target))
+        return os.path.relpath(abstarget, os.path.dirname(file))
+    else:
+        for pattern in external_link_patterns:
+            if pattern in target:
+                return target
 
     target = urllib.parse.unquote(target)
     for dir,fn,new_fn in rename_map:
@@ -256,9 +263,9 @@ def preprocess_html_file(root, fn, rename_map):
     # apply changes to links caused by file renames
     for el in html.xpath('//*[@src or @href]'):
         if el.get('src') is not None:
-            el.set('src', fix_relative_link(rename_map, el.get('src')))
+            el.set('src', fix_relative_link(rename_map, el.get('src'), fn, root))
         elif el.get('href') is not None:
-            el.set('href', fix_relative_link(rename_map, el.get('href')))
+            el.set('href', fix_relative_link(rename_map, el.get('href'), fn, root))
 
     for err in parser.error_log:
         print("HTML WARN: {0}".format(err))
