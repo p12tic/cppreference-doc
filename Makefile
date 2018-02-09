@@ -141,7 +141,7 @@ doc_html: output/reference
 
 doc_devhelp: output/cppreference-doc-en-c.devhelp2 output/cppreference-doc-en-cpp.devhelp2
 
-doc_qch: output/cppreference-doc-en-cpp.qch
+doc_qch: output/cppreference-doc-en-c.qch output/cppreference-doc-en-cpp.qch
 
 doc_doxygen: output/cppreference-doxygen-web.tag.xml output/cppreference-doxygen-local.tag.xml
 
@@ -169,6 +169,32 @@ output/cppreference-doc-en-cpp.devhelp2:	\
 		"output/cppreference-doc-en-cpp.devhelp2"
 
 #build the .qch (QT help) file
+output/cppreference-doc-en-c.qch: output/qch-help-project-c.xml
+	#qhelpgenerator only works if the project file is in the same directory as the documentation
+	cp "output/qch-help-project-c.xml" "output/reference/qch.xml"
+
+	pushd "output/reference" > /dev/null; \
+	$(qhelpgenerator) "qch.xml" -o "../cppreference-doc-en-c.qch"; \
+	popd > /dev/null
+
+	rm -f "output/reference/qch.xml"
+
+output/qch-help-project-c.xml: output/cppreference-doc-en-c.devhelp2
+	#build the file list
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "output/qch-files.xml"
+
+	pushd "output/reference" > /dev/null; \
+	find . -type f -not -iname "*.ttf" \
+		-exec echo "<file>"'{}'"</file>" \; | LC_ALL=C sort >> "../qch-files.xml" ; \
+	popd > /dev/null
+
+	echo "</files>" >> "output/qch-files.xml"
+
+	#create the project (copies the file list)
+	./devhelp2qch.py --src=output/cppreference-doc-en-c.devhelp2 \
+		--dst=output/qch-help-project-c.xml \
+		--virtual_folder=c --file_list=output/qch-files.xml
+
 output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
 	cp "output/qch-help-project-cpp.xml" "output/reference/qch.xml"

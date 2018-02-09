@@ -117,7 +117,7 @@ def find_files_to_be_renamed(root):
                                 # modify some of them later in the pipeline
 
     for dir, dirnames, filenames in os.walk(root):
-        filenames_loader = set(fnmatch.filter(filenames, 'load.php[?]*'))
+        filenames_loader = set(fnmatch.filter(filenames, 'load.php[?_]*'))
         # match any filenames with '?"*' characters
         filenames_rename = set(fnmatch.filter(filenames, '*[?"*]*'))
 
@@ -162,6 +162,12 @@ def find_html_files(root):
             html_files.append(os.path.join(dir, filename))
     return html_files
 
+def fix_non_windows_symbols(text):
+    windows_non_filename_symbols = [':', '\"', '?', '*', '<', '>', '\\', '|']
+    for sym in windows_non_filename_symbols:
+        text = text.replace(sym, '_')
+    return text
+
 def fix_relative_link(rename_map, target, file, root):
     external_link_patterns = [
         'http://',
@@ -178,8 +184,10 @@ def fix_relative_link(rename_map, target, file, root):
                 return target
 
     target = urllib.parse.unquote(target)
+    target = fix_non_windows_symbols(target)
     for dir,fn,new_fn in rename_map:
-        target = target.replace(fn, new_fn)
+        fn_fix = fix_non_windows_symbols(fn)
+        target = target.replace(fn_fix, new_fn)
     target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
     target = target.replace('../mwiki/','../common/')
     target = re.sub('(\.php|\.css)\?.*', '\\1', target)
