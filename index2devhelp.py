@@ -22,29 +22,11 @@ from index_transform import IndexTransform
 from xml_utils import xml_escape
 import sys
 
-if len(sys.argv) != 8:
-    print ('''Please provide the following 7 arguments:
- * a link to the location of the book
- * the chapters file to include
- * the title of the book
- * the name of the package
- * the link relative to the root of the documentation
- * the file name of the source file
- * the file name of the destination file
-''')
-
-book_base = sys.argv[1]
-chapters_fn = sys.argv[2]
-book_title = sys.argv[3]
-book_name = sys.argv[4]
-rel_link = sys.argv[5]
-in_fn = sys.argv[6]
-dest_fn = sys.argv[7]
-
-out_f = open(dest_fn, 'w', encoding='utf-8')
-
-
 class Index2Devhelp(IndexTransform):
+
+    def __init__(self, out_file):
+        super().__init__()
+        self.out_file = out_file
 
     def get_mark(self, el):
         if el.tag == 'const': return 'macro'
@@ -61,28 +43,52 @@ class Index2Devhelp(IndexTransform):
         return ''
 
     def process_item_hook(self, el, full_name, full_link):
-        global out_f
-        out_f.write('<keyword type="' + xml_escape(self.get_mark(el))
+        self.out_file.write('<keyword type="' + xml_escape(self.get_mark(el))
                     + '" name="' + xml_escape(full_name)
                     + '" link="' + xml_escape(full_link) + '"/>\n')
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
-out_f.write('<?xml version="1.0"?>\n'
-           + '<book title="' + xml_escape(book_title)
-           + '" xmlns="http://www.devhelp.net/book'
-           + '" name="' + xml_escape(book_name)
-           + '" base="' + xml_escape(book_base)
-           + '" link="' + xml_escape(rel_link)
-           + '" version="2" language="c++">\n')
 
-chapters_f = open(chapters_fn, encoding='utf-8')
-out_f.write(chapters_f.read() + '\n')
-out_f.write('<functions>')
+def main():
+    if len(sys.argv) != 8:
+        print ('''Please provide the following 7 arguments:
+     * a link to the location of the book
+     * the chapters file to include
+     * the title of the book
+     * the name of the package
+     * the link relative to the root of the documentation
+     * the file name of the source file
+     * the file name of the destination file
+    ''')
 
-tr = Index2Devhelp()
-tr.transform(in_fn)
+    book_base = sys.argv[1]
+    chapters_fn = sys.argv[2]
+    book_title = sys.argv[3]
+    book_name = sys.argv[4]
+    rel_link = sys.argv[5]
+    in_fn = sys.argv[6]
+    dest_fn = sys.argv[7]
 
-out_f.write('''
+    out_f = open(dest_fn, 'w', encoding='utf-8')
+
+    out_f.write('<?xml version="1.0"?>\n'
+               + '<book title="' + xml_escape(book_title)
+               + '" xmlns="http://www.devhelp.net/book'
+               + '" name="' + xml_escape(book_name)
+               + '" base="' + xml_escape(book_base)
+               + '" link="' + xml_escape(rel_link)
+               + '" version="2" language="c++">\n')
+
+    chapters_f = open(chapters_fn, encoding='utf-8')
+    out_f.write(chapters_f.read() + '\n')
+    out_f.write('<functions>')
+
+    tr = Index2Devhelp(out_f)
+    tr.transform(in_fn)
+
+    out_f.write('''
   </functions>
 </book>
 ''')
+if __name__ == '__main__':
+    main()

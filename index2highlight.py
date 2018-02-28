@@ -21,14 +21,10 @@
 from index_transform import IndexTransform
 import sys
 
-if len(sys.argv) != 3:
-    print ('''Please provide the file name of the index as the first argument
- and the file name of the destination as the second ''')
-    sys.exit(1)
-
-out_f = open(sys.argv[2], 'w', encoding='utf-8')
-
 class Index2Highlight(IndexTransform):
+    def __init__(self, out_file):
+        super().__init__()
+        self.out_file = out_file
 
     def check_is_member(self, el):
         if el.getparent().tag == 'index':
@@ -40,8 +36,6 @@ class Index2Highlight(IndexTransform):
         return False
 
     def process_item_hook(self, el, full_name, full_link):
-        global out_f
-
         is_member = False
         if self.check_is_member(el): pass
         elif '<' in full_name: pass
@@ -49,15 +43,23 @@ class Index2Highlight(IndexTransform):
         elif '(' in full_name: pass
         elif ')' in full_name: pass
         else:
-            out_f.write(full_name + ' => ' + full_link + '\n')
+            self.out_file.write(full_name + ' => ' + full_link + '\n')
 
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
     def inherits_worker(self, parent_name, pending, finished=list()):
         pass # do not walk the inheritance hierarchy
 
-tr = Index2Highlight()
-tr.transform(sys.argv[1])
+def main():
+    if len(sys.argv) != 3:
+        print ('''Please provide the file name of the index as the first argument
+     and the file name of the destination as the second ''')
+        sys.exit(1)
 
+    out_f = open(sys.argv[2], 'w', encoding='utf-8')
 
+    tr = Index2Highlight(out_f)
+    tr.transform(sys.argv[1])
 
+if __name__ == '__main__':
+    main()

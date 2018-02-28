@@ -48,20 +48,9 @@ import json
 from index_transform import IndexTransform
 from xml_utils import xml_escape
 
-if len(sys.argv) != 3:
-    print('''Please provide the file name of the index as the first argument
- and the file name of the destination as the second ''')
-    sys.exit(1)
-
-out_f = open(sys.argv[2], 'w', encoding='utf-8')
-
-groups = {}
-links = []
-
 def get_rel_name(full_name):
     pos = full_name.rfind("::")
     return full_name[pos+2:]
-
 
 def is_group(el):
     curr_el = el
@@ -84,14 +73,14 @@ class Index2AutolinkerGroups(IndexTransform):
 
     def __init__(self):
         super(Index2AutolinkerGroups, self).__init__(ignore_typedefs = True)
+        self.groups = {}
         self.curr_group = None
 
     def process_item_hook(self, el, full_name, full_link):
-        global groups
         if is_group(el):
             saved_group = self.curr_group
 
-            groups[full_name] = {
+            self.groups[full_name] = {
                 'name' : full_name,
                 'base_url' : full_link,
                 'urls' : ['']
@@ -103,22 +92,22 @@ class Index2AutolinkerGroups(IndexTransform):
             IndexTransform.process_item_hook(self, el, full_name, full_link)
 
         if is_group(el.getparent()):
-            base_url = groups[self.curr_group]['base_url']
+            base_url = self.groups[self.curr_group]['base_url']
             if full_link.find(base_url) == 0:
                 rel_link = full_link[len(base_url):]
-                if not rel_link in groups[self.curr_group]['urls']:
-                    groups[self.curr_group]['urls'].append(rel_link)
+                if not rel_link in self.groups[self.curr_group]['urls']:
+                    self.groups[self.curr_group]['urls'].append(rel_link)
             # else: an error has occurred somewhere - ignore
 
 class Index2AutolinkerLinks(IndexTransform):
 
     def __init__(self):
         super(Index2AutolinkerLinks, self).__init__()
+        self.links = []
         self.curr_group = None
 
     def process_item_hook(self, el, full_name, full_link):
-        global links
-        links.append({ 'string' : full_name, 'target' : full_link })
+        self.links.append({ 'string' : full_name, 'target' : full_link })
 
         if is_group(el):
             saved_group = self.curr_group
@@ -130,24 +119,35 @@ class Index2AutolinkerLinks(IndexTransform):
 
         if is_group(el.getparent()) and self.curr_group and needs_entry_in_group(el):
 
-            links.append({ 'string' : get_rel_name(full_name),
+            self.links.append({ 'string' : get_rel_name(full_name),
                            'target' : full_link,
                            'on_group' : self.curr_group
                          })
 
+def main():
+    if len(sys.argv) != 3:
+        print('''Please provide the file name of the index as the first argument
+     and the file name of the destination as the second ''')
+        sys.exit(1)
 
+    out_f = open(sys.argv[2], 'w', encoding='utf-8')
 
-tr = Index2AutolinkerGroups()
-tr.transform(sys.argv[1])
+    tr = Index2AutolinkerGroups()
+    tr.transform(sys.argv[1])
+    groups = tr.groups
 
-tr = Index2AutolinkerLinks()
-tr.transform(sys.argv[1])
+    tr = Index2AutolinkerLinks()
+    tr.transform(sys.argv[1])
+    links = tr.links
 
-json_groups = [ v for v in groups.values() ]
+    json_groups = [ v for v in groups.values() ]
 
-json_groups = sorted(json_groups, key=lambda x: x['name'])
-links = sorted(links, key=lambda x: x['target'])
+    json_groups = sorted(json_groups, key=lambda x: x['name'])
+    links = sorted(links, key=lambda x: x['target'])
 
-out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links}, indent=None,
-                       separators=(',\n', ': '), sort_keys=True))
-out_f.close()
+    out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links}, indent=None,
+                           separators=(',\n', ': '), sort_keys=True))
+    out_f.close()
+
+if __name__ == '__main__':
+    main()

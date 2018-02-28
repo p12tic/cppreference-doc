@@ -22,14 +22,11 @@ from index_transform import IndexTransform
 from xml_utils import xml_escape
 import sys
 
-if len(sys.argv) != 3:
-    print ('''Please provide the file name of the index as the first argument
- and the file name of the destination as the second ''')
-    sys.exit(1)
-
-out_f = open(sys.argv[2], 'w', encoding='utf-8')
-
 class Index2Browser(IndexTransform):
+
+    def __init__(self, out_file):
+        super().__init__()
+        self.out_file = out_file
 
     def output_item(self, el, full_name, full_link):
         mark = ''
@@ -51,12 +48,19 @@ class Index2Browser(IndexTransform):
         return res
 
     def process_item_hook(self, el, full_name, full_link):
-        global out_f
-        out_f.write('<li>' + self.output_item(el, full_name, full_link) + '<ul>')
+        self.out_file.write('<li>' + self.output_item(el, full_name, full_link) + '<ul>')
         IndexTransform.process_item_hook(self, el, full_name, full_link)
-        out_f.write('</ul></li>\n')
+        self.out_file.write('</ul></li>\n')
 
-out_f.write('''
+def main():
+    if len(sys.argv) != 3:
+        print ('''Please provide the file name of the index as the first argument
+     and the file name of the destination as the second ''')
+        sys.exit(1)
+
+    out_f = open(sys.argv[2], 'w', encoding='utf-8')
+
+    out_f.write('''
 <html>
   <head>
   <style type="text/css">
@@ -78,14 +82,19 @@ out_f.write('''
     <ul>
 ''')
 
-tr = Index2Browser()
-tr.transform(sys.argv[1])
+    tr = Index2Browser(out_f)
+    tr.transform(sys.argv[1])
 
-out_f.write('''
+    out_f.write('''
     </ul>
   </body>
 </html>
 ''')
+
+if __name__ == '__main__':
+    main()
+
+
 
 
 

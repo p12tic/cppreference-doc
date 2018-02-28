@@ -25,28 +25,6 @@ from functools import total_ordering
 from lxml import etree
 import sys
 
-if len(sys.argv) != 5:
-    print ('''Please provide the following 3 arguments:
- * the file name of the link map or 'web' if no link remap should be done
- * the file name of the source file
- * the file name of the destination file
-''')
-    sys.exit(1)
-
-link_map_fn = sys.argv[1]
-in_fn = sys.argv[2]
-chapters_fn = sys.argv[3]
-dest_fn = sys.argv[4]
-
-indent_level_inc = 2
-
-out_f = open(dest_fn, 'w', encoding='utf-8')
-
-link_map = None
-if link_map_fn != 'web':
-    link_map = LinkMap()
-    link_map.read(link_map_fn)
-
 class ItemKind:
     VARIABLE = 0,
     FUNCTION = 1,
@@ -70,10 +48,7 @@ class Item:
     def __lt__(self, other):
         return self.full_name < other.full_name
 
-ns_map = Item()
-
-def add_to_map(full_name, full_link, item_kind):
-    global ns_map
+def add_to_map(ns_map, full_name, full_link, item_kind):
     names = full_name.split('::')
     parsed_names = []
     last_name = names.pop() # i.e. unqualified name
@@ -116,8 +91,7 @@ def add_to_map(full_name, full_link, item_kind):
         curr_item = new_item
     return
 
-def print_members(out_f, curr_item):
-    global link_map
+def print_members(out_f, link_map, curr_item):
     for item in sorted(curr_item.members.values()):
         if link_map:
             link = link_map.get_dest(item.link)
@@ -148,7 +122,7 @@ def print_members(out_f, curr_item):
         elif item.kind == ItemKind.NAMESPACE:
             out_f.write('    <namespace>' + xml_escape(item.full_name) + '</namespace>\n')
 
-def print_map_item(out_f, curr_item):
+def print_map_item(out_f, link_map, curr_item):
     item_kind_to_attr = { ItemKind.NAMESPACE : 'namespace',
                           ItemKind.CLASS : 'class' }
     if curr_item.kind not in item_kind_to_attr:
@@ -158,21 +132,24 @@ def print_map_item(out_f, curr_item):
     out_f.write('  <compound kind="' + item_kind_to_attr[curr_item.kind] + '">\n' +
                 '    <name>' + xml_escape(curr_item.full_name) + '</name>\n' +
                 '    <filename>' + xml_escape(curr_item.link) + '</filename>\n')
-    print_members(out_f, curr_item)
+    print_members(out_f, link_map, curr_item)
     out_f.write('  </compound>\n')
 
     for item in sorted(curr_item.members.values()):
         if item.kind in [ ItemKind.NAMESPACE, ItemKind.CLASS ]:
-            print_map_item(out_f, item)
+            print_map_item(out_f, link_map, item)
 
-def print_map(out_f, ns_map):
+def print_map(out_f, link_map, ns_map):
     for item in sorted(ns_map.members.values()):
         if item.kind in [ ItemKind.NAMESPACE, ItemKind.CLASS ]:
-            print_map_item(out_f, item)
+            print_map_item(out_f, link_map, item)
         else:
             print("WARN: " + item.full_name + " ignored")
 
 class Index2Devhelp(IndexTransform):
+    def __init__(self, ns_map):
+        super().__init__()
+        self.ns_map = ns_map
 
     def get_item_kind(self, el):
         if el.tag == 'const': return None
@@ -190,23 +167,51 @@ class Index2Devhelp(IndexTransform):
     def process_item_hook(self, el, full_name, full_link):
         item_kind = self.get_item_kind(el)
         if item_kind != None:
-            add_to_map(full_name, full_link, item_kind)
+            add_to_map(self.ns_map, full_name, full_link, item_kind)
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
-out_f.write('<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n')
-out_f.write('<tagfile>\n')
+def main():
+    if len(sys.argv) != 5:
+        print ('''Please provide the following 3 arguments:
+     * the file name of the link map or 'web' if no link remap should be done
+     * the file name of the source file
+     * the file name of the destination file
+    ''')
+        sys.exit(1)
 
-with open(chapters_fn, encoding='utf-8') as chapters_f:
-    chapters_tree = etree.parse(chapters_f)
-    for header_chapter in chapters_tree.getroot().findall(".//*[@name='Headers']/*"):
-        out_f.write('  <compound kind="file">\n')
-        out_f.write('    <name>%s</name>\n' % header_chapter.attrib['name'])
-        out_f.write('    <filename>%s</filename>\n' % header_chapter.attrib['link'])
-        out_f.write('    <namespace>std</namespace>\n')
-        out_f.write('  </compound>\n')
+    link_map_fn = sys.argv[1]
+    in_fn = sys.argv[2]
+    chapters_fn = sys.argv[3]
+    dest_fn = sys.argv[4]
 
-tr = Index2Devhelp()
-tr.transform(in_fn)
-print_map(out_f, ns_map)
-out_f.write('''</tagfile>
+    indent_level_inc = 2
+
+    out_f = open(dest_fn, 'w', encoding='utf-8')
+
+    link_map = None
+    if link_map_fn != 'web':
+        link_map = LinkMap()
+        link_map.read(link_map_fn)
+
+    ns_map = Item()
+
+    out_f.write('<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n')
+    out_f.write('<tagfile>\n')
+
+    with open(chapters_fn, encoding='utf-8') as chapters_f:
+        chapters_tree = etree.parse(chapters_f)
+        for header_chapter in chapters_tree.getroot().findall(".//*[@name='Headers']/*"):
+            out_f.write('  <compound kind="file">\n')
+            out_f.write('    <name>%s</name>\n' % header_chapter.attrib['name'])
+            out_f.write('    <filename>%s</filename>\n' % header_chapter.attrib['link'])
+            out_f.write('    <namespace>std</namespace>\n')
+            out_f.write('  </compound>\n')
+
+    tr = Index2Devhelp(ns_map)
+    tr.transform(in_fn)
+    print_map(out_f, link_map, ns_map)
+    out_f.write('''</tagfile>
 ''')
+
+if __name__ == '__main__':
+    main()
