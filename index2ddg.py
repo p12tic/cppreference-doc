@@ -458,7 +458,6 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
             out.write(line)
 
 def main():
-
     parser = argparse.ArgumentParser(prog='index2ddg.py')
     parser.add_argument('index', type=str,
                         help='The path to the XML index containing identifier data')

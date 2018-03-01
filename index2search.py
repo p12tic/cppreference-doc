@@ -17,6 +17,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
+
+import argparse
 from index_transform import IndexTransform
 import sys
 
@@ -31,15 +33,17 @@ class Index2Search(IndexTransform):
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
 def main():
-    if len(sys.argv) != 3:
-        print ('''Please provide the file name of the index as the first argument
-     and the file name of the destination as the second ''')
-        sys.exit(1)
+    parser = argparse.ArgumentParser(prog='index2highlight')
+    parser.add_argument('index', type=str,
+            help='Path to index file to process')
+    parser.add_argument('destination', type=str,
+            help='Path to destination file to store results to')
+    args = parser.parse_args()
 
-    out_f = open(sys.argv[2], 'w', encoding='utf-8')
+    out_f = open(args.destination, 'w', encoding='utf-8')
 
     tr = Index2Search(out_f)
-    tr.transform(sys.argv[1])
+    tr.transform(args.index)
 
 if __name__ == '__main__':
     main()

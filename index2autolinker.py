@@ -42,6 +42,7 @@
     }
 '''
 
+import argparse
 import sys
 import json
 
@@ -125,19 +126,21 @@ class Index2AutolinkerLinks(IndexTransform):
                          })
 
 def main():
-    if len(sys.argv) != 3:
-        print('''Please provide the file name of the index as the first argument
-     and the file name of the destination as the second ''')
-        sys.exit(1)
+    parser = argparse.ArgumentParser(prog='index2autolinker')
+    parser.add_argument('index', type=str,
+            help='Path to index file to process')
+    parser.add_argument('destination', type=str,
+            help='Path to destination file to store results to')
+    args = parser.parse_args()
 
-    out_f = open(sys.argv[2], 'w', encoding='utf-8')
+    out_f = open(args.destination, 'w', encoding='utf-8')
 
     tr = Index2AutolinkerGroups()
-    tr.transform(sys.argv[1])
+    tr.transform(args.index)
     groups = tr.groups
 
     tr = Index2AutolinkerLinks()
-    tr.transform(sys.argv[1])
+    tr.transform(args.index)
     links = tr.links
 
     json_groups = [ v for v in groups.values() ]

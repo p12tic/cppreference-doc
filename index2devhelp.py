@@ -18,6 +18,7 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
+import argparse
 from index_transform import IndexTransform
 from xml_utils import xml_escape
 import sys
@@ -50,24 +51,30 @@ class Index2Devhelp(IndexTransform):
 
 
 def main():
-    if len(sys.argv) != 8:
-        print ('''Please provide the following 7 arguments:
-     * a link to the location of the book
-     * the chapters file to include
-     * the title of the book
-     * the name of the package
-     * the link relative to the root of the documentation
-     * the file name of the source file
-     * the file name of the destination file
-    ''')
+    parser = argparse.ArgumentParser(prog='index2devhelp')
+    parser.add_argument('book_base', type=str,
+            help='url to the location of the book')
+    parser.add_argument('chapters_path', type=str,
+            help='path to the chapters file to include')
+    parser.add_argument('book_title', type=str,
+            help='the title of the book')
+    parser.add_argument('book_name', type=str,
+        help='the name of the package')
+    parser.add_argument('rel_link', type=str,
+        help='the link relative to the root of the documentation')
+    parser.add_argument('in_fn', type=str,
+        help='the path of the source file')
+    parser.add_argument('dest_fn', type=str,
+        help='the path of the destination file')
+    args = parser.parse_args()
 
-    book_base = sys.argv[1]
-    chapters_fn = sys.argv[2]
-    book_title = sys.argv[3]
-    book_name = sys.argv[4]
-    rel_link = sys.argv[5]
-    in_fn = sys.argv[6]
-    dest_fn = sys.argv[7]
+    book_base = args.book_base
+    chapters_fn = args.chapters_path
+    book_title = args.book_title
+    book_name = args.book_name
+    rel_link = args.rel_link
+    in_fn = args.in_fn
+    dest_fn = args.dest_fn
 
     out_f = open(dest_fn, 'w', encoding='utf-8')
 
