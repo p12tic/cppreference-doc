@@ -64,7 +64,7 @@ def main():
             out_f.write('    <namespace>std</namespace>\n')
             out_f.write('  </compound>\n')
 
-    tr = Index2Devhelp(ns_map)
+    tr = Index2DoxygenTag(ns_map)
     tr.transform_file(in_fn)
     print_map(out_f, link_map, ns_map)
     out_f.write('''</tagfile>

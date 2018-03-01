@@ -143,7 +143,7 @@ def print_map(out_f, link_map, ns_map):
         else:
             print("WARN: " + item.full_name + " ignored")
 
-class Index2Devhelp(IndexTransform):
+class Index2DoxygenTag(IndexTransform):
     def __init__(self, ns_map):
         super().__init__()
         self.ns_map = ns_map
