@@ -57,11 +57,11 @@ def main():
     out_f = open(args.destination, 'w', encoding='utf-8')
 
     tr = Index2AutolinkerGroups()
-    tr.transform(args.index)
+    tr.transform_file(args.index)
     groups = tr.groups
 
     tr = Index2AutolinkerLinks()
-    tr.transform(args.index)
+    tr.transform_file(args.index)
     links = tr.links
 
     json_groups = [ v for v in groups.values() ]

@@ -32,7 +32,7 @@ def main():
     out_f = open(args.destination, 'w', encoding='utf-8')
 
     tr = Index2Highlight(out_f)
-    tr.transform(args.index)
+    tr.transform_file(args.index)
 
 if __name__ == '__main__':
     main()

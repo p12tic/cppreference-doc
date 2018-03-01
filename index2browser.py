@@ -54,7 +54,7 @@ def main():
 ''')
 
     tr = Index2Browser(out_f)
-    tr.transform(args.index)
+    tr.transform_file(args.index)
 
     out_f.write('''
     </ul>

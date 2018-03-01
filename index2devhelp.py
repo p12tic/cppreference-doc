@@ -63,7 +63,7 @@ def main():
     out_f.write('<functions>')
 
     tr = Index2Devhelp(out_f)
-    tr.transform(in_fn)
+    tr.transform_file(in_fn)
 
     out_f.write('''
   </functions>

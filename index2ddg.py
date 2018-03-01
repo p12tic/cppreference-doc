@@ -502,7 +502,7 @@ def main():
 
     # get a list of pages to analyze
     tr = Index2DuckDuckGoList(ident_map)
-    tr.transform(index_file)
+    tr.transform_file(index_file)
 
     # get a list of existing pages
     html_files = get_html_files(args.reference)

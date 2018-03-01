@@ -65,7 +65,7 @@ def main():
             out_f.write('  </compound>\n')
 
     tr = Index2Devhelp(ns_map)
-    tr.transform(in_fn)
+    tr.transform_file(in_fn)
     print_map(out_f, link_map, ns_map)
     out_f.write('''</tagfile>
 ''')
