@@ -18,37 +18,9 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
+from index_transform.devhelp import *
 import argparse
-from index_transform import IndexTransform
 from xml_utils import xml_escape
-import sys
-
-class Index2Devhelp(IndexTransform):
-
-    def __init__(self, out_file):
-        super().__init__()
-        self.out_file = out_file
-
-    def get_mark(self, el):
-        if el.tag == 'const': return 'macro'
-        elif el.tag == 'function': return 'function'
-        elif el.tag == 'constructor': return 'function'
-        elif el.tag == 'destructor': return 'function'
-        elif el.tag == 'class': return 'class'
-        elif el.tag == 'enum': return 'enum'
-        elif el.tag == 'typedef': return 'typedef'
-        elif el.tag == 'specialization': return 'class'
-        elif el.tag == 'overload': return 'function'
-        # devhelp does not support variables in its format
-        elif el.tag == 'variable': return ''
-        return ''
-
-    def process_item_hook(self, el, full_name, full_link):
-        self.out_file.write('<keyword type="' + xml_escape(self.get_mark(el))
-                    + '" name="' + xml_escape(full_name)
-                    + '" link="' + xml_escape(full_link) + '"/>\n')
-        IndexTransform.process_item_hook(self, el, full_name, full_link)
-
 
 def main():
     parser = argparse.ArgumentParser(prog='index2devhelp')

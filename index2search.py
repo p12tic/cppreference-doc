@@ -18,19 +18,8 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
+from index_transform.search import *
 import argparse
-from index_transform import IndexTransform
-import sys
-
-class Index2Search(IndexTransform):
-    def __init__(self, out_file):
-        super().__init__()
-        self.out_file = out_file
-
-    def process_item_hook(self, el, full_name, full_link):
-
-        self.out_file.write(full_name + ' => ' + full_link + '\n')
-        IndexTransform.process_item_hook(self, el, full_name, full_link)
 
 def main():
     parser = argparse.ArgumentParser(prog='index2highlight')

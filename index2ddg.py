@@ -28,7 +28,7 @@ import re
 import lxml.etree as e
 import lxml.html as html
 
-from index_transform import IndexTransform
+from index_transform.common import IndexTransform
 from xml_utils import xml_escape
 from build_link_map import build_link_map
 from ddg_parse_html import get_declarations, get_short_description, DdgException

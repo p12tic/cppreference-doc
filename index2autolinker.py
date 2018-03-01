@@ -43,87 +43,8 @@
 '''
 
 import argparse
-import sys
 import json
-
-from index_transform import IndexTransform
-from xml_utils import xml_escape
-
-def get_rel_name(full_name):
-    pos = full_name.rfind("::")
-    return full_name[pos+2:]
-
-def is_group(el):
-    curr_el = el
-    while True:
-        if curr_el.tag != 'class' and curr_el.tag != 'enum':
-            return False
-        curr_el = curr_el.getparent()
-        if curr_el.tag == 'index':
-            return True
-
-def needs_entry_in_group(el):
-    if el.tag == 'const': return True
-    if el.tag == 'function': return True
-    if el.tag == 'class': return True
-    if el.tag == 'enum': return True
-    if el.tag == 'variable': return True
-    return False
-
-class Index2AutolinkerGroups(IndexTransform):
-
-    def __init__(self):
-        super(Index2AutolinkerGroups, self).__init__(ignore_typedefs = True)
-        self.groups = {}
-        self.curr_group = None
-
-    def process_item_hook(self, el, full_name, full_link):
-        if is_group(el):
-            saved_group = self.curr_group
-
-            self.groups[full_name] = {
-                'name' : full_name,
-                'base_url' : full_link,
-                'urls' : ['']
-            }
-            self.curr_group = full_name
-            IndexTransform.process_item_hook(self, el, full_name, full_link)
-            self.curr_group = saved_group
-        else:
-            IndexTransform.process_item_hook(self, el, full_name, full_link)
-
-        if is_group(el.getparent()):
-            base_url = self.groups[self.curr_group]['base_url']
-            if full_link.find(base_url) == 0:
-                rel_link = full_link[len(base_url):]
-                if not rel_link in self.groups[self.curr_group]['urls']:
-                    self.groups[self.curr_group]['urls'].append(rel_link)
-            # else: an error has occurred somewhere - ignore
-
-class Index2AutolinkerLinks(IndexTransform):
-
-    def __init__(self):
-        super(Index2AutolinkerLinks, self).__init__()
-        self.links = []
-        self.curr_group = None
-
-    def process_item_hook(self, el, full_name, full_link):
-        self.links.append({ 'string' : full_name, 'target' : full_link })
-
-        if is_group(el):
-            saved_group = self.curr_group
-            self.curr_group = full_name
-            IndexTransform.process_item_hook(self, el, full_name, full_link)
-            self.curr_group = saved_group
-        else:
-            IndexTransform.process_item_hook(self, el, full_name, full_link)
-
-        if is_group(el.getparent()) and self.curr_group and needs_entry_in_group(el):
-
-            self.links.append({ 'string' : get_rel_name(full_name),
-                           'target' : full_link,
-                           'on_group' : self.curr_group
-                         })
+from index_transform.autolinker import *
 
 def main():
     parser = argparse.ArgumentParser(prog='index2autolinker')
