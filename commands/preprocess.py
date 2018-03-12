@@ -87,6 +87,8 @@ def add_file_to_rename_map(rename_map, dir, fn, new_fn):
         return
     rename_map.append((dir, fn, new_fn))
 
+# Converts complex URL to resources supplied by MediaWiki loader to a simplified
+# name
 def convert_loader_name(fn):
     if re.search("modules=site&only=scripts", fn):
         return "site_scripts.js"
@@ -99,8 +101,8 @@ def convert_loader_name(fn):
     elif re.search("modules=.*ext.*&only=styles", fn):
         return "ext.css"
     else:
-        print("Loader file " + fn + " does not match any known files")
-        sys.exit(1)
+        raise Exception('Loader file {0} does not match any known files'\
+                            .format(fn))
 
 def find_files_to_be_renamed(root):
     # Returns a rename map: array of tuples each of which contain three strings:
