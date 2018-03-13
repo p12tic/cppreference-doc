@@ -194,7 +194,7 @@ def has_class(el, classes_to_check):
         return False
     classes = value.split(' ')
     for cl in classes_to_check:
-        if cl in classes:
+        if cl != '' and cl in classes:
             return True
     return False
 
