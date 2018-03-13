@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from commands.preprocess import *
 import unittest
+from lxml import etree
 
 class TestConvertLoaderName(unittest.TestCase):
     def test_convert_loader_name(self):
@@ -29,3 +30,49 @@ cppreference2&*'
 
         with self.assertRaises(Exception):
             convert_loader_name('')
+
+class TestHasClass(unittest.TestCase):
+    def test_has_class(self):
+        el = etree.Element('tag')
+        self.assertEqual(False, has_class(el, []))
+        self.assertEqual(False, has_class(el, ['']))
+        self.assertEqual(False, has_class(el, ['a']))
+        self.assertEqual(False, has_class(el, ['tag']))
+
+        el.set('class', '')
+        self.assertEqual(False, has_class(el, []))
+        self.assertEqual(False, has_class(el, ['']))
+        self.assertEqual(False, has_class(el, ['a']))
+        self.assertEqual(False, has_class(el, ['tag']))
+
+        el.set('class', 'a')
+        self.assertEqual(False, has_class(el, []))
+        self.assertEqual(False, has_class(el, ['']))
+        self.assertEqual(True, has_class(el, ['a']))
+        self.assertEqual(False, has_class(el, ['b']))
+        self.assertEqual(False, has_class(el, ['tag']))
+        self.assertEqual(True, has_class(el, ['a', 'b']))
+        self.assertEqual(True, has_class(el, ['b', 'a']))
+        self.assertEqual(False, has_class(el, ['b', 'c']))
+
+        el.set('class', 'a b')
+        self.assertEqual(False, has_class(el, []))
+        self.assertEqual(False, has_class(el, ['']))
+        self.assertEqual(True, has_class(el, ['a']))
+        self.assertEqual(True, has_class(el, ['b']))
+        self.assertEqual(False, has_class(el, ['tag']))
+        self.assertEqual(True, has_class(el, ['a', 'b']))
+        self.assertEqual(True, has_class(el, ['b', 'a']))
+        self.assertEqual(True, has_class(el, ['b', 'c']))
+
+        el.set('class', 'a  b')
+        self.assertEqual(False, has_class(el, []))
+        self.assertEqual(False, has_class(el, ['']))
+        self.assertEqual(True, has_class(el, ['a']))
+        self.assertEqual(True, has_class(el, ['b']))
+        self.assertEqual(False, has_class(el, ['tag']))
+        self.assertEqual(True, has_class(el, ['a', 'b']))
+        self.assertEqual(True, has_class(el, ['b', 'a']))
+        self.assertEqual(True, has_class(el, ['b', 'c']))
+
+
