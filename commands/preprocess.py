@@ -195,11 +195,11 @@ def trasform_relative_link(rename_map, target):
     target = target.replace('%23', '#')
     return target
 
-# Transforms a relative link in the given file according to rename map.
+# Transforms a link in the given file according to rename map.
 # target is the link to transform.
 # file is the path of the file the link came from.
 # root is the path to the root of the archive.
-def fix_relative_link(rename_map, target, file, root):
+def transform_link(rename_map, target, file, root):
     if is_loader_link(target):
         return transform_loader_link(target, file, root)
 
@@ -284,9 +284,9 @@ def preprocess_html_file(root, fn, rename_map):
     # apply changes to links caused by file renames
     for el in html.xpath('//*[@src or @href]'):
         if el.get('src') is not None:
-            el.set('src', fix_relative_link(rename_map, el.get('src'), fn, root))
+            el.set('src', transform_link(rename_map, el.get('src'), fn, root))
         elif el.get('href') is not None:
-            el.set('href', fix_relative_link(rename_map, el.get('href'), fn, root))
+            el.set('href', transform_link(rename_map, el.get('href'), fn, root))
 
     for err in parser.error_log:
         print("HTML WARN: {0}".format(err))
