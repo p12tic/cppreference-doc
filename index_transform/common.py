@@ -196,9 +196,13 @@ class IndexTransform:
 
         self.inherits_worker(parent_name, pending, finished)
 
-    """ Transforms the index """
-    def transform(self, fn):
+    """ Transforms the index from the given path """
+    def transform_file(self, fn):
         root = e.parse(fn)
+        self.transform_xml(root)
+
+    """ Transforms the index from the given XML tree """
+    def transform_xml(self, root):
         elems = root.xpath('/index/*')
         for el in elems:
             self.process_item(el, '', '')

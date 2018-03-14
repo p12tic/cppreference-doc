@@ -28,7 +28,7 @@ import re
 import lxml.etree as e
 import lxml.html as html
 
-from index_transform import IndexTransform
+from index_transform.common import IndexTransform
 from xml_utils import xml_escape
 from build_link_map import build_link_map
 from ddg_parse_html import get_declarations, get_short_description, DdgException
@@ -458,7 +458,6 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
             out.write(line)
 
 def main():
-
     parser = argparse.ArgumentParser(prog='index2ddg.py')
     parser.add_argument('index', type=str,
                         help='The path to the XML index containing identifier data')
@@ -503,7 +502,7 @@ def main():
 
     # get a list of pages to analyze
     tr = Index2DuckDuckGoList(ident_map)
-    tr.transform(index_file)
+    tr.transform_file(index_file)
 
     # get a list of existing pages
     html_files = get_html_files(args.reference)

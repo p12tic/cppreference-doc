@@ -18,71 +18,56 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform import IndexTransform
+from index_transform.devhelp import *
+import argparse
 from xml_utils import xml_escape
-import sys
 
-if len(sys.argv) != 8:
-    print ('''Please provide the following 7 arguments:
- * a link to the location of the book
- * the chapters file to include
- * the title of the book
- * the name of the package
- * the link relative to the root of the documentation
- * the file name of the source file
- * the file name of the destination file
-''')
+def main():
+    parser = argparse.ArgumentParser(prog='index2devhelp')
+    parser.add_argument('book_base', type=str,
+            help='url to the location of the book')
+    parser.add_argument('chapters_path', type=str,
+            help='path to the chapters file to include')
+    parser.add_argument('book_title', type=str,
+            help='the title of the book')
+    parser.add_argument('book_name', type=str,
+        help='the name of the package')
+    parser.add_argument('rel_link', type=str,
+        help='the link relative to the root of the documentation')
+    parser.add_argument('in_fn', type=str,
+        help='the path of the source file')
+    parser.add_argument('dest_fn', type=str,
+        help='the path of the destination file')
+    args = parser.parse_args()
 
-book_base = sys.argv[1]
-chapters_fn = sys.argv[2]
-book_title = sys.argv[3]
-book_name = sys.argv[4]
-rel_link = sys.argv[5]
-in_fn = sys.argv[6]
-dest_fn = sys.argv[7]
+    book_base = args.book_base
+    chapters_fn = args.chapters_path
+    book_title = args.book_title
+    book_name = args.book_name
+    rel_link = args.rel_link
+    in_fn = args.in_fn
+    dest_fn = args.dest_fn
 
-out_f = open(dest_fn, 'w', encoding='utf-8')
+    out_f = open(dest_fn, 'w', encoding='utf-8')
 
+    out_f.write('<?xml version="1.0"?>\n'
+               + '<book title="' + xml_escape(book_title)
+               + '" xmlns="http://www.devhelp.net/book'
+               + '" name="' + xml_escape(book_name)
+               + '" base="' + xml_escape(book_base)
+               + '" link="' + xml_escape(rel_link)
+               + '" version="2" language="c++">\n')
 
-class Index2Devhelp(IndexTransform):
+    chapters_f = open(chapters_fn, encoding='utf-8')
+    out_f.write(chapters_f.read() + '\n')
+    out_f.write('<functions>')
 
-    def get_mark(self, el):
-        if el.tag == 'const': return 'macro'
-        elif el.tag == 'function': return 'function'
-        elif el.tag == 'constructor': return 'function'
-        elif el.tag == 'destructor': return 'function'
-        elif el.tag == 'class': return 'class'
-        elif el.tag == 'enum': return 'enum'
-        elif el.tag == 'typedef': return 'typedef'
-        elif el.tag == 'specialization': return 'class'
-        elif el.tag == 'overload': return 'function'
-        # devhelp does not support variables in its format
-        elif el.tag == 'variable': return ''
-        return ''
+    tr = Index2Devhelp(out_f)
+    tr.transform_file(in_fn)
 
-    def process_item_hook(self, el, full_name, full_link):
-        global out_f
-        out_f.write('<keyword type="' + xml_escape(self.get_mark(el))
-                    + '" name="' + xml_escape(full_name)
-                    + '" link="' + xml_escape(full_link) + '"/>\n')
-        IndexTransform.process_item_hook(self, el, full_name, full_link)
-
-out_f.write('<?xml version="1.0"?>\n'
-           + '<book title="' + xml_escape(book_title)
-           + '" xmlns="http://www.devhelp.net/book'
-           + '" name="' + xml_escape(book_name)
-           + '" base="' + xml_escape(book_base)
-           + '" link="' + xml_escape(rel_link)
-           + '" version="2" language="c++">\n')
-
-chapters_f = open(chapters_fn, encoding='utf-8')
-out_f.write(chapters_f.read() + '\n')
-out_f.write('<functions>')
-
-tr = Index2Devhelp()
-tr.transform(in_fn)
-
-out_f.write('''
+    out_f.write('''
   </functions>
 </book>
 ''')
+if __name__ == '__main__':
+    main()

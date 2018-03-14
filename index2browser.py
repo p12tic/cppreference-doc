@@ -18,45 +18,20 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform import IndexTransform
-from xml_utils import xml_escape
-import sys
+from index_transform.browser import *
+import argparse
 
-if len(sys.argv) != 3:
-    print ('''Please provide the file name of the index as the first argument
- and the file name of the destination as the second ''')
-    sys.exit(1)
+def main():
+    parser = argparse.ArgumentParser(prog='index2browser')
+    parser.add_argument('index', type=str,
+            help='Path to index file to process')
+    parser.add_argument('destination', type=str,
+            help='Path to destination file to store results to')
+    args = parser.parse_args()
 
-out_f = open(sys.argv[2], 'w', encoding='utf-8')
+    out_f = open(args.destination, 'w', encoding='utf-8')
 
-class Index2Browser(IndexTransform):
-
-    def output_item(self, el, full_name, full_link):
-        mark = ''
-        if el.tag == 'const': mark = '(const)'
-        elif el.tag == 'function': mark = '(function)'
-        elif el.tag == 'constructor': mark = '(function)'
-        elif el.tag == 'destructor': mark = '(function)'
-        elif el.tag == 'class': mark = '(class)'
-        elif el.tag == 'enum': mark = '(enum)'
-        elif el.tag == 'variable': mark = '(variable)'
-        elif el.tag == 'typedef': mark = '(typedef)'
-        elif el.tag == 'specialization': mark = '(class)'
-        elif el.tag == 'overload': mark = '(function)'
-
-        res = u''
-        res += '<tt><b>' + xml_escape(full_name) + '</b></tt> [<span class="link">'
-        res += '<a href="http://en.cppreference.com/w/' + xml_escape(full_link) + '">'
-        res += full_link + '</a></span>] <span class="mark">' + mark + '</span>\n'
-        return res
-
-    def process_item_hook(self, el, full_name, full_link):
-        global out_f
-        out_f.write('<li>' + self.output_item(el, full_name, full_link) + '<ul>')
-        IndexTransform.process_item_hook(self, el, full_name, full_link)
-        out_f.write('</ul></li>\n')
-
-out_f.write('''
+    out_f.write('''
 <html>
   <head>
   <style type="text/css">
@@ -78,14 +53,19 @@ out_f.write('''
     <ul>
 ''')
 
-tr = Index2Browser()
-tr.transform(sys.argv[1])
+    tr = Index2Browser(out_f)
+    tr.transform_file(args.index)
 
-out_f.write('''
+    out_f.write('''
     </ul>
   </body>
 </html>
 ''')
+
+if __name__ == '__main__':
+    main()
+
+
 
 
 
