@@ -163,21 +163,28 @@ def find_html_files(root):
             html_files.append(os.path.join(dir, filename))
     return html_files
 
-def fix_relative_link(rename_map, target, file, root):
+def is_loader_link(target):
+    if re.match('https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
+        return True
+    return False
+
+def transform_loader_link(target, file, root):
+    # Absolute loader.php links need to be made relative
+    abstarget = os.path.join(root, "common/" + convert_loader_name(target))
+    return os.path.relpath(abstarget, os.path.dirname(file))
+
+def is_external_link(target):
     external_link_patterns = [
         'http://',
         'https://',
         'ftp://'
     ]
-    if re.match('https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
-        # Absolute loader.php links need to be made relative
-        abstarget = os.path.join(root, "common/" + convert_loader_name(target))
-        return os.path.relpath(abstarget, os.path.dirname(file))
-    else:
-        for pattern in external_link_patterns:
-            if pattern in target:
-                return target
+    for pattern in external_link_patterns:
+        if target.startswith(pattern):
+            return True
+    return False
 
+def trasform_relative_link(rename_map, target):
     target = urllib.parse.unquote(target)
     for dir,fn,new_fn in rename_map:
         target = target.replace(fn, new_fn)
@@ -187,6 +194,19 @@ def fix_relative_link(rename_map, target, file, root):
     target = urllib.parse.quote(target)
     target = target.replace('%23', '#')
     return target
+
+# Transforms a relative link in the given file according to rename map.
+# target is the link to transform.
+# file is the path of the file the link came from.
+# root is the path to the root of the archive.
+def fix_relative_link(rename_map, target, file, root):
+    if is_loader_link(target):
+        return transform_loader_link(target, file, root)
+
+    if is_external_link(target):
+        return target
+
+    return trasform_relative_link(rename_map, target)
 
 def has_class(el, classes_to_check):
     value = el.get('class')

@@ -75,4 +75,12 @@ class TestHasClass(unittest.TestCase):
         self.assertEqual(True, has_class(el, ['b', 'a']))
         self.assertEqual(True, has_class(el, ['b', 'c']))
 
+class TestIsExternalLink(unittest.TestCase):
+    def test_is_external_link(self):
+        self.assertEqual(True, is_external_link('http://a'))
+        self.assertEqual(True, is_external_link('https://a'))
+        self.assertEqual(True, is_external_link('ftp://a'))
+        self.assertEqual(False, is_external_link('ahttp://a'))
+        self.assertEqual(False, is_external_link(' http://a'))
+
 
