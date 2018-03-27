@@ -20,7 +20,15 @@
 from premailer import transform
 import os
 import argparse
-import multiprocessing
+import concurrent.futures
+
+def preprocess_html_merge_css(src_path, dst_path):
+    with open(src_path, 'r') as a_file:
+        content = transform(a_file.read(), base_url=src_path)
+        head = os.path.dirname(dst_path)
+        os.makedirs(head, exist_ok=True)
+        f = open(dst_path,"w")
+        f.write(content)
 
 def main():
 
@@ -44,18 +52,16 @@ def main():
                 tuple = (src_path, dst_path)
                 paths_list.append(tuple)
 
-    count = 0
-    for i, tuple in enumerate(paths_list, 1):
-        src_path = tuple[0]
-        dst_path = tuple[1]
-        with open(src_path, 'r') as a_file:
-            content = transform(a_file.read(), base_url=src_path)
-            head = os.path.dirname(dst_path)
-            os.makedirs(head, exist_ok=True)
-            f = open(dst_path,"w")
-            f.write(content)
-            print('Processing file: {}/{}'.format(i, len(paths_list)))
-             
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        futures = [ (executor.submit(preprocess_html_merge_css,
+                                     src_path, dst_path), i)
+                    for i, (src_path, dst_path) in enumerate(paths_list) ]
+
+        for tuple in futures:
+            future, i = tuple
+            future.result()
+            print('Processed file: {}/{}'.format(i, len(paths_list)))
+
 if __name__ == "__main__":
     main()
 
