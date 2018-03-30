@@ -17,35 +17,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from premailer import transform
+from commands.preprocess_cssless import *
 import argparse
 import concurrent.futures
-import cssutils
-import logging
 import os
-import warnings
-import io
 import shutil
-
-def preprocess_html_merge_css(src_path, dst_path):
-    log = logging.Logger('ignore')
-    output = io.StringIO()
-    handler = logging.StreamHandler(stream=output)
-    formatter = logging.Formatter('%(levelname)s, %(message)s')
-    handler.setFormatter(formatter)
-    log.addHandler(handler)
-    cssutils.log.setLog(log)
-
-    with open(src_path, 'r') as a_file:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            content = transform(a_file.read(), base_url=src_path)
-        head = os.path.dirname(dst_path)
-        os.makedirs(head, exist_ok=True)
-        f = open(dst_path,"w")
-        f.write(content)
-
-    return output.getvalue()
 
 def main():
 
