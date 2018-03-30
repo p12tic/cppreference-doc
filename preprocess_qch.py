@@ -62,6 +62,9 @@ def main():
     dest_root = args.dst
     verbose = args.verbose
 
+    if os.path.isdir(dest_root):
+        shutil.rmtree(dest_root)
+
     paths_list = []
     for root, dirs, files in os.walk(source_root):
         for file in files:
