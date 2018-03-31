@@ -1,0 +1,2758 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs" style='font-family:"DejaVu Sans", arial, sans-serif; font-size:1em'>
+<head>
+<title>std::multiset - cppreference.com</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.21.2">
+<link rel="shortcut icon" href="favicon.ico">
+<style type="text/css">.coliru-btn:hover {background-color:#ddd;background-image:linear-gradient(#fff, #ddd)}
+.coliru-btn-disabled:hover {background-color:#eee;background-image:linear-gradient(#fff, #eee)}
+@media print {
+    a.stub, a.new {
+        color: #ba0000;
+        text-decoration: none
+        }
+    #toc {
+        border: 1px solid #aaa;
+        background-color: #f9f9f9;
+        padding: 5px
+        }
+    div.floatright {
+        float: right;
+        clear: right;
+        position: relative;
+        margin: 0.5em 0 0.8em 1.4em
+        }
+    div.floatright p {
+        font-style: italic
+        }
+    div.floatleft {
+        float: left;
+        clear: left;
+        position: relative;
+        margin: 0.5em 1.4em 0.8em 0
+        }
+    div.floatleft p {
+        font-style: italic
+        }
+    div.center {
+        text-align: center
+        }
+    div.thumb {
+        border: none;
+        width: auto;
+        margin-top: 0.5em;
+        margin-bottom: 0.8em;
+        background-color: transparent
+        }
+    div.thumbinner {
+        border: 1px solid #ccc;
+        padding: 3px;
+        background-color: White;
+        font-size: 94%;
+        text-align: center;
+        overflow: hidden
+        }
+    html .thumbimage {
+        border: 1px solid #ccc
+        }
+    html .thumbcaption {
+        border: none;
+        text-align: left;
+        line-height: 1.4em;
+        padding: 3px;
+        font-size: 94%
+        }
+    div.magnify {
+        display: none
+        }
+    div.tright {
+        float: right;
+        clear: right;
+        margin: 0.5em 0 0.8em 1.4em
+        }
+    div.tleft {
+        float: left;
+        clear: left;
+        margin: 0.5em 1.4em 0.8em 0
+        }
+    img.thumbborder {
+        border: 1px solid #ddd
+        }
+    table.rimage {
+        float: right;
+        width: 1pt;
+        position: relative;
+        margin-left: 1em;
+        margin-bottom: 1em;
+        text-align: center
+        }
+    body {
+        background: white;
+        color: black;
+        margin: 0;
+        padding: 0
+        }
+    .noprint, div#jump-to-nav, .mw-jump, div.top, div#column-one, #colophon, .editsection, .toctoggle, .tochidden, div#f-poweredbyico, div#f-copyrightico, li#viewcount, li#about, li#disclaimer, li#mobileview, li#privacy, #footer-places, .mw-hidden-catlinks, tr.mw-metadata-show-hide-extended, span.mw-filepage-other-resolutions, #filetoc, .usermessage, #mw-navigation {
+        display: none
+        }
+    ul {
+        list-style-type: square
+        }
+    #content {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        direction: ltr
+        }
+    #footer {
+        background: white;
+        color: black;
+        margin-top: 1em;
+        border-top: 1px solid #AAA;
+        direction: ltr
+        }
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: bold
+        }
+    p {
+        margin: 1em 0;
+        line-height: 1.2em
+        }
+    pre, .mw-code {
+        border: 1pt dashed black;
+        white-space: pre;
+        font-size: 8pt;
+        overflow: auto;
+        padding: 1em 0;
+        background: white;
+        color: black
+        }
+    table.listing, table.listing td {
+        border: 1pt solid black;
+        border-collapse: collapse
+        }
+    a {
+        color: black;
+        background: none;
+        padding: 0
+        }
+    a:link, a:visited {
+        color: #520;
+        background: transparent;
+        text-decoration: underline
+        }
+    #content a.external.text:after, #content a.external.autonumber:after {
+        content: " (" attr(href) ") "
+        }
+    #globalWrapper {
+        width: 100%;
+        min-width: 0
+        }
+    #content {
+        background: white;
+        color: black
+        }
+    #column-content {
+        margin: 0
+        }
+    #column-content #content {
+        padding: 1em;
+        margin: 0
+        }
+    a, a.external, a.new, a.stub {
+        color: black;
+        text-decoration: none
+        }
+    a, a.external, a.new, a.stub {
+        color: inherit;
+        text-decoration: inherit
+        }
+    img {
+        border: none;
+        vertical-align: middle
+        }
+    span.texhtml {
+        font-family: serif
+        }
+    #siteNotice {
+        display: none
+        }
+    li.gallerybox {
+        vertical-align: top;
+        display: -moz-inline-box;
+        display: inline-block
+        }
+    ul.gallery, li.gallerybox {
+        zoom: 1
+        }
+    ul.gallery {
+        margin: 2px;
+        padding: 2px;
+        display: block
+        }
+    li.gallerycaption {
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        word-wrap: break-word
+        }
+    li.gallerybox div.thumb {
+        text-align: center;
+        border: 1px solid #ccc;
+        margin: 2px
+        }
+    div.gallerytext {
+        overflow: hidden;
+        font-size: 94%;
+        padding: 2px 4px;
+        word-wrap: break-word
+        }
+    table.diff {
+        background: white
+        }
+    td.diff-otitle {
+        background: #fff
+        }
+    td.diff-ntitle {
+        background: #fff
+        }
+    td.diff-addedline {
+        background: #cfc;
+        font-size: smaller;
+        border: solid 2px black
+        }
+    td.diff-deletedline {
+        background: #ffa;
+        font-size: smaller;
+        border: dotted 2px black
+        }
+    td.diff-context {
+        background: #eee;
+        font-size: smaller
+        }
+    .diffchange {
+        color: silver;
+        font-weight: bold;
+        text-decoration: underline
+        }
+    table.wikitable, table.mw_metadata {
+        margin: 1em 0;
+        border: 1px #aaa solid;
+        background: white;
+        border-collapse: collapse
+        }
+    table.wikitable > tr > th, table.wikitable > tr > td, table.wikitable > * > tr > th, table.wikitable > * > tr > td, .mw_metadata th, .mw_metadata td {
+        border: 1px #aaa solid;
+        padding: 0.2em
+        }
+    table.wikitable > tr > th, table.wikitable > * > tr > th, .mw_metadata th {
+        text-align: center;
+        background: white;
+        font-weight: bold
+        }
+    table.wikitable > caption, .mw_metadata caption {
+        font-weight: bold
+        }
+    a.sortheader {
+        margin: 0 0.3em
+        }
+    .wikitable, .thumb, img {
+        page-break-inside: avoid
+        }
+    h2, h3, h4, h5, h6, h7 {
+        page-break-after: avoid
+        }
+    p {
+        widows: 3;
+        orphans: 3
+        }
+    .catlinks ul {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        list-style-type: none;
+        list-style-image: none;
+        vertical-align: middle
+        }
+    .catlinks li {
+        display: inline-block;
+        line-height: 1.15em;
+        padding: 0 0.4em;
+        border-left: 1px solid #AAA;
+        margin: 0.1em 0;
+        zoom: 1;
+        display: inline
+        }
+    .catlinks li:first-child {
+        padding-left: 0.2em;
+        border-left: none
+        }
+    }
+@media screen {
+    .mw-content-ltr {
+        direction: ltr
+        }
+    .mw-content-rtl {
+        direction: rtl
+        }
+    .sitedir-ltr textarea, .sitedir-ltr input {
+        direction: ltr
+        }
+    .sitedir-rtl textarea, .sitedir-rtl input {
+        direction: rtl
+        }
+    mark {
+        background-color: yellow;
+        color: black
+        }
+    input[type="submit"], input[type="button"], input[type="reset"], input[type="file"] {
+        direction: ltr
+        }
+    textarea[dir="ltr"], input[dir="ltr"] {
+        direction: ltr
+        }
+    textarea[dir="rtl"], input[dir="rtl"] {
+        direction: rtl
+        }
+    abbr, acronym, .explain {
+        border-bottom: 1px dotted;
+        cursor: help
+        }
+    .mw-plusminus-pos {
+        color: #006400
+        }
+    .mw-plusminus-neg {
+        color: #8b0000
+        }
+    .mw-plusminus-null {
+        color: #aaa
+        }
+    .allpagesredirect, .redirect-in-category, .watchlistredir {
+        font-style: italic
+        }
+    span.comment {
+        font-style: italic
+        }
+    span.changedby {
+        font-size: 95%
+        }
+    .texvc {
+        direction: ltr;
+        unicode-bidi: embed
+        }
+    img.tex {
+        vertical-align: middle
+        }
+    span.texhtml {
+        font-family: serif
+        }
+    #wikiPreview.ontop {
+        margin-bottom: 1em
+        }
+    #editform, #toolbar, #wpTextbox1 {
+        clear: both
+        }
+    #toolbar img {
+        cursor: pointer
+        }
+    .mw-content-ltr .editsection, .mw-content-rtl .mw-content-ltr .editsection {
+        float: right;
+        margin-left: 5px
+        }
+    .mw-content-rtl .editsection, .mw-content-ltr .mw-content-rtl .editsection {
+        float: left;
+        margin-right: 5px
+        }
+    div.mw-filepage-resolutioninfo {
+        font-size: smaller
+        }
+    h2#filehistory {
+        clear: both
+        }
+    table.filehistory th, table.filehistory td {
+        vertical-align: top
+        }
+    table.filehistory th {
+        text-align: left
+        }
+    table.filehistory td.mw-imagepage-filesize, table.filehistory th.mw-imagepage-filesize {
+        white-space: nowrap
+        }
+    table.filehistory td.filehistory-selected {
+        font-weight: bold
+        }
+    .filehistory a img, #file img:hover {
+        background: white url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGElEQVQYV2N4DwX/oYBhgARgDJjEAAkAAEC99wFuu0VFAAAAAElFTkSuQmCC") repeat;
+        background: white url(skins/common/images/Checker-16x16.png%3F2013-09-03T18:56:40Z) repeat
+        }
+    li span.deleted, span.history-deleted {
+        text-decoration: line-through;
+        color: #888;
+        font-style: italic
+        }
+    .not-patrolled {
+        background-color: #ffa
+        }
+    .unpatrolled {
+        font-weight: bold;
+        color: red
+        }
+    div.patrollink {
+        font-size: 75%;
+        text-align: right
+        }
+    td.mw-label {
+        text-align: right
+        }
+    td.mw-input {
+        text-align: left
+        }
+    td.mw-submit {
+        text-align: left
+        }
+    td.mw-label {
+        vertical-align: top
+        }
+    .prefsection td.mw-label {
+        width: 20%
+        }
+    .prefsection table {
+        width: 100%
+        }
+    .prefsection table.mw-htmlform-matrix {
+        width: auto
+        }
+    td.mw-submit {
+        white-space: nowrap
+        }
+    table.mw-htmlform-nolabel td.mw-label {
+        width: 1px
+        }
+    tr.mw-htmlform-vertical-label td.mw-label {
+        text-align: left
+        }
+    .mw-htmlform-invalid-input td.mw-input input {
+        border-color: red
+        }
+    .mw-htmlform-flatlist div.mw-htmlform-flatlist-item {
+        display: inline;
+        margin-right: 1em;
+        white-space: nowrap
+        }
+    .mw-htmlform-matrix td {
+        padding-left: 0.5em;
+        padding-right: 0.5em
+        }
+    input#wpSummary {
+        width: 80%;
+        margin-bottom: 1em
+        }
+    .mw-content-ltr .thumbcaption {
+        text-align: left
+        }
+    .mw-content-rtl .thumbcaption {
+        text-align: right
+        }
+    .mw-content-ltr .magnify {
+        float: right
+        }
+    .mw-content-rtl .magnify {
+        float: left
+        }
+    #catlinks {
+        text-align: left
+        }
+    .catlinks ul {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        list-style-type: none;
+        list-style-image: none;
+        vertical-align: middle
+        }
+    .catlinks li {
+        display: inline-block;
+        line-height: 1.25em;
+        border-left: 1px solid #AAA;
+        margin: 0.125em 0;
+        padding: 0 0.5em;
+        zoom: 1;
+        display: inline
+        }
+    .catlinks li:first-child {
+        padding-left: 0.25em;
+        border-left: none
+        }
+    .catlinks li a.mw-redirect {
+        font-style: italic
+        }
+    .mw-hidden-cats-hidden {
+        display: none
+        }
+    .catlinks-allhidden {
+        display: none
+        }
+    p.mw-ipb-conveniencelinks, p.mw-protect-editreasons, p.mw-filedelete-editreasons, p.mw-delete-editreasons, p.mw-revdel-editreasons {
+        font-size: 90%;
+        text-align: right
+        }
+    .os-suggest {
+        overflow: auto;
+        overflow-x: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        background-color: white;
+        border-style: solid;
+        border-color: #AAA;
+        border-width: 1px;
+        z-index: 99;
+        font-size: 95%
+        }
+    table.os-suggest-results {
+        font-size: 95%;
+        cursor: pointer;
+        border: 0;
+        border-collapse: collapse;
+        width: 100%
+        }
+    .os-suggest-result, .os-suggest-result-hl {
+        white-space: nowrap;
+        background-color: white;
+        color: black;
+        padding: 2px
+        }
+    .os-suggest-result-hl, .os-suggest-result-hl-webkit {
+        background-color: #4C59A6;
+        color: white
+        }
+    .os-suggest-toggle {
+        position: relative;
+        left: 1ex;
+        font-size: 65%
+        }
+    .os-suggest-toggle-def {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 65%;
+        visibility: hidden
+        }
+    .autocomment {
+        color: gray
+        }
+    #pagehistory .history-user {
+        margin-left: 0.4em;
+        margin-right: 0.2em
+        }
+    #pagehistory span.minor {
+        font-weight: bold
+        }
+    #pagehistory li {
+        border: 1px solid white
+        }
+    #pagehistory li.selected {
+        background-color: #f9f9f9;
+        border: 1px dashed #aaa
+        }
+    .mw-history-revisiondelete-button, #mw-fileduplicatesearch-icon {
+        float: right
+        }
+    .newpage, .minoredit, .botedit {
+        font-weight: bold
+        }
+    #shared-image-dup, #shared-image-conflict {
+        font-style: italic
+        }
+    div.mw-warning-with-logexcerpt {
+        padding: 3px;
+        margin-bottom: 3px;
+        border: 2px solid #2F6FAB;
+        clear: both
+        }
+    div.mw-warning-with-logexcerpt ul li {
+        font-size: 90%
+        }
+    span.mw-revdelundel-link, strong.mw-revdelundel-link {
+        font-size: 90%
+        }
+    span.mw-revdelundel-hidden, input.mw-revdelundel-hidden {
+        visibility: hidden
+        }
+    td.mw-revdel-checkbox, th.mw-revdel-checkbox {
+        padding-right: 10px;
+        text-align: center
+        }
+    a.new {
+        color: #BA0000
+        }
+    a.feedlink {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH2AkOCjkSL9xYhAAAAc9JREFUKJE90LFrU1EYQPHzffe+l/iSVkXTmNiANBU7iE5OLrbSVYKIiy5dnARB3FwEB5dOOhQKuthJEEHRsUXBoosO0lKKEYRa29LWQk3S5L53r0PVv+D8OPJlolrrr1ZmI7F1BFEjqBXECGJAjSBCaLddc7u5Mmb7q5U5007rWh5E9rYR/xsTBBXBWMVEglqRpGiGhcE5G6kdyugxcGsGyRdJ15ZwC29IF55jNEWt8K+aFOMhc+dC7Z6SITjC7ga2MkI8cpH41Dhh7RPa20Gt4toZac+IqhFMTpG0hVt8RetJg967SaTvGLnGNKZ0EtfOcB1P5jyqVjCRkIzfpnjtMYXrT2FrCff6JqhFRx/gnCXtZHgXUFHQSGg/u4Gbf4T2lYkvTaFGce8fIgePY09fwXU8Pg3sk2JFu5v4lQ+4FxPge+j5u3Q+v8TvrBKfbZB1PT4LqJh9Uv7yFLmrM2i+gPs4jRyqIaUz7C2+xZZOEA4cJaSgaAhqhbC1DK0N3K9NusvzAHB4GLf+HQBJBsiCD7J6/9zXI2VbVyv/b6Sdv1e6nrTryboB7wVbyjXt1rcfo0Frs4UkqvtUJHMBjyVEAcSjFiQJwRvf3F3/OfYH/dDFWrCooaIAAAAASUVORK5CYII=") center left no-repeat;
+        background: url(skins/common/images/feed-icon.png%3F2013-09-03T18:56:40Z) center left no-repeat;
+        padding-left: 16px
+        }
+    .plainlinks a {
+        background: none;
+        padding: 0
+        }
+    .rtl a.external.free, .rtl a.external.autonumber {
+        direction: ltr;
+        unicode-bidi: embed
+        }
+    table.wikitable {
+        margin: 1em 0;
+        background-color: #f9f9f9;
+        border: 1px #aaa solid;
+        border-collapse: collapse;
+        color: black
+        }
+    table.wikitable > tr > th, table.wikitable > tr > td, table.wikitable > * > tr > th, table.wikitable > * > tr > td {
+        border: 1px #aaa solid;
+        padding: 0.2em
+        }
+    table.wikitable > tr > th, table.wikitable > * > tr > th {
+        background-color: #f2f2f2;
+        text-align: center
+        }
+    table.wikitable > caption {
+        font-weight: bold
+        }
+    table.collapsed tr.collapsable {
+        display: none
+        }
+    .success {
+        color: green;
+        font-size: larger
+        }
+    .warning {
+        color: #FFA500;
+        font-size: larger
+        }
+    .error {
+        color: red;
+        font-size: larger
+        }
+    .errorbox, .warningbox, .successbox {
+        font-size: larger;
+        border: 2px solid;
+        padding: 0.5em 1em;
+        float: left;
+        margin-bottom: 2em;
+        color: #000
+        }
+    .errorbox {
+        border-color: red;
+        background-color: #fff2f2
+        }
+    .warningbox {
+        border-color: #FF8C00;
+        background-color: #FFFFC0
+        }
+    .successbox {
+        border-color: green;
+        background-color: #dfd
+        }
+    .errorbox h2, .warningbox h2, .successbox h2 {
+        font-size: 1em;
+        font-weight: bold;
+        display: inline;
+        margin: 0 0.5em 0 0;
+        border: none
+        }
+    .mw-infobox {
+        border: 2px solid #ff7f00;
+        margin: 0.5em;
+        clear: left;
+        overflow: hidden
+        }
+    .mw-infobox-left {
+        margin: 7px;
+        float: left;
+        width: 35px
+        }
+    .mw-infobox-right {
+        margin: 0.5em 0.5em 0.5em 49px
+        }
+    .previewnote {
+        color: #c00;
+        margin-bottom: 1em
+        }
+    .previewnote p {
+        text-indent: 3em;
+        margin: 0.8em 0
+        }
+    .visualClear {
+        clear: both
+        }
+    #mw_trackbacks {
+        border: solid 1px #bbf;
+        background-color: #eef;
+        padding: 0.2em
+        }
+    .mw-datatable {
+        border-collapse: collapse
+        }
+    .mw-datatable, .mw-datatable td, .mw-datatable th {
+        border: 1px solid #aaa;
+        padding: 0 0.15em 0 0.15em
+        }
+    .mw-datatable th {
+        background-color: #ddf
+        }
+    .mw-datatable td {
+        background-color: #fff
+        }
+    .mw-datatable tr:hover td {
+        background-color: #eef
+        }
+    .TablePager {
+        min-width: 80%
+        }
+    .TablePager_nav {
+        margin: 0 auto
+        }
+    .TablePager_nav td {
+        padding: 3px;
+        text-align: center
+        }
+    .TablePager_nav a {
+        text-decoration: none
+        }
+    .imagelist td, .imagelist th {
+        white-space: nowrap
+        }
+    .imagelist .TablePager_col_links {
+        background-color: #eef
+        }
+    .imagelist .TablePager_col_img_description {
+        white-space: normal
+        }
+    .imagelist th.TablePager_sort {
+        background-color: #ccf
+        }
+    ul#filetoc {
+        text-align: center;
+        border: 1px solid #aaa;
+        background-color: #f9f9f9;
+        padding: 5px;
+        font-size: 95%;
+        margin-bottom: 0.5em;
+        margin-left: 0;
+        margin-right: 0
+        }
+    #filetoc li {
+        display: inline;
+        list-style-type: none;
+        padding-right: 2em
+        }
+    table.mw_metadata {
+        font-size: 0.8em;
+        margin-left: 0.5em;
+        margin-bottom: 0.5em;
+        width: 400px
+        }
+    table.mw_metadata caption {
+        font-weight: bold
+        }
+    table.mw_metadata th {
+        font-weight: normal
+        }
+    table.mw_metadata td {
+        padding: 0.1em
+        }
+    table.mw_metadata {
+        border: none;
+        border-collapse: collapse
+        }
+    table.mw_metadata td, table.mw_metadata th {
+        text-align: center;
+        border: 1px solid #aaa;
+        padding-left: 5px;
+        padding-right: 5px
+        }
+    table.mw_metadata th {
+        background-color: #f9f9f9
+        }
+    table.mw_metadata td {
+        background-color: #fcfcfc
+        }
+    table.mw_metadata ul.metadata-langlist {
+        list-style-type: none;
+        list-style-image: none;
+        padding-right: 5px;
+        padding-left: 5px;
+        margin: 0
+        }
+    .mw-content-ltr ul, .mw-content-rtl .mw-content-ltr ul {
+        margin: 0.3em 0 0 1.6em;
+        padding: 0
+        }
+    .mw-content-rtl ul, .mw-content-ltr .mw-content-rtl ul {
+        margin: 0.3em 1.6em 0 0;
+        padding: 0
+        }
+    .mw-content-ltr ol, .mw-content-rtl .mw-content-ltr ol {
+        margin: 0.3em 0 0 3.2em;
+        padding: 0
+        }
+    .mw-content-rtl ol, .mw-content-ltr .mw-content-rtl ol {
+        margin: 0.3em 3.2em 0 0;
+        padding: 0
+        }
+    .mw-content-ltr dd, .mw-content-rtl .mw-content-ltr dd {
+        margin-left: 1.6em;
+        margin-right: 0
+        }
+    .mw-content-rtl dd, .mw-content-ltr .mw-content-rtl dd {
+        margin-right: 1.6em;
+        margin-left: 0
+        }
+    li.gallerybox {
+        vertical-align: top;
+        display: -moz-inline-box;
+        display: inline-block
+        }
+    ul.gallery, li.gallerybox {
+        zoom: 1
+        }
+    ul.gallery {
+        margin: 2px;
+        padding: 2px;
+        display: block
+        }
+    li.gallerycaption {
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        word-wrap: break-word
+        }
+    li.gallerybox div.thumb {
+        text-align: center;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        margin: 2px
+        }
+    li.gallerybox div.thumb img {
+        display: block;
+        margin: 0 auto
+        }
+    div.gallerytext {
+        overflow: hidden;
+        font-size: 94%;
+        padding: 2px 4px;
+        word-wrap: break-word
+        }
+    .mw-ajax-loader {
+        background-image: url("data:image/gif;base64,R0lGODlhIAAgAOMAAP///wAAAMbGxoSEhLa2tpqamjY2NlZWVtjY2OTk5Ly8vB4eHgQEBP///////////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAPACwAAAAAIAAgAAAE5/DJSWlhperN52JLhSSdRgwVo1ICQZRUsiwHpTJT4iowNS8vyW2icCF6k8HMMBk+EDskxTBDPZwuAkkqIfxIQyhBQBFvHwSDITM5VDW6XNE4KagNh6Bgwe60smQUB3d4Rz1ZBApnFASDd0hihh12BkE9kjAJVlycXIg7CQIFA6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YJvpJivxNaGmLHT0VnOgSYf0dZXS7APdpB309RnHOG5g/qXGLDaC457D1zZ/V/nmOM82XiHRLYKhKP1oZmADdEAAAh+QQFCgAPACwAAAAAGAAXAAAEcvDJSesiNetplqlDsYnUYlIGw2jGV55SoS5sq0wmLS3qoBWtAw42mG0ehxYp90CoGKRNy8U8qFzNweCGwlJkgolCq0VIEAbMkUIghxLrDcLti2/Gg7D9qN774wkKBIOEfw+ChIV/gYmDho+QkZKTR3p7EQAh+QQFCgAPACwBAAAAHQAOAAAEcvDJSScxNev9jjkZwU2IUhkodSzLKA2DOKGYRLD1CA/InEoGlkui2PlyuKGkADM9aI8EayGbJDYI4zM1YIEmAwajkCAoehNmTNNaLsQMHmGuuEYHgpHAAGfUBHNzeUp9VBQJCoFOLmFxWHNoQweRWEocEQAh+QQFCgAPACwHAAAAGQARAAAEavDJ+cQQNOtdRsnf9iRINpyZYYgEgU3nQKnr1hIJjEqHGmqIlkInexRUB5FE0So9YhKaUpK4SaAPlWaxIFAETQ3B4BxzF2Kn8nBeJKebdm3SgksKXDt8kNP7/xoMgoMLP36DiAyAD4kMhREAIfkEBQoADwAsDgAAABIAGAAABGUQFfSqvZiUghXF1cZZxTCA4WYh5omKVqugD/woLV2rT/u9KoJpFDIYaIJBwnIwGogoivOoq0wPs6r1qe16v5WFeEzVjc+LKnphIIC9g193wGC4uvX6Aoo05BllVQULeXdadAxuEQAh+QQFCgAPACwOAAAAEgAeAAAEgDCp9Kq9WBGFBb5ECBbFV4XERaYmahGk14qPQJbm4z53foq2AquiGAwQJsQQYTRyfIlCc4DzTY8+i8CZxQy74KxhTD58P+S0Qaw+hN8WyruwWMDrdcM5ecAv3CYDDDIEBngmBwwMaxeGJgmKDFVdggx2bwuKA28EkXAGinJhVCYRACH5BAUKAA8ALA8AAQARAB8AAAR88Mn5UKIYC0KyT5ziZQqHjBQSohRHXGzFCSkHU/eTlCa7uTSUi6DIeVSEU0yiXDo9g6i0EIRKr6hrlPrsOgkGQ8EZDh+eZcOosKAcymPKYLE4TwphCWMvoS86HnsME3RqgXwSBnQjghR+h4MTB4sZjRiAGAsMbU4FDHFLEQAh+QQFCgAPACwIAA4AGAASAAAEbPDJSesjOKtk+8yg4nkgto1oihIqKgyD2FpwjcxUUtRDMROG2wPBkz0EjEHHYKgoYMKHgcE4PBZYCbM5KlAZHOxCUmBaPQuq8pqVHJg+GnUsEVO2nTQjzqZPmB1UXHVtE3wVOxUGC4M4H34qEQAh+QQFCgAPACwCABIAHQAOAAAEePDJSat96FJ0tEUEkV0DwwwepYSEklDEYpopJbCEIBkzY+geweD1SKxCiJJpUZAgmBbCYNCcIFaJggk1OSwWKINYMh2MLMRJ7LsbPxTl2sTAbhsmhalC/vje7VZxNXQLBHNuEnlcKV8dh38TCmcehhUHBo58cpA1EQAh+QQFCgAPACwAAA8AGQARAAAEZ7AsRuu7OOtbO9tgJnlfaJ7omQwpuixFCxrvK2dHvRwoQmw1w+8i3PgIggzBpjEYLoPohUBNoJzPR5T1OCpOB2dMK70oqIhQwcmDlh8J6nCDzWwzAmrIqblnEFZqGgUDYzcaAgNJGxEAIfkEBQoADwAsAQAIABEAGAAABFyQMDaevfiOyVbJ4GNwjCGEWLGQaLZRbYZUcW3feK7vaGEYNsXh96sRgYiW73e4JAYn0O9zKQwGhAdhi5pdLdts6DpQgLkgBfkSHl+TZ7ELi2mDEHKLgmC+JRQJEQAh+QQFCgAPACwAAAIADgAdAAAEcvDJ+cqgeDJmMt4M4U3DtozTsl1oASJpRxnbkS6LIT4Cw0oHHO4A8xAMwhPqgSssH4nnknAwWK+Zq1ZGoW650vAOpRgMBCOEee2xrAtRTNlcQEsI8Yd6oKAICARFHgmAYx4KgIIZCIB9ZIB5RgR2KAmKEQA7");
+        background-image: url(skins/common/images/ajax-loader.gif%3F2013-09-03T18:56:40Z);
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 16px;
+        position: relative;
+        top: -16px
+        }
+    .mw-small-spinner {
+        padding: 10px;
+        margin-right: 0.6em;
+        background-image: url("data:image/gif;base64,R0lGODlhFAAUAIQQAAYJBRkbGCYnJTI0MT9APk5QTVhZV2ZoZXR2c4SGg5CSj52fnKyuq7m7uMfJxtPV0v///////////////////////////////////////////////////////////////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCgABACwAAAAAFAAUAAAFc2AgjuNQkCipHCMAiI6TjoWAiG7gNM08CgTca+cbGWyBXEMm6okMJxGBNWLuGo8ngWBY+HgxlIFwm4VnimKKkWgn1Dzwwv0uxpfqfJWZ2p1hV0VXTA9gMCRETXxOOj08jXxfMo+NcHiUgT5nlAFZejqRKCEAIfkECQoADAAsAAAAABQAFAAABXYgI45jcZAouSSjIIjDkI4HwTJBIALvLBIFUY4xAPhoA1ZAcAjIRI2RQlFCkIIMR6PxEC0UiYXDt3WMSdOFz0w+prTb6DHeMNPd9LN7n9WjtGwjdnIzcGeGIn5aI3WMglFbWY14kHKLR4AMkZKEb2ebDF18fUchACH5BAkKAAEALAAAAAAUABQAAAV6YCCO44GQKOkw40CIxZuKi9KIwyAK8hwkCpyOIPCNFglWTjEojAgJkeMmUixIhiABADhIGw3HwycACLyqsI+ATo2NqCmY6puH5WC43QHvjxx8M3KBUnJGgyIPYIGEAVMjaiJ0j3lTjTN5eQGadWqainQpgJJ0b36jPiEAIfkECQoAAQAsAAAAABQAFAAABXVgII7jwpAo+TxjkoiGkY5OwwauSBTz2DSinIHQozUcuISCIIMpRDUfcoRYBAwCwQH6c9xSBAEBgapNUwfy7Fs0/oBFgBwwqL3bcwCvzYeey10qdkV2Uw+BAX9RIkc+RgE/iY1tkZGSlI2Wgz0OU5YBbG2dRSEAIfkECQoACAAsAAAAABQAFAAABXcgIo4j05Ao+TjjsohuOjoNi8RIoshjDb+KBG/mczUUL9EhSevZYKwDgSBE0GoPXmFgqBKfqIMXlR2iro3TMCBgF9BqXpt9MKPGJAeYRAhw81dDAwAAAyIPaTZgTSIChiJxTWlWPmaTk5SWPpiBPHqQcWV2VnskIQAh+QQJCgABACwAAAAAFAAUAAAFemAgjqPjkCj5nGLTiAyTlg3rios8t/bLLDvayeXIjRYsx4tHcjwCi0RCp6w9Z4qEQifcxXbXYNN1Cw7Og0O1vEMTEGKUYmfaGQaEQ7O6WxQEAwUiD0QiLCIEAiMEBCNLAUoBNwcAA3E3ZQIAYoVllI10PSMHCXGGhykhACH5BAkKAAEALAAAAAAUABQAAAV3YCCOo+OQKPmcYtOIZlo2T/sGDSvjrBs4t90vh6MRYbXh6Igc0mAuRzIV1UGtpJhsKpy5grKEOLEAfrvjBKOLUuy0KQTBkMiadwsDYS56RGEkBwQjBQZLMwEAAAEIAoZdPooiBAKQRJKMAgVCWpgBB25sAQUDQiEAIfkECQoAEAAsAAAAABQAFAAABXsgJI6j45Ao+Zxi04hmWjZP+0INK+OsCzm33S+HoxFhteHoiBzSYC5HMhXVQa2kmGwqnLmCsm8O+O2KseadNrVQKBhZsnqRSChEj6iIQEIURm5LIwMBCAIBEAkDB10QAAIQAYgQBnxChyKYiQSMOwKQEJ8jCQuNIgd/OyEAIfkECQoAHwAsAAAAABQAFAAABXzgJ46j45Ao+Zxi04hmWjZP+34NK+Os+zm33S+HoxFhteHoiBzSYC5HMhXVQa2kmGwqnLmCsm8O+O2KsV0u6UDYAbWigwAg2K2iIgMAMPgsDCQMCkssCW0iBQMKA30MCQtdHwNtjCILCV0EfZKbDY9CBAUimiMMaDIIgDshACH5BAkKAB8ALAAAAAAUABQAAAV44CeOo+OQKPmcYtOIZlo2T/t+DSvjrPs5t90vh6MRYbXh6Igc0mAuRzIV1UGtpJhsKhwVAGBA1xUdhMVCMrMr4pIQhx1QK0IQBITdKio6CAQFHwsIWUFHCoEiBgQKCQlDWCkEgY5QXQV5H5WQQgWJmx8PbjsMC0IhACH5BAkKAB8ALAAAAAAUABQAAAV14CeOo+OQKPmcYtO0bwo/cC3b7pffotOcrsevRPsMBKMh8eNrFAcBwEBxczlRUMLNdEvwUgWAGPC1/gZjMs9c/I7aqMRh62KJEoZB4bay3gkEcw4LJD5JMQtzIgsKfj52XVQ7OzcKVDoxQjEyCoSYb3A8XDchACH5BAEKAB8ALAAAAAAUABQAAAV64CeOo+OQKJkcY9OIZjoSAPu5Ii6LgJC/jtdONKjdGo/GCfYQEQYjAYHkaAaVosJgUFjsXDHS07ALpxTDFOK5TbvAh217+MamSU0Zg1FWLkUMCgloMg9XSwwJCV6GVEI3Sw5eMEg4QX9fJzo6X0I6SZgoYZwPeXdmKSEAOw==");
+        background-image: url(skins/common/images/spinner.gif%3F2013-09-03T18:56:40Z);
+        background-position: center center;
+        background-repeat: no-repeat
+        }
+    h1:lang(anp), h1:lang(as), h1:lang(bh), h1:lang(bho), h1:lang(bn), h1:lang(gu), h1:lang(hi), h1:lang(kn), h1:lang(ks), h1:lang(ml), h1:lang(mr), h1:lang(my), h1:lang(mai), h1:lang(ne), h1:lang(new), h1:lang(or), h1:lang(pa), h1:lang(pi), h1:lang(sa), h1:lang(ta), h1:lang(te) {
+        line-height: 1.6em
+        }
+    h2:lang(anp), h3:lang(anp), h4:lang(anp), h5:lang(anp), h6:lang(anp), h2:lang(as), h3:lang(as), h4:lang(as), h5:lang(as), h6:lang(as), h2:lang(bho), h3:lang(bho), h4:lang(bho), h5:lang(bho), h6:lang(bho), h2:lang(bh), h3:lang(bh), h4:lang(bh), h5:lang(bh), h6:lang(bh), h2:lang(bn), h3:lang(bn), h4:lang(bn), h5:lang(bn), h6:lang(bn), h2:lang(gu), h3:lang(gu), h4:lang(gu), h5:lang(gu), h6:lang(gu), h2:lang(hi), h3:lang(hi), h4:lang(hi), h5:lang(hi), h6:lang(hi), h2:lang(kn), h3:lang(kn), h4:lang(kn), h5:lang(kn), h6:lang(kn), h2:lang(ks), h3:lang(ks), h4:lang(ks), h5:lang(ks), h6:lang(ks), h2:lang(ml), h3:lang(ml), h4:lang(ml), h5:lang(ml), h6:lang(ml), h2:lang(mr), h3:lang(mr), h4:lang(mr), h5:lang(mr), h6:lang(mr), h2:lang(my), h3:lang(my), h4:lang(my), h5:lang(my), h6:lang(my), h2:lang(mai), h3:lang(mai), h4:lang(mai), h5:lang(mai), h6:lang(mai), h2:lang(ne), h3:lang(ne), h4:lang(ne), h5:lang(ne), h6:lang(ne), h2:lang(new), h3:lang(new), h4:lang(new), h5:lang(new), h6:lang(new), h2:lang(or), h3:lang(or), h4:lang(or), h5:lang(or), h6:lang(or), h2:lang(pa), h3:lang(pa), h4:lang(pa), h5:lang(pa), h6:lang(pa), h2:lang(pi), h3:lang(pi), h4:lang(pi), h5:lang(pi), h6:lang(pi), h2:lang(sa), h3:lang(sa), h4:lang(sa), h5:lang(sa), h6:lang(sa), h2:lang(ta), h3:lang(ta), h4:lang(ta), h5:lang(ta), h6:lang(ta), h2:lang(te), h3:lang(te), h4:lang(te), h5:lang(te), h6:lang(te) {
+        line-height: 1.2em
+        }
+    ol:lang(bcc) li, ol:lang(bqi) li, ol:lang(fa) li, ol:lang(glk) li, ol:lang(kk-arab) li, ol:lang(mzn) li {
+        list-style-type: -moz-persian;
+        list-style-type: persian
+        }
+    ol:lang(ckb) li {
+        list-style-type: -moz-arabic-indic;
+        list-style-type: arabic-indic
+        }
+    ol:lang(hi) li, ol:lang(mr) li {
+        list-style-type: -moz-devanagari;
+        list-style-type: devanagari
+        }
+    ol:lang(as) li, ol:lang(bn) li {
+        list-style-type: -moz-bengali;
+        list-style-type: bengali
+        }
+    ol:lang(or) li {
+        list-style-type: -moz-oriya;
+        list-style-type: oriya
+        }
+    #toc ul, .toc ul {
+        margin: 0.3em 0
+        }
+    .mw-content-ltr .toc ul, .mw-content-ltr #toc ul, .mw-content-rtl .mw-content-ltr .toc ul, .mw-content-rtl .mw-content-ltr #toc ul {
+        text-align: left
+        }
+    .mw-content-rtl .toc ul, .mw-content-rtl #toc ul, .mw-content-ltr .mw-content-rtl .toc ul, .mw-content-ltr .mw-content-rtl #toc ul {
+        text-align: right
+        }
+    .mw-content-ltr .toc ul ul, .mw-content-ltr #toc ul ul, .mw-content-rtl .mw-content-ltr .toc ul ul, .mw-content-rtl .mw-content-ltr #toc ul ul {
+        margin: 0 0 0 2em
+        }
+    .mw-content-rtl .toc ul ul, .mw-content-rtl #toc ul ul, .mw-content-ltr .mw-content-rtl .toc ul ul, .mw-content-ltr .mw-content-rtl #toc ul ul {
+        margin: 0 2em 0 0
+        }
+    #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
+        direction: ltr
+        }
+    .mw-help-field-hint {
+        display: none;
+        margin-left: 2px;
+        margin-bottom: -8px;
+        padding: 0 0 0 15px;
+        background-image: url("data:image/gif;base64,R0lGODlhCwALALMAAP///01NTZOTk1lZWefn57i4uJSUlPPz82VlZdDQ0HFxcaysrNvb28TExAAAAAAAACH5BAAAAAAALAAAAAALAAsAAAQrUIRJqQQ455nNNBgHJANBDAwgZsVwqIG2IEQYYwXy2lq/Kg3NqqeSVCqCCAA7");
+        background-image: url(skins/common/images/help-question.gif%3F2013-09-03T18:56:40Z);
+        background-position: left center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        font-size: 0.8em;
+        text-decoration: underline;
+        color: #0645ad
+        }
+    .mw-help-field-hint:hover {
+        background-image: url("data:image/gif;base64,R0lGODlhCwALALMAAAtop+7z+GCWwpW51oStz8rb6yZzrafF3bnR5Nzn8QBcoD91oABQmf///wAAAAAAACH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4wLWMwNjAgNjEuMTM0Nzc3LCAyMDEwLzAyLzEyLTE3OjMyOjAwICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjAyODAxMTc0MDcyMDY4MTE5NkQ0QUQzRjI0NzRCNUQwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjJBN0FFQTQwQjlGQzExREY5RDlBQTRBODQyMkJCMkFDIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjJBN0FFQTNGQjlGQzExREY5RDlBQTRBODQyMkJCMkFDIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RkM3RjExNzQwNzIwNjgxMTk1RkVBQ0ZBOEQxNTU5MkUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTk2RDRBRDNGMjQ3NEI1RDAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQAAAAAACwAAAAACwALAAAEK3CxSalsOOeZxRQY1yBKkihFI2aDEqiMRgBJGGMD8NpavxoHzaqnklQqiwgAOw==");
+        background-image: url(skins/common/images/help-question-hover.gif%3F2013-09-03T18:56:40Z)
+        }
+    .mw-help-field-data {
+        display: block;
+        background-color: #d6f3ff;
+        padding: 5px 8px 4px 8px;
+        border: 1px solid #5dc9f4;
+        margin-left: 20px
+        }
+    .tipsy {
+        padding: 5px 5px 10px;
+        font-size: 12px;
+        position: absolute;
+        z-index: 100000;
+        overflow: visible
+        }
+    .tipsy-inner {
+        padding: 5px 8px 4px 8px;
+        background-color: #d6f3ff;
+        color: black;
+        border: 1px solid #5dc9f4;
+        max-width: 300px;
+        text-align: left
+        }
+    .tipsy-arrow {
+        position: absolute;
+        background: url("data:image/gif;base64,R0lGODlhDQANAMQAAPf399bz/9vu9m/O9NXy/8Pm9svp9pfd+YLW943X9LTn++z093XQ9WnM9OLw9p/c9YTU9InY9/T292DK9Jre+afj+rvq/Nzv9rjk9brl9cPt/ZLb+GbL9MLs/ZHb+KLh+iH5BAAAAAAALAAAAAANAA0AAAVK4BGMZBkcg2WW1lBEKxkVAFTFFQQAwkSYhIlgB3hQTJQHEbBodEiaxmIJyHhIGwwVIGEoAgqGZAswIAIIA3mX+CTWOwfHAd9dtiEAOw==") no-repeat top left;
+        background: url(skins/common/images/tipsy-arrow.gif%3F2013-09-03T18:56:40Z) no-repeat top left;
+        width: 13px;
+        height: 13px
+        }
+    .tipsy-se .tipsy-arrow {
+        bottom: -2px;
+        right: 10px;
+        background-position: 0% 100%
+        }
+    #mw-clearyourcache, #mw-sitecsspreview, #mw-sitejspreview, #mw-usercsspreview, #mw-userjspreview {
+        direction: ltr;
+        unicode-bidi: embed
+        }
+    .diff-currentversion-title, .diff {
+        direction: ltr;
+        unicode-bidi: embed
+        }
+    .diff-contentalign-right td {
+        direction: rtl;
+        unicode-bidi: embed
+        }
+    .diff-contentalign-left td {
+        direction: ltr;
+        unicode-bidi: embed
+        }
+    .diff-otitle, .diff-ntitle, .diff-lineno {
+        direction: ltr;
+        unicode-bidi: embed
+        }
+    #mw-revision-info, #mw-revision-info-current, #mw-revision-nav {
+        direction: ltr;
+        display: inline
+        }
+    div.tright, div.floatright, table.floatright {
+        clear: right;
+        float: right
+        }
+    div.tleft, div.floatleft, table.floatleft {
+        float: left;
+        clear: left
+        }
+    div.floatright, table.floatright, div.floatleft, table.floatleft {
+        position: relative
+        }
+    #mw-credits a {
+        unicode-bidi: embed
+        }
+    .mw-jump, #jump-to-nav {
+        overflow: hidden;
+        height: 0;
+        zoom: 1
+        }
+    .printfooter {
+        display: none
+        }
+    .xdebug-error {
+        position: absolute;
+        z-index: 99
+        }
+    .editsection, .toctoggle {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none
+        }
+    }
+@media screen {
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        font-size: 1em
+        }
+    body {
+        min-width: 780px;
+        background: none repeat scroll 0 0 #f0f0f0
+        }
+    div#cpp-head-first, div#cpp-head-second, div#content, div#footer {
+        margin: 0 auto;
+        position: relative;
+        width: 780px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box
+        }
+    div#cpp-content-base {
+        background: white
+        }
+    div#content {
+        color: black;
+        direction: ltr;
+        padding: 0.5em
+        }
+    div#bodyContent {
+        padding-top: 0
+        }
+    div#mw-head {
+        width: 100%
+        }
+    div#mw-head h5 {
+        margin: 0;
+        padding: 0
+        }
+    div#cpp-head-first-base {
+        border-bottom: 1px solid #eee;
+        background: white
+        }
+    div#cpp-head-first {
+        padding: 0.1em 0.1em 0.1em 1em;
+        height: 22px
+        }
+    div#cpp-head-first > h5 {
+        display: inline
+        }
+    div#cpp-head-personal {
+        float: right;
+        font-size: 0.7em;
+        padding-top: 0.3em;
+        margin-right: 1em;
+        white-space: nowrap
+        }
+    div#cpp-head-personal h5 {
+        display: none
+        }
+    div#cpp-head-personal div.menu {
+        clear: both;
+        position: relative;
+        display: none;
+        z-index: 1
+        }
+    div#cpp-head-personal:hover div.menu {
+        display: block
+        }
+    div#cpp-head-personal ul {
+        list-style: none;
+        list-style-image: none;
+        list-style-type: none;
+        position: absolute;
+        left: -2em;
+        top: 0;
+        margin: 0;
+        padding-top: 0.2em;
+        background: white;
+        border: solid 1px silver;
+        border-top-width: 0;
+        border-radius: 3px
+        }
+    div#cpp-head-personal ul li {
+        line-height: 1.125em
+        }
+    div#cpp-head-personal ul li {
+        margin-left: 0.75em;
+        margin-top: 0.25em;
+        display: block;
+        padding: 0
+        }
+    div#cpp-head-personal ul li a {
+        display: block;
+        padding: 0.1em 0.5em
+        }
+    #pt-userpage a {
+        padding-right: 21px;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAQBAMAAAAL9CkWAAAAGFBMVEV5eXmSkpKampqtra2xsbG/v7/d3d3j4+M9Jo0OAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfcBgESEhztg7+zAAAAJklEQVQI12NgoBpgNxQUFDSHcooFBYULEBLmcFXFcGGgRDjFlgIASNIDj9oRJ+sAAAAASUVORK5CYII=") no-repeat scroll right;
+        background: url(skins/cppreference2/images/arrow-down-icon1.png%3F2013-09-04T19:18:20Z) no-repeat scroll right
+        }
+    div#cpp-head-search {
+        float: right;
+        font-size: 0.7em;
+        line-height: 1em
+        }
+    div#simpleSearch input {
+        color: black;
+        direction: ltr
+        }
+    div#simpleSearch input:focus {
+        outline: none
+        }
+    div#simpleSearch input.placeholder {
+        color: #999
+        }
+    div#simpleSearch input::-webkit-input-placeholder {
+        color: #999
+        }
+    div#simpleSearch input#searchInput {
+        width: 90%;
+        margin: 0;
+        padding: 0;
+        padding-left: 0.1em;
+        padding-top: 0.1em;
+        padding-bottom: 0.1em;
+        outline: none;
+        border: none;
+        font-size: 1em;
+        background-color: transparent;
+        direction: ltr
+        }
+    div#simpleSearch button#searchButton {
+        position: absolute;
+        width: 10%;
+        right: 0;
+        top: -0.2em;
+        padding: 0;
+        margin: 0;
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+        background-image: none
+        }
+    div#simpleSearch button#searchButton img {
+        border: none;
+        margin: 0;
+        padding: 0
+        }
+    div#cpp-head-second-base {
+        background: white;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAsCAIAAAArRUU2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AYIETohl/is2wAAAEZJREFUCNddjcENwDAMAs/sP2GG8fXhJK36QALrDKgBrpoO/WYklPH4yw7XOyspiJjuDwOB/7+RSjn30zG7fTeEFAbHr7UeaIQlu8W8oSAAAAAASUVORK5CYII=");
+        background-image: url(skins/cppreference2/images/page-fade.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom left;
+        background-repeat: repeat-x
+        }
+    div#cpp-head-second {
+        height: 40px
+        }
+    div#cpp-head-tools-left {
+        position: absolute;
+        bottom: 0;
+        left: 0
+        }
+    div#cpp-head-tools-right {
+        position: absolute;
+        bottom: 0;
+        right: 0
+        }
+    div.emptyPortlet {
+        display: none
+        }
+    div.vectorTabs h5, div.vectorMenu h5 span {
+        display: none
+        }
+    div.vectorTabs {
+        float: left;
+        height: 2.5em
+        }
+    div.vectorTabs:first-child {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAuCAIAAABmjeQ9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAERJREFUeF5lTtEKgEAMMv//j/O0IxlH9CA6N2WURAA/OHl5GeWAwUUHBcKV795FtTePxpmV3t9uv8Z3/cmvM88vzbbrAV/dQdX+eas3AAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/tab-break.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom left;
+        background-repeat: no-repeat;
+        padding-left: 1px
+        }
+    div.vectorTabs ul {
+        float: left
+        }
+    div.vectorTabs ul {
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0
+        }
+    div.vectorTabs ul li {
+        float: left
+        }
+    div.vectorTabs ul li {
+        display: block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABkCAIAAADITs03AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADxJREFUeF7litsRACAMwrD77+Q0rtGoV98r+MEFchhgkr4NnZyb3bk/LM/yMCjiH4wots/++hYR3iXLJVWUBS1AtOi2fwAAAABJRU5ErkJggg==");
+        background-image: url(skins/cppreference2/images/tab-normal-fade.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom left;
+        background-repeat: repeat-x;
+        white-space: nowrap
+        }
+    div.vectorTabs ul li.selected {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABkCAAAAABiRwW8AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AYIEiMlCdN/gwAAAA9JREFUCNdj+M/EMAzgQwAVSQKnE5Vh5AAAAABJRU5ErkJggg==");
+        background-image: url(skins/cppreference2/images/tab-current-fade.png%3F2013-09-04T19:18:20Z)
+        }
+    div.vectorTabs span {
+        display: inline-block;
+        height: 100%;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAuCAIAAABmjeQ9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAERJREFUeF5lTtEKgEAMMv//j/O0IxlH9CA6N2WURAA/OHl5GeWAwUUHBcKV795FtTePxpmV3t9uv8Z3/cmvM88vzbbrAV/dQdX+eas3AAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/tab-break.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        padding-left: 1px
+        }
+    div.vectorTabs ul li a {
+        display: block;
+        padding: 2em 0.5em 0.5em 0.5em;
+        line-height: 1em;
+        color: #0645ad;
+        cursor: pointer;
+        font-size: 0.7em
+        }
+    div.vectorTabs ul li.icon a {
+        background-position: bottom right;
+        background-repeat: no-repeat
+        }
+    div.vectorTabs li.selected a, div.vectorTabs li.selected a:visited {
+        color: #333;
+        text-decoration: none
+        }
+    div.vectorTabs li.new a, div.vectorTabs li.new a:visited {
+        color: #a55858
+        }
+    div.vectorMenu {
+        direction: ltr;
+        float: left;
+        cursor: pointer
+        }
+    body.rtl div.vectorMenu {
+        direction: rtl;
+        float: left
+        }
+    div.vectorMenu div.menu {
+        position: relative;
+        display: none;
+        clear: both;
+        text-align: left
+        }
+    body.rtl div.vectorMenu div.menu {
+        margin-left: auto
+        }
+    div.vectorMenu {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABkCAAAAABiRwW8AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AYIEiMlCdN/gwAAAA9JREFUCNdj+M/EMAzgQwAVSQKnE5Vh5AAAAABJRU5ErkJggg==");
+        background-image: url(skins/cppreference2/images/tab-current-fade.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom left;
+        background-repeat: repeat-x;
+        height: 2.5em
+        }
+    div.vectorMenu h5 {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAuCAIAAABmjeQ9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAERJREFUeF5lTtEKgEAMMv//j/O0IxlH9CA6N2WURAA/OHl5GeWAwUUHBcKV795FtTePxpmV3t9uv8Z3/cmvM88vzbbrAV/dQdX+eas3AAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/tab-break.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        padding-left: 1px;
+        height: 100%
+        }
+    div.vectorMenu h5 span {
+        display: inline-block;
+        padding: 2em 22px 0.5em 0.5em;
+        line-height: 1em;
+        font-weight: normal;
+        font-size: 0.7em;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAQBAMAAAAL9CkWAAAAGFBMVEV5eXmSkpKampqtra2xsbG/v7/d3d3j4+M9Jo0OAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfcBgESEhztg7+zAAAAJklEQVQI12NgoBpgNxQUFDSHcooFBYULEBLmcFXFcGGgRDjFlgIASNIDj9oRJ+sAAAAASUVORK5CYII=") no-repeat scroll right 1.6em;
+        background: url(skins/cppreference2/images/arrow-down-icon1.png%3F2013-09-04T19:18:20Z) no-repeat scroll right 1.6em
+        }
+    div.vectorMenuFocus h5 span {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAQBAMAAAAL9CkWAAAAGFBMVEWSkpJ5eXmampqtra2xsbG/v7/d3d3j4+P3/UNzAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfcBgESEwWQ8yYyAAAAJklEQVQI12NgoBpgUxQUFFSDcpIEBYUSEBJqcFVJcGGghBvFlgIAESkC9RAlPCAAAAAASUVORK5CYII=") no-repeat scroll right 1.6em;
+        background: url(skins/cppreference2/images/arrow-down-icon2.png%3F2013-09-04T19:18:20Z) no-repeat scroll right 1.6em
+        }
+    div.vectorMenu div.menu {
+        position: relative;
+        display: none;
+        clear: both;
+        text-align: left
+        }
+    body.rtl div.vectorMenu div.menu {
+        margin-left: auto
+        }
+    div.vectorMenu:hover div.menu, div.vectorMenu div.menuForceShow {
+        display: block
+        }
+    div.vectorMenu ul {
+        position: absolute;
+        top: -0.3em;
+        z-index: 1;
+        background-color: white;
+        border: solid 1px silver;
+        border-top-width: 0;
+        border-radius: 3px;
+        list-style: none;
+        list-style-image: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-left: -1px;
+        text-align: left
+        }
+    div.vectorMenu li {
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        line-height: 1em
+        }
+    div.vectorMenu li a {
+        display: block;
+        padding: 0.1em 0.5em;
+        white-space: nowrap;
+        color: #0645ad;
+        cursor: pointer;
+        font-size: 0.7em
+        }
+    div.vectorMenu li.selected a, div.vectorMenu li.selected a:visited {
+        color: #333;
+        text-decoration: none
+        }
+    #p-search h5 {
+        display: none
+        }
+    #p-search {
+        margin-right: 0.5em;
+        margin-left: 0.5em
+        }
+    div#simpleSearch {
+        display: block;
+        width: 14em;
+        height: 1.4em;
+        margin-top: 0.2em;
+        position: relative;
+        border: solid 1px silver;
+        border-radius: 3px;
+        color: black;
+        background-color: white;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAQCAIAAABY/YLgAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACZJREFUeF5diqERACAQgID95/3s+cFg4CDQzASkXl4jidvrCPzfA7puAx52W1pnAAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/search-fade.png%3F2013-09-04T19:18:20Z);
+        background-position: top left;
+        background-repeat: repeat-x
+        }
+    div#cpp-footer-base {
+        border-top: 1px solid silver;
+        background: none repeat scroll 0 0 #f0f0f0;
+        direction: ltr
+        }
+    div#footer {
+        padding: 0.75em;
+        font-size: 0.7em;
+        line-height: 1.4em
+        }
+    div#footer ul {
+        list-style: none;
+        list-style-image: none;
+        list-style-type: none;
+        margin: 0;
+        padding: 0.2em 0 0.2em 0;
+        line-height: 1.1em
+        }
+    div#footer ul li {
+        margin: 0;
+        padding: 0;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        color: #333
+        }
+    div#cpp-toolbox h5 {
+        display: none
+        }
+    div#cpp-toolbox ul {
+        display: inline-block
+        }
+    div#cpp-toolbox ul li {
+        display: inline-block;
+        margin-right: 1em
+        }
+    div#cpp-navigation {
+        display: inline-block
+        }
+    div#cpp-navigation h5 {
+        display: none
+        }
+    div#cpp-navigation ul {
+        display: inline-block;
+        margin: 0
+        }
+    div#cpp-navigation ul li {
+        display: inline-block;
+        margin-right: 1em
+        }
+    div#cpp-languages {
+        display: table
+        }
+    div#cpp-languages div {
+        display: table-cell
+        }
+    div#cpp-languages div:first-child {
+        white-space: nowrap
+        }
+    div#cpp-languages ul li {
+        display: inline-block;
+        margin-right: 1em
+        }
+    div#footer #footer-icons {
+        float: right;
+        margin-top: -40px
+        }
+    div#footer #footer-info li {
+        display: inline-block;
+        line-height: 1.4em
+        }
+    div#footer #footer-icons li {
+        float: left;
+        margin-left: 0.5em;
+        line-height: 2em;
+        text-align: right
+        }
+    div#footer #footer-places li {
+        display: inline-block;
+        margin-right: 1em;
+        line-height: 2em
+        }
+    #preftoc {
+        width: 100%;
+        float: left;
+        clear: both;
+        margin: 0;
+        padding: 0;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAhCAQAAACysAk0AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAABAAAAIQBSEXtPAAAAAmJLR0QA/vCI/CkAAAAmSURBVAjXY2BgYPj3n+k/AwL9g5Fwxl8GJgYGpr+ogmgITQuSgQA1QiAL/go8LAAAACV0RVh0Y3JlYXRlLWRhdGUAMjAwOS0wOC0wOVQxOTowNTo0MSswMDowMCYO2tEAAAAldEVYdG1vZGlmeS1kYXRlADIwMDktMDgtMDlUMTk6MDU6NDErMDA6MDB5v6zlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==");
+        background-image: url(skins/cppreference2/images/preferences-break.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom left;
+        background-repeat: no-repeat
+        }
+    #preftoc li {
+        float: left;
+        margin: 0;
+        padding: 0;
+        padding-right: 1px;
+        height: 2.25em;
+        white-space: nowrap;
+        list-style-type: none;
+        list-style-image: none;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAhCAQAAACysAk0AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAABAAAAIQBSEXtPAAAAAmJLR0QA/vCI/CkAAAAmSURBVAjXY2BgYPj3n+k/AwL9g5Fwxl8GJgYGpr+ogmgITQuSgQA1QiAL/go8LAAAACV0RVh0Y3JlYXRlLWRhdGUAMjAwOS0wOC0wOVQxOTowNTo0MSswMDowMCYO2tEAAAAldEVYdG1vZGlmeS1kYXRlADIwMDktMDgtMDlUMTk6MDU6NDErMDA6MDB5v6zlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==");
+        background-image: url(skins/cppreference2/images/preferences-break.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom right;
+        background-repeat: no-repeat
+        }
+    #preftoc li:first-child {
+        margin-left: 1px
+        }
+    #preftoc a, #preftoc a:active {
+        display: inline-block;
+        position: relative;
+        color: #0645ad;
+        padding: 0.5em;
+        text-decoration: none;
+        background-image: none;
+        font-size: 0.9em
+        }
+    #preftoc a:hover, #preftoc a:focus {
+        text-decoration: underline
+        }
+    #preftoc li.selected a {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAhCAQAAACysAk0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeF5twskJAAAMAjD3H7mXfYogCQiQeun68Z2WPk0SQHDa/pxXAAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/preferences-fade.png%3F2013-09-04T19:18:20Z);
+        background-position: bottom;
+        background-repeat: repeat-x;
+        color: #333;
+        text-decoration: none
+        }
+    #preferences {
+        float: left;
+        width: 100%;
+        margin: 0;
+        margin-top: -2px;
+        clear: both;
+        border: solid 1px #ccc;
+        background-color: #f9f9f9;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABRJREFUeF4FwTEBAAAAwJD1j+waGQD8APvyfoZlAAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/preferences-base.png%3F2013-09-04T19:18:20Z)
+        }
+    #preferences fieldset {
+        border: none;
+        border-top: solid 1px #ccc
+        }
+    #preferences fieldset.prefsection {
+        border: none;
+        padding: 0;
+        margin: 1em
+        }
+    #preferences legend {
+        color: #666
+        }
+    #preferences fieldset.prefsection legend.mainLegend {
+        display: none
+        }
+    #preferences td {
+        padding-left: 0.5em;
+        padding-right: 0.5em
+        }
+    #preferences td.htmlform-tip {
+        font-size: x-small;
+        padding: 0.2em 2em;
+        color: #666
+        }
+    #preferences div.mw-prefs-buttons {
+        padding: 1em
+        }
+    #preferences div.mw-prefs-buttons input {
+        margin-right: 0.25em
+        }
+    #userlogin, #userloginForm {
+        border: solid 1px #ccc;
+        padding: 1.2em;
+        margin: 0.5em;
+        float: left
+        }
+    #userlogin {
+        min-width: 20em;
+        max-width: 90%;
+        width: 40em
+        }
+    div#content {
+        line-height: 1.5em
+        }
+    #bodyContent {
+        font-size: 0.8em;
+        line-height: 1.5em;
+        width: 100%
+        }
+    a {
+        text-decoration: none;
+        color: #0645ad;
+        background: none
+        }
+    a:visited {
+        color: #0b0080
+        }
+    a:active {
+        color: #faa700
+        }
+    a:hover, a:focus {
+        text-decoration: underline
+        }
+    a.stub {
+        color: #723
+        }
+    a.new, #p-personal a.new {
+        color: #ba0000
+        }
+    a.new:visited, #p-personal a.new:visited {
+        color: #a55858
+        }
+    img {
+        border: none;
+        vertical-align: middle
+        }
+    hr {
+        height: 1px;
+        color: #aaa;
+        background-color: #aaa;
+        border: 0;
+        margin: 0.2em 0 0.2em 0
+        }
+    h1, h2, h3, h4, h5, h6 {
+        color: black;
+        background: none;
+        font-weight: normal;
+        margin: 0;
+        overflow: hidden;
+        padding-top: 0.5em;
+        padding-bottom: 0.17em;
+        border-bottom: 1px solid #aaa;
+        width: auto
+        }
+    h1 {
+        font-size: 188%
+        }
+    h1 .editsection {
+        font-size: 53%
+        }
+    h2 {
+        font-size: 150%
+        }
+    h2 .editsection {
+        font-size: 67%
+        }
+    h3, h4, h5, h6 {
+        border-bottom: none;
+        font-weight: bold
+        }
+    h3 {
+        font-size: 132%
+        }
+    h3 .editsection {
+        font-size: 76%;
+        font-weight: normal
+        }
+    h4 {
+        font-size: 116%
+        }
+    h4 .editsection {
+        font-size: 86%;
+        font-weight: normal
+        }
+    h5 {
+        font-size: 100%
+        }
+    h5 .editsection {
+        font-weight: normal
+        }
+    h6 {
+        font-size: 80%
+        }
+    h6 .editsection {
+        font-size: 125%;
+        font-weight: normal
+        }
+    .editsection {
+        float: right
+        }
+    p {
+        margin: 0.4em 0 0.5em 0;
+        line-height: 1.5em
+        }
+    p img {
+        margin: 0
+        }
+    q {
+        font-family: Times, "Times New Roman", serif;
+        font-style: italic
+        }
+    pre, code, tt, kbd, samp {
+        font-family: monospace, "Courier New"
+        }
+    code {
+        background-color: #f9f9f9
+        }
+    pre {
+        padding: 1em;
+        border: 1px dashed #2f6fab;
+        color: black;
+        background-color: #f9f9f9;
+        line-height: 1.3em
+        }
+    ul {
+        line-height: 1.5em;
+        list-style-type: square;
+        margin: 0.3em 0 0 1.5em;
+        padding: 0;
+        list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANCAMAAABW4lS6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAFKM////QIUK9QAAAAJ0Uk5T/wDltzBKAAAAGklEQVR42mJgBAEGokgGBjBGBxBxsBqAAAMACHwALd5r8ygAAAAASUVORK5CYII=");
+        list-style-image: url(skins/cppreference2/images/bullet-icon.png%3F2013-09-04T19:18:20Z)
+        }
+    ol {
+        line-height: 1.5em;
+        margin: 0.3em 0 0 3.2em;
+        padding: 0;
+        list-style-image: none
+        }
+    li {
+        margin-bottom: 0.1em
+        }
+    dt {
+        font-weight: bold;
+        margin-bottom: 0.1em
+        }
+    dl {
+        margin-top: 0.2em;
+        margin-bottom: 0.5em
+        }
+    dd {
+        line-height: 1.5em;
+        margin-left: 2em;
+        margin-bottom: 0.1em
+        }
+    table {
+        font-size: 100%
+        }
+    fieldset {
+        border: 1px solid #2f6fab;
+        margin: 1em 0 1em 0;
+        padding: 0 1em 1em;
+        line-height: 1.5em
+        }
+    fieldset.nested {
+        margin: 0 0 0.5em 0;
+        padding: 0 0.5em 0.5em
+        }
+    legend {
+        padding: 0.5em;
+        font-size: 95%
+        }
+    form {
+        border: none;
+        margin: 0
+        }
+    textarea {
+        width: 100%;
+        padding: 0.1em
+        }
+    select {
+        vertical-align: top
+        }
+    #toc, .toc, .mw-warning {
+        border: 1px solid #aaa;
+        background-color: #f9f9f9;
+        padding: 5px;
+        font-size: 95%
+        }
+    #toc h2, .toc h2 {
+        display: inline;
+        border: none;
+        padding: 0;
+        font-size: 100%;
+        font-weight: bold
+        }
+    #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
+        text-align: center
+        }
+    #toc ul, .toc ul {
+        list-style-type: none;
+        list-style-image: none;
+        margin-left: 0;
+        padding: 0;
+        text-align: left
+        }
+    #toc ul ul, .toc ul ul {
+        margin: 0 0 0 2em
+        }
+    #toc .toctoggle, .toc .toctoggle {
+        font-size: 94%
+        }
+    div.floatright, table.floatright {
+        margin: 0 0 0.5em 0.5em;
+        border: 0
+        }
+    div.floatright p {
+        font-style: italic
+        }
+    div.floatleft, table.floatleft {
+        margin: 0 0.5em 0.5em 0;
+        border: 0
+        }
+    div.floatleft p {
+        font-style: italic
+        }
+    div.thumb {
+        margin-bottom: 0.5em;
+        width: auto;
+        background-color: transparent
+        }
+    div.thumbinner {
+        border: 1px solid #ccc;
+        padding: 3px;
+        background-color: #f9f9f9;
+        font-size: 94%;
+        text-align: center;
+        overflow: hidden
+        }
+    html .thumbimage {
+        border: 1px solid #ccc
+        }
+    html .thumbcaption {
+        border: none;
+        text-align: left;
+        line-height: 1.4em;
+        padding: 3px;
+        font-size: 94%
+        }
+    div.magnify {
+        float: right;
+        border: none;
+        background: none
+        }
+    div.magnify a, div.magnify img {
+        display: block;
+        border: none;
+        background: none
+        }
+    div.tright {
+        margin: 0.5em 0 1.3em 1.4em
+        }
+    div.tleft {
+        margin: 0.5em 1.4em 1.3em 0
+        }
+    img.thumbborder {
+        border: 1px solid #ddd
+        }
+    .mw-warning {
+        margin-left: 50px;
+        margin-right: 50px;
+        text-align: center
+        }
+    .usermessage {
+        background-color: #ffce7b;
+        border: 1px solid #ffa500;
+        color: black;
+        font-weight: bold;
+        margin: 2em 0 1em;
+        padding: 0.5em 1em;
+        vertical-align: middle
+        }
+    #siteNotice {
+        position: relative;
+        text-align: center;
+        font-size: 0.8em;
+        margin: 0
+        }
+    #localNotice {
+        margin-bottom: 0.9em
+        }
+    .catlinks {
+        border: 1px solid #aaa;
+        background-color: #f9f9f9;
+        padding: 5px;
+        margin-top: 1em;
+        clear: both
+        }
+    #siteSub {
+        display: none
+        }
+    #contentSub, #contentSub2 {
+        font-size: 84%;
+        line-height: 1.2em;
+        margin: 0 0 1.4em 1em;
+        color: #7d7d7d;
+        width: auto
+        }
+    span.subpages {
+        display: block
+        }
+    .center {
+        width: 100%;
+        text-align: center
+        }
+    *.center * {
+        margin-left: auto;
+        margin-right: auto
+        }
+    .small {
+        font-size: 94%
+        }
+    table.small {
+        font-size: 100%
+        }
+    h1, h2 {
+        margin-bottom: 0.6em
+        }
+    h3, h4, h5 {
+        margin-bottom: 0.3em
+        }
+    #firstHeading {
+        padding-top: 0;
+        margin-top: 0;
+        padding-top: 0;
+        margin-bottom: 0.1em;
+        line-height: 1.2em;
+        font-size: 1.6em;
+        padding-bottom: 0
+        }
+    div#content a.external, div#content a.external[href^="gopher://"] {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeF59z4EJADEIQ1F36k7u5E7ZKXeUQPACJ3wK7UNokVxVk9kHnQH7bY9hbDyDhNXgjpRLqFlo4M2GgfyJHhjq8V4agfrgPQX3JtJQGbofmCHgA/nAKks+JAjFAAAAAElFTkSuQmCC") center right no-repeat;
+        background: url(skins/cppreference2/images/external-link-ltr-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href^="https://"], .link-https {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIVJREFUeF6tjzsKg0AQhi09mimsFJLCzpNYCGKbK3gAtfUIljaCoKCCZIs8MMV2v+yCg8siWlh8zOtjhjEAEFmeIopDQtTrTJNEZIxhWysiNfULJFJjDzGnba/aBt4+wAuBzD+tg6a8SVkXf4GET96xmDxNzP39IvE/PPDtXIyVpYinv14A5F0laJ8oYFgAAAAASUVORK5CYII=") center right no-repeat;
+        background: url(skins/cppreference2/images/lock-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href^="mailto:"], .link-mailto {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADBQTFRF////////iIqF9vb26urpycfDvb275eXj2djV+/v4srKy6efio6GcqKejsa6q8fDtVM9qIQAAAAF0Uk5TAEDm2GYAAABOSURBVHheBcExDkAwGIDRL43NpJOt6a9hMdVilP8gklqsHMJmt4qeyeI03oNSNkCrAIU/7YTWbwp0zz4rTXZHxF/9YA15HTG4+4NFRNofUBMMOBBNZngAAAAASUVORK5CYII=") center right no-repeat;
+        background: url(skins/cppreference2/images/mail-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href^="news://"] {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHtJREFUeF6NkEEKgCAQRT2w1wiiUxgk0SKiTe6i9oKeQXDhKSZmYAJRKeHh4j//DIp+6OAPJH6cXJRSZqSUQClViBjUKER8zXAbUhev+6Q7hMA0G1msNtIo5zxhrX3xzlNG4ravYMwBMUZsKsBsXjQIABCTHlsfTXuj8wCN3T2QBjtcwQAAAABJRU5ErkJggg==") center right no-repeat;
+        background: url(skins/cppreference2/images/news-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href^="ftp://"], .link-ftp {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAExJREFUeF5VyEEKwCAMAMH83o/0LT6kFHqQYqkevG1jIITs3kaQgn+A7A29ujnw5NKrsaPCrTegBBrRMzYeXkbGzsdkZRwsPWMUmEd+CkSgVeVp2OkAAAAASUVORK5CYII=") center right no-repeat;
+        background: url(skins/cppreference2/images/file-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href^="irc://"], div#content a.external[href^="ircs://"], .link-irc {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHRJREFUeF590E0KgCAQBWAvH0TXigI3ZccQ/8H91ExqKNrAW8j7kFG27SvMyzQM9s8whuBnENdQSllFKdWFWFC01pQQwhASMMaAtXYIMQScc/0dxSXyIaPq1ZzzF6JOsKBTHOC9hxgjoQLbf2tRgekWKka5AShBSepvauUSAAAAAElFTkSuQmCC") center right no-repeat;
+        background: url(skins/cppreference2/images/talk-icon.png%3F2013-09-04T19:20:00Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href$=".ogg"], div#content a.external[href$=".OGG"], div#content a.external[href$=".mid"], div#content a.external[href$=".MID"], div#content a.external[href$=".midi"], div#content a.external[href$=".MIDI"], div#content a.external[href$=".mp3"], div#content a.external[href$=".MP3"], div#content a.external[href$=".wav"], div#content a.external[href$=".WAV"], div#content a.external[href$=".wma"], div#content a.external[href$=".WMA"], .link-audio {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADBQTFRF////dX8qyNF7eYMzwsxrsr9G8PHrm6Jrt7uakJVmn6OB1duat8NQi5YzhI4ykZR07gQraQAAAAF0Uk5TAEDm2GYAAABJSURBVHheNcSxDUBQFIbR727glxvKl3dHsIHCGESrNIIR7KE1hQ1MoDSCiMhJDixSDWVEhuZbei/sf/Jqbdn28+jxYe4u7CaND+p5C05J6bE1AAAAAElFTkSuQmCC") center right no-repeat;
+        background: url(skins/cppreference2/images/audio-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href$=".ogm"], div#content a.external[href$=".OGM"], div#content a.external[href$=".avi"], div#content a.external[href$=".AVI"], div#content a.external[href$=".mpeg"], div#content a.external[href$=".MPEG"], div#content a.external[href$=".mpg"], div#content a.external[href$=".MPG"], .link-video {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAP9bkSK1AAAAXElEQVR4Xi2NMQoFMQgFvbpgHUj5LvF6K7sFQXKFsOew2G/xuylmGPn62Wb76U+ayHsTbDnrQMNrHdkZRChyi730KvK1QUWVD47gzoCOMBkXPSZrIuumseW/iKU/eKdG9xXBa10AAAAASUVORK5CYII=") center right no-repeat;
+        background: url(skins/cppreference2/images/video-icon.png%3F2013-09-04T19:20:00Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.external[href$=".pdf"], div#content a.external[href$=".PDF"], div#content a.external[href*=".pdf#"], div#content a.external[href*=".PDF#"], div#content a.external[href*=".pdf?"], div#content a.external[href*=".PDF?"], .link-document {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE5JREFUeF5lykEKgDAMBdF/+17Es/QkiosiCBURXIzJooZohmweX6gwmkCeI+Oqc2C1FnvnF2ejlQYU0tLK2NjY6f/l8V12Ti7uhFFgDj19b58EwXuqkAAAAABJRU5ErkJggg==") center right no-repeat;
+        background: url(skins/cppreference2/images/document-icon.png%3F2013-09-04T19:18:20Z) center right no-repeat;
+        padding-right: 13px
+        }
+    div#content a.extiw, div#content a.extiw:active {
+        color: #36b;
+        background: none;
+        padding: 0
+        }
+    div#content a.extiw:visited {
+        color: #636
+        }
+    div#content a.extiw:active {
+        color: #b63
+        }
+    div#content a.external {
+        color: #36b
+        }
+    div#content a.external:visited {
+        color: #636
+        }
+    div#content a.external:active {
+        color: #b63
+        }
+    div#content .printfooter {
+        display: none
+        }
+    #pt-userpage, #pt-anonuserpage, #pt-login {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAANCAYAAACQN/8FAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAACxMAAAsTAQCanBgAAAHOSURBVCjPY2BAAjtLxLmPN4pFn2gSTdrfICDAgA2c65C0uznf6erT9dH/H6/0+39zut6d051SfiiK9jcwsFyfa3v21Z7S/++Odf1/uSP7/6OF1v+vT9O7ub9BlAdJoajBw+W+P98crPv/8eLC/6/2lPx/vNj+/705xv+PNwsHwRUerOFTvTXX9sfzjTFg056tC/v/YJbu//tzjP4eaxR3hiv8z8DAuKPF4N7DuUb/H84z/X9/hsb/BzM1/x/qMnxwJo2BFa5QP3rKpMjSiT/XtTr+vzzV+P+Vacb/N7fb/48v6fikHTYhFaxII3iSr0vRmm/muZv++9du/L969Yr/Wzeu+O9Tvvq/Rcay//aZC15reHXoMtimz91ulrnyv1n22v/muRv/960693/Fniv/TdKX/zdKXvDfPHX+f9PYySsYbFJnXDWIm/nfOG0pWDKkdsP/oonbgYoW/jdImPNfL2bKf+v4SRcZTCK6D5gkTAcLGibO/W+aMu+/b8mS//pxM8CKdAPr/xtFdB9lkDQNszOP7r1tnTLzr03qzP/WQGyVAqRTpv+3Tprxzzi88560VZo3xNui2jxi+oFB4oYRNaL6Ic0gDGEHh4HkQEoAjALoHv5slukAAAAASUVORK5CYII=") left top no-repeat;
+        background: url(skins/cppreference2/images/user-icon.png%3F2013-09-04T19:20:00Z) left top no-repeat;
+        padding-left: 15px;
+        text-transform: none
+        }
+    .redirectText {
+        font-size: 140%
+        }
+    .redirectMsg img {
+        vertical-align: text-bottom
+        }
+    .toccolours {
+        border: 1px solid #aaa;
+        background-color: #f9f9f9;
+        padding: 5px;
+        font-size: 95%
+        }
+    #mw-js-message {
+        font-size: 0.8em
+        }
+    #ca-unwatch.icon a, #ca-watch.icon a {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        display: block;
+        width: 26px;
+        padding-top: 3.1em;
+        margin-top: 0;
+        margin-top: -0.8em;
+        height: 0;
+        overflow: hidden;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAQCAMAAAClQEgHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBQTFRFoNb/+vr52tXLdcP/ltL/ysKt39rPrdz/xtDT8vLwwrJxodr/vqxjzdnr8v7+ntb/uuX/i87/ytTV9fb3zuz+8eOU+fr8zvH/wuX/ecT/hbrnj7XBltb/m9T/h8z/jtH+c8H/vq53lL/Ovq109vb1/v7rx8CuhcT0xLJlot3/2PL/kc//59N3s9//v7KGbL7/mNf//v395NSLmdr//Pz7ccT/wbOIZ7v/ybZk6OzzpNf/icPu0cm2g8n/p9n/9fTzva1ouuL/samQwu3/scfhfrbj8e/q4+bnyLJQ6u3tqtr/irbG7PH5fcz/0d7ww+r/zcuL6Obh9f7/hsv/s8+r+e2rw7J2rb3C+fj2icTy1O7/jrvO1s++vMyUz8zGocna6+rn8vDtlLK8aL3/d8X///vV7fz/vraklMr039nMtNjqp97/o9362ejN4vb/zcN7sN3/vfP/bsD/1dLNhK2+yLeIkrri28drz7tp5N7TiK26grXi3trTccP/vub/rd//+v//qM7fyeHMztmq5PT8u6t0/f3+/P39ksDwk8HQtMTH3fn/kdH/ltLpxb5o0dzsnND6ssXbzun5rdru2+Dh5+vsz9nadrrx1eLz+fLM7/z/w71z//zPgMz/8eWrwtKT9vn8jbPCf7vs1N3pua1terXo1O3tqtfWwOX51cV5dMH/vtmy28p8fLXR4efx9emq///8z9TbzrxowLOP5ea57///nq2xy7xo///5frrnwrSP9PX2+vv7ztzwvd3P2vH5r9z/8/X4nMrlsN//qLq9wa5zh7fikdf/tuL9zbpo3tnQ1u/kx8rL+/z8kq+6+vLGkqKq6f//oMrfxuf8xbVwqLvSh7vq8PP3ltD6d8P/v7Ngx7dqwbFt/PGyk8jv9vf3zLhofqy/wdPqyeTc0vH9//3kxun5i7O/x87X09mr1sRzmK3C3dnQz9XXmLvg///6uc7ozLpq7O7u//zc7evoyfT/+/z+mtf/9e25zcJt7ezowMXGu8nM+Pn5////8/n77InDmQAAAQB0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AFP3ByUAAAJbSURBVHjaYvgPAb+3/ccK4tKxi7+4SkA9A5SWnuyJVSGXDidWcSnN6/jVQw0+s//fBWzqin9scMImvtF/62us6rfwOaEYXPLvXyM2pzn8+7dGBYt4dZ5WhjA29d3i+Sowg/d4TjuX9+9fQwnH1L8oqhIrN5//909VOdPNBEXcZ8Y7CQlHEam9Pt/Q1O/KrXNcdhSsnuFIZ3zWpLR/QMAnkhWvJA1TxVqx0mheKkj883qjVx9LYeIukRkT2P3rCtgPCGTfiLTuQKjPD3iZK1DAzv64OWD27VIG9+h/SOASB0xhwklk8XImmLilOp+IhK6XFQODrCyD+D1euPoHF50FDoPFZWQKfzIx/N/9PAiuP3oKwmOMYU9hwu8tAhHiYteidO34WbRtFZg1d65DVn+6HiJem3MrEBTGZ6taIPqDvN1RwkxxJkRcVeMLivixEwwsgpLmRfKulqjqm/jB4r08vyCp4tMhiAFPOFCj2L4cIh7KhCp+UJ1bjjlZ/6Y8L5r6PmOQuGkIEzS5vV0BMWBWOKrCGlGIeCorqvhieTlm5pRVkgYuaOpj5zLXmiqkLGeFGhwOTBRRl4EmJKEqVJsDdC3Q8B16qOITs4MNegS/B3OXoanf53s8JNbYN0cPanDSPy3vP0JVz/4tRFVo9u+uRcwbZdF/d1DFy8S5Fz3qr5ZxdkVT/3W1Rsyp1vmFS6AGP1TqAolzSK+9j6KQZ5MNiGK64sGIIr7U+gOI4pWaLoaqfjtEPRdIPdDgdiFY5hRCyaWGbDDz2CKQxdv8YOb5LcCtnuE/jQBAgAEAQlFsBT+lqfQAAAAASUVORK5CYII=");
+        background-image: url(skins/cppreference2/images/watch-icons.png%3F2013-09-04T19:20:00Z)
+        }
+    #ca-unwatch.icon a {
+        background-position: -43px 60%
+        }
+    #ca-watch.icon a {
+        background-position: 5px 60%
+        }
+    #ca-unwatch.icon a:hover, #ca-unwatch.icon a:focus {
+        background-position: -67px 60%
+        }
+    #ca-watch.icon a:hover, #ca-watch.icon a:focus {
+        background-position: -19px 60%
+        }
+    #ca-unwatch.icon a.loading, #ca-watch.icon a.loading {
+        background-image: url("data:image/gif;base64,R0lGODlhEAAQAMQfANra2uLi4vDw8PLy8ujo6Ozs7NbW1vj4+Pb29s7Oztzc3NTU1O7u7uDg4NHR0erq6v39/d7e3vz8/Pv7+/7+/tPT09jY2Pr6+tnZ2efn5/X19eXl5ebm5vT09P///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJAwAfACwAAAAAEAAQAAAFa+Anjl9QkShacVqabp2XuKjjecHhStrjHDdIgtORiCyWSEZwud0mg0zEUhkYnNhsY/O5OCRZrEEwgvzCkgqZhGiEB1wUgRGeAFKApqcjcJ5QCx4aFQEECX1/JAlJJBsVFRMkEBkXLhyVNJkhACH5BAkDAB8ALAAAAAAQABAAAAV74CeO4hUQZEoGhqGqWzQtEnlYRCYMGSB5BkTKQCgUOBGPkjBIdQDKqBLhaJI4D6l0gylMRg6IVkmhNBIjxWBM8XAwHNFAIdYWDA0SRhNtKy0CJAUVEAcRAQJkFikZDg4EBB0RDR4dGCkIEhAjFBsBDwovKo0BoioFQiMhACH5BAkDAB8ALAAAAAAQABAAAAWB4CeO5HeU33OVl5IIpYEFh/QR1rYNZSMUAYVBwfBYbKRJwwPxFDxQjAbloECvHgMEBUBgPZTApjSxeL+eQGDUsQwkaGhBcUBYinGI5GBIEBwEGhxwVwwLFgoRHQwECgIADRFXBgUfEygfEBEDTmuYIxAJFAYwnyMFABVbpiMYGSghACH5BAkDAB8ALAAAAAAQABAAAAV+4CdKjWieKOJs6De1U5Zhg4YcmaG0kXcElQDtEWkZPMgMBGlofQDIqK9pmhAADClSEDBtAICJROvR7EQGx5LsgQAOogKm0LhQ2IDRQRJRFKIHAh4XAXknEw5REQsRBgAOEigRFBQEERofAgJiKBoZAgsXTicUDgYDoygNXU4hACH5BAUDAB8ALAAAAAAQABAAAAV54Cd+EFBNY6p+hgCssOERGwSP3eZBgUIEG0xhdGFpPMjChjNoRD6XIGBDQVo9FIcogZnsrlbLQNRQfMEewVN0ERAaaE9AoDoECGj76lBBTxQwDlYBEQweGwwqEDIHCwIbBgAAFioUBgUOdCIaBRwrBhUHNykQY6MfIQA7");
+        background-image: url(skins/cppreference2/images/watch-icon-loading.gif%3F2013-09-04T19:20:00Z);
+        background-position: 5px 60%
+        }
+    #ca-unwatch.icon a span, #ca-watch.icon a span {
+        display: none
+        }
+    div.vectorTabs ul {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAuCAIAAABmjeQ9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAERJREFUeF5lTtEKgEAMMv//j/O0IxlH9CA6N2WURAA/OHl5GeWAwUUHBcKV795FtTePxpmV3t9uv8Z3/cmvM88vzbbrAV/dQdX+eas3AAAAAElFTkSuQmCC");
+        background-image: url(skins/cppreference2/images/tab-break.png%3F2013-09-04T19:18:20Z);
+        background-position: right bottom;
+        background-repeat: no-repeat
+        }
+    .tipsy {
+        font-size: 0.8em
+        }
+    textarea#wpTextbox1 {
+        font-size: 1em;
+        line-height: 1.2em
+        }
+    }</style>
+<meta name="ResourceLoaderDynamicStyles" content="">
+<style type="text/css">div#contentSub:empty {display:none}
+#content a.extiw:active {background:url(skins/vector/images/external-link-ltr-icon.png) no-repeat scroll right center transparent;padding:0 13px 0 0}
+.t-lines > span:empty:after {content:" "}
+.t-mfrac > table > tbody > tr:first-child > td {border-bottom:0.1em solid}
+.t-mrad > span:nth-last-child(3) {font-size:0.7em;vertical-align:0.8em;margin-right:-0.5em}
+.t-mrad > span:nth-last-child(2) {font-size:1.1em}
+.t-mrad > span:nth-last-child(1) {border-top:0.1em solid}
+.t-mparen > span:nth-child(3) {font-style:normal;line-height:1.1em}
+.t-mparen > span:nth-child(2) {line-height:1.5em;text-align:center}
+.t-navbar-head:hover > div.t-navbar-menu {display:block}
+body.skin-cppreference .t-navbar-head:nth-child(2) {padding-left:1em}
+body.skin-vector .t-navbar-head:nth-child(2) {padding-left:1em}
+.t-dsc-header > td:first-child > div {margin-left:2em}
+.t-dsc-see > span:nth-child(2) > span {font-weight:bold}
+.dsctable > tbody > tr:last-child > td {border-bottom:1px solid silver}
+.t-dcl-header > td:first-child > div {margin-left:2em;font-size:0.8em}
+.t-dcl-h > td:first-child > div {margin-left:2em;padding-top:0.7em;font-size:0.8em;font-weight:bold}
+.t-dcl > td:first-child > div p {line-height:1.1em;margin:0;padding:0}
+.t-dcl > td:first-child > div span {line-height:1.1em;margin:0;padding:0}
+.t-dcl > td:nth-child(2) {font-size:0.8em;padding-right:1.5em}
+.t-dcl-rev-aux > td:nth-child(2) {font-size:0.8em;padding-right:1.5em}
+.t-dcl > td:nth-child(3) {padding:0}
+.t-dcl-rev-aux > td:nth-child(3) {padding:0}
+.t-dcl-rev > .t-dcl:first-child > td {border-top:1px solid #ccc}
+.t-dcl-rev-aux > td:nth-child(3) {padding:0}
+.t-dcl-rev-num > .t-dcl-rev-aux ~ tr:not(.t-dcl-rev-aux) > td:nth-child(2) {display:none}
+.t-dcl-rev-notes > .t-dcl-rev-aux ~ tr:not(.t-dcl-rev-aux) > td:nth-child(3) {display:none}
+.t-sdsc > td:nth-last-child(2) {padding-left:3em}
+.t-sdsc > td:nth-last-child(1) {padding-left:2em}
+.t-nv-ln-table > div:nth-child(2) {padding:0 0 0 0.2em}
+.t-par > td:nth-child(3) {width:100%}
+.t-rev > td:nth-child(2) {border:1px solid silver;border-left:none;white-space:nowrap}
+div#content .t-rev > td:first-child > ul:last-child {margin-bottom:0}
+div#content .t-rev > td:first-child > ul:first-child {margin-top:0}
+.t-rev > td:first-child > ul:first-child > li:first-child {margin-top:0}
+.t-dsc-member-div > div:nth-child(2) {padding-left:0.2em}
+.t-dsc-member-nobold-div > div:first-child strong.selflink {font-weight:normal;font-family:DejaVuSans, "DejaVu Sans", arial, sans-serif}
+.t-tr-text:hover {background:#eef;transition:background 0.2s ease-in-out 1s;-webkit-transition:background 0.2s ease-in-out 1s;-moz-transition:background 0.2s ease-in-out 1s;-o-transition:background 0.2s ease-in-out 1s}
+.t-tr-text:hover > .t-tr-dropdown {visibility:visible;transition:visibility 0 linear 1s;-webkit-transition:visibility 0 linear 1s;-moz-transition:visibility 0 linear 1s;-o-transition:visibility 0 linear 1s}
+.t-tr-text:hover > .t-tr-dropdown > div {opacity:1;transition:opacity 0.2s ease-in-out 1s;-webkit-transition:opacity 0.2s ease-in-out 1s;-moz-transition:opacity 0.2s ease-in-out 1s;-o-transition:opacity 0.2s ease-in-out 1s}
+ol.references li:target {background-color:#DEF}
+sup.reference:target {background-color:#DEF}
+span.citation:target {background-color:#DEF}
+@media screen, handheld {
+    span.citation *.printonly {
+        display: none
+        }
+    }
+.IPA a:link {text-decoration:none}
+.IPA a:visited {text-decoration:none}
+@media only screen and (max-device-width: 480px) {
+    body {
+        -webkit-text-size-adjust: none
+        }
+    }
+@media print {
+    .t-navbar, .editsection {
+        display: none
+        }
+    #content {
+        font-size: 0.7em;
+        padding: 1em 3em
+        }
+    .printfooter {
+        margin-top: 1em;
+        border-top: 1px solid silver;
+        font-size: 0.8em
+        }
+    }</style>
+<style>a:lang(ar) {text-decoration:none}
+a:lang(ckb) {text-decoration:none}
+a:lang(fa) {text-decoration:none}
+a:lang(kk-arab) {text-decoration:none}
+a:lang(mzn) {text-decoration:none}
+a:lang(ps) {text-decoration:none}
+a:lang(ur) {text-decoration:none}</style>
+
+<script src="common/startup_scripts.js"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"cpp/container/multiset","wgTitle":"cpp/container/multiset","wgCurRevisionId":98454,"wgArticleId":1010,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Pages with unreviewed LWG DR marker"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"cpp/container/multiset","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":0,"showtoolbar":1,"skin":"cppreference2","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"gadget-ColiruCompiler":1,"gadget-MathJax":1});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});;},{},{});
+/* cache key: mwiki1-mwiki_en_:resourceloader:filter:minify-js:7:9f05c6caceb9bb1a482b6cebd4c5a330 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/mwiki/skins/cppreference2/csshover.min.htc")}</style><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-cpp_container_multiset skin-cppreference2 action-view cpp-navbar" style='font-family:"DejaVu Sans", arial, sans-serif; font-size:1em; background-color:white' bgcolor="white">
+        <!-- header -->
+        <!-- /header -->
+        <!-- content -->
+        <div id="cpp-content-base" style="background-color:white" bgcolor="white">
+            <div id="content" style="line-height:1.2em; position:static; margin:0; width:48.75em; padding-top:32px" width="48.75em">
+                <a id="top"></a>
+                <div id="mw-js-message" style="display:none;"></div>
+                                <!-- firstHeading -->
+                <h1 id="firstHeading" class="firstHeading" style="font-size:2em">
+<span style="font-size:0.7em; line-height:130%">std::</span>multiset</h1>
+                <!-- /firstHeading -->
+                <!-- bodyContent -->
+                <div id="bodyContent" style="line-height:1.2em; position:static">
+                                        <!-- tagline -->
+                    <div id="siteSub" style="display:none">From cppreference.com</div>
+                    <!-- /tagline -->
+                                        <!-- subtitle -->
+                    <div id="contentSub" style="display:none"><span class="subpages">&lt; <a href="cpp.html" title="cpp">cpp</a>‎ | <a href="tests/container.html" title="cpp/container">container</a></span></div>
+                    <!-- /subtitle -->
+                                                            <!-- bodycontent -->
+                    <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
+<div class="t-navbar" style="display:inline-block; height:1.72em; left:0; position:absolute; top:0" height="1.72em">
+<div class="t-navbar-sep" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; background-image:url(skins/cppreference2/images/navbar-inv-tab.png); background-position:left bottom; background-repeat:no-repeat; width:8px; border-bottom-width:0" height="100%" width="8"> </div>
+<div class="t-navbar-head" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; padding-left:0.2em; padding-right:0.2em" height="100%">
+<a href="cpp.html" title="cpp"> C++</a><div class="t-navbar-menu" style="clear:both; display:none; position:relative"><div style="background-color:white; border:1px solid silver; border-radius:3px; border-top-width:0; display:inline-block; padding:0.5em; position:absolute; white-space:nowrap; z-index:1" bgcolor="white">
+<div><table class="t-nv-begin" cellpadding="0" style="background-color:transparent; border-spacing:0; line-height:1.1em; width:auto" width="auto">
+<tr class="t-nv"><td colspan="5"> <a href="tests/language.html" title="cpp/language"> Language</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/header.html" title="cpp/header"> Headers</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/concept.html" title="cpp/concept"> Library concepts</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/utility.html#Language_support" title="cpp/utility"> Language support library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/error.html" title="cpp/error"> Diagnostics library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/utility.html" title="cpp/utility"> Utilities library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/string.html" title="cpp/string"> Strings library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/container.html" title="cpp/container"> Containers library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/algorithm.html" title="cpp/algorithm"> Algorithms library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/iterator.html" title="cpp/iterator"> Iterators library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/numeric.html" title="cpp/numeric"> Numerics library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/io.html" title="cpp/io"> Input/output library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/locale.html" title="cpp/locale"> Localizations library</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/regex.html" title="cpp/regex"> Regular expressions library</a> <span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/atomic.html" title="cpp/atomic"> Atomic operations library</a> <span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/thread.html" title="cpp/thread"> Thread support library</a> <span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/filesystem.html" title="cpp/filesystem"> Filesystem library</a> <span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(C++17)</span> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="tests/experimental.html" title="cpp/experimental"> Technical Specifications</a> </td></tr>
+</table></div>
+<div></div>
+</div></div>
+</div>
+<div class="t-navbar-sep" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; background-image:url(skins/cppreference2/images/navbar-tab.png); background-position:right bottom; background-repeat:no-repeat; width:8px" height="100%" width="8"> </div>
+<div class="t-navbar-head" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; padding-left:0.2em; padding-right:0.2em" height="100%">
+<a href="tests/container.html" title="cpp/container"> Containers library</a><div class="t-navbar-menu" style="clear:both; display:none; position:relative"><div style="background-color:white; border:1px solid silver; border-radius:3px; border-top-width:0; display:inline-block; padding:0.5em; position:absolute; white-space:nowrap; z-index:1" bgcolor="white">
+<div><table class="t-nv-begin" cellpadding="0" style="background-color:transparent; border-spacing:0; line-height:1em; width:auto" width="auto">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/array.html" title="cpp/container/array"><span class="t-lines" style="display:table"><span style="display:table-row">array</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/vector.1.html" title="cpp/container/vector"><span class="t-lines" style="display:table"><span style="display:table-row">vector</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/deque.html" title="cpp/container/deque"><span class="t-lines" style="display:table"><span style="display:table-row">deque</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/forward_list.html" title="cpp/container/forward list"><span class="t-lines" style="display:table"><span style="display:table-row">forward_list</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/list.html" title="cpp/container/list"><span class="t-lines" style="display:table"><span style="display:table-row">list</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/set.html" title="cpp/container/set"><span class="t-lines" style="display:table"><span style="display:table-row">set</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><strong class="selflink" style="font-weight:bold"><span class="t-lines" style="display:table"><span style="display:table-row">multiset</span></span></strong></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/map.html" title="cpp/container/map"><span class="t-lines" style="display:table"><span style="display:table-row">map</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multimap.html" title="cpp/container/multimap"><span class="t-lines" style="display:table"><span style="display:table-row">multimap</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/unordered_set.html" title="cpp/container/unordered set"><span class="t-lines" style="display:table"><span style="display:table-row">unordered_set</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/unordered_multiset.html" title="cpp/container/unordered multiset"><span class="t-lines" style="display:table"><span style="display:table-row">unordered_multiset</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/unordered_map.html" title="cpp/container/unordered map"><span class="t-lines" style="display:table"><span style="display:table-row">unordered_map</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/unordered_multimap.html" title="cpp/container/unordered multimap"><span class="t-lines" style="display:table"><span style="display:table-row">unordered_multimap</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/stack.html" title="cpp/container/stack"><span class="t-lines" style="display:table"><span style="display:table-row">stack</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/queue.html" title="cpp/container/queue"><span class="t-lines" style="display:table"><span style="display:table-row">queue</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/priority_queue.html" title="cpp/container/priority queue"><span class="t-lines" style="display:table"><span style="display:table-row">priority_queue</span></span></a></div></div></td></tr>
+</table></div>
+<div></div>
+</div></div>
+</div>
+<div class="t-navbar-sep" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; background-image:url(skins/cppreference2/images/navbar-tab.png); background-position:right bottom; background-repeat:no-repeat; width:8px" height="100%" width="8"> </div>
+<div class="t-navbar-head" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; padding-left:0.2em; padding-right:0.2em" height="100%">
+<strong class="selflink" style="font-weight:bold"><tt style='font-family:"DejaVu Sans Mono", courier, monospace'>std::multiset</tt></strong><div class="t-navbar-menu" style="clear:both; display:none; position:relative"><div style="background-color:white; border:1px solid silver; border-radius:3px; border-top-width:0; display:inline-block; padding:0.5em; position:absolute; white-space:nowrap; z-index:1" bgcolor="white">
+<div><table class="t-nv-begin" cellpadding="0" style="background-color:transparent; border-spacing:0; line-height:1em; width:auto" width="auto">
+<tr class="t-nv-h1"><td colspan="5" style="font-size:1.25em; font-weight:bold; padding:0.2em 0 0.2em 1.4em"> Member functions</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/multiset.html" title="cpp/container/multiset/multiset"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::multiset</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/%7Emultiset.html" title="cpp/container/multiset/~multiset"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::~multiset</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/operator%3D.html" title="cpp/container/multiset/operator="><span class="t-lines" style="display:table"><span style="display:table-row">multiset::operator=</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/get_allocator.html" title="cpp/container/multiset/get allocator"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::get_allocator</span></span></a></div></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5" style="font-weight:bold; padding:0.2em 0 0.2em 1em"> Iterators</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/begin.html" title="cpp/container/multiset/begin"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::begin</span><span style="display:table-row">multiset::cbegin</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/end.html" title="cpp/container/multiset/end"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::end</span><span style="display:table-row">multiset::cend</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/rbegin.html" title="cpp/container/multiset/rbegin"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::rbegin</span><span style="display:table-row">multiset::crbegin</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/rend.html" title="cpp/container/multiset/rend"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::rend</span><span style="display:table-row">multiset::crend</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv-h2"><td colspan="5" style="font-weight:bold; padding:0.2em 0 0.2em 1em"> Capacity</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/empty.html" title="cpp/container/multiset/empty"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::empty</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/size.html" title="cpp/container/multiset/size"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::size</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/max_size.html" title="cpp/container/multiset/max size"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::max_size</span></span></a></div></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5" style="font-weight:bold; padding:0.2em 0 0.2em 1em"> Modifiers</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/clear.html" title="cpp/container/multiset/clear"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::clear</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/insert.html" title="cpp/container/multiset/insert"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::insert</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/emplace.html" title="cpp/container/multiset/emplace"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::emplace</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/emplace_hint.html" title="cpp/container/multiset/emplace hint"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::emplace_hint</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/erase.html" title="cpp/container/multiset/erase"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::erase</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/swap.html" title="cpp/container/multiset/swap"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::swap</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/extract.html" title="cpp/container/multiset/extract"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::extract</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(C++17)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle">
+<div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/merge.html" title="cpp/container/multiset/merge"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::merge</span></span></a></div>
+<div style="display:table-cell"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(C++17)</span></span></span></div>
+</div></td></tr>
+<tr class="t-nv-h2"><td colspan="5" style="font-weight:bold; padding:0.2em 0 0.2em 1em"> Lookup</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/count.html" title="cpp/container/multiset/count"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::count</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/find.html" title="cpp/container/multiset/find"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::find</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/equal_range.html" title="cpp/container/multiset/equal range"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::equal_range</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/lower_bound.html" title="cpp/container/multiset/lower bound"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::lower_bound</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/upper_bound.html" title="cpp/container/multiset/upper bound"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::upper_bound</span></span></a></div></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5" style="font-weight:bold; padding:0.2em 0 0.2em 1em"> Observers</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/key_comp.html" title="cpp/container/multiset/key comp"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::key_comp</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table" style="border-spacing:0; display:table; padding:0; vertical-align:middle" valign="middle"><div style='display:table-cell; font-family:DejaVuSansMonoCondensed75, "DejaVu Sans Mono", courier, monospace; padding:0'><a href="tests/preprocess_cssless_data/multiset/value_comp.html" title="cpp/container/multiset/value comp"><span class="t-lines" style="display:table"><span style="display:table-row">multiset::value_comp</span></span></a></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5" style="font-size:1.25em; font-weight:bold; padding:0.2em 0 0.2em 1.4em"> <a href="tests/preprocess_cssless_data/multiset/deduction_guides.html" title="cpp/container/multiset/deduction guides">Deduction guides</a><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(C++17)</span>
+</td></tr>
+</table></div>
+<div></div>
+</div></div>
+</div>
+<div class="t-navbar-sep" style="-moz-box-sizing:border-box; background-origin:border-box; border-bottom:1px solid silver; box-sizing:border-box; float:left; font-size:0.9em; height:100%; padding-bottom:0.3em; padding-top:0.4em; background-image:url(skins/cppreference2/images/navbar-tab.png); background-position:right bottom; background-repeat:no-repeat; width:8px; border-bottom-width:0" height="100%" width="8"> </div>
+</div>
+<table class="t-dcl-begin" style="background-color:transparent; border-spacing:0; display:block; padding:0.5em 0"><tbody>
+<tr class="t-dsc-header">
+<td style="font-size:0.8em; line-height:1em; padding:0"> <div>Defined in header <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'><a href="tests/header/set.html" title="cpp/header/set">&lt;set&gt;</a></code>
+ </div>
+</td>
+<td style="font-size:0.8em; line-height:1em; padding:0"></td>
+<td style="font-size:0.8em; line-height:1em; padding:0"></td>
+</tr>
+<tr class="t-dcl">
+<td style="font-size:1em; padding:0.3em 2em 0.2em 1em; border-top:1px solid #ccc"> <div><span class="mw-geshi cpp source-cpp" style='line-height:normal; white-space:nowrap; font-family:"DejaVu Sans Mono", courier, monospace'><span class="kw1" style="color:#00d">template</span><span class="sy1" style="color:#000080">&lt;</span><br>
+<p style="line-height:1.2em">    <span class="kw1" style="color:#00d">class</span> Key,<br>
+    <span class="kw1" style="color:#00d">class</span> Compare <span class="sy1" style="color:#000080">=</span> <a href="tests/utility/functional/less.html" style="color:#003080"><span class="kw1039">std::<span class="me2">less</span></span></a><span class="sy1" style="color:#000080">&lt;</span>Key<span class="sy1" style="color:#000080">&gt;</span>,<br>
+    <span class="kw1" style="color:#00d">class</span> Allocator <span class="sy1" style="color:#000080">=</span> <a href="tests/memory/allocator.html" style="color:#003080"><span class="kw700">std::<span class="me2">allocator</span></span></a><span class="sy1" style="color:#000080">&lt;</span>Key<span class="sy1" style="color:#000080">&gt;</span><br>
+</p>
+<span class="sy1" style="color:#000080">&gt;</span> <span class="kw1" style="color:#00d">class</span> multiset<span class="sy4" style="color:#008080">;</span></span></div>
+</td>
+<td style="border-top:1px solid #ccc"> (1) </td>
+<td class="t-dcl-nopad" style="border-top:1px solid #ccc; padding-right:0">  </td>
+</tr> 
+<tr class="t-dcl t-since-cxx17">
+<td style="font-size:1em; padding:0.3em 2em 0.2em 1em; border-top:1px solid #ccc"> <div><span class="mw-geshi cpp source-cpp" style='line-height:normal; white-space:nowrap; font-family:"DejaVu Sans Mono", courier, monospace'><span class="kw1" style="color:#00d">namespace</span> pmr <span class="br0" style="color:#008000">{</span><br>
+<p style="line-height:1.2em">    <span class="kw1" style="color:#00d">template</span> <span class="sy1" style="color:#000080">&lt;</span><span class="kw1" style="color:#00d">class</span> Key, <span class="kw1" style="color:#00d">class</span> Compare <span class="sy1" style="color:#000080">=</span> <a href="tests/utility/functional/less.html" style="color:#003080"><span class="kw1039">std::<span class="me2">less</span></span></a><span class="sy1" style="color:#000080">&lt;</span>Key<span class="sy1" style="color:#000080">&gt;&gt;</span><br>
+    <span class="kw1" style="color:#00d">using</span> multiset <span class="sy1" style="color:#000080">=</span> std<span class="sy4" style="color:#008080">::</span><span class="me2">multiset</span><span class="sy1" style="color:#000080">&lt;</span>Key, Compare,<br>
+                                   <a href="tests/memory/polymorphic_allocator.html" style="color:#003080"><span class="kw707">std::<span class="me2">pmr</span><span class="sy4" style="color:#008080">::</span><span class="me2">polymorphic_allocator</span></span></a><span class="sy1" style="color:#000080">&lt;</span>Key<span class="sy1" style="color:#000080">&gt;&gt;</span><span class="sy4" style="color:#008080">;</span><br>
+</p>
+<span class="br0" style="color:#008000">}</span></span></div>
+</td>
+<td style="border-top:1px solid #ccc"> (2) </td>
+<td style="border-top:1px solid #ccc"> <span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(since C++17)</span> </td>
+</tr>
+<tr class="t-dcl-sep">
+<td style="border-top:1px solid #ccc; padding:0"></td>
+<td style="border-top:1px solid #ccc; padding:0"></td>
+<td style="border-top:1px solid #ccc; padding:0"></td>
+</tr>
+</tbody></table>
+<p style="line-height:1.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>std::multiset</code> is an associative container that contains a sorted set of objects of type Key. Unlike set, multiple keys with equivalent values are allowed. Sorting is done using the key comparison function Compare. Search, insertion, and removal operations have logarithmic complexity.
+</p>
+<p style="line-height:1.2em">Everywhere the standard library uses the <a href="tests/concept/Compare.html" title="cpp/concept/Compare"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Compare</code></a> concept, equivalence is determined by using the equivalence relation as described on <a href="tests/concept/Compare.html" title="cpp/concept/Compare"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Compare</code></a>.  In imprecise terms, two objects <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>a</code> and <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>b</code> are considered equivalent if neither compares less than the other: <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>!comp(a, b) &amp;&amp; !comp(b, a)</code>.
+</p>
+<p style="line-height:1.2em">The order of the elements that compare equivalent is the order of insertion and does not change. <span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(since C++11)</span>
+</p>
+<p style="line-height:1.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>std::multiset</code> meets the requirements of <a href="tests/concept/Container.html" title="cpp/concept/Container"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Container</code></a>, <a href="tests/concept/AllocatorAwareContainer.html" title="cpp/concept/AllocatorAwareContainer"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>AllocatorAwareContainer</code></a>, <a href="tests/concept/AssociativeContainer.html" title="cpp/concept/AssociativeContainer"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>AssociativeContainer</code></a> and <a href="tests/concept/ReversibleContainer.html" title="cpp/concept/ReversibleContainer"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>ReversibleContainer</code></a>.
+</p>
+<h3 style="padding:1.1em 0 0.2em 0.75em"><span class="mw-headline" id="Member_types">Member types</span></h3>
+<table class="t-dsc-begin" style="background-color:transparent; border-spacing:0; max-width:60em">
+
+<tr class="t-dsc-hitem">
+<td style="font-weight:bold; line-height:1.1em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; border-top:1px solid #CCC">  Member type
+</td>
+<td style="font-weight:bold; line-height:1.1em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; border-top:1px solid #CCC">  Definition
+</td>
+</tr>
+
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>key_type</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Key</code> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>value_type</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Key</code> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>size_type</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  Unsigned integer type (usually <span class="t-lc" style='font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace'><a href="tests/types/size_t.html" title="cpp/types/size t">std::size_t</a></span>) </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>difference_type</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  Signed integer type (usually <span class="t-lc" style='font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace'><a href="tests/types/ptrdiff_t.html" title="cpp/types/ptrdiff t">std::ptrdiff_t</a></span>) </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>key_compare</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Compare</code> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>value_compare</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Compare</code> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>allocator_type</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Allocator</code> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>reference</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   <table class="t-rev-begin t-rev-begin-noborder" style="background-color:transparent; border-collapse:collapse; border-spacing:0; display:inline-table">
+<tr class="t-rev t-until-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Allocator::reference</code></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-until-cxx11" style="color:#008000; font-size:0.8em">(until C++11)</span></td>
+</tr>
+<tr class="t-rev t-since-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>value_type&amp;</code></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(since C++11)</span></td>
+</tr>
+</table> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_reference</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   <table class="t-rev-begin t-rev-begin-noborder" style="background-color:transparent; border-collapse:collapse; border-spacing:0; display:inline-table">
+<tr class="t-rev t-until-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Allocator::const_reference</code></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-until-cxx11" style="color:#008000; font-size:0.8em">(until C++11)</span></td>
+</tr>
+<tr class="t-rev t-since-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const value_type&amp;</code></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(since C++11)</span></td>
+</tr>
+</table> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>pointer</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   <table class="t-rev-begin t-rev-begin-noborder" style="background-color:transparent; border-collapse:collapse; border-spacing:0; display:inline-table">
+<tr class="t-rev t-until-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Allocator::pointer</code></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-until-cxx11" style="color:#008000; font-size:0.8em">(until C++11)</span></td>
+</tr>
+<tr class="t-rev t-since-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><span class="t-c" style="background-color:rgba(0, 0, 0, 0.031); border:1px solid #D6D6D6; border-radius:3px; display:inline-block; margin:0 2px; padding:0 2px" bgcolor="rgba(0, 0, 0, 0.031)"><span class="mw-geshi cpp source-cpp" style='line-height:normal; white-space:nowrap; font-family:"DejaVu Sans Mono", courier, monospace'><a href="tests/memory/allocator_traits.html" style="color:#003080"><span class="kw701">std::<span class="me2">allocator_traits</span></span></a><span class="sy1" style="color:#000080">&lt;</span>Allocator<span class="sy1" style="color:#000080">&gt;</span><span class="sy4" style="color:#008080">::</span><span class="me2">pointer</span></span></span></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(since C++11)</span></td>
+</tr>
+</table> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_pointer</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   <table class="t-rev-begin t-rev-begin-noborder" style="background-color:transparent; border-collapse:collapse; border-spacing:0; display:inline-table">
+<tr class="t-rev t-until-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>Allocator::const_pointer</code></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-until-cxx11" style="color:#008000; font-size:0.8em">(until C++11)</span></td>
+</tr>
+<tr class="t-rev t-since-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><span class="t-c" style="background-color:rgba(0, 0, 0, 0.031); border:1px solid #D6D6D6; border-radius:3px; display:inline-block; margin:0 2px; padding:0 2px" bgcolor="rgba(0, 0, 0, 0.031)"><span class="mw-geshi cpp source-cpp" style='line-height:normal; white-space:nowrap; font-family:"DejaVu Sans Mono", courier, monospace'><a href="tests/memory/allocator_traits.html" style="color:#003080"><span class="kw701">std::<span class="me2">allocator_traits</span></span></a><span class="sy1" style="color:#000080">&lt;</span>Allocator<span class="sy1" style="color:#000080">&gt;</span><span class="sy4" style="color:#008080">::</span><span class="me2">const_pointer</span></span></span></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(since C++11)</span></td>
+</tr>
+</table> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>iterator</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   <table class="t-rev-begin t-rev-begin-noborder" style="background-color:transparent; border-collapse:collapse; border-spacing:0; display:inline-table">
+<tr class="t-rev t-until-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em"><a href="tests/concept/BidirectionalIterator.html" title="cpp/concept/BidirectionalIterator"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>BidirectionalIterator</code></a></td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-until-cxx11" style="color:#008000; font-size:0.8em">(until C++11)</span></td>
+</tr>
+<tr class="t-rev t-since-cxx11">
+<td style="padding:0; border:none; border-right:none; padding-right:0.2em">Constant <a href="tests/concept/BidirectionalIterator.html" title="cpp/concept/BidirectionalIterator"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>BidirectionalIterator</code></a>
+</td>
+<td style="padding:0; border:none"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(since C++11)</span></td>
+</tr>
+</table> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_iterator</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  Constant <a href="tests/concept/BidirectionalIterator.html" title="cpp/concept/BidirectionalIterator"><code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>BidirectionalIterator</code></a> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>reverse_iterator</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <span class="t-c" style="background-color:rgba(0, 0, 0, 0.031); border:1px solid #D6D6D6; border-radius:3px; display:inline-block; margin:0 2px; padding:0 2px" bgcolor="rgba(0, 0, 0, 0.031)"><span class="mw-geshi cpp source-cpp" style='line-height:normal; white-space:nowrap; font-family:"DejaVu Sans Mono", courier, monospace'><a href="tests/iterator/reverse_iterator.html" style="color:#003080"><span class="kw658">std::<span class="me2">reverse_iterator</span></span></a><span class="sy1" style="color:#000080">&lt;</span>iterator<span class="sy1" style="color:#000080">&gt;</span></span></span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_reverse_iterator</code>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  <span class="t-c" style="background-color:rgba(0, 0, 0, 0.031); border:1px solid #D6D6D6; border-radius:3px; display:inline-block; margin:0 2px; padding:0 2px" bgcolor="rgba(0, 0, 0, 0.031)"><span class="mw-geshi cpp source-cpp" style='line-height:normal; white-space:nowrap; font-family:"DejaVu Sans Mono", courier, monospace'><a href="tests/iterator/reverse_iterator.html" style="color:#003080"><span class="kw658">std::<span class="me2">reverse_iterator</span></span></a><span class="sy1" style="color:#000080">&lt;</span>const_iterator<span class="sy1" style="color:#000080">&gt;</span></span></span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>node_type</code><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(since C++17)</span>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  a specialization of <a href="tests/preprocess_cssless_data/node_handle.html" title="cpp/container/node handle">node handle</a> representing a container node </td>
+</tr>
+</table>
+<h3 style="padding:1.1em 0 0.2em 0.75em"><span class="mw-headline" id="Member_functions">Member functions</span></h3>
+<table class="t-dsc-begin" style="background-color:transparent; border-spacing:0; max-width:60em">
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div t-dsc-member-nobold-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSans, "DejaVu Sans", arial, sans-serif; font-weight:normal' valign="middle"><a href="tests/preprocess_cssless_data/multiset/multiset.html" title="cpp/container/multiset/multiset"> <span class="t-lines" style="display:table"><span style="display:table-row">(constructor)</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  constructs the <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>multiset</code> <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div t-dsc-member-nobold-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSans, "DejaVu Sans", arial, sans-serif; font-weight:normal' valign="middle"><a href="tests/preprocess_cssless_data/multiset/%7Emultiset.html" title="cpp/container/multiset/~multiset"> <span class="t-lines" style="display:table"><span style="display:table-row">(destructor)</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">  destructs the <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>multiset</code> <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/operator%3D.html" title="cpp/container/multiset/operator="> <span class="t-lines" style="display:table"><span style="display:table-row">operator=</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   assigns values to the container  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/get_allocator.html" title="cpp/container/multiset/get allocator"> <span class="t-lines" style="display:table"><span style="display:table-row">get_allocator</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns the associated allocator  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+
+<tr>
+<td colspan="2"> <h5> <span class="mw-headline" id="Iterators">  Iterators </span>
+</h5>
+</td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/begin.html" title="cpp/container/multiset/begin"> <span class="t-lines" style="display:table"><span style="display:table-row">begin</span><span style="display:table-row"> cbegin</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns an iterator to the beginning  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/end.html" title="cpp/container/multiset/end"> <span class="t-lines" style="display:table"><span style="display:table-row">end </span><span style="display:table-row">cend</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns an iterator to the end  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/rbegin.html" title="cpp/container/multiset/rbegin"> <span class="t-lines" style="display:table"><span style="display:table-row">rbegin</span><span style="display:table-row"> crbegin</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns a reverse iterator to the beginning  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/rend.html" title="cpp/container/multiset/rend"> <span class="t-lines" style="display:table"><span style="display:table-row">rend</span><span style="display:table-row"> crend</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"></span><span style="display:table-row"></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns a reverse iterator to the end  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+
+<tr>
+<td colspan="2"> <h5> <span class="mw-headline" id="Capacity">  Capacity </span>
+</h5>
+</td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/empty.html" title="cpp/container/multiset/empty"> <span class="t-lines" style="display:table"><span style="display:table-row">empty</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   checks whether the container is empty  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/size.html" title="cpp/container/multiset/size"> <span class="t-lines" style="display:table"><span style="display:table-row">size</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns the number of elements  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/max_size.html" title="cpp/container/multiset/max size"> <span class="t-lines" style="display:table"><span style="display:table-row">max_size</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns the maximum possible number of elements  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+
+<tr>
+<td colspan="2"> <h5> <span class="mw-headline" id="Modifiers">  Modifiers </span>
+</h5>
+</td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/clear.html" title="cpp/container/multiset/clear"> <span class="t-lines" style="display:table"><span style="display:table-row">clear</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   clears the contents  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/insert.html" title="cpp/container/multiset/insert"> <span class="t-lines" style="display:table"><span style="display:table-row">insert</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   inserts elements <span class="t-rev-inl t-since-cxx17" style="margin:0; padding:0; border:1px solid silver"><span style="margin:0; padding:0">or nodes</span> <span style="margin:0; padding:0"><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(since C++17)</span></span></span> <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/emplace.html" title="cpp/container/multiset/emplace"> <span class="t-lines" style="display:table"><span style="display:table-row">emplace</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   constructs element in-place  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/emplace_hint.html" title="cpp/container/multiset/emplace hint"> <span class="t-lines" style="display:table"><span style="display:table-row">emplace_hint</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx11" style="color:#008000; font-size:0.8em">(C++11)</span></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   constructs elements in-place using a hint  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/erase.html" title="cpp/container/multiset/erase"> <span class="t-lines" style="display:table"><span style="display:table-row">erase</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   erases elements  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/swap.html" title="cpp/container/multiset/swap"> <span class="t-lines" style="display:table"><span style="display:table-row">swap</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   swaps the contents  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/extract.html" title="cpp/container/multiset/extract"> <span class="t-lines" style="display:table"><span style="display:table-row">extract</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(C++17)</span></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   extracts nodes from the container  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div">
+<div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/merge.html" title="cpp/container/multiset/merge"> <span class="t-lines" style="display:table"><span style="display:table-row">merge</span></span></a></div>
+<div style="display:inline-table; padding:0; vertical-align:middle" valign="middle"><span class="t-lines" style="display:table"><span style="display:table-row"><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(C++17)</span></span></span></div>
+</div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   splices nodes from another container <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+
+<tr>
+<td colspan="2"> <h5> <span class="mw-headline" id="Lookup">  Lookup </span>
+</h5>
+</td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/count.html" title="cpp/container/multiset/count"> <span class="t-lines" style="display:table"><span style="display:table-row">count</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns the number of elements matching specific key  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/find.html" title="cpp/container/multiset/find"> <span class="t-lines" style="display:table"><span style="display:table-row">find</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   finds element with specific key <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/equal_range.html" title="cpp/container/multiset/equal range"> <span class="t-lines" style="display:table"><span style="display:table-row">equal_range</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns range of elements matching a specific key <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/lower_bound.html" title="cpp/container/multiset/lower bound"> <span class="t-lines" style="display:table"><span style="display:table-row">lower_bound</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns an iterator to the first element <i>not less</i> than the given key <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/upper_bound.html" title="cpp/container/multiset/upper bound"> <span class="t-lines" style="display:table"><span style="display:table-row">upper_bound</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns an iterator to the first element <i>greater</i> than the given key <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+
+<tr>
+<td colspan="2"> <h5> <span class="mw-headline" id="Observers">  Observers </span>
+</h5>
+</td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/key_comp.html" title="cpp/container/multiset/key comp"> <span class="t-lines" style="display:table"><span style="display:table-row">key_comp</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns the function that compares keys <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/value_comp.html" title="cpp/container/multiset/value comp"> <span class="t-lines" style="display:table"><span style="display:table-row">value_comp</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   returns the function that compares keys in objects of type value_type <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(public member function)</span> </td>
+</tr>
+</table>
+<h3 style="padding:1.1em 0 0.2em 0.75em"><span class="mw-headline" id="Non-member_functions">Non-member functions</span></h3>
+<table class="t-dsc-begin" style="background-color:transparent; border-spacing:0; max-width:60em">
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/operator_cmp.html" title="cpp/container/multiset/operator cmp"> <span class="t-lines" style="display:table"><span style="display:table-row">operator==</span><span style="display:table-row">operator!=</span><span style="display:table-row">operator&lt;</span><span style="display:table-row">operator&lt;=</span><span style="display:table-row">operator&gt;</span><span style="display:table-row">operator&gt;=</span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   lexicographically compares the values in the multiset  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(function template)</span> </td>
+</tr>
+
+<tr class="t-dsc">
+<td style="line-height:1.2em; padding:0.2em 0 0.25em 0.75em; white-space:nowrap; width:0%; border-top:1px solid #CCC" width="0%">  <div class="t-dsc-member-div"><div style='display:inline-table; padding:0; vertical-align:middle; font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace; font-weight:bold' valign="middle"><a href="tests/preprocess_cssless_data/multiset/swap2.html" title="cpp/container/multiset/swap2"> <span class="t-lines" style="display:table"><span style="display:table-row">std::swap<span class="t-dsc-small" style="font-size:0.7em; font-weight:normal; line-height:130%">(std::multiset)</span></span></span></a></div></div>
+</td>
+<td style="line-height:1.1em; padding-left:0.75em; white-space:normal; border-top:1px solid #CCC">   specializes the <span class="t-lc" style='font-family:DejaVuSansMono, "DejaVu Sans Mono", courier, monospace'><a href="tests/algorithm/swap.html" title="cpp/algorithm/swap">std::swap</a></span> algorithm  <br> <span class="t-mark" style="color:#008000; font-size:0.8em">(function template)</span> </td>
+</tr>
+</table>
+<h3 style="padding:1.1em 0 0.2em 0.75em"><span class="mw-headline" id="Deduction_guides.28since_C.2B.2B17.29"><a href="tests/preprocess_cssless_data/multiset/deduction_guides.html" title="cpp/container/multiset/deduction guides">Deduction guides</a><span class="t-mark-rev t-since-cxx17" style="color:#008000; font-size:0.8em">(since C++17)</span></span></h3>
+<h3 style="padding:1.1em 0 0.2em 0.75em"><span class="mw-headline" id="Notes">Notes</span></h3>
+<p style="line-height:1.2em">The member types <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>iterator</code> and <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_iterator</code> may be aliases to the same type. Since <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>iterator</code> is convertible to <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_iterator</code>, <code style='background-color:transparent; font-family:"DejaVu Sans Mono", courier, monospace'>const_iterator</code> should be used in function parameter lists to avoid violations of the One Definition Rule.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 9754/1000000
+Preprocessor generated node count: 16408/1000000
+Post‐expand include size: 278507/2097152 bytes
+Template argument size: 52376/2097152 bytes
+Highest expansion depth: 23/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key mwiki1-mwiki_en_:pcache:idhash:1010-0!*!0!!en!*!* and timestamp 20180305045320 -->
+</div>                    <!-- /bodycontent -->
+                                        <!-- printfooter -->
+                    <div class="printfooter">
+                    Retrieved from "<a href="http://en.cppreference.com/mwiki/index.php?title=cpp/container/multiset&amp;oldid=98454">http://en.cppreference.com/mwiki/index.php?title=cpp/container/multiset&amp;oldid=98454</a>"                    </div>
+                    <!-- /printfooter -->
+                                                            <!-- catlinks -->
+                    <div id="catlinks" class="catlinks catlinks-allhidden" style="display:none"><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul style="margin-bottom:0.5em"><li style="line-height:1.2em; margin-top:0.3em"><a href="http://en.cppreference.com/w/Category:Pages_with_unreviewed_LWG_DR_marker" title="Category:Pages with unreviewed LWG DR marker">Pages with unreviewed LWG DR marker</a></li></ul>
+</div></div>                    <!-- /catlinks -->
+                                                            <div class="visualClear"></div>
+                    <!-- debughtml -->
+                                        <!-- /debughtml -->
+                </div>
+                <!-- /bodyContent -->
+            </div>
+        </div>
+        <!-- /content -->
+        <!-- footer -->
+        <!-- /footer -->
+        <script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script src="common/skin_scripts.js"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest","mediawiki.hidpi","ext.gadget.ColiruCompiler","ext.gadget.MathJax"], null, true);
+}</script>
+<script src="common/site_scripts.js"></script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-2828341-1']);
+_gaq.push(['_setDomainName', 'cppreference.com']);
+_gaq.push(['_trackPageview']);
+</script><!-- Served in 1.544 secs. -->
+	</body>
+<!-- Cached 20180305045320 -->
+</html>
