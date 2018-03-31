@@ -32,12 +32,16 @@ def preprocess_html_merge_css(src_path, dst_path):
     cssutils.log.setLog(log)
 
     with open(src_path, 'r') as a_file:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            content = transform(a_file.read(), base_url=src_path)
-        head = os.path.dirname(dst_path)
-        os.makedirs(head, exist_ok=True)
-        f = open(dst_path,"w")
-        f.write(content)
+        content = a_file.read()
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        content = transform(content, base_url=src_path)
+
+    head = os.path.dirname(dst_path)
+    os.makedirs(head, exist_ok=True)
+
+    with open(dst_path,"w") as a_file:
+        a_file.write(content)
 
     return output.getvalue()
