@@ -545,10 +545,10 @@ window.jump_to_error = function(node, lineno) {
 var editors = [];
 
 $.when(
-    get_script_cached('http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js')
+    get_script_cached('https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js')
 ).done(function() {
     $.when(
-        get_script_cached('http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/mode-c_cpp.js'),
+        get_script_cached('https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/mode-c_cpp.js'),
         $.Deferred(function(deferred) {
             $(deferred.resolve);
         })
