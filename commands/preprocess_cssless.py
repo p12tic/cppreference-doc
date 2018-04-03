@@ -36,7 +36,8 @@ def preprocess_html_merge_css(src_path, dst_path):
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        premailer = Premailer(content, base_url=src_path, preserve_all_links=True)
+        premailer = Premailer(content, base_url=src_path, preserve_all_links=True,
+                              remove_classes=True)
         content = premailer.transform()
 
     head = os.path.dirname(dst_path)
