@@ -21,11 +21,13 @@ from commands.preprocess_cssless import *
 
 class TestPreprocessHtmlMergeCss(unittest.TestCase):
     def test_preprocess_html_merge_css(self):
-        src_path = 'tests/preprocess_cssless_data/multiset.html'
-        dst_path = 'tests/preprocess_cssless_data/multiset_out.html'
-        expected_path = 'tests/preprocess_cssless_data/multiset_expected.html'
+        dir_path = os.path.dirname(__file__)
+        src_path = os.path.join(dir_path, 'preprocess_cssless_data/multiset.html')
+        dst_path = os.path.join(dir_path, 'preprocess_cssless_data/multiset_out.html')
+        expected_path = os.path.join(dir_path, 'preprocess_cssless_data/multiset_expected.html')
 
         preprocess_html_merge_css(src_path, dst_path)
+
         with open(dst_path, 'r') as a_file:
             test = a_file.read()
 
