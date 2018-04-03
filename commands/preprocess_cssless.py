@@ -15,7 +15,7 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from premailer import transform
+from premailer import Premailer
 import cssutils
 import logging
 import os
@@ -36,7 +36,8 @@ def preprocess_html_merge_css(src_path, dst_path):
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        content = transform(content, base_url=src_path)
+        premailer = Premailer(content, base_url=src_path, preserve_all_links=True)
+        content = premailer.transform()
 
     head = os.path.dirname(dst_path)
     os.makedirs(head, exist_ok=True)
