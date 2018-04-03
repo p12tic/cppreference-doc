@@ -29,6 +29,8 @@ def preprocess_html_merge_css(src_path, dst_path):
     formatter = logging.Formatter('%(levelname)s, %(message)s')
     handler.setFormatter(formatter)
     log.addHandler(handler)
+    # cssutils_logging_handler of Premailer.__init__ is insufficient to silence
+    # warnings to stderr in non-verbose mode
     cssutils.log.setLog(log)
 
     with open(src_path, 'r') as a_file:
