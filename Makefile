@@ -35,9 +35,11 @@ VERSION=20180311
 all: doc_devhelp doc_qch doc_doxygen
 
 DISTFILES=	\
+		commands/				\
 		gadgets/				\
 		headers/				\
 		images/					\
+		index_transform/		\
 		reference/				\
 		skins/					\
 		build_link_map.py		\
@@ -51,7 +53,6 @@ DISTFILES=	\
 		index2doxygen-tag.py		\
 		index2highlight.py		\
 		index2search.py			\
-		index_transform.py		\
 		index-chapters-c.xml	\
 		index-chapters-cpp.xml	\
 		index-cpp-search-app.txt \
@@ -61,9 +62,10 @@ DISTFILES=	\
 		link_map.py		\
 		preprocess.py			\
 		preprocess-css.css		\
+		test.sh					\
+		xml_utils.py			\
 		Makefile				\
-		README.md			\
-		xml_utils.py
+		README.md
 
 CLEANFILES= \
 		output
