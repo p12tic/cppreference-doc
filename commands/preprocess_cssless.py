@@ -17,6 +17,10 @@
 
 from premailer import Premailer
 import cssutils
+from lxml import html
+from lxml import etree
+from io import StringIO
+from lxml.etree import strip_elements
 import logging
 import os
 import warnings
@@ -47,5 +51,16 @@ def preprocess_html_merge_css(src_path, dst_path):
 
     with open(dst_path,"w") as a_file:
         a_file.write(content)
+
+    with open(dst_path, encoding='utf-8') as a_file:
+        # completely remove content of style tags and tags
+        parser = etree.HTMLParser()
+        tree = etree.parse(StringIO(content), parser)
+        nondata_tags = ['style']
+        strip_elements(tree, *nondata_tags)
+
+    with open(dst_path, 'wb') as a_file:
+        a_file.write(etree.tostring(tree.getroot(), pretty_print=True,
+                     method="html", encoding = 'utf-8'))
 
     return output.getvalue()
