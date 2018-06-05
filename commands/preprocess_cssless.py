@@ -60,7 +60,7 @@ def preprocess_html_merge_css(src_path, dst_path):
         strip_elements(tree, *nondata_tags)
 
     with open(dst_path, 'wb') as a_file:
-        a_file.write(etree.tostring(tree.getroot(), pretty_print=True,
-                     method="html", encoding = 'utf-8'))
+        tree.write(dst_path, pretty_print=True, method="html",
+                   encoding='utf-8')
 
     return output.getvalue()
