@@ -101,7 +101,7 @@ typedef basic_fstream<wchar_t> wfstream;
 template <
     class CharT,
     class Traits = std::char_traits<CharT>
-    > class basic_ifstream : public std::basic_ostream<CharT, Traits> {
+    > class basic_ifstream : public std::basic_istream<CharT, Traits> {
 public:
     basic_ifstream();
     explicit basic_ifstream(const char* filename,

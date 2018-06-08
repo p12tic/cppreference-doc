@@ -28,7 +28,7 @@ qhelpgenerator = qhelpgenerator
 
 #Version
 
-VERSION=20170409
+VERSION=20180311
 
 #STANDARD RULES
 
@@ -126,9 +126,9 @@ release: all
 	# zip the html output
 	pushd "output"; \
 	tar c$(TAR_OPTION)f "../release/html-book-$(VERSION).tar.$(TAR_FORMAT)" "reference" \
-		"cppreference-doxygen-local.tag.xml" ; \
+		"cppreference-doxygen-local.tag.xml" "cppreference-doxygen-web.tag.xml" ; \
 	zip -qr "../release/html-book-$(VERSION).zip" "reference" \
-		"cppreference-doxygen-local.tag.xml" ; \
+		"cppreference-doxygen-local.tag.xml" "cppreference-doxygen-web.tag.xml" ; \
 	popd
 
 	# zip qch
