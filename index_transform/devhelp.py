@@ -20,6 +20,8 @@
 
 from index_transform.common import IndexTransform
 from xml_utils import xml_escape
+from index_transform import *
+import io
 
 class Index2Devhelp(IndexTransform):
 
@@ -47,3 +49,26 @@ class Index2Devhelp(IndexTransform):
                     + '" link="' + xml_escape(full_link) + '"/>\n')
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
+def transform_devhelp(book_title, book_name, book_base, rel_link, chapters_fn,
+                       in_fn):
+    out_f = io.StringIO()
+    out_f.write('<?xml version="1.0"?>\n'
+               + '<book title="' + xml_escape(book_title)
+               + '" xmlns="http://www.devhelp.net/book'
+               + '" name="' + xml_escape(book_name)
+               + '" base="' + xml_escape(book_base)
+               + '" link="' + xml_escape(rel_link)
+               + '" version="2" language="c++">\n')
+
+    chapters_f = open(chapters_fn, encoding='utf-8')
+    out_f.write(chapters_f.read() + '\n')
+    out_f.write('<functions>')
+
+    tr = Index2Devhelp(out_f)
+    tr.transform_file(in_fn)
+
+    out_f.write('''
+  </functions>
+</book>
+''')
+    return out_f.getvalue()

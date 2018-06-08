@@ -61,20 +61,20 @@
     </enum>
 
     <!-- class -->
-    <overload name="my::my_overloaded_function" link="path/cxx/my_overloaded_function"/>
-    <overload name="my::my_overloaded_function_rel" link="path/cxx/my_overloaded_function_rel"/>
-    <overload name="my::my_overloaded_function_relauto" link="path/cxx/my_overloaded_function_relauto"/>
-    <overload name="my::my_overloaded_function_abs" link="path/cxx/my_overloaded_function_abs"/>
+    <function name="my::my_overloaded_function" link="path/cxx/my_overloaded_function"/>
+    <function name="my::my_overloaded_function_rel" link="path/cxx/my_overloaded_function_rel"/>
+    <function name="my::my_overloaded_function_relauto" link="path/cxx/my_overloaded_function_relauto"/>
+    <function name="my::my_overloaded_function_abs" link="path/cxx/my_overloaded_function_abs"/>
 
-    <overload name="my::my_overloaded_function11" link="path/cxx/my_overloaded_function11"/>
-    <overload name="my::my_overloaded_function_rel11" link="path/cxx/my_overloaded_function_rel11"/>
-    <overload name="my::my_overloaded_function_relauto11" link="path/cxx/my_overloaded_function_relauto11"/>
-    <overload name="my::my_overloaded_function_abs11" link="path/cxx/my_overloaded_function_abs11"/>
+    <function name="my::my_overloaded_function11" link="path/cxx/my_overloaded_function11"/>
+    <function name="my::my_overloaded_function_rel11" link="path/cxx/my_overloaded_function_rel11"/>
+    <function name="my::my_overloaded_function_relauto11" link="path/cxx/my_overloaded_function_relauto11"/>
+    <function name="my::my_overloaded_function_abs11" link="path/cxx/my_overloaded_function_abs11"/>
 
-    <overload name="my::my_overloaded_function17" link="path/cxx/my_overloaded_function17"/>
-    <overload name="my::my_overloaded_function_rel17" link="path/cxx/my_overloaded_function_rel17"/>
-    <overload name="my::my_overloaded_function_relauto17" link="path/cxx/my_overloaded_function_relauto17"/>
-    <overload name="my::my_overloaded_function_abs17" link="path/cxx/my_overloaded_function_abs17"/>
+    <function name="my::my_overloaded_function17" link="path/cxx/my_overloaded_function17"/>
+    <function name="my::my_overloaded_function_rel17" link="path/cxx/my_overloaded_function_rel17"/>
+    <function name="my::my_overloaded_function_relauto17" link="path/cxx/my_overloaded_function_relauto17"/>
+    <function name="my::my_overloaded_function_abs17" link="path/cxx/my_overloaded_function_abs17"/>
 
     <class name="my::my_specialized_class" link="path/cxx/my_specialized_class"/>
     <class name="my::my_specialized_class_rel" link="path/cxx/my_specialized_class_rel"/>
@@ -167,7 +167,7 @@
         <specialization name="my::my_specialized_class_relauto17" link="." since="c++17"/>
         <specialization name="my::my_specialized_class_abs17" link="path/cxx/my_specialized_class_abs17" since="c++17"/>
 
-        <class names="my::my_child_class" link="path/cxx/my_child_class">
+        <class name="my::my_child_class" link="path/cxx/my_child_class">
             <const name="child_const_rel_auto"/>
             <const name="child_const_rel" link="child_const_rel"/>
             <const name="child_const_abs" link="path/cxx/abs_child_const"/>
@@ -214,7 +214,7 @@
             <variable name="child_variable_same17" link="." since="c++17"/>
         </class>
 
-        <enum names="my::my_child_enum" link="path/cxx/my_child_enum">
+        <enum name="my::my_child_enum" link="path/cxx/my_child_enum">
             <const name="const_rel_auto"/>
             <const name="const_rel" link="const_rel"/>
             <const name="const_abs" link="path/cxx/const_abs"/>
@@ -263,15 +263,15 @@
     </class>
 
     <!-- typedef -->
-    <typedef name="my::my_class_typedef" alias="std::my_class"/>
-    <typedef name="my::my_class_typedef11" alias="std::my_class" since="c++11"/>
-    <typedef name="my::my_class_typedef17" alias="std::my_class" since="c++17"/>
+    <typedef name="my::my_class_typedef" alias="my::my_class"/>
+    <typedef name="my::my_class_typedef11" alias="my::my_class" since="c++11"/>
+    <typedef name="my::my_class_typedef17" alias="my::my_class" since="c++17"/>
 
-    <typedef name="my::my_class_inherit_typedef" alias="std::my_class_inherit"/>
-    <typedef name="my::my_class_inherit_typedef11" alias="std::my_class_inherit" since="c++11"/>
-    <typedef name="my::my_class_inherit_typedef17" alias="std::my_class_inherit" since="c++17"/>
+    <typedef name="my::my_class_inherit_typedef" alias="my::my_class_inherit"/>
+    <typedef name="my::my_class_inherit_typedef11" alias="my::my_class_inherit" since="c++11"/>
+    <typedef name="my::my_class_inherit_typedef17" alias="my::my_class_inherit" since="c++17"/>
 
-    <typedef name="my::my_enum_typedef" alias="std::my_enum"/>
-    <typedef name="my::my_enum_typedef11" alias="std::my_enum" since="c++11"/>
-    <typedef name="my::my_enum_typedef17" alias="std::my_enum" since="c++17"/>
+    <typedef name="my::my_enum_typedef" alias="my::my_enum"/>
+    <typedef name="my::my_enum_typedef11" alias="my::my_enum" since="c++11"/>
+    <typedef name="my::my_enum_typedef17" alias="my::my_enum" since="c++17"/>
 </index>
