@@ -21,6 +21,7 @@
 from index_transform.devhelp import *
 import argparse
 from xml_utils import xml_escape
+import io
 
 def main():
     parser = argparse.ArgumentParser(prog='index2devhelp')
@@ -40,16 +41,15 @@ def main():
         help='the path of the destination file')
     args = parser.parse_args()
 
-    book_base = args.book_base
-    chapters_fn = args.chapters_path
-    book_title = args.book_title
-    book_name = args.book_name
-    rel_link = args.rel_link
-    in_fn = args.in_fn
-    dest_fn = args.dest_fn
+    with open(args.dest_fn, 'w', encoding='utf-8') as out_f:
+        output = transform_devhelp(args.book_title, args.book_name,
+                                    args.book_base, args.rel_link,
+                                    args.chapters_path, args.in_fn)
+        out_f.write(output)
 
-    out_f = open(dest_fn, 'w', encoding='utf-8')
-
+def transform_devhelp(book_title, book_name, book_base, rel_link, chapters_fn,
+                       in_fn):
+    out_f = io.StringIO()
     out_f.write('<?xml version="1.0"?>\n'
                + '<book title="' + xml_escape(book_title)
                + '" xmlns="http://www.devhelp.net/book'
@@ -69,5 +69,7 @@ def main():
   </functions>
 </book>
 ''')
+    return out_f.getvalue()
+
 if __name__ == '__main__':
     main()
