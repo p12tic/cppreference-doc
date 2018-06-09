@@ -60,8 +60,9 @@ def transform_devhelp(book_title, book_name, book_base, rel_link, chapters_fn,
                + '" link="' + xml_escape(rel_link)
                + '" version="2" language="c++">\n')
 
-    chapters_f = open(chapters_fn, encoding='utf-8')
-    out_f.write(chapters_f.read() + '\n')
+    with open(chapters_fn, 'r', encoding='utf-8') as chapters_f:
+        out_f.write(chapters_f.read() + '\n')
+
     out_f.write('<functions>')
 
     tr = Index2Devhelp(out_f)
