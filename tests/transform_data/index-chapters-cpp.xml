@@ -14,13 +14,13 @@
     Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 -->
 <chapters xmlns="http://www.devhelp.net/book">
-    <sub name="chapter1" link="chapter1_link" />
+    <sub name="chapter1" link="chapter1_link"/>
     <sub name="chapter2" link="chapter2_link">
         <sub name="chapter2_1" link="chapter2_1_link"/>
         <sub name="chapter2_2" link="chapter2_2_link"/>
         <sub name="chapter2_3" link="chapter2_3_link">
-            <sub name="chapter2_3_1" link="chapter2_3_1_link">
-            <sub name="chapter2_3_2" link="chapter2_3_2_link">
+            <sub name="chapter2_3_1" link="chapter2_3_1_link"/>
+            <sub name="chapter2_3_2" link="chapter2_3_2_link"/>
         </sub>
     </sub>
     <sub name="chapter3" link="chapter2_link"/>

@@ -41,7 +41,7 @@ def main():
         help='the path of the destination file')
     args = parser.parse_args()
 
-    with open(args.dest_fn, 'w', encoding='utf-8') as out_f:
+    with open(args.dest_fn, 'wb') as out_f:
         output = transform_devhelp(args.book_title, args.book_name,
                                     args.book_base, args.rel_link,
                                     args.chapters_path, args.in_fn)
