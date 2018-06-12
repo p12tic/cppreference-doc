@@ -44,12 +44,22 @@ def convert_toc(in_root_t):
     el_section = etree.XML('<section/>')
     el_section.set('title', in_root_t.get('title'))
     el_section.set('ref', in_root_t.get('link'))
-    el_toc.append(convert_toc_lines(in_root_t[1], el_section))
+
+    chapters_el = in_root_t[0]
+    if chapters_el.tag != '{http://www.devhelp.net/book}chapters':
+        raise Exception('Unexpected input document structure')
+
+    el_toc.append(convert_toc_lines(chapters_el, el_section))
     return el_toc
 
 def convert_keywords(in_root_k):
     el_keywords = etree.XML('<keywords/>')
-    for el_function in in_root_k[2]:
+
+    functions_el = in_root_k[1]
+    if functions_el.tag != '{http://www.devhelp.net/book}functions':
+        raise Exception('Unexpected input document structure')
+
+    for el_function in functions_el:
         el_keyword = etree.XML('<keyword/>')
         el_keyword.set('name', el_function.get('name'))
         el_keyword.set('id', el_function.get('name'))
