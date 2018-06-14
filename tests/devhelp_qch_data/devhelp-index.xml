@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<book xmlns="http://www.devhelp.net/book" title="C++ Standard Library reference" name="cppreference-doc-en-cpp" base="/usr/share/cppreference/doc/html" link="en/cpp.html" version="2" language="c++">
+  <chapters xmlns="http://www.devhelp.net/book">
+    <sub name="Language" link="en/path1.html"/>
+</chapters>
+  <functions>
+    <keyword type="typedef" name="std::size_t" link="en/path2.html"/>
+    <keyword type="macro" name="NULL" link="en/path3.html"/>
+    <keyword type="function" name="offsetof" link="en/path4.html"/>
+    <keyword type="class" name="std::numeric_limits" link="en/path5.html"/>
+    <keyword type="enum" name="std::float_denorm_style" link="en/path6.html"/>
+    <keyword type="" name="std::is_copy_constructible_v" link="en/path7.html"/>
+  </functions>
+</book>
