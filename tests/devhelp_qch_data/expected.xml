@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<QtHelpProject xmlns:devhelp="http://www.devhelp.net/book" xmlns:str="http://exslt.org/strings" version="1.0">
+<QtHelpProject version="1.0">
   <namespace>cppreference.com.cppreference-doc-en-cpp</namespace>
   <virtualFolder>virtual_folder</virtualFolder>
   <customFilter name="C++ Standard Library reference">

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 #   Copyright (C) 2017  Giedrius Zitkus <elink@namusauga.lt>
+#   Copyright (C) 2018  Monika Kairaityte <monika@kibit.lt>
 #
 #   This file is part of cppreference-doc
 #
@@ -17,54 +18,47 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-# devhelp2qch.py script converts 'in_root' xml source file to 'out_root' xml
-# output including files list from library 'files_root' at the end.
-
 from lxml import etree
 
 def convert_toc_lines(source_line, in_section):
-    i = 0
     for el_sub in source_line.getchildren():
-        el_section_1 = etree.XML('<section/>')
+        el_section_1 = etree.SubElement(in_section, 'section')
         el_section_1.set('title', el_sub.get('name'))
         el_section_1.set('ref', el_sub.get('link'))
 
         if el_sub.getchildren() != []:
-            in_section.append(convert_toc_lines(el_sub, el_section_1))
-        else:
-            in_section.append(el_section_1)
+            convert_toc_lines(el_sub, el_section_1)
 
     return in_section
 
-def convert_toc(in_root_t):
-    el_toc = etree.XML('<toc/>')
-    el_section = etree.XML('<section/>')
-    el_section.set('title', in_root_t.get('title'))
-    el_section.set('ref', in_root_t.get('link'))
+def convert_toc(in_root):
+    el_toc = etree.Element('toc')
+    el_section = etree.SubElement(el_toc, 'section')
+    el_section.set('title', in_root.get('title'))
+    el_section.set('ref', in_root.get('link'))
 
-    chapters_el = in_root_t[0]
+    chapters_el = in_root[0]
     if chapters_el.tag != '{http://www.devhelp.net/book}chapters':
         raise Exception('Unexpected input document structure')
 
-    el_toc.append(convert_toc_lines(chapters_el, el_section))
+    convert_toc_lines(chapters_el, el_section)
     return el_toc
 
 def convert_keywords(in_root_k):
-    el_keywords = etree.XML('<keywords/>')
+    el_keywords = etree.Element('keywords')
 
     functions_el = in_root_k[1]
     if functions_el.tag != '{http://www.devhelp.net/book}functions':
         raise Exception('Unexpected input document structure')
 
     for el_function in functions_el:
-        el_keyword = etree.XML('<keyword/>')
+        el_keyword = etree.SubElement(el_keywords, 'keyword')
         el_keyword.set('name', el_function.get('name'))
         el_keyword.set('id', el_function.get('name'))
         el_keyword.set('ref', el_function.get('link'))
 
-        el_keywords.append(el_keyword)
         if el_function.get('name').startswith('std::'):
-            el_keyword = etree.XML('<keyword/>')
+            el_keyword = etree.SubElement(el_keywords, 'keyword')
             el_keyword.set('name', el_function.get('name'))
 
             # Add an additional id for libc++ users
@@ -74,52 +68,41 @@ def convert_keywords(in_root_k):
                            name_without_std)
             el_keyword.set('ref', el_function.get('link'))
 
-            el_keywords.append(el_keyword)
-
-            el_keyword = etree.XML('<keyword/>')
+            el_keyword = etree.SubElement(el_keywords, 'keyword')
             el_keyword.set('name', el_function.get('name'))
             el_keyword.set('id', 'std::__1::' + name_without_std)
             el_keyword.set('ref', el_function.get('link'))
 
-            el_keywords.append(el_keyword)
     return el_keywords
 
 # Adds files list from external library
 def add_files_list(files_root_f):
-    el_files = etree.XML('<files/>')
+    el_files = etree.Element('files')
     for file_item in files_root_f:
-        el_file = etree.XML('<file/>')
+        el_file = etree.SubElement(el_files, 'file')
         el_file.text = file_item.text
-        el_files.append(el_file)
     return el_files
 
 def convert_devhelp_to_qch(in_root, files_root, virtual_folder):
-    out_root = etree.XML('<QtHelpProject ' +
-                       'xmlns:devhelp="http://www.devhelp.net/book" ' +
-                       'xmlns:str="http://exslt.org/strings" version="1.0"/>')
-    el = etree.XML('<namespace/>')
+    out_root = etree.Element('QtHelpProject')
+    out_root.set('version', "1.0")
+    el = etree.SubElement(out_root, 'namespace')
     el.text = 'cppreference.com.' + in_root.get('name')
-    out_root.append(el)
 
-    el = etree.XML('<virtualFolder/>')
+    el = etree.SubElement(out_root, 'virtualFolder')
     el.text = virtual_folder
-    out_root.append(el)
 
-    el = etree.XML('<customFilter/>')
+    el = etree.SubElement(out_root, 'customFilter')
     el.set('name', in_root.get('title'))
-    el_filter = etree.XML('<filterAttribute/>')
+    el_filter = etree.SubElement(el, 'filterAttribute')
     el_filter.text = in_root.get('name')
-    el.append(el_filter)
-    out_root.append(el)
 
-    el = etree.XML('<filterSection/>')
-    el_filter = etree.XML('<filterAttribute/>')
+    el = etree.SubElement(out_root, 'filterSection')
+    el_filter = etree.SubElement(el, 'filterAttribute')
     el_filter.text = in_root.get('name')
-    el.append(el_filter)
     el.append(convert_toc(in_root))
     el.append(convert_keywords(in_root))
     el.append(add_files_list(files_root))
-    out_root.append(el)
 
     return etree.tostring(out_root, encoding="utf-8", pretty_print=True,
-xml_declaration=True)
+                          xml_declaration=True)
