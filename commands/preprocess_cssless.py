@@ -26,7 +26,24 @@ import os
 import warnings
 import io
 
-def preprocess_html_merge_css(src_path, dst_path):
+def preprocess_html_merge_cssless(src_path, dst_path):
+    with open(src_path, 'r') as a_file:
+        content = a_file.read()
+        parser = etree.HTMLParser()
+        stripped = content.strip()
+        root = etree.fromstring(stripped, parser)
+
+    output = preprocess_html_merge_css(root, src_path)
+
+    head = os.path.dirname(dst_path)
+    os.makedirs(head, exist_ok=True)
+
+    with open(dst_path, 'wb') as a_file:
+        root.getroottree().write(a_file, pretty_print=True, method="html",
+                                 encoding='utf-8')
+    return output.getvalue()
+
+def preprocess_html_merge_css(root, src_path):
     log = logging.Logger('ignore')
     output = io.StringIO()
     handler = logging.StreamHandler(stream=output)
@@ -37,28 +54,14 @@ def preprocess_html_merge_css(src_path, dst_path):
     # warnings to stderr in non-verbose mode
     cssutils.log.setLog(log)
 
-    with open(src_path, 'r') as a_file:
-        content = a_file.read()
-        parser = etree.HTMLParser()
-        stripped = content.strip()
-        root = etree.fromstring(stripped, parser)
-
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         premailer = Premailer(root, base_url=src_path,
                               disable_link_rewrites=True, remove_classes=True)
-
         root = premailer.transform().getroot()
-
-    head = os.path.dirname(dst_path)
-    os.makedirs(head, exist_ok=True)
 
     # completely remove content of style tags and tags
     nondata_tags = ['style']
     strip_elements(root, *nondata_tags)
 
-    with open(dst_path, 'wb') as a_file:
-        root.getroottree().write(a_file, pretty_print=True, method="html",
-                                 encoding='utf-8')
-
-    return output.getvalue()
+    return output
