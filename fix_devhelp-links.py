@@ -45,7 +45,8 @@ for el in el_mod:
         target = '404'
     el.set('link', target)
 
-out_f = open(out_fn, 'w', encoding='utf-8')
-out_f.write(e.tostring(root, encoding='unicode', pretty_print=True))
+out_f = open(out_fn, 'wb')
+out_f.write(e.tostring(root, encoding='utf-8', pretty_print=True,
+                       xml_declaration=True))
 out_f.close()
 

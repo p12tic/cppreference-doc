@@ -38,10 +38,12 @@ DISTFILES=	\
 		commands/				\
 		gadgets/				\
 		headers/				\
+		index_transform/				\
 		images/					\
 		index_transform/		\
 		reference/				\
 		skins/					\
+		tests/					\
 		build_link_map.py		\
 		ddg_parse_html.py		\
 		devhelp2qch.py			\
@@ -173,19 +175,21 @@ output/cppreference-doc-en-cpp.devhelp2:	\
 #build the .qch (QT help) file
 output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
-	cp "output/qch-help-project-cpp.xml" "output/reference/qch.xml"
+	cp "output/qch-help-project-cpp.xml" "output/reference_cssless/qch.xml"
 
-	pushd "output/reference" > /dev/null; \
+	pushd "output/reference_cssless" > /dev/null; \
 	$(qhelpgenerator) "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
-	rm -f "output/reference/qch.xml"
+	rm -f "output/reference_cssless/qch.xml"
 
-output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2
+output/qch-help-project-cpp.xml: \
+		output/cppreference-doc-en-cpp.devhelp2 \
+		output/reference_cssless
 	#build the file list
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "output/qch-files.xml"
 
-	pushd "output/reference" > /dev/null; \
+	pushd "output/reference_cssless" > /dev/null; \
 	find . -type f -not -iname "*.ttf" \
 		-exec echo "<file>"'{}'"</file>" \; | LC_ALL=C sort >> "../qch-files.xml" ; \
 	popd > /dev/null
@@ -218,6 +222,10 @@ output/cppreference-doxygen-web.tag.xml: 		\
 output/reference:
 	mkdir -p output
 	./preprocess.py --src reference --dst output/reference
+
+output/reference_cssless: output/reference
+	cp -a output/reference output/reference_cssless
+	./preprocess_qch.py --src output/reference --dst output/reference_cssless
 
 # create indexes for the wiki
 indexes:

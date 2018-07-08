@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<QtHelpProject version="1.0">
+  <namespace>cppreference.com.cppreference-doc-en-cpp</namespace>
+  <virtualFolder>virtual_folder</virtualFolder>
+  <customFilter name="C++ Standard Library reference">
+    <filterAttribute>cppreference-doc-en-cpp</filterAttribute>
+  </customFilter>
+  <filterSection>
+    <filterAttribute>cppreference-doc-en-cpp</filterAttribute>
+    <toc>
+      <section title="C++ Standard Library reference" ref="en/cpp.html">
+        <section title="Language" ref="en/path1.html"/>
+      </section>
+    </toc>
+    <keywords>
+      <keyword name="std::size_t" id="std::size_t" ref="en/path2.html"/>
+      <keyword name="std::size_t" id="std::__LIBCPP_ABI_VERSION::size_t" ref="en/path2.html"/>
+      <keyword name="std::size_t" id="std::__1::size_t" ref="en/path2.html"/>
+      <keyword name="NULL" id="NULL" ref="en/path3.html"/>
+      <keyword name="offsetof" id="offsetof" ref="en/path4.html"/>
+      <keyword name="std::numeric_limits" id="std::numeric_limits" ref="en/path5.html"/>
+      <keyword name="std::numeric_limits" id="std::__LIBCPP_ABI_VERSION::numeric_limits" ref="en/path5.html"/>
+      <keyword name="std::numeric_limits" id="std::__1::numeric_limits" ref="en/path5.html"/>
+      <keyword name="std::float_denorm_style" id="std::float_denorm_style" ref="en/path6.html"/>
+      <keyword name="std::float_denorm_style" id="std::__LIBCPP_ABI_VERSION::float_denorm_style" ref="en/path6.html"/>
+      <keyword name="std::float_denorm_style" id="std::__1::float_denorm_style" ref="en/path6.html"/>
+      <keyword name="std::is_copy_constructible_v" id="std::is_copy_constructible_v" ref="en/path7.html"/>
+      <keyword name="std::is_copy_constructible_v" id="std::__LIBCPP_ABI_VERSION::is_copy_constructible_v" ref="en/path7.html"/>
+      <keyword name="std::is_copy_constructible_v" id="std::__1::is_copy_constructible_v" ref="en/path7.html"/>
+    </keywords>
+    <files>
+      <file>./en/path1.html</file>
+      <file>./en/path2.html</file>
+      <file>./en/path3.html</file>
+      <file>./en/path4.html</file>
+      <file>./en/path5.html</file>
+      <file>./en/path6.html</file>
+      <file>./en/path7.html</file>
+    </files>
+  </filterSection>
+</QtHelpProject>

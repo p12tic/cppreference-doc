@@ -20,12 +20,15 @@
 
 from index_transform.common import IndexTransform
 from xml_utils import xml_escape
+from index_transform import *
+from lxml import etree
+import io
 
 class Index2Devhelp(IndexTransform):
 
-    def __init__(self, out_file):
+    def __init__(self, functions_el):
         super().__init__()
-        self.out_file = out_file
+        self.functions_el = functions_el
 
     def get_mark(self, el):
         if el.tag == 'const': return 'macro'
@@ -42,8 +45,31 @@ class Index2Devhelp(IndexTransform):
         return ''
 
     def process_item_hook(self, el, full_name, full_link):
-        self.out_file.write('<keyword type="' + xml_escape(self.get_mark(el))
-                    + '" name="' + xml_escape(full_name)
-                    + '" link="' + xml_escape(full_link) + '"/>\n')
+        keyword_el = etree.SubElement(self.functions_el, 'keyword')
+        keyword_el.set('type', self.get_mark(el))
+        keyword_el.set('name', full_name)
+        keyword_el.set('link', full_link)
+
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
+def transform_devhelp(book_title, book_name, book_base, rel_link, chapters_fn,
+                       in_fn):
+    root_el = etree.Element('book')
+    root_el.set('xmlns', 'http://www.devhelp.net/book')
+    root_el.set('title', book_title)
+    root_el.set('name', book_name)
+    root_el.set('base', book_base)
+    root_el.set('link', rel_link)
+    root_el.set('version', '2')
+    root_el.set('language', 'c++')
+
+    chapters_tree = etree.parse(chapters_fn)
+    root_el.append(chapters_tree.getroot())
+
+    functions_el = etree.SubElement(root_el, 'functions')
+
+    tr = Index2Devhelp(functions_el)
+    tr.transform_file(in_fn)
+
+    return etree.tostring(root_el, pretty_print=True, xml_declaration=True,
+                          encoding='utf-8')

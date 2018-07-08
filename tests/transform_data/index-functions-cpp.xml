@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2018  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+-->
+
+<!--
+    For the documentation of the schema, see the accompanying
+    index-function.README file
+-->
+<index>
+    <const name="my::my_const" link="path/cxx/my_const"/>
+    <const name="my::my_const_cxx11" link="path/cxx/my_const11" since="c++11"/>
+    <const name="my::my_const_cxx17" link="path/cxx/my_const17" since="c++17"/>
+
+    <function name="my::my_function" link="path/cxx/my_function"/>
+    <function name="my::my_function_cxx11" link="path/cxx/my_function11" since="c++11"/>
+    <function name="my::my_function_cxx17" link="path/cxx/my_function17" since="c++17"/>
+
+    <!-- enum -->
+    <enum name="my::my_enum" link="path/cxx/my_enum">
+        <const name="const_rel_auto"/>
+        <const name="const_rel" link="const_rel"/>
+        <const name="const_abs" link="path/cxx/abs_const"/>
+        <const name="const_same" link="."/>
+
+        <const name="const_rel_auto11" since="c++11"/>
+        <const name="const_rel11" link="const_rel11" since="c++11"/>
+        <const name="const_abs11" link="path/cxx/abs_const11" since="c++11"/>
+        <const name="const_same11" link="." since="c++11"/>
+
+        <const name="const_rel_auto17" since="c++17"/>
+        <const name="const_rel17" link="const_rel17" since="c++17"/>
+        <const name="const_abs17" link="path/cxx/abs_const17" since="c++17"/>
+        <const name="const_same17" link="." since="c++17"/>
+    </enum>
+
+    <enum name="my::my_enum_cxx11" link="path/cxx/my_enum11" since="c++11">
+        <const name="const_rel_auto"/>
+        <const name="const_rel" link="const_rel"/>
+        <const name="const_abs" link="path/cxx/abs_const"/>
+        <const name="const_same" link="."/>
+    </enum>
+
+    <enum name="my::my_enum_cxx17" link="path/cxx/my_enum17" since="c++17">
+        <const name="const_rel_auto"/>
+        <const name="const_rel" link="const_rel"/>
+        <const name="const_abs" link="path/cxx/abs_const"/>
+        <const name="const_same" link="."/>
+    </enum>
+
+    <!-- class -->
+    <function name="my::my_overloaded_function" link="path/cxx/my_overloaded_function"/>
+    <function name="my::my_overloaded_function_rel" link="path/cxx/my_overloaded_function_rel"/>
+    <function name="my::my_overloaded_function_relauto" link="path/cxx/my_overloaded_function_relauto"/>
+    <function name="my::my_overloaded_function_abs" link="path/cxx/my_overloaded_function_abs"/>
+
+    <function name="my::my_overloaded_function11" link="path/cxx/my_overloaded_function11"/>
+    <function name="my::my_overloaded_function_rel11" link="path/cxx/my_overloaded_function_rel11"/>
+    <function name="my::my_overloaded_function_relauto11" link="path/cxx/my_overloaded_function_relauto11"/>
+    <function name="my::my_overloaded_function_abs11" link="path/cxx/my_overloaded_function_abs11"/>
+
+    <function name="my::my_overloaded_function17" link="path/cxx/my_overloaded_function17"/>
+    <function name="my::my_overloaded_function_rel17" link="path/cxx/my_overloaded_function_rel17"/>
+    <function name="my::my_overloaded_function_relauto17" link="path/cxx/my_overloaded_function_relauto17"/>
+    <function name="my::my_overloaded_function_abs17" link="path/cxx/my_overloaded_function_abs17"/>
+
+    <class name="my::my_specialized_class" link="path/cxx/my_specialized_class"/>
+    <class name="my::my_specialized_class_rel" link="path/cxx/my_specialized_class_rel"/>
+    <class name="my::my_specialized_class_relauto" link="path/cxx/my_specialized_class_relauto"/>
+    <class name="my::my_specialized_class_abs" link="path/cxx/my_specialized_class_abs"/>
+
+    <class name="my::my_specialized_class11" link="path/cxx/my_specialized_class11"/>
+    <class name="my::my_specialized_class_rel11" link="path/cxx/my_specialized_class_rel11"/>
+    <class name="my::my_specialized_class_relauto11" link="path/cxx/my_specialized_class_relauto11"/>
+    <class name="my::my_specialized_class_abs11" link="path/cxx/my_specialized_class_abs11"/>
+
+    <class name="my::my_specialized_class17" link="path/cxx/my_specialized_class17"/>
+    <class name="my::my_specialized_class_rel17" link="path/cxx/my_specialized_class_rel17"/>
+    <class name="my::my_specialized_class_relauto17" link="path/cxx/my_specialized_class_relauto17"/>
+    <class name="my::my_specialized_class_abs17" link="path/cxx/my_specialized_class_abs17"/>
+
+    <class name="my::my_class" link="path/cxx/my_class">
+        <const name="const_rel_auto"/>
+        <const name="const_rel" link="const_rel"/>
+        <const name="const_abs" link="path/cxx/abs_const"/>
+        <const name="const_same" link="."/>
+
+        <const name="const_rel_auto11" since="c++11"/>
+        <const name="const_rel11" link="const_rel11" since="c++11"/>
+        <const name="const_abs11" link="path/cxx/abs_const11" since="c++11"/>
+        <const name="const_same11" link="." since="c++11"/>
+
+        <const name="const_rel_auto17" since="c++17"/>
+        <const name="const_rel17" link="const_rel17" since="c++17"/>
+        <const name="const_abs17" link="path/cxx/abs_const17" since="c++17"/>
+        <const name="const_same17" link="." since="c++17"/>
+
+        <function name="function_rel_auto"/>
+        <function name="function_rel" link="function_rel"/>
+        <function name="function_abs" link="path/cxx/abs_function"/>
+        <function name="function_same" link="."/>
+
+        <function name="function_rel_auto11" since="c++11"/>
+        <function name="function_rel11" link="function_rel11" since="c++11"/>
+        <function name="function_abs11" link="path/cxx/abs_function11" since="c++11"/>
+        <function name="function_same11" link="." since="c++11"/>
+
+        <function name="function_rel_auto17" since="c++17"/>
+        <function name="function_rel17" link="function_rel17" since="c++17"/>
+        <function name="function_abs17" link="path/cxx/abs_function17" since="c++17"/>
+        <function name="function_same17" link="." since="c++17"/>
+
+        <variable name="variable_rel_auto"/>
+        <variable name="variable_rel" link="variable_rel"/>
+        <variable name="variable_abs" link="path/cxx/abs_variable"/>
+        <variable name="variable_same" link="."/>
+
+        <variable name="variable_rel_auto11" since="c++11"/>
+        <variable name="variable_rel11" link="variable_rel11" since="c++11"/>
+        <variable name="variable_abs11" link="path/cxx/abs_variable11" since="c++11"/>
+        <variable name="variable_same11" link="." since="c++11"/>
+
+        <variable name="variable_rel_auto17" since="c++17"/>
+        <variable name="variable_rel17" link="variable_rel17" since="c++17"/>
+        <variable name="variable_abs17" link="path/cxx/abs_variable17" since="c++17"/>
+        <variable name="variable_same17" link="." since="c++17"/>
+
+        <overload name="my::my_overloaded_function"/>
+        <overload name="my::my_overloaded_function_rel" link="my_overloaded_function_rel"/>
+        <overload name="my::my_overloaded_function_relauto" link="."/>
+        <overload name="my::my_overloaded_function_abs" link="path/cxx/my_overloaded_function_abs"/>
+
+        <overload name="my::my_overloaded_function11" since="c++11"/>
+        <overload name="my::my_overloaded_function_rel11" link="my_overloaded_function_rel11" since="c++11"/>
+        <overload name="my::my_overloaded_function_relauto11" link="." since="c++11"/>
+        <overload name="my::my_overloaded_function_abs11" link="path/cxx/my_overloaded_function_abs11" since="c++11"/>
+
+        <overload name="my::my_overloaded_function17" since="c++17"/>
+        <overload name="my::my_overloaded_function_rel17" link="my_overloaded_function_rel17" since="c++17"/>
+        <overload name="my::my_overloaded_function_relauto17" link="." since="c++17"/>
+        <overload name="my::my_overloaded_function_abs17" link="path/cxx/my_overloaded_function_abs17" since="c++17"/>
+
+        <specialization name="my::my_specialized_class"/>
+        <specialization name="my::my_specialized_class_rel" link="my_specialized_class_rel"/>
+        <specialization name="my::my_specialized_class_relauto" link="."/>
+        <specialization name="my::my_specialized_class_abs" link="path/cxx/my_specialized_class_abs"/>
+
+        <specialization name="my::my_specialized_class11" since="c++11"/>
+        <specialization name="my::my_specialized_class_rel11" link="my_specialized_class_rel11" since="c++11"/>
+        <specialization name="my::my_specialized_class_relauto11" link="." since="c++11"/>
+        <specialization name="my::my_specialized_class_abs11" link="path/cxx/my_specialized_class_abs11" since="c++11"/>
+
+        <specialization name="my::my_specialized_class17" since="c++17"/>
+        <specialization name="my::my_specialized_class_rel17" link="my_specialized_class_rel17" since="c++17"/>
+        <specialization name="my::my_specialized_class_relauto17" link="." since="c++17"/>
+        <specialization name="my::my_specialized_class_abs17" link="path/cxx/my_specialized_class_abs17" since="c++17"/>
+
+        <class name="my::my_child_class" link="path/cxx/my_child_class">
+            <const name="child_const_rel_auto"/>
+            <const name="child_const_rel" link="child_const_rel"/>
+            <const name="child_const_abs" link="path/cxx/abs_child_const"/>
+            <const name="child_const_same" link="."/>
+
+            <const name="child_const_rel_auto11" since="c++11"/>
+            <const name="child_const_rel11" link="child_const_rel11" since="c++11"/>
+            <const name="child_const_abs11" link="path/cxx/abs_child_const11" since="c++11"/>
+            <const name="child_const_same11" link="." since="c++11"/>
+
+            <const name="child_const_rel_auto17" since="c++17"/>
+            <const name="child_const_rel17" link="child_const_rel17" since="c++17"/>
+            <const name="child_const_abs17" link="path/cxx/abs_child_const17" since="c++17"/>
+            <const name="child_const_same17" link="." since="c++17"/>
+
+            <function name="child_function_rel_auto"/>
+            <function name="child_function_rel" link="child_function_rel"/>
+            <function name="child_function_abs" link="path/cxx/abs_child_function"/>
+            <function name="child_function_same" link="."/>
+
+            <function name="child_function_rel_auto11" since="c++11"/>
+            <function name="child_function_rel11" link="child_function_rel11" since="c++11"/>
+            <function name="child_function_abs11" link="path/cxx/abs_child_function11" since="c++11"/>
+            <function name="child_function_same11" link="." since="c++11"/>
+
+            <function name="child_function_rel_auto17" since="c++17"/>
+            <function name="child_function_rel17" link="child_function_rel17" since="c++17"/>
+            <function name="child_function_abs17" link="path/cxx/abs_child_function17" since="c++17"/>
+            <function name="child_function_same17" link="." since="c++17"/>
+
+            <variable name="child_variable_rel_auto"/>
+            <variable name="child_variable_rel" link="child_variable_rel"/>
+            <variable name="child_variable_abs" link="path/cxx/abs_child_variable"/>
+            <variable name="child_variable_same" link="."/>
+
+            <variable name="child_variable_rel_auto11" since="c++11"/>
+            <variable name="child_variable_rel11" link="child_variable_rel11" since="c++11"/>
+            <variable name="child_variable_abs11" link="path/cxx/abs_child_variable11" since="c++11"/>
+            <variable name="child_variable_same11" link="." since="c++11"/>
+
+            <variable name="child_variable_rel_auto17" since="c++17"/>
+            <variable name="child_variable_rel17" link="child_variable_rel17" since="c++17"/>
+            <variable name="child_variable_abs17" link="path/cxx/abs_child_variable17" since="c++17"/>
+            <variable name="child_variable_same17" link="." since="c++17"/>
+        </class>
+
+        <enum name="my::my_child_enum" link="path/cxx/my_child_enum">
+            <const name="const_rel_auto"/>
+            <const name="const_rel" link="const_rel"/>
+            <const name="const_abs" link="path/cxx/const_abs"/>
+            <const name="const_same" link="."/>
+
+            <const name="const_rel_auto11" since="c++11"/>
+            <const name="const_rel11" link="child_const_rel11" since="c++11"/>
+            <const name="const_abs11" link="path/cxx/child_const_abs11" since="c++11"/>
+            <const name="const_same11" link="." since="c++11"/>
+
+            <const name="const_rel_auto17" since="c++17"/>
+            <const name="const_rel17" link="child_const_rel17" since="c++17"/>
+            <const name="const_abs17" link="path/cxx/child_const_abs17" since="c++17"/>
+            <const name="const_same17" link="." since="c++17"/>
+        </enum>
+    </class>
+
+    <class name="my::my_class_cxx11" link="path/cxx/my_class11" since="c++11">
+        <const name="const_rel_auto"/>
+        <const name="const_rel" link="rel_const"/>
+        <const name="const_abs" link="path/cxx/abs_const"/>
+        <const name="const_same" link="."/>
+
+        <function name="function_rel_auto"/>
+        <function name="function_rel" link="function_rel"/>
+        <function name="function_abs" link="path/cxx/abs_function"/>
+        <function name="function_same" link="."/>
+    </class>
+
+    <class name="my::my_class_cxx17" link="path/cxx/my_class17" since="c++17">
+        <const name="const_rel_auto"/>
+        <const name="const_rel" link="rel_const"/>
+        <const name="const_abs" link="path/cxx/abs_const"/>
+        <const name="const_same" link="."/>
+
+        <function name="function_rel_auto"/>
+        <function name="function_rel" link="function_rel"/>
+        <function name="function_abs" link="path/cxx/abs_function"/>
+        <function name="function_same" link="."/>
+    </class>
+
+    <class name="my::my_class_inherit" link="path/cxx/my_class_inherit">
+        <constructor/>
+        <destructor/>
+        <inherits name="my::my_class"/>
+    </class>
+
+    <!-- typedef -->
+    <typedef name="my::my_class_typedef" alias="my::my_class"/>
+    <typedef name="my::my_class_typedef11" alias="my::my_class" since="c++11"/>
+    <typedef name="my::my_class_typedef17" alias="my::my_class" since="c++17"/>
+
+    <typedef name="my::my_class_inherit_typedef" alias="my::my_class_inherit"/>
+    <typedef name="my::my_class_inherit_typedef11" alias="my::my_class_inherit" since="c++11"/>
+    <typedef name="my::my_class_inherit_typedef17" alias="my::my_class_inherit" since="c++17"/>
+
+    <typedef name="my::my_enum_typedef" alias="my::my_enum"/>
+    <typedef name="my::my_enum_typedef11" alias="my::my_enum" since="c++11"/>
+    <typedef name="my::my_enum_typedef17" alias="my::my_enum" since="c++17"/>
+</index>
