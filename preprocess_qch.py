@@ -52,7 +52,7 @@ def main():
                 paths_list.append(tuple)
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [ (executor.submit(preprocess_html_merge_css,
+        futures = [ (executor.submit(preprocess_html_merge_cssless,
                                      src_path, dst_path), i)
                     for i, (src_path, dst_path) in enumerate(paths_list) ]
 

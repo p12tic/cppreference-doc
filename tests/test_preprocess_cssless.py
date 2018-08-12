@@ -36,3 +36,20 @@ class TestPreprocessHtmlMergeCss(unittest.TestCase):
 
         self.assertEqual(test, expected)
         os.remove(dst_path)
+
+    def test_preprocess_html_merge_cssless2(self):
+        dir_path = os.path.dirname(__file__)
+        src_path = os.path.join(dir_path, 'preprocess_cssless_data/basic_string.html')
+        dst_path = os.path.join(dir_path, 'preprocess_cssless_data/basic_string_out.html')
+        expected_path = os.path.join(dir_path, 'preprocess_cssless_data/basic_string_expected.html')
+
+        preprocess_html_merge_cssless(src_path, dst_path)
+
+        with open(dst_path, 'r') as a_file:
+            test = a_file.read()
+
+        with open(expected_path, 'r') as a_file:
+            expected = a_file.read()
+
+        self.assertEqual(test, expected)
+        os.remove(dst_path)
