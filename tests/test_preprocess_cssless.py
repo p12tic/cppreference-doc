@@ -53,3 +53,252 @@ class TestPreprocessHtmlMergeCss(unittest.TestCase):
 
         self.assertEqual(test, expected)
         os.remove(dst_path)
+
+class TestConvertSpanTablesToTrTd(unittest.TestCase):
+
+    def setUp(self):
+        self.maxDiff = None
+
+    def assert_processes_table(self, input, expected_output):
+        input = '<html><body>{0}</body></html>'.format(input)
+        expected_output = '<html><body>{0}</body></html>'.format(expected_output)
+
+        parser = etree.HTMLParser()
+        root = etree.fromstring(input, parser)
+
+        convert_span_tables_to_tr_td(root)
+
+        output = etree.tostring(root, encoding=str, method='xml')
+
+        self.assertEqual(expected_output, output)
+
+    def test_normal_table(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row;">
+        <span style="border:solid 1px green; display:table-cell; padding:1.5px">1</span>
+        <span style="border:none; display:table-cell; padding:1.5px">2</span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr>
+        <td style="border: solid 1px green;padding: 1.5px">1</td>
+        <td style="border: none;padding: 1.5px">2</td>
+      </tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+
+    def test_wraps_table_row_text(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row;">little text</span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr><td>little text</td></tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+    def test_wraps_into_td_table_row_children(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row;">
+        <span>blabla</span>
+        <span>blabla2</span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr><td>
+        <span>blabla</span>
+        <span>blabla2</span>
+      </td></tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+
+    def test_wraps_into_td_table_row_children_with_tags(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row;">
+        <span>
+          <div>bla</div>
+        </span>
+        <span>blabla2</span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr><td>
+        <span>
+          <div>bla</div>
+        </span>
+        <span>blabla2</span>
+      </td></tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+    def test_does_not_wrap_into_td_children_when_not_in_table_row(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span>
+        <span style="display:table-cell;">2</span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <span>
+        <span style="display:table-cell;">2</span>
+      </span>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+    def test_does_not_wrap_children_when_sibling_is_td(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row;">
+        <span>1</span>
+        <span style="display:table-cell;">2</span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr>
+        <span>1</span>
+        <td>2</td>
+      </tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+    def test_does_not_convert_tr_when_parent_is_not_table(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row;">
+        <span style="display:table-row;">
+          blabla
+        </span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr>
+        <span style="display:table-row;">
+          blabla
+        </span>
+      </tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+
+    def test_does_not_convert_td_when_parent_is_not_tr(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-cell;">
+        <span style="display:table-cell;">
+          blabla
+        </span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <span style="display:table-cell;">
+        <span style="display:table-cell;">
+          blabla
+        </span>
+      </span>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
