@@ -36,6 +36,7 @@ def preprocess_html_merge_cssless(src_path, dst_path):
     output = preprocess_html_merge_css(root, src_path)
     strip_style_tags(root)
     convert_span_tables_to_tr_td(root)
+    convert_inline_block_elements_to_table(root)
 
     head = os.path.dirname(dst_path)
     os.makedirs(head, exist_ok=True)
@@ -91,6 +92,11 @@ def has_css_property_value(el, prop_name, prop_value):
         return True
     return False
 
+def set_css_property_value(el, prop_name, prop_value):
+    atrib = cssutils.parseStyle(el.get('style'))
+    atrib.setProperty(prop_name, prop_value)
+    el.set('style', atrib.getCssText(separator=''))
+
 def convert_display_property_to_html_tag(element, element_tag, display_value):
     str_attrib_value = element.get('style')
     if str_attrib_value is None:
@@ -132,7 +138,6 @@ def convert_span_tables_to_tr_td(root_el):
     # note that the following xpath expressions match only the prefix of the
     # CSS property value
     table_els = root_el.xpath('//span[contains(@style, "display:table")]')
-    # root_el.xpath('//div[contains(@style, "display:inline-table")]')
 
     for table_el in table_els:
         if has_css_property_value(table_el, 'display', 'table'):
@@ -141,3 +146,39 @@ def convert_span_tables_to_tr_td(root_el):
         #convert_span_table_to_tr_td(table_el)
 
     return root_el
+
+def convert_inline_block_elements_to_table(root_el):
+    for el in root_el.xpath('//*[contains(@style, "display")]'):
+        if not has_css_property_value(el, 'display', 'inline-block') and \
+                not has_css_property_value(el, 'display', 'inline-table'):
+            continue
+
+        elements_to_put_into_table = [el]
+        el = el.getnext()
+
+        # find subsequent inline block elements
+        while el is not None:
+            if has_css_property_value(el, 'display', 'inline-block') or \
+                    has_css_property_value(el, 'display', 'inline-table'):
+                elements_to_put_into_table.append(el)
+            else:
+                break
+            el = el.getnext()
+
+        # only makes sense to put two or more to table
+        if len(elements_to_put_into_table) < 2:
+            continue
+
+        # create table and put elements into it
+        table_el = etree.Element('table')
+        table_el.set('style', 'padding:0; margin:0; border:none;')
+
+        elements_to_put_into_table[0].addprevious(table_el)
+
+        tr = etree.SubElement(table_el, 'tr')
+
+        for el in elements_to_put_into_table:
+            td = etree.SubElement(tr, 'td')
+            el.getparent().remove(el)
+            td.append(el)
+

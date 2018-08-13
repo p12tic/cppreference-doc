@@ -54,23 +54,34 @@ class TestPreprocessHtmlMergeCss(unittest.TestCase):
         self.assertEqual(test, expected)
         os.remove(dst_path)
 
-class TestConvertSpanTablesToTrTd(unittest.TestCase):
+class HTMLTestBase(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
 
-    def assert_processes_table(self, input, expected_output):
+    def assert_converts_html(self, input, expected_output, function):
         input = '<html><body>{0}</body></html>'.format(input)
         expected_output = '<html><body>{0}</body></html>'.format(expected_output)
 
         parser = etree.HTMLParser()
         root = etree.fromstring(input, parser)
 
-        convert_span_tables_to_tr_td(root)
+        root = function(root)
 
         output = etree.tostring(root, encoding=str, method='xml')
 
         self.assertEqual(expected_output, output)
+
+
+class TestConvertSpanTablesToTrTd(HTMLTestBase):
+
+    def assert_processes_table(self, input, expected_output):
+
+        def test_fun(root):
+            convert_span_tables_to_tr_td(root)
+            return root
+
+        self.assert_converts_html(input, expected_output, test_fun)
 
     def test_normal_table(self):
         input = '''\
@@ -322,3 +333,39 @@ class TestConvertSpanTablesToTrTd(unittest.TestCase):
 </div>
 '''
         self.assert_processes_table(input, expected)
+
+
+class TestConvertInlineBlockElementsToTable(HTMLTestBase):
+
+    def perform_test(self, input, expected_output):
+        def test_fun(root):
+            convert_inline_block_elements_to_table(root)
+            return root
+
+        self.assert_converts_html(input, expected_output, test_fun)
+
+    def test_does_not_convert_single(self):
+        input = '''\
+<div>
+  <div style="display:inline-block; padding:0"/>
+</div>
+'''
+        self.perform_test(input, input)
+
+    def test_converts_multiple(self):
+        input = '''\
+<div>
+  <div style="display:inline-block;"/>
+  <div style="display:inline-table;"/>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <table style="padding:0; margin:0; border:none;"><tr><td><div style="display:inline-block;"/>
+  </td><td><div style="display:inline-table;"/>
+</td></tr></table></div>
+'''
+        self.perform_test(input, expected)
+
+
