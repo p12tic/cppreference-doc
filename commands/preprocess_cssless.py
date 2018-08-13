@@ -72,9 +72,8 @@ def needs_td_wrapper(element):
     if len(element.getchildren()) == 0:
         return True
     for el in element.getchildren():
-        str_attrib_value = el.get('style')
-        if str_attrib_value is not None and \
-                str_attrib_value.find('display:table-cell;') is not None:
+        if has_css_property_value(el, 'display', 'table-row') or \
+                has_css_property_value(el, 'display', 'table-cell'):
             return False
     return True
 

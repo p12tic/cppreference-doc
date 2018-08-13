@@ -151,6 +151,31 @@ class TestConvertSpanTablesToTrTd(unittest.TestCase):
 '''
         self.assert_processes_table(input, expected)
 
+    def test_wraps_into_td_table_row_children_with_style(self):
+        input = '''\
+<div>
+  <one_more_block>
+    <span style="border:solid 1.5px red; display:table; padding:2px">
+      <span style="display:table-row">
+        <span style="color:#008000; font-size:0.8em">(C++11)</span>
+      </span>
+    </span>
+  </one_more_block>
+</div>
+'''
+
+        expected = '''\
+<div>
+  <one_more_block>
+    <table style="border: solid 1.5px red;padding: 2px">
+      <tr><td>
+        <span style="color:#008000; font-size:0.8em">(C++11)</span>
+      </td></tr>
+    </table>
+  </one_more_block>
+</div>
+'''
+        self.assert_processes_table(input, expected)
 
     def test_wraps_into_td_table_row_children_with_tags(self):
         input = '''\
@@ -292,11 +317,6 @@ class TestConvertSpanTablesToTrTd(unittest.TestCase):
           blabla
         </span>
       </span>
-    </table>
-  </one_more_block>
-</div>
-'''
-        self.assert_processes_table(input, expected)
     </table>
   </one_more_block>
 </div>
