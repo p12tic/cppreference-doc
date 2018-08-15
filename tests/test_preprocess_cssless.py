@@ -369,3 +369,46 @@ class TestConvertInlineBlockElementsToTable(HTMLTestBase):
         self.perform_test(input, expected)
 
 
+class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
+
+    def test_css_property(self):
+        def test_fun(root):
+            convert_zero_td_width_to_nonzero(root)
+            return root
+
+        input = '''\
+<tr>
+  <td style="white-space:nowrap; width:0%; border-top:1px solid #CCC">
+  </td>
+</tr>
+'''
+
+        expected = '''\
+<tr>
+  <td style="white-space: nowrap;border-top: 1px solid #CCC" width="1px">
+  </td>
+</tr>
+'''
+
+        self.assert_converts_html(input, expected, test_fun)
+
+    def test_attribute(self):
+        def test_fun(root):
+            convert_zero_td_width_to_nonzero(root)
+            return root
+
+        input = '''\
+<tr>
+  <td width="0%">
+  </td>
+</tr>
+'''
+
+        expected = '''\
+<tr>
+  <td width="1px">
+  </td>
+</tr>
+'''
+
+        self.assert_converts_html(input, expected, test_fun)

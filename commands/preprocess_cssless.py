@@ -37,6 +37,7 @@ def preprocess_html_merge_cssless(src_path, dst_path):
     strip_style_tags(root)
     convert_span_tables_to_tr_td(root)
     convert_inline_block_elements_to_table(root)
+    convert_zero_td_width_to_nonzero(root)
 
     head = os.path.dirname(dst_path)
     os.makedirs(head, exist_ok=True)
@@ -182,3 +183,12 @@ def convert_inline_block_elements_to_table(root_el):
             el.getparent().remove(el)
             td.append(el)
 
+
+def convert_zero_td_width_to_nonzero(root_el):
+    for el in root_el.xpath('//*[contains(@style, "width")]'):
+        if has_css_property_value(el, 'width', '0%'):
+            el.attrib['width'] = "1px"
+            remove_css_property(el, 'width')
+
+    for el in root_el.xpath('//*[contains(@width, "0%")]'):
+        el.attrib['width'] = "1px"
