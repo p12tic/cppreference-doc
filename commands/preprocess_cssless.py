@@ -78,9 +78,9 @@ def needs_td_wrapper(element):
             return False
     return True
 
-def remove_display_property_if_needed(element):
+def remove_css_property(element, property_name):
     atrib = cssutils.parseStyle(element.get('style'))
-    atrib.removeProperty('display')
+    atrib.removeProperty(property_name)
     element.set('style', atrib.getCssText(separator=''))
     if len(element.get('style')) == 0:
         element.attrib.pop('style')
@@ -103,12 +103,12 @@ def convert_display_property_to_html_tag(element, element_tag, display_value):
         return False
     if has_css_property_value(element, 'display', display_value):
         element.tag = element_tag
-        remove_display_property_if_needed(element)
+        remove_css_property(element, 'display')
         return True
 
 def convert_span_table_to_tr_td(table_el):
     table_el.tag = 'table'
-    remove_display_property_if_needed(table_el)
+    remove_css_property(table_el, 'display')
 
     for element in table_el.getchildren():
         tag_renamed = convert_display_property_to_html_tag(element, 'tr',
