@@ -38,6 +38,7 @@ def preprocess_html_merge_cssless(src_path, dst_path):
     convert_span_tables_to_tr_td(root)
     convert_inline_block_elements_to_table(root)
     convert_zero_td_width_to_nonzero(root)
+    convert_font_size_property_to_pt(root, 16)
 
     head = os.path.dirname(dst_path)
     os.makedirs(head, exist_ok=True)
@@ -47,16 +48,21 @@ def preprocess_html_merge_cssless(src_path, dst_path):
                                  encoding='utf-8')
     return output
 
-def preprocess_html_merge_css(root, src_path):
+def silence_cssutils_warnings():
     log = logging.Logger('ignore')
     output = io.StringIO()
     handler = logging.StreamHandler(stream=output)
     formatter = logging.Formatter('%(levelname)s, %(message)s')
     handler.setFormatter(formatter)
     log.addHandler(handler)
+    cssutils.log.setLog(log)
+
+    return output
+
+def preprocess_html_merge_css(root, src_path):
     # cssutils_logging_handler of Premailer.__init__ is insufficient to silence
     # warnings to stderr in non-verbose mode
-    cssutils.log.setLog(log)
+    output = silence_cssutils_warnings()
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -86,10 +92,17 @@ def remove_css_property(element, property_name):
     if len(element.get('style')) == 0:
         element.attrib.pop('style')
 
-def has_css_property_value(el, prop_name, prop_value):
+
+def get_css_property_value(el, prop_name):
     atrib = cssutils.parseStyle(el.get('style'))
     value = atrib.getPropertyCSSValue(prop_name)
-    if value is not None and value.cssText == prop_value:
+    if value:
+        return value.cssText
+    return None
+
+def has_css_property_value(el, prop_name, prop_value):
+    value = get_css_property_value(el, prop_name)
+    if value and value == prop_value:
         return True
     return False
 
@@ -192,3 +205,34 @@ def convert_zero_td_width_to_nonzero(root_el):
 
     for el in root_el.xpath('//*[contains(@width, "0%")]'):
         el.attrib['width'] = "1px"
+
+def apply_font_size(size, parent_size_pt):
+    size = size.strip()
+
+    if size[-2:] == 'em':
+        value_number = float(size[:-2].strip())
+        return value_number*parent_size_pt
+
+    if size[-2:] in ['pt', 'px']:
+        return float(size[:-2].strip())
+
+    if size[-1] == '%':
+        value_number = float(size[:-1].strip())/100
+        return value_number*parent_size_pt
+
+    return parent_size_pt
+
+def convert_font_size_property_to_pt_recurse(el, parent_size_pt):
+    size_value = get_css_property_value(el,"font-size")
+
+    if size_value:
+        el_size_pt = apply_font_size(size_value, parent_size_pt)
+        set_css_property_value(el, "font-size", "{}pt".format(el_size_pt))
+    else:
+        el_size_pt = parent_size_pt
+
+    for child in el.getchildren():
+        convert_font_size_property_to_pt_recurse(child, el_size_pt)
+
+def convert_font_size_property_to_pt(root_el, default_size):
+     convert_font_size_property_to_pt_recurse(root_el, default_size)

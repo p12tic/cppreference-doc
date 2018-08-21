@@ -389,7 +389,6 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
   </td>
 </tr>
 '''
-
         self.assert_converts_html(input, expected, test_fun)
 
     def test_attribute(self):
@@ -410,5 +409,165 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
   </td>
 </tr>
 '''
-
         self.assert_converts_html(input, expected, test_fun)
+
+
+class TestApplyFontSize(unittest.TestCase):
+
+    def test_em(self):
+        self.assertEqual(10, apply_font_size('1em', 10))
+        self.assertEqual(8, apply_font_size('0.8em', 10))
+        self.assertEqual(10, apply_font_size('1.0em', 10))
+        self.assertEqual(15, apply_font_size('1.5em', 10))
+
+        self.assertEqual(15, apply_font_size('1.5 em', 10))
+        self.assertEqual(15, apply_font_size(' 1.5em ', 10))
+        self.assertEqual(15, apply_font_size('1.5em ', 10))
+
+    def test_px(self):
+        self.assertEqual(8, apply_font_size('8px', 10))
+        self.assertEqual(10, apply_font_size('10px', 10))
+        self.assertEqual(15, apply_font_size('15px', 10))
+
+        self.assertEqual(15, apply_font_size('15 px', 10))
+        self.assertEqual(15, apply_font_size(' 15px ', 10))
+        self.assertEqual(15, apply_font_size('15px ', 10))
+
+    def test_ptc(self):
+        self.assertEqual(8, apply_font_size('80%', 10))
+        self.assertEqual(10, apply_font_size('100%', 10))
+        self.assertEqual(15, apply_font_size('150%', 10))
+
+        self.assertEqual(15, apply_font_size('150 %', 10))
+        self.assertEqual(15, apply_font_size(' 150% ', 10))
+        self.assertEqual(15, apply_font_size('150% ', 10))
+
+
+class TestConvertFontSizePropertyToPt(HTMLTestBase):
+
+    def test_simple(self):
+        def test_fun(root):
+            convert_font_size_property_to_pt(root, 10)
+            return root
+
+        input = '''\
+<div style="font-size: 1em">
+text
+</div>
+'''
+
+        expected = '''\
+<div style="font-size: 10pt">
+text
+</div>
+'''
+        self.assert_converts_html(input, expected, test_fun)
+
+    def test_font_size_value_is_unsupported(self):
+        def test_fun(root):
+            convert_font_size_property_to_pt(root, 10)
+            return root
+
+        input = '''\
+<div style="font-size: 1.5em">
+  <div style="font-size: abcd">
+    text
+  </div>
+</div>'''
+
+
+        expected = '''\
+<div style="font-size: 15pt">
+  <div style="font-size: 15pt">
+    text
+  </div>
+</div>'''
+        silence_cssutils_warnings()
+        self.assert_converts_html(input, expected, test_fun)
+
+    def test_simple_px(self):
+        def test_fun(root):
+            convert_font_size_property_to_pt(root, 10)
+            return root
+
+        input = '''\
+<div style="font-size: 1px">
+text
+</div>
+'''
+
+        expected = '''\
+<div style="font-size: 1pt">
+text
+</div>
+'''
+        self.assert_converts_html(input, expected, test_fun)
+
+
+    def test_simple_pt(self):
+        def test_fun(root):
+            convert_font_size_property_to_pt(root, 10)
+            return root
+
+        input = '''\
+<div style="font-size: 1pt">
+text
+</div>
+'''
+
+        expected = '''\
+<div style="font-size: 1pt">
+text
+</div>
+'''
+        self.assert_converts_html(input, expected, test_fun)
+
+
+    def test_inherits(self):
+        def test_fun(root):
+            convert_font_size_property_to_pt(root, 10)
+            return root
+
+        input = '''\
+<div style="font-size: 1.5em">
+  <div style="font-size: 1.5em">
+    text
+  </div>
+</div>'''
+
+
+        expected = '''\
+<div style="font-size: 15pt">
+  <div style="font-size: 22.5pt">
+    text
+  </div>
+</div>'''
+        self.assert_converts_html(input, expected, test_fun)
+
+    def test_inherits_1em(self):
+        def test_fun(root):
+            convert_font_size_property_to_pt(root, 10)
+            return root
+
+        input = '''\
+<div style="font-size: 1.5em">
+  <div style="font-size: 1.5em">
+    text
+    <div style="font-size: 1em">
+      text
+    </div>
+  </div>
+</div>'''
+
+
+        expected = '''\
+<div style="font-size: 15pt">
+  <div style="font-size: 22.5pt">
+    text
+    <div style="font-size: 22.5pt">
+      text
+    </div>
+  </div>
+</div>'''
+        self.assert_converts_html(input, expected, test_fun)
+
