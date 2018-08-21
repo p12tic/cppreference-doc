@@ -58,6 +58,7 @@ class HTMLTestBase(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
+        silence_cssutils_warnings()
 
     def assert_converts_html(self, input, expected_output, function):
         input = '<html><body>{0}</body></html>'.format(input)
@@ -482,7 +483,6 @@ text
     text
   </div>
 </div>'''
-        silence_cssutils_warnings()
         self.assert_converts_html(input, expected, test_fun)
 
     def test_simple_px(self):
@@ -571,3 +571,103 @@ text
 </div>'''
         self.assert_converts_html(input, expected, test_fun)
 
+
+class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
+
+    def test_no_border(self):
+        def test_fun(root):
+            convert_table_border_top_to_tr_background(root)
+            return root
+
+        input = '''\
+<table>
+  <tr>
+    <td/>
+  </tr>
+</table>
+'''
+
+        self.assert_converts_html(input, input, test_fun)
+
+    def test_single_td(self):
+        def test_fun(root):
+            convert_table_border_top_to_tr_background(root)
+            return root
+
+        input = '''\
+<table>
+  <tr>
+    <td style="border-top: 1px solid #ccc"/>
+  </tr>
+</table>
+'''
+
+        expected = '''\
+<table>
+  <tr><td colspan="1" style="height:1px; font-size:1px; background-color: #ccc;"/></tr><tr>
+    <td/>
+  </tr>
+</table>
+'''
+
+        self.assert_converts_html(input, expected, test_fun)
+
+    def test_multiple_td(self):
+        def test_fun(root):
+            convert_table_border_top_to_tr_background(root)
+            return root
+
+        input = '''\
+<table>
+ <tr>
+   <td style="border-top: 1px solid #ccc"/>
+   <td/>
+   <td/>
+ </tr>
+</table>
+'''
+
+        expected = '''\
+<table>
+ <tr><td colspan="3" style="height:1px; font-size:1px; background-color: #ccc;"/></tr><tr>
+   <td/>
+   <td/>
+   <td/>
+ </tr>
+</table>
+'''
+
+        self.assert_converts_html(input, expected, test_fun)
+
+    def test_subtable_does_not_affect_parent_table(self):
+        def test_fun(root):
+            convert_table_border_top_to_tr_background(root)
+            return root
+
+        input = '''\
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td style="border-top: 1px solid #ccc"/>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+'''
+
+        expected = '''\
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr><td colspan="1" style="height:1px; font-size:1px; background-color: #ccc;"/></tr><tr>
+          <td/>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+'''

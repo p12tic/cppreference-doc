@@ -40,6 +40,7 @@ def preprocess_html_merge_cssless(src_path, dst_path):
     convert_inline_block_elements_to_table(root)
     convert_zero_td_width_to_nonzero(root)
     convert_font_size_property_to_pt(root, 16)
+    convert_table_border_top_to_tr_background(root)
 
     head = os.path.dirname(dst_path)
     os.makedirs(head, exist_ok=True)
@@ -201,6 +202,52 @@ def convert_inline_block_elements_to_table(root_el):
             td = etree.SubElement(tr, 'td')
             el.getparent().remove(el)
             td.append(el)
+
+def get_table_rows(table_el):
+    for el in table_el.iterchildren(['th', 'tr']):
+        yield el
+    for el in table_el.iterchildren(['thead', 'tbody', 'tfoot']):
+        for el2 in el.iterchildren(['th', 'tr']):
+            yield el2
+
+def get_max_number_of_columns(table_el):
+    max_tds = 0
+    for row_el in get_table_rows(table_el):
+        max_tds = max(max_tds, len(list(row_el.iterchildren('td'))))
+    return max_tds
+
+def clear_tr_border_top(tr_el):
+    for td_el in tr_el.iterchildren('td'):
+        remove_css_property(td_el, 'border-top')
+
+def has_tr_border_top(tr_el):
+    for td_el in tr_el.iterchildren('td'):
+        if get_css_property_value(td_el, 'border-top') is not None:
+            return True
+    return False
+
+def has_table_border_top(table_el):
+    for tr_el in get_table_rows(table_el):
+        if has_tr_border_top(tr_el):
+            return True
+    return False
+
+def convert_table_border_top_to_tr_background(root_el):
+    for table_el in root_el.iter('table'):
+        if not has_table_border_top(table_el):
+            continue
+
+        td_count = get_max_number_of_columns(table_el)
+        for tr_el in get_table_rows(table_el):
+            if has_tr_border_top(tr_el):
+                # TODO: handle border properties
+                clear_tr_border_top(tr_el)
+                border_tr = etree.Element('tr')
+                border_td = etree.SubElement(border_tr, 'td')
+                border_td.set('colspan', str(td_count))
+                border_td.set('style', 'height:1px; font-size:1px; '
+                                       'background-color: #ccc;')
+                tr_el.addprevious(border_tr)
 
 
 def convert_zero_td_width_to_nonzero(root_el):
