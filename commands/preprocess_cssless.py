@@ -35,6 +35,7 @@ def preprocess_html_merge_cssless(src_path, dst_path):
 
     output = preprocess_html_merge_css(root, src_path)
     strip_style_tags(root)
+    remove_display_none(root)
     convert_span_tables_to_tr_td(root)
     convert_inline_block_elements_to_table(root)
     convert_zero_td_width_to_nonzero(root)
@@ -146,6 +147,11 @@ def wrap_element(el, tag_name, style):
     new_el.set('style', style)
     el.addprevious(new_el)
     new_el.insert(0, el)
+
+def remove_display_none(root_el):
+    for el in root_el.xpath('//*[contains(@style, "display")]'):
+        if has_css_property_value(el, 'display', 'none'):
+            el.getparent().remove(el)
 
 def convert_span_tables_to_tr_td(root_el):
 
