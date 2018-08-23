@@ -90,14 +90,14 @@ def add_file_to_rename_map(rename_map, dir, fn, new_fn):
 # Converts complex URL to resources supplied by MediaWiki loader to a simplified
 # name
 def convert_loader_name(fn):
-    if re.search("modules=site&only=scripts", fn):
+    if "modules=site&only=scripts" in fn:
         return "site_scripts.js"
-    elif re.search("modules=site&only=styles", fn):
+    elif "modules=site&only=styles" in fn:
         return "site_modules.css"
+    elif "modules=startup&only=scripts" in fn:
+        return "startup_scripts.js"
     elif re.search("modules=skins.*&only=scripts", fn):
         return "skin_scripts.js"
-    elif re.search("modules=startup&only=scripts", fn):
-        return "startup_scripts.js"
     elif re.search("modules=.*ext.*&only=styles", fn):
         return "ext.css"
     else:
@@ -133,8 +133,8 @@ def find_files_to_be_renamed(root):
     for dir,orig_fn in files_rename:
         fn = orig_fn
         fn = re.sub(r'\?.*', '', fn)
-        fn = re.sub('"', '_q_', fn)
-        fn = re.sub(r'\*', '_star_', fn)
+        fn = fn.replace('"', '_q_')
+        fn = fn.replace('*', '_star_')
         add_file_to_rename_map(rename_map, dir, orig_fn, fn)
 
     # map loader names to more recognizable names
