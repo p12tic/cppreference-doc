@@ -132,9 +132,9 @@ def find_files_to_be_renamed(root):
 
     for dir,orig_fn in files_rename:
         fn = orig_fn
-        fn = re.sub('\?.*', '', fn)
+        fn = re.sub(r'\?.*', '', fn)
         fn = re.sub('"', '_q_', fn)
-        fn = re.sub('\*', '_star_', fn)
+        fn = re.sub(r'\*', '_star_', fn)
         add_file_to_rename_map(rename_map, dir, orig_fn, fn)
 
     # map loader names to more recognizable names
@@ -164,7 +164,7 @@ def find_html_files(root):
     return html_files
 
 def is_loader_link(target):
-    if re.match('https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
+    if re.match(r'https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
         return True
     return False
 
@@ -212,7 +212,7 @@ def trasform_relative_link(rename_map, target):
         target = target.replace(fn, new_fn)
     target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
     target = target.replace('../mwiki/','../common/')
-    target = re.sub('(\.php|\.css)\?.*', '\\1', target)
+    target = re.sub(r'(\.php|\.css)\?.*', r'\1', target)
     target = urllib.parse.quote(target)
     target = target.replace('%23', '#')
     return target
