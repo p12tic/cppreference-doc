@@ -224,7 +224,6 @@ output/reference:
 	./preprocess.py --src reference --dst output/reference
 
 output/reference_cssless: output/reference
-	cp -a output/reference output/reference_cssless
 	./preprocess_qch.py --src output/reference --dst output/reference_cssless
 
 # create indexes for the wiki
