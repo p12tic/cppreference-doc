@@ -1,0 +1,33 @@
+# Travis CI configuration file
+# http://about.travis-ci.org/docs/
+dist: trusty
+
+language: python
+
+# Available Python versions:
+# http://about.travis-ci.org/docs/user/ci-environment/#Python-VM-images
+python:
+  - "3.5"
+  - "3.6"
+
+# Dependencies installation commands
+install:
+  - pip install -U pip
+  - pip install -r requirements.txt
+
+#before_script:
+# - "if [[ $TRAVIS_PYTHON_VERSION != 2.6 ]]; then flake8 --config=config/flake8rc asm_collect.py asmtest tests; fi"
+# - "if [[ $TRAVIS_PYTHON_VERSION != 2.6 ]]; then pylint --rcfile=config/pylintrc asm_collect.py asmtest tests; fi"
+
+script:
+  - "python -m unittest discover"
+
+notifications:
+  email: false
+
+sudo: false
+branches:
+  only:
+    - master
+git:
+  depth: 300
