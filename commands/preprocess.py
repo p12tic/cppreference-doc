@@ -173,6 +173,28 @@ def transform_loader_link(target, file, root):
     abstarget = os.path.join(root, "common/" + convert_loader_name(target))
     return os.path.relpath(abstarget, os.path.dirname(file))
 
+def is_ranges_placeholder(target):
+    if re.match(r'https?://[a-z]+\.cppreference\.com/w/cpp/ranges(-[a-z]+)?-placeholder/.+', target):
+        return True
+    return False
+
+def transform_ranges_placeholder(target, file, root):
+    ranges = 'cpp/experimental/ranges' in file
+    repl = (r'\1/cpp/experimental/ranges/\2' if ranges else r'\1/cpp/\2')
+
+    if 'ranges-placeholder' in target:
+        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-placeholder/(.+)'
+    else:
+        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-([a-z]+)-placeholder/(.+)'
+        repl += (r'/\3' if ranges else r'/ranges/\3')
+
+    # Turn absolute placeholder link into site-relative link
+    reltarget = re.sub(match, repl + '.html', target)
+
+    # Make site-relative link file-relative
+    abstarget = os.path.join(root, reltarget)
+    return os.path.relpath(abstarget, os.path.dirname(file))
+
 def is_external_link(target):
     external_link_patterns = [
         'http://',
@@ -202,6 +224,9 @@ def trasform_relative_link(rename_map, target):
 def transform_link(rename_map, target, file, root):
     if is_loader_link(target):
         return transform_loader_link(target, file, root)
+
+    if is_ranges_placeholder(target):
+        return transform_ranges_placeholder(target, file, root)
 
     if is_external_link(target):
         return target
