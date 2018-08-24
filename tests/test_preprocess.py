@@ -101,4 +101,95 @@ class TestIsExternalLink(unittest.TestCase):
         self.assertEqual(False, is_external_link('ahttp://a'))
         self.assertEqual(False, is_external_link(' http://a'))
 
+class TestPlaceholderLinks(unittest.TestCase):
+    def test_is_ranges_placeholder(self):
+        match = [
+            'http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            'http://en.cppreference.com/w/cpp/ranges-placeholder/iterator/Incrementable',
+            'http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+            'http://en.cppreference.com/w/cpp/ranges-iterator-placeholder/dangling',
+            'http://en.cppreference.com/w/cpp/ranges-utility-placeholder/swap',
+        ]
+        for target in match:
+            self.assertTrue(is_ranges_placeholder(target),
+                msg="Should match '{}'".format(target))
 
+            target = target.replace("http://", "https://")
+            self.assertTrue(is_ranges_placeholder(target),
+                msg="Should match '{}'".format(target))
+
+        nomatch = [
+            'http://en.cppreference.com/w/cpp/ranges--placeholder/swap',
+            'https://en.cppreference.com/w/cpp/ranges--placeholder/swap',
+            'http://www.mediawiki.org/',
+            'http://en.cppreference.com/w/Cppreference:About',
+            'http://en.wikipedia.org/wiki/Normal_distribution',
+            'https://www.mediawiki.org/',
+            'https://en.cppreference.com/w/Cppreference:About',
+            'https://en.wikipedia.org/wiki/Normal_distribution',
+            'w/cpp.html',
+            'w/cpp/language/expressions.html',
+            '../utility/functional/is_placeholder.html',
+            'utility/functional/placeholders.html',
+            'w/cpp/experimental/ranges.html',
+        ]
+        for target in nomatch:
+            self.assertFalse(is_ranges_placeholder(target),
+                msg="Should not match '{}'".format(target))
+
+    def test_transform_ranges_placeholder(self):
+        entries = [
+            # (target, file, expected)
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+             'output/reference/en/cpp/concepts/ConvertibleTo.html',
+             'Assignable.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+             'output/reference/en/cpp/concepts/long/path/ConvertibleTo.html',
+             '../../Assignable.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+             'output/reference/en/cpp/other/path/ConvertibleTo.html',
+             '../../concepts/Assignable.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+             'output/reference/en/cpp/concepts/ConvertibleTo.html',
+             '../algorithm/ranges/all_any_none_of.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+             'output/reference/en/cpp/algorithm/ConvertibleTo.html',
+             'ranges/all_any_none_of.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+             'output/reference/en/cpp/experimental/ranges/concepts/View.html',
+             'Assignable.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+             'output/reference/en/cpp/experimental/ranges/View.html',
+             'concepts/Assignable.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+             'output/reference/en/cpp/experimental/ranges/range/View.html',
+             '../concepts/Assignable.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+             'output/reference/en/cpp/experimental/ranges/View.html',
+             'algorithm/all_any_none_of.html'),
+
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+             'output/reference/en/cpp/experimental/ranges/range/View.html',
+             '../algorithm/all_any_none_of.html'),
+        ]
+
+        # transform_ranges_placeholder(target, file, root)
+        #  target: the placeholder link
+        #  file:   path of the file that contains the link
+        #  root:   path to the site root (where '/' should link to)
+        root = "output/reference"
+        for target, file, expected in entries:
+            self.assertEqual(expected, transform_ranges_placeholder(target, file, root),
+                msg="target='{}', file='{}', root='{}'".format(target, file, root))
+
+            target = target.replace('http://', 'https://')
+            self.assertEqual(expected, transform_ranges_placeholder(target, file, root),
+                msg="target='{}', file='{}', root='{}'".format(target, file, root))
