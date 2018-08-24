@@ -179,6 +179,9 @@ def is_ranges_placeholder(target):
     return False
 
 def transform_ranges_placeholder(target, file, root):
+    # Placeholder link replacement is implemented in the MediaWiki site JS at
+    # https://en.cppreference.com/w/MediaWiki:Common.js
+
     ranges = 'cpp/experimental/ranges' in file
     repl = (r'\1/cpp/experimental/ranges/\2' if ranges else r'\1/cpp/\2')
 

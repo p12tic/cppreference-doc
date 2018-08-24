@@ -102,6 +102,9 @@ class TestIsExternalLink(unittest.TestCase):
         self.assertEqual(False, is_external_link(' http://a'))
 
 class TestPlaceholderLinks(unittest.TestCase):
+    # Placeholder link replacement is implemented in the MediaWiki site JS at
+    # https://en.cppreference.com/w/MediaWiki:Common.js
+
     def test_is_ranges_placeholder(self):
         match = [
             'http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
