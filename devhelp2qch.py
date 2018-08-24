@@ -24,6 +24,7 @@ from lxml import etree
 from copy import deepcopy
 import sys
 import argparse
+from index_transform.devhelp_qch import convert_devhelp_to_qch
 
 def main():
     parser = argparse.ArgumentParser(prog='devhelp2qch.py')
@@ -43,7 +44,7 @@ def main():
     file_tree = etree.parse(file_path, parser)
 
     out_f = open(dst_path, 'wb')
-    out_f.write(convert_devhelp_to_qch(in_tree.getroot(), file_tree.getroot(), v_folder)
+    out_f.write(convert_devhelp_to_qch(in_tree.getroot(), file_tree.getroot(), v_folder))
     out_f.close()
 
 if __name__ == "__main__":
