@@ -90,14 +90,14 @@ def add_file_to_rename_map(rename_map, dir, fn, new_fn):
 # Converts complex URL to resources supplied by MediaWiki loader to a simplified
 # name
 def convert_loader_name(fn):
-    if re.search("modules=site&only=scripts", fn):
+    if "modules=site&only=scripts" in fn:
         return "site_scripts.js"
-    elif re.search("modules=site&only=styles", fn):
+    elif "modules=site&only=styles" in fn:
         return "site_modules.css"
+    elif "modules=startup&only=scripts" in fn:
+        return "startup_scripts.js"
     elif re.search("modules=skins.*&only=scripts", fn):
         return "skin_scripts.js"
-    elif re.search("modules=startup&only=scripts", fn):
-        return "startup_scripts.js"
     elif re.search("modules=.*ext.*&only=styles", fn):
         return "ext.css"
     else:
@@ -132,9 +132,9 @@ def find_files_to_be_renamed(root):
 
     for dir,orig_fn in files_rename:
         fn = orig_fn
-        fn = re.sub('\?.*', '', fn)
-        fn = re.sub('"', '_q_', fn)
-        fn = re.sub('\*', '_star_', fn)
+        fn = re.sub(r'\?.*', '', fn)
+        fn = fn.replace('"', '_q_')
+        fn = fn.replace('*', '_star_')
         add_file_to_rename_map(rename_map, dir, orig_fn, fn)
 
     # map loader names to more recognizable names
@@ -164,13 +164,38 @@ def find_html_files(root):
     return html_files
 
 def is_loader_link(target):
-    if re.match('https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
+    if re.match(r'https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
         return True
     return False
 
 def transform_loader_link(target, file, root):
     # Absolute loader.php links need to be made relative
     abstarget = os.path.join(root, "common/" + convert_loader_name(target))
+    return os.path.relpath(abstarget, os.path.dirname(file))
+
+def is_ranges_placeholder(target):
+    if re.match(r'https?://[a-z]+\.cppreference\.com/w/cpp/ranges(-[a-z]+)?-placeholder/.+', target):
+        return True
+    return False
+
+def transform_ranges_placeholder(target, file, root):
+    # Placeholder link replacement is implemented in the MediaWiki site JS at
+    # https://en.cppreference.com/w/MediaWiki:Common.js
+
+    ranges = 'cpp/experimental/ranges' in file
+    repl = (r'\1/cpp/experimental/ranges/\2' if ranges else r'\1/cpp/\2')
+
+    if 'ranges-placeholder' in target:
+        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-placeholder/(.+)'
+    else:
+        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-([a-z]+)-placeholder/(.+)'
+        repl += (r'/\3' if ranges else r'/ranges/\3')
+
+    # Turn absolute placeholder link into site-relative link
+    reltarget = re.sub(match, repl + '.html', target)
+
+    # Make site-relative link file-relative
+    abstarget = os.path.join(root, reltarget)
     return os.path.relpath(abstarget, os.path.dirname(file))
 
 def is_external_link(target):
@@ -190,7 +215,7 @@ def trasform_relative_link(rename_map, target):
         target = target.replace(fn, new_fn)
     target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
     target = target.replace('../mwiki/','../common/')
-    target = re.sub('(\.php|\.css)\?.*', '\\1', target)
+    target = re.sub(r'(\.php|\.css)\?.*', r'\1', target)
     target = urllib.parse.quote(target)
     target = target.replace('%23', '#')
     return target
@@ -202,6 +227,9 @@ def trasform_relative_link(rename_map, target):
 def transform_link(rename_map, target, file, root):
     if is_loader_link(target):
         return transform_loader_link(target, file, root)
+
+    if is_ranges_placeholder(target):
+        return transform_ranges_placeholder(target, file, root)
 
     if is_external_link(target):
         return target
