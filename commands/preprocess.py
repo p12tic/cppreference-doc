@@ -309,6 +309,14 @@ def preprocess_html_file(root, fn, rename_map):
         elif el.text is not None and ('google-analytics.com/ga.js' in el.text or 'pageTracker' in el.text):
             el.getparent().remove(el)
 
+    # remove Carbon ads
+    for el in html.xpath('//script[@src]'):
+        if 'carbonads.com/carbon.js' in el.get('src'):
+            el.getparent().remove(el)
+    for el in html.xpath('/html/body/style'):
+        if el.text is not None and '#carbonads' in el.text:
+            el.getparent().remove(el)
+
     # apply changes to links caused by file renames
     for el in html.xpath('//*[@src or @href]'):
         if el.get('src') is not None:
