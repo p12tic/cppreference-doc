@@ -101,10 +101,10 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr>
-        <td style="border: solid 1px green;padding: 1.5px">1</td>
-        <td style="border: none;padding: 1.5px">2</td>
+        <td style="border:solid 1px green;padding:1.5px">1</td>
+        <td style="border:none;padding:1.5px">2</td>
       </tr>
     </table>
   </one_more_block>
@@ -127,7 +127,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr><td>little text</td></tr>
     </table>
   </one_more_block>
@@ -152,7 +152,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr><td>
         <span>blabla</span>
         <span>blabla2</span>
@@ -179,7 +179,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr><td>
         <span style="color:#008000; font-size:0.8em">(C++11)</span>
       </td></tr>
@@ -208,7 +208,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr><td>
         <span>
           <div>bla</div>
@@ -237,7 +237,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <span>
         <span style="display:table-cell;">2</span>
       </span>
@@ -264,7 +264,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr>
         <span>1</span>
         <td>2</td>
@@ -293,7 +293,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <tr>
         <span style="display:table-row;">
           blabla
@@ -323,7 +323,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
         expected = '''\
 <div>
   <one_more_block>
-    <table style="border: solid 1.5px red;padding: 2px">
+    <table style="border:solid 1.5px red;padding:2px">
       <span style="display:table-cell;">
         <span style="display:table-cell;">
           blabla
@@ -386,7 +386,7 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
 
         expected = '''\
 <tr>
-  <td style="white-space: nowrap;border-top: 1px solid #CCC" width="1px">
+  <td style="white-space:nowrap;border-top:1px solid #CCC" width="1px">
   </td>
 </tr>
 '''
@@ -458,7 +458,7 @@ text
 '''
 
         expected = '''\
-<div style="font-size: 10pt">
+<div style="font-size: 10.0pt">
 text
 </div>
 '''
@@ -478,8 +478,8 @@ text
 
 
         expected = '''\
-<div style="font-size: 15pt">
-  <div style="font-size: 15pt">
+<div style="font-size: 15.0pt">
+  <div style="font-size: 15.0pt">
     text
   </div>
 </div>'''
@@ -497,7 +497,7 @@ text
 '''
 
         expected = '''\
-<div style="font-size: 1pt">
+<div style="font-size: 1.0pt">
 text
 </div>
 '''
@@ -516,7 +516,7 @@ text
 '''
 
         expected = '''\
-<div style="font-size: 1pt">
+<div style="font-size: 1.0pt">
 text
 </div>
 '''
@@ -537,7 +537,7 @@ text
 
 
         expected = '''\
-<div style="font-size: 15pt">
+<div style="font-size: 15.0pt">
   <div style="font-size: 22.5pt">
     text
   </div>
@@ -561,7 +561,7 @@ text
 
 
         expected = '''\
-<div style="font-size: 15pt">
+<div style="font-size: 15.0pt">
   <div style="font-size: 22.5pt">
     text
     <div style="font-size: 22.5pt">
