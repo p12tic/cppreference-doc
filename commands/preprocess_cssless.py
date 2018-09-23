@@ -70,6 +70,7 @@ def preprocess_html_merge_css(root, src_path):
         premailer = Premailer(root, base_url=src_path,
                               disable_link_rewrites=True,
                               remove_classes=True,
+                              disable_validation=True,
                               drop_style_tags=True)
         root = premailer.transform().getroot()
 

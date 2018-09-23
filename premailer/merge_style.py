@@ -1,4 +1,5 @@
 import cssutils
+import re
 import threading
 from operator import itemgetter
 try:
@@ -14,12 +15,7 @@ def format_value(prop):
     else:
         return prop.propertyValue.cssText.strip()
 
-
-def csstext_to_pairs(csstext):
-    """
-    csstext_to_pairs takes css text and make it to list of
-    tuple of key,value.
-    """
+def csstext_to_pairs_slow(csstext):
     # The lock is required to avoid ``cssutils`` concurrency
     # issues documented in issue #65
     with csstext_to_pairs._lock:
@@ -31,6 +27,21 @@ def csstext_to_pairs(csstext):
             key=itemgetter(0)
         )
 
+def csstext_to_pairs(csstext):
+    """
+    csstext_to_pairs takes css text and make it to list of
+    tuple of key,value.
+    """
+    # Use regex for the fast path, fall back to full parsing if that fails
+    props = csstext.split(sep=';')
+    if any(p.count(':') > 1 for p in props):
+        return csstext_to_pairs_slow(csstext)
+    else:
+        pairs = (p.split(sep=':') for p in props)
+        return sorted(
+            [(p[0].strip(), p[1].strip()) for p in pairs if len(p) == 2],
+            key=itemgetter(0)
+        )
 
 csstext_to_pairs._lock = threading.RLock()
 
