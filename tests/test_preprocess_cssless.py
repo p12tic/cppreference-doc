@@ -614,9 +614,8 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
       </table>
     </td>
   </tr>
-
+</table>
 '''
-
         expected = '''\
 <table>
   <tr>
@@ -630,3 +629,4 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
   </tr>
 </table>
 '''
+        self.assert_converts_html(input, expected, test_fun)
