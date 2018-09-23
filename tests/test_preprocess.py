@@ -19,6 +19,8 @@
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
 from commands.preprocess import *
+import io
+import os
 import unittest
 from lxml import etree
 
@@ -189,3 +191,41 @@ class TestPlaceholderLinks(unittest.TestCase):
             target = target.replace('http://', 'https://')
             self.assertEqual(expected, transform_ranges_placeholder(target, file, root),
                 msg="target='{}', file='{}', root='{}'".format(target, file, root))
+
+class TestPreprocessHtml(unittest.TestCase):
+    def setUp(self):
+        self.testdata = os.path.join(os.path.dirname(__file__), 'preprocess_data')
+        infile = os.path.join(self.testdata, "fabs.html")
+        self.parser = etree.HTMLParser()
+        self.html = etree.parse(infile, self.parser)
+
+    # Check whether the HTML matches the contents of the specified test data file
+    def check_output(self, expected_file):
+        with open(os.path.join(self.testdata, expected_file), 'rb') as f:
+            expected = f.read()
+        with io.BytesIO() as buf:
+            self.html.write(buf, encoding='utf-8', method='html')
+            actual = buf.getvalue()
+
+        self.assertEqual(expected, actual)
+        pass
+
+    def test_remove_noprint(self):
+        remove_noprint(self.html)
+        self.check_output("fabs_noprint.html")
+
+    def test_remove_see_also(self):
+        remove_see_also(self.html)
+        self.check_output("fabs_seealso.html")
+
+    def test_remove_google_analytics(self):
+        remove_google_analytics(self.html)
+        self.check_output("fabs_ga.html")
+
+    def test_remove_ads(self):
+        remove_ads(self.html)
+        self.check_output("fabs_ads.html")
+
+    def remove_unused_external(self):
+        # TODO split out and test
+        pass
