@@ -245,18 +245,16 @@ def has_class(el, *classes_to_check):
             return True
     return False
 
-def preprocess_html_file(root, fn, rename_map):
-    parser = etree.HTMLParser()
-    html = etree.parse(fn, parser)
-
-    # remove non-printable elements
+# remove non-printable elements
+def remove_noprint(html):
     for el in html.xpath('//*'):
         if has_class(el, 'noprint', 'editsection'):
             el.getparent().remove(el)
         elif el.get('id') in ['toc', 'catlinks']:
             el.getparent().remove(el)
 
-    # remove see also links between C and C++ documentations
+# remove see also links between C and C++ documentations
+def remove_see_also(html):
     for el in html.xpath('//tr[@class]'):
         if not has_class(el, 't-dcl-list-item'):
             continue
@@ -295,25 +293,36 @@ def preprocess_html_file(root, fn, rename_map):
         el.getparent().remove(el)
         next.getparent().remove(next)
 
-    # remove external links to unused resources
-    for el in html.xpath('/html/head/link'):
-        if el.get('rel') in [ 'alternate', 'search', 'edit', 'EditURI' ]:
-            el.getparent().remove(el)
-
-    # remove Google Analytics scripts
+# remove Google Analytics scripts
+def remove_google_analytics(html):
     for el in html.xpath('/html/body/script'):
         if el.get('src') is not None and 'google-analytics.com/ga.js' in el.get('src'):
             el.getparent().remove(el)
         elif el.text is not None and ('google-analytics.com/ga.js' in el.text or 'pageTracker' in el.text):
             el.getparent().remove(el)
 
-    # remove Carbon ads
+# remove Carbon ads
+def remove_ads(html):
     for el in html.xpath('//script[@src]'):
         if 'carbonads.com/carbon.js' in el.get('src'):
             el.getparent().remove(el)
     for el in html.xpath('/html/body/style'):
         if el.text is not None and '#carbonads' in el.text:
             el.getparent().remove(el)
+
+def preprocess_html_file(root, fn, rename_map):
+    parser = etree.HTMLParser()
+    html = etree.parse(fn, parser)
+
+    # remove external links to unused resources
+    for el in html.xpath('/html/head/link'):
+        if el.get('rel') in [ 'alternate', 'search', 'edit', 'EditURI' ]:
+            el.getparent().remove(el)
+
+    remove_noprint(html)
+    remove_see_also(html)
+    remove_google_analytics(html)
+    remove_ads(html)
 
     # apply changes to links caused by file renames
     for el in html.xpath('//*[@src or @href]'):
