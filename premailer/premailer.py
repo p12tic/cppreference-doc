@@ -121,6 +121,7 @@ class Premailer(object):
                  preserve_inline_attachments=True,
                  exclude_pseudoclasses=True,
                  keep_style_tags=False,
+                 drop_style_tags=False,
                  include_star_selectors=False,
                  remove_classes=False,
                  capitalize_float_margin=False,
@@ -156,6 +157,9 @@ class Premailer(object):
         # whether to delete the <style> tag once it's been processed
         # this will always preserve the original css
         self.keep_style_tags = keep_style_tags
+        # whether to delete the <style> tag even if there are leftover
+        # rules
+        self.drop_style_tags = drop_style_tags
         self.remove_classes = remove_classes
         self.capitalize_float_margin = capitalize_float_margin
         # whether to process or ignore selectors like '* { foo:bar; }'
@@ -177,6 +181,9 @@ class Premailer(object):
         self.disable_leftover_css = disable_leftover_css
         self.align_floating_images = align_floating_images
         self.remove_unset_properties = remove_unset_properties
+
+        if keep_style_tags and drop_style_tags:
+            raise ValueError('Cannot both keep and drop <style> tags')
 
         if cssutils_logging_handler:
             cssutils.log.addHandler(cssutils_logging_handler)
@@ -362,7 +369,10 @@ class Premailer(object):
             index += 1
             rules.extend(these_rules)
             parent_of_element = element.getparent()
-            if these_leftover or self.keep_style_tags:
+            if (
+                not self.drop_style_tags and
+                (these_leftover or self.keep_style_tags)
+            ):
                 if is_style:
                     style = element
                 else:
@@ -641,7 +651,10 @@ class Premailer(object):
         """
         these_rules, these_leftover = self._parse_style_rules(css_text, index)
         rules.extend(these_rules)
-        if head is not None and (these_leftover or self.keep_style_tags):
+        if (
+            not self.drop_style_tags and head is not None and
+            (these_leftover or self.keep_style_tags)
+        ):
             style = etree.Element('style')
             style.attrib['type'] = 'text/css'
             if self.keep_style_tags:

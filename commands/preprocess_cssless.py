@@ -20,7 +20,6 @@ import cssutils
 from lxml import html
 from lxml import etree
 from io import StringIO
-from lxml.etree import strip_elements
 import logging
 import re
 import os
@@ -35,7 +34,6 @@ def preprocess_html_merge_cssless(src_path, dst_path):
         root = etree.fromstring(stripped, parser)
 
     output = preprocess_html_merge_css(root, src_path)
-    strip_style_tags(root)
     remove_display_none(root)
     convert_span_tables_to_tr_td(root)
     convert_inline_block_elements_to_table(root)
@@ -70,13 +68,12 @@ def preprocess_html_merge_css(root, src_path):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         premailer = Premailer(root, base_url=src_path,
-                              disable_link_rewrites=True, remove_classes=True)
+                              disable_link_rewrites=True,
+                              remove_classes=True,
+                              drop_style_tags=True)
         root = premailer.transform().getroot()
 
     return output.getvalue()
-
-def strip_style_tags(root):
-    strip_elements(root, 'style')
 
 def needs_td_wrapper(element):
     # element has table:row
