@@ -23,7 +23,6 @@ import os
 import shutil
 
 def main():
-
     parser = argparse.ArgumentParser(prog='preprocess.py')
     parser.add_argument('--src', type=str, help='Source directory where raw website copy resides')
     parser.add_argument('--dst', type=str, help='Destination folder to put preprocessed archive to')

@@ -101,8 +101,7 @@ def convert_loader_name(fn):
     elif re.search("modules=.*ext.*&only=styles", fn):
         return "ext.css"
     else:
-        raise Exception('Loader file {0} does not match any known files'\
-                            .format(fn))
+        raise Exception('Loader file {0} does not match any known files'.format(fn))
 
 def find_files_to_be_renamed(root):
     # Returns a rename map: array of tuples each of which contain three strings:
@@ -330,7 +329,6 @@ def preprocess_html_file(root, fn, rename_map):
     html.write(fn, encoding='utf-8', method='html')
 
 def preprocess_css_file(fn):
-
     f = open(fn, "r", encoding='utf-8')
     text = f.read()
     f.close()

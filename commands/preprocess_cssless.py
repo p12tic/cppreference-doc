@@ -46,8 +46,7 @@ def preprocess_html_merge_cssless(src_path, dst_path):
     os.makedirs(head, exist_ok=True)
 
     with open(dst_path, 'wb') as a_file:
-        root.getroottree().write(a_file, pretty_print=True, method="html",
-                                 encoding='utf-8')
+        root.getroottree().write(a_file, pretty_print=True, method="html", encoding='utf-8')
     return output
 
 def silence_cssutils_warnings():
@@ -94,7 +93,6 @@ def remove_css_property(element, property_name):
     if len(element.get('style')) == 0:
         element.attrib.pop('style')
 
-
 def get_css_property_value(el, prop_name):
     atrib = cssutils.parseStyle(el.get('style'))
     value = atrib.getPropertyCSSValue(prop_name)
@@ -127,8 +125,7 @@ def convert_span_table_to_tr_td(table_el):
     remove_css_property(table_el, 'display')
 
     for element in table_el.getchildren():
-        tag_renamed = convert_display_property_to_html_tag(element, 'tr',
-                                                           'table-row')
+        tag_renamed = convert_display_property_to_html_tag(element, 'tr', 'table-row')
         if tag_renamed:
             if needs_td_wrapper(element):
                 td = etree.Element('td')
@@ -140,8 +137,7 @@ def convert_span_table_to_tr_td(table_el):
                 element.text = None
             else:
                 for child in element:
-                    convert_display_property_to_html_tag(child, 'td',
-                                                         'table-cell')
+                    convert_display_property_to_html_tag(child, 'td', 'table-cell')
 
 def wrap_element(el, tag_name, style):
     new_el = etree.Element(tag_name)
@@ -155,7 +151,6 @@ def remove_display_none(root_el):
             el.getparent().remove(el)
 
 def convert_span_tables_to_tr_td(root_el):
-
     # note that the following xpath expressions match only the prefix of the
     # CSS property value
     table_els = root_el.xpath('//span[contains(@style, "display:table")]')
@@ -248,7 +243,6 @@ def convert_table_border_top_to_tr_background(root_el):
                 border_td.set('style', 'height:1px; font-size:1px; '
                                        'background-color: #ccc;')
                 tr_el.addprevious(border_tr)
-
 
 def convert_zero_td_width_to_nonzero(root_el):
     for el in root_el.xpath('//*[contains(@style, "width")]'):

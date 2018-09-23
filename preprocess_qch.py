@@ -24,7 +24,6 @@ import os
 import shutil
 
 def main():
-
     parser = argparse.ArgumentParser(prog='preprocess_qch.py')
     parser.add_argument('--src', required=True, type=str,
             help='Source directory where raw website copy resides')
@@ -65,4 +64,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

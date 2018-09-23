@@ -55,7 +55,6 @@ class TestPreprocessHtmlMergeCss(unittest.TestCase):
         os.remove(dst_path)
 
 class HTMLTestBase(unittest.TestCase):
-
     def setUp(self):
         self.maxDiff = None
         silence_cssutils_warnings()
@@ -73,11 +72,8 @@ class HTMLTestBase(unittest.TestCase):
 
         self.assertEqual(expected_output, output)
 
-
 class TestConvertSpanTablesToTrTd(HTMLTestBase):
-
     def assert_processes_table(self, input, expected_output):
-
         def test_fun(root):
             convert_span_tables_to_tr_td(root)
             return root
@@ -97,7 +93,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -123,7 +118,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -148,7 +142,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -175,7 +168,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -204,7 +196,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -233,7 +224,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -260,7 +250,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -289,7 +278,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -319,7 +307,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
   </one_more_block>
 </div>
 '''
-
         expected = '''\
 <div>
   <one_more_block>
@@ -335,9 +322,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
 '''
         self.assert_processes_table(input, expected)
 
-
 class TestConvertInlineBlockElementsToTable(HTMLTestBase):
-
     def perform_test(self, input, expected_output):
         def test_fun(root):
             convert_inline_block_elements_to_table(root)
@@ -360,7 +345,6 @@ class TestConvertInlineBlockElementsToTable(HTMLTestBase):
   <div style="display:inline-table;"/>
 </div>
 '''
-
         expected = '''\
 <div>
   <table style="padding:0; margin:0; border:none;"><tr><td><div style="display:inline-block;"/>
@@ -369,9 +353,7 @@ class TestConvertInlineBlockElementsToTable(HTMLTestBase):
 '''
         self.perform_test(input, expected)
 
-
 class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
-
     def test_css_property(self):
         def test_fun(root):
             convert_zero_td_width_to_nonzero(root)
@@ -383,7 +365,6 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
   </td>
 </tr>
 '''
-
         expected = '''\
 <tr>
   <td style="white-space: nowrap;border-top: 1px solid #CCC" width="1px">
@@ -403,7 +384,6 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
   </td>
 </tr>
 '''
-
         expected = '''\
 <tr>
   <td width="1px">
@@ -412,9 +392,7 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
 '''
         self.assert_converts_html(input, expected, test_fun)
 
-
 class TestApplyFontSize(unittest.TestCase):
-
     def test_em(self):
         self.assertEqual(10, apply_font_size('1em', 10))
         self.assertEqual(8, apply_font_size('0.8em', 10))
@@ -443,9 +421,7 @@ class TestApplyFontSize(unittest.TestCase):
         self.assertEqual(15, apply_font_size(' 150% ', 10))
         self.assertEqual(15, apply_font_size('150% ', 10))
 
-
 class TestConvertFontSizePropertyToPt(HTMLTestBase):
-
     def test_simple(self):
         def test_fun(root):
             convert_font_size_property_to_pt(root, 10)
@@ -456,7 +432,6 @@ class TestConvertFontSizePropertyToPt(HTMLTestBase):
 text
 </div>
 '''
-
         expected = '''\
 <div style="font-size: 10pt">
 text
@@ -475,8 +450,6 @@ text
     text
   </div>
 </div>'''
-
-
         expected = '''\
 <div style="font-size: 15pt">
   <div style="font-size: 15pt">
@@ -495,7 +468,6 @@ text
 text
 </div>
 '''
-
         expected = '''\
 <div style="font-size: 1pt">
 text
@@ -514,14 +486,12 @@ text
 text
 </div>
 '''
-
         expected = '''\
 <div style="font-size: 1pt">
 text
 </div>
 '''
         self.assert_converts_html(input, expected, test_fun)
-
 
     def test_inherits(self):
         def test_fun(root):
@@ -534,8 +504,6 @@ text
     text
   </div>
 </div>'''
-
-
         expected = '''\
 <div style="font-size: 15pt">
   <div style="font-size: 22.5pt">
@@ -558,8 +526,6 @@ text
     </div>
   </div>
 </div>'''
-
-
         expected = '''\
 <div style="font-size: 15pt">
   <div style="font-size: 22.5pt">
@@ -571,9 +537,7 @@ text
 </div>'''
         self.assert_converts_html(input, expected, test_fun)
 
-
 class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
-
     def test_no_border(self):
         def test_fun(root):
             convert_table_border_top_to_tr_background(root)
@@ -586,7 +550,6 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
   </tr>
 </table>
 '''
-
         self.assert_converts_html(input, input, test_fun)
 
     def test_single_td(self):
@@ -601,7 +564,6 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
   </tr>
 </table>
 '''
-
         expected = '''\
 <table>
   <tr><td colspan="1" style="height:1px; font-size:1px; background-color: #ccc;"/></tr><tr>
@@ -609,7 +571,6 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
   </tr>
 </table>
 '''
-
         self.assert_converts_html(input, expected, test_fun)
 
     def test_multiple_td(self):
@@ -626,7 +587,6 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
  </tr>
 </table>
 '''
-
         expected = '''\
 <table>
  <tr><td colspan="3" style="height:1px; font-size:1px; background-color: #ccc;"/></tr><tr>
@@ -636,7 +596,6 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
  </tr>
 </table>
 '''
-
         self.assert_converts_html(input, expected, test_fun)
 
     def test_subtable_does_not_affect_parent_table(self):
