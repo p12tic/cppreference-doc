@@ -17,7 +17,7 @@
 
 import os
 import unittest
-from commands.preprocess_cssless import *
+from commands.preprocess_cssless import * #pylint: disable=unused-wildcard-import
 
 class TestPreprocessHtmlMergeCss(unittest.TestCase):
     def test_preprocess_html_merge_cssless(self):

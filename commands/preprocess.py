@@ -116,7 +116,7 @@ def find_files_to_be_renamed(root):
                                 # consistent and short file names because we
                                 # modify some of them later in the pipeline
 
-    for dir, dirnames, filenames in os.walk(root):
+    for dir, _, filenames in os.walk(root):
         filenames_loader = set(fnmatch.filter(filenames, 'load.php[?]*'))
         # match any filenames with '?"*' characters
         filenames_rename = set(fnmatch.filter(filenames, '*[?"*]*'))
@@ -129,7 +129,7 @@ def find_files_to_be_renamed(root):
         for fn in filenames_rename:
             files_rename.append((dir, fn))
 
-    for dir,orig_fn in files_rename:
+    for dir, orig_fn in files_rename:
         fn = orig_fn
         fn = re.sub(r'\?.*', '', fn)
         fn = fn.replace('"', '_q_')
@@ -137,7 +137,7 @@ def find_files_to_be_renamed(root):
         add_file_to_rename_map(rename_map, dir, orig_fn, fn)
 
     # map loader names to more recognizable names
-    for dir,fn in files_loader:
+    for dir, fn in files_loader:
         new_fn = convert_loader_name(fn)
         add_file_to_rename_map(rename_map, dir, fn, new_fn)
 
@@ -157,7 +157,7 @@ def rename_files(rename_map):
 def find_html_files(root):
     # find files that need to be preprocessed
     html_files = []
-    for dir, dirnames, filenames in os.walk(root):
+    for dir, _, filenames in os.walk(root):
         for filename in fnmatch.filter(filenames, '*.html'):
             html_files.append(os.path.join(dir, filename))
     return html_files
@@ -210,7 +210,7 @@ def is_external_link(target):
 
 def trasform_relative_link(rename_map, target):
     target = urllib.parse.unquote(target)
-    for dir,fn,new_fn in rename_map:
+    for _, fn, new_fn in rename_map:
         target = target.replace(fn, new_fn)
     target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
     target = target.replace('../mwiki/','../common/')

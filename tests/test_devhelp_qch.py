@@ -18,7 +18,7 @@
 from lxml import etree
 import os
 import unittest
-from index_transform.devhelp_qch import *
+from index_transform.devhelp_qch import * #pylint: disable=unused-wildcard-import
 
 class TestConvertDevhelpToQch(unittest.TestCase):
     def test_convert_devhelp_to_qch(self):
