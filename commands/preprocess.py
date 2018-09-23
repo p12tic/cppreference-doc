@@ -235,7 +235,7 @@ def transform_link(rename_map, target, file, root):
 
     return trasform_relative_link(rename_map, target)
 
-def has_class(el, classes_to_check):
+def has_class(el, *classes_to_check):
     value = el.get('class')
     if value is None:
         return False
@@ -246,24 +246,23 @@ def has_class(el, classes_to_check):
     return False
 
 def preprocess_html_file(root, fn, rename_map):
-
     parser = etree.HTMLParser()
     html = etree.parse(fn, parser)
 
     # remove non-printable elements
     for el in html.xpath('//*'):
-        if has_class(el, ['noprint', 'editsection']):
+        if has_class(el, 'noprint', 'editsection'):
             el.getparent().remove(el)
-        if el.get('id') in ['toc', 'catlinks']:
+        elif el.get('id') in ['toc', 'catlinks']:
             el.getparent().remove(el)
 
     # remove see also links between C and C++ documentations
     for el in html.xpath('//tr[@class]'):
-        if not has_class(el, ['t-dcl-list-item']):
+        if not has_class(el, 't-dcl-list-item'):
             continue
 
         child_tds = el.xpath('.//td/div[@class]')
-        if not any(has_class(td, ['t-dcl-list-see']) for td in child_tds):
+        if not any(has_class(td, 't-dcl-list-see') for td in child_tds):
             continue
 
         # remove preceding separator, if any
