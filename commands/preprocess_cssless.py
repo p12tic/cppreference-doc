@@ -20,8 +20,8 @@ import cssutils
 from lxml import html
 from lxml import etree
 from io import StringIO
-from lxml.etree import strip_elements
 import logging
+import re
 import os
 import warnings
 import io
@@ -34,7 +34,6 @@ def preprocess_html_merge_cssless(src_path, dst_path):
         root = etree.fromstring(stripped, parser)
 
     output = preprocess_html_merge_css(root, src_path)
-    strip_style_tags(root)
     remove_display_none(root)
     convert_span_tables_to_tr_td(root)
     convert_inline_block_elements_to_table(root)
@@ -69,49 +68,71 @@ def preprocess_html_merge_css(root, src_path):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         premailer = Premailer(root, base_url=src_path,
-                              disable_link_rewrites=True, remove_classes=True)
+                              disable_link_rewrites=True,
+                              remove_classes=True,
+                              disable_validation=True,
+                              drop_style_tags=True)
         root = premailer.transform().getroot()
 
     return output.getvalue()
-
-def strip_style_tags(root):
-    strip_elements(root, 'style')
 
 def needs_td_wrapper(element):
     # element has table:row
     if len(element.getchildren()) == 0:
         return True
     for el in element.getchildren():
-        if has_css_property_value(el, 'display', 'table-row') or \
-                has_css_property_value(el, 'display', 'table-cell'):
+        if get_css_property_value(el, 'display') in ('table-row', 'table-cell'):
             return False
     return True
 
-def remove_css_property(element, property_name):
-    atrib = cssutils.parseStyle(element.get('style'))
-    atrib.removeProperty(property_name)
-    element.set('style', atrib.getCssText(separator=''))
-    if len(element.get('style')) == 0:
-        element.attrib.pop('style')
+def remove_css_property(el, prop_name):
+    if el.get('style') is None:
+        return
 
+    decls = re.split(r'\s*;\s*', el.get('style'))
+    if decls[-1] == '':
+        decls.pop()
+
+    idx = next((i for i,v in enumerate(decls) if v.startswith(prop_name + ':')), None)
+    if idx is not None:
+        del decls[idx]
+        if len(decls) == 0:
+            el.attrib.pop('style')
+        else:
+            el.set('style', ';'.join(decls))
 
 def get_css_property_value(el, prop_name):
-    atrib = cssutils.parseStyle(el.get('style'))
-    value = atrib.getPropertyCSSValue(prop_name)
-    if value:
-        return value.cssText
+    if el.get('style') is None:
+        return None
+
+    for decl in re.split(r'\s*;\s*', el.get('style')):
+        if decl.startswith(prop_name + ':'):
+            return decl[len(prop_name)+1:].strip()
     return None
 
 def has_css_property_value(el, prop_name, prop_value):
-    value = get_css_property_value(el, prop_name)
-    if value and value == prop_value:
-        return True
-    return False
+    if el.get('style') is None:
+        return False
+
+    regex = r'(^|;)\s*{}:\s*{}(;|$)'.format(re.escape(prop_name), re.escape(prop_value))
+    return re.search(regex, el.get('style')) is not None
 
 def set_css_property_value(el, prop_name, prop_value):
-    atrib = cssutils.parseStyle(el.get('style'))
-    atrib.setProperty(prop_name, prop_value)
-    el.set('style', atrib.getCssText(separator=''))
+    decl = '{}: {}'.format(prop_name, prop_value)
+    style = el.get('style')
+    if style is None or style == '':
+        el.set('style', decl)
+    else:
+        decls = re.split(r'\s*;\s*', style)
+        if decls[-1] == '':
+            decls.pop()
+
+        try:
+            idx = next(i for i,v in enumerate(decls) if v.startswith(prop_name + ':'))
+            decls[idx] = decl
+        except StopIteration:
+            decls.append(decl)
+        el.set('style', ';'.join(decls))
 
 def convert_display_property_to_html_tag(element, element_tag, display_value):
     str_attrib_value = element.get('style')
@@ -170,8 +191,7 @@ def convert_span_tables_to_tr_td(root_el):
 
 def convert_inline_block_elements_to_table(root_el):
     for el in root_el.xpath('//*[contains(@style, "display")]'):
-        if not has_css_property_value(el, 'display', 'inline-block') and \
-                not has_css_property_value(el, 'display', 'inline-table'):
+        if get_css_property_value(el, 'display') not in ('inline-block', 'inline-table'):
             continue
 
         elements_to_put_into_table = [el]
@@ -179,8 +199,7 @@ def convert_inline_block_elements_to_table(root_el):
 
         # find subsequent inline block elements
         while el is not None:
-            if has_css_property_value(el, 'display', 'inline-block') or \
-                    has_css_property_value(el, 'display', 'inline-table'):
+            if get_css_property_value(el, 'display') in ('inline-block', 'inline-table'):
                 elements_to_put_into_table.append(el)
             else:
                 break
