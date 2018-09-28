@@ -32,41 +32,43 @@ VERSION=20180311
 
 #STANDARD RULES
 
-all: doc_devhelp doc_qch doc_doxygen
+all: doc_html doc_devhelp doc_qch doc_doxygen
 
-DISTFILES=	\
-		commands/				\
-		gadgets/				\
-		headers/				\
-		index_transform/				\
-		images/					\
-		index_transform/		\
-		reference/				\
-		skins/					\
-		tests/					\
-		build_link_map.py		\
-		ddg_parse_html.py		\
-		devhelp2qch.py			\
-		fix_devhelp-links.py	\
-		index2autolinker.py	\
-		index2browser.py		\
-		index2ddg.py			\
-		index2devhelp.py		\
-		index2doxygen-tag.py		\
-		index2highlight.py		\
-		index2search.py			\
-		index-chapters-c.xml	\
-		index-chapters-cpp.xml	\
-		index-cpp-search-app.txt \
-		index-functions.README	\
-		index-functions-c.xml	\
-		index-functions-cpp.xml	\
-		link_map.py		\
-		preprocess.py			\
-		preprocess-css.css		\
-		test.sh					\
-		xml_utils.py			\
-		Makefile				\
+DISTFILES= \
+		commands/                   \
+		gadgets/                    \
+		headers/                    \
+		images/                     \
+		index_transform/            \
+		premailer/                  \
+		reference/                  \
+		skins/                      \
+		tests/                      \
+		build_link_map.py           \
+		ddg_parse_html.py           \
+		devhelp2qch.py              \
+		export.py                   \
+		fix_devhelp-links.py        \
+		index2autolinker.py         \
+		index2browser.py            \
+		index2ddg.py                \
+		index2devhelp.py            \
+		index2doxygen-tag.py        \
+		index2highlight.py          \
+		index2search.py             \
+		index-chapters-c.xml        \
+		index-chapters-cpp.xml      \
+		index-cpp-search-app.txt    \
+		index-functions.README      \
+		index-functions-c.xml       \
+		index-functions-cpp.xml     \
+		link_map.py                 \
+		preprocess.py               \
+		preprocess-css.css          \
+		preprocess_qch.py           \
+		test.sh                     \
+		xml_utils.py                \
+		Makefile                    \
 		README.md
 
 CLEANFILES= \
@@ -81,7 +83,7 @@ ifeq ($(UNAME_S),Linux)
 endif
 
 clean:
-		rm -rf $(CLEANFILES)
+	rm -rf $(CLEANFILES)
 
 check:
 
@@ -92,12 +94,13 @@ dist: clean
 	rm -rf "cppreference-doc-$(VERSION)"
 
 install: all
-	# install the devhelp documentation
+	# install the HTML book
 	pushd "output/reference" > /dev/null; \
 	find . -type f \
 		-exec install -DT -m 644 '{}' "$(DESTDIR)$(docdir)/html/{}" \; ; \
 	popd > /dev/null
 
+	# install the devhelp documentation
 	install -DT -m 644 "output/cppreference-doc-en-c.devhelp2" \
 		"$(DESTDIR)$(bookdir)/cppreference-doc-en-c/cppreference-doc-en-c.devhelp2"
 	install -DT -m 644 "output/cppreference-doc-en-cpp.devhelp2" \
@@ -154,18 +157,14 @@ output/link-map.xml: output/reference
 	./build_link_map.py
 
 #build the .devhelp2 index
-output/cppreference-doc-en-c.devhelp2: 		\
-		output/reference 		\
-		output/link-map.xml
+output/cppreference-doc-en-c.devhelp2: output/reference output/link-map.xml
 	./index2devhelp.py $(docdir)/html index-chapters-c.xml  \
 		"C Standard Library reference" "cppreference-doc-en-c" "c" \
 		index-functions-c.xml "output/devhelp-index-c.xml"
 	./fix_devhelp-links.py "output/devhelp-index-c.xml"  \
 		"output/cppreference-doc-en-c.devhelp2"
 
-output/cppreference-doc-en-cpp.devhelp2:	\
-		output/reference 		\
-		output/link-map.xml
+output/cppreference-doc-en-cpp.devhelp2: output/reference output/link-map.xml
 	./index2devhelp.py $(docdir)/html index-chapters-cpp.xml  \
 		"C++ Standard Library reference" "cppreference-doc-en-cpp" "cpp" \
 		index-functions-cpp.xml "output/devhelp-index-cpp.xml"
@@ -183,9 +182,7 @@ output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
 
 	rm -f "output/reference_cssless/qch.xml"
 
-output/qch-help-project-cpp.xml: \
-		output/cppreference-doc-en-cpp.devhelp2 \
-		output/reference_cssless
+output/qch-help-project-cpp.xml: output/cppreference-doc-en-cpp.devhelp2 output/reference_cssless
 	#build the file list
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><files>" > "output/qch-files.xml"
 
@@ -202,17 +199,13 @@ output/qch-help-project-cpp.xml: \
 		--virtual_folder=cpp --file_list=output/qch-files.xml
 
 # build doxygen tag file
-output/cppreference-doxygen-local.tag.xml: 		\
-		output/reference 		\
-		output/link-map.xml
+output/cppreference-doxygen-local.tag.xml: output/reference output/link-map.xml
 	./index2doxygen-tag.py "output/link-map.xml" \
 		"index-functions-cpp.xml" \
 		"index-chapters-cpp.xml" \
 		"output/cppreference-doxygen-local.tag.xml"
 
-output/cppreference-doxygen-web.tag.xml: 		\
-		output/reference 		\
-		output/link-map.xml
+output/cppreference-doxygen-web.tag.xml: output/reference output/link-map.xml
 	./index2doxygen-tag.py web \
 		"index-functions-cpp.xml" \
 		"index-chapters-cpp.xml" \
@@ -249,12 +242,12 @@ source:
 	regex+="|.*action=.*|.*printable=.*|.*en.cppreference.com/book.*" ; \
 	echo $$regex ; \
 	wget --adjust-extension --page-requisites --convert-links \
-	  --force-directories --recursive --level=15 \
-	  --span-hosts --domains=en.cppreference.com,upload.cppreference.com \
-	  --reject-regex $$regex \
-	  --timeout=5 --tries=50 --no-verbose \
-	  --retry-connrefused --waitretry=10 --read-timeout=20 \
-	  http://en.cppreference.com/w/ ; \
+		--force-directories --recursive --level=15 \
+		--span-hosts --domains=en.cppreference.com,upload.cppreference.com \
+		--reject-regex $$regex \
+		--timeout=5 --tries=50 --no-verbose \
+		--retry-connrefused --waitretry=10 --read-timeout=20 \
+		http://en.cppreference.com/w/ ; \
 	popd > /dev/null
 
 	./export.py --url=http://en.cppreference.com/mwiki reference/cppreference-export-ns0,4,8,10.xml 0 4 8 10
