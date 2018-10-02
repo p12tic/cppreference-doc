@@ -21,10 +21,12 @@ from lxml import html
 from lxml import etree
 from io import StringIO
 from lxml.etree import strip_elements
+import copy
+import functools
+import io
 import logging
 import os
 import warnings
-import io
 
 def preprocess_html_merge_cssless(src_path, dst_path):
     with open(src_path, 'r') as a_file:
@@ -86,28 +88,49 @@ def needs_td_wrapper(element):
             return False
     return True
 
-def remove_css_property(element, property_name):
-    atrib = cssutils.parseStyle(element.get('style'))
-    atrib.removeProperty(property_name)
-    element.set('style', atrib.getCssText(separator=''))
-    if len(element.get('style')) == 0:
-        element.attrib.pop('style')
+@functools.lru_cache(maxsize=None)
+def cssutils_parse_style_cached_nocopy(style):
+    return cssutils.parseStyle(style)
 
-def get_css_property_value(el, prop_name):
-    atrib = cssutils.parseStyle(el.get('style'))
+def cssutils_parse_style_cached(style):
+    return copy.deepcopy(cssutils_parse_style_cached_nocopy(style))
+
+@functools.lru_cache(maxsize=None)
+def get_css_style_property_value(style, prop_name):
+    atrib = cssutils_parse_style_cached_nocopy(style)
     value = atrib.getPropertyCSSValue(prop_name)
     if value:
         return value.cssText
     return None
 
-def has_css_property_value(el, prop_name, prop_value):
-    value = get_css_property_value(el, prop_name)
+@functools.lru_cache(maxsize=None)
+def has_css_style_property_value(style, prop_name, prop_value):
+    value = get_css_style_property_value(style, prop_name)
     if value and value == prop_value:
         return True
     return False
 
+@functools.lru_cache(maxsize=None)
+def remove_css_style_property(style, property_name):
+    atrib = cssutils_parse_style_cached(style)
+    atrib.removeProperty(property_name)
+    return atrib.getCssText(separator='')
+
+def remove_css_property(element, property_name):
+    new_style = remove_css_style_property(element.get('style'), property_name)
+    if len(new_style) > 0:
+        element.set('style', new_style)
+    elif 'style' in element.attrib:
+        element.attrib.pop('style')
+
+def get_css_property_value(el, prop_name):
+    return get_css_style_property_value(el.get('style'), prop_name)
+
+def has_css_property_value(el, prop_name, prop_value):
+    return has_css_style_property_value(el.get('style'), prop_name, prop_value)
+
 def set_css_property_value(el, prop_name, prop_value):
-    atrib = cssutils.parseStyle(el.get('style'))
+    atrib = cssutils_parse_style_cached(el.get('style'))
     atrib.setProperty(prop_name, prop_value)
     el.set('style', atrib.getCssText(separator=''))
 
