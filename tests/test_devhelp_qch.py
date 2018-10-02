@@ -18,15 +18,13 @@
 from lxml import etree
 import os
 import unittest
-from index_transform.devhelp_qch import *
+from index_transform.devhelp_qch import * #pylint: disable=unused-wildcard-import
 
 class TestConvertDevhelpToQch(unittest.TestCase):
     def test_convert_devhelp_to_qch(self):
         dir_path = os.path.dirname(__file__)
-        index_fn = os.path.join(dir_path,
-                'devhelp_qch_data/devhelp-index.xml')
-        file_list_fn = os.path.join(dir_path,
-                'devhelp_qch_data/file-list.xml')
+        index_fn = os.path.join(dir_path, 'devhelp_qch_data/devhelp-index.xml')
+        file_list_fn = os.path.join(dir_path, 'devhelp_qch_data/file-list.xml')
         expected_path = os.path.join(dir_path, 'devhelp_qch_data/expected.xml')
         dest_path = os.path.join(dir_path, 'devhelp_qch_data/result.xml')
 

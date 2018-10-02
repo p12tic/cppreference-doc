@@ -17,13 +17,12 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from commands.preprocess import *
+from commands import preprocess
 import argparse
 import os
 import shutil
 
 def main():
-
     parser = argparse.ArgumentParser(prog='preprocess.py')
     parser.add_argument('--src', type=str, help='Source directory where raw website copy resides')
     parser.add_argument('--dst', type=str, help='Destination folder to put preprocessed archive to')
@@ -33,17 +32,17 @@ def main():
     src = args.src
 
     # copy the source tree
-    rmtree_if_exists(root)
+    preprocess.rmtree_if_exists(root)
     shutil.copytree(src, root)
 
-    rearrange_archive(root)
+    preprocess.rearrange_archive(root)
 
-    rename_map = find_files_to_be_renamed(root)
-    rename_files(rename_map)
+    rename_map = preprocess.find_files_to_be_renamed(root)
+    preprocess.rename_files(rename_map)
 
     # clean the html files
-    for fn in find_html_files(root):
-        preprocess_html_file(root, fn, rename_map)
+    for fn in preprocess.find_html_files(root):
+        preprocess.preprocess_html_file(root, fn, rename_map)
 
     # append css modifications
     with open(os.path.join(root, 'common/site_modules.css'), "a") as out:
@@ -54,7 +53,7 @@ def main():
 
     for fn in [ os.path.join(root, 'common/site_modules.css'),
                 os.path.join(root, 'common/ext.css') ]:
-        preprocess_css_file(fn)
+        preprocess.preprocess_css_file(fn)
 
 if __name__ == "__main__":
     main()

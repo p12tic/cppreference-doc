@@ -17,14 +17,13 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from commands.preprocess_cssless import *
+from commands import preprocess_cssless
 import argparse
 import concurrent.futures
 import os
 import shutil
 
 def main():
-
     parser = argparse.ArgumentParser(prog='preprocess_qch.py')
     parser.add_argument('--src', required=True, type=str,
             help='Source directory where raw website copy resides')
@@ -42,7 +41,7 @@ def main():
         shutil.rmtree(dest_root)
 
     paths_list = []
-    for root, dirs, files in os.walk(source_root):
+    for root, _, files in os.walk(source_root):
         for file in files:
             if file.endswith(".html"):
                 src_path = os.path.join(root, file)
@@ -52,17 +51,14 @@ def main():
                 paths_list.append(tuple)
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [ (executor.submit(preprocess_html_merge_cssless,
-                                     src_path, dst_path), i)
+        futures = [ (executor.submit(preprocess_cssless.preprocess_html_merge_cssless, src_path, dst_path), i)
                     for i, (src_path, dst_path) in enumerate(paths_list) ]
 
         for future, i in futures:
-            print('Processing file: {}/{}: {}'.format(i, len(paths_list),
-                                                      paths_list[i][1]))
+            print('Processing file: {}/{}: {}'.format(i, len(paths_list), paths_list[i][1]))
             output = future.result()
             if verbose:
                 print(output)
 
 if __name__ == "__main__":
     main()
-
