@@ -19,6 +19,7 @@
 
 from commands import preprocess
 import argparse
+import concurrent.futures
 import os
 import shutil
 
@@ -41,6 +42,18 @@ def main():
     preprocess.rename_files(rename_map)
 
     # clean the html files
+    file_list = preprocess.find_html_files(root)
+
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        futures = [executor.submit(preprocess.preprocess_html_file, root, fn,
+                                   rename_map)
+                   for fn in enumerate(file_list)]
+
+        for future in futures:
+            output = future.result()
+            if len(output) > 0:
+                print(output)
+
     for fn in preprocess.find_html_files(root):
         preprocess.preprocess_html_file(root, fn, rename_map)
 

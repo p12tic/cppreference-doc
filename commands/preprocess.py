@@ -18,6 +18,7 @@
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
 import fnmatch
+import io
 from lxml import etree
 import re
 import os
@@ -313,6 +314,7 @@ def remove_ads(html):
 def preprocess_html_file(root, fn, rename_map):
     parser = etree.HTMLParser()
     html = etree.parse(fn, parser)
+    output = io.StringIO()
 
     # remove external links to unused resources
     for el in html.xpath('/html/head/link'):
@@ -332,9 +334,10 @@ def preprocess_html_file(root, fn, rename_map):
             el.set('href', transform_link(rename_map, el.get('href'), fn, root))
 
     for err in parser.error_log:
-        print("HTML WARN: {0}".format(err))
+        print("HTML WARN: {0}".format(err), file=output)
 
     html.write(fn, encoding='utf-8', method='html')
+    return output.getvalue()
 
 def preprocess_css_file(fn):
     f = open(fn, "r", encoding='utf-8')
