@@ -70,7 +70,9 @@ def preprocess_html_merge_css(root, src_path):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         premailer = Premailer(root, base_url=src_path,
-                              disable_link_rewrites=True, remove_classes=True)
+                              disable_link_rewrites=True, remove_classes=True,
+                              cache_css_parsing=True,
+                              cache_css_parsing_size=None)
         root = premailer.transform().getroot()
 
     return output.getvalue()
