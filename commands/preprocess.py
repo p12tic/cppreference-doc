@@ -349,6 +349,8 @@ def preprocess_css_file(fn):
     text = text.replace('../DejaVuSansMonoCondensed60.ttf', 'DejaVuSansMonoCondensed60.ttf')
     text = text.replace('../DejaVuSansMonoCondensed75.ttf', 'DejaVuSansMonoCondensed75.ttf')
 
+    text = text.replace('../../upload.cppreference.com/mwiki/images/', 'images/')
+
     # QT Help viewer doesn't understand nth-child
     text = text.replace('nth-child(1)', 'first-child')
 
