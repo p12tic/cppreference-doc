@@ -311,6 +311,13 @@ def remove_ads(html):
         if el.text is not None and '#carbonads' in el.text:
             el.getparent().remove(el)
 
+# remove links to file info pages (e.g. on images)
+def remove_fileinfo(html):
+    info = etree.XPath(r"//a[re:test(@href, 'https?://[a-z]+\.cppreference\.com/w/File:')]/..",
+        namespaces={'re':'http://exslt.org/regular-expressions'})
+    for el in info(html):
+        el.getparent().remove(el)
+
 def preprocess_html_file(root, fn, rename_map):
     parser = etree.HTMLParser()
     html = etree.parse(fn, parser)
@@ -325,6 +332,7 @@ def preprocess_html_file(root, fn, rename_map):
     remove_see_also(html)
     remove_google_analytics(html)
     remove_ads(html)
+    remove_fileinfo(html)
 
     # apply changes to links caused by file renames
     for el in html.xpath('//*[@src or @href]'):
