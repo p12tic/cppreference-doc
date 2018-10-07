@@ -335,11 +335,10 @@ def preprocess_html_file(root, fn, rename_map):
     remove_fileinfo(html)
 
     # apply changes to links caused by file renames
-    for el in html.xpath('//*[@src or @href]'):
-        if el.get('src') is not None:
-            el.set('src', transform_link(rename_map, el.get('src'), fn, root))
-        elif el.get('href') is not None:
-            el.set('href', transform_link(rename_map, el.get('href'), fn, root))
+    for el in html.xpath('//*[@src]'):
+        el.set('src', transform_link(rename_map, el.get('src'), fn, root))
+    for el in html.xpath('//*[@href]'):
+        el.set('href', transform_link(rename_map, el.get('href'), fn, root))
 
     for err in parser.error_log:
         print("HTML WARN: {0}".format(err), file=output)
