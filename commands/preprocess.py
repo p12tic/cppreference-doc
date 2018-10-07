@@ -257,17 +257,17 @@ def remove_noprint(html):
 # remove see also links between C and C++ documentations
 def remove_see_also(html):
     for el in html.xpath('//tr[@class]'):
-        if not has_class(el, 't-dcl-list-item'):
+        if not has_class(el, 't-dcl-list-item', 't-dsc'):
             continue
 
         child_tds = el.xpath('.//td/div[@class]')
-        if not any(has_class(td, 't-dcl-list-see') for td in child_tds):
+        if not any(has_class(td, 't-dcl-list-see', 't-dsc-see') for td in child_tds):
             continue
 
         # remove preceding separator, if any
         prev = el.getprevious()
         if prev is not None:
-            child_tds = prev.xpath('.//td[@class')
+            child_tds = prev.xpath('.//td[@class]')
             if any(has_class(td, 't-dcl-list-sep') for td in child_tds):
                 prev.getparent().remove(prev)
 
@@ -280,19 +280,9 @@ def remove_see_also(html):
         next = el.getnext()
         if next is None:
             el.getparent().remove(el)
-            continue
-
-        if next.tag != 'table':
-            continue
-
-        if not has_class(next, 't-dcl-list-begin'):
-            continue
-
-        if len(next.xpath('.//tr')) > 0:
-            continue
-
-        el.getparent().remove(el)
-        next.getparent().remove(next)
+        elif next.tag == 'table' and has_class(next, 't-dcl-list-begin') and len(next.xpath('.//tr')) == 0:
+            el.getparent().remove(el)
+            next.getparent().remove(next)
 
 # remove Google Analytics scripts
 def remove_google_analytics(html):
