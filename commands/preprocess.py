@@ -301,27 +301,39 @@ def remove_ads(html):
         if el.text is not None and '#carbonads' in el.text:
             el.getparent().remove(el)
 
+# remove links to file info pages (e.g. on images)
+def remove_fileinfo(html):
+    info = etree.XPath(r"//a[re:test(@href, 'https?://[a-z]+\.cppreference\.com/w/File:')]/..",
+        namespaces={'re':'http://exslt.org/regular-expressions'})
+    for el in info(html):
+        el.getparent().remove(el)
+
+# remove external links to unused resources
+def remove_unused_external(html):
+    for el in html.xpath('/html/head/link'):
+        if el.get('rel') in ('alternate', 'search', 'edit', 'EditURI'):
+            el.getparent().remove(el)
+        elif el.get('rel') == 'shortcut icon':
+            (head, tail) = os.path.split(el.get('href'))
+            el.set('href', os.path.join(head, 'common', tail))
+
 def preprocess_html_file(root, fn, rename_map):
     parser = etree.HTMLParser()
     html = etree.parse(fn, parser)
     output = io.StringIO()
 
-    # remove external links to unused resources
-    for el in html.xpath('/html/head/link'):
-        if el.get('rel') in [ 'alternate', 'search', 'edit', 'EditURI' ]:
-            el.getparent().remove(el)
-
+    remove_unused_external(html)
     remove_noprint(html)
     remove_see_also(html)
     remove_google_analytics(html)
     remove_ads(html)
+    remove_fileinfo(html)
 
     # apply changes to links caused by file renames
-    for el in html.xpath('//*[@src or @href]'):
-        if el.get('src') is not None:
-            el.set('src', transform_link(rename_map, el.get('src'), fn, root))
-        elif el.get('href') is not None:
-            el.set('href', transform_link(rename_map, el.get('href'), fn, root))
+    for el in html.xpath('//*[@src]'):
+        el.set('src', transform_link(rename_map, el.get('src'), fn, root))
+    for el in html.xpath('//*[@href]'):
+        el.set('href', transform_link(rename_map, el.get('href'), fn, root))
 
     for err in parser.error_log:
         print("HTML WARN: {0}".format(err), file=output)
@@ -338,6 +350,8 @@ def preprocess_css_file(fn):
 
     text = text.replace('../DejaVuSansMonoCondensed60.ttf', 'DejaVuSansMonoCondensed60.ttf')
     text = text.replace('../DejaVuSansMonoCondensed75.ttf', 'DejaVuSansMonoCondensed75.ttf')
+
+    text = text.replace('../../upload.cppreference.com/mwiki/images/', 'images/')
 
     # QT Help viewer doesn't understand nth-child
     text = text.replace('nth-child(1)', 'first-child')

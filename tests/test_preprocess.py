@@ -226,6 +226,10 @@ class TestPreprocessHtml(unittest.TestCase):
         remove_ads(self.html)
         self.check_output("fabs_ads.html")
 
+    def test_remove_fileinfo(self):
+        remove_fileinfo(self.html)
+        self.check_output("fabs_fileinfo.html")
+
     def remove_unused_external(self):
-        # TODO split out and test
-        pass
+        remove_unused_external(self.html)
+        self.check_output("fabs_external.html")
