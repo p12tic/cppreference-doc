@@ -231,5 +231,5 @@ class TestPreprocessHtml(unittest.TestCase):
         self.check_output("fabs_fileinfo.html")
 
     def remove_unused_external(self):
-        # TODO split out and test
-        pass
+        remove_unused_external(self.html)
+        self.check_output("fabs_external.html")

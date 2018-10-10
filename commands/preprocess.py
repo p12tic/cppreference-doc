@@ -318,16 +318,21 @@ def remove_fileinfo(html):
     for el in info(html):
         el.getparent().remove(el)
 
+# remove external links to unused resources
+def remove_unused_external(html):
+    for el in html.xpath('/html/head/link'):
+        if el.get('rel') in ('alternate', 'search', 'edit', 'EditURI'):
+            el.getparent().remove(el)
+        elif el.get('rel') == 'shortcut icon':
+            (head, tail) = os.path.split(el.get('href'))
+            el.set('href', os.path.join(head, 'common', tail))
+
 def preprocess_html_file(root, fn, rename_map):
     parser = etree.HTMLParser()
     html = etree.parse(fn, parser)
     output = io.StringIO()
 
-    # remove external links to unused resources
-    for el in html.xpath('/html/head/link'):
-        if el.get('rel') in [ 'alternate', 'search', 'edit', 'EditURI' ]:
-            el.getparent().remove(el)
-
+    remove_unused_external(html)
     remove_noprint(html)
     remove_see_also(html)
     remove_google_analytics(html)
