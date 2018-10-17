@@ -90,11 +90,28 @@ class TestHasClass(unittest.TestCase):
 
 class TestIsExternalLink(unittest.TestCase):
     def test_is_external_link(self):
-        self.assertEqual(True, is_external_link('http://a'))
-        self.assertEqual(True, is_external_link('https://a'))
-        self.assertEqual(True, is_external_link('ftp://a'))
-        self.assertEqual(False, is_external_link('ahttp://a'))
-        self.assertEqual(False, is_external_link(' http://a'))
+        external = [
+            'http://example.com',
+            'https://example.com',
+            'ftp://example.com',
+            'ftps://example.com',
+            'slack://example.com',
+            'https:///foo.html', # Not technically external, but we say so anyway
+            '//example.com'
+        ]
+        for link in external:
+            self.assertTrue(is_external_link(link),
+                msg="Should be external: {}".format(link))
+
+        relative = [
+            '/example.com',
+            '../foo.html',
+            'foo.html',
+            'foo'
+        ]
+        for link in relative:
+            self.assertFalse(is_external_link(link),
+                msg="Should not be external: {}".format(link))
 
 class TestPlaceholderLinks(unittest.TestCase):
     # Placeholder link replacement is implemented in the MediaWiki site JS at

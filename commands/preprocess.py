@@ -81,15 +81,7 @@ def rearrange_archive(root):
     for fn in fnmatch.filter(os.listdir(root), 'cppreference-export*.xml'):
         os.remove(os.path.join(root, fn))
 
-def add_file_to_rename_map(rename_map, dir, fn, new_fn):
-    path = os.path.join(dir, fn)
-    if not os.path.isfile(path):
-        print("ERROR: Not renaming '{0}' because path does not exist".format(path))
-        return
-    rename_map.append((dir, fn, new_fn))
-
-# Converts complex URL to resources supplied by MediaWiki loader to a simplified
-# name
+# Converts complex URL to resources supplied by MediaWiki loader to a simplified name
 def convert_loader_name(fn):
     if "modules=site&only=scripts" in fn:
         return "site_scripts.js"
@@ -105,55 +97,36 @@ def convert_loader_name(fn):
         raise Exception('Loader file {0} does not match any known files'.format(fn))
 
 def find_files_to_be_renamed(root):
-    # Returns a rename map: array of tuples each of which contain three strings:
-    # the directory the file resides in, the source and destination filenames.
+    # Returns a rename map: a map from old to new file name
+    loader = re.compile(r'load\.php\?.*')
+    query = re.compile(r'\?.*')
+    result = dict()
 
-    # The rename map specifies files to be renamed in order to support them on
-    # windows filesystems which don't support certain characters in file names
-    rename_map = []
+    # find files with invalid names -> rename all occurrences
+    for fn in set(fn for _, _, filenames in os.walk(root) for fn in filenames):
+        if loader.match(fn):
+            result[fn] = convert_loader_name(fn)
 
-    files_rename = []           # general files to be renamed
-    files_loader = []           # files served by load.php. These should map to
-                                # consistent and short file names because we
-                                # modify some of them later in the pipeline
+        elif any((c in fn) for c in '?*"'):
+            new_fn = query.sub('', fn)
+            new_fn = new_fn.replace('"', '_q_')
+            new_fn = new_fn.replace('*', '_star_')
+            result[fn] = new_fn
 
-    for dir, _, filenames in os.walk(root):
-        filenames_loader = set(fnmatch.filter(filenames, 'load.php[?]*'))
-        # match any filenames with '?"*' characters
-        filenames_rename = set(fnmatch.filter(filenames, '*[?"*]*'))
+    # rename files that conflict on case-insensitive filesystems
+    # TODO perform this automatically
+    result['NAN.html'] = 'NAN.2.html'
 
-        # don't process load.php files in general rename handler
-        filenames_rename -= filenames_loader
+    return result
 
-        for fn in filenames_loader:
-            files_loader.append((dir, fn))
-        for fn in filenames_rename:
-            files_rename.append((dir, fn))
-
-    for dir, orig_fn in files_rename:
-        fn = orig_fn
-        fn = re.sub(r'\?.*', '', fn)
-        fn = fn.replace('"', '_q_')
-        fn = fn.replace('*', '_star_')
-        add_file_to_rename_map(rename_map, dir, orig_fn, fn)
-
-    # map loader names to more recognizable names
-    for dir, fn in files_loader:
-        new_fn = convert_loader_name(fn)
-        add_file_to_rename_map(rename_map, dir, fn, new_fn)
-
-    # rename filenames that conflict on case-insensitive filesystems
-    # TODO: perform this automatically
-    add_file_to_rename_map(rename_map, os.path.join(root, 'en/cpp/numeric/math'), 'NAN.html', 'NAN.2.html')
-    add_file_to_rename_map(rename_map, os.path.join(root, 'en/c/numeric/math'), 'NAN.html', 'NAN.2.html')
-    return rename_map
-
-def rename_files(rename_map):
-    for dir, old_fn, new_fn in rename_map:
-        src_path = os.path.join(dir, old_fn)
-        dst_path = os.path.join(dir, new_fn)
-        print("Renaming '{0}' to \n         '{1}'".format(src_path, dst_path))
-        shutil.move(src_path, dst_path)
+def rename_files(root, rename_map):
+    for dir, old_fn in ((dir, fn) for dir, _, filenames in os.walk(root) for fn in filenames):
+        new_fn = rename_map.get(old_fn)
+        if new_fn is not None:
+            src_path = os.path.join(dir, old_fn)
+            dst_path = os.path.join(dir, new_fn)
+            print("Renaming '{0}' to \n         '{1}'".format(src_path, dst_path))
+            shutil.move(src_path, dst_path)
 
 def find_html_files(root):
     # find files that need to be preprocessed
@@ -199,26 +172,24 @@ def transform_ranges_placeholder(target, file, root):
     return os.path.relpath(abstarget, os.path.dirname(file))
 
 def is_external_link(target):
-    external_link_patterns = [
-        'http://',
-        'https://',
-        'ftp://'
-    ]
-    for pattern in external_link_patterns:
-        if target.startswith(pattern):
-            return True
-    return False
+    url = urllib.parse.urlparse(target)
+    return url.scheme != '' or url.netloc != ''
 
 def trasform_relative_link(rename_map, target):
-    target = urllib.parse.unquote(target)
-    for _, fn, new_fn in rename_map:
-        target = target.replace(fn, new_fn)
-    target = target.replace('../../upload.cppreference.com/mwiki/','../common/')
-    target = target.replace('../mwiki/','../common/')
-    target = re.sub(r'(\.php|\.css)\?.*', r'\1', target)
-    target = urllib.parse.quote(target)
-    target = target.replace('%23', '#')
-    return target
+    # urllib.parse tuple is (scheme, host, path, params, query, fragment)
+    _, _, path, params, _, fragment = urllib.parse.urlparse(target)
+    assert params == ''
+
+    path = urllib.parse.unquote(path)
+    path = path.replace('../../upload.cppreference.com/mwiki/','../common/')
+    path = path.replace('../mwiki/','../common/')
+
+    dir, fn = os.path.split(path)
+    fn = rename_map.get(fn, fn)
+    path = os.path.join(dir, fn)
+
+    path = urllib.parse.quote(path)
+    return urllib.parse.urlunparse(('', '', path, params, '', fragment))
 
 # Transforms a link in the given file according to rename map.
 # target is the link to transform.

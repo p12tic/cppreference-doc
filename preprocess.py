@@ -39,7 +39,7 @@ def main():
     preprocess.rearrange_archive(root)
 
     rename_map = preprocess.find_files_to_be_renamed(root)
-    preprocess.rename_files(rename_map)
+    preprocess.rename_files(root, rename_map)
 
     # clean the html files
     file_list = preprocess.find_html_files(root)
