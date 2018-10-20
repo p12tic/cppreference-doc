@@ -113,19 +113,35 @@ def find_files_to_be_renamed(root):
             new_fn = new_fn.replace('*', '_star_')
             result[fn] = new_fn
 
-    # rename files that conflict on case-insensitive filesystems
-    # TODO perform this automatically
-    result['NAN.html'] = 'NAN.2.html'
+    # find files that conflict on case-insensitive filesystems
+    for dir, _, filenames in os.walk(root):
+        seen = dict()
+        for fn in (result.get(s, s) for s in filenames):
+            low = fn.lower()
+            num = seen.setdefault(low, 0)
+            if num > 0:
+                name, ext = os.path.splitext(fn)
+                # add file with its path -> only rename that occurrence
+                result[os.path.join(dir, fn)] = "{}.{}{}".format(name, num + 1, ext)
+            seen[low] += 1
 
     return result
 
 def rename_files(root, rename_map):
     for dir, old_fn in ((dir, fn) for dir, _, filenames in os.walk(root) for fn in filenames):
+        src_path = os.path.join(dir, old_fn)
+
         new_fn = rename_map.get(old_fn)
-        if new_fn is not None:
-            src_path = os.path.join(dir, old_fn)
+        if new_fn:
+            # look for case conflict of the renamed file
+            new_path = os.path.join(dir, new_fn)
+            new_fn = rename_map.get(new_path, new_fn)
+        else:
+            # original filename unchanged, look for case conflict
+            new_fn = rename_map.get(src_path)
+        if new_fn:
             dst_path = os.path.join(dir, new_fn)
-            print("Renaming '{0}' to \n         '{1}'".format(src_path, dst_path))
+            print("Renaming {0}\n      to {1}".format(src_path, dst_path))
             shutil.move(src_path, dst_path)
 
 def find_html_files(root):
@@ -143,7 +159,7 @@ def is_loader_link(target):
 
 def transform_loader_link(target, file, root):
     # Absolute loader.php links need to be made relative
-    abstarget = os.path.join(root, "common/" + convert_loader_name(target))
+    abstarget = os.path.join(root, "common", convert_loader_name(target))
     return os.path.relpath(abstarget, os.path.dirname(file))
 
 def is_ranges_placeholder(target):
@@ -175,8 +191,8 @@ def is_external_link(target):
     url = urllib.parse.urlparse(target)
     return url.scheme != '' or url.netloc != ''
 
-def trasform_relative_link(rename_map, target):
-    # urllib.parse tuple is (scheme, host, path, params, query, fragment)
+def trasform_relative_link(rename_map, target, file):
+    # urlparse returns (scheme, host, path, params, query, fragment)
     _, _, path, params, _, fragment = urllib.parse.urlparse(target)
     assert params == ''
 
@@ -185,8 +201,17 @@ def trasform_relative_link(rename_map, target):
     path = path.replace('../mwiki/','../common/')
 
     dir, fn = os.path.split(path)
-    fn = rename_map.get(fn, fn)
-    path = os.path.join(dir, fn)
+    new_fn = rename_map.get(fn)
+    if new_fn:
+        # look for case conflict of the renamed file
+        abstarget = os.path.normpath(os.path.join(os.path.dirname(file), dir, new_fn))
+        new_fn = rename_map.get(abstarget, new_fn)
+    else:
+        # original filename unchanged, look for case conflict
+        abstarget = os.path.normpath(os.path.join(os.path.dirname(file), path))
+        new_fn = rename_map.get(abstarget)
+    if new_fn:
+        path = os.path.join(dir, new_fn)
 
     path = urllib.parse.quote(path)
     return urllib.parse.urlunparse(('', '', path, params, '', fragment))
@@ -205,7 +230,7 @@ def transform_link(rename_map, target, file, root):
     if is_external_link(target):
         return target
 
-    return trasform_relative_link(rename_map, target)
+    return trasform_relative_link(rename_map, target, file)
 
 def has_class(el, *classes_to_check):
     value = el.get('class')
