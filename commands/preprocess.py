@@ -96,7 +96,7 @@ def convert_loader_name(fn):
     else:
         raise Exception('Loader file {0} does not match any known files'.format(fn))
 
-def find_files_to_be_renamed(root):
+def build_rename_map(root):
     # Returns a rename map: a map from old to new file name
     loader = re.compile(r'load\.php\?.*')
     query = re.compile(r'\?.*')
