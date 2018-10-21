@@ -21,8 +21,22 @@
 from commands.preprocess import * #pylint: disable=unused-wildcard-import
 import io
 import os
+import sys
+import contextlib
 import unittest
+import unittest.mock
 from lxml import etree
+
+class DummyFile(object):
+    def write(self, x): pass
+
+# From https://stackoverflow.com/a/2829036/1849769
+@contextlib.contextmanager
+def nostdout():
+    save_stdout = sys.stdout
+    sys.stdout = DummyFile()
+    yield
+    sys.stdout = save_stdout
 
 class TestConvertLoaderName(unittest.TestCase):
     def test_convert_loader_name(self):
@@ -90,11 +104,28 @@ class TestHasClass(unittest.TestCase):
 
 class TestIsExternalLink(unittest.TestCase):
     def test_is_external_link(self):
-        self.assertEqual(True, is_external_link('http://a'))
-        self.assertEqual(True, is_external_link('https://a'))
-        self.assertEqual(True, is_external_link('ftp://a'))
-        self.assertEqual(False, is_external_link('ahttp://a'))
-        self.assertEqual(False, is_external_link(' http://a'))
+        external = [
+            'http://example.com',
+            'https://example.com',
+            'ftp://example.com',
+            'ftps://example.com',
+            'slack://example.com',
+            'https:///foo.html', # Not technically external, but we say so anyway
+            '//example.com'
+        ]
+        for link in external:
+            self.assertTrue(is_external_link(link),
+                msg="Should be external: {}".format(link))
+
+        relative = [
+            '/example.com',
+            '../foo.html',
+            'foo.html',
+            'foo'
+        ]
+        for link in relative:
+            self.assertFalse(is_external_link(link),
+                msg="Should not be external: {}".format(link))
 
 class TestPlaceholderLinks(unittest.TestCase):
     # Placeholder link replacement is implemented in the MediaWiki site JS at
@@ -208,7 +239,6 @@ class TestPreprocessHtml(unittest.TestCase):
             actual = buf.getvalue()
 
         self.assertEqual(expected, actual)
-        pass
 
     def test_remove_noprint(self):
         remove_noprint(self.html)
@@ -233,3 +263,161 @@ class TestPreprocessHtml(unittest.TestCase):
     def remove_unused_external(self):
         remove_unused_external(self.html)
         self.check_output("fabs_external.html")
+
+class TestFileRename(unittest.TestCase):
+    def make_rename_map(self, root):
+        def p(*dirs):
+            return os.path.join(root, 'dir1', *dirs)
+        return {
+            'invalid*.txt': 'invalid_star_.txt',
+            'confl"ict".html': 'confl_q_ict_q_.html',
+            'Confl"ict".html': 'Confl_q_ict_q_.html',
+            'load.php?modules=site&only=scripts': 'site_scripts.js',
+            'load.php?modules=someext&only=styles': 'ext.css',
+            p('sub2', 'Conflict.html'): 'Conflict.2.html',
+            p('sub3', 'Confl_q_ict_q_.html'): 'Confl_q_ict_q_.2.html',
+            p('sub4', 'Conflict'): 'Conflict.2',
+            p('sub4', 'conFlict'): 'conFlict.3',
+            p('sub5', 'Conflict'): 'Conflict.2'
+        }
+
+    def make_walk_result(self, root):
+        def p(*dirs):
+            return os.path.join(root, 'dir1', *dirs)
+        return [
+            # Nothing to do
+            (p(), ('sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6'), ('f1', 'f2')),
+            # Unwanted characters
+            (p('sub1'), (), ('invalid*.txt', 'valid.txt')),
+            # Case conflict
+            (p('sub2'), (), ('conflict.html', 'Conflict.html')),
+            # Unwanted characters + case conflict
+            (p('sub3'), (), ('confl"ict".html', 'Confl"ict".html')),
+            # Multiple case conflicts, no extension
+            (p('sub4'), (), ('conflict', 'Conflict', 'conFlict')),
+            # Case conflict in second directory
+            (p('sub5'), (), ('conflict', 'Conflict')),
+            # Loader links
+            (p('sub6'), (), ('load.php?modules=site&only=scripts', 'load.php?modules=someext&only=styles'))
+        ]
+
+    def test_build_rename_map(self):
+        with unittest.mock.patch('os.walk') as walk:
+            walk.return_value = self.make_walk_result('output')
+
+            actual = build_rename_map('output')
+
+        expected = self.make_rename_map('output')
+        self.assertEqual(expected, actual)
+
+    def test_rename_files(self):
+        expected = [
+            (('output/dir1/sub1/invalid*.txt', 'output/dir1/sub1/invalid_star_.txt'), {}),
+            (('output/dir1/sub2/Conflict.html', 'output/dir1/sub2/Conflict.2.html'), {}),
+            (('output/dir1/sub3/confl"ict".html', 'output/dir1/sub3/confl_q_ict_q_.html'), {}),
+            (('output/dir1/sub3/Confl"ict".html', 'output/dir1/sub3/Confl_q_ict_q_.2.html'), {}),
+            (('output/dir1/sub4/Conflict', 'output/dir1/sub4/Conflict.2'), {}),
+            (('output/dir1/sub4/conFlict', 'output/dir1/sub4/conFlict.3'), {}),
+            (('output/dir1/sub5/Conflict', 'output/dir1/sub5/Conflict.2'), {}),
+            (('output/dir1/sub6/load.php?modules=site&only=scripts', 'output/dir1/sub6/site_scripts.js'), {}),
+            (('output/dir1/sub6/load.php?modules=someext&only=styles', 'output/dir1/sub6/ext.css'), {})
+        ]
+
+        actual = []
+        def record_call(*args, **kwargs):
+            actual.append((args, kwargs))
+
+        with unittest.mock.patch('os.walk') as walk, \
+             unittest.mock.patch('shutil.move') as move:
+            walk.return_value = self.make_walk_result('output')
+            move.side_effect = record_call
+
+            with nostdout():
+                rename_files('output', self.make_rename_map('output'))
+
+        self.assertEqual(expected, actual,
+            msg="Unexpected sequence of calls to shutil.move")
+
+    def test_transform_relative_link(self):
+        entries = [
+            # (file, target, expected)
+            ('output/dir1/sub2/conflict.html',
+             '../f1',
+             '../f1'),
+
+            ('output/dir1/sub2/Conflict.html',
+             '../f1',
+             '../f1'),
+
+            ('output/dir1/sub2/Conflict.html',
+             '../f1#p2',
+             '../f1#p2'),
+
+            ('output/dir1/sub2/Conflict.html',
+             '../f1?some=param',
+             '../f1'),
+
+            ('output/dir1/sub2/Conflict.html',
+             '../f1?some=param#p2',
+             '../f1#p2'),
+
+            ('output/dir1/sub2/Conflict.html',
+             '../mwiki/site.css',
+             '../common/site.css'),
+
+            ('output/dir1/sub2/Conflict.html',
+             '../../upload.cppreference.com/mwiki/site.css',
+             '../common/site.css'),
+
+            ('output/dir1/f2',
+             'sub1/invalid*.txt',
+             'sub1/invalid_star_.txt'),
+
+            ('output/dir1/sub0/other.html',
+             '../sub1/invalid*.txt',
+             '../sub1/invalid_star_.txt'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub2/conflict.html',
+             '../sub2/conflict.html'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub2/Conflict.html',
+             '../sub2/Conflict.2.html'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub3/confl"ict".html',
+             '../sub3/confl_q_ict_q_.html'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub3/Confl"ict".html',
+             '../sub3/Confl_q_ict_q_.2.html'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub4/conflict',
+             '../sub4/conflict'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub4/Conflict',
+             '../sub4/Conflict.2'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub4/conFlict',
+             '../sub4/conFlict.3'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub5/conflict',
+             '../sub5/conflict'),
+
+            ('output/dir1/sub1/valid.txt',
+             '../sub5/Conflict',
+             '../sub5/Conflict.2'),
+        ]
+
+        # trasform_relative_link(rename_map, target, file)
+        #  target: the relative link to transform, if target is in rename map
+        #  file:   path of the file that contains the link
+        rename_map = self.make_rename_map('output')
+        for file, target, expected in entries:
+            self.assertEqual(expected, trasform_relative_link(rename_map, target, file),
+                msg="target='{}', file='{}'".format(target, file))
