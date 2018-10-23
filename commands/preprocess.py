@@ -355,3 +355,12 @@ def preprocess_css_file(fn):
     f = open(fn, "w", encoding='utf-8')
     f.write(text)
     f.close()
+
+def preprocess_startup_script(fn):
+    with open(fn, "r", encoding='utf-8') as f:
+        text = f.read()
+
+    text = re.sub(r'document\.write\([^)]+\);', '', text)
+
+    with open(fn, "w", encoding='utf-8') as f:
+        f.write(text)
