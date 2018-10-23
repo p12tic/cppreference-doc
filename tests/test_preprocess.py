@@ -260,7 +260,7 @@ class TestPreprocessHtml(unittest.TestCase):
         remove_fileinfo(self.html)
         self.check_output("fabs_fileinfo.html")
 
-    def remove_unused_external(self):
+    def test_remove_unused_external(self):
         remove_unused_external(self.html)
         self.check_output("fabs_external.html")
 
