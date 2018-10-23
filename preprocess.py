@@ -65,5 +65,7 @@ def main():
                 os.path.join(root, 'common/ext.css') ]:
         preprocess.preprocess_css_file(fn)
 
+    preprocess.preprocess_startup_script(os.path.join(root, 'common/startup_scripts.js'))
+
 if __name__ == "__main__":
     main()
