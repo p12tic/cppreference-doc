@@ -15,18 +15,17 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from premailer import Premailer
-import cssutils
-from lxml import html
-from lxml import etree
-from io import StringIO
-from lxml.etree import strip_elements
 import copy
 import functools
 import io
 import logging
 import os
 import warnings
+from premailer import Premailer
+import cssutils
+from lxml import etree
+from lxml.etree import strip_elements
+
 
 def preprocess_html_merge_cssless(src_path, dst_path):
     with open(src_path, 'r') as a_file:
@@ -48,8 +47,10 @@ def preprocess_html_merge_cssless(src_path, dst_path):
     os.makedirs(head, exist_ok=True)
 
     with open(dst_path, 'wb') as a_file:
-        root.getroottree().write(a_file, pretty_print=True, method="html", encoding='utf-8')
+        root.getroottree().write(a_file, pretty_print=True, method="html",
+                                 encoding='utf-8')
     return output
+
 
 def silence_cssutils_warnings():
     log = logging.Logger('ignore')
@@ -61,6 +62,7 @@ def silence_cssutils_warnings():
     cssutils.log.setLog(log)
 
     return output
+
 
 def preprocess_html_merge_css(root, src_path):
     # cssutils_logging_handler of Premailer.__init__ is insufficient to silence
@@ -75,8 +77,10 @@ def preprocess_html_merge_css(root, src_path):
 
     return output.getvalue()
 
+
 def strip_style_tags(root):
     strip_elements(root, 'style')
+
 
 def needs_td_wrapper(element):
     # element has table:row
@@ -88,12 +92,15 @@ def needs_td_wrapper(element):
             return False
     return True
 
+
 @functools.lru_cache(maxsize=None)
 def cssutils_parse_style_cached_nocopy(style):
     return cssutils.parseStyle(style)
 
+
 def cssutils_parse_style_cached(style):
     return copy.deepcopy(cssutils_parse_style_cached_nocopy(style))
+
 
 @functools.lru_cache(maxsize=None)
 def get_css_style_property_value(style, prop_name):
@@ -103,6 +110,7 @@ def get_css_style_property_value(style, prop_name):
         return value.cssText
     return None
 
+
 @functools.lru_cache(maxsize=None)
 def has_css_style_property_value(style, prop_name, prop_value):
     value = get_css_style_property_value(style, prop_name)
@@ -110,11 +118,13 @@ def has_css_style_property_value(style, prop_name, prop_value):
         return True
     return False
 
+
 @functools.lru_cache(maxsize=None)
 def remove_css_style_property(style, property_name):
     atrib = cssutils_parse_style_cached(style)
     atrib.removeProperty(property_name)
     return atrib.getCssText(separator='')
+
 
 def remove_css_property(element, property_name):
     new_style = remove_css_style_property(element.get('style'), property_name)
@@ -123,16 +133,20 @@ def remove_css_property(element, property_name):
     elif 'style' in element.attrib:
         element.attrib.pop('style')
 
+
 def get_css_property_value(el, prop_name):
     return get_css_style_property_value(el.get('style'), prop_name)
 
+
 def has_css_property_value(el, prop_name, prop_value):
     return has_css_style_property_value(el.get('style'), prop_name, prop_value)
+
 
 def set_css_property_value(el, prop_name, prop_value):
     atrib = cssutils_parse_style_cached(el.get('style'))
     atrib.setProperty(prop_name, prop_value)
     el.set('style', atrib.getCssText(separator=''))
+
 
 def convert_display_property_to_html_tag(element, element_tag, display_value):
     str_attrib_value = element.get('style')
@@ -143,12 +157,14 @@ def convert_display_property_to_html_tag(element, element_tag, display_value):
         remove_css_property(element, 'display')
         return True
 
+
 def convert_span_table_to_tr_td(table_el):
     table_el.tag = 'table'
     remove_css_property(table_el, 'display')
 
     for element in table_el.getchildren():
-        tag_renamed = convert_display_property_to_html_tag(element, 'tr', 'table-row')
+        tag_renamed = convert_display_property_to_html_tag(element, 'tr',
+                                                           'table-row')
         if tag_renamed:
             if needs_td_wrapper(element):
                 td = etree.Element('td')
@@ -160,7 +176,9 @@ def convert_span_table_to_tr_td(table_el):
                 element.text = None
             else:
                 for child in element:
-                    convert_display_property_to_html_tag(child, 'td', 'table-cell')
+                    convert_display_property_to_html_tag(child, 'td',
+                                                         'table-cell')
+
 
 def wrap_element(el, tag_name, style):
     new_el = etree.Element(tag_name)
@@ -168,10 +186,12 @@ def wrap_element(el, tag_name, style):
     el.addprevious(new_el)
     new_el.insert(0, el)
 
+
 def remove_display_none(root_el):
     for el in root_el.xpath('//*[contains(@style, "display")]'):
         if has_css_property_value(el, 'display', 'none'):
             el.getparent().remove(el)
+
 
 def convert_span_tables_to_tr_td(root_el):
     # note that the following xpath expressions match only the prefix of the
@@ -181,10 +201,11 @@ def convert_span_tables_to_tr_td(root_el):
     for table_el in table_els:
         if has_css_property_value(table_el, 'display', 'table'):
             convert_span_table_to_tr_td(table_el)
-        #wrap_element(table_el, 'div', 'display:inline')
-        #convert_span_table_to_tr_td(table_el)
+        # wrap_element(table_el, 'div', 'display:inline')
+        # convert_span_table_to_tr_td(table_el)
 
     return root_el
+
 
 def convert_inline_block_elements_to_table(root_el):
     for el in root_el.xpath('//*[contains(@style, "display")]'):
@@ -221,6 +242,7 @@ def convert_inline_block_elements_to_table(root_el):
             el.getparent().remove(el)
             td.append(el)
 
+
 def get_table_rows(table_el):
     for el in table_el.iterchildren(['th', 'tr']):
         yield el
@@ -228,15 +250,18 @@ def get_table_rows(table_el):
         for el2 in el.iterchildren(['th', 'tr']):
             yield el2
 
+
 def get_max_number_of_columns(table_el):
     max_tds = 0
     for row_el in get_table_rows(table_el):
         max_tds = max(max_tds, len(list(row_el.iterchildren('td'))))
     return max_tds
 
+
 def clear_tr_border_top(tr_el):
     for td_el in tr_el.iterchildren('td'):
         remove_css_property(td_el, 'border-top')
+
 
 def has_tr_border_top(tr_el):
     for td_el in tr_el.iterchildren('td'):
@@ -244,11 +269,13 @@ def has_tr_border_top(tr_el):
             return True
     return False
 
+
 def has_table_border_top(table_el):
     for tr_el in get_table_rows(table_el):
         if has_tr_border_top(tr_el):
             return True
     return False
+
 
 def convert_table_border_top_to_tr_background(root_el):
     for table_el in root_el.iter('table'):
@@ -267,6 +294,7 @@ def convert_table_border_top_to_tr_background(root_el):
                                        'background-color: #ccc;')
                 tr_el.addprevious(border_tr)
 
+
 def convert_zero_td_width_to_nonzero(root_el):
     for el in root_el.xpath('//*[contains(@style, "width")]'):
         if has_css_property_value(el, 'width', '0%'):
@@ -275,6 +303,7 @@ def convert_zero_td_width_to_nonzero(root_el):
 
     for el in root_el.xpath('//*[contains(@width, "0%")]'):
         el.attrib['width'] = "1px"
+
 
 def apply_font_size(size, parent_size_pt):
     size = size.strip()
@@ -292,8 +321,9 @@ def apply_font_size(size, parent_size_pt):
 
     return parent_size_pt
 
+
 def convert_font_size_property_to_pt_recurse(el, parent_size_pt):
-    size_value = get_css_property_value(el,"font-size")
+    size_value = get_css_property_value(el, "font-size")
 
     if size_value:
         el_size_pt = apply_font_size(size_value, parent_size_pt)
@@ -304,5 +334,6 @@ def convert_font_size_property_to_pt_recurse(el, parent_size_pt):
     for child in el.getchildren():
         convert_font_size_property_to_pt_recurse(child, el_size_pt)
 
+
 def convert_font_size_property_to_pt(root_el, default_size):
-     convert_font_size_property_to_pt_recurse(root_el, default_size)
+    convert_font_size_property_to_pt_recurse(root_el, default_size)

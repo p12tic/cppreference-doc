@@ -18,15 +18,16 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform.browser import *
 import argparse
+from index_transform.browser import Index2Browser
+
 
 def main():
     parser = argparse.ArgumentParser(prog='index2browser')
     parser.add_argument('index', type=str,
-            help='Path to index file to process')
+                        help='Path to index file to process')
     parser.add_argument('destination', type=str,
-            help='Path to destination file to store results to')
+                        help='Path to destination file to store results to')
     args = parser.parse_args()
 
     out_f = open(args.destination, 'w', encoding='utf-8')
@@ -62,10 +63,6 @@ def main():
 </html>
 ''')
 
+
 if __name__ == '__main__':
     main()
-
-
-
-
-

@@ -16,15 +16,19 @@
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
 import os
-from index_transform.devhelp import * #pylint: disable=unused-wildcard-import
 import unittest
+from index_transform.devhelp import transform_devhelp
+
 
 class TestTransformDevhelp(unittest.TestCase):
     def test_transform_devhelp(self):
         dir_path = os.path.dirname(__file__)
-        chapters_fn = os.path.join(dir_path, 'transform_data/index-chapters-cpp.xml')
-        functions_fn = os.path.join(dir_path, 'transform_data/index-functions-cpp.xml')
-        expected_path = os.path.join(dir_path, 'devhelp_data/expected.xml')
+        chapters_fn = os.path.join(
+            dir_path, 'transform_data/index-chapters-cpp.xml')
+        functions_fn = os.path.join(
+            dir_path, 'transform_data/index-functions-cpp.xml')
+        expected_path = os.path.join(
+            dir_path, 'devhelp_data/expected.xml')
         dest_path = os.path.join(dir_path, 'devhelp_data/result.xml')
 
         with open(expected_path, 'rb') as expected_f:

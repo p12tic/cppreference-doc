@@ -20,6 +20,7 @@
 
 from index_transform.common import IndexTransform
 
+
 class Index2Highlight(IndexTransform):
     def __init__(self, out_file):
         super().__init__()
@@ -28,23 +29,31 @@ class Index2Highlight(IndexTransform):
     def check_is_member(self, el):
         if el.getparent().tag == 'index':
             return False
-        if el.tag == 'function': return True
-        elif el.tag == 'variable': return True
-        elif el.tag == 'constructor': return True
-        elif el.tag == 'destructor': return True
+        if el.tag == 'function':
+            return True
+        if el.tag == 'variable':
+            return True
+        if el.tag == 'constructor':
+            return True
+        if el.tag == 'destructor':
+            return True
         return False
 
     def process_item_hook(self, el, full_name, full_link):
-        is_member = False
-        if self.check_is_member(el): pass
-        elif '<' in full_name: pass
-        elif '>' in full_name: pass
-        elif '(' in full_name: pass
-        elif ')' in full_name: pass
+        if self.check_is_member(el):
+            pass
+        elif '<' in full_name:
+            pass
+        elif '>' in full_name:
+            pass
+        elif '(' in full_name:
+            pass
+        elif ')' in full_name:
+            pass
         else:
             self.out_file.write(full_name + ' => ' + full_link + '\n')
 
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
     def inherits_worker(self, parent_name, pending, finished=list()):
-        pass # do not walk the inheritance hierarchy
+        pass  # do not walk the inheritance hierarchy

@@ -18,21 +18,26 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform.search import *
 import argparse
+from index_transform.search import Index2Search
+
 
 def main():
     parser = argparse.ArgumentParser(prog='index2highlight')
-    parser.add_argument('index', type=str,
-            help='Path to index file to process')
-    parser.add_argument('destination', type=str,
-            help='Path to destination file to store results to')
+    parser.add_argument(
+        'index', type=str,
+        help='Path to index file to process')
+
+    parser.add_argument(
+        'destination', type=str,
+        help='Path to destination file to store results to')
     args = parser.parse_args()
 
     out_f = open(args.destination, 'w', encoding='utf-8')
 
     tr = Index2Search(out_f)
     tr.transform_file(args.index)
+
 
 if __name__ == '__main__':
     main()

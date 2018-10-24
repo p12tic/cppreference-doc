@@ -18,11 +18,9 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform.common import IndexTransform
-from xml_utils import xml_escape
-from index_transform import *
 from lxml import etree
-import io
+from index_transform.common import IndexTransform
+
 
 class Index2Devhelp(IndexTransform):
 
@@ -31,17 +29,23 @@ class Index2Devhelp(IndexTransform):
         self.functions_el = functions_el
 
     def get_mark(self, el):
-        if el.tag == 'const': return 'macro'
-        elif el.tag == 'function': return 'function'
-        elif el.tag == 'constructor': return 'function'
-        elif el.tag == 'destructor': return 'function'
-        elif el.tag == 'class': return 'class'
-        elif el.tag == 'enum': return 'enum'
-        elif el.tag == 'typedef': return 'typedef'
-        elif el.tag == 'specialization': return 'class'
-        elif el.tag == 'overload': return 'function'
-        # devhelp does not support variables in its format
-        elif el.tag == 'variable': return ''
+        tag_to_mark = {
+            'const': 'macro',
+            'function': 'function',
+            'constructor': 'function',
+            'destructor': 'function',
+            'class': 'class',
+            'enum': 'enum',
+            'typedef': 'typedef',
+            'specialization': 'class',
+            'overload': 'function',
+            # devhelp does not support variables in its format
+            'variable': ''
+        }
+
+        if el.tag in tag_to_mark:
+            return tag_to_mark[el.tag]
+
         return ''
 
     def process_item_hook(self, el, full_name, full_link):
@@ -52,8 +56,9 @@ class Index2Devhelp(IndexTransform):
 
         IndexTransform.process_item_hook(self, el, full_name, full_link)
 
+
 def transform_devhelp(book_title, book_name, book_base, rel_link, chapters_fn,
-                       in_fn):
+                      in_fn):
     root_el = etree.Element('book')
     root_el.set('xmlns', 'http://www.devhelp.net/book')
     root_el.set('title', book_title)

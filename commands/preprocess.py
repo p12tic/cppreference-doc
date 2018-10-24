@@ -19,22 +19,23 @@
 
 import fnmatch
 import io
-from lxml import etree
 import re
 import os
-import sys
 import shutil
 import urllib.parse
-from xml_utils import xml_escape, xml_unescape
+from lxml import etree
+
 
 def rmtree_if_exists(dir):
     if os.path.isdir(dir):
         shutil.rmtree(dir)
 
+
 def move_dir_contents_to_dir(srcdir, dstdir):
     for fn in os.listdir(srcdir):
         shutil.move(os.path.join(srcdir, fn),
                     os.path.join(dstdir, fn))
+
 
 def rearrange_archive(root):
     # rearrange the archive. {root} here is output/reference
@@ -71,8 +72,10 @@ def rearrange_archive(root):
             move_dir_contents_to_dir(src_data_path, data_path)
 
         # also copy the custom fonts
-        shutil.copy(os.path.join(path, 'DejaVuSansMonoCondensed60.ttf'), data_path)
-        shutil.copy(os.path.join(path, 'DejaVuSansMonoCondensed75.ttf'), data_path)
+        shutil.copy(os.path.join(path, 'DejaVuSansMonoCondensed60.ttf'),
+                    data_path)
+        shutil.copy(os.path.join(path, 'DejaVuSansMonoCondensed75.ttf'),
+                    data_path)
 
         # remove what's left
         shutil.rmtree(path)
@@ -81,20 +84,23 @@ def rearrange_archive(root):
     for fn in fnmatch.filter(os.listdir(root), 'cppreference-export*.xml'):
         os.remove(os.path.join(root, fn))
 
-# Converts complex URL to resources supplied by MediaWiki loader to a simplified name
+
 def convert_loader_name(fn):
+    # Converts complex URL to resources supplied by MediaWiki loader to a
+    # simplified name
     if "modules=site&only=scripts" in fn:
         return "site_scripts.js"
-    elif "modules=site&only=styles" in fn:
+    if "modules=site&only=styles" in fn:
         return "site_modules.css"
-    elif "modules=startup&only=scripts" in fn:
+    if "modules=startup&only=scripts" in fn:
         return "startup_scripts.js"
-    elif re.search("modules=skins.*&only=scripts", fn):
+    if re.search("modules=skins.*&only=scripts", fn):
         return "skin_scripts.js"
-    elif re.search("modules=.*ext.*&only=styles", fn):
+    if re.search("modules=.*ext.*&only=styles", fn):
         return "ext.css"
-    else:
-        raise Exception('Loader file {0} does not match any known files'.format(fn))
+    msg = 'Loader file {0} does not match any known files'.format(fn)
+    raise Exception(msg)
+
 
 def build_rename_map(root):
     # Returns a rename map: a map from old to new file name
@@ -122,13 +128,17 @@ def build_rename_map(root):
             if num > 0:
                 name, ext = os.path.splitext(fn)
                 # add file with its path -> only rename that occurrence
-                result[os.path.join(dir, fn)] = "{}.{}{}".format(name, num + 1, ext)
+                result[os.path.join(dir, fn)] = "{}.{}{}".format(name, num + 1,
+                                                                 ext)
             seen[low] += 1
 
     return result
 
+
 def rename_files(root, rename_map):
-    for dir, old_fn in ((dir, fn) for dir, _, filenames in os.walk(root) for fn in filenames):
+    for dir, old_fn in ((dir, fn)
+                        for dir, _, filenames in os.walk(root)
+                        for fn in filenames):
         src_path = os.path.join(dir, old_fn)
 
         new_fn = rename_map.get(old_fn)
@@ -144,6 +154,7 @@ def rename_files(root, rename_map):
             print("Renaming {0}\n      to {1}".format(src_path, dst_path))
             shutil.move(src_path, dst_path)
 
+
 def find_html_files(root):
     # find files that need to be preprocessed
     html_files = []
@@ -152,20 +163,24 @@ def find_html_files(root):
             html_files.append(os.path.join(dir, filename))
     return html_files
 
+
 def is_loader_link(target):
     if re.match(r'https?://[a-z]+\.cppreference\.com/mwiki/load\.php', target):
         return True
     return False
+
 
 def transform_loader_link(target, file, root):
     # Absolute loader.php links need to be made relative
     abstarget = os.path.join(root, "common", convert_loader_name(target))
     return os.path.relpath(abstarget, os.path.dirname(file))
 
+
 def is_ranges_placeholder(target):
-    if re.match(r'https?://[a-z]+\.cppreference\.com/w/cpp/ranges(-[a-z]+)?-placeholder/.+', target):
+    if re.match(r'https?://[a-z]+\.cppreference\.com/w/cpp/ranges(-[a-z]+)?-placeholder/.+', target):  # noqa
         return True
     return False
+
 
 def transform_ranges_placeholder(target, file, root):
     # Placeholder link replacement is implemented in the MediaWiki site JS at
@@ -175,9 +190,9 @@ def transform_ranges_placeholder(target, file, root):
     repl = (r'\1/cpp/experimental/ranges/\2' if ranges else r'\1/cpp/\2')
 
     if 'ranges-placeholder' in target:
-        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-placeholder/(.+)'
+        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-placeholder/(.+)'  # noqa
     else:
-        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-([a-z]+)-placeholder/(.+)'
+        match = r'https?://([a-z]+)\.cppreference\.com/w/cpp/ranges-([a-z]+)-placeholder/(.+)'  # noqa
         repl += (r'/\3' if ranges else r'/ranges/\3')
 
     # Turn absolute placeholder link into site-relative link
@@ -187,9 +202,11 @@ def transform_ranges_placeholder(target, file, root):
     abstarget = os.path.join(root, reltarget)
     return os.path.relpath(abstarget, os.path.dirname(file))
 
+
 def is_external_link(target):
     url = urllib.parse.urlparse(target)
     return url.scheme != '' or url.netloc != ''
+
 
 def trasform_relative_link(rename_map, target, file):
     # urlparse returns (scheme, host, path, params, query, fragment)
@@ -197,14 +214,15 @@ def trasform_relative_link(rename_map, target, file):
     assert params == ''
 
     path = urllib.parse.unquote(path)
-    path = path.replace('../../upload.cppreference.com/mwiki/','../common/')
-    path = path.replace('../mwiki/','../common/')
+    path = path.replace('../../upload.cppreference.com/mwiki/', '../common/')
+    path = path.replace('../mwiki/', '../common/')
 
     dir, fn = os.path.split(path)
     new_fn = rename_map.get(fn)
     if new_fn:
         # look for case conflict of the renamed file
-        abstarget = os.path.normpath(os.path.join(os.path.dirname(file), dir, new_fn))
+        abstarget = os.path.normpath(os.path.join(os.path.dirname(file),
+                                                  dir, new_fn))
         new_fn = rename_map.get(abstarget, new_fn)
     else:
         # original filename unchanged, look for case conflict
@@ -216,11 +234,13 @@ def trasform_relative_link(rename_map, target, file):
     path = urllib.parse.quote(path)
     return urllib.parse.urlunparse(('', '', path, params, '', fragment))
 
+
 # Transforms a link in the given file according to rename map.
 # target is the link to transform.
 # file is the path of the file the link came from.
 # root is the path to the root of the archive.
 def transform_link(rename_map, target, file, root):
+
     if is_loader_link(target):
         return transform_loader_link(target, file, root)
 
@@ -232,6 +252,7 @@ def transform_link(rename_map, target, file, root):
 
     return trasform_relative_link(rename_map, target, file)
 
+
 def has_class(el, *classes_to_check):
     value = el.get('class')
     if value is None:
@@ -242,6 +263,7 @@ def has_class(el, *classes_to_check):
             return True
     return False
 
+
 # remove non-printable elements
 def remove_noprint(html):
     for el in html.xpath('//*'):
@@ -250,6 +272,7 @@ def remove_noprint(html):
         elif el.get('id') in ['toc', 'catlinks']:
             el.getparent().remove(el)
 
+
 # remove see also links between C and C++ documentations
 def remove_see_also(html):
     for el in html.xpath('//tr[@class]'):
@@ -257,7 +280,8 @@ def remove_see_also(html):
             continue
 
         child_tds = el.xpath('.//td/div[@class]')
-        if not any(has_class(td, 't-dcl-list-see', 't-dsc-see') for td in child_tds):
+        if not any(has_class(td, 't-dcl-list-see', 't-dsc-see')
+                   for td in child_tds):
             continue
 
         # remove preceding separator, if any
@@ -276,17 +300,23 @@ def remove_see_also(html):
         next = el.getnext()
         if next is None:
             el.getparent().remove(el)
-        elif next.tag == 'table' and has_class(next, 't-dcl-list-begin') and len(next.xpath('.//tr')) == 0:
+        elif next.tag == 'table' and has_class(next, 't-dcl-list-begin') and \
+                len(next.xpath('.//tr')) == 0:
             el.getparent().remove(el)
             next.getparent().remove(next)
+
 
 # remove Google Analytics scripts
 def remove_google_analytics(html):
     for el in html.xpath('/html/body/script'):
-        if el.get('src') is not None and 'google-analytics.com/ga.js' in el.get('src'):
-            el.getparent().remove(el)
-        elif el.text is not None and ('google-analytics.com/ga.js' in el.text or 'pageTracker' in el.text):
-            el.getparent().remove(el)
+        if el.get('src') is not None:
+            if 'google-analytics.com/ga.js' in el.get('src'):
+                el.getparent().remove(el)
+        elif el.text is not None:
+            if 'google-analytics.com/ga.js' in el.text or \
+                    'pageTracker' in el.text:
+                el.getparent().remove(el)
+
 
 # remove Carbon ads
 def remove_ads(html):
@@ -297,12 +327,14 @@ def remove_ads(html):
         if el.text is not None and '#carbonads' in el.text:
             el.getparent().remove(el)
 
+
 # remove links to file info pages (e.g. on images)
 def remove_fileinfo(html):
-    info = etree.XPath(r"//a[re:test(@href, 'https?://[a-z]+\.cppreference\.com/w/File:')]/..",
-        namespaces={'re':'http://exslt.org/regular-expressions'})
+    info = etree.XPath(r"//a[re:test(@href, 'https?://[a-z]+\.cppreference\.com/w/File:')]/..",  # noqa
+                       namespaces={'re':'http://exslt.org/regular-expressions'})  # noqa
     for el in info(html):
         el.getparent().remove(el)
+
 
 # remove external links to unused resources
 def remove_unused_external(html):
@@ -312,6 +344,7 @@ def remove_unused_external(html):
         elif el.get('rel') == 'shortcut icon':
             (head, tail) = os.path.split(el.get('href'))
             el.set('href', os.path.join(head, 'common', tail))
+
 
 def preprocess_html_file(root, fn, rename_map):
     parser = etree.HTMLParser()
@@ -331,11 +364,12 @@ def preprocess_html_file(root, fn, rename_map):
     for el in html.xpath('//*[@href]'):
         el.set('href', transform_link(rename_map, el.get('href'), fn, root))
 
-    for err in parser.error_log:
+    for err in list(parser.error_log):
         print("HTML WARN: {0}".format(err), file=output)
 
     html.write(fn, encoding='utf-8', method='html')
     return output.getvalue()
+
 
 def preprocess_css_file(fn):
     f = open(fn, "r", encoding='utf-8')
@@ -344,10 +378,13 @@ def preprocess_css_file(fn):
 
     # note that query string is not used in css files
 
-    text = text.replace('../DejaVuSansMonoCondensed60.ttf', 'DejaVuSansMonoCondensed60.ttf')
-    text = text.replace('../DejaVuSansMonoCondensed75.ttf', 'DejaVuSansMonoCondensed75.ttf')
+    text = text.replace('../DejaVuSansMonoCondensed60.ttf',
+                        'DejaVuSansMonoCondensed60.ttf')
+    text = text.replace('../DejaVuSansMonoCondensed75.ttf',
+                        'DejaVuSansMonoCondensed75.ttf')
 
-    text = text.replace('../../upload.cppreference.com/mwiki/images/', 'images/')
+    text = text.replace('../../upload.cppreference.com/mwiki/images/',
+                        'images/')
 
     # QT Help viewer doesn't understand nth-child
     text = text.replace('nth-child(1)', 'first-child')
@@ -355,6 +392,7 @@ def preprocess_css_file(fn):
     f = open(fn, "w", encoding='utf-8')
     f.write(text)
     f.close()
+
 
 def preprocess_startup_script(fn):
     with open(fn, "r", encoding='utf-8') as f:

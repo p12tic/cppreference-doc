@@ -20,6 +20,7 @@
 
 from index_transform.common import IndexTransform
 
+
 class Index2Search(IndexTransform):
     def __init__(self, out_file):
         super().__init__()
@@ -29,4 +30,3 @@ class Index2Search(IndexTransform):
 
         self.out_file.write(full_name + ' => ' + full_link + '\n')
         IndexTransform.process_item_hook(self, el, full_name, full_link)
-

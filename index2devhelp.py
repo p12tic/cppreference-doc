@@ -18,34 +18,35 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform.devhelp import *
 import argparse
-from xml_utils import xml_escape
-import io
+from index_transform.devhelp import transform_devhelp
+
 
 def main():
     parser = argparse.ArgumentParser(prog='index2devhelp')
     parser.add_argument('book_base', type=str,
-            help='url to the location of the book')
+                        help='url to the location of the book')
     parser.add_argument('chapters_path', type=str,
-            help='path to the chapters file to include')
+                        help='path to the chapters file to include')
     parser.add_argument('book_title', type=str,
-            help='the title of the book')
+                        help='the title of the book')
     parser.add_argument('book_name', type=str,
-        help='the name of the package')
+                        help='the name of the package')
     parser.add_argument('rel_link', type=str,
-        help='the link relative to the root of the documentation')
+                        help='the link relative to the root of the '
+                             'documentation')
     parser.add_argument('in_fn', type=str,
-        help='the path of the source file')
+                        help='the path of the source file')
     parser.add_argument('dest_fn', type=str,
-        help='the path of the destination file')
+                        help='the path of the destination file')
     args = parser.parse_args()
 
     with open(args.dest_fn, 'wb') as out_f:
         output = transform_devhelp(args.book_title, args.book_name,
-                                    args.book_base, args.rel_link,
-                                    args.chapters_path, args.in_fn)
+                                   args.book_base, args.rel_link,
+                                   args.chapters_path, args.in_fn)
         out_f.write(output)
+
 
 if __name__ == '__main__':
     main()

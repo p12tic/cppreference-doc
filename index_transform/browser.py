@@ -21,6 +21,7 @@
 from index_transform.common import IndexTransform
 from xml_utils import xml_escape
 
+
 class Index2Browser(IndexTransform):
 
     def __init__(self, out_file):
@@ -28,25 +29,35 @@ class Index2Browser(IndexTransform):
         self.out_file = out_file
 
     def output_item(self, el, full_name, full_link):
+        tag_to_mark = {
+            'const': '(const)',
+            'function': '(function)',
+            'constructor': '(function)',
+            'destructor': '(function)',
+            'class': '(class)',
+            'enum': '(enum)',
+            'variable': '(variable)',
+            'typedef': '(typedef)',
+            'specialization': '(class)',
+            'overload': '(function)',
+        }
         mark = ''
-        if el.tag == 'const': mark = '(const)'
-        elif el.tag == 'function': mark = '(function)'
-        elif el.tag == 'constructor': mark = '(function)'
-        elif el.tag == 'destructor': mark = '(function)'
-        elif el.tag == 'class': mark = '(class)'
-        elif el.tag == 'enum': mark = '(enum)'
-        elif el.tag == 'variable': mark = '(variable)'
-        elif el.tag == 'typedef': mark = '(typedef)'
-        elif el.tag == 'specialization': mark = '(class)'
-        elif el.tag == 'overload': mark = '(function)'
+        if el.tag in tag_to_mark:
+            mark = tag_to_mark[el.tag]
 
         res = u''
-        res += '<tt><b>' + xml_escape(full_name) + '</b></tt> [<span class="link">'
-        res += '<a href="http://en.cppreference.com/w/' + xml_escape(full_link) + '">'
-        res += full_link + '</a></span>] <span class="mark">' + mark + '</span>\n'
+        res += '<tt><b>{0}</b></tt> [<span class="link">'.format(
+            xml_escape(full_name))
+        res += '<a href="http://en.cppreference.com/w/{0}">'.format(
+            xml_escape(full_link))
+        res += '{0}</a></span>] <span class="mark">{1}</span>\n'.format(
+            full_link, mark)
+
         return res
 
     def process_item_hook(self, el, full_name, full_link):
-        self.out_file.write('<li>' + self.output_item(el, full_name, full_link) + '<ul>')
+        self.out_file.write('<li>' +
+                            self.output_item(el, full_name, full_link) +
+                            '<ul>')
         IndexTransform.process_item_hook(self, el, full_name, full_link)
         self.out_file.write('</ul></li>\n')

@@ -17,13 +17,10 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
+import unittest
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+
 
 class Driver:
     def __init__(self):
@@ -31,8 +28,8 @@ class Driver:
         driver = webdriver.Firefox()
         driver.implicitly_wait(30)
         try:
-            driver.get(base_url + "/mwiki/index.php?title=Special:UserLogout&returnto=Main+Page")
-            driver.get(base_url + "/mwiki/index.php?title=Special:UserLogin&returnto=Main+Page")
+            driver.get(base_url + "/mwiki/index.php?title=Special:UserLogout&returnto=Main+Page")  # noqa
+            driver.get(base_url + "/mwiki/index.php?title=Special:UserLogin&returnto=Main+Page")  # noqa
             driver.find_element_by_id("wpName1").clear()
             driver.find_element_by_id("wpName1").send_keys("test5")
             driver.find_element_by_id("wpPassword1").clear()
@@ -40,17 +37,18 @@ class Driver:
             driver.find_element_by_id("wpLoginAttempt").click()
             if driver.find_element_by_link_text("Test5").text != "Test5":
                 raise Exception("Could not login")
-        except:
+        except Exception:
             driver.quit()
             raise
         self.driver = driver
         self.base_url = base_url
 
-
     def __del__(self):
         self.driver.quit()
 
+
 driver_instance = Driver()
+
 
 class CppTestCase(unittest.TestCase):
     @classmethod

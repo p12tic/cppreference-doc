@@ -18,30 +18,39 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from index_transform.doxygen_tag import *
 import argparse
-from link_map import LinkMap
 from lxml import etree
+from link_map import LinkMap
+from index_transform.doxygen_tag import Index2DoxygenTag
+from index_transform.doxygen_tag import Item
+from index_transform.doxygen_tag import print_map
+
 
 def main():
     parser = argparse.ArgumentParser(prog='index2doxygen-tag')
-    parser.add_argument('link_map_fn', type=str,
-            help='Path to index file to process')
-    parser.add_argument('in_fn', type=str,
-            help='the file name of the link map or \'web\' if no link remap ' +
-                 'should be done')
-    parser.add_argument('chapters_fn', type=str,
-            help='the file name of the source file')
-    parser.add_argument('dest_fn', type=str,
-            help='the file name of the destination file')
+    parser.add_argument(
+        'link_map_fn', type=str,
+        help='Path to index file to process')
+
+    parser.add_argument(
+        'in_fn', type=str,
+        help='the file name of the link map or \'web\' if no link remap '
+             'should be done')
+
+    parser.add_argument(
+        'chapters_fn', type=str,
+        help='the file name of the source file')
+
+    parser.add_argument(
+        'dest_fn', type=str,
+        help='the file name of the destination file')
+
     args = parser.parse_args()
 
     link_map_fn = args.link_map_fn
     in_fn = args.in_fn
     chapters_fn = args.chapters_fn
     dest_fn = args.dest_fn
-
-    indent_level_inc = 2
 
     out_f = open(dest_fn, 'w', encoding='utf-8')
 
@@ -57,10 +66,13 @@ def main():
 
     with open(chapters_fn, encoding='utf-8') as chapters_f:
         chapters_tree = etree.parse(chapters_f)
-        for header_chapter in chapters_tree.getroot().findall(".//*[@name='Headers']/*"):
+        for header_chapter in \
+                chapters_tree.getroot().findall(".//*[@name='Headers']/*"):
             out_f.write('  <compound kind="file">\n')
-            out_f.write('    <name>%s</name>\n' % header_chapter.attrib['name'])
-            out_f.write('    <filename>%s</filename>\n' % header_chapter.attrib['link'])
+            out_f.write('    <name>{0}</name>\n'.format(
+                header_chapter.attrib['name']))
+            out_f.write('    <filename>{0}</filename>\n'.format(
+                header_chapter.attrib['link']))
             out_f.write('    <namespace>std</namespace>\n')
             out_f.write('  </compound>\n')
 
@@ -69,6 +81,7 @@ def main():
     print_map(out_f, link_map, ns_map)
     out_f.write('''</tagfile>
 ''')
+
 
 if __name__ == '__main__':
     main()

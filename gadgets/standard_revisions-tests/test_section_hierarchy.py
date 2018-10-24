@@ -16,69 +16,70 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
+# noqa
 
-import unittest, time, re
-from base import *
+from base import CppTestCase
+
 
 class TestSectionHierarchy(CppTestCase):
 
     def test_hides_h3_when_section_contains_dsc_with_removed_elems(self):
         driver = self.driver
-        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-elems")
-        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())
+        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-elems")  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())  # noqa
 
         self.select_cxx98()
-        self.assertFalse(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())
+        self.assertFalse(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())  # noqa
 
         self.select_cxx11()
-        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B98").is_displayed())  # noqa
 
     def test_hides_h3_when_section_contains_dsc_with_removed_until(self):
         driver = self.driver
-        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-until")
-        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B11").is_displayed())
+        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-dsc-with-removed-until")  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B11").is_displayed())  # noqa
 
         self.select_cxx98()
-        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B11").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_when_c.2B.2B11").is_displayed())  # noqa
 
         self.select_cxx11()
-        self.assertFalse(driver.find_element_by_id("Should_be_removed_when_c.2B.2B11").is_displayed())
+        self.assertFalse(driver.find_element_by_id("Should_be_removed_when_c.2B.2B11").is_displayed())  # noqa
 
     def test_hides_h3_when_section_contains_only_stdrev(self):
         driver = self.driver
-        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-only-stdrev")
-        self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
+        self.get_page("test-gadget-stdrev/hides-h3-when-section-contains-only-stdrev")  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())  # noqa
 
         self.select_cxx98()
-        self.assertFalse(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
+        self.assertFalse(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())  # noqa
 
         self.select_cxx11()
-        self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_be_removed_in_cxx98").is_displayed())  # noqa
 
     def test_preserves_h3_when_section_visible(self):
         driver = self.driver
-        self.get_page("test-gadget-stdrev/preserves-h3-when-section-with-h5-visible")
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
+        self.get_page("test-gadget-stdrev/preserves-h3-when-section-with-h5-visible")  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())  # noqa
 
         self.select_cxx98()
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())  # noqa
 
         self.select_cxx11()
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())  # noqa
 
     def test_preserves_h3_when_section_with_h5_visible(self):
         driver = self.driver
-        self.get_page("test-gadget-stdrev/preserves-h3-when-section-with-h5-visible")
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())
-        self.assertTrue(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())
+        self.get_page("test-gadget-stdrev/preserves-h3-when-section-with-h5-visible")  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())  # noqa
 
         self.select_cxx98()
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())
-        self.assertFalse(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())  # noqa
+        self.assertFalse(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())  # noqa
 
         self.select_cxx11()
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())
-        self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())
-        self.assertTrue(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible").is_displayed())  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_always_be_visible2").is_displayed())  # noqa
+        self.assertTrue(driver.find_element_by_id("Should_not_be_visible_in_cxx98").is_displayed())  # noqa

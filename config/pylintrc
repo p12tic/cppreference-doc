@@ -387,3 +387,5 @@ max-public-methods=20
 # Exceptions that will emit a warning when being caught. Defaults to
 # "Exception"
 overgeneral-exceptions=Exception
+
+extension-pkg-whitelist=lxml

@@ -17,7 +17,8 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from base import *
+from base import CppTestCase
+
 
 class TestDsc(CppTestCase):
     def test_hides_dsc_items_with_explicit_mark(self):
@@ -32,4 +33,3 @@ class TestDsc(CppTestCase):
         self.select_cxx11()
         self.assert_text_in_body("std::not_visible_in_cxx98")
         self.assert_text_not_in_body("std::not_visible_in_cxx11")
-

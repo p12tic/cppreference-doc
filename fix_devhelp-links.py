@@ -18,9 +18,10 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
+import sys
 import lxml.etree as e
 from link_map import LinkMap
-import sys
+
 
 if len(sys.argv) != 3:
     print('''Please provide the following 2 argument:
@@ -40,7 +41,7 @@ el_mod = root.xpath('//*[@link]')
 for el in el_mod:
     link = el.get('link')
     target = mapping.get_dest(link)
-    if target == None:
+    if target is None:
         print('Could not find ' + link + ' in mapping')
         target = '404'
     el.set('link', target)
@@ -49,4 +50,3 @@ out_f = open(out_fn, 'wb')
 out_f.write(e.tostring(root, encoding='utf-8', pretty_print=True,
                        xml_declaration=True))
 out_f.close()
-
