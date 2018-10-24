@@ -14,10 +14,11 @@ python:
 install:
   - pip install -U pip
   - pip install -r requirements.txt
+  - pip install -r requirements-ci.txt
 
-#before_script:
-# - "if [[ $TRAVIS_PYTHON_VERSION != 2.6 ]]; then flake8 --config=config/flake8rc asm_collect.py asmtest tests; fi"
-# - "if [[ $TRAVIS_PYTHON_VERSION != 2.6 ]]; then pylint --rcfile=config/pylintrc asm_collect.py asmtest tests; fi"
+before_script:
+ - "flake8 --config=config/flake8rc *.py commands index_transform gadgets/standard_revisions_tests/*.py tests"
+ - "pylint --rcfile=config/pylintrc *.py commands index_transform gadgets/standard_revisions_tests/*.py tests"
 
 script:
   - "python -m unittest discover"
