@@ -17,7 +17,8 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-from base import *
+from base import CppTestCase
+
 
 class TestDcl(CppTestCase):
     def test_hides_dcl_items_in_dcl_rev(self):

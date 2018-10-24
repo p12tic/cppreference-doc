@@ -26,8 +26,10 @@ xml_escape_table = {
     "<": "&lt;",
     }
 
+
 def xml_escape(text):
-    return "".join(xml_escape_table.get(c,c) for c in text)
+    return "".join(xml_escape_table.get(c, c) for c in text)
+
 
 def xml_unescape(text):
     text = text.replace("&quot;", '"')

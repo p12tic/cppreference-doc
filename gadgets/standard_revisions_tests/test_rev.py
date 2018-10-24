@@ -17,8 +17,8 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-import unittest, time, re
-from base import *
+from base import CppTestCase
+
 
 class TestRev(CppTestCase):
     def test_revlist_works_in_dsc_item(self):
@@ -48,7 +48,6 @@ class TestRev(CppTestCase):
         self.assert_text_not_in_body("not_visible_in_cxx11")
 
     def test_rev_works_with_fully_closed_ranges(self):
-        driver = self.driver
         self.get_page("test-gadget-stdrev/rev-works-with-fully-closed-ranges")
         self.assert_text_in_body("since-cxx03-until-none")
         self.assert_text_in_body("since-cxx11-until-none")

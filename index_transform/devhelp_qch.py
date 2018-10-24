@@ -20,6 +20,7 @@
 
 from lxml import etree
 
+
 def convert_toc_lines(source_line, in_section):
     for el_sub in source_line.getchildren():
         el_section_1 = etree.SubElement(in_section, 'section')
@@ -30,6 +31,7 @@ def convert_toc_lines(source_line, in_section):
             convert_toc_lines(el_sub, el_section_1)
 
     return in_section
+
 
 def convert_toc(in_root):
     el_toc = etree.Element('toc')
@@ -43,6 +45,7 @@ def convert_toc(in_root):
 
     convert_toc_lines(chapters_el, el_section)
     return el_toc
+
 
 def convert_keywords(in_root_k):
     el_keywords = etree.Element('keywords')
@@ -75,6 +78,7 @@ def convert_keywords(in_root_k):
 
     return el_keywords
 
+
 # Adds files list from external library
 def add_files_list(files_root_f):
     el_files = etree.Element('files')
@@ -82,6 +86,7 @@ def add_files_list(files_root_f):
         el_file = etree.SubElement(el_files, 'file')
         el_file.text = file_item.text
     return el_files
+
 
 def convert_devhelp_to_qch(in_root, files_root, virtual_folder):
     out_root = etree.Element('QtHelpProject')

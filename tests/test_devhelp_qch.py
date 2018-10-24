@@ -15,10 +15,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from lxml import etree
 import os
 import unittest
-from index_transform.devhelp_qch import * #pylint: disable=unused-wildcard-import
+from lxml import etree
+from index_transform.devhelp_qch import convert_devhelp_to_qch
+
 
 class TestConvertDevhelpToQch(unittest.TestCase):
     def test_convert_devhelp_to_qch(self):

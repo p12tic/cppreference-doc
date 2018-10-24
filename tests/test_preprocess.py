@@ -18,17 +18,33 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from commands.preprocess import * #pylint: disable=unused-wildcard-import
 import io
 import os
 import sys
 import contextlib
 import unittest
 import unittest.mock
+from commands.preprocess import build_rename_map
+from commands.preprocess import convert_loader_name
+from commands.preprocess import has_class
+from commands.preprocess import is_external_link
+from commands.preprocess import is_ranges_placeholder
+from commands.preprocess import remove_noprint
+from commands.preprocess import remove_see_also
+from commands.preprocess import remove_google_analytics
+from commands.preprocess import remove_ads
+from commands.preprocess import remove_fileinfo
+from commands.preprocess import remove_unused_external
+from commands.preprocess import transform_ranges_placeholder
+from commands.preprocess import trasform_relative_link
+from commands.preprocess import rename_files
 from lxml import etree
 
+
 class DummyFile(object):
-    def write(self, x): pass
+    def write(self, x):
+        pass
+
 
 # From https://stackoverflow.com/a/2829036/1849769
 @contextlib.contextmanager
@@ -38,25 +54,27 @@ def nostdout():
     yield
     sys.stdout = save_stdout
 
+
 class TestConvertLoaderName(unittest.TestCase):
     def test_convert_loader_name(self):
-        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=site&only=scripts&skin=cppreference2&*'
+        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=site&only=scripts&skin=cppreference2&*'  # noqa
         self.assertEqual('site_scripts.js', convert_loader_name(url))
 
-        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=site&only=styles&skin=cppreference2&*'
+        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=site&only=styles&skin=cppreference2&*'  # noqa
         self.assertEqual('site_modules.css', convert_loader_name(url))
 
-        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=skins.cppreference2&only=scripts&skin=cppreference2&*'
+        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=skins.cppreference2&only=scripts&skin=cppreference2&*'  # noqa
         self.assertEqual('skin_scripts.js', convert_loader_name(url))
 
-        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=startup&only=scripts&skin=cppreference2&*'
+        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=startup&only=scripts&skin=cppreference2&*'  # noqa
         self.assertEqual('startup_scripts.js', convert_loader_name(url))
 
-        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=ext.gadget.ColiruCompiler%2CMathJax%7Cext.rtlcite%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.cppreference2&only=styles&skin=cppreference2&*'
+        url = 'http://en.cppreference.com/mwiki/load.php?debug=false&lang=en&modules=ext.gadget.ColiruCompiler%2CMathJax%7Cext.rtlcite%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.cppreference2&only=styles&skin=cppreference2&*'  # noqa
         self.assertEqual('ext.css', convert_loader_name(url))
 
         with self.assertRaises(Exception):
             convert_loader_name('')
+
 
 class TestHasClass(unittest.TestCase):
     def test_has_class(self):
@@ -102,6 +120,7 @@ class TestHasClass(unittest.TestCase):
         self.assertEqual(True, has_class(el, 'b', 'a'))
         self.assertEqual(True, has_class(el, 'b', 'c'))
 
+
 class TestIsExternalLink(unittest.TestCase):
     def test_is_external_link(self):
         external = [
@@ -110,12 +129,13 @@ class TestIsExternalLink(unittest.TestCase):
             'ftp://example.com',
             'ftps://example.com',
             'slack://example.com',
-            'https:///foo.html', # Not technically external, but we say so anyway
+            'https:///foo.html',  # Not technically external,
+                                  # but we say so anyway
             '//example.com'
         ]
         for link in external:
             self.assertTrue(is_external_link(link),
-                msg="Should be external: {}".format(link))
+                            msg="Should be external: {}".format(link))
 
         relative = [
             '/example.com',
@@ -125,7 +145,8 @@ class TestIsExternalLink(unittest.TestCase):
         ]
         for link in relative:
             self.assertFalse(is_external_link(link),
-                msg="Should not be external: {}".format(link))
+                             msg="Should not be external: {}".format(link))
+
 
 class TestPlaceholderLinks(unittest.TestCase):
     # Placeholder link replacement is implemented in the MediaWiki site JS at
@@ -133,19 +154,19 @@ class TestPlaceholderLinks(unittest.TestCase):
 
     def test_is_ranges_placeholder(self):
         match = [
-            'http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
-            'http://en.cppreference.com/w/cpp/ranges-placeholder/iterator/Incrementable',
-            'http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
-            'http://en.cppreference.com/w/cpp/ranges-iterator-placeholder/dangling',
-            'http://en.cppreference.com/w/cpp/ranges-utility-placeholder/swap',
+            'http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
+            'http://en.cppreference.com/w/cpp/ranges-placeholder/iterator/Incrementable',  # noqa
+            'http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',  # noqa
+            'http://en.cppreference.com/w/cpp/ranges-iterator-placeholder/dangling',  # noqa
+            'http://en.cppreference.com/w/cpp/ranges-utility-placeholder/swap',  # noqa
         ]
         for target in match:
             self.assertTrue(is_ranges_placeholder(target),
-                msg="Should match '{}'".format(target))
+                            msg="Should match '{}'".format(target))
 
             target = target.replace("http://", "https://")
             self.assertTrue(is_ranges_placeholder(target),
-                msg="Should match '{}'".format(target))
+                            msg="Should match '{}'".format(target))
 
         nomatch = [
             'http://en.cppreference.com/w/cpp/ranges--placeholder/swap',
@@ -164,48 +185,48 @@ class TestPlaceholderLinks(unittest.TestCase):
         ]
         for target in nomatch:
             self.assertFalse(is_ranges_placeholder(target),
-                msg="Should not match '{}'".format(target))
+                             msg="Should not match '{}'".format(target))
 
     def test_transform_ranges_placeholder(self):
         entries = [
             # (target, file, expected)
-            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
              'output/reference/en/cpp/concepts/ConvertibleTo.html',
              'Assignable.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
              'output/reference/en/cpp/concepts/long/path/ConvertibleTo.html',
              '../../Assignable.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
              'output/reference/en/cpp/other/path/ConvertibleTo.html',
              '../../concepts/Assignable.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',  # noqa
              'output/reference/en/cpp/concepts/ConvertibleTo.html',
              '../algorithm/ranges/all_any_none_of.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',  # noqa
              'output/reference/en/cpp/algorithm/ConvertibleTo.html',
              'ranges/all_any_none_of.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
              'output/reference/en/cpp/experimental/ranges/concepts/View.html',
              'Assignable.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
              'output/reference/en/cpp/experimental/ranges/View.html',
              'concepts/Assignable.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',
+            ('http://en.cppreference.com/w/cpp/ranges-placeholder/concepts/Assignable',  # noqa
              'output/reference/en/cpp/experimental/ranges/range/View.html',
              '../concepts/Assignable.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',  # noqa
              'output/reference/en/cpp/experimental/ranges/View.html',
              'algorithm/all_any_none_of.html'),
 
-            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',
+            ('http://en.cppreference.com/w/cpp/ranges-algorithm-placeholder/all_any_none_of',  # noqa
              'output/reference/en/cpp/experimental/ranges/range/View.html',
              '../algorithm/all_any_none_of.html'),
         ]
@@ -216,21 +237,28 @@ class TestPlaceholderLinks(unittest.TestCase):
         #  root:   path to the site root (where '/' should link to)
         root = "output/reference"
         for target, file, expected in entries:
-            self.assertEqual(expected, transform_ranges_placeholder(target, file, root),
-                msg="target='{}', file='{}', root='{}'".format(target, file, root))
+            res = transform_ranges_placeholder(target, file, root)
+            self.assertEqual(expected, res,
+                             msg="target='{}', file='{}', root='{}'".format(
+                                target, file, root))
 
             target = target.replace('http://', 'https://')
-            self.assertEqual(expected, transform_ranges_placeholder(target, file, root),
-                msg="target='{}', file='{}', root='{}'".format(target, file, root))
+            res = transform_ranges_placeholder(target, file, root)
+            self.assertEqual(expected, res,
+                             msg="target='{}', file='{}', root='{}'".format(
+                                target, file, root))
+
 
 class TestPreprocessHtml(unittest.TestCase):
     def setUp(self):
-        self.testdata = os.path.join(os.path.dirname(__file__), 'preprocess_data')
+        self.testdata = os.path.join(os.path.dirname(__file__),
+                                     'preprocess_data')
         infile = os.path.join(self.testdata, "fabs.html")
         self.parser = etree.HTMLParser()
         self.html = etree.parse(infile, self.parser)
 
-    # Check whether the HTML matches the contents of the specified test data file
+    # Check whether the HTML matches the contents of the specified test data
+    # file
     def check_output(self, expected_file):
         with open(os.path.join(self.testdata, expected_file), 'rb') as f:
             expected = f.read()
@@ -264,6 +292,7 @@ class TestPreprocessHtml(unittest.TestCase):
         remove_unused_external(self.html)
         self.check_output("fabs_external.html")
 
+
 class TestFileRename(unittest.TestCase):
     def make_rename_map(self, root):
         def p(*dirs):
@@ -284,21 +313,43 @@ class TestFileRename(unittest.TestCase):
     def make_walk_result(self, root):
         def p(*dirs):
             return os.path.join(root, 'dir1', *dirs)
+
         return [
             # Nothing to do
-            (p(), ('sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6'), ('f1', 'f2')),
+            (p(),
+             ('sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6'),
+             ('f1', 'f2')),
+
             # Unwanted characters
-            (p('sub1'), (), ('invalid*.txt', 'valid.txt')),
+            (p('sub1'),
+             (),
+             ('invalid*.txt', 'valid.txt')),
+
             # Case conflict
-            (p('sub2'), (), ('conflict.html', 'Conflict.html')),
+            (p('sub2'),
+             (),
+             ('conflict.html', 'Conflict.html')),
+
             # Unwanted characters + case conflict
-            (p('sub3'), (), ('confl"ict".html', 'Confl"ict".html')),
+            (p('sub3'),
+             (),
+             ('confl"ict".html', 'Confl"ict".html')),
+
             # Multiple case conflicts, no extension
-            (p('sub4'), (), ('conflict', 'Conflict', 'conFlict')),
+            (p('sub4'),
+             (),
+             ('conflict', 'Conflict', 'conFlict')),
+
             # Case conflict in second directory
-            (p('sub5'), (), ('conflict', 'Conflict')),
+            (p('sub5'),
+             (),
+             ('conflict', 'Conflict')),
+
             # Loader links
-            (p('sub6'), (), ('load.php?modules=site&only=scripts', 'load.php?modules=someext&only=styles'))
+            (p('sub6'),
+             (),
+             ('load.php?modules=site&only=scripts',
+              'load.php?modules=someext&only=styles'))
         ]
 
     def test_build_rename_map(self):
@@ -312,23 +363,33 @@ class TestFileRename(unittest.TestCase):
 
     def test_rename_files(self):
         expected = [
-            (('output/dir1/sub1/invalid*.txt', 'output/dir1/sub1/invalid_star_.txt'), {}),
-            (('output/dir1/sub2/Conflict.html', 'output/dir1/sub2/Conflict.2.html'), {}),
-            (('output/dir1/sub3/confl"ict".html', 'output/dir1/sub3/confl_q_ict_q_.html'), {}),
-            (('output/dir1/sub3/Confl"ict".html', 'output/dir1/sub3/Confl_q_ict_q_.2.html'), {}),
-            (('output/dir1/sub4/Conflict', 'output/dir1/sub4/Conflict.2'), {}),
-            (('output/dir1/sub4/conFlict', 'output/dir1/sub4/conFlict.3'), {}),
-            (('output/dir1/sub5/Conflict', 'output/dir1/sub5/Conflict.2'), {}),
-            (('output/dir1/sub6/load.php?modules=site&only=scripts', 'output/dir1/sub6/site_scripts.js'), {}),
-            (('output/dir1/sub6/load.php?modules=someext&only=styles', 'output/dir1/sub6/ext.css'), {})
+            (('output/dir1/sub1/invalid*.txt',
+              'output/dir1/sub1/invalid_star_.txt'), {}),
+            (('output/dir1/sub2/Conflict.html',
+              'output/dir1/sub2/Conflict.2.html'), {}),
+            (('output/dir1/sub3/confl"ict".html',
+              'output/dir1/sub3/confl_q_ict_q_.html'), {}),
+            (('output/dir1/sub3/Confl"ict".html',
+              'output/dir1/sub3/Confl_q_ict_q_.2.html'), {}),
+            (('output/dir1/sub4/Conflict',
+              'output/dir1/sub4/Conflict.2'), {}),
+            (('output/dir1/sub4/conFlict',
+              'output/dir1/sub4/conFlict.3'), {}),
+            (('output/dir1/sub5/Conflict',
+              'output/dir1/sub5/Conflict.2'), {}),
+            (('output/dir1/sub6/load.php?modules=site&only=scripts',
+              'output/dir1/sub6/site_scripts.js'), {}),
+            (('output/dir1/sub6/load.php?modules=someext&only=styles',
+              'output/dir1/sub6/ext.css'), {})
         ]
 
         actual = []
+
         def record_call(*args, **kwargs):
             actual.append((args, kwargs))
 
         with unittest.mock.patch('os.walk') as walk, \
-             unittest.mock.patch('shutil.move') as move:
+                unittest.mock.patch('shutil.move') as move:
             walk.return_value = self.make_walk_result('output')
             move.side_effect = record_call
 
@@ -336,7 +397,7 @@ class TestFileRename(unittest.TestCase):
                 rename_files('output', self.make_rename_map('output'))
 
         self.assertEqual(expected, actual,
-            msg="Unexpected sequence of calls to shutil.move")
+                         msg="Unexpected sequence of calls to shutil.move")
 
     def test_transform_relative_link(self):
         entries = [
@@ -419,5 +480,6 @@ class TestFileRename(unittest.TestCase):
         #  file:   path of the file that contains the link
         rename_map = self.make_rename_map('output')
         for file, target, expected in entries:
-            self.assertEqual(expected, trasform_relative_link(rename_map, target, file),
-                msg="target='{}', file='{}'".format(target, file))
+            self.assertEqual(expected,
+                             trasform_relative_link(rename_map, target, file),
+                             msg="target='{}', file='{}'".format(target, file))

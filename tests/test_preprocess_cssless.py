@@ -17,14 +17,27 @@
 
 import os
 import unittest
-from commands.preprocess_cssless import * #pylint: disable=unused-wildcard-import
+from commands.preprocess_cssless import preprocess_html_merge_cssless
+from commands.preprocess_cssless import silence_cssutils_warnings
+from commands.preprocess_cssless import convert_span_tables_to_tr_td
+from commands.preprocess_cssless import convert_inline_block_elements_to_table
+from commands.preprocess_cssless import convert_zero_td_width_to_nonzero
+from commands.preprocess_cssless import apply_font_size
+from commands.preprocess_cssless import convert_font_size_property_to_pt
+from commands.preprocess_cssless \
+    import convert_table_border_top_to_tr_background
+from lxml import etree
+
 
 class TestPreprocessHtmlMergeCss(unittest.TestCase):
     def test_preprocess_html_merge_cssless(self):
         dir_path = os.path.dirname(__file__)
-        src_path = os.path.join(dir_path, 'preprocess_cssless_data/multiset.html')
-        dst_path = os.path.join(dir_path, 'preprocess_cssless_data/multiset_out.html')
-        expected_path = os.path.join(dir_path, 'preprocess_cssless_data/multiset_expected.html')
+        src_path = os.path.join(
+            dir_path, 'preprocess_cssless_data/multiset.html')
+        dst_path = os.path.join(
+            dir_path, 'preprocess_cssless_data/multiset_out.html')
+        expected_path = os.path.join(
+            dir_path, 'preprocess_cssless_data/multiset_expected.html')
 
         preprocess_html_merge_cssless(src_path, dst_path)
 
@@ -39,9 +52,12 @@ class TestPreprocessHtmlMergeCss(unittest.TestCase):
 
     def test_preprocess_html_merge_cssless2(self):
         dir_path = os.path.dirname(__file__)
-        src_path = os.path.join(dir_path, 'preprocess_cssless_data/basic_string.html')
-        dst_path = os.path.join(dir_path, 'preprocess_cssless_data/basic_string_out.html')
-        expected_path = os.path.join(dir_path, 'preprocess_cssless_data/basic_string_expected.html')
+        src_path = os.path.join(
+            dir_path, 'preprocess_cssless_data/basic_string.html')
+        dst_path = os.path.join(
+            dir_path, 'preprocess_cssless_data/basic_string_out.html')
+        expected_path = os.path.join(
+            dir_path, 'preprocess_cssless_data/basic_string_expected.html')
 
         preprocess_html_merge_cssless(src_path, dst_path)
 
@@ -54,6 +70,7 @@ class TestPreprocessHtmlMergeCss(unittest.TestCase):
         self.assertEqual(test, expected)
         os.remove(dst_path)
 
+
 class HTMLTestBase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
@@ -61,7 +78,8 @@ class HTMLTestBase(unittest.TestCase):
 
     def assert_converts_html(self, input, expected_output, function):
         input = '<html><body>{0}</body></html>'.format(input)
-        expected_output = '<html><body>{0}</body></html>'.format(expected_output)
+        expected_output = \
+            '<html><body>{0}</body></html>'.format(expected_output)
 
         parser = etree.HTMLParser()
         root = etree.fromstring(input, parser)
@@ -71,6 +89,7 @@ class HTMLTestBase(unittest.TestCase):
         output = etree.tostring(root, encoding=str, method='xml')
 
         self.assertEqual(expected_output, output)
+
 
 class TestConvertSpanTablesToTrTd(HTMLTestBase):
     def assert_processes_table(self, input, expected_output):
@@ -92,7 +111,8 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
     </span>
   </one_more_block>
 </div>
-'''
+'''  # noqa
+
         expected = '''\
 <div>
   <one_more_block>
@@ -106,7 +126,6 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
 </div>
 '''
         self.assert_processes_table(input, expected)
-
 
     def test_wraps_table_row_text(self):
         input = '''\
@@ -322,6 +341,7 @@ class TestConvertSpanTablesToTrTd(HTMLTestBase):
 '''
         self.assert_processes_table(input, expected)
 
+
 class TestConvertInlineBlockElementsToTable(HTMLTestBase):
     def perform_test(self, input, expected_output):
         def test_fun(root):
@@ -350,8 +370,9 @@ class TestConvertInlineBlockElementsToTable(HTMLTestBase):
   <table style="padding:0; margin:0; border:none;"><tr><td><div style="display:inline-block;"/>
   </td><td><div style="display:inline-table;"/>
 </td></tr></table></div>
-'''
+'''  # noqa
         self.perform_test(input, expected)
+
 
 class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
     def test_css_property(self):
@@ -392,6 +413,7 @@ class TestConvertZeroTdWidthToNonzero(HTMLTestBase):
 '''
         self.assert_converts_html(input, expected, test_fun)
 
+
 class TestApplyFontSize(unittest.TestCase):
     def test_em(self):
         self.assertEqual(10, apply_font_size('1em', 10))
@@ -420,6 +442,7 @@ class TestApplyFontSize(unittest.TestCase):
         self.assertEqual(15, apply_font_size('150 %', 10))
         self.assertEqual(15, apply_font_size(' 150% ', 10))
         self.assertEqual(15, apply_font_size('150% ', 10))
+
 
 class TestConvertFontSizePropertyToPt(HTMLTestBase):
     def test_simple(self):
@@ -474,7 +497,6 @@ text
 </div>
 '''
         self.assert_converts_html(input, expected, test_fun)
-
 
     def test_simple_pt(self):
         def test_fun(root):
@@ -537,6 +559,7 @@ text
 </div>'''
         self.assert_converts_html(input, expected, test_fun)
 
+
 class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
     def test_no_border(self):
         def test_fun(root):
@@ -570,7 +593,7 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
     <td/>
   </tr>
 </table>
-'''
+'''  # noqa
         self.assert_converts_html(input, expected, test_fun)
 
     def test_multiple_td(self):
@@ -595,7 +618,7 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
    <td/>
  </tr>
 </table>
-'''
+'''  # noqa
         self.assert_converts_html(input, expected, test_fun)
 
     def test_subtable_does_not_affect_parent_table(self):
@@ -628,5 +651,5 @@ class TestConvertTableBorderTopToTrBackground(HTMLTestBase):
     </td>
   </tr>
 </table>
-'''
+'''  # noqa
         self.assert_converts_html(input, expected, test_fun)

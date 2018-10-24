@@ -23,6 +23,7 @@ import urllib.parse
 import urllib.request
 import json
 
+
 def retrieve_page_names(root, ns_index):
 
     begin = None
@@ -30,11 +31,11 @@ def retrieve_page_names(root, ns_index):
 
     while True:
         params = {
-            'action' : 'query',
-            'list' : 'allpages',
-            'apnamespace' : ns_index,
-            'aplimit' : 500,
-            'format' : 'json'
+            'action': 'query',
+            'list': 'allpages',
+            'apnamespace': ns_index,
+            'aplimit': 500,
+            'format': 'json'
         }
         if begin is not None:
             params['apcontinue'] = begin
@@ -43,19 +44,21 @@ def retrieve_page_names(root, ns_index):
 
         with urllib.request.urlopen(url) as f:
             data = json.loads(f.read().decode('utf-8'))
-            pages += [ p['title'] for p in data['query']['allpages'] ]
+            pages += [p['title'] for p in data['query']['allpages']]
 
-            if ('query-continue' in data and 'allpages' in data['query-continue'] and
-                'apcontinue' in data['query-continue']['allpages']):
+            if ('query-continue' in data and
+                    'allpages' in data['query-continue'] and
+                    'apcontinue' in data['query-continue']['allpages']):
                 begin = data['query-continue']['allpages']['apcontinue']
             else:
                 return pages
 
+
 def export_pages(root, pages, output_path):
     params = {
-        'wpDownload' : '',
-        'curonly' : 1,
-        'pages' : '\n'.join(pages)
+        'wpDownload': '',
+        'curonly': 1,
+        'pages': '\n'.join(pages)
     }
 
     data = urllib.parse.urlencode(params)
@@ -64,21 +67,28 @@ def export_pages(root, pages, output_path):
 
     urllib.request.urlretrieve(url, output_path, data=data)
 
+
 def main():
     parser = argparse.ArgumentParser(prog='export.py')
-    parser.add_argument('--url', type=str, help='The URL to the root of the MediaWiki installation')
-    parser.add_argument('output_path', type=str, help='The path to the XML file to save output to')
-    parser.add_argument('ns_index', type=str, nargs='+', help='The indices of the namespaces to retrieve')
+    parser.add_argument('--url', type=str,
+                        help='The URL to the root of the MediaWiki '
+                             'installation')
+    parser.add_argument('output_path', type=str,
+                        help='The path to the XML file to save output to')
+    parser.add_argument('ns_index', type=str, nargs='+',
+                        help='The indices of the namespaces to retrieve')
     args = parser.parse_args()
 
     pages = []
     for ns_index in args.ns_index:
         new_pages = retrieve_page_names(args.url, ns_index)
-        print("Retrieved {0} pages for namespace {1}".format(len(new_pages), ns_index))
+        print("Retrieved {0} pages for namespace {1}".format(len(new_pages),
+                                                             ns_index))
         pages += new_pages
 
     pages = sorted(pages)
     export_pages(args.url, pages, args.output_path)
+
 
 if __name__ == "__main__":
     main()

@@ -17,20 +17,26 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from commands import preprocess_cssless
 import argparse
 import concurrent.futures
 import os
 import shutil
+from commands import preprocess_cssless
+
 
 def main():
     parser = argparse.ArgumentParser(prog='preprocess_qch.py')
-    parser.add_argument('--src', required=True, type=str,
-            help='Source directory where raw website copy resides')
-    parser.add_argument('--dst', required=True, type=str,
-            help='Destination folder to put preprocessed archive to')
-    parser.add_argument('--verbose', action='store_true', default=False,
-            help='If set, verbose output is produced')
+    parser.add_argument(
+        '--src', required=True, type=str,
+        help='Source directory where raw website copy resides')
+
+    parser.add_argument(
+        '--dst', required=True, type=str,
+        help='Destination folder to put preprocessed archive to')
+
+    parser.add_argument(
+        '--verbose', action='store_true', default=False,
+        help='If set, verbose output is produced')
     args = parser.parse_args()
 
     source_root = args.src
@@ -51,14 +57,20 @@ def main():
                 paths_list.append(tuple)
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [ (executor.submit(preprocess_cssless.preprocess_html_merge_cssless, src_path, dst_path), i)
-                    for i, (src_path, dst_path) in enumerate(paths_list) ]
+        futures = [
+            (executor.submit(preprocess_cssless.preprocess_html_merge_cssless,
+                             src_path, dst_path),
+             i)
+            for i, (src_path, dst_path) in enumerate(paths_list)
+        ]
 
         for future, i in futures:
-            print('Processing file: {}/{}: {}'.format(i, len(paths_list), paths_list[i][1]))
+            print('Processing file: {}/{}: {}'.format(i, len(paths_list),
+                                                      paths_list[i][1]))
             output = future.result()
             if verbose:
                 print(output)
+
 
 if __name__ == "__main__":
     main()

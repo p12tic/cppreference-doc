@@ -18,6 +18,9 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
+import lxml.etree as e
+
+
 '''
     This is a python script for various transformations of the index.
 
@@ -30,8 +33,6 @@
     children. By default just processes the children.
 '''
 
-import lxml.etree as e
-import re
 
 class IndexTransform:
 
@@ -49,18 +50,18 @@ class IndexTransform:
                 nm_str = '( name: ' + nm + ' )'
             else:
                 nm_str = ''
-            raise Exception('Element \'' + el.tag + '\' does not have attribute \'' +
-                             attr + '\' ' + nm_str)
+            msg = 'Element \'{0}\' does not have attribute \'{1}\' {2}'.format(
+                el.tag, attr, nm_str)
+            raise Exception(msg)
         return str(a)
 
-    """ Returns the relative link of 'el' to its parent, if any
-    """
-    def get_link(self, el, default = None):
+    # Returns the relative link of 'el' to its parent, if any
+    def get_link(self, el, default=None):
         if not default:
             default = self.get_name(el)
 
         link = el.get('link')
-        if link == None:
+        if link is None:
             return default
         if link == '.':
             return ''
@@ -81,19 +82,19 @@ class IndexTransform:
             alias_name = el.get('alias')
             if alias_name:
                 return self.get_link(self.get_alias(el, alias_name))
-            else:
-                return self.link_append(el, self.get_link(el), parent_link)
-
-        elif el.tag == 'constructor':
-            d_link = parent_link.split('/')[-1]
-            return self.link_append(el, self.get_link(el, default=d_link), parent_link)
-
-        elif el.tag == 'destructor':
-            d_link = '~' + parent_link.split('/')[-1]
-            return self.link_append(el, self.get_link(el, default=d_link), parent_link)
-
-        else:
             return self.link_append(el, self.get_link(el), parent_link)
+
+        if el.tag == 'constructor':
+            d_link = parent_link.split('/')[-1]
+            return self.link_append(el, self.get_link(el, default=d_link),
+                                    parent_link)
+
+        if el.tag == 'destructor':
+            d_link = '~' + parent_link.split('/')[-1]
+            return self.link_append(el, self.get_link(el, default=d_link),
+                                    parent_link)
+
+        return self.link_append(el, self.get_link(el), parent_link)
 
     """ Returns the name of el """
     def get_name(self, el):
@@ -109,23 +110,23 @@ class IndexTransform:
             return parent_name + '::' + parent_name.split('::')[-1]
         if el.tag == 'destructor':
             return parent_name + '::~' + parent_name.split('::')[-1]
-        elif el.tag == 'specialization':
+        if el.tag == 'specialization':
             return self.get_name(el) + '<' + parent_name + '>'
-        elif el.tag == 'overload':
+        if el.tag == 'overload':
             return self.get_name(el) + '(' + parent_name + ')'
-        else:
-            name = ''
-            if parent_name:
-                name += parent_name + '::'
-            name += self.get_name(el)
-            return name
+
+        name = ''
+        if parent_name:
+            name += parent_name + '::'
+        name += self.get_name(el)
+        return name
 
     """ Returns the element within the document that has a name that matches
         'name'
     """
     def get_alias(self, el, name):
         aliases = el.xpath('/index/class[@name = \'' + name + '\'] |' +
-                            '/index/enum[@name = \'' + name + '\']')
+                           '/index/enum[@name = \'' + name + '\']')
         if len(aliases) == 0:
             raise Exception('No aliases found for \'' + name + '\'')
         if len(aliases) > 1:
@@ -134,15 +135,18 @@ class IndexTransform:
 
     """ Processes one item """
     def process_item(self, el, parent_name, parent_link):
-        if el.tag in ['const','function','class','enum','variable','typedef',
-                      'constructor','destructor','specialization','overload']:
+        if el.tag in ['const', 'function', 'class', 'enum', 'variable',
+                      'typedef', 'constructor', 'destructor', 'specialization',
+                      'overload']:
 
             full_name = self.get_full_name(el, parent_name)
             full_link = self.get_full_link(el, parent_link)
 
             self.process_item_hook(el, full_name, full_link)
 
-        elif el.tag == 'inherits' and el.getparent().xpath('child::inherits')[0] == el:
+        elif el.tag == 'inherits' and \
+                el.getparent().xpath('child::inherits')[0] == el:
+
             if self.ignore_inherits:
                 return
             pending = el.getparent().xpath('child::inherits')
@@ -179,19 +183,23 @@ class IndexTransform:
         # find the source class/enum
         source = self.get_alias(current, self.get_attr(current, 'name'))
 
-        if not source in finished:
+        if source not in finished:
             finished.append(source)
             parent_link = self.get_attr(source, 'link')
             for source_ch in source:
-                ignore_tags =  ['constructor', 'destructor', 'inherits', 'specialization', 'overload']
-                if source_ch.tag in ignore_tags: pass
-                elif source_ch.tag == 'function' and source_ch.get('name') == 'operator=': pass
+                ignore_tags = ['constructor', 'destructor', 'inherits',
+                               'specialization', 'overload']
+                if source_ch.tag in ignore_tags:
+                    pass
+                elif source_ch.tag == 'function' and \
+                        source_ch.get('name') == 'operator=':
+                    pass
                 else:
                     self.process_item(source_ch, parent_name, parent_link)
 
         # append new elements
         more_pending = source.xpath('child::inherits')
-        more_pending = [p for p in more_pending if not p is current]
+        more_pending = [p for p in more_pending if p is not current]
         pending.extend(more_pending)
 
         self.inherits_worker(parent_name, pending, finished)

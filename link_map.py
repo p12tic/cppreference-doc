@@ -20,6 +20,7 @@
 
 import lxml.etree as e
 
+
 class LinkMap:
     def __init__(self):
         self.mapping = dict()

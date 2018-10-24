@@ -17,21 +17,22 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-# devhelp2qch.py script converts 'in_root' xml source file to 'out_root' xml output
-# including files list from library 'files_root' at the end.
 
-from lxml import etree
-from copy import deepcopy
-import sys
 import argparse
+from lxml import etree
 from index_transform.devhelp_qch import convert_devhelp_to_qch
+
 
 def main():
     parser = argparse.ArgumentParser(prog='devhelp2qch.py')
-    parser.add_argument('--src', type=str, help='The path to the XML input file')
-    parser.add_argument('--dst', type=str, help='The path to the destination XML file')
-    parser.add_argument('--virtual_folder', type=str, help='Virtual folder name')
-    parser.add_argument('--file_list', type=str, help='The path to the file list in XML file')
+    parser.add_argument('--src', type=str,
+                        help='The path to the XML input file')
+    parser.add_argument('--dst', type=str,
+                        help='The path to the destination XML file')
+    parser.add_argument('--virtual_folder', type=str,
+                        help='Virtual folder name')
+    parser.add_argument('--file_list', type=str,
+                        help='The path to the file list in XML file')
     args = parser.parse_args()
 
     src_path = args.src
@@ -44,8 +45,10 @@ def main():
     file_tree = etree.parse(file_path, parser)
 
     out_f = open(dst_path, 'wb')
-    out_f.write(convert_devhelp_to_qch(in_tree.getroot(), file_tree.getroot(), v_folder))
+    out_f.write(convert_devhelp_to_qch(in_tree.getroot(), file_tree.getroot(),
+                                       v_folder))
     out_f.close()
+
 
 if __name__ == "__main__":
     main()

@@ -25,6 +25,7 @@ import re
 import os
 from link_map import LinkMap
 
+
 # returns a dict { title -> filename }.
 # directory - either 'output/reference' or 'reference'
 def build_link_map(directory):
@@ -41,26 +42,30 @@ def build_link_map(directory):
         text = f.read()
         f.close()
 
-        m = re.search('<script>[^<]*mw\.config\.set([^<]*wgPageName[^<]*)</script>', text)
+        m = re.search(r'<script>[^<]*mw\.config\.set([^<]*wgPageName[^<]*)</script>', text)  # noqa
         if not m:
             continue
         text = m.group(1)
-        text = re.sub('\s*', '', text)
+        text = re.sub(r'\s*', '', text)
         m = re.search('"wgPageName":"([^"]*)"', text)
         if not m:
             continue
 
         title = m.group(1)
 
-        target = os.path.relpath(os.path.abspath(fn), os.path.abspath(directory))
+        target = os.path.relpath(os.path.abspath(fn),
+                                 os.path.abspath(directory))
         link_map.add_link(title, target)
     return link_map
+
 
 def main():
     link_map = build_link_map('output/reference')
 
-    # create an xml file containing mapping between page title and actual location
+    # create an xml file containing mapping between page title and actual
+    # location
     link_map.write('output/link-map.xml')
+
 
 if __name__ == "__main__":
     main()

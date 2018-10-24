@@ -18,40 +18,41 @@
     along with this program.  If not, see http://www.gnu.org/licenses/.
 '''
 
-''' This script produces a definition file for AutoLinker extension
-
-    The definitions are written in JSON in the following format:
-
-    {
-        "groups" : [
-            {
-                name : "string",
-                OPTIONAL base_url : "string", END
-                urls : [ "url", "url", ... ],
-            },
-            ...
-        ],
-        "links" : [
-            {
-                string : "string",
-                EITHER on_group : "name" OR on_page : "url" END
-                target : "url",
-            },
-            ...
-        ],
-    }
-'''
-
 import argparse
 import json
-from index_transform.autolinker import *
+from index_transform.autolinker import Index2AutolinkerGroups
+from index_transform.autolinker import Index2AutolinkerLinks
+
 
 def main():
+    ''' This script produces a definition file for AutoLinker extension
+
+        The definitions are written in JSON in the following format:
+
+        {
+            "groups" : [
+                {
+                    name : "string",
+                    OPTIONAL base_url : "string", END
+                    urls : [ "url", "url", ... ],
+                },
+                ...
+            ],
+            "links" : [
+                {
+                    string : "string",
+                    EITHER on_group : "name" OR on_page : "url" END
+                    target : "url",
+                },
+                ...
+            ],
+        }
+    '''
     parser = argparse.ArgumentParser(prog='index2autolinker')
     parser.add_argument('index', type=str,
-            help='Path to index file to process')
+                        help='Path to index file to process')
     parser.add_argument('destination', type=str,
-            help='Path to destination file to store results to')
+                        help='Path to destination file to store results to')
     args = parser.parse_args()
 
     out_f = open(args.destination, 'w', encoding='utf-8')
@@ -64,14 +65,16 @@ def main():
     tr.transform_file(args.index)
     links = tr.links
 
-    json_groups = [ v for v in groups.values() ]
+    json_groups = [v for v in groups.values()]
 
     json_groups = sorted(json_groups, key=lambda x: x['name'])
     links = sorted(links, key=lambda x: x['target'])
 
-    out_f.write(json.dumps({ 'groups' : json_groups, 'links' : links}, indent=None,
+    out_f.write(json.dumps({'groups': json_groups, 'links': links},
+                           indent=None,
                            separators=(',\n', ': '), sort_keys=True))
     out_f.close()
+
 
 if __name__ == '__main__':
     main()
