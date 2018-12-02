@@ -144,7 +144,7 @@ class Index2DuckDuckGoList(IndexTransform):
 
 def get_html_files(root):
     files = []
-    for dir, dirnames, filenames in os.walk(root):
+    for dir, _, filenames in os.walk(root):
         for filename in fnmatch.filter(filenames, '*.html'):
             files.append(os.path.join(dir, filename))
     return files
@@ -206,8 +206,8 @@ def build_abstract(decls, desc, max_code_lines, split_code_lines,
         # limit the number of code snippets to be included so that total number
         # of lines is less than max_code_lines. The limit becomes active only
         # for the second and subsequent snippets.
-        first = True if i == 0 else False
-        last = True if i == len(decls)-1 else False
+        first = (i == 0)
+        last = (i == len(decls)-1)
 
         if not first:
             if last:
@@ -423,24 +423,23 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
         elif item_type in [ITEM_TYPE_FUNCTION_INLINEMEM,
                            ITEM_TYPE_CONSTRUCTOR_INLINEMEM,
                            ITEM_TYPE_DESTRUCTOR_INLINEMEM]:
-            raise DdgException("INLINEMEM")  # not implemented
             ''' Implementation notes:
                 * the declarations are possibly versioned
                 * declaration is selected from the member table
                 * the member table is found according to the identifier
                   (last part after :: is enough, hopefully)
             '''
+            raise DdgException("INLINEMEM")  # not implemented
 
         elif item_type in [ITEM_TYPE_VARIABLE,
                            ITEM_TYPE_VARIABLE_INLINEMEM,
                            ITEM_TYPE_ENUM]:
-            raise DdgException("ENUM")      # not implemented
             ''' Implementation notes:
                 * the declarations are possibly versioned
             '''
+            raise DdgException("ENUM")      # not implemented
 
         elif item_type == ITEM_TYPE_ENUM_CONST:
-            raise DdgException("ENUM_CONST")    # not implemented
             ''' Implementation notes:
                 * the abstract will come from the const -> definition table,
                   which is always put before the first heading.
@@ -448,6 +447,7 @@ def process_identifier(out, redirects, root, link, item_ident, item_type,
                   to split the content at ';' and ',', then search for the
                   name of the enum. If we find duplicates, signal an error.
             '''
+            raise DdgException("ENUM_CONST")    # not implemented
 
         if debug.enabled:
             debug.debug_abstracts_file.write("--------------\n")
