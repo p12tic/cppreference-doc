@@ -53,20 +53,18 @@ def main():
                 src_path = os.path.join(root, file)
                 rel_path = os.path.relpath(src_path, source_root)
                 dst_path = os.path.join(dest_root, rel_path)
-                tuple = (src_path, dst_path)
-                paths_list.append(tuple)
+                paths_list.append((src_path, dst_path))
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
         futures = [
-            (executor.submit(preprocess_cssless.preprocess_html_merge_cssless,
-                             src_path, dst_path),
-             i)
-            for i, (src_path, dst_path) in enumerate(paths_list)
+            executor.submit(preprocess_cssless.preprocess_html_merge_cssless,
+                            src_path, dst_path)
+            for src_path, dst_path in paths_list
         ]
 
-        for future, i in futures:
-            print('Processing file: {}/{}: {}'.format(i, len(paths_list),
-                                                      paths_list[i][1]))
+        for i, future in enumerate(futures):
+            print('Processing file: {}/{}: {}'.format(
+                    i, len(paths_list), paths_list[i][1]))
             output = future.result()
             if verbose:
                 print(output)

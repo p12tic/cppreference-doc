@@ -128,8 +128,8 @@ def build_rename_map(root):
             if num > 0:
                 name, ext = os.path.splitext(fn)
                 # add file with its path -> only rename that occurrence
-                result[os.path.join(dir, fn)] = "{}.{}{}".format(name, num + 1,
-                                                                 ext)
+                result[os.path.join(dir, fn)] = \
+                    "{}.{}{}".format(name, num + 1, ext)
             seen[low] += 1
 
     return result
@@ -221,8 +221,8 @@ def trasform_relative_link(rename_map, target, file):
     new_fn = rename_map.get(fn)
     if new_fn:
         # look for case conflict of the renamed file
-        abstarget = os.path.normpath(os.path.join(os.path.dirname(file),
-                                                  dir, new_fn))
+        abstarget = os.path.normpath(
+                os.path.join(os.path.dirname(file), dir, new_fn))
         new_fn = rename_map.get(abstarget, new_fn)
     else:
         # original filename unchanged, look for case conflict
@@ -240,7 +240,6 @@ def trasform_relative_link(rename_map, target, file):
 # file is the path of the file the link came from.
 # root is the path to the root of the archive.
 def transform_link(rename_map, target, file, root):
-
     if is_loader_link(target):
         return transform_loader_link(target, file, root)
 

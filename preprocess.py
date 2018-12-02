@@ -51,9 +51,11 @@ def main():
     file_list = preprocess.find_html_files(root)
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [executor.submit(preprocess.preprocess_html_file, root, fn,
-                                   rename_map)
-                   for fn in file_list]
+        futures = [
+            executor.submit(preprocess.preprocess_html_file,
+                            root, fn, rename_map)
+            for fn in file_list
+        ]
 
         for future in futures:
             output = future.result()

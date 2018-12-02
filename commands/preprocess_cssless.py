@@ -163,8 +163,8 @@ def convert_span_table_to_tr_td(table_el):
     remove_css_property(table_el, 'display')
 
     for element in table_el.getchildren():
-        tag_renamed = convert_display_property_to_html_tag(element, 'tr',
-                                                           'table-row')
+        tag_renamed = convert_display_property_to_html_tag(
+                element, 'tr', 'table-row')
         if tag_renamed:
             if needs_td_wrapper(element):
                 td = etree.Element('td')
@@ -176,8 +176,8 @@ def convert_span_table_to_tr_td(table_el):
                 element.text = None
             else:
                 for child in element:
-                    convert_display_property_to_html_tag(child, 'td',
-                                                         'table-cell')
+                    convert_display_property_to_html_tag(
+                            child, 'td', 'table-cell')
 
 
 def wrap_element(el, tag_name, style):

@@ -231,6 +231,10 @@ class TestPlaceholderLinks(unittest.TestCase):
              '../algorithm/all_any_none_of.html'),
         ]
 
+        def msg(target, file, root):
+            return "target='{}', file='{}', root='{}'".format(
+                    target, file, root)
+
         # transform_ranges_placeholder(target, file, root)
         #  target: the placeholder link
         #  file:   path of the file that contains the link
@@ -239,14 +243,12 @@ class TestPlaceholderLinks(unittest.TestCase):
         for target, file, expected in entries:
             res = transform_ranges_placeholder(target, file, root)
             self.assertEqual(expected, res,
-                             msg="target='{}', file='{}', root='{}'".format(
-                                target, file, root))
+                             msg=msg(target, file, root))
 
             target = target.replace('http://', 'https://')
             res = transform_ranges_placeholder(target, file, root)
             self.assertEqual(expected, res,
-                             msg="target='{}', file='{}', root='{}'".format(
-                                target, file, root))
+                             msg=msg(target, file, root))
 
 
 class TestPreprocessHtml(unittest.TestCase):
