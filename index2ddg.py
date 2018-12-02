@@ -74,11 +74,10 @@ def get_item_type(el):
         if el.get('link') == '.':
             return ITEM_TYPE_FUNCTION_INLINEMEM
         return ITEM_TYPE_FUNCTION
-
-        if el.tag == 'variable':
-            if el.get('link') == '.':
-                return ITEM_TYPE_VARIABLE_INLINEMEM
-            return ITEM_TYPE_VARIABLE
+    if el.tag == 'variable':
+        if el.get('link') == '.':
+            return ITEM_TYPE_VARIABLE_INLINEMEM
+        return ITEM_TYPE_VARIABLE
     if el.tag == 'constructor':
         if el.get('link') == '.':
             return ITEM_TYPE_CONSTRUCTOR_INLINEMEM
