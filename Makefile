@@ -175,13 +175,13 @@ output/cppreference-doc-en-cpp.devhelp2:	\
 #build the .qch (QT help) file
 output/cppreference-doc-en-cpp.qch: output/qch-help-project-cpp.xml
 	#qhelpgenerator only works if the project file is in the same directory as the documentation
-	cp "output/qch-help-project-cpp.xml" "output/reference_cssless/qch.xml"
+	cp "output/qch-help-project-cpp.xml" "output/reference_cssless/qch.qhp"
 
 	pushd "output/reference_cssless" > /dev/null; \
-	$(qhelpgenerator) "qch.xml" -o "../cppreference-doc-en-cpp.qch"; \
+	$(qhelpgenerator) "qch.qhp" -o "../cppreference-doc-en-cpp.qch"; \
 	popd > /dev/null
 
-	rm -f "output/reference_cssless/qch.xml"
+	rm -f "output/reference_cssless/qch.qhp"
 
 output/qch-help-project-cpp.xml: \
 		output/cppreference-doc-en-cpp.devhelp2 \
