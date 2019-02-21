@@ -22,7 +22,7 @@ namespace std {
 #define offsetof(type,member_designator) 0 // SIMPLIFIED
 #endif
 #ifndef NULL
-#define NULL
+#define NULL 0
 #endif
 
 namespace std {
