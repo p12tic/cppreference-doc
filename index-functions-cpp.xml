@@ -556,6 +556,10 @@
     <variable name="std::is_signed_v" link="cpp/types/is_signed" since="c++17"/>
     <class name="std::is_unsigned" link="cpp/types/is_unsigned"/>
     <variable name="std::is_unsigned_v" link="cpp/types/is_unsigned" since="c++17"/>
+    <class name="std::is_bounded_array" link="cpp/types/is_bounded_array" since="c++20"/>
+    <variable name="std::is_bounded_array_v" link="cpp/types/is_bounded_array" since="c++20"/>
+    <class name="std::is_unbounded_array" link="cpp/types/is_unbounded_array" since="c++20"/>
+    <variable name="std::is_unbounded_array_v" link="cpp/types/is_unbounded_array" since="c++20"/>
 
     <class name="std::is_constructible" link="cpp/types/is_constructible"/>
     <variable name="std::is_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
@@ -632,6 +636,8 @@
     <variable name="std::is_base_of_v" link="cpp/types/is_base_of" since="c++17"/>
     <class name="std::is_convertible" link="cpp/types/is_convertible"/>
     <variable name="std::is_convertible_v" link="cpp/types/is_convertible" since="c++17"/>
+    <class name="std::is_nothrow_convertible" link="cpp/types/is_convertible" since="c++20"/>
+    <variable name="std::is_nothrow_convertible_v" link="cpp/types/is_convertible" since="c++20"/>
     <class name="std::is_invocable" link="cpp/types/is_invocable" since="c++17"/>
     <variable name="std::is_invocable_v" link="cpp/types/is_invocable" since="c++17"/>
     <class name="std::is_invocable_r" link="cpp/types/is_invocable" since="c++17"/>
@@ -683,12 +689,17 @@
     <typedef name="std::aligned_union_t" alias="std::aligned_union" since="c++14"/>
     <class name="std::decay" link="cpp/types/decay"/>
     <typedef name="std::decay_t" alias="std::decay" since="c++14"/>
+    <class name="std::remove_cvref" link="cpp/types/remove_cvref" since="c++20"/>
+    <typedef name="std::remove_cvref_t" alias="std::remove_cvref" since="c++20"/>
     <class name="std::enable_if" link="cpp/types/enable_if"/>
     <typedef name="std::enable_if_t" alias="std::enable_if" since="c++14"/>
     <class name="std::conditional" link="cpp/types/conditional"/>
     <typedef name="std::conditional_t" alias="std::conditional" since="c++14"/>
     <class name="std::common_type" link="cpp/types/common_type"/>
     <typedef name="std::common_type_t" alias="std::common_type" since="c++14"/>
+    <class name="std::common_reference" link="cpp/types/common_reference" since="c++20"/>
+    <typedef name="std::common_reference_t" alias="std::common_reference" since="c++20"/>
+    <class name="std::basic_common_reference" link="cpp/types/common_reference" since="c++20"/>
     <class name="std::underlying_type" link="cpp/types/underlying_type"/>
     <typedef name="std::underlying_type_t" alias="std::underlying_type" since="c++14"/>
     <class name="std::result_of" link="cpp/types/result_of"/>
@@ -696,6 +707,8 @@
     <class name="std::invoke_result" link="cpp/types/result_of" since="c++17"/>
     <typedef name="std::invoke_result_t" alias="std::invoke_result" since="c++14"/>
     <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
+    <class name="std::type_identity" link="cpp/types/type_identity" since="c++20"/>
+    <typedef name="std::type_identity_t" alias="std::type_identity" since="c++20"/>
 
     <class name="std::conjunction" link="cpp/types/conjunction" since="c++17"/>
     <variable name="std::conjunction_v" link="cpp/types/conjunction" since="c++17"/>
@@ -709,6 +722,14 @@
     <typedef name="std::true_type" alias="std::integral_constant"/>
     <typedef name="std::false_type" alias="std::integral_constant"/>
 
+    <enum name="std::endian" link="cpp/types/endian" since="c++20">
+        <const name="little" link="."/>
+        <const name="big" link="."/>
+        <const name="native" link="."/>
+    </enum>
+
+    <function name="std::is_constant_evaluated" link="cpp/types/is_constant_evaluated" since="c++20"/>
+
     <!--=======================================================================-->
     <!-- cpp/iterator -->
 
@@ -719,6 +740,14 @@
     <class name="std::bidirectional_iterator_tag" link="cpp/iterator/iterator_tags"/>
     <class name="std::random_access_iterator_tag" link="cpp/iterator/iterator_tags"/>
     <class name="std::iterator" link="cpp/iterator/iterator"/>
+
+    <class name="std::incrementable_traits" link="cpp/iterator/incrementable_traits" since="c++20"/>
+    <class name="std::readable_traits" link="cpp/iterator/readable_traits" since="c++20"/>
+    <typedef name="std::iter_value_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_reference_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_difference_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_rvalue_reference_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_common_reference_t" link="cpp/iterator/iter_t" since="c++20"/>
 
     <class name="std::reverse_iterator" link="cpp/iterator/reverse_iterator">
         <constructor/>
