@@ -3460,7 +3460,10 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="multiplier" link="."/>
+        <const name="increment" link="."/>
+        <const name="modulus" link="."/>
+        <const name="default_seed" link="."/>
     </class>
 
     <class name="std::mersenne_twister_engine" link="cpp/numeric/random/mersenne_twister_engine">
@@ -3476,7 +3479,20 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="word_size" link="."/>
+        <const name="state_size" link="."/>
+        <const name="shift_size" link="."/>
+        <const name="mask_bits" link="."/>
+        <const name="xor_mask" link="."/>
+        <const name="tempering_u" link="."/>
+        <const name="tempering_d" link="."/>
+        <const name="tempering_s" link="."/>
+        <const name="tempering_b" link="."/>
+        <const name="tempering_t" link="."/>
+        <const name="tempering_c" link="."/>
+        <const name="tempering_l" link="."/>
+        <const name="initialization_multiplier" link="."/>
+        <const name="default_seed" link="."/>
     </class>
 
     <class name="std::subtract_with_carry_engine" link="cpp/numeric/random/subtract_with_carry_engine">
@@ -3492,7 +3508,10 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="word_size" link="."/>
+        <const name="short_lag" link="."/>
+        <const name="long_lag" link="."/>
+        <const name="default_seed" link="."/>
     </class>
 
     <class name="std::discard_block_engine" link="cpp/numeric/random/discard_block_engine">
@@ -3509,7 +3528,8 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="block_size" link="."/>
+        <const name="used_size" link="."/>
     </class>
 
     <class name="std::independent_bits_engine" link="cpp/numeric/random/independent_bits_engine">
@@ -3525,8 +3545,6 @@
         <overload name="operator!=" link="operator_cmp"/>
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
-
-        <!--todo mem objects-->
     </class>
 
     <class name="std::shuffle_order_engine" link="cpp/numeric/random/shuffle_order_engine">
@@ -3543,7 +3561,7 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="table_size" link="."/>
     </class>
 
     <class name="std::random_device" link="cpp/numeric/random/random_device">
@@ -4803,7 +4821,7 @@
         <function name="do_widen" link="widen"/>
         <function name="do_narrow" link="narrow"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <!-- todo ctype<char> -->
@@ -4834,7 +4852,7 @@
         <function name="do_length" link="length"/>
         <function name="do_max_length" link="max_length"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::collate" link="cpp/locale/collate">
@@ -4852,7 +4870,7 @@
         <function name="do_transform" link="transform"/>
         <function name="do_hash" link="hash"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::messages" link="cpp/locale/messages">
@@ -4872,7 +4890,7 @@
         <function name="do_get" link="get"/>
         <function name="do_close" link="close"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::time_get" link="cpp/locale/time_get">
@@ -4900,7 +4918,7 @@
         <function name="do_get_year" link="get_year"/>
         <function name="do_get" link="get"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::time_put" link="cpp/locale/time_put">
@@ -4916,7 +4934,7 @@
         <!-- protected -->
         <function name="do_put" link="put"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::num_get" link="cpp/locale/num_get">
@@ -4930,7 +4948,7 @@
         <!-- protected -->
         <function name="do_get" link="get"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::num_put" link="cpp/locale/num_put">
@@ -4944,7 +4962,7 @@
         <!-- protected -->
         <function name="do_put" link="put"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::numpunct" link="cpp/locale/numpunct">
@@ -4966,7 +4984,7 @@
         <function name="do_truename" link="truefalsename"/>
         <function name="do_falsename" link="truefalsename"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::money_get" link="cpp/locale/money_get">
@@ -4983,7 +5001,7 @@
         <!-- protected -->
         <function name="do_get" link="get"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::money_put" link="cpp/locale/money_put">
@@ -5000,7 +5018,7 @@
         <!-- protected -->
         <function name="do_put" link="put"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::moneypunct" link="cpp/locale/moneypunct">
@@ -5031,7 +5049,8 @@
         <function name="do_pos_format" link="pos_format"/>
         <function name="do_neg_format" link="pos_format"/>
 
-        <!-- todo id -->
+        <const name="intl" link="."/>
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::ctype_byname" link="cpp/locale/ctype_byname">
