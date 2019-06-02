@@ -20,6 +20,7 @@
     <sub name="Dynamic memory management" link="c/memory" />
     <sub name="Error handling" link="c/error" />
     <sub name="Program utilities" link="c/program" />
+    <sub name="Variadic functions" link="c/variadic" />
     <sub name="Date and time utilities" link="c/chrono" />
     <sub name="Strings library" link="c/string">
         <sub name="Null terminated byte strings" link="c/string/byte"/>
@@ -29,7 +30,7 @@
     <sub name="Algorithms" link="c/algorithm"/>
     <sub name="Input/output support" link="c/io"/>
     <sub name="Numerics" link="c/numeric">
-        <sub name="Mathematical functions" link="c/numeric/math"/>
+        <sub name="Common mathematical functions" link="c/numeric/math"/>
         <sub name="Floating-point environment" link="c/numeric/fenv"/>
         <sub name="Pseudo-random number generation" link="c/numeric/random"/>
         <sub name="Complex number arithmetic" link="c/numeric/complex"/>
@@ -38,4 +39,5 @@
     <sub name="Localization support" link="c/locale"/>
     <sub name="Atomic operations library" link="c/atomic"/>
     <sub name="Thread support library" link="c/thread"/>
+    <sub name="Technical specifications" link="c/experimental"/>
 </chapters>
