@@ -4460,6 +4460,24 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
+    <class name="std::basic_syncbuf" link="cpp/io/basic_syncbuf" since="c++20">
+        <inherits name="std::basic_streambuf"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+
+        <function name="emit"/>
+        <function name="get_wrapped"/>
+        <function name="get_allocator"/>
+        <function name="set_emit_on_sync"/>
+
+        <function name="sync"/>
+
+        <overload name="std::swap" link="swap2"/>
+    </class>
+
     <class name="std::ios_base" link="cpp/io/ios_base">
         <constructor/>
         <destructor/>
@@ -4699,9 +4717,22 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
+    <class name="std::basic_osyncstream" link="cpp/io/basic_osyncstream" since="c++20">
+        <inherits name="std::basic_ostream"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="rdbuf"/>
+        <function name="get_wrapped"/>
+        <function name="emit"/>
+    </class>
+
     <typedef name="std::streambuf" alias="std::basic_streambuf"/>
     <typedef name="std::filebuf" alias="std::basic_filebuf"/>
     <typedef name="std::stringbuf" alias="std::basic_stringbuf"/>
+    <typedef name="std::syncbuf" alias="std::basic_syncbuf" since="c++20"/>
     <typedef name="std::istream" alias="std::basic_istream"/>
     <typedef name="std::ostream" alias="std::basic_ostream"/>
     <typedef name="std::iostream" alias="std::basic_iostream"/>
@@ -4711,10 +4742,12 @@
     <typedef name="std::istringstream" alias="std::basic_istringstream"/>
     <typedef name="std::ostringstream" alias="std::basic_ostringstream"/>
     <typedef name="std::stringstream" alias="std::basic_stringstream"/>
+    <typedef name="std::osyncstream" alias="std::basic_osyncstream" since="c++20"/>
 
     <typedef name="std::wstreambuf" alias="std::basic_streambuf"/>
     <typedef name="std::wfilebuf" alias="std::basic_filebuf"/>
     <typedef name="std::wstringbuf" alias="std::basic_stringbuf"/>
+    <typedef name="std::wsyncbuf" alias="std::basic_syncbuf" since="c++20"/>
     <typedef name="std::wistream" alias="std::basic_istream"/>
     <typedef name="std::wostream" alias="std::basic_ostream"/>
     <typedef name="std::wiostream" alias="std::basic_iostream"/>
@@ -4724,6 +4757,7 @@
     <typedef name="std::wistringstream" alias="std::basic_istringstream"/>
     <typedef name="std::wostringstream" alias="std::basic_ostringstream"/>
     <typedef name="std::wstringstream" alias="std::basic_stringstream"/>
+    <typedef name="std::wosyncstream" alias="std::basic_osyncstream" since="c++20"/>
 
     <!-- deprecated classes -->
     <class name="std::strstreambuf" link="cpp/io/strstreambuf">
@@ -4815,6 +4849,9 @@
     <function name="std::ends" link="cpp/io/manip/ends"/>
     <function name="std::flush" link="cpp/io/manip/flush"/>
     <function name="std::endl" link="cpp/io/manip/endl"/>
+    <function name="std::emit_on_flush" link="cpp/io/manip/emit_on_flush" since="c++20"/>
+    <function name="std::no_emit_on_flush" link="cpp/io/manip/emit_on_flush" since="c++20"/>
+    <function name="std::flush_emit" link="cpp/io/manip/flush_emit" since="c++20"/>
 
     <function name="std::resetiosflags" link="cpp/io/manip/resetiosflags"/>
     <function name="std::setiosflags" link="cpp/io/manip/setiosflags"/>
