@@ -707,38 +707,140 @@
     <class name="std::iterator" link="cpp/iterator/iterator"/>
 
     <class name="std::reverse_iterator" link="cpp/iterator/reverse_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+        <function name="base"/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator[]" link="operator_at"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator+" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator-" link="operator_arith"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator+" link="operator+"/>
+        <overload name="operator-" link="operator-"/>
     </class>
-    <class name="std::move_iterator" link="cpp/iterator/move_iterator">
-        <!-- todo -->
+
+    <class name="std::move_iterator" link="cpp/iterator/move_iterator" since="c++11">
+        <constructor/>
+        <function name="operator="/>
+        <function name="base"/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator[]" link="operator_at"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator+" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator-" link="operator_arith"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator+" link="operator+"/>
+        <overload name="operator-" link="operator-"/>
     </class>
+
     <class name="std::back_insert_iterator" link="cpp/iterator/back_insert_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++"/>
+        <function name="operator++(int)" link="operator++"/>
     </class>
+
     <class name="std::front_insert_iterator" link="cpp/iterator/front_insert_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++"/>
+        <function name="operator++(int)" link="operator++"/>
     </class>
+
     <class name="std::insert_iterator" link="cpp/iterator/insert_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++" link="operator++"/>
+        <function name="operator++(int)" link="operator++"/>
     </class>
 
     <function name="std::make_reverse_iterator" link="cpp/iterator/make_reverse_iterator" since="c++14"/>
-    <function name="std::make_move_iterator" link="cpp/iterator/make_move_iterator"/>
+    <function name="std::make_move_iterator" link="cpp/iterator/make_move_iterator" since="c++11"/>
     <function name="std::back_inserter" link="cpp/iterator/back_inserter"/>
     <function name="std::front_inserter" link="cpp/iterator/front_inserter"/>
     <function name="std::inserter" link="cpp/iterator/inserter"/>
 
     <class name="std::istream_iterator" link="cpp/iterator/istream_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
     </class>
+
     <class name="std::istreambuf_iterator" link="cpp/iterator/istreambuf_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor link="."/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="equal"
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
     </class>
+
     <class name="std::ostream_iterator" link="cpp/iterator/ostream_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
     </class>
+
     <class name="std::ostreambuf_iterator" link="cpp/iterator/ostreambuf_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor link="."/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="failed"
     </class>
 
     <function name="std::advance" link="cpp/iterator/advance"/>
