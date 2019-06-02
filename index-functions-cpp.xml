@@ -32,6 +32,20 @@
     <const name="NULL" link="cpp/types/NULL"/>
     <typedef name="std::max_align_t" link="cpp/types/max_align_t"/>
     <function name="offsetof" link="cpp/types/offsetof"/>
+    <class name="std::byte" link="cpp/types/byte" since="c++17">
+        <overload name="std::to_integer" link="."/>
+        <overload name="operator&lt;&lt;=" link="."/>
+        <overload name="operator&gt;&gt;=" link="."/>
+        <overload name="operator&lt;&lt;" link="."/>
+        <overload name="operator&gt;&gt;" link="."/>
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
+    </class>
 
         <!-- fixed width integer types -->
 
@@ -472,14 +486,20 @@
     <variable name="std::is_void_v" link="cpp/types/is_void" since="c++17"/>
     <class name="std::is_null_pointer" link="cpp/types/is_null_pointer" since="c++14"/>
     <variable name="std::is_null_pointer_v" link="cpp/types/is_null_pointer" since="c++17"/>
-    <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
-    <variable name="std::is_final_v" link="cpp/types/is_final" since="c++17"/>
     <class name="std::is_integral" link="cpp/types/is_integral"/>
     <variable name="std::is_integral_v" link="cpp/types/is_integral" since="c++17"/>
     <class name="std::is_floating_point" link="cpp/types/is_floating_point"/>
     <variable name="std::is_floating_point_v" link="cpp/types/is_floating_point" since="c++17"/>
     <class name="std::is_array" link="cpp/types/is_array"/>
     <variable name="std::is_array_v" link="cpp/types/is_array" since="c++17"/>
+    <class name="std::is_enum" link="cpp/types/is_enum"/>
+    <variable name="std::is_enum_v" link="cpp/types/is_enum" since="c++17"/>
+    <class name="std::is_union" link="cpp/types/is_union"/>
+    <variable name="std::is_union_v" link="cpp/types/is_union" since="c++17"/>
+    <class name="std::is_class" link="cpp/types/is_class"/>
+    <variable name="std::is_class_v" link="cpp/types/is_class" since="c++17"/>
+    <class name="std::is_function" link="cpp/types/is_function"/>
+    <variable name="std::is_function_v" link="cpp/types/is_function" since="c++17"/>
     <class name="std::is_pointer" link="cpp/types/is_pointer"/>
     <variable name="std::is_pointer_v" link="cpp/types/is_pointer" since="c++17"/>
     <class name="std::is_lvalue_reference" link="cpp/types/is_lvalue_reference"/>
@@ -490,27 +510,19 @@
     <variable name="std::is_member_object_pointer_v" link="cpp/types/is_member_object_pointer" since="c++17"/>
     <class name="std::is_member_function_pointer" link="cpp/types/is_member_function_pointer"/>
     <variable name="std::is_member_function_pointer_v" link="cpp/types/is_member_function_pointer" since="c++17"/>
-    <class name="std::is_enum" link="cpp/types/is_enum"/>
-    <variable name="std::is_enum_v" link="cpp/types/is_enum" since="c++17"/>
-    <class name="std::is_union" link="cpp/types/is_union"/>
-    <variable name="std::is_union_v" link="cpp/types/is_union" since="c++17"/>
-    <class name="std::is_class" link="cpp/types/is_class"/>
-    <variable name="std::is_class_v" link="cpp/types/is_class" since="c++17"/>
-    <class name="std::is_function" link="cpp/types/is_function"/>
-    <variable name="std::is_function_v" link="cpp/types/is_function" since="c++17"/>
 
-    <class name="std::is_reference" link="cpp/types/is_reference"/>
-    <variable name="std::is_reference_v" link="cpp/types/is_reference" since="c++17"/>
-    <class name="std::is_arithmetic" link="cpp/types/is_arithmetic"/>
-    <variable name="std::is_arithmetic_v" link="cpp/types/is_arithmetic" since="c++17"/>
     <class name="std::is_fundamental" link="cpp/types/is_fundamental"/>
     <variable name="std::is_fundamental_v" link="cpp/types/is_fundamental" since="c++17"/>
-    <class name="std::is_object" link="cpp/types/is_object"/>
-    <variable name="std::is_object_v" link="cpp/types/is_object" since="c++17"/>
+    <class name="std::is_arithmetic" link="cpp/types/is_arithmetic"/>
+    <variable name="std::is_arithmetic_v" link="cpp/types/is_arithmetic" since="c++17"/>
     <class name="std::is_scalar" link="cpp/types/is_scalar"/>
     <variable name="std::is_scalar_v" link="cpp/types/is_scalar" since="c++17"/>
+    <class name="std::is_object" link="cpp/types/is_object"/>
+    <variable name="std::is_object_v" link="cpp/types/is_object" since="c++17"/>
     <class name="std::is_compound" link="cpp/types/is_compound"/>
     <variable name="std::is_compound_v" link="cpp/types/is_compound" since="c++17"/>
+    <class name="std::is_reference" link="cpp/types/is_reference"/>
+    <variable name="std::is_reference_v" link="cpp/types/is_reference" since="c++17"/>
     <class name="std::is_member_pointer" link="cpp/types/is_member_pointer"/>
     <variable name="std::is_member_pointer_v" link="cpp/types/is_member_pointer" since="c++17"/>
 
@@ -528,18 +540,26 @@
     <variable name="std::is_pod_v" link="cpp/types/is_pod" since="c++17"/>
     <class name="std::is_literal_type" link="cpp/types/is_literal_type"/>
     <variable name="std::is_literal_type_v" link="cpp/types/is_literal_type" since="c++17"/>
+    <class name="std::has_unique_object_representations" link="cpp/types/has_unique_object_representations" since="c++17"/>
+    <variable name="std::has_unique_object_representations_v" link="cpp/types/has_unique_object_representations" since="c++17"/>
     <class name="std::is_empty" link="cpp/types/is_empty"/>
     <variable name="std::is_empty_v" link="cpp/types/is_empty" since="c++17"/>
     <class name="std::is_polymorphic" link="cpp/types/is_polymorphic"/>
     <variable name="std::is_polymorphic_v" link="cpp/types/is_polymorphic" since="c++17"/>
     <class name="std::is_abstract" link="cpp/types/is_abstract"/>
     <variable name="std::is_abstract_v" link="cpp/types/is_abstract" since="c++17"/>
-    <class name="std::has_unique_object_representations" link="cpp/types/has_unique_object_representations" since="c++17"/>
-    <variable name="std::has_unique_object_representations_v" link="cpp/types/has_unique_object_representations" since="c++17"/>
+    <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
+    <variable name="std::is_final_v" link="cpp/types/is_final" since="c++17"/>
+    <class name="std::is_aggregate" link="cpp/types/is_aggregate" since="c++14"/>
+    <variable name="std::is_aggregate_v" link="cpp/types/is_aggregate" since="c++17"/>
     <class name="std::is_signed" link="cpp/types/is_signed"/>
     <variable name="std::is_signed_v" link="cpp/types/is_signed" since="c++17"/>
     <class name="std::is_unsigned" link="cpp/types/is_unsigned"/>
     <variable name="std::is_unsigned_v" link="cpp/types/is_unsigned" since="c++17"/>
+    <class name="std::is_bounded_array" link="cpp/types/is_bounded_array" since="c++20"/>
+    <variable name="std::is_bounded_array_v" link="cpp/types/is_bounded_array" since="c++20"/>
+    <class name="std::is_unbounded_array" link="cpp/types/is_unbounded_array" since="c++20"/>
+    <variable name="std::is_unbounded_array_v" link="cpp/types/is_unbounded_array" since="c++20"/>
 
     <class name="std::is_constructible" link="cpp/types/is_constructible"/>
     <variable name="std::is_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
@@ -591,10 +611,6 @@
     <class name="std::is_nothrow_destructible" link="cpp/types/is_destructible"/>
     <variable name="std::is_nothrow_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
 
-    <class name="std::is_callable" link="cpp/types/is_callable" since="c++17"/>
-    <variable name="std::is_callable_v" link="cpp/types/is_callable" since="c++17"/>
-    <class name="std::is_nothrow_callable" link="cpp/types/is_callable" since="c++17"/>
-    <variable name="std::is_nothrow_callable_v" link="cpp/types/is_callable" since="c++17"/>
     <class name="std::is_swappable" link="cpp/types/is_swappable" since="c++17"/>
     <variable name="std::is_swappable_v" link="cpp/types/is_swappable" since="c++17"/>
     <class name="std::is_swappable_with" link="cpp/types/is_swappable_with" since="c++17"/>
@@ -620,6 +636,16 @@
     <variable name="std::is_base_of_v" link="cpp/types/is_base_of" since="c++17"/>
     <class name="std::is_convertible" link="cpp/types/is_convertible"/>
     <variable name="std::is_convertible_v" link="cpp/types/is_convertible" since="c++17"/>
+    <class name="std::is_nothrow_convertible" link="cpp/types/is_convertible" since="c++20"/>
+    <variable name="std::is_nothrow_convertible_v" link="cpp/types/is_convertible" since="c++20"/>
+    <class name="std::is_invocable" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_invocable_v" link="cpp/types/is_invocable" since="c++17"/>
+    <class name="std::is_invocable_r" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_invocable_r_v" link="cpp/types/is_invocable" since="c++17"/>
+    <class name="std::is_nothrow_invocable" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_nothrow_invocable_v" link="cpp/types/is_invocable" since="c++17"/>
+    <class name="std::is_nothrow_invocable_r" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_nothrow_invocable_r_v" link="cpp/types/is_invocable" since="c++17"/>
 
     <class name="std::remove_cv" link="cpp/types/remove_cv" since="c++11"/>
     <class name="std::remove_const" link="cpp/types/remove_cv" since="c++11"/>
@@ -663,17 +689,26 @@
     <typedef name="std::aligned_union_t" alias="std::aligned_union" since="c++14"/>
     <class name="std::decay" link="cpp/types/decay"/>
     <typedef name="std::decay_t" alias="std::decay" since="c++14"/>
+    <class name="std::remove_cvref" link="cpp/types/remove_cvref" since="c++20"/>
+    <typedef name="std::remove_cvref_t" alias="std::remove_cvref" since="c++20"/>
     <class name="std::enable_if" link="cpp/types/enable_if"/>
     <typedef name="std::enable_if_t" alias="std::enable_if" since="c++14"/>
-    <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
     <class name="std::conditional" link="cpp/types/conditional"/>
     <typedef name="std::conditional_t" alias="std::conditional" since="c++14"/>
     <class name="std::common_type" link="cpp/types/common_type"/>
     <typedef name="std::common_type_t" alias="std::common_type" since="c++14"/>
+    <class name="std::common_reference" link="cpp/types/common_reference" since="c++20"/>
+    <typedef name="std::common_reference_t" alias="std::common_reference" since="c++20"/>
+    <class name="std::basic_common_reference" link="cpp/types/common_reference" since="c++20"/>
     <class name="std::underlying_type" link="cpp/types/underlying_type"/>
     <typedef name="std::underlying_type_t" alias="std::underlying_type" since="c++14"/>
     <class name="std::result_of" link="cpp/types/result_of"/>
     <typedef name="std::result_of_t" alias="std::result_of" since="c++14"/>
+    <class name="std::invoke_result" link="cpp/types/result_of" since="c++17"/>
+    <typedef name="std::invoke_result_t" alias="std::invoke_result" since="c++14"/>
+    <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
+    <class name="std::type_identity" link="cpp/types/type_identity" since="c++20"/>
+    <typedef name="std::type_identity_t" alias="std::type_identity" since="c++20"/>
 
     <class name="std::conjunction" link="cpp/types/conjunction" since="c++17"/>
     <variable name="std::conjunction_v" link="cpp/types/conjunction" since="c++17"/>
@@ -687,6 +722,14 @@
     <typedef name="std::true_type" alias="std::integral_constant"/>
     <typedef name="std::false_type" alias="std::integral_constant"/>
 
+    <enum name="std::endian" link="cpp/types/endian" since="c++20">
+        <const name="little" link="."/>
+        <const name="big" link="."/>
+        <const name="native" link="."/>
+    </enum>
+
+    <function name="std::is_constant_evaluated" link="cpp/types/is_constant_evaluated" since="c++20"/>
+
     <!--=======================================================================-->
     <!-- cpp/iterator -->
 
@@ -698,39 +741,149 @@
     <class name="std::random_access_iterator_tag" link="cpp/iterator/iterator_tags"/>
     <class name="std::iterator" link="cpp/iterator/iterator"/>
 
+    <class name="std::incrementable_traits" link="cpp/iterator/incrementable_traits" since="c++20"/>
+    <class name="std::readable_traits" link="cpp/iterator/readable_traits" since="c++20"/>
+    <typedef name="std::iter_value_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_reference_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_difference_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_rvalue_reference_t" link="cpp/iterator/iter_t" since="c++20"/>
+    <typedef name="std::iter_common_reference_t" link="cpp/iterator/iter_t" since="c++20"/>
+
     <class name="std::reverse_iterator" link="cpp/iterator/reverse_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+        <function name="base"/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator[]" link="operator_at"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator+" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator-" link="operator_arith"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator+" link="operator+"/>
+        <overload name="operator-" link="operator-"/>
     </class>
-    <class name="std::move_iterator" link="cpp/iterator/move_iterator">
-        <!-- todo -->
+
+    <class name="std::move_iterator" link="cpp/iterator/move_iterator" since="c++11">
+        <constructor/>
+        <function name="operator="/>
+        <function name="base"/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator[]" link="operator_at"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator+" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator-" link="operator_arith"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator+" link="operator+"/>
+        <overload name="operator-" link="operator-"/>
     </class>
+
     <class name="std::back_insert_iterator" link="cpp/iterator/back_insert_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++"/>
+        <function name="operator++(int)" link="operator++"/>
     </class>
+
     <class name="std::front_insert_iterator" link="cpp/iterator/front_insert_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++"/>
+        <function name="operator++(int)" link="operator++"/>
     </class>
+
     <class name="std::insert_iterator" link="cpp/iterator/insert_iterator">
-        <!-- todo -->
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++" link="operator++"/>
+        <function name="operator++(int)" link="operator++"/>
     </class>
 
     <function name="std::make_reverse_iterator" link="cpp/iterator/make_reverse_iterator" since="c++14"/>
-    <function name="std::make_move_iterator" link="cpp/iterator/make_move_iterator"/>
+    <function name="std::make_move_iterator" link="cpp/iterator/make_move_iterator" since="c++11"/>
     <function name="std::back_inserter" link="cpp/iterator/back_inserter"/>
     <function name="std::front_inserter" link="cpp/iterator/front_inserter"/>
     <function name="std::inserter" link="cpp/iterator/inserter"/>
 
     <class name="std::istream_iterator" link="cpp/iterator/istream_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
     </class>
+
     <class name="std::istreambuf_iterator" link="cpp/iterator/istreambuf_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor link="."/>
+
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="equal"
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
     </class>
+
     <class name="std::ostream_iterator" link="cpp/iterator/ostream_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
     </class>
+
     <class name="std::ostreambuf_iterator" link="cpp/iterator/ostreambuf_iterator">
-        <!-- todo -->
+        <constructor/>
+        <destructor link="."/>
+        <function name="operator="/>
+
+        <function name="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="failed"
     </class>
 
     <function name="std::advance" link="cpp/iterator/advance"/>
@@ -747,8 +900,12 @@
     <function name="std::crend" link="cpp/iterator/rend" since="c++14"/>
 
     <function name="std::size" link="cpp/iterator/size" since="c++17"/>
+    <function name="std::ssize" link="cpp/iterator/size" since="c++20"/>
     <function name="std::empty" link="cpp/iterator/empty" since="c++17"/>
     <function name="std::data" link="cpp/iterator/data" since="c++17"/>
+
+    <function name="std::ranges::begin" link="cpp/ranges/begin" since="c++20"/>
+    <function name="std::ranges::cbegin" link="cpp/ranges/begin" since="c++20"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/memory -->
@@ -816,6 +973,9 @@
 
     <class name="std::uses_allocator" link="cpp/memory/uses_allocator"/>
     <variable name="std::uses_allocator_v" link="cpp/memory/uses_allocator" since="c++17"/>
+    <function name="std::uses_allocator_construction_args" link="cpp/memory/uses_allocator_construction_args" since="c++20"/>
+    <function name="std::make_obj_using_allocator" link="cpp/memory/make_obj_using_allocator" since="c++20"/>
+    <function name="std::uninitialized_construct_using_allocator" link="cpp/memory/uninitialized_construct_using_allocator" since="c++20"/>
 
     <class name="std::scoped_allocator_adaptor" link="cpp/memory/scoped_allocator_adaptor">
         <constructor/>
@@ -1068,8 +1228,10 @@
         <function name="pointer_to"/>
     </class>
 
+    <function name="std::to_address" link="cpp/memory/to_address" since="c++20"/>
     <function name="std::addressof" link="cpp/memory/addressof"/>
     <function name="std::align" link="cpp/memory/align"/>
+    <function name="std::assume_aligned" link="cpp/memory/assume_aligned" since="c++20"/>
 
     <function name="std::malloc" link="cpp/memory/c/malloc"/>
     <function name="std::aligned_alloc" link="cpp/memory/c/aligned_alloc" since="c++11"/>
@@ -1135,6 +1297,7 @@
     <function name="assert" link="cpp/error/assert"/>
 
     <function name="std::uncaught_exception" link="cpp/error/uncaught_exception"/>
+    <function name="std::uncaught_exceptions" link="cpp/error/uncaught_exception" since="c++17"/>
     <typedef name="std::exception_ptr" link="cpp/error/exception_ptr"/>
     <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr"/>
     <function name="std::current_exception" link="cpp/error/current_exception"/>
@@ -1389,7 +1552,7 @@
     <!--=======================================================================-->
     <!-- cpp/utility/initializer_list -->
 
-    <class name="std::initializer_list" link="cpp/utility/initializer_list">
+    <class name="std::initializer_list" link="cpp/utility/initializer_list" since="c++11">
         <constructor/>
         <function name="size"/>
         <function name="begin"/>
@@ -1397,6 +1560,8 @@
 
         <overload name="std::begin" link="begin2"/>
         <overload name="std::end" link="end2"/>
+        <overload name="std::rbegin" link="rbegin2" since="c++14"/>
+        <overload name="std::rend" link="rend2" since="c++14"/>
     </class>
 
     <!--=======================================================================-->
@@ -1691,7 +1856,11 @@
         <function name="operator()" link="."/>
     </class>
 
-    <class name="std::bit_not" link="cpp/utility/functional/bit_not">
+    <class name="std::bit_xor" link="cpp/utility/functional/bit_xor">
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::bit_not" link="cpp/utility/functional/bit_not" since="c++14">
         <function name="operator()" link="."/>
     </class>
 
@@ -1709,7 +1878,12 @@
     <function name="std::not1" link="cpp/utility/functional/not1"/>
     <function name="std::not2" link="cpp/utility/functional/not2"/>
 
+    <class name="std::identity" link="cpp/utility/functional/identity" since="c++20">
+        <function name="operator()" link="."/>
+    </class>
+
     <function name="std::bind" link="cpp/utility/functional/bind"/>
+    <function name="std::bind_front" link="cpp/utility/functional/bind_front" since="c++20"/>
     <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"/>
     <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"/>
     <variable name="std::is_bind_expression_v" link="cpp/utility/functional/is_bind_expression" since="c++17"/>
@@ -1745,15 +1919,15 @@
 
     <class name="std::default_searcher" link="cpp/utility/functional/default_searcher" since="c++17">
         <constructor link="."/>
-        <operator name="operator()" link="."/>
+        <function name="operator()" link="."/>
     </class>
     <class name="std::boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17">
         <constructor link="."/>
-        <operator name="operator()" link="."/>
+        <function name="operator()" link="."/>
     </class>
     <class name="std::boyer_moore_horspool_searcher" link="cpp/utility/functional/boyer_moore_horspool_searcher" since="c++17">
         <constructor link="."/>
-        <operator name="operator()" link="."/>
+        <function name="operator()" link="."/>
     </class>
     <class name="std::make_default_searcher" link="cpp/utility/functional/default_searcher" since="c++17"/>
     <class name="std::make_boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17"/>
@@ -1770,7 +1944,44 @@
     <function name="std::ref" link="cpp/utility/functional/ref"/>
     <function name="std::cref" link="cpp/utility/functional/ref"/>
 
+    <class name="std::unwrap_reference" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
+    <class name="std::unwrap_ref_decay" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
+    <typedef name="std::unwrap_ref_decay_t" alias="std::unwrap_ref_decay" since="c++20"/>
+
+    <class name="std::ranges::equal_to" link="cpp/utility/functional/ranges/equal_to" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::not_equal_to" link="cpp/utility/functional/ranges/not_equal_to" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::less" link="cpp/utility/functional/ranges/less" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::greater" link="cpp/utility/functional/ranges/greater" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::less_equal" link="cpp/utility/functional/ranges/less_equal" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::greater_equal" link="cpp/utility/functional/ranges/greater_equal" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
     <!-- todo: deprecated content of <functional> -->
+
+    <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
+    <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/any -->
@@ -1951,6 +2162,8 @@
     <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat"/>
     <const name="std::ignore" link="cpp/utility/tuple/ignore"/>
 
+    <function name="std::swap" link="cpp/algorithm/swap"/>
+    <function name="std::ranges::swap" link="cpp/utility/ranges/swap" since="c++20"/>
     <function name="std::forward" link="cpp/utility/forward"/>
     <function name="std::exchange" link="cpp/utility/exchange" since="c++14"/>
     <function name="std::move (utility)" link="cpp/utility/move"/>
@@ -1959,18 +2172,125 @@
     <function name="std::as_const" link="cpp/utility/as_const" since="c++17"/>
     <function name="std::launder" link="cpp/utility/launder" since="c++17"/>
 
+    <class name="std::weak_equality" link="cpp/utility/compare/weak_equality" since="c++20">
+        <const name="equivalent" link="."/>
+        <const name="nonequivalent" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::strong_equality" link="cpp/utility/compare/strong_equality" since="c++20">
+        <const name="equivalent" link="."/>
+        <const name="equal" link="."/>
+        <const name="nonequivalent" link="."/>
+        <const name="nonequal" link="."/>
+
+        <function name="operator weak_equality" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::partial_ordering" link="cpp/utility/compare/partial_ordering" since="c++20">
+        <const name="less" link="."/>
+        <const name="equivalent" link="."/>
+        <const name="greater" link="."/>
+        <const name="unordered" link="."/>
+
+        <function name="operator weak_equality" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::weak_ordering" link="cpp/utility/compare/weak_ordering" since="c++20">
+        <const name="less" link="."/>
+        <const name="equivalent" link="."/>
+        <const name="greater" link="."/>
+
+        <function name="operator weak_equality" link="."/>
+        <function name="operator partial_ordering" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::strong_ordering" link="cpp/utility/compare/strong_ordering" since="c++20">
+        <const name="less" link="."/>
+        <const name="equivalent" link="."/>
+        <const name="equal" link="."/>
+        <const name="greater" link="."/>
+
+        <function name="operator strong_equality" link="."/>
+        <function name="operator weak_equality" link="."/>
+        <function name="operator partial_ordering" link="."/>
+        <function name="operator weak_ordering" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <function name="std::is_eq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_neq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_lt" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_lteq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_gt" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_gteq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+
+    <class name="std::common_comparison_category" link="cpp/utility/compare/common_comparison_category" since="c++20"/>
+    <typedef name="std::common_comparison_category_t" alias="std::common_comparison_category" since="c++20"/>
+
+    <function name="std::strong_order" link="cpp/utility/compare/strong_order" since="c++20"/>
+    <function name="std::weak_order" link="cpp/utility/compare/weak_order" since="c++20"/>
+    <function name="std::partial_order" link="cpp/utility/compare/partial_order" since="c++20"/>
+    <function name="std::strong_equal" link="cpp/utility/compare/strong_equal" since="c++20"/>
+    <function name="std::weak_equal" link="cpp/utility/compare/weak_equal" since="c++20"/>
+
     <function name="std::rel_ops::operator!=" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&gt;" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&lt;=" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&gt;=" link="cpp/utility/rel_ops/operator_cmp"/>
 
+    <function name="std::to_chars" link="cpp/utility/to_chars" since="c++17"/>
+    <function name="std::from_chars" link="cpp/utility/from_chars" since="c++17"/>
+
+    <class name="std::chars_format" link="cpp/utility/chars_format" since="c++17">
+        <const name="scientific" link="."/>
+        <const name="fixed" link="."/>
+        <const name="hex" link="."/>
+        <const name="general" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
+    </class>
+
     <class name="std::hash" link="cpp/utility/hash">
         <constructor/>
         <function name="operator()"/>
     </class>
-
-    <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
-    <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
 
     <!--=======================================================================-->
     <!-- cpp/string/byte -->
@@ -2047,10 +2367,12 @@
     <function name="std::mbsrtowcs" link="cpp/string/multibyte/mbsrtowcs"/>
     <function name="std::wcsrtombs" link="cpp/string/multibyte/wcsrtombs"/>
 
-    <function name="std::mbrtoc16" link="cpp/string/multibyte/mbrtoc16"/>
-    <function name="std::c16rtomb" link="cpp/string/multibyte/c16rtomb"/>
-    <function name="std::mbrtoc32" link="cpp/string/multibyte/mbrtoc32"/>
-    <function name="std::c32rtomb" link="cpp/string/multibyte/c32rtomb"/>
+    <function name="std::mbrtoc8" link="cpp/string/multibyte/mbrtoc8" since="c++20"/>
+    <function name="std::c8rtomb" link="cpp/string/multibyte/c8rtomb" since="c++20"/>
+    <function name="std::mbrtoc16" link="cpp/string/multibyte/mbrtoc16" since="c++11"/>
+    <function name="std::c16rtomb" link="cpp/string/multibyte/c16rtomb" since="c++11"/>
+    <function name="std::mbrtoc32" link="cpp/string/multibyte/mbrtoc32" since="c++11"/>
+    <function name="std::c32rtomb" link="cpp/string/multibyte/c32rtomb" since="c++11"/>
 
     <class name="std::mbstate_t" link="cpp/string/multibyte/mbstate_t"/>
 
@@ -2120,19 +2442,20 @@
 
         <function name="at"/>
         <function name="operator[]" link="operator_at"/>
-        <function name="front"/>
-        <function name="back"/>
+        <function name="front" since="c++11"/>
+        <function name="back" since="c++11"/>
         <function name="data"/>
         <function name="c_str"/>
+        <function name="operator basic_string_view" link="operator_basic_string_view" since="c++17"/>
 
         <function name="begin"/>
-        <function name="cbegin" link="begin"/>
+        <function name="cbegin" link="begin" since="c++11"/>
         <function name="end"/>
-        <function name="cend" link="end"/>
+        <function name="cend" link="end" since="c++11"/>
         <function name="rbegin"/>
-        <function name="crbegin" link="rbegin"/>
+        <function name="crbegin" link="rbegin" since="c++11"/>
         <function name="rend"/>
-        <function name="crend" link="rend"/>
+        <function name="crend" link="rend" since="c++11"/>
 
         <function name="empty"/>
         <function name="size"/>
@@ -2140,15 +2463,18 @@
         <function name="max_size"/>
         <function name="reserve"/>
         <function name="capacity"/>
-        <function name="shrink_to_fit"/>
+        <function name="shrink_to_fit" since="c++11"/>
 
         <function name="clear"/>
         <function name="insert"/>
         <function name="erase"/>
         <function name="push_back"/>
-        <function name="pop_back"/>
+        <function name="pop_back" since="c++11"/>
         <function name="append"/>
+        <function name="operator+="/>
         <function name="compare"/>
+        <function name="starts_with" since="c++20"/>
+        <function name="ends_with" since="c++20"/>
         <function name="replace"/>
         <function name="substr"/>
         <function name="copy"/>
@@ -2173,6 +2499,8 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase" link="erase2" since="c++20"/>
+        <overload name="std::erase_if" link="erase2" since="c++20"/>
 
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
@@ -2182,11 +2510,13 @@
 
     <typedef name="std::string" alias="std::basic_string"/>
     <typedef name="std::wstring" alias="std::basic_string"/>
+    <typedef name="std::u8string" alias="std::basic_string" since="c++20"/>
     <typedef name="std::u16string" alias="std::basic_string"/>
     <typedef name="std::u32string" alias="std::basic_string"/>
 
     <typedef name="std::pmr::string" alias="std::basic_string" since="c++17"/>
     <typedef name="std::pmr::wstring" alias="std::basic_string" since="c++17"/>
+    <typedef name="std::pmr::u8string" alias="std::basic_string" since="c++20"/>
     <typedef name="std::pmr::u16string" alias="std::basic_string" since="c++17"/>
     <typedef name="std::pmr::u32string" alias="std::basic_string" since="c++17"/>
 
@@ -2222,6 +2552,8 @@
         <function name="copy"/>
         <function name="substr"/>
         <function name="compare"/>
+        <function name="starts_with" since="c++20"/>
+        <function name="ends_with" since="c++20"/>
         <function name="find"/>
         <function name="rfind"/>
         <function name="find_first_of"/>
@@ -2236,12 +2568,15 @@
         <overload name="operator&lt;=" link="operator_cmp"/>
         <overload name="operator&gt;" link="operator_cmp"/>
         <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="std::begin" link="begin_end_nonmem" since="c++20"/>
+        <overload name="std::end" link="begin_end_nonmem" since="c++20"/>
         <overload name="operator&lt;&lt;" link="operator_ltlt"/>
         <specialization name="std::hash" link="hash"/>
     </class>
 
     <typedef name="std::string_view" alias="std::basic_string_view" since="c++17"/>
     <typedef name="std::wstring_view" alias="std::basic_string_view" since="c++17"/>
+    <typedef name="std::u8string_view" alias="std::basic_string_view" since="c++20"/>
     <typedef name="std::u16string_view" alias="std::basic_string_view" since="c++17"/>
     <typedef name="std::u32string_view" alias="std::basic_string_view" since="c++17"/>
 
@@ -2399,6 +2734,8 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase" link="erase2" since="c++20"/>
+        <overload name="std::erase_if" link="erase2" since="c++20"/>
     </class>
     <typedef name="std::pmr::vector" alias="std::vector" since="c++17"/>
 
@@ -2449,6 +2786,8 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase" link="erase2" since="c++20"/>
+        <overload name="std::erase_if" link="erase2" since="c++20"/>
     </class>
     <typedef name="std::pmr::deque" alias="std::deque" since="c++17"/>
 
@@ -2497,6 +2836,8 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase" link="erase2" since="c++20"/>
+        <overload name="std::erase_if" link="erase2" since="c++20"/>
     </class>
     <typedef name="std::pmr::forward_list" alias="std::forward_list" since="c++17"/>
 
@@ -2552,6 +2893,8 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase" link="erase2" since="c++20"/>
+        <overload name="std::erase_if" link="erase2" since="c++20"/>
     </class>
     <typedef name="std::pmr::list" alias="std::list" since="c++17"/>
 
@@ -2585,6 +2928,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
         <function name="lower_bound"/>
         <function name="upper_bound"/>
@@ -2600,6 +2944,7 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::set" alias="std::set" since="c++17"/>
 
@@ -2633,6 +2978,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
         <function name="lower_bound"/>
         <function name="upper_bound"/>
@@ -2648,6 +2994,7 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::multiset" alias="std::multiset" since="c++17"/>
 
@@ -2688,6 +3035,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
         <function name="lower_bound"/>
         <function name="upper_bound"/>
@@ -2703,6 +3051,7 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::map" alias="std::map" since="c++17"/>
 
@@ -2739,6 +3088,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
         <function name="lower_bound"/>
         <function name="upper_bound"/>
@@ -2754,6 +3104,7 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::multimap" alias="std::multimap" since="c++17"/>
 
@@ -2783,6 +3134,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
 
         <function name="begin(int)" link="begin2"/>
@@ -2807,6 +3159,7 @@
         <overload name="operator!=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::unordered_set" alias="std::unordered_set" since="c++17"/>
 
@@ -2836,6 +3189,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
 
         <function name="begin(int)" link="begin2"/>
@@ -2860,6 +3214,7 @@
         <overload name="operator!=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::unordered_multiset" alias="std::unordered_multiset" since="c++17"/>
 
@@ -2893,6 +3248,7 @@
         <function name="operator[]" link="operator_at"/>
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
 
         <function name="begin(int)" link="begin2"/>
@@ -2917,6 +3273,7 @@
         <overload name="operator!=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::unordered_map" alias="std::unordered_map" since="c++17"/>
 
@@ -2946,6 +3303,7 @@
 
         <function name="count"/>
         <function name="find"/>
+        <function name="contains" since="c++20"/>
         <function name="equal_range"/>
 
         <function name="begin(int)" link="begin2"/>
@@ -2970,6 +3328,7 @@
         <overload name="operator!=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
+        <overload name="std::erase_if" link="erase_if" since="c++20"/>
     </class>
     <typedef name="std::pmr::unordered_multimap" alias="std::unordered_multimap" since="c++17"/>
 
@@ -3044,6 +3403,43 @@
         <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
+
+    <class name="std::span" link="cpp/container/span" since="c++20">
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+        <function name="rbegin"/>
+        <function name="crbegin" link="rbegin"/>
+        <function name="rend"/>
+        <function name="crend" link="rend"/>
+
+        <function name="front"/>
+        <function name="back"/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="data"/>
+
+        <function name="size"/>
+        <function name="size_bytes"/>
+        <function name="empty"/>
+
+        <function name="first"/>
+        <function name="last"/>
+        <function name="subspan"/>
+
+        <overload name="std::begin" link="begin_end_nonmem"/>
+        <overload name="std::end" link="begin_end_nonmem"/>
+        <overload name="std::as_bytes" link="as_bytes"/>
+        <overload name="std::as_writable_bytes" link="as_bytes"/>
+        <overload name="std::get" link="get"/>
+
+        <specialization name="std::tuple_size" link="tuple_size"/>
+        <specialization name="std::tuple_element" link="tuple_element"/>
+    </class>
+    <const name="std::dynamic_extent" link="cpp/container/span/dynamic_extent" since="c++20"/>
 
     <!-- cpp/numeric/math -->
 
@@ -3350,7 +3746,10 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="multiplier" link="."/>
+        <const name="increment" link="."/>
+        <const name="modulus" link="."/>
+        <const name="default_seed" link="."/>
     </class>
 
     <class name="std::mersenne_twister_engine" link="cpp/numeric/random/mersenne_twister_engine">
@@ -3366,7 +3765,20 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="word_size" link="."/>
+        <const name="state_size" link="."/>
+        <const name="shift_size" link="."/>
+        <const name="mask_bits" link="."/>
+        <const name="xor_mask" link="."/>
+        <const name="tempering_u" link="."/>
+        <const name="tempering_d" link="."/>
+        <const name="tempering_s" link="."/>
+        <const name="tempering_b" link="."/>
+        <const name="tempering_t" link="."/>
+        <const name="tempering_c" link="."/>
+        <const name="tempering_l" link="."/>
+        <const name="initialization_multiplier" link="."/>
+        <const name="default_seed" link="."/>
     </class>
 
     <class name="std::subtract_with_carry_engine" link="cpp/numeric/random/subtract_with_carry_engine">
@@ -3382,7 +3794,10 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="word_size" link="."/>
+        <const name="short_lag" link="."/>
+        <const name="long_lag" link="."/>
+        <const name="default_seed" link="."/>
     </class>
 
     <class name="std::discard_block_engine" link="cpp/numeric/random/discard_block_engine">
@@ -3399,7 +3814,8 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="block_size" link="."/>
+        <const name="used_size" link="."/>
     </class>
 
     <class name="std::independent_bits_engine" link="cpp/numeric/random/independent_bits_engine">
@@ -3415,8 +3831,6 @@
         <overload name="operator!=" link="operator_cmp"/>
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
-
-        <!--todo mem objects-->
     </class>
 
     <class name="std::shuffle_order_engine" link="cpp/numeric/random/shuffle_order_engine">
@@ -3433,7 +3847,7 @@
         <overload name="operator&lt;&lt;" link="operator_ltltgtgt"/>
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
-        <!--todo mem objects-->
+        <const name="table_size" link="."/>
     </class>
 
     <class name="std::random_device" link="cpp/numeric/random/random_device">
@@ -3867,24 +4281,25 @@
     <class name="std::execution::sequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
     <class name="std::execution::parallel_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
     <class name="std::execution::parallel_unsequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
+    <class name="std::execution::unsequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++20"/>
     <const name="std::execution::seq" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
     <const name="std::execution::par" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
     <const name="std::execution::par_unseq" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
+    <const name="std::execution::unseq" link="cpp/algorithm/execution_policy_tag" since="c++20"/>
     <class name="std::is_execution_policy" link="cpp/algorithm/is_execution_policy" since="c++17"/>
     <variable name="std::is_execution_policy_v" link="cpp/algorithm/is_execution_policy" since="c++17"/>
 
-    <function name="std::all_of" link="cpp/algorithm/all_any_none_of"/>
-    <function name="std::any_of" link="cpp/algorithm/all_any_none_of"/>
-    <function name="std::none_of" link="cpp/algorithm/all_any_none_of"/>
+    <function name="std::all_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
+    <function name="std::any_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
+    <function name="std::none_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
     <function name="std::for_each" link="cpp/algorithm/for_each"/>
-    <function name="std::for_each_n" link="cpp/algorithm/for_each_n" since="c++11"/>
+    <function name="std::for_each_n" link="cpp/algorithm/for_each_n" since="c++17"/>
     <function name="std::count" link="cpp/algorithm/count"/>
     <function name="std::count_if" link="cpp/algorithm/count"/>
     <function name="std::mismatch" link="cpp/algorithm/mismatch"/>
-    <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::find" link="cpp/algorithm/find"/>
     <function name="std::find_if" link="cpp/algorithm/find"/>
-    <function name="std::find_if_not" link="cpp/algorithm/find"/>
+    <function name="std::find_if_not" link="cpp/algorithm/find" since="c++11"/>
     <function name="std::find_end" link="cpp/algorithm/find_end"/>
     <function name="std::find_first_of" link="cpp/algorithm/find_first_of"/>
     <function name="std::adjacent_find" link="cpp/algorithm/adjacent_find"/>
@@ -3892,11 +4307,11 @@
     <function name="std::search_n" link="cpp/algorithm/search_n"/>
 
     <function name="std::copy" link="cpp/algorithm/copy"/>
-    <function name="std::copy_if" link="cpp/algorithm/copy"/>
-    <function name="std::copy_n" link="cpp/algorithm/copy_n"/>
+    <function name="std::copy_if" link="cpp/algorithm/copy" since="c++11"/>
+    <function name="std::copy_n" link="cpp/algorithm/copy_n" since="c++11"/>
     <function name="std::copy_backward" link="cpp/algorithm/copy_backward"/>
-    <function name="std::move (algorithm)" link="cpp/algorithm/move"/>
-    <function name="std::move_backward" link="cpp/algorithm/move_backward"/>
+    <function name="std::move (algorithm)" link="cpp/algorithm/move"/ since="c++11">
+    <function name="std::move_backward" link="cpp/algorithm/move_backward"/ since="c++11">
     <function name="std::fill" link="cpp/algorithm/fill"/>
     <function name="std::fill_n" link="cpp/algorithm/fill_n"/>
     <function name="std::transform" link="cpp/algorithm/transform"/>
@@ -3917,20 +4332,22 @@
     <function name="std::reverse_copy" link="cpp/algorithm/reverse_copy"/>
     <function name="std::rotate" link="cpp/algorithm/rotate"/>
     <function name="std::rotate_copy" link="cpp/algorithm/rotate_copy"/>
+    <function name="std::shift_left" link="cpp/algorithm/shift" since="c++20"/>
+    <function name="std::shift_right" link="cpp/algorithm/shift" since="c++20"/>
     <function name="std::random_shuffle" link="cpp/algorithm/random_shuffle"/>
-    <function name="std::shuffle" link="cpp/algorithm/random_shuffle"/>
+    <function name="std::shuffle" link="cpp/algorithm/random_shuffle" since="c++11"/>
     <function name="std::sample" link="cpp/algorithm/sample" since="c++17"/>
     <function name="std::unique" link="cpp/algorithm/unique"/>
     <function name="std::unique_copy" link="cpp/algorithm/unique_copy"/>
 
-    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned"/>
+    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned"/ since="c++11">
     <function name="std::partition" link="cpp/algorithm/partition"/>
-    <function name="std::partition_copy" link="cpp/algorithm/partition_copy"/>
+    <function name="std::partition_copy" link="cpp/algorithm/partition_copy" since="c++11"/>
     <function name="std::stable_partition" link="cpp/algorithm/stable_partition"/>
-    <function name="std::partition_point" link="cpp/algorithm/partition_point"/>
+    <function name="std::partition_point" link="cpp/algorithm/partition_point" since="c++11"/>
 
-    <function name="std::is_sorted" link="cpp/algorithm/is_sorted"/>
-    <function name="std::is_sorted_until" link="cpp/algorithm/is_sorted_until"/>
+    <function name="std::is_sorted" link="cpp/algorithm/is_sorted" since="c++11"/>
+    <function name="std::is_sorted_until" link="cpp/algorithm/is_sorted_until" since="c++11"/>
     <function name="std::sort" link="cpp/algorithm/sort"/>
     <function name="std::partial_sort" link="cpp/algorithm/partial_sort"/>
     <function name="std::partial_sort_copy" link="cpp/algorithm/partial_sort_copy"/>
@@ -3950,8 +4367,8 @@
     <function name="std::set_symmetric_difference" link="cpp/algorithm/set_symmetric_difference"/>
     <function name="std::set_union" link="cpp/algorithm/set_union"/>
 
-    <function name="std::is_heap" link="cpp/algorithm/is_heap"/>
-    <function name="std::is_heap_until" link="cpp/algorithm/is_heap_until"/>
+    <function name="std::is_heap" link="cpp/algorithm/is_heap" since="c++11"/>
+    <function name="std::is_heap_until" link="cpp/algorithm/is_heap_until" since="c++11"/>
     <function name="std::make_heap" link="cpp/algorithm/make_heap"/>
     <function name="std::push_heap" link="cpp/algorithm/push_heap"/>
     <function name="std::pop_heap" link="cpp/algorithm/pop_heap"/>
@@ -3961,12 +4378,16 @@
     <function name="std::max_element" link="cpp/algorithm/max_element"/>
     <function name="std::min" link="cpp/algorithm/min"/>
     <function name="std::min_element" link="cpp/algorithm/min_element"/>
-    <function name="std::minmax" link="cpp/algorithm/minmax"/>
-    <function name="std::minmax_element" link="cpp/algorithm/minmax_element"/>
+    <function name="std::minmax" link="cpp/algorithm/minmax" since="c++11"/>
+    <function name="std::minmax_element" link="cpp/algorithm/minmax_element" since="c++11"/>
     <function name="std::clamp" link="cpp/algorithm/clamp" since="c++17"/>
 
+    <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
-    <function name="std::is_permutation" link="cpp/algorithm/is_permutation"/>
+    <function name="std::compare_3way" link="cpp/algorithm/compare_3way" since="c++20"/>
+    <function name="std::lexicographical_compare_3way" link="cpp/algorithm/lexicographical_compare_3way" since="c++20"/>
+
+    <function name="std::is_permutation" link="cpp/algorithm/is_permutation" since="c++11"/>
     <function name="std::next_permutation" link="cpp/algorithm/next_permutation"/>
     <function name="std::prev_permutation" link="cpp/algorithm/prev_permutation"/>
 
@@ -3974,7 +4395,7 @@
     <function name="std::inner_product" link="cpp/algorithm/inner_product"/>
     <function name="std::adjacent_difference" link="cpp/algorithm/adjacent_difference"/>
     <function name="std::partial_sum" link="cpp/algorithm/partial_sum"/>
-    <function name="std::iota" link="cpp/algorithm/iota"/>
+    <function name="std::iota" link="cpp/algorithm/iota" since="c++11"/>
 
     <function name="std::reduce" link="cpp/algorithm/reduce" since="c++17"/>
     <function name="std::inclusive_scan" link="cpp/algorithm/inclusive_scan" since="c++17"/>
@@ -4092,6 +4513,24 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
+    <class name="std::basic_syncbuf" link="cpp/io/basic_syncbuf" since="c++20">
+        <inherits name="std::basic_streambuf"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+
+        <function name="emit"/>
+        <function name="get_wrapped"/>
+        <function name="get_allocator"/>
+        <function name="set_emit_on_sync"/>
+
+        <function name="sync"/>
+
+        <overload name="std::swap" link="swap2"/>
+    </class>
+
     <class name="std::ios_base" link="cpp/io/ios_base">
         <constructor/>
         <destructor/>
@@ -4161,7 +4600,7 @@
         <const name="copyfmt_event" link="event"/>
 
         <typedef name="event_callback"/>
-        
+
         <class name="Init"/>
     </class>
 
@@ -4331,9 +4770,22 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
+    <class name="std::basic_osyncstream" link="cpp/io/basic_osyncstream" since="c++20">
+        <inherits name="std::basic_ostream"/>
+
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="rdbuf"/>
+        <function name="get_wrapped"/>
+        <function name="emit"/>
+    </class>
+
     <typedef name="std::streambuf" alias="std::basic_streambuf"/>
     <typedef name="std::filebuf" alias="std::basic_filebuf"/>
     <typedef name="std::stringbuf" alias="std::basic_stringbuf"/>
+    <typedef name="std::syncbuf" alias="std::basic_syncbuf" since="c++20"/>
     <typedef name="std::istream" alias="std::basic_istream"/>
     <typedef name="std::ostream" alias="std::basic_ostream"/>
     <typedef name="std::iostream" alias="std::basic_iostream"/>
@@ -4343,10 +4795,12 @@
     <typedef name="std::istringstream" alias="std::basic_istringstream"/>
     <typedef name="std::ostringstream" alias="std::basic_ostringstream"/>
     <typedef name="std::stringstream" alias="std::basic_stringstream"/>
+    <typedef name="std::osyncstream" alias="std::basic_osyncstream" since="c++20"/>
 
     <typedef name="std::wstreambuf" alias="std::basic_streambuf"/>
     <typedef name="std::wfilebuf" alias="std::basic_filebuf"/>
     <typedef name="std::wstringbuf" alias="std::basic_stringbuf"/>
+    <typedef name="std::wsyncbuf" alias="std::basic_syncbuf" since="c++20"/>
     <typedef name="std::wistream" alias="std::basic_istream"/>
     <typedef name="std::wostream" alias="std::basic_ostream"/>
     <typedef name="std::wiostream" alias="std::basic_iostream"/>
@@ -4356,6 +4810,7 @@
     <typedef name="std::wistringstream" alias="std::basic_istringstream"/>
     <typedef name="std::wostringstream" alias="std::basic_ostringstream"/>
     <typedef name="std::wstringstream" alias="std::basic_stringstream"/>
+    <typedef name="std::wosyncstream" alias="std::basic_osyncstream" since="c++20"/>
 
     <!-- deprecated classes -->
     <class name="std::strstreambuf" link="cpp/io/strstreambuf">
@@ -4447,6 +4902,9 @@
     <function name="std::ends" link="cpp/io/manip/ends"/>
     <function name="std::flush" link="cpp/io/manip/flush"/>
     <function name="std::endl" link="cpp/io/manip/endl"/>
+    <function name="std::emit_on_flush" link="cpp/io/manip/emit_on_flush" since="c++20"/>
+    <function name="std::no_emit_on_flush" link="cpp/io/manip/emit_on_flush" since="c++20"/>
+    <function name="std::flush_emit" link="cpp/io/manip/flush_emit" since="c++20"/>
 
     <function name="std::resetiosflags" link="cpp/io/manip/resetiosflags"/>
     <function name="std::setiosflags" link="cpp/io/manip/setiosflags"/>
@@ -4472,12 +4930,12 @@
     <typedef name="std::u32streampos" alias="std::fpos"/>
     <typedef name="std::wstreampos" alias="std::fpos"/>
 
-    <enum name="std::io_errc" link="cpp/io/io_errc">
+    <class name="std::io_errc" link="cpp/io/io_errc">
         <const name="stream" link="."/>
         <specialization name="std::is_error_code_enum" link="is_error_code_enum"/>
         <overload name="std::make_error_code" link="make_error_code"/>
         <overload name="std::make_error_condition" link="make_error_condition"/>
-    </enum>
+    </class>
 
     <function name="std::iostream_category" link="cpp/io/iostream_category" since="c++11"/>
 
@@ -4693,7 +5151,7 @@
         <function name="do_widen" link="widen"/>
         <function name="do_narrow" link="narrow"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <!-- todo ctype<char> -->
@@ -4724,7 +5182,7 @@
         <function name="do_length" link="length"/>
         <function name="do_max_length" link="max_length"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::collate" link="cpp/locale/collate">
@@ -4742,7 +5200,7 @@
         <function name="do_transform" link="transform"/>
         <function name="do_hash" link="hash"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::messages" link="cpp/locale/messages">
@@ -4762,7 +5220,7 @@
         <function name="do_get" link="get"/>
         <function name="do_close" link="close"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::time_get" link="cpp/locale/time_get">
@@ -4790,7 +5248,7 @@
         <function name="do_get_year" link="get_year"/>
         <function name="do_get" link="get"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::time_put" link="cpp/locale/time_put">
@@ -4806,7 +5264,7 @@
         <!-- protected -->
         <function name="do_put" link="put"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::num_get" link="cpp/locale/num_get">
@@ -4820,7 +5278,7 @@
         <!-- protected -->
         <function name="do_get" link="get"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::num_put" link="cpp/locale/num_put">
@@ -4834,7 +5292,7 @@
         <!-- protected -->
         <function name="do_put" link="put"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::numpunct" link="cpp/locale/numpunct">
@@ -4856,7 +5314,7 @@
         <function name="do_truename" link="truefalsename"/>
         <function name="do_falsename" link="truefalsename"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::money_get" link="cpp/locale/money_get">
@@ -4873,7 +5331,7 @@
         <!-- protected -->
         <function name="do_get" link="get"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::money_put" link="cpp/locale/money_put">
@@ -4890,7 +5348,7 @@
         <!-- protected -->
         <function name="do_put" link="put"/>
 
-        <!-- todo id -->
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::moneypunct" link="cpp/locale/moneypunct">
@@ -4921,7 +5379,8 @@
         <function name="do_pos_format" link="pos_format"/>
         <function name="do_neg_format" link="pos_format"/>
 
-        <!-- todo id -->
+        <const name="intl" link="."/>
+        <variable name="id" link="."/>
     </class>
 
     <class name="std::ctype_byname" link="cpp/locale/ctype_byname">
@@ -5167,6 +5626,35 @@
     <!-- cpp/atomic -->
 
     <class name="std::atomic" link="cpp/atomic/atomic">
+        <constructor/>
+        <function name="operator="/>
+        <function name="is_lock_free"/>
+        <function name="store"/>
+        <function name="load"/>
+        <function name="operator T" link="operator_T"/>
+        <function name="exchange"/>
+        <function name="compare_exchange_strong" link="compare_exchange"/>
+        <function name="compare_exchange_weak" link="compare_exchange"/>
+
+        <function name="fetch_add"/>
+        <function name="fetch_sub"/>
+        <function name="fetch_and"/>
+        <function name="fetch_or"/>
+        <function name="fetch_xor"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+
+        <function name="operator+=" link="operator_arith2"/>
+        <function name="operator-=" link="operator_arith2"/>
+        <function name="operator&amp;=" link="operator_arith2"/>
+        <function name="operator|=" link="operator_arith2"/>
+        <function name="operator^=" link="operator_arith2"/>
+    </class>
+
+    <class name="std::atomic_ref" link="cpp/atomic/atomic_ref" since="c++20">
         <constructor/>
         <function name="operator="/>
         <function name="is_lock_free"/>
@@ -5575,7 +6063,7 @@
 
     <function name="std::future_category" link="cpp/thread/future_category"/>
 
-    <enum name="std::future_errc" link="cpp/thread/future_errc">
+    <class name="std::future_errc" link="cpp/thread/future_errc">
         <const name="broken_promise" link="."/>
         <const name="future_already_retrieved" link="."/>
         <const name="promise_already_satisfied" link="."/>
@@ -5584,7 +6072,7 @@
         <specialization name="std::is_error_code_enum" link="is_error_code_enum"/>
         <overload name="std::make_error_code" link="make_error_code"/>
         <overload name="std::make_error_condition" link="make_error_condition"/>
-    </enum>
+    </class>
 
     <!-- filesystem -->
     <class name="std::filesystem::path" link="cpp/filesystem/path" since="c++17">
@@ -5782,6 +6270,21 @@
         <const name="resolve_symlinks" link="."/>
     </class>
 
+    <class name="std::filesystem::perm_options" link="cpp/filesystem/perm_options" since="c++17">
+        <const name="replace" link="."/>
+        <const name="add" link="."/>
+        <const name="remove" link="."/>
+        <const name="nofollow" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
+    </class>
+
     <class name="std::filesystem::copy_options" link="cpp/filesystem/copy_options" since="c++17">
         <const name="none" link="."/>
         <const name="skip_existing" link="."/>
@@ -5793,17 +6296,34 @@
         <const name="directories_only" link="."/>
         <const name="create_symlinks" link="."/>
         <const name="create_hard_links" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
     </class>
+
     <class name="std::filesystem::directory_options" link="cpp/filesystem/directory_options" since="c++17">
         <const name="none" link="."/>
         <const name="follow_directory_symlink" link="."/>
         <const name="overwrite_existing" link="."/>
         <const name="skip_permission_denied" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
     </class>
+
     <typedef name="std::filesystem::file_time_type" link="cpp/filesystem/file_time_type" since="c++17"/>
 
     <function name="std::filesystem::absolute" link="cpp/filesystem/absolute" since="c++17"/>
-    <function name="std::filesystem::system_complete" link="cpp/filesystem/absolute" since="c++17"/>
     <function name="std::filesystem::canonical" link="cpp/filesystem/canonical" since="c++17"/>
     <function name="std::filesystem::weakly_canonical" link="cpp/filesystem/canonical" since="c++17"/>
     <function name="std::filesystem::relative" link="cpp/filesystem/relative" since="c++17"/>
@@ -6314,6 +6834,5 @@
     <function name="std::experimental::filesystem::is_socket" link="cpp/experimental/fs/is_socket" since="exp"/>
     <function name="std::experimental::filesystem::is_symlink" link="cpp/experimental/fs/is_symlink" since="exp"/>
     <function name="std::experimental::filesystem::status_known" link="cpp/experimental/fs/status_known" since="exp"/>
-
 
 </index>
