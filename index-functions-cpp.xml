@@ -969,6 +969,9 @@
 
     <class name="std::uses_allocator" link="cpp/memory/uses_allocator"/>
     <variable name="std::uses_allocator_v" link="cpp/memory/uses_allocator" since="c++17"/>
+    <function name="std::uses_allocator_construction_args" link="cpp/memory/uses_allocator_construction_args" since="c++20"/>
+    <function name="std::make_obj_using_allocator" link="cpp/memory/make_obj_using_allocator" since="c++20"/>
+    <function name="std::uninitialized_construct_using_allocator" link="cpp/memory/uninitialized_construct_using_allocator" since="c++20"/>
 
     <class name="std::scoped_allocator_adaptor" link="cpp/memory/scoped_allocator_adaptor">
         <constructor/>
@@ -1221,8 +1224,10 @@
         <function name="pointer_to"/>
     </class>
 
+    <function name="std::to_address" link="cpp/memory/to_address" since="c++20"/>
     <function name="std::addressof" link="cpp/memory/addressof"/>
     <function name="std::align" link="cpp/memory/align"/>
+    <function name="std::assume_aligned" link="cpp/memory/assume_aligned" since="c++20"/>
 
     <function name="std::malloc" link="cpp/memory/c/malloc"/>
     <function name="std::aligned_alloc" link="cpp/memory/c/aligned_alloc" since="c++11"/>
