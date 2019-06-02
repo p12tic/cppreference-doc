@@ -32,6 +32,20 @@
     <const name="NULL" link="cpp/types/NULL"/>
     <typedef name="std::max_align_t" link="cpp/types/max_align_t"/>
     <function name="offsetof" link="cpp/types/offsetof"/>
+    <class name="std::byte" link="cpp/types/byte" since="c++17">
+        <overload name="std::to_integer" link="."/>
+        <overload name="operator&lt;&lt;=" link="."/>
+        <overload name="operator&gt;&gt;=" link="."/>
+        <overload name="operator&lt;&lt;" link="."/>
+        <overload name="operator&gt;&gt;" link="."/>
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
+    </class>
 
         <!-- fixed width integer types -->
 
@@ -1245,6 +1259,7 @@
     <function name="assert" link="cpp/error/assert"/>
 
     <function name="std::uncaught_exception" link="cpp/error/uncaught_exception"/>
+    <function name="std::uncaught_exceptions" link="cpp/error/uncaught_exception" since="c++17"/>
     <typedef name="std::exception_ptr" link="cpp/error/exception_ptr"/>
     <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr"/>
     <function name="std::current_exception" link="cpp/error/current_exception"/>
@@ -1507,6 +1522,8 @@
 
         <overload name="std::begin" link="begin2"/>
         <overload name="std::end" link="end2"/>
+        <overload name="std::rbegin" link="rbegin2" since="c++14"/>
+        <overload name="std::rend" link="rend2" since="c++14"/>
     </class>
 
     <!--=======================================================================-->
@@ -1801,7 +1818,11 @@
         <function name="operator()" link="."/>
     </class>
 
-    <class name="std::bit_not" link="cpp/utility/functional/bit_not">
+    <class name="std::bit_xor" link="cpp/utility/functional/bit_xor">
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::bit_not" link="cpp/utility/functional/bit_not" since="c++14">
         <function name="operator()" link="."/>
     </class>
 
@@ -1855,15 +1876,15 @@
 
     <class name="std::default_searcher" link="cpp/utility/functional/default_searcher" since="c++17">
         <constructor link="."/>
-        <operator name="operator()" link="."/>
+        <function name="operator()" link="."/>
     </class>
     <class name="std::boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17">
         <constructor link="."/>
-        <operator name="operator()" link="."/>
+        <function name="operator()" link="."/>
     </class>
     <class name="std::boyer_moore_horspool_searcher" link="cpp/utility/functional/boyer_moore_horspool_searcher" since="c++17">
         <constructor link="."/>
-        <operator name="operator()" link="."/>
+        <function name="operator()" link="."/>
     </class>
     <class name="std::make_default_searcher" link="cpp/utility/functional/default_searcher" since="c++17"/>
     <class name="std::make_boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17"/>
@@ -1881,6 +1902,9 @@
     <function name="std::cref" link="cpp/utility/functional/ref"/>
 
     <!-- todo: deprecated content of <functional> -->
+
+    <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
+    <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/any -->
@@ -2061,6 +2085,7 @@
     <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat"/>
     <const name="std::ignore" link="cpp/utility/tuple/ignore"/>
 
+    <function name="std::swap" link="cpp/algorithm/swap"/>
     <function name="std::forward" link="cpp/utility/forward"/>
     <function name="std::exchange" link="cpp/utility/exchange" since="c++14"/>
     <function name="std::move (utility)" link="cpp/utility/move"/>
@@ -2074,13 +2099,28 @@
     <function name="std::rel_ops::operator&lt;=" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&gt;=" link="cpp/utility/rel_ops/operator_cmp"/>
 
+    <function name="std::to_chars" link="cpp/utility/to_chars" since="c++17"/>
+    <function name="std::from_chars" link="cpp/utility/from_chars" since="c++17"/>
+
+    <class name="std::chars_format" link="cpp/utility/chars_format" since="c++17">
+        <const name="scientific" link="."/>
+        <const name="fixed" link="."/>
+        <const name="hex" link="."/>
+        <const name="general" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
+    </class>
+
     <class name="std::hash" link="cpp/utility/hash">
         <constructor/>
         <function name="operator()"/>
     </class>
-
-    <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
-    <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
 
     <!--=======================================================================-->
     <!-- cpp/string/byte -->
@@ -2234,6 +2274,7 @@
         <function name="back" since="c++11"/>
         <function name="data"/>
         <function name="c_str"/>
+        <function name="operator basic_string_view" link="operator_basic_string_view" since="c++17"/>
 
         <function name="begin"/>
         <function name="cbegin" link="begin" since="c++11"/>
@@ -2258,6 +2299,7 @@
         <function name="push_back"/>
         <function name="pop_back" since="c++11"/>
         <function name="append"/>
+        <function name="operator+="/>
         <function name="compare"/>
         <function name="replace"/>
         <function name="substr"/>
@@ -4005,11 +4047,10 @@
     <function name="std::any_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
     <function name="std::none_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
     <function name="std::for_each" link="cpp/algorithm/for_each"/>
-    <function name="std::for_each_n" link="cpp/algorithm/for_each_n" since="c++11"/>
+    <function name="std::for_each_n" link="cpp/algorithm/for_each_n" since="c++17"/>
     <function name="std::count" link="cpp/algorithm/count"/>
     <function name="std::count_if" link="cpp/algorithm/count"/>
     <function name="std::mismatch" link="cpp/algorithm/mismatch"/>
-    <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::find" link="cpp/algorithm/find"/>
     <function name="std::find_if" link="cpp/algorithm/find"/>
     <function name="std::find_if_not" link="cpp/algorithm/find" since="c++11"/>
@@ -4093,6 +4134,7 @@
     <function name="std::minmax_element" link="cpp/algorithm/minmax_element" since="c++11"/>
     <function name="std::clamp" link="cpp/algorithm/clamp" since="c++17"/>
 
+    <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
     <function name="std::is_permutation" link="cpp/algorithm/is_permutation" since="c++11"/>
     <function name="std::next_permutation" link="cpp/algorithm/next_permutation"/>
@@ -4600,12 +4642,12 @@
     <typedef name="std::u32streampos" alias="std::fpos"/>
     <typedef name="std::wstreampos" alias="std::fpos"/>
 
-    <enum name="std::io_errc" link="cpp/io/io_errc">
+    <class name="std::io_errc" link="cpp/io/io_errc">
         <const name="stream" link="."/>
         <specialization name="std::is_error_code_enum" link="is_error_code_enum"/>
         <overload name="std::make_error_code" link="make_error_code"/>
         <overload name="std::make_error_condition" link="make_error_condition"/>
-    </enum>
+    </class>
 
     <function name="std::iostream_category" link="cpp/io/iostream_category" since="c++11"/>
 
@@ -5704,7 +5746,7 @@
 
     <function name="std::future_category" link="cpp/thread/future_category"/>
 
-    <enum name="std::future_errc" link="cpp/thread/future_errc">
+    <class name="std::future_errc" link="cpp/thread/future_errc">
         <const name="broken_promise" link="."/>
         <const name="future_already_retrieved" link="."/>
         <const name="promise_already_satisfied" link="."/>
@@ -5713,7 +5755,7 @@
         <specialization name="std::is_error_code_enum" link="is_error_code_enum"/>
         <overload name="std::make_error_code" link="make_error_code"/>
         <overload name="std::make_error_condition" link="make_error_condition"/>
-    </enum>
+    </class>
 
     <!-- filesystem -->
     <class name="std::filesystem::path" link="cpp/filesystem/path" since="c++17">
