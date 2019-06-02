@@ -2123,6 +2123,98 @@
     <function name="std::as_const" link="cpp/utility/as_const" since="c++17"/>
     <function name="std::launder" link="cpp/utility/launder" since="c++17"/>
 
+    <class name="std::weak_equality" link="cpp/utility/compare/weak_equality" since="c++20">
+        <const name="equivalent" link="."/>
+        <const name="nonequivalent" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::strong_equality" link="cpp/utility/compare/strong_equality" since="c++20">
+        <const name="equivalent" link="."/>
+        <const name="equal" link="."/>
+        <const name="nonequivalent" link="."/>
+        <const name="nonequal" link="."/>
+
+        <function name="operator weak_equality" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::partial_ordering" link="cpp/utility/compare/partial_ordering" since="c++20">
+        <const name="less" link="."/>
+        <const name="equivalent" link="."/>
+        <const name="greater" link="."/>
+        <const name="unordered" link="."/>
+
+        <function name="operator weak_equality" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::weak_ordering" link="cpp/utility/compare/weak_ordering" since="c++20">
+        <const name="less" link="."/>
+        <const name="equivalent" link="."/>
+        <const name="greater" link="."/>
+
+        <function name="operator weak_equality" link="."/>
+        <function name="operator partial_ordering" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <class name="std::strong_ordering" link="cpp/utility/compare/strong_ordering" since="c++20">
+        <const name="less" link="."/>
+        <const name="equivalent" link="."/>
+        <const name="equal" link="."/>
+        <const name="greater" link="."/>
+
+        <function name="operator strong_equality" link="."/>
+        <function name="operator weak_equality" link="."/>
+        <function name="operator partial_ordering" link="."/>
+        <function name="operator weak_ordering" link="."/>
+
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
+        <overload name="operator&lt;=&gt;" link="."/>
+    </class>
+
+    <function name="std::is_eq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_neq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_lt" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_lteq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_gt" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+    <function name="std::is_gteq" link="cpp/utility/compare/named_comparison_functions" since="c++20"/>
+
+    <class name="std::common_comparison_category" link="cpp/utility/compare/common_comparison_category" since="c++20"/>
+    <typedef name="std::common_comparison_category_t" alias="std::common_comparison_category" since="c++20"/>
+
+    <function name="std::strong_order" link="cpp/utility/compare/strong_order" since="c++20"/>
+    <function name="std::weak_order" link="cpp/utility/compare/weak_order" since="c++20"/>
+    <function name="std::partial_order" link="cpp/utility/compare/partial_order" since="c++20"/>
+    <function name="std::strong_equal" link="cpp/utility/compare/strong_equal" since="c++20"/>
+    <function name="std::weak_equal" link="cpp/utility/compare/weak_equal" since="c++20"/>
+
     <function name="std::rel_ops::operator!=" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&gt;" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&lt;=" link="cpp/utility/rel_ops/operator_cmp"/>
@@ -4165,6 +4257,9 @@
 
     <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
+    <function name="std::compare_3way" link="cpp/algorithm/compare_3way" since="c++20"/>
+    <function name="std::lexicographical_compare_3way" link="cpp/algorithm/lexicographical_compare_3way" since="c++20"/>
+
     <function name="std::is_permutation" link="cpp/algorithm/is_permutation" since="c++11"/>
     <function name="std::next_permutation" link="cpp/algorithm/next_permutation"/>
     <function name="std::prev_permutation" link="cpp/algorithm/prev_permutation"/>
