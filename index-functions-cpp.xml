@@ -1499,7 +1499,7 @@
     <!--=======================================================================-->
     <!-- cpp/utility/initializer_list -->
 
-    <class name="std::initializer_list" link="cpp/utility/initializer_list">
+    <class name="std::initializer_list" link="cpp/utility/initializer_list" since="c++11">
         <constructor/>
         <function name="size"/>
         <function name="begin"/>
@@ -2157,10 +2157,10 @@
     <function name="std::mbsrtowcs" link="cpp/string/multibyte/mbsrtowcs"/>
     <function name="std::wcsrtombs" link="cpp/string/multibyte/wcsrtombs"/>
 
-    <function name="std::mbrtoc16" link="cpp/string/multibyte/mbrtoc16"/>
-    <function name="std::c16rtomb" link="cpp/string/multibyte/c16rtomb"/>
-    <function name="std::mbrtoc32" link="cpp/string/multibyte/mbrtoc32"/>
-    <function name="std::c32rtomb" link="cpp/string/multibyte/c32rtomb"/>
+    <function name="std::mbrtoc16" link="cpp/string/multibyte/mbrtoc16" since="c++11"/>
+    <function name="std::c16rtomb" link="cpp/string/multibyte/c16rtomb" since="c++11"/>
+    <function name="std::mbrtoc32" link="cpp/string/multibyte/mbrtoc32" since="c++11"/>
+    <function name="std::c32rtomb" link="cpp/string/multibyte/c32rtomb" since="c++11"/>
 
     <class name="std::mbstate_t" link="cpp/string/multibyte/mbstate_t"/>
 
@@ -2230,19 +2230,19 @@
 
         <function name="at"/>
         <function name="operator[]" link="operator_at"/>
-        <function name="front"/>
-        <function name="back"/>
+        <function name="front" since="c++11"/>
+        <function name="back" since="c++11"/>
         <function name="data"/>
         <function name="c_str"/>
 
         <function name="begin"/>
-        <function name="cbegin" link="begin"/>
+        <function name="cbegin" link="begin" since="c++11"/>
         <function name="end"/>
-        <function name="cend" link="end"/>
+        <function name="cend" link="end" since="c++11"/>
         <function name="rbegin"/>
-        <function name="crbegin" link="rbegin"/>
+        <function name="crbegin" link="rbegin" since="c++11"/>
         <function name="rend"/>
-        <function name="crend" link="rend"/>
+        <function name="crend" link="rend" since="c++11"/>
 
         <function name="empty"/>
         <function name="size"/>
@@ -2250,13 +2250,13 @@
         <function name="max_size"/>
         <function name="reserve"/>
         <function name="capacity"/>
-        <function name="shrink_to_fit"/>
+        <function name="shrink_to_fit" since="c++11"/>
 
         <function name="clear"/>
         <function name="insert"/>
         <function name="erase"/>
         <function name="push_back"/>
-        <function name="pop_back"/>
+        <function name="pop_back" since="c++11"/>
         <function name="append"/>
         <function name="compare"/>
         <function name="replace"/>
@@ -4001,9 +4001,9 @@
     <class name="std::is_execution_policy" link="cpp/algorithm/is_execution_policy" since="c++17"/>
     <variable name="std::is_execution_policy_v" link="cpp/algorithm/is_execution_policy" since="c++17"/>
 
-    <function name="std::all_of" link="cpp/algorithm/all_any_none_of"/>
-    <function name="std::any_of" link="cpp/algorithm/all_any_none_of"/>
-    <function name="std::none_of" link="cpp/algorithm/all_any_none_of"/>
+    <function name="std::all_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
+    <function name="std::any_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
+    <function name="std::none_of" link="cpp/algorithm/all_any_none_of" since="c++11"/>
     <function name="std::for_each" link="cpp/algorithm/for_each"/>
     <function name="std::for_each_n" link="cpp/algorithm/for_each_n" since="c++11"/>
     <function name="std::count" link="cpp/algorithm/count"/>
@@ -4012,7 +4012,7 @@
     <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::find" link="cpp/algorithm/find"/>
     <function name="std::find_if" link="cpp/algorithm/find"/>
-    <function name="std::find_if_not" link="cpp/algorithm/find"/>
+    <function name="std::find_if_not" link="cpp/algorithm/find" since="c++11"/>
     <function name="std::find_end" link="cpp/algorithm/find_end"/>
     <function name="std::find_first_of" link="cpp/algorithm/find_first_of"/>
     <function name="std::adjacent_find" link="cpp/algorithm/adjacent_find"/>
@@ -4020,11 +4020,11 @@
     <function name="std::search_n" link="cpp/algorithm/search_n"/>
 
     <function name="std::copy" link="cpp/algorithm/copy"/>
-    <function name="std::copy_if" link="cpp/algorithm/copy"/>
-    <function name="std::copy_n" link="cpp/algorithm/copy_n"/>
+    <function name="std::copy_if" link="cpp/algorithm/copy" since="c++11"/>
+    <function name="std::copy_n" link="cpp/algorithm/copy_n" since="c++11"/>
     <function name="std::copy_backward" link="cpp/algorithm/copy_backward"/>
-    <function name="std::move (algorithm)" link="cpp/algorithm/move"/>
-    <function name="std::move_backward" link="cpp/algorithm/move_backward"/>
+    <function name="std::move (algorithm)" link="cpp/algorithm/move"/ since="c++11">
+    <function name="std::move_backward" link="cpp/algorithm/move_backward"/ since="c++11">
     <function name="std::fill" link="cpp/algorithm/fill"/>
     <function name="std::fill_n" link="cpp/algorithm/fill_n"/>
     <function name="std::transform" link="cpp/algorithm/transform"/>
@@ -4046,19 +4046,19 @@
     <function name="std::rotate" link="cpp/algorithm/rotate"/>
     <function name="std::rotate_copy" link="cpp/algorithm/rotate_copy"/>
     <function name="std::random_shuffle" link="cpp/algorithm/random_shuffle"/>
-    <function name="std::shuffle" link="cpp/algorithm/random_shuffle"/>
+    <function name="std::shuffle" link="cpp/algorithm/random_shuffle" since="c++11"/>
     <function name="std::sample" link="cpp/algorithm/sample" since="c++17"/>
     <function name="std::unique" link="cpp/algorithm/unique"/>
     <function name="std::unique_copy" link="cpp/algorithm/unique_copy"/>
 
-    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned"/>
+    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned"/ since="c++11">
     <function name="std::partition" link="cpp/algorithm/partition"/>
-    <function name="std::partition_copy" link="cpp/algorithm/partition_copy"/>
+    <function name="std::partition_copy" link="cpp/algorithm/partition_copy" since="c++11"/>
     <function name="std::stable_partition" link="cpp/algorithm/stable_partition"/>
-    <function name="std::partition_point" link="cpp/algorithm/partition_point"/>
+    <function name="std::partition_point" link="cpp/algorithm/partition_point" since="c++11"/>
 
-    <function name="std::is_sorted" link="cpp/algorithm/is_sorted"/>
-    <function name="std::is_sorted_until" link="cpp/algorithm/is_sorted_until"/>
+    <function name="std::is_sorted" link="cpp/algorithm/is_sorted" since="c++11"/>
+    <function name="std::is_sorted_until" link="cpp/algorithm/is_sorted_until" since="c++11"/>
     <function name="std::sort" link="cpp/algorithm/sort"/>
     <function name="std::partial_sort" link="cpp/algorithm/partial_sort"/>
     <function name="std::partial_sort_copy" link="cpp/algorithm/partial_sort_copy"/>
@@ -4078,8 +4078,8 @@
     <function name="std::set_symmetric_difference" link="cpp/algorithm/set_symmetric_difference"/>
     <function name="std::set_union" link="cpp/algorithm/set_union"/>
 
-    <function name="std::is_heap" link="cpp/algorithm/is_heap"/>
-    <function name="std::is_heap_until" link="cpp/algorithm/is_heap_until"/>
+    <function name="std::is_heap" link="cpp/algorithm/is_heap" since="c++11"/>
+    <function name="std::is_heap_until" link="cpp/algorithm/is_heap_until" since="c++11"/>
     <function name="std::make_heap" link="cpp/algorithm/make_heap"/>
     <function name="std::push_heap" link="cpp/algorithm/push_heap"/>
     <function name="std::pop_heap" link="cpp/algorithm/pop_heap"/>
@@ -4089,12 +4089,12 @@
     <function name="std::max_element" link="cpp/algorithm/max_element"/>
     <function name="std::min" link="cpp/algorithm/min"/>
     <function name="std::min_element" link="cpp/algorithm/min_element"/>
-    <function name="std::minmax" link="cpp/algorithm/minmax"/>
-    <function name="std::minmax_element" link="cpp/algorithm/minmax_element"/>
+    <function name="std::minmax" link="cpp/algorithm/minmax" since="c++11"/>
+    <function name="std::minmax_element" link="cpp/algorithm/minmax_element" since="c++11"/>
     <function name="std::clamp" link="cpp/algorithm/clamp" since="c++17"/>
 
     <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
-    <function name="std::is_permutation" link="cpp/algorithm/is_permutation"/>
+    <function name="std::is_permutation" link="cpp/algorithm/is_permutation" since="c++11"/>
     <function name="std::next_permutation" link="cpp/algorithm/next_permutation"/>
     <function name="std::prev_permutation" link="cpp/algorithm/prev_permutation"/>
 
@@ -4102,7 +4102,7 @@
     <function name="std::inner_product" link="cpp/algorithm/inner_product"/>
     <function name="std::adjacent_difference" link="cpp/algorithm/adjacent_difference"/>
     <function name="std::partial_sum" link="cpp/algorithm/partial_sum"/>
-    <function name="std::iota" link="cpp/algorithm/iota"/>
+    <function name="std::iota" link="cpp/algorithm/iota" since="c++11"/>
 
     <function name="std::reduce" link="cpp/algorithm/reduce" since="c++17"/>
     <function name="std::inclusive_scan" link="cpp/algorithm/inclusive_scan" since="c++17"/>
@@ -4289,7 +4289,7 @@
         <const name="copyfmt_event" link="event"/>
 
         <typedef name="event_callback"/>
-        
+
         <class name="Init"/>
     </class>
 
