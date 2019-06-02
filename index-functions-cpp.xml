@@ -5654,6 +5654,35 @@
         <function name="operator^=" link="operator_arith2"/>
     </class>
 
+    <class name="std::atomic_ref" link="cpp/atomic/atomic_ref" since="c++20">
+        <constructor/>
+        <function name="operator="/>
+        <function name="is_lock_free"/>
+        <function name="store"/>
+        <function name="load"/>
+        <function name="operator T" link="operator_T"/>
+        <function name="exchange"/>
+        <function name="compare_exchange_strong" link="compare_exchange"/>
+        <function name="compare_exchange_weak" link="compare_exchange"/>
+
+        <function name="fetch_add"/>
+        <function name="fetch_sub"/>
+        <function name="fetch_and"/>
+        <function name="fetch_or"/>
+        <function name="fetch_xor"/>
+
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+        <function name="operator--" link="operator_arith"/>
+        <function name="operator--(int)" link="operator_arith"/>
+
+        <function name="operator+=" link="operator_arith2"/>
+        <function name="operator-=" link="operator_arith2"/>
+        <function name="operator&amp;=" link="operator_arith2"/>
+        <function name="operator|=" link="operator_arith2"/>
+        <function name="operator^=" link="operator_arith2"/>
+    </class>
+
     <function name="std::atomic_is_lock_free" link="cpp/atomic/atomic_is_lock_free"/>
 
     <function name="std::atomic_store" link="cpp/atomic/atomic_store"/>
