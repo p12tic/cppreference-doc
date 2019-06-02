@@ -900,8 +900,12 @@
     <function name="std::crend" link="cpp/iterator/rend" since="c++14"/>
 
     <function name="std::size" link="cpp/iterator/size" since="c++17"/>
+    <function name="std::ssize" link="cpp/iterator/size" since="c++20"/>
     <function name="std::empty" link="cpp/iterator/empty" since="c++17"/>
     <function name="std::data" link="cpp/iterator/data" since="c++17"/>
+
+    <function name="std::ranges::begin" link="cpp/ranges/begin" since="c++20"/>
+    <function name="std::ranges::cbegin" link="cpp/ranges/begin" since="c++20"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/memory -->
@@ -1874,7 +1878,12 @@
     <function name="std::not1" link="cpp/utility/functional/not1"/>
     <function name="std::not2" link="cpp/utility/functional/not2"/>
 
+    <class name="std::identity" link="cpp/utility/functional/identity" since="c++20">
+        <function name="operator()" link="."/>
+    </class>
+
     <function name="std::bind" link="cpp/utility/functional/bind"/>
+    <function name="std::bind_front" link="cpp/utility/functional/bind_front" since="c++20"/>
     <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"/>
     <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"/>
     <variable name="std::is_bind_expression_v" link="cpp/utility/functional/is_bind_expression" since="c++17"/>
@@ -1934,6 +1943,40 @@
 
     <function name="std::ref" link="cpp/utility/functional/ref"/>
     <function name="std::cref" link="cpp/utility/functional/ref"/>
+
+    <class name="std::unwrap_reference" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
+    <class name="std::unwrap_ref_decay" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
+    <typedef name="std::unwrap_ref_decay_t" alias="std::unwrap_ref_decay" since="c++20"/>
+
+    <class name="std::ranges::equal_to" link="cpp/utility/functional/ranges/equal_to" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::not_equal_to" link="cpp/utility/functional/ranges/not_equal_to" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::less" link="cpp/utility/functional/ranges/less" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::greater" link="cpp/utility/functional/ranges/greater" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::less_equal" link="cpp/utility/functional/ranges/less_equal" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::ranges::greater_equal" link="cpp/utility/functional/ranges/greater_equal" since="c++20">
+        <typedef name="is_transparent" link="."/>
+        <function name="operator()" link="."/>
+    </class>
 
     <!-- todo: deprecated content of <functional> -->
 
@@ -2120,6 +2163,7 @@
     <const name="std::ignore" link="cpp/utility/tuple/ignore"/>
 
     <function name="std::swap" link="cpp/algorithm/swap"/>
+    <function name="std::ranges::swap" link="cpp/utility/ranges/swap" since="c++20"/>
     <function name="std::forward" link="cpp/utility/forward"/>
     <function name="std::exchange" link="cpp/utility/exchange" since="c++14"/>
     <function name="std::move (utility)" link="cpp/utility/move"/>
@@ -4237,9 +4281,11 @@
     <class name="std::execution::sequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
     <class name="std::execution::parallel_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
     <class name="std::execution::parallel_unsequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++17"/>
+    <class name="std::execution::unsequenced_policy" link="cpp/algorithm/execution_policy_tag_t" since="c++20"/>
     <const name="std::execution::seq" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
     <const name="std::execution::par" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
     <const name="std::execution::par_unseq" link="cpp/algorithm/execution_policy_tag" since="c++17"/>
+    <const name="std::execution::unseq" link="cpp/algorithm/execution_policy_tag" since="c++20"/>
     <class name="std::is_execution_policy" link="cpp/algorithm/is_execution_policy" since="c++17"/>
     <variable name="std::is_execution_policy_v" link="cpp/algorithm/is_execution_policy" since="c++17"/>
 
@@ -4286,6 +4332,8 @@
     <function name="std::reverse_copy" link="cpp/algorithm/reverse_copy"/>
     <function name="std::rotate" link="cpp/algorithm/rotate"/>
     <function name="std::rotate_copy" link="cpp/algorithm/rotate_copy"/>
+    <function name="std::shift_left" link="cpp/algorithm/shift" since="c++20"/>
+    <function name="std::shift_right" link="cpp/algorithm/shift" since="c++20"/>
     <function name="std::random_shuffle" link="cpp/algorithm/random_shuffle"/>
     <function name="std::shuffle" link="cpp/algorithm/random_shuffle" since="c++11"/>
     <function name="std::sample" link="cpp/algorithm/sample" since="c++17"/>
