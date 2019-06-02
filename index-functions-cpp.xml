@@ -5911,6 +5911,21 @@
         <const name="resolve_symlinks" link="."/>
     </class>
 
+    <class name="std::filesystem::perm_options" link="cpp/filesystem/perm_options" since="c++17">
+        <const name="replace" link="."/>
+        <const name="add" link="."/>
+        <const name="remove" link="."/>
+        <const name="nofollow" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
+    </class>
+
     <class name="std::filesystem::copy_options" link="cpp/filesystem/copy_options" since="c++17">
         <const name="none" link="."/>
         <const name="skip_existing" link="."/>
@@ -5922,17 +5937,34 @@
         <const name="directories_only" link="."/>
         <const name="create_symlinks" link="."/>
         <const name="create_hard_links" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
     </class>
+
     <class name="std::filesystem::directory_options" link="cpp/filesystem/directory_options" since="c++17">
         <const name="none" link="."/>
         <const name="follow_directory_symlink" link="."/>
         <const name="overwrite_existing" link="."/>
         <const name="skip_permission_denied" link="."/>
+
+        <overload name="operator|=" link="."/>
+        <overload name="operator&amp;=" link="."/>
+        <overload name="operator^=" link="."/>
+        <overload name="operator|" link="."/>
+        <overload name="operator&amp;" link="."/>
+        <overload name="operator^" link="."/>
+        <overload name="operator~" link="."/>
     </class>
+
     <typedef name="std::filesystem::file_time_type" link="cpp/filesystem/file_time_type" since="c++17"/>
 
     <function name="std::filesystem::absolute" link="cpp/filesystem/absolute" since="c++17"/>
-    <function name="std::filesystem::system_complete" link="cpp/filesystem/absolute" since="c++17"/>
     <function name="std::filesystem::canonical" link="cpp/filesystem/canonical" since="c++17"/>
     <function name="std::filesystem::weakly_canonical" link="cpp/filesystem/canonical" since="c++17"/>
     <function name="std::filesystem::relative" link="cpp/filesystem/relative" since="c++17"/>
@@ -6443,6 +6475,5 @@
     <function name="std::experimental::filesystem::is_socket" link="cpp/experimental/fs/is_socket" since="exp"/>
     <function name="std::experimental::filesystem::is_symlink" link="cpp/experimental/fs/is_symlink" since="exp"/>
     <function name="std::experimental::filesystem::status_known" link="cpp/experimental/fs/status_known" since="exp"/>
-
 
 </index>
