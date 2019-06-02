@@ -472,14 +472,20 @@
     <variable name="std::is_void_v" link="cpp/types/is_void" since="c++17"/>
     <class name="std::is_null_pointer" link="cpp/types/is_null_pointer" since="c++14"/>
     <variable name="std::is_null_pointer_v" link="cpp/types/is_null_pointer" since="c++17"/>
-    <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
-    <variable name="std::is_final_v" link="cpp/types/is_final" since="c++17"/>
     <class name="std::is_integral" link="cpp/types/is_integral"/>
     <variable name="std::is_integral_v" link="cpp/types/is_integral" since="c++17"/>
     <class name="std::is_floating_point" link="cpp/types/is_floating_point"/>
     <variable name="std::is_floating_point_v" link="cpp/types/is_floating_point" since="c++17"/>
     <class name="std::is_array" link="cpp/types/is_array"/>
     <variable name="std::is_array_v" link="cpp/types/is_array" since="c++17"/>
+    <class name="std::is_enum" link="cpp/types/is_enum"/>
+    <variable name="std::is_enum_v" link="cpp/types/is_enum" since="c++17"/>
+    <class name="std::is_union" link="cpp/types/is_union"/>
+    <variable name="std::is_union_v" link="cpp/types/is_union" since="c++17"/>
+    <class name="std::is_class" link="cpp/types/is_class"/>
+    <variable name="std::is_class_v" link="cpp/types/is_class" since="c++17"/>
+    <class name="std::is_function" link="cpp/types/is_function"/>
+    <variable name="std::is_function_v" link="cpp/types/is_function" since="c++17"/>
     <class name="std::is_pointer" link="cpp/types/is_pointer"/>
     <variable name="std::is_pointer_v" link="cpp/types/is_pointer" since="c++17"/>
     <class name="std::is_lvalue_reference" link="cpp/types/is_lvalue_reference"/>
@@ -490,27 +496,19 @@
     <variable name="std::is_member_object_pointer_v" link="cpp/types/is_member_object_pointer" since="c++17"/>
     <class name="std::is_member_function_pointer" link="cpp/types/is_member_function_pointer"/>
     <variable name="std::is_member_function_pointer_v" link="cpp/types/is_member_function_pointer" since="c++17"/>
-    <class name="std::is_enum" link="cpp/types/is_enum"/>
-    <variable name="std::is_enum_v" link="cpp/types/is_enum" since="c++17"/>
-    <class name="std::is_union" link="cpp/types/is_union"/>
-    <variable name="std::is_union_v" link="cpp/types/is_union" since="c++17"/>
-    <class name="std::is_class" link="cpp/types/is_class"/>
-    <variable name="std::is_class_v" link="cpp/types/is_class" since="c++17"/>
-    <class name="std::is_function" link="cpp/types/is_function"/>
-    <variable name="std::is_function_v" link="cpp/types/is_function" since="c++17"/>
 
-    <class name="std::is_reference" link="cpp/types/is_reference"/>
-    <variable name="std::is_reference_v" link="cpp/types/is_reference" since="c++17"/>
-    <class name="std::is_arithmetic" link="cpp/types/is_arithmetic"/>
-    <variable name="std::is_arithmetic_v" link="cpp/types/is_arithmetic" since="c++17"/>
     <class name="std::is_fundamental" link="cpp/types/is_fundamental"/>
     <variable name="std::is_fundamental_v" link="cpp/types/is_fundamental" since="c++17"/>
-    <class name="std::is_object" link="cpp/types/is_object"/>
-    <variable name="std::is_object_v" link="cpp/types/is_object" since="c++17"/>
+    <class name="std::is_arithmetic" link="cpp/types/is_arithmetic"/>
+    <variable name="std::is_arithmetic_v" link="cpp/types/is_arithmetic" since="c++17"/>
     <class name="std::is_scalar" link="cpp/types/is_scalar"/>
     <variable name="std::is_scalar_v" link="cpp/types/is_scalar" since="c++17"/>
+    <class name="std::is_object" link="cpp/types/is_object"/>
+    <variable name="std::is_object_v" link="cpp/types/is_object" since="c++17"/>
     <class name="std::is_compound" link="cpp/types/is_compound"/>
     <variable name="std::is_compound_v" link="cpp/types/is_compound" since="c++17"/>
+    <class name="std::is_reference" link="cpp/types/is_reference"/>
+    <variable name="std::is_reference_v" link="cpp/types/is_reference" since="c++17"/>
     <class name="std::is_member_pointer" link="cpp/types/is_member_pointer"/>
     <variable name="std::is_member_pointer_v" link="cpp/types/is_member_pointer" since="c++17"/>
 
@@ -528,14 +526,18 @@
     <variable name="std::is_pod_v" link="cpp/types/is_pod" since="c++17"/>
     <class name="std::is_literal_type" link="cpp/types/is_literal_type"/>
     <variable name="std::is_literal_type_v" link="cpp/types/is_literal_type" since="c++17"/>
+    <class name="std::has_unique_object_representations" link="cpp/types/has_unique_object_representations" since="c++17"/>
+    <variable name="std::has_unique_object_representations_v" link="cpp/types/has_unique_object_representations" since="c++17"/>
     <class name="std::is_empty" link="cpp/types/is_empty"/>
     <variable name="std::is_empty_v" link="cpp/types/is_empty" since="c++17"/>
     <class name="std::is_polymorphic" link="cpp/types/is_polymorphic"/>
     <variable name="std::is_polymorphic_v" link="cpp/types/is_polymorphic" since="c++17"/>
     <class name="std::is_abstract" link="cpp/types/is_abstract"/>
     <variable name="std::is_abstract_v" link="cpp/types/is_abstract" since="c++17"/>
-    <class name="std::has_unique_object_representations" link="cpp/types/has_unique_object_representations" since="c++17"/>
-    <variable name="std::has_unique_object_representations_v" link="cpp/types/has_unique_object_representations" since="c++17"/>
+    <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
+    <variable name="std::is_final_v" link="cpp/types/is_final" since="c++17"/>
+    <class name="std::is_aggregate" link="cpp/types/is_aggregate" since="c++14"/>
+    <variable name="std::is_aggregate_v" link="cpp/types/is_aggregate" since="c++17"/>
     <class name="std::is_signed" link="cpp/types/is_signed"/>
     <variable name="std::is_signed_v" link="cpp/types/is_signed" since="c++17"/>
     <class name="std::is_unsigned" link="cpp/types/is_unsigned"/>
@@ -591,10 +593,6 @@
     <class name="std::is_nothrow_destructible" link="cpp/types/is_destructible"/>
     <variable name="std::is_nothrow_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
 
-    <class name="std::is_callable" link="cpp/types/is_callable" since="c++17"/>
-    <variable name="std::is_callable_v" link="cpp/types/is_callable" since="c++17"/>
-    <class name="std::is_nothrow_callable" link="cpp/types/is_callable" since="c++17"/>
-    <variable name="std::is_nothrow_callable_v" link="cpp/types/is_callable" since="c++17"/>
     <class name="std::is_swappable" link="cpp/types/is_swappable" since="c++17"/>
     <variable name="std::is_swappable_v" link="cpp/types/is_swappable" since="c++17"/>
     <class name="std::is_swappable_with" link="cpp/types/is_swappable_with" since="c++17"/>
@@ -620,6 +618,14 @@
     <variable name="std::is_base_of_v" link="cpp/types/is_base_of" since="c++17"/>
     <class name="std::is_convertible" link="cpp/types/is_convertible"/>
     <variable name="std::is_convertible_v" link="cpp/types/is_convertible" since="c++17"/>
+    <class name="std::is_invocable" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_invocable_v" link="cpp/types/is_invocable" since="c++17"/>
+    <class name="std::is_invocable_r" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_invocable_r_v" link="cpp/types/is_invocable" since="c++17"/>
+    <class name="std::is_nothrow_invocable" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_nothrow_invocable_v" link="cpp/types/is_invocable" since="c++17"/>
+    <class name="std::is_nothrow_invocable_r" link="cpp/types/is_invocable" since="c++17"/>
+    <variable name="std::is_nothrow_invocable_r_v" link="cpp/types/is_invocable" since="c++17"/>
 
     <class name="std::remove_cv" link="cpp/types/remove_cv" since="c++11"/>
     <class name="std::remove_const" link="cpp/types/remove_cv" since="c++11"/>
@@ -665,7 +671,6 @@
     <typedef name="std::decay_t" alias="std::decay" since="c++14"/>
     <class name="std::enable_if" link="cpp/types/enable_if"/>
     <typedef name="std::enable_if_t" alias="std::enable_if" since="c++14"/>
-    <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
     <class name="std::conditional" link="cpp/types/conditional"/>
     <typedef name="std::conditional_t" alias="std::conditional" since="c++14"/>
     <class name="std::common_type" link="cpp/types/common_type"/>
@@ -674,6 +679,9 @@
     <typedef name="std::underlying_type_t" alias="std::underlying_type" since="c++14"/>
     <class name="std::result_of" link="cpp/types/result_of"/>
     <typedef name="std::result_of_t" alias="std::result_of" since="c++14"/>
+    <class name="std::invoke_result" link="cpp/types/result_of" since="c++17"/>
+    <typedef name="std::invoke_result_t" alias="std::invoke_result" since="c++14"/>
+    <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
 
     <class name="std::conjunction" link="cpp/types/conjunction" since="c++17"/>
     <variable name="std::conjunction_v" link="cpp/types/conjunction" since="c++17"/>
