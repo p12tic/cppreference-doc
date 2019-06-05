@@ -613,12 +613,12 @@
 
     <class name="std::is_swappable" link="cpp/types/is_swappable" since="c++17"/>
     <variable name="std::is_swappable_v" link="cpp/types/is_swappable" since="c++17"/>
-    <class name="std::is_swappable_with" link="cpp/types/is_swappable_with" since="c++17"/>
-    <variable name="std::is_swappable_with_v" link="cpp/types/is_swappable_with" since="c++17"/>
+    <class name="std::is_swappable_with" link="cpp/types/is_swappable" since="c++17"/>
+    <variable name="std::is_swappable_with_v" link="cpp/types/is_swappable" since="c++17"/>
     <class name="std::is_nothrow_swappable" link="cpp/types/is_swappable" since="c++17"/>
     <variable name="std::is_nothrow_swappable_v" link="cpp/types/is_swappable" since="c++17"/>
-    <class name="std::is_nothrow_swappable_with" link="cpp/types/is_swappable_with" since="c++17"/>
-    <variable name="std::is_nothrow_swappable_with_v" link="cpp/types/is_swappable_with" since="c++17"/>
+    <class name="std::is_nothrow_swappable_with" link="cpp/types/is_swappable" since="c++17"/>
+    <variable name="std::is_nothrow_swappable_with_v" link="cpp/types/is_swappable" since="c++17"/>
 
     <class name="std::has_virtual_destructor" link="cpp/types/has_virtual_destructor"/>
     <variable name="std::has_virtual_destructor_v" link="cpp/types/has_virtual_destructor" since="c++17"/>
@@ -859,7 +859,7 @@
         <function name="operator-&gt;" link="operator*"/>
         <function name="operator++" link="operator_arith"/>
         <function name="operator++(int)" link="operator_arith"/>
-        <function name="equal"
+        <function name="equal"/>
 
         <overload name="operator==" link="operator_cmp"/>
         <overload name="operator!=" link="operator_cmp"/>
@@ -883,7 +883,7 @@
         <function name="operator*"/>
         <function name="operator++" link="operator_arith"/>
         <function name="operator++(int)" link="operator_arith"/>
-        <function name="failed"
+        <function name="failed"/>
     </class>
 
     <function name="std::advance" link="cpp/iterator/advance"/>
@@ -924,17 +924,11 @@
         <inherits name="std::exception"/>
         <constructor link="."/>
         <function name="operator=" link="."/>
-        <function name="what" link="."/>
     </class>
 
-    <class name="std::bad_array_new_length" link="cpp/memory/new/bad_array_new_length">
+    <class name="std::bad_array_new_length" link="cpp/memory/new/bad_array_new_length" since="c++11">
         <inherits name="std::bad_alloc"/>
         <constructor/>
-    </class>
-
-    <class name="std::bad_array_length" link="cpp/memory/new/bad_array_length" since="c++14">
-        <inherits name="std::bad_alloc"/>
-        <constructor link="."/>
     </class>
 
     <class name="std::nothrow_t" link="cpp/memory/new/nothrow_t"/>
@@ -1000,11 +994,11 @@
         <function name="deallocate"/>
         <function name="construct"/>
         <function name="destroy"/>
-        <function name="select_on_container_copy_contruction"/>
+        <function name="select_on_container_copy_construction"/>
         <function name="resource"/>
 
-        <overload name="operator==" link="operator_cmp"/>
-        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator==" link="operator_eq"/>
+        <overload name="operator!=" link="operator_eq"/>
     </class>
 
     <class name="std::pmr::memory_resource" link="cpp/memory/memory_resource" since="c++17">
@@ -1203,8 +1197,7 @@
 
     <class name="std::bad_weak_ptr" link="cpp/memory/bad_weak_ptr">
         <inherits name="std::exception"/>
-        <constructor/>
-        <function name="what" link="."/>
+        <constructor link="."/>
     </class>
 
     <class name="std::default_delete" link="cpp/memory/default_delete">
@@ -1693,7 +1686,7 @@
 
     <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point">
     </class>
-    <variable name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point" since="c++11"/>
+    <variable name="std::chrono::treat_as_floating_point_v" link="cpp/chrono/treat_as_floating_point" since="c++11"/>
 
     <class name="std::chrono::duration_values" link="cpp/chrono/duration_values">
         <function name="zero"/>
@@ -1912,7 +1905,6 @@
     <class name="std::bad_function_call" link="cpp/utility/functional/bad_function_call">
         <inherits name="std::exception"/>
         <constructor link="."/>
-        <function name="what" link="."/>
     </class>
 
     <class name="std::placeholders" link="cpp/utility/functional/placeholders"/>
@@ -2040,11 +2032,12 @@
     <class name="std::nullopt_t" link="cpp/utility/optional/nullopt_t" since="c++17"/>
     <const name="std::nullopt" link="cpp/utility/optional/nullopt" since="c++17"/>
 
-    <class name="std::in_place_tag" link="cpp/utility/in_place_tag" since="c++17"/>
-    <function name="std::in_place" link="cpp/utility/in_place" since="c++17"/>
-    <typedef name="std::in_place_t" link="cpp/utility/in_place" since="c++17"/>
-    <typedef name="std::in_place_type_t" link="cpp/utility/in_place" since="c++17"/>
-    <typedef name="std::in_place_index_t" link="cpp/utility/in_place" since="c++17"/>
+    <class name="std::in_place_t" link="cpp/utility/in_place" since="c++17"/>
+    <variable name="std::in_place" link="cpp/utility/in_place" since="c++17"/>
+    <class name="std::in_place_type_t" link="cpp/utility/in_place" since="c++17"/>
+    <variable name="std::in_place_type" link="cpp/utility/in_place" since="c++17"/>
+    <class name="std::in_place_index_t" link="cpp/utility/in_place" since="c++17"/>
+    <variable name="std::in_place_index" link="cpp/utility/in_place" since="c++17"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/variant -->
@@ -2068,7 +2061,6 @@
         <overload name="std::swap" link="swap2"/>
         <overload name="std::get" link="get"/>
         <specialization name="std::hash" link="hash"/>
-        <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
 
     <function name="std::visit" link="cpp/utility/variant/visit" since="c++17"/>
@@ -2083,18 +2075,18 @@
     <typedef name="std::variant_alternative_t" link="cpp/utility/variant/variant_alternative" since="c++17"/>
 
     <class name="std::monostate" link="cpp/utility/variant/monostate" since="c++17">
-        <constructor/>
-        <destructor/>
-        <function name="operator="/>
+        <constructor link="."/>
+        <destructor link="."/>
+        <function name="operator=" link="."/>
 
-        <overload name="operator==" link="operator_cmp"/>
-        <overload name="operator!=" link="operator_cmp"/>
-        <overload name="operator&lt;" link="operator_cmp"/>
-        <overload name="operator&lt;=" link="operator_cmp"/>
-        <overload name="operator&gt;" link="operator_cmp"/>
-        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator==" link="."/>
+        <overload name="operator!=" link="."/>
+        <overload name="operator&lt;" link="."/>
+        <overload name="operator&lt;=" link="."/>
+        <overload name="operator&gt;" link="."/>
+        <overload name="operator&gt;=" link="."/>
 
-        <specialization name="std::hash" link="hash"/>
+        <specialization name="std::hash" link="."/>
     </class>
 
     <!--=======================================================================-->
@@ -2162,7 +2154,6 @@
     <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat"/>
     <const name="std::ignore" link="cpp/utility/tuple/ignore"/>
 
-    <function name="std::swap" link="cpp/algorithm/swap"/>
     <function name="std::ranges::swap" link="cpp/utility/ranges/swap" since="c++20"/>
     <function name="std::forward" link="cpp/utility/forward"/>
     <function name="std::exchange" link="cpp/utility/exchange" since="c++14"/>
@@ -4310,8 +4301,8 @@
     <function name="std::copy_if" link="cpp/algorithm/copy" since="c++11"/>
     <function name="std::copy_n" link="cpp/algorithm/copy_n" since="c++11"/>
     <function name="std::copy_backward" link="cpp/algorithm/copy_backward"/>
-    <function name="std::move (algorithm)" link="cpp/algorithm/move"/ since="c++11">
-    <function name="std::move_backward" link="cpp/algorithm/move_backward"/ since="c++11">
+    <function name="std::move (algorithm)" link="cpp/algorithm/move" since="c++11"/>
+    <function name="std::move_backward" link="cpp/algorithm/move_backward" since="c++11"/>
     <function name="std::fill" link="cpp/algorithm/fill"/>
     <function name="std::fill_n" link="cpp/algorithm/fill_n"/>
     <function name="std::transform" link="cpp/algorithm/transform"/>
@@ -4340,7 +4331,7 @@
     <function name="std::unique" link="cpp/algorithm/unique"/>
     <function name="std::unique_copy" link="cpp/algorithm/unique_copy"/>
 
-    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned"/ since="c++11">
+    <function name="std::is_partitioned" link="cpp/algorithm/is_partitioned" since="c++11"/>
     <function name="std::partition" link="cpp/algorithm/partition"/>
     <function name="std::partition_copy" link="cpp/algorithm/partition_copy" since="c++11"/>
     <function name="std::stable_partition" link="cpp/algorithm/stable_partition"/>
@@ -5969,8 +5960,6 @@
         <function name="wait"/>
         <function name="wait_for"/>
         <function name="wait_until"/>
-
-        <function name="native_handle"/>
     </class>
 
     <function name="std::notify_all_at_thread_exit" link="cpp/thread/notify_all_at_thread_exit"/>
@@ -6023,8 +6012,6 @@
         <function name="wait_for"/>
         <function name="wait_until"/>
     </class>
-
-    <function name="std::future_category" link="cpp/thread/future/future_category"/>
 
     <class name="std::packaged_task" link="cpp/thread/packaged_task">
         <constructor/>
@@ -6219,7 +6206,7 @@
 
     <class name="std::filesystem::file_status" link="cpp/filesystem/file_status" since="c++17">
         <constructor/>
-        <destructor/>
+        <destructor link="."/>
         <function name="operator="/>
         <function name="type"/>
         <function name="permissions"/>
@@ -6422,23 +6409,23 @@
     <class name="std::experimental::pmr::resource_adaptor" link="cpp/experimental/resource_adaptor" since="exp" />
 
     <class name="std::experimental::pmr::new_delete_resource" link="cpp/experimental/new_delete_resource" since="exp"/>
-    <class name="std::experimental::pmr::null_memory_resource" link="cpp/experimental/null_Memory_resource" since="exp"/>
+    <class name="std::experimental::pmr::null_memory_resource" link="cpp/experimental/null_memory_resource" since="exp"/>
     <function name="std::experimental::pmr::get_default_resource" link="cpp/experimental/get_default_resource" since="exp"/>
     <function name="std::experimental::pmr::set_default_resource" link="cpp/experimental/set_default_resource" since="exp"/>
     <function name="std::experimental::sample" link="cpp/experimental/sample" since="exp"/>
 
     <function name="std::experimental::search" link="cpp/experimental/search" since="exp"/>
     <class name="std::experimental::default_searcher" link="cpp/experimental/default_searcher" since="exp"/>
-    <function name="std::experimental::make_default_searcher" link="cpp/experimental/make_default_searcher" since="exp"/>
+    <function name="std::experimental::make_default_searcher" link="cpp/experimental/default_searcher" since="exp"/>
     <class name="std::experimental::boyer_moore_horspool_searcher" link="cpp/experimental/boyer_moore_horspool_searcher" since="exp"/>
-    <function name="std::experimental::make_boyer_moore_horspool_searcher" link="cpp/experimental/make_boyer_moore_horspool_searcher" since="exp"/>
+    <function name="std::experimental::make_boyer_moore_horspool_searcher" link="cpp/experimental/boyer_moore_horspool_searcher" since="exp"/>
     <class name="std::experimental::boyer_moore_searcher" link="cpp/experimental/boyer_moore_searcher" since="exp"/>
-    <function name="std::experimental::make_boyer_moore_searcher" link="cpp/experimental/make_boyer_moore_searcher" since="exp"/>
+    <function name="std::experimental::make_boyer_moore_searcher" link="cpp/experimental/boyer_moore_searcher" since="exp"/>
 
     <function name="std::experimental::apply" link="cpp/experimental/apply" since="exp"/>
     <class name="std::experimental::erased_type" link="cpp/experimental/erased_type" since="exp"/>
     <class name="std::experimental::invocation_type" link="cpp/experimental/invocation_type" since="exp"/>
-    <class name="std::experimental::raw_invocation_type" link="cpp/experimental/raw_invocation_type" since="exp"/>
+    <class name="std::experimental::raw_invocation_type" link="cpp/experimental/invocation_type" since="exp"/>
 
     <class name="std::experimental::basic_string_view" link="cpp/experimental/basic_string_view" since="exp">
         <constructor/>
@@ -6594,7 +6581,6 @@
     <function name="std::experimental::gcd" link="cpp/experimental/gcd" since="exp"/>
     <function name="std::experimental::lcm" link="cpp/experimental/lcm" since="exp"/>
     <class name="std::experimental::source_location" link="cpp/experimental/source_location" since="exp"/>
-    <function name="std::as_const" link="cpp/utility/as_const" since="exp"/>
 
     <function name="std::experimental::randint" link="cpp/experimental/randint" since="exp"/>
     <function name="std::experimental::reseed" link="cpp/experimental/reseed" since="exp"/>

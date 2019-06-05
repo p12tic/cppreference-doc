@@ -116,7 +116,7 @@
     <sub name="Named requirements" link="cpp/named_req"/>
     <sub name="Feature test macros" link="cpp/feature_test"/>
     <sub name="Concepts library" link="cpp/concepts"/>
-    <sub name="Diagnostics library" lnk="cpp/error"/>
+    <sub name="Diagnostics library" link="cpp/error"/>
     <sub name="Utilities library" link="cpp/utility">
         <sub name="Type support" link="cpp/types"/>
         <sub name="Program utilities" link="cpp/utility/program"/>

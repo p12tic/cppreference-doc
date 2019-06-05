@@ -31,7 +31,6 @@
 
     <typedef name="size_t" link="c/types/size_t"/>
     <typedef name="ptrdiff_t" link="c/types/ptrdiff_t"/>
-    <typedef name="nullptr_t" link="c/types/nullptr_t"/>
     <const name="NULL" link="c/types/NULL"/>
     <typedef name="max_align_t" link="c/types/max_align_t"/>
     <function name="offsetof" link="c/types/offsetof"/>
@@ -1094,8 +1093,8 @@
 
     <typedef name="thrd_start_t" link="c/thread"/>
 
-    <typedef name="once_flag" link="c/thread"/>
-    <const name="ONCE_FLAG_INIT" link="c/thread/ONCE_FLAG_INIT"/>
+    <typedef name="once_flag" link="c/thread/call_once"/>
+    <const name="ONCE_FLAG_INIT" link="c/thread/call_once"/>
     <function name="call_once" link="c/thread/call_once"/>
 
     <typedef name="cnd_t" link="c/thread"/>
