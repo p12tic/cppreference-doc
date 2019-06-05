@@ -22,6 +22,9 @@ before_script:
 
 script:
   - "python -m unittest discover"
+  - "mkdir -p tmp"
+  - "python index2browser.py index-functions-c.xml tmp/index-functions-c-web.html"
+  - "python index2browser.py index-functions-cpp.xml tmp/index-functions-cpp-web.html"
 
 notifications:
   email: false
