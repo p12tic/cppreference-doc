@@ -111,8 +111,7 @@ def get_declarations(root_el, name):
     if len(dcls) == 0:
         if not ignored:
             raise DdgException("dcl table contains no declarations")
-        else:
-            raise DdgException("All entries in dcl table were ignored")
+        raise DdgException("All entries in dcl table were ignored")
 
     return dcls
 

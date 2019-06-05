@@ -63,6 +63,7 @@ disable=
   missing-docstring,
   too-many-lines,
   no-self-use,
+  chained-comparison,
   duplicate-code,
   too-many-ancestors,
   too-many-instance-attributes,
