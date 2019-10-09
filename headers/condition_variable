@@ -18,6 +18,8 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <mutex> // for unique_lock
+
 namespace std {
 
 enum class cv_status {

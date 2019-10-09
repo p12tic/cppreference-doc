@@ -46,21 +46,12 @@ public:
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-    // constructor
-    array& operator=(const array& other);
-#if CPPREFERENCE_STDVER>= 2011
-    array& operator=(array&& other);
-    array& operator=(initializer_list<T> ilist);
-#endif
-
     void assign(size_type count, const value_type& value);
     template <class InputIt>
     void assign(InputIt first, InputIt last);
 #if CPPREFERENCE_STDVER>= 2011
     void assign(std::initializer_list<T> ilist);
 #endif
-
-    allocator_type get_allocator() const;
 
     // element access
     reference       at(size_type n);
@@ -99,6 +90,8 @@ public:
     void fill(const T& value);
 
     void swap(array& other);
+
+    T internal_data[N]; // exposure-only
 };
 
 template<class T, size_t N>

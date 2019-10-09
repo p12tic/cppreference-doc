@@ -20,6 +20,8 @@
 #include <initializer_list>
 #endif
 
+#include <deque>
+
 namespace std {
 
 template <

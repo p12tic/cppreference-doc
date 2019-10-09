@@ -16,7 +16,8 @@
 #ifndef CPPREFERENCE_IOMANIP_H
 #define CPPREFERENCE_IOMANIP_H
 
-#include <iosfwd>
+#include <ios>
+#include <ctime> // for tm
 
 namespace std {
 

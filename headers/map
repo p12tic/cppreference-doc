@@ -20,12 +20,13 @@
 #include <initializer_list>
 #endif
 
-namespace std {
-
 #include <cstddef> // for size_t, ptrdiff_t
 #include <iterator> // for std::reverse_iterator
+#include <functional> // for less
 #include <memory> // for std::allocator
 #include <utility> // for std::pair
+
+namespace std {
 
 template <
     class Key,
@@ -38,7 +39,6 @@ public:
     typedef T mapped_type;
     typedef pair<const Key, T> value_type;
     typedef Compare key_compare;
-    typedef Compare value_compare;
     typedef Allocator allocator_type;
     typedef size_t size_type; // actual type unspecified
     typedef ptrdiff_t difference_type; // actual type not specified
@@ -68,8 +68,8 @@ public:
     class value_compare {
     public:
         typedef bool result_type;
-        typedef first_argument_type value_type;
-        typedef second_argument_type value_type;
+        typedef value_type first_argument_type ;
+        typedef value_type second_argument_type;
 
         bool operator()(const value_type& lhs, const value_type& rhs) const;
     protected:
@@ -295,7 +295,6 @@ public:
     typedef T mapped_type;
     typedef pair<const Key, T> value_type;
     typedef Compare key_compare;
-    typedef Compare value_compare;
     typedef Allocator allocator_type;
     typedef size_t size_type; // actual type unspecified
     typedef ptrdiff_t difference_type; // actual type not specified
@@ -325,8 +324,8 @@ public:
     class value_compare {
     public:
         typedef bool result_type;
-        typedef first_argument_type value_type;
-        typedef second_argument_type value_type;
+        typedef value_type first_argument_type;
+        typedef value_type second_argument_type;
 
         bool operator()(const value_type& lhs, const value_type& rhs) const;
     protected:

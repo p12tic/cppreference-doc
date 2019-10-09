@@ -16,9 +16,10 @@
 #ifndef CPPREFERENCE_CSTDIO_H
 #define CPPREFERENCE_CSTDIO_H
 
-#define stdin (::std::FILE*)(NULL) // actually a valid pointer
-#define stdout (::std::FILE*)(NULL)
-#define stderr (::std::FILE*)(NULL)
+#define stdin (reinterpret_cast<::std::FILE*>(NULL)) // actually a valid pointer
+#define stdout (reinterpret_cast<::std::FILE*>(NULL))
+#define stderr (reinterpret_cast<::std::FILE*>(NULL))
+
 #define EOR 0
 #define FOPEN_MAX 0
 #define FILENAME_MAX 0
@@ -31,6 +32,9 @@
 #define SEEK_END 0
 #define TMP_MAX 0
 #define L_tmpnam 0
+
+#include <cstddef>
+#include <cstdarg>
 
 namespace std {
 
@@ -62,7 +66,7 @@ int fscanf(std::FILE* stream, const char* format, ...);
 int sscanf(const char* buffer, const char* format, ...);
 
 #if CPPREFERENCE_STDVER>= 2011
-int vscanf(const char* format, v_list vlist);
+int vscanf(const char* format, va_list vlist);
 int vfscanf(std::FILE* stream, const char* format, va_list vlist);
 int vsscanf(const char* buffer, const char* format, va_list vlist);
 #endif

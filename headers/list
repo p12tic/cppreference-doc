@@ -70,6 +70,7 @@ public:
     list(size_type count,
          const T& value,
          const Allocator& alloc = Allocator());
+#endif
 
 #if CPPREFERENCE_STDVER <2014
     explicit list(size_type n);

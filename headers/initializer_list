@@ -18,6 +18,8 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <cstddef> // for size_t
+
 namespace std {
 
 template<class T>

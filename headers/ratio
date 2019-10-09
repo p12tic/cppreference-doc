@@ -27,8 +27,8 @@ template<std::intmax_t Num,
 struct ratio {
 public:
     typedef ratio<Num, Denom> type;
-    static constexpr intmax_t num;
-    static constexpr intmax_t den;
+    static constexpr intmax_t num = Num;
+    static constexpr intmax_t den = Denom;
 };
 
 typedef ratio<1, 1000000000000000000000000> yocto;

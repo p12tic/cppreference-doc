@@ -16,13 +16,22 @@
 #ifndef CPPREFERENCE_OSTREAM_H
 #define CPPREFERENCE_OSTREAM_H
 
+#include <ios>
+#include <iosfwd>
+
 namespace std {
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>
-    > class basic_ostream : virtual public std::basic_ios<CharT, Traits> {
+    class Traits /* = std::char_traits<CharT> */
+> class basic_ostream : virtual public std::basic_ios<CharT, Traits> {
 public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef typename Traits::int_type int_type;
+    typedef typename Traits::pos_type pos_type;
+    typedef typename Traits::off_type off_type;
+
     explicit basic_ostream(std::basic_streambuf<CharT, Traits>* sb);
     virtual ~basic_ostream();
 

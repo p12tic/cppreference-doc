@@ -16,6 +16,8 @@
 #ifndef CPPREFERENCE_COMPLEX_H
 #define CPPREFERENCE_COMPLEX_H
 
+#include <iosfwd>
+
 namespace std {
 
 template<class T>
@@ -61,11 +63,11 @@ public:
     template<class X>
     complex<T>& operator/=(const complex<X>& other);
 
-    template<class T>
-    complex<T> operator+(const complex<T>& val);
+    template<class X>
+    complex<T> operator+(const complex<X>& val);
 
-    template<class T>
-    complex<T> operator-(const complex<T>& val);
+    template<class X>
+    complex<T> operator-(const complex<X>& val);
 };
 
 template<class T>

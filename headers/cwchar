@@ -16,6 +16,10 @@
 #ifndef CPPREFERENCE_CWCHAR_H
 #define CPPREFERENCE_CWCHAR_H
 
+#include <cstddef> // for size_t
+#include <cwctype> // for wint_t
+#include <cstdio> // for FILE
+
 namespace std {
 
 // wide strings

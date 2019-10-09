@@ -18,6 +18,7 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <memory> // for allocator_traits
 #include <utility> // for std::pair
 #include <type_traits> // for std::true_type
 
@@ -62,17 +63,17 @@ public:
 
     scoped_allocator_adaptor();
 
-    template<class OuterA2>
+    template<class OuterA2, class... InnerAllocs>
     scoped_allocator_adaptor(OuterA2&& outerAlloc, const InnerAllocs& ... innerAllocs);
 
     scoped_allocator_adaptor(const scoped_allocator_adaptor& other);
 
     scoped_allocator_adaptor(scoped_allocator_adaptor&& other);
 
-    template<class OuterA2>
+    template<class OuterA2, class... InnerAllocs>
     scoped_allocator_adaptor(const scoped_allocator_adaptor<OuterA2, InnerAllocs...>& other);
 
-    template<class OuterA2>
+    template<class OuterA2, class... InnerAllocs>
     scoped_allocator_adaptor(scoped_allocator_adaptor<OuterA2, InnerAllocs...>&& other);
 
     ~scoped_allocator_adaptor();

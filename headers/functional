@@ -16,9 +16,21 @@
 #ifndef CPPREFERENCE_FUNCTIONAL_H
 #define CPPREFERENCE_FUNCTIONAL_H
 
+#include <exception> // for exception
+#include <memory> // for allocator_arg_t
+#include <type_traits>
+#include <typeinfo>
+
 namespace std {
 
 #if CPPREFERENCE_STDVER >= 2011
+
+template<class T>
+class function;
+
+template<class T>
+class reference_wrapper;
+
 template<class R, class... Args>
 class function<R(Args...)> {
 public:
@@ -66,7 +78,7 @@ public:
 
     explicit operator bool() const;
 
-    R operator()(ArgTypes... args) const;
+    R operator()(Args... args) const;
 
     const std::type_info& target_type() const;
 
@@ -102,7 +114,7 @@ public:
 template<class R, class T >
 std::function<R> mem_fn(R T::* pm);
 
-template<class F, class... Args >
+template<class R, class F, class... Args >
 std::function<R> bind(F&& f, Args&& ... args);
 
 template<class R, class F, class... Args >
@@ -142,8 +154,8 @@ public:
     typedef void first_argument_type;
     typedef void second_argument_type;
 
-    reference_wrapper(T& x);
-    reference_wrapper(T&& x) = delete;
+    template<class U>
+    reference_wrapper(U&& x);
     reference_wrapper(const reference_wrapper<T>& other);
 
     reference_wrapper& operator=(const reference_wrapper<T>& other);
@@ -341,7 +353,8 @@ struct binary_negate {
     typedef typename Predicate::second_argument_type second_argument_type;
 
     explicit binary_negate(const Predicate& pred);
-    result_type operator()(const T& lhs, const T& rhs) const;
+    result_type operator()(const first_argument_type& lhs,
+                           const second_argument_type& rhs) const;
 };
 
 template<class Predicate >

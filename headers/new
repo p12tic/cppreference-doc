@@ -16,6 +16,8 @@
 #ifndef CPPREFERENCE_NEW_H
 #define CPPREFERENCE_NEW_H
 
+#include <exception>
+
 namespace std {
 
 /* SIMPLIFIED: these are implicitly declared even if <new> is not included.
@@ -65,7 +67,7 @@ std::new_handler get_new_handler();
 #endif
 std::new_handler set_new_handler(std::new_handler new_p);
 
-class bad_alloc : public std::exception {
+class bad_alloc : public exception {
 public:
     bad_alloc();
     bad_alloc& operator=(const bad_alloc& other);

@@ -17,6 +17,7 @@
 #define CPPREFERENCE_TYPEINDEX_H
 
 #if CPPREFERENCE_STDVER>= 2011
+#include <cstddef> // for size_t
 #include <typeinfo>
 
 namespace std {

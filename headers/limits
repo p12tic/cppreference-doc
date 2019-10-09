@@ -69,39 +69,39 @@ public:
     static T signaling_NaN();
     static T denorm_min();
 #else
-    static constexpr bool is_specialized;
-    static constexpr bool is_signed;
-    static constexpr bool is_integer;
-    static constexpr bool is_exact;
-    static constexpr bool has_infinity;
-    static constexpr bool has_quiet_NaN;
-    static constexpr bool has_signaling_NaN;
-    static constexpr float_denorm_style has_denorm;
-    static constexpr bool has_denorm_loss;
-    static constexpr float_round_style round_style;
-    static constexpr bool is_iec559;
-    static constexpr bool is_bounded;
-    static constexpr bool is_modulo;
-    static constexpr int  digits;
-    static constexpr int  digits10;
-    static constexpr int  max_digits10; // new in C++11
-    static constexpr int  radix;
-    static constexpr int  min_exponent;
-    static constexpr int  min_exponent10;
-    static constexpr int  max_exponent;
-    static constexpr int  max_exponent10;
-    static constexpr bool traps;
-    static constexpr bool tinyness_before;
+    static constexpr bool is_specialized = false;
+    static constexpr bool is_signed = false;
+    static constexpr bool is_integer = false;
+    static constexpr bool is_exact = false;
+    static constexpr bool has_infinity = false;
+    static constexpr bool has_quiet_NaN = false;
+    static constexpr bool has_signaling_NaN = false;
+    static constexpr float_denorm_style has_denorm = denorm_indeterminate;
+    static constexpr bool has_denorm_loss = false;
+    static constexpr float_round_style round_style = round_indeterminate;
+    static constexpr bool is_iec559 = false;
+    static constexpr bool is_bounded = false;
+    static constexpr bool is_modulo = false;
+    static constexpr int  digits = 0;
+    static constexpr int  digits10 = 0;
+    static constexpr int  max_digits10 = 0; // new in C++11
+    static constexpr int  radix = 0;
+    static constexpr int  min_exponent = 0;
+    static constexpr int  min_exponent10 = 0;
+    static constexpr int  max_exponent = 0;
+    static constexpr int  max_exponent10 = 0;
+    static constexpr bool traps = false;
+    static constexpr bool tinyness_before = false;
 
-    static constexpr T min();
-    static constexpr T lowest();
-    static constexpr T max();
-    static constexpr T epsilon();
-    static constexpr T round_error();
-    static constexpr T infinity();
-    static constexpr T quiet_NaN();
-    static constexpr T signaling_NaN();
-    static constexpr T denorm_min();
+    static constexpr T min() { return {}; }
+    static constexpr T lowest() { return {}; }
+    static constexpr T max() { return {}; }
+    static constexpr T epsilon() { return {}; }
+    static constexpr T round_error() { return {}; }
+    static constexpr T infinity() { return {}; }
+    static constexpr T quiet_NaN() { return {}; }
+    static constexpr T signaling_NaN() { return {}; }
+    static constexpr T denorm_min() { return {}; }
 #endif
 };
 

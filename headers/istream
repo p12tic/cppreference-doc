@@ -16,13 +16,22 @@
 #ifndef CPPREFERENCE_ISTREAM_H
 #define CPPREFERENCE_ISTREAM_H
 
+#include <ios>
+#include <iosfwd>
+
 namespace std {
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>
+    class Traits /* = std::char_traits<CharT> */
     > class basic_istream : virtual public std::basic_ios<CharT, Traits> {
 public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef typename Traits::int_type int_type;
+    typedef typename Traits::pos_type pos_type;
+    typedef typename Traits::off_type off_type;
+
     explicit basic_istream(std::basic_streambuf<CharT, Traits>* sb);
     virtual ~basic_istream();
 
@@ -41,21 +50,17 @@ public:
     basic_istream& operator>>(long double& value);
     basic_istream& operator>>(bool& value);
     basic_istream& operator>>(void*& value);
-    basic_istream& operator>>(basic_istream& st,
-                              std::ios_base & (*func)(std::ios_base&));
-    basic_istream& operator>>(basic_istream& st,
-                              std::basic_ios<CharT, Traits>& (*func)(std::basic_ios<CharT, Traits>&));
-    basic_istream& operator>>(basic_istream& st,
-                              std::basic_istream & (*func)(std::basic_istream&));
-    basic_istream& operator>>(basic_istream& st,
-                              std::basic_streambuf<CharT, Traits>* sb);
+    basic_istream& operator>>(std::ios_base & (*func)(std::ios_base&));
+    basic_istream& operator>>(std::basic_ios<CharT, Traits>& (*func)(std::basic_ios<CharT, Traits>&));
+    basic_istream& operator>>(basic_istream & (*func)(basic_istream&));
+    basic_istream& operator>>(std::basic_streambuf<CharT, Traits>* sb);
 
     int_type get();
     basic_istream& get(char_type& ch);
     basic_istream& get(char_type* s, std::streamsize count);
     basic_istream& get(char_type* s, std::streamsize count, char_type delim);
-    basic_istream& get(basic_streambuf& strbuf);
-    basic_istream& get(basic_streambuf& strbuf, char_type delim);
+    basic_istream& get(basic_streambuf<CharT, Traits>& strbuf);
+    basic_istream& get(basic_streambuf<CharT, Traits>& strbuf, char_type delim);
 
     int_type peek();
     basic_istream& unget();
@@ -100,8 +105,8 @@ extern wistream wcin;
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>
-    > class basic_iostream : public std::basic_istream<CharT, Traits>,
+    class Traits /* = std::char_traits<CharT> */
+> class basic_iostream : public std::basic_istream<CharT, Traits>,
     public basic_ostream<CharT, Traits> {
 public:
     explicit basic_iostream(std::basic_streambuf<CharT, Traits>* sb);

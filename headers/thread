@@ -18,6 +18,9 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <chrono>
+#include <iosfwd>
+
 namespace std {
 
 class thread {

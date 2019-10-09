@@ -19,6 +19,7 @@
 #include <initializer_list>
 #endif
 #include <utility> // for std::pair
+#include <iterator> // for std::iterator_traits
 
 namespace std {
 
@@ -38,34 +39,34 @@ UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f);
 
 template<class InputIt, class T >
 typename iterator_traits<InputIt>::difference_type
-count(InputIt first, InputIt last, const T& value);
+    count(InputIt first, InputIt last, const T& value);
 
 template<class InputIt, class UnaryPredicate >
 typename iterator_traits<InputIt>::difference_type
-count_if(InputIt first, InputIt last, UnaryPredicate p);
+    count_if(InputIt first, InputIt last, UnaryPredicate p);
 
 template<class InputIt1, class InputIt2 >
 std::pair<InputIt1, InputIt2>
-mismatch(InputIt1 first1, InputIt1 last1,
-         InputIt2 first2);
+    mismatch(InputIt1 first1, InputIt1 last1,
+             InputIt2 first2);
 
 template<class InputIt1, class InputIt2, class BinaryPredicate >
 std::pair<InputIt1, InputIt2>
-mismatch(InputIt1 first1, InputIt1 last1,
-         InputIt2 first2,
-         BinaryPredicate p);
+    mismatch(InputIt1 first1, InputIt1 last1,
+             InputIt2 first2,
+             BinaryPredicate p);
 
 #if CPPREFERENCE_STDVER >= 2014
 template<class InputIt1, class InputIt2 >
 std::pair<InputIt1, InputIt2>
-mismatch(InputIt1 first1, InputIt1 last1,
-         InputIt2 first2, InputIt2 last2);
+    mismatch(InputIt1 first1, InputIt1 last1,
+             InputIt2 first2, InputIt2 last2);
 
 template<class InputIt1, class InputIt2, class BinaryPredicate >
 std::pair<InputIt1, InputIt2>
-mismatch(InputIt1 first1, InputIt1 last1,
-         InputIt2 first2, InputIt2 last2,
-         BinaryPredicate p);
+    mismatch(InputIt1 first1, InputIt1 last1,
+             InputIt2 first2, InputIt2 last2,
+             BinaryPredicate p);
 #endif
 
 template<class InputIt1, class InputIt2 >

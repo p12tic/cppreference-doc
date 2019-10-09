@@ -18,6 +18,7 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 #include <ratio>
+#include <ctime> // for time_t
 
 namespace std {
 namespace chrono {
@@ -35,7 +36,7 @@ public:
 
     duration& operator=(const duration& other) = default;
 
-    constexpr rep count() const;
+    constexpr Rep count() const;
 
     static constexpr duration zero();
     static constexpr duration min();
@@ -51,9 +52,9 @@ public:
 
     duration& operator+=(const duration& d);
     duration& operator-=(const duration& d);
-    duration& operator*=(const rep& rhs);
-    duration& operator/=(const rep& rhs);
-    duration& operator%=(const rep& rhs);
+    duration& operator*=(const Rep& rhs);
+    duration& operator/=(const Rep& rhs);
+    duration& operator%=(const Rep& rhs);
     duration& operator%=(const duration& rhs);
 };
 
@@ -157,8 +158,8 @@ public:
 #else
     typedef Clock clock;
     typedef Duration duration;
-    typedef Duration::rep rep;
-    typedef Duration::period period;
+    typedef typename Duration::rep rep;
+    typedef typename Duration::period period;
 #endif
 
     time_point();
@@ -226,7 +227,7 @@ public:
     typedef duration<rep, period> duration;
     typedef time_point<system_clock> time_point;
 
-    constexpr static bool is_steady;
+    constexpr static bool is_steady = false;
 
     static std::chrono::time_point<std::chrono::system_clock> now();
     static std::time_t to_time_t(const time_point& t);
@@ -240,7 +241,7 @@ public:
     typedef duration<rep, period> duration;
     typedef time_point<steady_clock> time_point;
 
-    constexpr static bool is_steady;
+    constexpr static bool is_steady = false;
 
     static std::chrono::time_point<std::chrono::steady_clock> now();
 };
@@ -252,7 +253,7 @@ public:
     typedef duration<rep, period> duration;
     typedef time_point<high_resolution_clock> time_point;
 
-    constexpr static bool is_steady;
+    constexpr static bool is_steady = false;
 
     static std::chrono::time_point<std::chrono::high_resolution_clock> now();
 };

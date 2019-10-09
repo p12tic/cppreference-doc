@@ -16,8 +16,6 @@
 #ifndef CPPREFERENCE_CSTDDEF_H
 #define CPPREFERENCE_CSTDDEF_H
 
-namespace std {
-
 #ifndef offsetof
 #define offsetof(type,member_designator) 0 // SIMPLIFIED
 #endif
@@ -27,9 +25,10 @@ namespace std {
 
 namespace std {
 // dummy impl
-typedef long long ptrdiff_t;
-typedef long long size_t;
-typedef long long max_align_t;
+
+typedef long ptrdiff_t;
+typedef unsigned long size_t;
+typedef long max_align_t;
 typedef void* nullptr_t;
 } // namespace std
 

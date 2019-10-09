@@ -18,8 +18,12 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <cstddef> // for size_t
+#include <cwchar> // for mbstate_t
+
 #define __STDC_UTF_16__
 #define __STDC_UTF_32__
+
 namespace std {
 
 std::size_t mbrtoc16(char16_t* pc16,

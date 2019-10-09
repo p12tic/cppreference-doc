@@ -16,6 +16,10 @@
 #ifndef CPPREFERENCE_BITSET_H
 #define CPPREFERENCE_BITSET_H
 
+#include <cstddef> // for size_t
+#include <iosfwd>
+#include <string>
+
 namespace std {
 
 template<std::size_t N>
@@ -128,10 +132,10 @@ bitset<N> operator^(const bitset<N>& lhs, const bitset<N>& rhs);
 
 template <class CharT, class Traits, size_t N>
 std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os,
-        const bitset<N>& x);
+                                              const bitset<N>& x);
 template <class CharT, class Traits, size_t N>
 std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>& is,
-        bitset<N>& x);
+                                              bitset<N>& x);
 
 } // namespace std
 
