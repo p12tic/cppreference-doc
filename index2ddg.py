@@ -554,12 +554,12 @@ def main():
     proc_ins = get_processing_instructions(ident_map, link_map)
 
     # sort proc_ins to produce ordered output.txt
-    proc_ins = [v for v in proc_ins.values()]
+    proc_ins = list(proc_ins.values())
     proc_ins = sorted(proc_ins, key=lambda x: x['link'])
 
     for page in proc_ins:
         idents = page['idents']
-        idents = [v for v in idents.values()]
+        idents = list(idents.values())
         idents = sorted(idents, key=lambda x: x['ident'])
         page['idents'] = idents
 

@@ -65,7 +65,7 @@ def main():
     tr.transform_file(args.index)
     links = tr.links
 
-    json_groups = [v for v in groups.values()]
+    json_groups = list(groups.values())
 
     json_groups = sorted(json_groups, key=lambda x: x['name'])
     links = sorted(links, key=lambda x: x['target'])
