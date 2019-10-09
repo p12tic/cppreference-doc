@@ -16,7 +16,9 @@
 #ifndef CPPREFERENCE_LOCALE_H
 #define CPPREFERENCE_LOCALE_H
 
+#include <ctime> // for tm
 #include <memory> // for std::allocator
+#include <string>
 
 namespace std {
 
@@ -82,12 +84,18 @@ template<class Codecvt,
          class Byte_alloc = std::allocator<char> >
 class wstring_convert {
 public:
+
+    using byte_string = basic_string<char, char_traits<char>, Byte_alloc>;
+    using wide_string = basic_string<char, char_traits<Elem>, Wide_alloc>;
+    using state_type = typename Codecvt::state_type;
+    using int_type = typename wide_string::traits_type::int_type;
+
     explicit wstring_convert(Codecvt* pcvt = new Codecvt);
     wstring_convert(Codecvt* pcvt, state_type state);
     explicit wstring_convert(const byte_string& byte_err,
                              const wide_string& wide_err = wide_string());
 #if CPPREFERENCE_STDVER >= 2014
-    wstring_convert(const std::wstring_convert&) = delete;
+    wstring_convert(const wstring_convert&) = delete;
 #endif
 
     ~wstring_convert();
@@ -118,7 +126,7 @@ public:
                              Codecvt* pcvt = new Codecvt,
                              state_type state = state_type());
 #if CPPREFERENCE_STDVER >= 2014
-    wbuffer_convert(const std::wbuffer_convert&) = delete;
+    wbuffer_convert(const wbuffer_convert&) = delete;
 #endif
 
     ~wbuffer_convert();
@@ -235,54 +243,57 @@ public:
 
     explicit codecvt(std::size_t refs = 0);
 
-    result out(StateT& state,
+    result out(State& state,
                const InternT* from,
                const InternT* from_end,
                const InternT*& from_next,
                ExternT* to,
                ExternT* to_end,
                ExternT*& to_next) const;
-    result in(stateT& state,
-              const externT* from,
-              const externT* from_end,
-              const externT*& from_next,
-              internT* to,
-              internT* to_end,
-              internT*& to_next) const;
-    result unshift(StateT& state,
+
+    result in(State& state,
+              const ExternT* from,
+              const ExternT* from_end,
+              const ExternT*& from_next,
+              InternT* to,
+              InternT* to_end,
+              InternT*& to_next) const;
+
+    result unshift(State& state,
                    ExternT* to,
                    ExternT* to_end,
                    ExternT*& to_next) const;
+
     int encoding() const;
     bool always_noconv() const;
-    int length(StateT& state,
+    int length(State& state,
                const ExternT* from,
                const ExternT* from_end,
                std::size_t max) const;
     int max_length() const;
 
 protected:
-    virtual result do_out(StateT& state,
+    virtual result do_out(State& state,
                           const InternT* from,
                           const InternT* from_end,
                           const InternT*& from_next,
                           ExternT* to,
                           ExternT* to_end,
                           ExternT*& to_next) const;
-    virtual result do_in(stateT& state,
-                         const externT* from,
-                         const externT* from_end,
-                         const externT*& from_next,
-                         internT* to,
-                         internT* to_end,
-                         internT*& to_next) const;
-    virtual result do_unshift(StateT& state,
+    virtual result do_in(State& state,
+                         const ExternT* from,
+                         const ExternT* from_end,
+                         const ExternT*& from_next,
+                         InternT* to,
+                         InternT* to_end,
+                         InternT*& to_next) const;
+    virtual result do_unshift(State& state,
                               ExternT* to,
                               ExternT* to_end,
                               ExternT*& to_next) const;
     virtual int do_encoding() const;
     virtual bool do_always_noconv() const;
-    virtual int do_length(StateT& state,
+    virtual int do_length(State& state,
                           const ExternT* from,
                           const ExternT* from_end,
                           std::size_t max) const;
@@ -353,8 +364,8 @@ public:
                           std::ios_base::iostate& err, std::tm* t) const;
     iter_type get_monthname(iter_type beg, iter_type end, std::ios_base& str,
                             std::ios_base::iostate& err, std::tm* t) const;
-    iter_type do_get_year(iter_type s, iter_type end, std::ios_base& str,
-                          std::ios_base::iostate& err, std::tm* t) const;
+    iter_type get_year(iter_type s, iter_type end, std::ios_base& str,
+                       std::ios_base::iostate& err, std::tm* t) const;
 
 #if CPPREFERENCE_STDVER >= 2011
     iter_type get(iter_type beg, iter_type end, std::ios_base& str,
@@ -364,8 +375,8 @@ public:
 
 protected:
     virtual dateorder do_date_order() const;
-    virtual iter_type get_time(iter_type beg, iter_type end, std::ios_base& str,
-                               std::ios_base::iostate& err, std::tm* t) const;
+    virtual iter_type do_get_time(iter_type beg, iter_type end, std::ios_base& str,
+                                  std::ios_base::iostate& err, std::tm* t) const;
     virtual iter_type do_get_date(iter_type beg, iter_type end, std::ios_base& str,
                                   std::ios_base::iostate& err, std::tm* t) const;
     virtual iter_type do_get_weekday(iter_type beg, iter_type end, std::ios_base& str,

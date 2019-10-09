@@ -21,6 +21,7 @@
 #endif
 
 #include <cstddef> // for size_t, ptrdiff_t
+#include <functional> // for less
 #include <iterator> // for std::reverse_iterator
 #include <memory> // for std::allocator
 #include <utility> // for std::pair
@@ -56,8 +57,8 @@ public:
     typedef typename std::allocator_traits<Allocator>::pointer pointer;
     typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
-    typedef T* iterator; // actual type is unspecified
-    typedef const T* const_iterator; // actual type is unspecified
+    typedef Key* iterator; // actual type is unspecified
+    typedef const Key* const_iterator; // actual type is unspecified
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -281,8 +282,8 @@ public:
     typedef typename std::allocator_traits<Allocator>::pointer pointer;
     typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
-    typedef T* iterator; // actual type is unspecified
-    typedef const T* const_iterator; // actual type is unspecified
+    typedef Key* iterator; // actual type is unspecified
+    typedef const Key* const_iterator; // actual type is unspecified
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 

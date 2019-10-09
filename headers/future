@@ -17,9 +17,20 @@
 #define CPPREFERENCE_FUTURE_H
 
 #if CPPREFERENCE_STDVER>= 2011
+#include <chrono>
+#include <memory> // for allocator_arg_t
 #include <stdexcept>
+#include <system_error> // for error_code
 
 namespace std {
+
+template<class T>
+class future;
+
+template<class T>
+class shared_future;
+
+enum class future_status;
 
 template<class R>
 class promise { // SIMPLIFIED: removed R& and void specializations
@@ -37,7 +48,7 @@ public:
 
     void swap(promise& other);
 
-    std::future<T> get_future();
+    future<R> get_future();
 
     void set_value(const R& value);
     void set_value(R&& value);
@@ -54,8 +65,11 @@ public:
 template<class R>
 void swap(promise<R>& lhs, promise<R>& rhs);
 
-template<class R, class ...Args>
-class packaged_task<R(Args...)> {
+template<class R, class... Args>
+class packaged_task;
+
+template<class R, class ...ArgTypes>
+class packaged_task<R(ArgTypes...)> {
 public:
     packaged_task();
 
@@ -104,8 +118,8 @@ public:
     std::shared_future<T> share();
 
     T get(); // member only of generic specialization
-    T& get(); // member only of T& specialization
-    void get(); // member only of void specialization
+    // T& get(); // member only of T& specialization
+    // void get(); // member only of void specialization
 
     bool valid() const;
 
@@ -132,8 +146,8 @@ public:
     shared_future& operator=(shared_future&& other);
 
     T get(); // member only of generic specialization
-    T& get(); // member only of T& specialization
-    void get(); // member only of void specialization
+    // T& get(); // member only of T& specialization
+    // void get(); // member only of void specialization
 
     bool valid() const;
 

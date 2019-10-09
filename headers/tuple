@@ -18,7 +18,10 @@
 
 #if CPPREFERENCE_STDVER >= 2011
 
+#include <cstddef> // for size_t
+#include <memory> // for allocator_arg_t
 #include <utility> // for std::pair
+#include <type_traits> // for integral_constant
 
 namespace std {
 
@@ -85,29 +88,43 @@ public:
     void swap(tuple& other);
 };
 
-template<class... Types >
-tuple<VTypes...> make_tuple(Types&& ... args);
+template<class... Type>
+class tuple_size;
 
 template<class... Types >
+class tuple_size<std::tuple<Types...> > : public std::integral_constant<std::size_t, sizeof...(Types)> { };
+
+template<std::size_t I, class... Types >
+class tuple_element;
+
+template<std::size_t I, class... Types >
+class tuple_element<I, tuple<Types...> > {
+    typedef void type;
+}; // SIMPLIFIED
+
+template<class... Types>
+tuple<Types...> make_tuple(Types&& ... args);
+
+template<class... Types>
 tuple<Types& ...> tie(Types& ... args);
 
-template<class... Types >
-tuple < Types&& ... > forward_as_tuple(Types&& ... args);
+template<class... Types>
+tuple<Types&& ...> forward_as_tuple(Types&& ... args);
 
-template<class... Tuples >
+template<class... Tuples, class... CTypes>
 std::tuple<CTypes...> tuple_cat(Tuples&& ... args);
 
 template<std::size_t I, class... Types >
 typename std::tuple_element<I, tuple<Types...> >::type&
-get(tuple<Types...>& t);
+    get(tuple<Types...>& t);
 
 template<std::size_t I, class... Types >
 typename std::tuple_element<I, tuple<Types...> >::type&&
-get(tuple<Types...>&& t);
+    get(tuple<Types...>&& t);
 
 template<std::size_t I, class... Types >
 typename std::tuple_element<I, tuple<Types...> >::type const&
-get(const tuple<Types...>& t);
+    get(const tuple<Types...>& t);
 
 template<class... TTypes, class... UTypes >
 bool operator==(const tuple<TTypes...>& lhs,
@@ -130,14 +147,6 @@ bool operator>=(const tuple<TTypes...>& lhs,
 
 template<class... Types >
 void swap(tuple<Types...>& lhs, tuple<Types...>& rhs);
-
-template<class... Types >
-class tuple_size<std::tuple<Types...> > : public std::integral_constant<std::size_t, sizeof...(Types)> { };
-
-template<std::size_t I, class... Types >
-class tuple_element<I, tuple<Types...> > {
-    typedef void type;
-}; // SIMPLIFIED
 
 const void* ignore; // SIMPLIFIED
 

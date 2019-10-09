@@ -19,12 +19,23 @@
 #if CPPREFERENCE_STDVER>= 2011
 #include <system_error>
 #endif
+#include <iosfwd>
+#include <locale>
 
 namespace std {
+
+typedef int __impl_defined_type;
+static const __impl_defined_type __impl_defined_value = 0;
 
 typedef int streamoff;
 typedef int streamsize;
 template<class StateT> class fpos;
+
+#if CPPREFERENCE_STDVER>= 2011
+enum class io_errc {
+    stream
+};
+#endif
 
 class ios_base {
 private:
@@ -51,47 +62,47 @@ public:
 
     class Init;
 
-    typedef int openmode; // actually impl-defined
-    static constexpr openmode app;
-    static constexpr openmode binary;
-    static constexpr openmode in;
-    static constexpr openmode out;
-    static constexpr openmode trunc;
-    static constexpr openmode ate;
+    typedef __impl_defined_type openmode;
+    static constexpr openmode app = __impl_defined_value;
+    static constexpr openmode binary = __impl_defined_value;
+    static constexpr openmode in = __impl_defined_value;
+    static constexpr openmode out = __impl_defined_value;
+    static constexpr openmode trunc = __impl_defined_value;
+    static constexpr openmode ate = __impl_defined_value;
 
-    typedef int fmtflags; // actually impl-defined
-    static constexpr fmtflags dec;
-    static constexpr fmtflags oct;
-    static constexpr fmtflags hex;
-    static constexpr fmtflags basefield;
+    typedef __impl_defined_type fmtflags;
+    static constexpr fmtflags dec = __impl_defined_value;
+    static constexpr fmtflags oct = __impl_defined_value;
+    static constexpr fmtflags hex = __impl_defined_value;
+    static constexpr fmtflags basefield = __impl_defined_value;
 
-    static constexpr fmtflags left;
-    static constexpr fmtflags right;
-    static constexpr fmtflags internal;
-    static constexpr fmtflags adjustfield;
+    static constexpr fmtflags left = __impl_defined_value;
+    static constexpr fmtflags right = __impl_defined_value;
+    static constexpr fmtflags internal = __impl_defined_value;
+    static constexpr fmtflags adjustfield = __impl_defined_value;
 
-    static constexpr fmtflags scientific;
-    static constexpr fmtflags fixed;
-    static constexpr fmtflags floatfield;
+    static constexpr fmtflags scientific = __impl_defined_value;
+    static constexpr fmtflags fixed = __impl_defined_value;
+    static constexpr fmtflags floatfield = __impl_defined_value;
 
-    static constexpr fmtflags boolalpha;
-    static constexpr fmtflags showbase;
-    static constexpr fmtflags showpoint;
-    static constexpr fmtflags showpos;
-    static constexpr fmtflags skipws;
-    static constexpr fmtflags unitbuf;
-    static constexpr fmtflags uppercase;
+    static constexpr fmtflags boolalpha = __impl_defined_value;
+    static constexpr fmtflags showbase = __impl_defined_value;
+    static constexpr fmtflags showpoint = __impl_defined_value;
+    static constexpr fmtflags showpos = __impl_defined_value;
+    static constexpr fmtflags skipws = __impl_defined_value;
+    static constexpr fmtflags unitbuf = __impl_defined_value;
+    static constexpr fmtflags uppercase = __impl_defined_value;
 
-    typedef int iostate; // actually impl-defined
-    static constexpr iostate goodbit;
-    static constexpr iostate badbit;
-    static constexpr iostate failbit;
-    static constexpr iostate eofbit;
+    typedef __impl_defined_type iostate;
+    static constexpr iostate goodbit = __impl_defined_value;
+    static constexpr iostate badbit = __impl_defined_value;
+    static constexpr iostate failbit = __impl_defined_value;
+    static constexpr iostate eofbit = __impl_defined_value;
 
-    typedef int seekdir; // actually impl-defined
-    static constexpr seekdir beg;
-    static constexpr seekdir end;
-    static constexpr seekdir cur;
+    typedef __impl_defined_type seekdir;
+    static constexpr seekdir beg = __impl_defined_value;
+    static constexpr seekdir end = __impl_defined_value;
+    static constexpr seekdir cur = __impl_defined_value;
 
     enum event {
         erase_event,
@@ -124,7 +135,7 @@ public:
 };
 
 template<class CharT,
-         class Traits = std::char_traits<CharT>>
+         class Traits /* = std::char_traits<CharT> */>
 class basic_ios : public ios_base {
 public:
     typedef CharT char_type;
@@ -170,9 +181,6 @@ public:
 
     std::basic_ostream<CharT, Traits>* tie() const;
     std::basic_ostream<CharT, Traits>* tie(std::basic_ostream<CharT, Traits>* str);
-
-    char narrow(char_type c, char dfault) const;
-    char_type widen(char c) const;
 
 protected:
     basic_ios();
@@ -221,10 +229,6 @@ ios_base& hexfloat(ios_base& str);
 ios_base& defaultfloat(ios_base& str);
 
 #if CPPREFERENCE_STDVER>= 2011
-enum class io_errc {
-    stream
-};
-
 std::error_code make_error_code(std::io_errc e);
 std::error_condition make_error_condition(std::io_errc e);
 const std::error_category& iostream_category();

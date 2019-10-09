@@ -16,11 +16,18 @@
 #ifndef CPPREFERENCE_MEMORY_H
 #define CPPREFERENCE_MEMORY_H
 
+#include <exception> // for exception
+#include <iosfwd> // for basic_ostream
+#include <iterator> // for output_iterator_tag
 #include <utility> // for std::pair
 
 namespace std {
 
+template<class T> class auto_ptr;
+
 #if CPPREFERENCE_STDVER>= 2011
+template<class T> class weak_ptr;
+
 template<class T>
 struct default_delete {
     constexpr default_delete() = default;
@@ -42,11 +49,10 @@ template <
 public:
     // SIMPLIFIED: the array specialization is omitted
 
-#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+    // SIMPLIFIED: pointer would be std::remove_reference<Deleter>::type::pointer if that type
+    // exists, but our default_delete does not have that member type
     typedef T* pointer;
-#else
-    typedef typename std::remove_reference<Deleter>::type::pointer pointer;
-#endif
+
     typedef T element_type;
     typedef Deleter deleter_type;
 
@@ -83,7 +89,7 @@ public:
     explicit operator bool() const;
 
     T& operator*() const; // SIMPLIFIED
-    pointer operator->();
+    pointer operator->() const;
 
     // only in array versions
     T& operator[](size_t i) const;
@@ -101,7 +107,6 @@ unique_ptr<T> make_unique(Args&& ... args);
 // SIMPLIFIED: the array overload are omitted
 
 #endif
-
 
 template<class T> class shared_ptr {
 public:
@@ -328,11 +333,14 @@ void swap(weak_ptr<T>& lhs, weak_ptr<T>& rhs);
 #endif // CPPREFERENCE_STDVER>= 2011
 
 template<class T>
+class auto_ptr_ref;
+
+template<class T>
 class auto_ptr {
 public:
     typedef T element_type;
 
-    explicit auto_ptr(X* p = 0);
+    explicit auto_ptr(T* p = 0);
 
     auto_ptr(auto_ptr& r);
 
@@ -349,7 +357,8 @@ public:
     template<class Y>
     auto_ptr& operator=(auto_ptr<Y>& r);
 
-    auto_ptr& operator=(auto_ptr_ref m);
+    template<class Y>
+    auto_ptr& operator=(auto_ptr_ref<Y> m);
 
     template<class Y>
     operator auto_ptr_ref<Y>();
@@ -434,7 +443,7 @@ struct allocator {
     pointer address(reference x) const;
     const_pointer address(const_reference x) const;
 
-    pointer allocate(size_type n, std::allocator<void>::const_pointer hint = 0);
+    pointer allocate(size_type n, void* hint = 0);
     void deallocate(pointer p, size_type n);
     size_type max_size() const;
 
@@ -475,10 +484,10 @@ struct allocator_traits {
 
     // SIMPLIFIED: actually is alias template and uses Alloc::rebind
     template<class T>
-    class rebind_alloc<T> : public Alloc {};
+    class rebind_alloc : public Alloc {};
     // SIMPLIFIED: actually is alias template
     template<class T>
-    class rebind_traits<T> : public allocator_traits<rebind_alloc<T>> {};
+    class rebind_traits : public allocator_traits<rebind_alloc<T>> {};
 
     static pointer allocate(Alloc& a, size_type n);
     static pointer allocate(Alloc& a, size_type n, const_void_pointer hint);
@@ -510,7 +519,7 @@ enum class pointer_safety {
 template<class Ptr>
 struct pointer_traits {
     typedef Ptr pointer;
-    typedef void element_type; // SIMPLIFIED
+    typedef int element_type; // SIMPLIFIED
     typedef ptrdiff_t difference_type;
 
     template<class U>

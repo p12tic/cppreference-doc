@@ -18,6 +18,10 @@
 
 #if CPPREFERENCE_STDVER >= 2011
 #include <initializer_list>
+#include <cstdint>
+#include <limits> // for numeric_limits
+#include <iostream> // for basic_iostream, basic_ostream
+#include <vector>
 
 namespace std {
 
@@ -86,24 +90,25 @@ template <
     > class mersenne_twister_engine {
 public:
     typedef UIntType result_type;
-    static constexpr size_t word_size;
-    static constexpr size_t state_size;
-    static constexpr size_t shift_size;
-    static constexpr size_t mask_bits;
-    static constexpr UIntType xor_mask;
-    static constexpr size_t tampering_u;
-    static constexpr UIntType tampering_d;
-    static constexpr size_t tampering_s;
-    static constexpr UIntType tampering_b;
-    static constexpr size_t tampering_t;
-    static constexpr UIntType tampering_c;
-    static constexpr size_t tampering_l;
-    static constexpr UIntType initialization_multiplier;
+    static constexpr size_t word_size = 0;
+    static constexpr size_t state_size = 0;
+    static constexpr size_t shift_size = 0;
+    static constexpr size_t mask_bits = 0;
+    static constexpr UIntType xor_mask = 0;
+    static constexpr size_t tampering_u = 0;
+    static constexpr UIntType tampering_d = 0;
+    static constexpr size_t tampering_s = 0;
+    static constexpr UIntType tampering_b = 0;
+    static constexpr size_t tampering_t = 0;
+    static constexpr UIntType tampering_c = 0;
+    static constexpr size_t tampering_l = 0;
+    static constexpr UIntType initialization_multiplier = 0;
+    static constexpr UIntType default_seed = 0;
 
     explicit mersenne_twister_engine(result_type value = default_seed);
 
     template<class Sseq >
-    explicit mersenne_twister_engine(Sseq& s);
+    explicit mersenne_twister_engine(Sseq& seed);
 
     mersenne_twister_engine(const mersenne_twister_engine& other);
 
@@ -176,15 +181,15 @@ template <
     > class subtract_with_carry_engine {
 public:
     typedef UIntType result_type;
-    static constexpr size_t word_size;
-    static constexpr size_t short_lag;
-    static constexpr size_t long_lag;
-    static constexpr UIntType default_seed;
+    static constexpr size_t word_size = 0;
+    static constexpr size_t short_lag = 0;
+    static constexpr size_t long_lag = 0;
+    static constexpr UIntType default_seed = 0;
 
     explicit subtract_with_carry_engine(result_type value = default_seed);
 
     template<class Sseq >
-    explicit subtract_with_carry_engine(Sseq& s);
+    explicit subtract_with_carry_engine(Sseq& seed);
 
     subtract_with_carry_engine(const subtract_with_carry_engine& other);
 
@@ -222,7 +227,7 @@ operator>>(std::basic_istream<CharT, Traits>& ist,
            subtract_with_carry_engine<UIntType, w, s, r>& e);
 
 typedef std::subtract_with_carry_engine<std::uint_fast32_t, 24, 10, 24> ranlux24_base;
-typedef std::subtract_with_carry_engine<std::uint_fast64_t, 48, 5, 12> ranlex48_base;
+typedef std::subtract_with_carry_engine<std::uint_fast64_t, 48, 5, 12> ranlux48_base;
 
 template <
     class Engine,
@@ -230,8 +235,8 @@ template <
     > class discard_block_engine {
 public:
     typedef typename Engine::result_type result_type;
-    static constexpr size_t block_size;
-    static constexpr size_t used_size;
+    static constexpr size_t block_size = 0;
+    static constexpr size_t used_size = 0;
 
     discard_block_engine();
 
@@ -320,7 +325,7 @@ template <
     > class shuffle_order_engine {
 public:
     typedef typename Engine::result_type result_type;
-    static constexpr size_t table_size;
+    static constexpr size_t table_size = 0;
 
     shuffle_order_engine();
 
@@ -378,7 +383,7 @@ public:
     typedef void* param_type; // TODO
 
     explicit uniform_int_distribution(IntType a = 0,
-                                      IntType b = std::numeric_limits<IntType>::max());
+                                      IntType b = numeric_limits<IntType>::max());
     explicit uniform_int_distribution(const param_type& params);
 
     void reset();

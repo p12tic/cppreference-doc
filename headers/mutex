@@ -18,6 +18,8 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <chrono>
+
 namespace std {
 
 struct defer_lock_t { };

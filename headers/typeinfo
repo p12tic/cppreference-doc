@@ -16,6 +16,7 @@
 #ifndef CPPREFERENCE_TYPEINFO_H
 #define CPPREFERENCE_TYPEINFO_H
 
+#include <cstddef> // for size_t
 #include <exception>
 
 namespace std {

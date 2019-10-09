@@ -18,6 +18,8 @@
 
 #if CPPREFERENCE_STDVER>= 2014
 
+#include <chrono>
+
 namespace std {
 
 #if CPPREFERENCE_STDVER>= 2017

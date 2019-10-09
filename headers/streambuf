@@ -16,9 +16,11 @@
 #ifndef CPPREFERENCE_STREAMBUF_H
 #define CPPREFERENCE_STREAMBUF_H
 
+#include <locale> // for locale
+
 namespace std {
 
-template<class CharT, class Traits = char_traits<CharT>>
+template<class CharT, class Traits /* = char_traits<CharT>*/ >
 class basic_streambuf {
 public:
     typedef CharT char_type;

@@ -16,6 +16,9 @@
 #ifndef CPPREFERENCE_ATOMIC_H
 #define CPPREFERENCE_ATOMIC_H
 
+#include <cstddef> // for ptrdiff_t
+#include <cstdint>
+
 namespace std {
 
 #if CPPREFERENCE_STDVER>= 2011
@@ -127,9 +130,9 @@ struct atomic {
 
     // member of atomic<Integral>
     T fetch_xor(T arg,
-                memory_xorder = std::memory_xorder_seq_cst);
+                memory_order = std::memory_order_seq_cst);
     T fetch_xor(T arg,
-                memory_xorder = std::memory_xorder_seq_cst) volatile;
+                memory_order = std::memory_order_seq_cst) volatile;
 
     // member of atomic<Integral>
     T operator++();

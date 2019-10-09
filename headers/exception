@@ -22,11 +22,14 @@ class exception {
 public:
     exception();
     exception(const exception& other);
+    virtual ~exception();
     exception& operator=(const exception& other);
     virtual const char* what() const;
 };
 
 #if CPPREFERENCE_STDVER>= 2011
+typedef void* exception_ptr; // actually unspecified
+
 class nested_exception {
 public:
     nested_exception();
@@ -50,9 +53,7 @@ void unexpected();
 typedef void (*unexpected_handler)();
 typedef void (*terminate_handler)();
 
-#if CPPREFERENCE_STDVER>= 2011
-typedef void* exception_ptr; // actually unspecified
-#endif // CPPREFERENCE_STDVER>= 2011
+
 
 bool uncaught_exception();
 #if CPPREFERENCE_STDVER>= 2017

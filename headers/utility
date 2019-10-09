@@ -20,6 +20,9 @@
 #include <initializer_list>
 #endif
 
+#include <cstddef> // for size_t
+#include <type_traits> // for remove_reference
+
 namespace std {
 
 #if CPPREFERENCE_STDVER>= 2011
@@ -55,10 +58,10 @@ template<class T>
 T&& forward(typename std::remove_reference<T>::type&& t);
 
 template<class T>
-typename T&& move(T&& t);   // SIMPLIFIED: return type
+T&& move(T&& t);   // SIMPLIFIED: return type
 
 template<class T>
-typename T&& move_if_noexcept(T&& t);   // SIMPLIFIED: return type
+T&& move_if_noexcept(T&& t);   // SIMPLIFIED: return type
 
 template<class T>
 T declval(); // SIMPLIFIED: return type
@@ -67,10 +70,12 @@ struct piecewise_construct_t { };
 constexpr piecewise_construct_t piecewise_construct;
 #endif
 
+template<class ... Args> class tuple;
+
 template <
     class T1,
     class T2
-    > struct pair {
+> struct pair {
     typedef T1 first_type;
     typedef T2 second_type;
     T1 first;

@@ -18,11 +18,13 @@
 
 namespace std {
 
-struct va_list; // actually a typedef
+struct va_list {}; // actually a typedef
 
 } // namespace std
 
-void va_start(std::va_list ap, int parm_n); // actually a macro
+template<class T>
+void va_start(std::va_list ap, T parm_n); // actually a macro
+
 #define va_arg(x, T) T()
 #if CPPREFERENCE_STDVER>= 2011
 void va_copy(std::va_list desc, std::va_list src); // actually a macro

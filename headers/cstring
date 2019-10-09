@@ -16,6 +16,8 @@
 #ifndef CPPREFERENCE_CSTRING_H
 #define CPPREFERENCE_CSTRING_H
 
+#include <cstddef> // for size_t
+
 namespace std {
 
 char* strcpy(char* dest, const char* src);

@@ -20,6 +20,7 @@
 #include <initializer_list>
 
 #include <cstddef> // for size_t, ptrdiff_t
+#include <functional> // for hash
 #include <iterator> // for std::reverse_iterator
 #include <memory> // for std::allocator
 #include <utility> // for std::pair
@@ -55,6 +56,9 @@ public:
     typedef const value_type* const_iterator; // actual type is unspecified
     typedef value_type* local_iterator; // actual type is unspecified
     typedef const value_type* const_local_iterator; // actual type is unspecified
+
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     // constructor
     // constructor
@@ -107,7 +111,7 @@ public:
     unordered_map(unordered_map&& other, const Allocator& alloc);
 
     unordered_map(std::initializer_list<value_type> init,
-                  size_type bucket_count = /*implementation-defined*/,
+                  size_type bucket_count = /*implementation-defined*/0,
                   const Hash& hash = Hash(),
                   const KeyEqual& equal = KeyEqual(),
                   const Allocator& alloc = Allocator());
@@ -266,6 +270,9 @@ public:
     typedef T* local_iterator; // actual type is unspecified
     typedef const T* const_local_iterator; // actual type is unspecified
 
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
     // constructor
     // constructor
 #if CPPREFERENCE_STDVER <2014
@@ -317,7 +324,7 @@ public:
     unordered_multimap(unordered_multimap&& other, const Allocator& alloc);
 
     unordered_multimap(std::initializer_list<value_type> init,
-                       size_type bucket_count = /*implementation-defined*/,
+                       size_type bucket_count = /*implementation-defined*/0,
                        const Hash& hash = Hash(),
                        const KeyEqual& equal = KeyEqual(),
                        const Allocator& alloc = Allocator());

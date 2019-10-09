@@ -20,6 +20,7 @@
 #include <initializer_list>
 
 #include <cstddef> // for size_t, ptrdiff_t
+#include <functional> // for hash
 #include <memory> // for std::allocator
 #include <utility> // for std::pair
 
@@ -103,7 +104,7 @@ public:
     unordered_set(unordered_set&& other, const Allocator& alloc);
 
     unordered_set(std::initializer_list<value_type> init,
-                  size_type bucket_count = /*implementation-defined*/,
+                  size_type bucket_count = /*implementation-defined*/0,
                   const Hash& hash = Hash(),
                   const KeyEqual& equal = KeyEqual(),
                   const Allocator& alloc = Allocator());
@@ -237,10 +238,10 @@ public:
     typedef typename std::allocator_traits<Allocator>::pointer pointer;
     typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 #endif
-    typedef T* iterator; // actual type is unspecified
-    typedef const T* const_iterator; // actual type is unspecified
-    typedef T* local_iterator; // actual type is unspecified
-    typedef const T* const_local_iterator; // actual type is unspecified
+    typedef Key* iterator; // actual type is unspecified
+    typedef const Key* const_iterator; // actual type is unspecified
+    typedef Key* local_iterator; // actual type is unspecified
+    typedef const Key* const_local_iterator; // actual type is unspecified
 
     // constructor
 
@@ -294,7 +295,7 @@ public:
     unordered_multiset(unordered_multiset&& other, const Allocator& alloc);
 
     unordered_multiset(std::initializer_list<value_type> init,
-                       size_type bucket_count = /*implementation-defined*/,
+                       size_type bucket_count = /*implementation-defined*/0,
                        const Hash& hash = Hash(),
                        const KeyEqual& equal = KeyEqual(),
                        const Allocator& alloc = Allocator());

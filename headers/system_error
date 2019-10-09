@@ -18,7 +18,14 @@
 
 #if CPPREFERENCE_STDVER>= 2011
 
+#include <string>
+#include <type_traits> // for integral_constant
+#include <stdexcept> // for runtime_error
+
 namespace std {
+
+class error_condition;
+class error_code;
 
 class error_category {
 public:

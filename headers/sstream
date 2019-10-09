@@ -16,6 +16,7 @@
 #ifndef CPPREFERENCE_SSTREAM_H
 #define CPPREFERENCE_SSTREAM_H
 
+#include <iosfwd> // for default template arguments
 #include <iostream> // for streams
 #include <memory> // for std::allocator
 
@@ -23,10 +24,15 @@ namespace std {
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>,
-    class Allocator = std::allocator<CharT>
+    class Traits /* = std::char_traits<CharT> */,
+    class Allocator /*= std::allocator<CharT> */
     > class basic_stringbuf : public std::basic_streambuf<CharT, Traits> {
 public:
+    typedef CharT char_type;
+    typedef Traits traits_type;
+    typedef typename traits_type::int_type int_type;
+    typedef typename traits_type::pos_type pos_type;
+    typedef typename traits_type::off_type off_type;
 
 #if CPPREFERENCE_STDVER>= 2011
     typedef Allocator allocator_type;
@@ -35,15 +41,15 @@ public:
     explicit basic_stringbuf(std::ios_base::openmode which = std::ios_base::in
                              | std::ios_base::out);
 
-    explicit basic_stringbuf(const std::basic_string<CharT, traits, Allocator>& new_str,
+    explicit basic_stringbuf(const std::basic_string<CharT, Traits, Allocator>& new_str,
                              std::ios_base::openmode which = std::ios_base::in
                                      | std::ios_base::out);
 #if CPPREFERENCE_STDVER>= 2011
     basic_stringbuf(const basic_stringbuf& rhs) = delete;
     basic_stringbuf(basic_stringbuf&& rhs);
-    std::basic_stringbuf& operator=(std::basic_stringbuf&& rhs);
-    std::basic_stringbuf& operator=(const std::basic_stringbuf& rhs) = delete;
-    void swap(std::basic_stringbuf& rhs);
+    basic_stringbuf& operator=(basic_stringbuf&& rhs);
+    basic_stringbuf& operator=(const basic_stringbuf& rhs) = delete;
+    void swap(basic_stringbuf& rhs);
 #endif
 
     virtual ~basic_stringbuf();
@@ -53,8 +59,8 @@ public:
 
 protected:
     virtual int_type underflow();
-    virtual int_type pbackfail(int_type c = Traits_type::eof());
-    virtual int_type overflow(int_type c = Traits_type::eof());
+    virtual int_type pbackfail(int_type c = traits_type::eof());
+    virtual int_type overflow(int_type c = traits_type::eof());
     virtual basic_streambuf<CharT, Traits>* setbuf(char_type* s, streamsize n);
     virtual pos_type seekoff(off_type off, ios_base::seekdir dir,
                              ios_base::openmode which = ios_base::in | ios_base::out);
@@ -64,8 +70,8 @@ protected:
 
 #if CPPREFERENCE_STDVER>= 2011
 template<class CharT, class Traits, class Allocator>
-void swap(std::basic_stringbuf<CharT, Traits, Allocator>& lhs,
-          std::basic_stringbuf<CharT, Traits, Allocator>& rhs);
+void swap(basic_stringbuf<CharT, Traits, Allocator>& lhs,
+          basic_stringbuf<CharT, Traits, Allocator>& rhs);
 #endif
 
 typedef basic_stringbuf<char> stringbuf;
@@ -73,9 +79,9 @@ typedef basic_stringbuf<wchar_t> wstringbuf;
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>,
-    class Allocator = std::allocator<CharT>
-    > class basic_stringstream : public std::basic_iostream<CharT, Traits> {
+    class Traits /* = std::char_traits<CharT> */,
+    class Allocator /*= std::allocator<CharT> */
+> class basic_stringstream : public std::basic_iostream<CharT, Traits> {
 public:
 
 #if CPPREFERENCE_STDVER>= 2011
@@ -91,7 +97,7 @@ public:
 
     void swap(basic_stringstream& other);
 #endif
-    std::basic_stringbuf<CharT, Traits>* rdbuf() const;
+    basic_stringbuf<CharT, Traits>* rdbuf() const;
 
     std::basic_string<CharT, Traits, Allocator> str() const;
     void str(const std::basic_string<CharT, Traits, Allocator>& new_str);
@@ -108,9 +114,9 @@ typedef basic_stringstream<wchar_t> wstringstream;
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>,
-    class Allocator = std::allocator<CharT>
-    > class basic_istringstream : public std::basic_ostream<CharT, Traits> {
+    class Traits /* = std::char_traits<CharT> */,
+    class Allocator /* = std::allocator<CharT> */
+> class basic_istringstream : public std::basic_ostream<CharT, Traits> {
 public:
 
 #if CPPREFERENCE_STDVER>= 2011
@@ -126,7 +132,7 @@ public:
 
     void swap(basic_istringstream& other);
 #endif
-    std::basic_stringbuf<CharT, Traits>* rdbuf() const;
+    basic_stringbuf<CharT, Traits>* rdbuf() const;
 
     std::basic_string<CharT, Traits, Allocator> str() const;
     void str(const std::basic_string<CharT, Traits, Allocator>& new_str);
@@ -143,9 +149,9 @@ void swap(std::basic_istringstream<CharT, Traits, Allocator>& lhs,
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>,
-    class Allocator = std::allocator<CharT>
-    > class basic_ostringstream : public std::basic_ostream<CharT, Traits> {
+    class Traits /* = std::char_traits<CharT> */,
+    class Allocator /* = std::allocator<CharT> */
+> class basic_ostringstream : public std::basic_ostream<CharT, Traits> {
 public:
 
 #if CPPREFERENCE_STDVER>= 2011
@@ -161,7 +167,7 @@ public:
 
     void swap(basic_ostringstream& other);
 #endif
-    std::basic_stringbuf<CharT, Traits>* rdbuf() const;
+    basic_stringbuf<CharT, Traits>* rdbuf() const;
 
     std::basic_string<CharT, Traits, Allocator> str() const;
     void str(const std::basic_string<CharT, Traits, Allocator>& new_str);

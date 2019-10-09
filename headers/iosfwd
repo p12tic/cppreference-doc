@@ -81,8 +81,8 @@ typedef basic_ostringstream<wchar_t> wostringstream;
 typedef basic_stringstream<wchar_t> wstringstream;
 
 template<class state> class fpos;
-typedef fpos<char_traits<char>::state_type> streampos;
-typedef fpos<char_traits<wchar_t>::state_type> wstreampos;
+typedef fpos<typename char_traits<char>::state_type> streampos;
+typedef fpos<typename char_traits<wchar_t>::state_type> wstreampos;
 
 } // namespace std
 
