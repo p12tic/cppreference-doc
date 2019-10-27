@@ -39,7 +39,7 @@ public:
     using iterator = const_iterator;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
     using reverse_iterator = const_reverse_iterator;
-    static const size_type npos = -1;
+    static const size_type npos = static_cast<size_type>(-1);
 
       // [string.view.cons], construct/copy
 
@@ -191,3 +191,5 @@ operator>=(basic_string_view<CharT, Traits> lhs,
 } // namespace std
 
 #endif // CPPREFERENCE_STDVER >= 2017
+
+#endif // CPPREFERENCE_STRING_VIEW_H

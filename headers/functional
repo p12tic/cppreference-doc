@@ -39,8 +39,9 @@ public:
     function(std::nullptr_t);
     function(const function& other);
     function(function&& other);
+
     template<class F >
-    function(F f);
+    function(F f) { (void) f; }
 
 #if CPPREFERENCE_STDVER < 2017
     template<class Alloc >
@@ -125,7 +126,7 @@ std::function<R> bind(F&& f, Args&& ... args);
 
 #if CPPREFERENCE_STDVER >= 2017
 template<class F, class... ArgTypes>
-std::result_of_t < F&& (ArgTypes&& ...) > invoke(F&& f, ArgTypes&& ... args);
+std::result_of_t<F&&(ArgTypes&&...)> invoke(F&& f, ArgTypes&&... args);
 #endif
 
 // SIMPLIFIED: the inherited type is simplified

@@ -19,6 +19,7 @@
 #if CPPREFERENCE_STDVER>= 2014
 
 #include <chrono>
+#include <mutex> // try_to_lock_t and friends
 
 namespace std {
 

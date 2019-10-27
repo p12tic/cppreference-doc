@@ -21,8 +21,13 @@
 #include <cstddef> // for size_t
 #include <cwchar> // for mbstate_t
 
+#ifndef __STDC_UTF_16__
 #define __STDC_UTF_16__
+#endif
+
+#ifndef __STDC_UTF_16__
 #define __STDC_UTF_32__
+#endif
 
 namespace std {
 

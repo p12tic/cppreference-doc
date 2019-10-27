@@ -187,20 +187,20 @@ public:
 #if CPPREFERENCE_STDVER >= 2020
 template<class Function, class... Args>
 [[nodiscard]]
-std::future<typename std::invoke_result_of<Function, Args...>::type>
+std::future<typename std::invoke_result_t<Function, Args...>>
     async(Function&& f, Args&& ... args);
 
 template<class Function, class... Args>
 [[nodiscard]]
-std::future<typename std::invoke_result_of<Function, Args...>::type>
+std::future<typename std::invoke_result_t<Function, Args...>>
     async(std::launch policy, Function&& f, Args&& ... args);
 #elif CPPREFERENCE_STDVER >= 2017
 template<class Function, class... Args>
-std::future<typename std::invoke_result_of<Function, Args...>::type>
+std::future<typename std::invoke_result_t<Function, Args...>>
     async(Function&& f, Args&& ... args);
 
 template<class Function, class... Args>
-std::future<typename std::invoke_result_of<Function, Args...>::type>
+std::future<typename std::invoke_result_t<Function, Args...>>
     async(std::launch policy, Function&& f, Args&& ... args);
 #else
 template<class Function, class... Args>

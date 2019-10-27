@@ -27,7 +27,7 @@ struct integral_constant {
     typedef T value_type;
     typedef integral_constant<T, v> type;
 
-    static constexpr T value;
+    static constexpr T value = v;
     constexpr operator value_type() const;
     constexpr T operator()() const;
 };
@@ -400,9 +400,27 @@ template<class T>
 using underlying_type_t = int; // SIMPLIFIED typedef
 #endif
 
-template<class... ArgTypes> class result_of {
+#if CPPREFERENCE_STDVER < 2020
+template<class F, class... ArgTypes>
+class result_of {
     typedef int type;
-}; // SIMPLIFIED: removed specializatio
+}; // SIMPLIFIED: removed specializations
+#endif
+
+#if CPPREFERENCE_STDVER >= 2014 && CPPREFERENCE_STDVER < 2020
+template<class F, class... ArgTypes>
+using result_of_t = int; // SIMPLIFIED typedef
+#endif
+
+#if CPPREFERENCE_STDVER >= 2017
+template<class F, class... ArgTypes>
+class invoke_result {
+    typedef int type;
+}; // SIMPLIFIED: removed specializations
+
+template<class F, class... ArgTypes>
+using invoke_result_t = int; // SIMPLIFIED typedef
+#endif
 
 } // namespace std
 

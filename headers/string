@@ -643,26 +643,26 @@ std::basic_istream<CharT, Traits>& getline(std::basic_istream<CharT, Traits>&& i
 #endif
 
 #if CPPREFERENCE_STDVER>= 2011
-int       stoi(const std::string& str, std::size_t* pos = 0, int base = 10);
-int       stoi(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+int       stoi(const std::string& str, std::size_t* pos = nullptr, int base = 10);
+int       stoi(const std::wstring& str, std::size_t* pos = nullptr, int base = 10);
 
-long      stol(const std::string& str, std::size_t* pos = 0, int base = 10);
-long      stol(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+long      stol(const std::string& str, std::size_t* pos = nullptr, int base = 10);
+long      stol(const std::wstring& str, std::size_t* pos = nullptr, int base = 10);
 
-long long stoll(const std::string& str, std::size_t* pos = 0, int base = 10);
-long long stoll(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+long long stoll(const std::string& str, std::size_t* pos = nullptr, int base = 10);
+long long stoll(const std::wstring& str, std::size_t* pos = nullptr, int base = 10);
 
-unsigned long      stoul(const std::string& str, std::size_t* pos = 0, int base = 10);
-unsigned long      stoul(const std::wstring& str, std::size_t* pos = 0, int base = 10);
-unsigned long long stoull(const std::string& str, std::size_t* pos = 0, int base = 10);
-unsigned long long stoull(const std::wstring& str, std::size_t* pos = 0, int base = 10);
+unsigned long      stoul(const std::string& str, std::size_t* pos = nullptr, int base = 10);
+unsigned long      stoul(const std::wstring& str, std::size_t* pos = nullptr, int base = 10);
+unsigned long long stoull(const std::string& str, std::size_t* pos = nullptr, int base = 10);
+unsigned long long stoull(const std::wstring& str, std::size_t* pos = nullptr, int base = 10);
 
-float       stof(const std::string& str, std::size_t* pos = 0);
-float       stof(const std::wstring& str, std::size_t* pos = 0);
-double      stod(const std::string& str, std::size_t* pos = 0);
-double      stod(const std::wstring& str, std::size_t* pos = 0);
-long double stold(const std::string& str, std::size_t* pos = 0);
-long double stold(const std::wstring& str, std::size_t* pos = 0);
+float       stof(const std::string& str, std::size_t* pos = nullptr);
+float       stof(const std::wstring& str, std::size_t* pos = nullptr);
+double      stod(const std::string& str, std::size_t* pos = nullptr);
+double      stod(const std::wstring& str, std::size_t* pos = nullptr);
+long double stold(const std::string& str, std::size_t* pos = nullptr);
+long double stold(const std::wstring& str, std::size_t* pos = nullptr);
 
 std::string to_string(int value);
 std::string to_string(long value);

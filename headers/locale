@@ -123,9 +123,16 @@ class wbuffer_convert : public std::basic_streambuf<Elem, Tr> {
 public:
     typedef typename Codecvt::state_type state_type;
 
+#if CPPREFERENCE_STDVER >= 2011
+    explicit wbuffer_convert(std::streambuf* bytebuf = nullptr,
+                             Codecvt* pcvt = new Codecvt,
+                             state_type state = state_type());
+#else
     explicit wbuffer_convert(std::streambuf* bytebuf = 0,
                              Codecvt* pcvt = new Codecvt,
                              state_type state = state_type());
+#endif
+
 #if CPPREFERENCE_STDVER >= 2014
     wbuffer_convert(const wbuffer_convert&) = delete;
 #endif

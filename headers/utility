@@ -88,6 +88,7 @@ template<class T>
 T declval(); // SIMPLIFIED: return type
 #endif
 
+#if CPPREFERENCE_STDVER >= 2011
 struct piecewise_construct_t { };
 constexpr piecewise_construct_t piecewise_construct;
 #endif
@@ -213,13 +214,19 @@ template<class T1, class T2>
 void swap(pair<T1, T2>& lhs, pair<T1, T2>& rhs);
 
 #if CPPREFERENCE_STDVER>= 2011
+template<size_t N, class T>
+class tuple_element;
+
 template<size_t N, class T1, class T2>
-typename std::tuple_element<I, std::pair<T1, T2>>::type&
+typename tuple_element<N, std::pair<T1, T2>>::type&
         get(pair<T1, T2>& p);
 // SIMPLIFIED: additional overloads omitted
 #endif
 
 #if CPPREFERENCE_STDVER >= 2014
+template<class T>
+class tuple_size;
+
 template<class T1, class T2>
 class tuple_size<std::pair<T1, T2> > : public std::integral_constant<std::size_t, 2> { };
 #endif

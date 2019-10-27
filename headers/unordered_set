@@ -409,3 +409,5 @@ void swap(unordered_multiset<Key, Hash, KeyEqual, Alloc>& lhs,
 } // namespace std
 
 #endif // CPPREFERENCE_STDVER>= 2011
+
+#endif // CPPREFERENCE_UNORDERED_SET_H
