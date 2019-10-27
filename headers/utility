@@ -93,6 +93,23 @@ struct piecewise_construct_t { };
 constexpr piecewise_construct_t piecewise_construct;
 #endif
 
+#if CPPREFERENCE_STDVER >= 2017
+struct in_place_t {};
+inline constexpr in_place_t in_place;
+
+template<class T>
+struct in_place_type_t{};
+
+template<class T>
+inline constexpr in_place_type_t<T> in_place_type;
+
+template<size_t I>
+struct in_place_index_t;
+
+template<size_t I>
+inline constexpr in_place_index_t<I> in_place_index;
+#endif
+
 template<class ... Args> class tuple;
 
 template <
