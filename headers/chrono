@@ -162,12 +162,22 @@ public:
     typedef typename Duration::period period;
 #endif
 
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr time_point();
+    constexpr explicit time_point(const duration& d);
+
+    template<class Duration2>
+    constexpr time_point(const time_point<Clock, Duration2>& t);
+
+    constexpr duration time_since_epoch() const;
+#else
     time_point();
     explicit time_point(const duration& d);
     template<class Duration2>
     time_point(const time_point<Clock, Duration2>& t);
 
     duration time_since_epoch() const;
+#endif
 
     time_point& operator+=(const duration& d);
     time_point& operator-=(const duration& d);
@@ -217,8 +227,15 @@ template<class Clock, class Dur1, class Dur2>
 bool operator>=(const time_point<Clock, Dur1>& lhs,
                 const time_point<Clock, Dur2>& rhs);
 
+#if CPPREFERENCE_STDVER >= 2014
 template <class ToDuration, class Clock, class Duration>
-time_point<Clock, ToDuration> time_point_cast(const time_point<Clock, Duration>& t);
+constexpr time_point<Clock, ToDuration> time_point_cast(
+    const time_point<Clock, Duration>& t);
+#else
+template <class ToDuration, class Clock, class Duration>
+time_point<Clock, ToDuration> time_point_cast(
+    const time_point<Clock, Duration>& t);
+#endif
 
 class system_clock {
 public:

@@ -33,15 +33,28 @@ public:
     typedef const T* iterator;
     typedef const T* const_iterator;
 
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr initializer_list();
+
+    constexpr size_t size() const;
+    constexpr const T* begin() const;
+    constexpr const T* end() const;
+#else
     initializer_list();
 
     size_t size() const;
     const T* begin() const;
     const T* end() const;
+#endif
 };
 
+#if CPPREFERENCE_STDVER >= 2014
+template<class T> constexpr const T* begin(initializer_list<T> il);
+template<class T> constexpr const T* end(initializer_list<T> il);
+#else
 template<class T> const T* begin(initializer_list<T> il);
 template<class T> const T* end(initializer_list<T> il);
+#endif
 
 } // namespace std
 

@@ -25,23 +25,48 @@ class complex {
 public:
     typedef T value_type;
 
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr complex(const T& re = T(), const T& im = T());
+
+    constexpr complex(const complex& other);
+
+    template<class X>
+    constexpr complex(const complex<X>& other);
+#else
     complex(const T& re = T(), const T& im = T());
 
     complex(const complex& other);
 
     template<class X>
     complex(const complex<X>& other);
+#endif
 
     complex<T>& operator=(const T& x);
 
     template<class X>
     complex<T>& operator=(const complex<X>& cx);
 
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr T real() const;
+#else
     T real() const;
+#endif
+#if CPPREFERENCE_STDVER >= 2020
+    constexpr void real(T value);
+#else
     void real(T value);
+#endif
 
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr T imag() const;
+#else
     T imag() const;
+#endif
+#if CPPREFERENCE_STDVER >= 2020
+    constexpr void imag(T value);
+#else
     void imag(T value);
+#endif
 
     complex<T>& operator+=(const T& other);
 
@@ -106,6 +131,20 @@ complex<T> operator/(const complex<T>& lhs, const T& rhs);
 template<class T>
 complex<T> operator/(const T& lhs, const complex<T>& rhs);
 
+#if CPPREFERENCE_STDVER >= 2014
+template<class T>
+constexpr bool operator==(const complex<T>& lhs, const complex<T>& rhs);
+template<class T>
+constexpr bool operator!=(const complex<T>& lhs, const complex<T>& rhs);
+template<class T>
+constexpr bool operator<(const complex<T>& lhs, const complex<T>& rhs);
+template<class T>
+constexpr bool operator<=(const complex<T>& lhs, const complex<T>& rhs);
+template<class T>
+constexpr bool operator>(const complex<T>& lhs, const complex<T>& rhs);
+template<class T>
+constexpr bool operator>=(const complex<T>& lhs, const complex<T>& rhs);
+#else
 template<class T>
 bool operator==(const complex<T>& lhs, const complex<T>& rhs);
 template<class T>
@@ -118,6 +157,8 @@ template<class T>
 bool operator>(const complex<T>& lhs, const complex<T>& rhs);
 template<class T>
 bool operator>=(const complex<T>& lhs, const complex<T>& rhs);
+#endif
+
 
 template <class T, class CharT, class Traits>
 std::basic_ostream<CharT, Traits>&
@@ -129,11 +170,19 @@ std::basic_istream<CharT, Traits>&
 operator>>(std::basic_istream<CharT, Traits>& is,
            std::complex<T>& x);
 
+#if CPPREFERENCE_STDVER >= 2014
+template<class T>
+constexpr T real(const complex<T>& z);
+
+template<class T>
+constexpr T imag(const complex<T>& z);
+#else
 template<class T>
 T real(const complex<T>& z);
 
 template<class T>
 T imag(const complex<T>& z);
+#endif
 
 template<class T>
 T abs(const complex<T>& z);

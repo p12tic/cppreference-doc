@@ -45,26 +45,48 @@ template<class T>
 bool operator>=(const T& lhs, const T& rhs);
 } // namespace rel_ops
 
-#if CPPREFERENCE_STDVER>= 2014
+#if CPPREFERENCE_STDVER >= 2020
+template<class T, class U = T>
+constexpr T exchange(T& obj, U && new_value);
+#elif CPPREFERENCE_STDVER >= 2014
 template<class T, class U = T>
 T exchange(T& obj, U && new_value);
 #endif
 
-#if CPPREFERENCE_STDVER>= 2011
+#if CPPREFERENCE_STDVER >= 2014
+template<class T>
+constexpr T&& forward(typename std::remove_reference<T>::type& t);
+
+template<class T>
+constexpr T&& forward(typename std::remove_reference<T>::type&& t);
+#elif CPPREFERENCE_STDVER >= 2011
 template<class T>
 T&& forward(typename std::remove_reference<T>::type& t);
 
 template<class T>
 T&& forward(typename std::remove_reference<T>::type&& t);
+#endif
 
+#if CPPREFERENCE_STDVER >= 2014
+template<class T>
+constexpr T&& move(T&& t); // SIMPLIFIED: return type
+#elif CPPREFERENCE_STDVER >= 2011
 template<class T>
 T&& move(T&& t);   // SIMPLIFIED: return type
+#endif
 
+#if CPPREFERENCE_STDVER >= 2014
+template<class T>
+constexpr T&& move_if_noexcept(T&& t); // SIMPLIFIED: return type
+#elif CPPREFERENCE_STDVER >= 2011
 template<class T>
 T&& move_if_noexcept(T&& t);   // SIMPLIFIED: return type
+#endif
 
+#if CPPREFERENCE_STDVER >= 2011
 template<class T>
 T declval(); // SIMPLIFIED: return type
+#endif
 
 struct piecewise_construct_t { };
 constexpr piecewise_construct_t piecewise_construct;
@@ -81,27 +103,57 @@ template <
     T1 first;
     T2 second;
 
+#if CPPREFERENCE_STDVER >= 2011
+    constexpr pair();
+#else
     pair();
+#endif
+
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr pair(const T1& x, const T2& y);
+
+    template<class U1, class U2>
+    constexpr pair(const pair<U1, U2>& p);
+
+    constexpr pair(const pair& p);
+#else
     pair(const T1& x, const T2& y);
 
     template<class U1, class U2>
     pair(const pair<U1, U2>& p);
 
-#if CPPREFERENCE_STDVER>= 2011
+    pair(const pair& p);
+#endif
+
+#if CPPREFERENCE_STDVER >= 2014
+    template<class U1, class U2>
+    constexpr pair(U1&& x, U2&& y);
+
+    template<class U1, class U2>
+    constexpr pair(pair<U1, U2>&& p);
+
+    constexpr pair(pair&& p);
+#elif CPPREFERENCE_STDVER >= 2011
     template<class U1, class U2>
     pair(U1&& x, U2&& y);
 
     template<class U1, class U2>
     pair(pair<U1, U2>&& p);
 
+    pair(pair&& p);
+#endif
+
+#if CPPREFERENCE_STDVER >= 2020
+    template<class... Args1, class... Args2>
+    constexpr pair(std::piecewise_construct_t,
+                   std::tuple<Args1...> first_args,
+                   std::tuple<Args2...> second_args);
+#elif CPPREFERENCE_STDVER >= 2011
     template<class... Args1, class... Args2>
     pair(std::piecewise_construct_t,
          std::tuple<Args1...> first_args,
          std::tuple<Args2...> second_args);
 #endif
-
-    pair(const pair& p);
-    pair(pair&& p);
 
     pair& operator=(const pair& other);
 
@@ -118,6 +170,20 @@ template <
     void swap(pair& other);
 };
 
+#if CPPREFERENCE_STDVER >= 2014
+template<class T1, class T2>
+constexpr bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+constexpr bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+constexpr bool operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+constexpr bool operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+constexpr bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+template<class T1, class T2>
+constexpr bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+#else
 template<class T1, class T2>
 bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
 template<class T1, class T2>
@@ -130,13 +196,17 @@ template<class T1, class T2>
 bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
 template<class T1, class T2>
 bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs);
+#endif
 
-#if CPPREFERENCE_STDVER <2011
+#if CPPREFERENCE_STDVER >= 2014
 template<class T1, class T2>
-std::pair<T1, T2> make_pair(T1 t, T2 u);
-#else
+constexpr std::pair<T1, T2> make_pair(T1&& t, T2&& u);
+#elif CPPREFERENCE_STDVER >= 2011
 template<class T1, class T2>
 std::pair<T1, T2> make_pair(T1&& t, T2&& u);
+#else
+template<class T1, class T2>
+std::pair<T1, T2> make_pair(T1 t, T2 u);
 #endif
 
 template<class T1, class T2>
@@ -147,6 +217,11 @@ template<size_t N, class T1, class T2>
 typename std::tuple_element<I, std::pair<T1, T2>>::type&
         get(pair<T1, T2>& p);
 // SIMPLIFIED: additional overloads omitted
+#endif
+
+#if CPPREFERENCE_STDVER >= 2014
+template<class T1, class T2>
+class tuple_size<std::pair<T1, T2> > : public std::integral_constant<std::size_t, 2> { };
 #endif
 
 } // namespace std

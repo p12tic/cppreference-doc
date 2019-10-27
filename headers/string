@@ -201,6 +201,13 @@ public:
     basic_string& assign(std::initializer_list<CharT> ilist);
 #endif
 
+#if CPPREFERENCE_STDVER >= 2017
+    template<class T>
+    basic_string& assign(const T& t);
+    template<class T>
+    basic_string& assign(const T& t, size_type pos, size_type count = npos);
+#endif
+
     allocator_type get_allocator() const;
 
     // element access
@@ -276,6 +283,15 @@ public:
     iterator insert(const_iterator pos, std::initializer_list<CharT> ilist);
 #endif
 
+#if CPPREFERENCE_STDVER >= 2017
+    template<class T>
+    basic_string& insert(size_type pos, const T& t);
+
+    template<class T>
+    basic_string& insert(size_type index, const T& t,
+                         size_type index_str, size_type count = npos);
+#endif
+
     basic_string& erase(size_type index = 0, size_type count = npos);
 #if CPPREFERENCE_STDVER <2011
     iterator erase(iterator pos);
@@ -299,14 +315,14 @@ public:
 
     basic_string& append(size_type count, CharT ch);
     basic_string& append(const basic_string& str);
-#if CPPREFERENCE_STDVER <2014
-    basic_string& append(const basic_string& str,
-                         size_type pos,
-                         size_type count);
-#else
+#if CPPREFERENCE_STDVER >= 2014
     basic_string& append(const basic_string& str,
                          size_type pos,
                          size_type count = npos);
+#else
+    basic_string& append(const basic_string& str,
+                         size_type pos,
+                         size_type count);
 #endif
     basic_string& append(const CharT* s,
                          size_type count);
@@ -316,6 +332,14 @@ public:
 
 #if CPPREFERENCE_STDVER> 2011
     basic_string& append(std::initializer_list<CharT> ilist);
+#endif
+
+#if CPPREFERENCE_STDVER > 2017
+    template<class T>
+    basic_string& append(const T& t);
+
+    template<class T>
+    basic_string& append(const T& t, size_type pos, size_type count = npos);
 #endif
 
     basic_string& operator+=(const basic_string& str);
@@ -344,6 +368,19 @@ public:
                 const CharT* s) const;
     int compare(size_type pos1, size_type count1,
                 const CharT* s, size_type count2) const;
+
+#if CPPREFERENCE_STDVER >= 2017
+    template<class T>
+    int compare(const T& t) const;
+
+    template<class T>
+    int compare(size_type pos1, size_type count1, const T& t) const;
+
+    template<class T>
+    int compare(size_type pos1, size_type count1,
+                const T& t,
+                size_type pos2, size_type count2 = npos) const;
+#endif
 
     basic_string& replace(size_type pos, size_type count,
                           const basic_string& str);
@@ -386,6 +423,19 @@ public:
 
     basic_string& replace(const_iterator first, const_iterator last,
                           std::initializer_list<CharT> ilist);
+
+#if CPPREFERENCE_STDVER >= 2017
+    template<class T>
+    basic_string& replace(size_type pos,size_type count, const T& t);
+
+    template<class T>
+    basic_string& replace(const_iterator first, const_iterator last,
+                          const T& t);
+
+    template<class T>
+    basic_string& replace(size_type pos, size_type count, const T& t,
+                          size_type pos2, size_type count2 = npos);
+#endif
 
     basic_string substr(size_type pos = 0,
                         size_type count = npos) const;
