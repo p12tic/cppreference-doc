@@ -22,10 +22,10 @@
 
 #include <cstddef> // for size_t, ptrdiff_t
 #include <cwchar> // for mbstate_t
-#include <ios> // for streamoff
 #include <iosfwd>
 #include <iterator> // for std::reverse_iterator
 #include <memory> // for std::allocator
+#include <detail/string_fwd>
 
 namespace std {
 
@@ -90,8 +90,8 @@ typedef fpos<char_traits<char32_t>::state_type> u32streampos;
 
 template <
     class CharT,
-    class Traits = std::char_traits<CharT>,
-    class Allocator = std::allocator<CharT>
+    class Traits /* = std::char_traits<CharT> */,
+    class Allocator /* = std::allocator<CharT> */
     > class basic_string {
 public:
     typedef Traits traits_type;

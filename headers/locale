@@ -17,6 +17,7 @@
 #define CPPREFERENCE_LOCALE_H
 
 #include <ctime> // for tm
+#include <ios> // for ios_base
 #include <memory> // for std::allocator
 #include <string>
 
