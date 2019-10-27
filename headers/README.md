@@ -20,6 +20,8 @@ names are exposed instead of uglified identifiers used in real standard library
 implementations. The parameter names correspond to those provided for 
 respective functions in the cppreference.com C++ reference.
 
+To simplify, noexcept specifiers are omitted from declarations.
+
   Configuration
   -------------
 
