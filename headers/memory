@@ -443,7 +443,12 @@ struct allocator {
     pointer address(reference x) const;
     const_pointer address(const_reference x) const;
 
+#if CPPREFERENCE_STDVER >= 2011
+    pointer allocate(size_type n, void* hint = nullptr);
+#else
     pointer allocate(size_type n, void* hint = 0);
+#endif
+
     void deallocate(pointer p, size_type n);
     size_type max_size() const;
 

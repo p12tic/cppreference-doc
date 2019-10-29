@@ -17,7 +17,7 @@
 #define CPPREFERENCE_STDEXCEPT_H
 
 #include <exception>
-#include <string>
+#include <detail/string_fwd>
 
 namespace std {
 

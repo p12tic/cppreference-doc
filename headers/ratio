@@ -31,8 +31,9 @@ public:
     static constexpr intmax_t den = Denom;
 };
 
-typedef ratio<1, 1000000000000000000000000> yocto;
-typedef ratio<1,    1000000000000000000000> zepto;
+// only defined if intmax_t can represent the denominator
+// typedef ratio<1, 1000000000000000000000000> yocto;
+// typedef ratio<1,    1000000000000000000000> zepto;
 typedef ratio<1,       1000000000000000000> atto;
 typedef ratio<1,          1000000000000000> femto;
 typedef ratio<1,             1000000000000> pico;
@@ -49,8 +50,9 @@ typedef ratio<               1000000000, 1> giga;
 typedef ratio<            1000000000000, 1> tera;
 typedef ratio<         1000000000000000, 1> peta;
 typedef ratio<      1000000000000000000, 1> exa;
-typedef ratio<   1000000000000000000000, 1> zetta;
-typedef ratio<1000000000000000000000000, 1> yotta;
+// only defined if intmax_t can represent the nominator
+// typedef ratio<   1000000000000000000000, 1> zetta;
+// typedef ratio<1000000000000000000000000, 1> yotta;
 
 // SIMPLIFIED: the following are alias templates
 template<class R1, class R2>

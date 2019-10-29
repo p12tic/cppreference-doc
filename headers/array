@@ -54,15 +54,48 @@ public:
 #endif
 
     // element access
+#if CPPREFERENCE_STDVER >= 2017
+    constexpr reference       at(size_type n);
+    constexpr const_reference at(size_type n) const;
+#else
     reference       at(size_type n);
     const_reference at(size_type n) const;
-    reference       operator[](size_type n);
-    const_reference operator[](size_type n) const;
+#endif
 
-    reference       front();
+#if CPPREFERENCE_STDVER >= 2017
+    constexpr reference operator[](size_type n);
+#else
+    reference operator[](size_type n);
+#endif
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr const_reference operator[](size_type n) const;
+#else
+    const_reference operator[](size_type n) const;
+#endif
+
+#if CPPREFERENCE_STDVER >= 2017
+    constexpr reference front();
+#else
+    reference front();
+#endif
+
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr const_reference front() const;
+#else
     const_reference front() const;
-    reference       back();
+#endif
+
+#if CPPREFERENCE_STDVER >= 2017
+    constexpr reference back();
+#else
+    reference back();
+#endif
+
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr const_reference back() const;
+#else
     const_reference back() const;
+#endif
 
     T* data();
     const T* data() const;
@@ -85,7 +118,11 @@ public:
 
     bool empty() const;
     size_type size() const;
-    size_type max_size() const;
+#if CPPREFERENCE_STDVER >= 2014
+    constexpr size_type max_size() const;
+#else
+    constexpr size_type max_size();
+#endif
 
     void fill(const T& value);
 

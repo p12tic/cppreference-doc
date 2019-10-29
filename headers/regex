@@ -20,55 +20,57 @@
 
 #include <initializer_list> // for std::initializer_list
 #include <memory> // for std::allocator
+#include <detail/cppreference_unspecified>
 #include <string>
+#include <stdexcept>
 #include <vector>
 
 namespace std {
 namespace regex_constants {
 
-typedef int syntax_option_type; // actually unspecified
-constexpr syntax_option_type icase;
-constexpr syntax_option_type nosubs;
-constexpr syntax_option_type optimize;
-constexpr syntax_option_type collate;
-constexpr syntax_option_type ECMAScript;
-constexpr syntax_option_type basic;
-constexpr syntax_option_type extended;
-constexpr syntax_option_type awk;
-constexpr syntax_option_type grep;
-constexpr syntax_option_type egrep;
+typedef CPPREFERENCE_UNSPECIFIED_TYPE syntax_option_type;
+constexpr syntax_option_type icase = 0;
+constexpr syntax_option_type nosubs = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type optimize = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type collate = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type ECMAScript = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type basic = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type extended = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type awk = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type grep = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr syntax_option_type egrep = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
 
-typedef int match_flag_type; // actually unspecified
+typedef CPPREFERENCE_UNSPECIFIED_TYPE match_flag_type;
 
 constexpr match_flag_type match_default = 0;
-constexpr match_flag_type match_not_bol;
-constexpr match_flag_type match_not_eol;
-constexpr match_flag_type match_not_bow;
-constexpr match_flag_type match_not_eow;
-constexpr match_flag_type match_any;
-constexpr match_flag_type match_not_null;
-constexpr match_flag_type match_continuous;
-constexpr match_flag_type match_prev_avail;
+constexpr match_flag_type match_not_bol = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_not_eol = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_not_bow = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_not_eow = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_any = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_not_null = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_continuous = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type match_prev_avail = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
 constexpr match_flag_type format_default = 0;
-constexpr match_flag_type format_sed;
-constexpr match_flag_type format_no_copy;
-constexpr match_flag_type format_first_only;
+constexpr match_flag_type format_sed = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type format_no_copy = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr match_flag_type format_first_only = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
 
-typedef int error_type; // actually unspecified
+typedef CPPREFERENCE_UNSPECIFIED_TYPE error_type;
 
-constexpr error_type error_collate;
-constexpr error_type error_ctype;
-constexpr error_type error_escape;
-constexpr error_type error_backref;
-constexpr error_type error_brack;
-constexpr error_type error_paren;
-constexpr error_type error_brace;
-constexpr error_type error_badbrace;
-constexpr error_type error_range;
-constexpr error_type error_space;
-constexpr error_type error_badrepeat;
-constexpr error_type error_complexity;
-constexpr error_type error_stack;
+constexpr error_type error_collate = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_ctype = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_escape = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_backref = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_brack = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_paren = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_brace = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_badbrace = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_range = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_space = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_badrepeat = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_complexity = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
+constexpr error_type error_stack = CPPREFERENCE_UNSPECIFIED_TYPE_VALUE;
 
 } // namespace regex_constants
 

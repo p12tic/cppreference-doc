@@ -77,14 +77,9 @@ public:
         Compare comp;
     };
 
-#if CPPREFERENCE_STDVER <2014
-    explicit map(const Compare& comp = Compare(),
-                 const Allocator& alloc = Allocator());
-#else
     map();
     explicit map(const Compare& comp,
                  const Allocator& alloc = Allocator());
-#endif
 
 #if CPPREFERENCE_STDVER>= 2011
     explicit map(const Allocator& alloc);
@@ -333,14 +328,9 @@ public:
         Compare comp;
     };
 
-#if CPPREFERENCE_STDVER <2014
-    explicit multimap(const Compare& comp = Compare(),
-                      const Allocator& alloc = Allocator());
-#else
     multimap();
     explicit multimap(const Compare& comp,
                       const Allocator& alloc = Allocator());
-#endif
 
 #if CPPREFERENCE_STDVER>= 2011
     explicit multimap(const Allocator& alloc);

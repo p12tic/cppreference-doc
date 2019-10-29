@@ -20,7 +20,7 @@
 #include <system_error>
 #endif
 #include <iosfwd>
-#include <locale>
+#include <detail/locale_fwd>
 
 namespace std {
 

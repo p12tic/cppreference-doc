@@ -1,4 +1,4 @@
-/*  Copyright (C) 2015  Povilas Kanapickas <povilas@radix.lt>
+/*  Copyright (C) 2019  Povilas Kanapickas <povilas@radix.lt>
 
     This file is part of cppreference-doc
 
@@ -13,37 +13,15 @@
     Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 */
 
-#ifndef CPPREFERENCE_CSTDARG_H
-#define CPPREFERENCE_CSTDARG_H
+#ifndef CPPREFERENCE_DETAIL_LOCALE_FWD_H
+#define CPPREFERENCE_DETAIL_LOCALE_FWD_H
+
+// this is non-standard header
 
 namespace std {
 
-#ifdef va_start
-typedef ::va_list va_list;
-#else
-struct va_list {}; // actually a typedef
-#endif
+class locale;
 
 } // namespace std
 
-#ifndef va_start
-template<class T>
-void va_start(std::va_list ap, T parm_n); // actually a macro
-#endif
-
-#ifndef va_arg
-#define va_arg(x, T) T()
-#endif
-
-#if CPPREFERENCE_STDVER>= 2011
-#ifndef va_copy
-void va_copy(std::va_list desc, std::va_list src); // actually a macro
-#endif
-#endif
-
-#ifndef va_end
-void va_end(std::va_list ap); // actually a macro
-#endif
-
-
-#endif // CPPREFERENCE_CSTDARG_H
+#endif // CPPREFERENCE_DETAIL_LOCALE_FWD_H

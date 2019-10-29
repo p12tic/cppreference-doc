@@ -39,8 +39,11 @@ public:
     function(std::nullptr_t);
     function(const function& other);
     function(function&& other);
+
     template<class F >
-    function(F f);
+    function(F f) { (void) f; }
+
+#if CPPREFERENCE_STDVER < 2017
     template<class Alloc >
     function(std::allocator_arg_t, const Alloc& alloc);
 
@@ -58,6 +61,7 @@ public:
 
     template<class F, class Alloc >
     function(std::allocator_arg_t, const Alloc& alloc, F f);
+#endif
 
     ~function();
 
@@ -122,7 +126,7 @@ std::function<R> bind(F&& f, Args&& ... args);
 
 #if CPPREFERENCE_STDVER >= 2017
 template<class F, class... ArgTypes>
-std::result_of_t < F&& (ArgTypes&& ...) > invoke(F&& f, ArgTypes&& ... args);
+std::result_of_t<F&&(ArgTypes&&...)> invoke(F&& f, ArgTypes&&... args);
 #endif
 
 // SIMPLIFIED: the inherited type is simplified
@@ -188,7 +192,11 @@ void cref(const T&&) = delete;
 
 #endif // CPPREFERENCE_STDVER >= 2011
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct plus {
     typedef T result_type;
     typedef T first_argument_type;
@@ -196,7 +204,11 @@ struct plus {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct minus {
     typedef T result_type;
     typedef T first_argument_type;
@@ -204,7 +216,11 @@ struct minus {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct multiplies {
     typedef T result_type;
     typedef T first_argument_type;
@@ -212,7 +228,11 @@ struct multiplies {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct divides {
     typedef T result_type;
     typedef T first_argument_type;
@@ -220,7 +240,11 @@ struct divides {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct modulus {
     typedef T result_type;
     typedef T first_argument_type;
@@ -228,14 +252,22 @@ struct modulus {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct negate {
     typedef T result_type;
     typedef T argument_type;
     T operator()(const T& arg) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct equal_to {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -243,7 +275,11 @@ struct equal_to {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct not_equal_to {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -251,7 +287,11 @@ struct not_equal_to {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct greater {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -259,7 +299,11 @@ struct greater {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct less {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -267,7 +311,11 @@ struct less {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct greater_equal {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -275,7 +323,11 @@ struct greater_equal {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct less_equal {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -283,7 +335,11 @@ struct less_equal {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct logical_and {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -291,7 +347,11 @@ struct logical_and {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct logical_or {
     typedef bool result_type;
     typedef T first_argument_type;
@@ -299,14 +359,22 @@ struct logical_or {
     bool operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct logical_not {
     typedef bool result_type;
     typedef T argument_type;
     bool operator()(const T& arg) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct bit_and {
     typedef T result_type;
     typedef T first_argument_type;
@@ -314,7 +382,11 @@ struct bit_and {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct bit_or {
     typedef T result_type;
     typedef T first_argument_type;
@@ -322,7 +394,11 @@ struct bit_or {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct bit_xor {
     typedef T result_type;
     typedef T first_argument_type;
@@ -330,13 +406,18 @@ struct bit_xor {
     T operator()(const T& lhs, const T& rhs) const;
 };
 
+#if CPPREFERENCE_STDVER >= 2014
 template<class T = void>
+#else
+template<class T>
+#endif
 struct bit_not {
     typedef T result_type;
     typedef T argument_type;
     T operator()(const T& arg) const;
 };
 
+#if CPPREFERENCE_STDVER <= 2020
 template<class Predicate >
 struct unary_negate {
     typedef bool result_type;
@@ -362,6 +443,7 @@ std::unary_negate<Predicate> not1(const Predicate& pred);
 
 template<class Predicate >
 std::binary_negate<Predicate> not2(const Predicate& pred);
+#endif
 
 #if CPPREFERENCE_STDVER >= 2011
 template<class Key >

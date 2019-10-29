@@ -88,14 +88,8 @@ public:
     void swap(tuple& other);
 };
 
-template<class... Type>
-class tuple_size;
-
 template<class... Types >
 class tuple_size<std::tuple<Types...> > : public std::integral_constant<std::size_t, sizeof...(Types)> { };
-
-template<std::size_t I, class... Types >
-class tuple_element;
 
 template<std::size_t I, class... Types >
 class tuple_element<I, tuple<Types...> > {

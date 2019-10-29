@@ -64,15 +64,9 @@ public:
 
     // constructor
 
-
-#if CPPREFERENCE_STDVER <2014
-    explicit set(const Compare& comp = Compare(),
-                 const Allocator& alloc = Allocator());
-#else
     set();
     explicit set(const Compare& comp,
                  const Allocator& alloc = Allocator());
-#endif
 
 #if CPPREFERENCE_STDVER>= 2011
     explicit set(const Allocator& alloc);
@@ -176,8 +170,10 @@ public:
 
     // lookup
     size_type count(const Key& key) const;
+#if CPPREFERENCE_STDVER >= 2014
     template<class K>
     size_type count(const K& x) const;
+#endif
 
     iterator find(const Key& key);
     const_iterator find(const Key& key) const;
@@ -289,15 +285,9 @@ public:
 
     // constructor
 
-
-#if CPPREFERENCE_STDVER <2014
-    explicit multiset(const Compare& comp = Compare(),
-                      const Allocator& alloc = Allocator());
-#else
     multiset();
     explicit multiset(const Compare& comp,
                       const Allocator& alloc = Allocator());
-#endif
 
 #if CPPREFERENCE_STDVER>= 2011
     explicit multiset(const Allocator& alloc);
@@ -401,8 +391,10 @@ public:
 
     // lookup
     size_type count(const Key& key) const;
+#if CPPREFERENCE_STDVER >= 2014
     template<class K>
     size_type count(const K& x) const;
+#endif
 
     iterator find(const Key& key);
     const_iterator find(const Key& key) const;

@@ -16,11 +16,15 @@
 #ifndef CPPREFERENCE_IOSFWD_H
 #define CPPREFERENCE_IOSFWD_H
 
+#include <cwchar> // for mbstate_t
+
 namespace std {
 
 template<class CharT> struct char_traits;
 
 template<class T> class allocator;
+
+typedef int streamoff;
 
 class ios_base;
 template<class CharT, class Traits = std::char_traits<CharT>> class basic_ios;
@@ -80,9 +84,10 @@ typedef basic_istringstream<wchar_t> wistringstream;
 typedef basic_ostringstream<wchar_t> wostringstream;
 typedef basic_stringstream<wchar_t> wstringstream;
 
-template<class state> class fpos;
-typedef fpos<typename char_traits<char>::state_type> streampos;
-typedef fpos<typename char_traits<wchar_t>::state_type> wstreampos;
+template<class State> class fpos;
+ // state type in below typedefs is actually impl-defined type char_traits<State>::state_type
+typedef fpos<mbstate_t> streampos;
+typedef fpos<mbstate_t> wstreampos;
 
 } // namespace std
 
