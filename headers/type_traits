@@ -301,14 +301,14 @@ template<class T> struct remove_pointer {
     typedef T type; // SIMPLIFIED type
 };
 template<class T> struct add_pointer {
-    typedef T type; // SIMPLIFIED type
+    typedef T* type; // SIMPLIFIED type
 };
 
 #if CPPREFERENCE_STDVER >= 2014
 template<class T>
 using remove_pointer_t = T; // SIMPLIFIED typedef
 template<class T>
-using add_pointer_t = T; // SIMPLIFIED typedef
+using add_pointer_t = T*; // SIMPLIFIED typedef
 #endif
 
 // sign modifiers
