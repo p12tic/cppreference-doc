@@ -19,10 +19,11 @@
 #if CPPREFERENCE_STDVER >= 2017
 
 #include <iterator> // for std::reverse_iterator
+#include <detail/string_view_fwd>
 
 namespace std {
 
-template<typename CharT, typename Traits = std::char_traits<CharT>>
+template<typename CharT, typename Traits /* = char_traits<CharT>*/>
 class basic_string_view {
 public:
     using traits_type = Traits;

@@ -26,6 +26,7 @@
 #include <iterator> // for std::reverse_iterator
 #include <memory> // for std::allocator
 #include <detail/string_fwd>
+#include <detail/string_view_fwd>
 
 namespace std {
 
@@ -165,6 +166,11 @@ public:
     basic_string(std::initializer_list<CharT> init,
                  const Allocator& alloc = Allocator());
 #endif
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string(basic_string_view<CharT,Traits> sv, const Allocator& alloc = Allocator());
+#endif
 
     ~basic_string();
 
@@ -174,6 +180,11 @@ public:
 #if CPPREFERENCE_STDVER>= 2011
     basic_string& operator=(basic_string&& other);
     basic_string& operator=(initializer_list<CharT> ilist);
+#endif
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string& operator=(basic_string_view<CharT,Traits> sv);
 #endif
 
     basic_string& assign(size_type count, const CharT& ch);
@@ -186,6 +197,12 @@ public:
     basic_string& assign(const basic_string& str,
                          size_type pos,
                          size_type count = npos);
+#endif
+
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string& assign(basic_string_view<CharT,Traits> sv);
 #endif
 
     basic_string& assign(const CharT* s,
@@ -215,6 +232,9 @@ public:
     const_reference at(size_type n) const;
     reference       operator[](size_type n);
     const_reference operator[](size_type n) const;
+#if CPPREFERENCE_STDVER >= 2017
+    operator basic_string_view<CharT, Traits>() const noexcept;
+#endif
 
 #if CPPREFERENCE_STDVER>= 2011
     CharT& front();
@@ -268,6 +288,12 @@ public:
 #else
     basic_string& insert(size_type index, const basic_string& str,
                          size_type index_str, size_type count = npos);
+#endif
+
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string& insert(size_type index, basic_string_view<CharT,Traits> sv);
 #endif
 
 #if CPPREFERENCE_STDVER <2011
@@ -324,6 +350,11 @@ public:
                          size_type pos,
                          size_type count);
 #endif
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string& append(basic_string_view<CharT,Traits> sv);
+#endif
     basic_string& append(const CharT* s,
                          size_type count);
     basic_string& append(const CharT* s);
@@ -348,6 +379,11 @@ public:
 #if CPPREFERENCE_STDVER> 2011
     basic_string& operator+=(std::initializer_list<CharT> ilist);
 #endif
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string& operator+=(basic_string_view<CharT,Traits> sv);
+#endif
 
     int compare(const basic_string& str) const;
     int compare(size_type pos1, size_type count1,
@@ -355,7 +391,6 @@ public:
 
 #if CPPREFERENCE_STDVER <2014
     int compare(size_type pos1, size_type count1,
-
                 const basic_string& str,
                 size_type pos2, size_type count2) const;
 #else
@@ -363,6 +398,14 @@ public:
                 const basic_string& str,
                 size_type pos2, size_type count2 = npos) const;
 #endif
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    int compare(basic_string_view<CharT,Traits> sv) const noexcept;
+    int compare(size_type pos1, size_type count1,
+                basic_string_view<CharT,Traits> sv) const;
+#endif
+
     int compare(const CharT* s) const;
     int compare(size_type pos1, size_type count1,
                 const CharT* s) const;
@@ -382,6 +425,16 @@ public:
                 size_type pos2, size_type count2 = npos) const;
 #endif
 
+#if CPPREFERENCE_STDVER >= 2020
+    bool starts_with(basic_string_view<CharT,Traits> sv) const noexcept;
+    bool starts_with(CharT c) const noexcept;
+    bool starts_with(const CharT* s) const;
+
+    bool ends_with(basic_string_view<CharT,Traits> sv) const noexcept;
+    bool ends_with(CharT c) const noexcept;
+    bool ends_with(const CharT* s) const;
+#endif
+
     basic_string& replace(size_type pos, size_type count,
                           const basic_string& str);
     basic_string& replace(const_iterator first, const_iterator last,
@@ -397,6 +450,15 @@ public:
 
                           const basic_string& str,
                           size_type pos2, size_type count2 = npos);
+#endif
+
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    basic_string& replace(size_type pos, size_type count,
+                          basic_string_view<CharT,Traits> sv);
+    basic_string& replace(const_iterator first, const_iterator last,
+                          basic_string_view<CharT,Traits> sv);
 #endif
 
     template<class InputIt>
@@ -448,31 +510,71 @@ public:
 
     // search
     size_type find(const basic_string& str, size_type pos = 0) const;
+
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    size_type find(basic_string_view<CharT,Traits> sv,
+                   size_type pos = 0);
+#endif
+
     size_type find(const CharT* s, size_type pos, size_type count) const;
     size_type find(const CharT* s, size_type pos = 0) const;
     size_type find(CharT ch, size_type pos = 0) const;
 
     size_type rfind(const basic_string& str, size_type pos = npos) const;
+
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    size_type rfind(basic_string_view<CharT,Traits> sv,
+                    size_type pos = npos);
+#endif
+
     size_type rfind(const CharT* s, size_type pos, size_type count) const;
     size_type rfind(const CharT* s, size_type pos = npos) const;
     size_type rfind(CharT ch, size_type pos = npos) const;
 
     size_type find_first_of(const basic_string& str, size_type pos = 0) const;
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    size_type find_first_of(basic_string_view<CharT,Traits> sv,
+                            size_type pos = 0);
+#endif
     size_type find_first_of(const CharT* s, size_type pos, size_type count) const;
     size_type find_first_of(const CharT* s, size_type pos = 0) const;
     size_type find_first_of(CharT ch, size_type pos = 0) const;
 
     size_type find_first_not_of(const basic_string& str, size_type pos = 0) const;
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    size_type find_first_not_of(basic_string_view<CharT,Traits> sv,
+                                size_type pos = 0);
+#endif
     size_type find_first_not_of(const CharT* s, size_type pos, size_type count) const;
     size_type find_first_not_of(const CharT* s, size_type pos = 0) const;
     size_type find_first_not_of(CharT ch, size_type pos = 0) const;
 
     size_type find_last_of(const basic_string& str, size_type pos = npos) const;
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    size_type find_last_of(basic_string_view<CharT,Traits> sv,
+                           size_type pos = npos);
+#endif
     size_type find_last_of(const CharT* s, size_type pos, size_type count) const;
     size_type find_last_of(const CharT* s, size_type pos = npos) const;
     size_type find_last_of(CharT ch, size_type pos = npos) const;
 
     size_type find_last_not_of(const basic_string& str, size_type pos = npos) const;
+#if CPPREFERENCE_STDVER >= 2017
+    // SIMPLIFIED: the C++20 standard specifies a template that only accepts types convertible
+    // to string_view, but not to const Char*
+    size_type find_last_not_of(basic_string_view<CharT,Traits> sv,
+                               size_type pos = npos);
+#endif
     size_type find_last_not_of(const CharT* s, size_type pos, size_type count) const;
     size_type find_last_not_of(const CharT* s, size_type pos = npos) const;
     size_type find_last_not_of(CharT ch, size_type pos = npos) const;
