@@ -29,7 +29,13 @@ namespace std {
 typedef long ptrdiff_t;
 typedef unsigned long size_t;
 typedef long max_align_t;
+#if CPPREFERENCE_STDVER >= 2011
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
 typedef void* nullptr_t;
+#else
+typedef decltype(nullptr) nullptr_t;
+#endif
+#endif
 } // namespace std
 
 #endif // CPPREFERENCE_CSTDDEF_H
