@@ -2090,6 +2090,32 @@
     </class>
 
     <!--=======================================================================-->
+    <!-- cpp/utility/format -->
+
+    <function name="std::format" link="cpp/utility/format/format" since="c++20"/>
+    <function name="std::format_to" link="cpp/utility/format/format_to" since="c++20"/>
+    <function name="std::format_to_n" link="cpp/utility/format/format_to_n" since="c++20"/>
+    <function name="std::formatted_size" link="cpp/utility/format/formatted_size" since="c++20"/>
+    <function name="std::vformat" link="cpp/utility/format/vformat" since="c++20"/>
+    <function name="std::vformat_to" link="cpp/utility/format/vformat_to" since="c++20"/>
+    <class name="std::formatter" link="cpp/utility/format/formatter" since="c++20"/>
+    <class name="std::basic_format_parse_context" link="cpp/utility/format/basic_format_parse_context" since="c++20"/>
+    <typedef name="std::format_parse_context" alias="std::basic_format_parse_context" since="c++20"/>
+    <typedef name="std::wformat_parse_context" alias="std::basic_format_parse_context" since="c++20"/>
+    <class name="std::basic_format_context" link="cpp/utility/format/basic_format_context" since="c++20"/>
+    <typedef name="std::format_context" alias="std::basic_format_context" since="c++20"/>
+    <typedef name="std::wformat_context" alias="std::basic_format_context" since="c++20"/>
+    <class name="std::basic_format_arg" link="cpp/utility/format/basic_format_arg" since="c++20"/>
+    <class name="std::basic_format_args" link="cpp/utility/format/basic_format_args" since="c++20"/>
+    <typedef name="std::format_args" alias="std::basic_format_args" since="c++20"/>
+    <typedef name="std::wformat_args" alias="std::basic_format_args" since="c++20"/>
+    <typedef name="std::format_args_t" alias="std::basic_format_args" since="c++20"/>
+    <function name="std::visit_format_arg" link="cpp/utility/format/visit_format_arg" since="c++20"/>
+    <function name="std::make_format_args" link="cpp/utility/format/make_format_args" since="c++20"/>
+    <function name="std::make_wformat_args" link="cpp/utility/format/make_format_args" since="c++20"/>
+    <class name="std::format_error" link="cpp/utility/format/format_error" since="c++20"/>
+
+    <!--=======================================================================-->
     <!-- cpp/utility -->
 
     <class name="std::pair" link="cpp/utility/pair">
