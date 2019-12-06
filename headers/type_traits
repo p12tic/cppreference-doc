@@ -368,12 +368,15 @@ template<class T>
 using decay_t = T; // SIMPLIFIED typedef
 #endif
 
-template<bool, class T = void> struct enable_if {
-    typedef int type; // SIMPLIFIED type
+template<bool, class T = void> struct enable_if {};
+
+template<class T>
+struct enable_if<true, T> {
+    typedef T type;
 };
 #if CPPREFERENCE_STDVER >= 2014
-template<bool, class T = void>
-using enable_if_t = int; // SIMPLIFIED typedef
+template<bool B, class T = void>
+using enable_if_t = typename enable_if<B, T>::type;
 #endif
 
 template<bool, class T, class F> struct conditional {
