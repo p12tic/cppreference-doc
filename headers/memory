@@ -417,7 +417,6 @@ public:
 
 template<class T>
 struct allocator {
-    // SIMPLIFIED: allocator<void> specialization is not provided
     typedef T value_type;
     typedef T* pointer;
     typedef const T* const_pointer;
@@ -461,6 +460,19 @@ struct allocator {
 
     template<class U>
     void destroy(U* p);
+};
+
+template<>
+struct allocator<void> {
+    typedef void value_type;
+    typedef void* pointer;
+    typedef const void* const_pointer;
+#if CPPREFERENCE_STDVER>= 2014
+    typedef true_type propagate_on_container_move_assignment;
+#endif
+    template<class U> struct rebind {
+        typedef allocator<U> other;
+    };
 };
 
 template<class T1, class T2>
