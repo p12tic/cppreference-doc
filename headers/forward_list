@@ -129,8 +129,13 @@ public:
     void push_front(const T& value);
     void push_front(T&& value);
 
+#if CPPREFERENCE_STDVER >= 2017
+    template<class... Args>
+    reference emplace_front(Args&& ... args);
+#else
     template<class... Args>
     void emplace_front(Args&& ... args);
+#endif
 
     void pop_front();
 

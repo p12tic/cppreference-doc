@@ -175,7 +175,10 @@ public:
     void push_back(T&& value);
 #endif
 
-#if CPPREFERENCE_STDVER>= 2011
+#if CPPREFERENCE_STDVER >= 2017
+    template<class... Args>
+    reference emplace_back(Args&& ... args);
+#elif CPPREFERENCE_STDVER >= 2011
     template<class... Args>
     void emplace_back(Args&& ... args);
 #endif
@@ -187,7 +190,10 @@ public:
     void push_front(T&& value);
 #endif
 
-#if CPPREFERENCE_STDVER>= 2011
+#if CPPREFERENCE_STDVER >= 2017
+    template<class... Args>
+    reference emplace_front(Args&& ... args);
+#elif CPPREFERENCE_STDVER >= 2011
     template<class... Args>
     void emplace_front(Args&& ... args);
 #endif
