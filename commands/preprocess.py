@@ -317,13 +317,21 @@ def remove_google_analytics(html):
                 el.getparent().remove(el)
 
 
-# remove Carbon ads
+# remove ads
 def remove_ads(html):
+    # Carbon Ads
     for el in html.xpath('//script[@src]'):
         if 'carbonads.com/carbon.js' in el.get('src'):
             el.getparent().remove(el)
     for el in html.xpath('/html/body/style'):
         if el.text is not None and '#carbonads' in el.text:
+            el.getparent().remove(el)
+    # BuySellAds
+    for el in html.xpath('//script[@type]'):
+        if 'buysellads.com' in el.text:
+            el.getparent().remove(el)
+    for el in html.xpath('//div[@id]'):
+        if el.get('id').startswith('bsap_'):
             el.getparent().remove(el)
 
 
