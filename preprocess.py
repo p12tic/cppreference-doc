@@ -17,11 +17,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-from commands import preprocess
 import argparse
 import concurrent.futures
 import os
 import shutil
+from commands import preprocess
 
 
 def main():
