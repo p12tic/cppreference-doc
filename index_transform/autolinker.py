@@ -75,7 +75,7 @@ class Index2AutolinkerGroups(IndexTransform):
 class Index2AutolinkerLinks(IndexTransform):
 
     def __init__(self):
-        super(Index2AutolinkerLinks, self).__init__()
+        super().__init__()
         self.links = []
         self.curr_group = None
 

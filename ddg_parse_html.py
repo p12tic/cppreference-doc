@@ -34,8 +34,8 @@ def get_content_el(root_el):
                             /div[@id="content"]
                             /div[@id="bodyContent"]
                             /div[@class="mw-content-ltr"]''')[0]
-    except Exception:
-        raise DdgException("Could not find content element")
+    except Exception as e:
+        raise DdgException("Could not find content element") from e
 
 
 VERSION_C89 = 0

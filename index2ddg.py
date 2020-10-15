@@ -129,7 +129,7 @@ class Index2DuckDuckGoList(IndexTransform):
 
     def __init__(self, ident_map):
         self.ident_map = ident_map
-        super(Index2DuckDuckGoList, self).__init__(ignore_typedefs=True)
+        super().__init__(ignore_typedefs=True)
 
     def process_item_hook(self, el, full_name, full_link):
 
