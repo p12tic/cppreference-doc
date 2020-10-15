@@ -24,6 +24,7 @@ import sys
 import contextlib
 import unittest
 import unittest.mock
+from lxml import etree
 from commands.preprocess import build_rename_map
 from commands.preprocess import convert_loader_name
 from commands.preprocess import has_class
@@ -38,7 +39,6 @@ from commands.preprocess import remove_unused_external
 from commands.preprocess import transform_ranges_placeholder
 from commands.preprocess import trasform_relative_link
 from commands.preprocess import rename_files
-from lxml import etree
 
 
 class DummyFile(object):
