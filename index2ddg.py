@@ -21,15 +21,17 @@
 import argparse
 import fnmatch
 import os
-import sys
 import re
+import sys
 
 import lxml.etree as e
 from lxml import html
 
-from index_transform.common import IndexTransform
 from build_link_map import build_link_map
-from ddg_parse_html import get_declarations, get_short_description, DdgException
+from ddg_parse_html import DdgException
+from ddg_parse_html import get_declarations
+from ddg_parse_html import get_short_description
+from index_transform.common import IndexTransform
 
 # Entry types
 # a class or struct

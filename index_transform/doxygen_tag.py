@@ -19,6 +19,7 @@
 '''
 
 from functools import total_ordering
+
 from index_transform.common import IndexTransform
 from xml_utils import xml_escape
 

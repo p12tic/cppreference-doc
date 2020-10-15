@@ -20,6 +20,7 @@
 
 import re
 from copy import deepcopy
+
 import lxml.etree as e
 
 

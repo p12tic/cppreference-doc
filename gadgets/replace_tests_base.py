@@ -24,6 +24,7 @@ import os
 import re
 import sys
 
+
 def get_html_files(root):
     files = []
     for dir, dirnames, filenames in os.walk(root):

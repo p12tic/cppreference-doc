@@ -19,11 +19,13 @@
 '''
 
 import argparse
+
 from lxml import etree
-from link_map import LinkMap
+
 from index_transform.doxygen_tag import Index2DoxygenTag
 from index_transform.doxygen_tag import Item
 from index_transform.doxygen_tag import print_map
+from link_map import LinkMap
 
 
 def main():

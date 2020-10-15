@@ -17,16 +17,18 @@
 
 import os
 import unittest
+
 from lxml import etree
-from commands.preprocess_cssless import preprocess_html_merge_cssless
-from commands.preprocess_cssless import silence_cssutils_warnings
-from commands.preprocess_cssless import convert_span_tables_to_tr_td
-from commands.preprocess_cssless import convert_inline_block_elements_to_table
-from commands.preprocess_cssless import convert_zero_td_width_to_nonzero
+
 from commands.preprocess_cssless import apply_font_size
 from commands.preprocess_cssless import convert_font_size_property_to_pt
-from commands.preprocess_cssless \
-    import convert_table_border_top_to_tr_background
+from commands.preprocess_cssless import convert_inline_block_elements_to_table
+from commands.preprocess_cssless import convert_span_tables_to_tr_td
+from commands.preprocess_cssless import \
+    convert_table_border_top_to_tr_background
+from commands.preprocess_cssless import convert_zero_td_width_to_nonzero
+from commands.preprocess_cssless import preprocess_html_merge_cssless
+from commands.preprocess_cssless import silence_cssutils_warnings
 
 
 class TestPreprocessHtmlMergeCss(unittest.TestCase):

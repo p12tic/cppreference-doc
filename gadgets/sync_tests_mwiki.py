@@ -29,16 +29,16 @@ import os
 # command line.
 os.environ['PYWIKIBOT2_NO_USER_CONFIG']='1'
 
-import pywikibot
-import pywikibot.config2
-import pywikibot.pagegenerators
-import pywikibot.data.api
-
 import argparse
 import itertools
 import shutil
 import sys
 import urllib
+
+import pywikibot
+import pywikibot.config2
+import pywikibot.data.api
+import pywikibot.pagegenerators
 
 SYNC_DIRECTION_UPLOAD = 1
 SYNC_DIRECTION_DOWNLOAD = 2

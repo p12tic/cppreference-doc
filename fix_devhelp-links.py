@@ -19,9 +19,10 @@
 '''
 
 import sys
-import lxml.etree as e
-from link_map import LinkMap
 
+import lxml.etree as e
+
+from link_map import LinkMap
 
 if len(sys.argv) != 3:
     print('''Please provide the following 2 argument:

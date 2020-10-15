@@ -21,8 +21,9 @@
 # filename -> title mapping to a xml file.
 
 import fnmatch
-import re
 import os
+import re
+
 from link_map import LinkMap
 
 
