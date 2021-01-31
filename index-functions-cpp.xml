@@ -5814,6 +5814,11 @@
         <function name="exchange"/>
         <function name="compare_exchange_strong" link="compare_exchange"/>
         <function name="compare_exchange_weak" link="compare_exchange"/>
+        <function name="wait" since="c++20"/>
+        <function name="notify_one" since="c++20"/>
+        <function name="notify_all" since="c++20"/>
+
+        <const name="is_always_lock_free" since="c++17"/>
 
         <function name="fetch_add"/>
         <function name="fetch_sub"/>
@@ -5843,6 +5848,12 @@
         <function name="exchange"/>
         <function name="compare_exchange_strong" link="compare_exchange"/>
         <function name="compare_exchange_weak" link="compare_exchange"/>
+        <function name="wait"/>
+        <function name="notify_one"/>
+        <function name="notify_all"/>
+
+        <const name="is_always_lock_free"/>
+        <const name="required_alignment"/>
 
         <function name="fetch_add"/>
         <function name="fetch_sub"/>
@@ -5884,8 +5895,8 @@
     <function name="std::atomic_fetch_sub" link="cpp/atomic/atomic_fetch_sub"/>
     <function name="std::atomic_fetch_sub_explicit" link="cpp/atomic/atomic_fetch_sub"/>
 
-    <function name="std::atomic_fetch_and" link="cpp/atomic/atomic_fetch_sub"/>
-    <function name="std::atomic_fetch_and_explicit" link="cpp/atomic/atomic_fetch_sub"/>
+    <function name="std::atomic_fetch_and" link="cpp/atomic/atomic_fetch_and"/>
+    <function name="std::atomic_fetch_and_explicit" link="cpp/atomic/atomic_fetch_and"/>
 
     <function name="std::atomic_fetch_or" link="cpp/atomic/atomic_fetch_or"/>
     <function name="std::atomic_fetch_or_explicit" link="cpp/atomic/atomic_fetch_or"/>
@@ -5893,12 +5904,32 @@
     <function name="std::atomic_fetch_xor" link="cpp/atomic/atomic_fetch_xor"/>
     <function name="std::atomic_fetch_xor_explicit" link="cpp/atomic/atomic_fetch_xor"/>
 
+    <function name="std::atomic_wait" link="cpp/atomic/atomic_wait" since="c++20"/>
+    <function name="std::atomic_wait_explicit" link="cpp/atomic/atomic_wait" since="c++20"/>
+    <function name="std::atomic_notify_one" link="cpp/atomic/atomic_notify_one" since="c++20"/>
+    <function name="std::atomic_notify_all" link="cpp/atomic/atomic_notify_all" since="c++20"/>
+
     <class name="std::atomic_flag" link="cpp/atomic/atomic_flag">
         <constructor/>
         <function name="operator="/>
         <function name="clear"/>
         <function name="test_and_set"/>
+        <function name="test" since="c++20"/>
+        <function name="wait" since="c++20"/>
+        <function name="notify_one" since="c++20"/>
+        <function name="notify_all" since="c++20"/>
     </class>
+
+    <function name="std::atomic_flag_test_and_set" link="cpp/atomic/atomic_flag_test_and_set" since="c++11"/>
+    <function name="std::atomic_flag_test_and_set_explicit" link="cpp/atomic/atomic_flag_test_and_set" since="c++11"/>
+    <function name="std::atomic_flag_clear" link="cpp/atomic/atomic_flag_clear" since="c++11"/>
+    <function name="std::atomic_flag_clear_explicit" link="cpp/atomic/atomic_flag_clear" since="c++11"/>
+    <function name="std::atomic_flag_test" link="cpp/atomic/atomic_flag_test" since="c++20"/>
+    <function name="std::atomic_flag_test_explicit" link="cpp/atomic/atomic_flag_test" since="c++20"/>
+    <function name="std::atomic_flag_wait" link="cpp/atomic/atomic_flag_wait" since="c++20"/>
+    <function name="std::atomic_flag_wait_explicit" link="cpp/atomic/atomic_flag_wait" since="c++20"/>
+    <function name="std::atomic_flag_notify_one" link="cpp/atomic/atomic_flag_notify_one" since="c++20"/>
+    <function name="std::atomic_flag_notify_all" link="cpp/atomic/atomic_flag_notify_all" since="c++20"/>
 
     <function name="std::atomic_init" link="cpp/atomic/atomic_init"/>
     <function name="ATOMIC_VAR_INIT" link="cpp/atomic/ATOMIC_VAR_INIT"/>
