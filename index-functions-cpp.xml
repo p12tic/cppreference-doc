@@ -1074,6 +1074,24 @@
     <function name="std::destroy" link="cpp/memory/destroy" since="c++17"/>
     <function name="std::destroy_at" link="cpp/memory/destroy_at" since="c++17"/>
     <function name="std::destroy_n" link="cpp/memory/destroy_n" since="c++17"/>
+    <function name="std::construct_at" link="cpp/memory/construct_at" since="c++20"/>
+
+    <function name="std::ranges::uninitialized_copy" link="cpp/memory/ranges/uninitialized_copy" since="c++20"/>
+    <function name="std::ranges::uninitialized_copy_n" link="cpp/memory/ranges/uninitialized_copy_n" since="c++20"/>
+    <function name="std::ranges::uninitialized_fill" link="cpp/memory/ranges/uninitialized_fill" since="c++20"/>
+    <function name="std::ranges::uninitialized_fill_n" link="cpp/memory/ranges/uninitialized_fill_n" since="c++20"/>
+
+    <function name="std::ranges::uninitialized_move" link="cpp/memory/ranges/uninitialized_move" since="c++20"/>
+    <function name="std::ranges::uninitialized_move_n" link="cpp/memory/ranges/uninitialized_move_n" since="c++20"/>
+    <function name="std::ranges::uninitialized_default_construct" link="cpp/memory/ranges/uninitialized_default_construct" since="c++20"/>
+    <function name="std::ranges::uninitialized_default_construct_n" link="cpp/memory/ranges/uninitialized_default_construct_n" since="c++20"/>
+    <function name="std::ranges::uninitialized_value_construct" link="cpp/memory/ranges/uninitialized_value_construct" since="c++20"/>
+    <function name="std::ranges::uninitialized_value_construct_n" link="cpp/memory/ranges/uninitialized_value_construct_n" since="c++20"/>
+
+    <function name="std::ranges::destroy" link="cpp/memory/ranges/destroy" since="c++20"/>
+    <function name="std::ranges::destroy_at" link="cpp/memory/ranges/destroy_at" since="c++20"/>
+    <function name="std::ranges::destroy_n" link="cpp/memory/ranges/destroy_n" since="c++20"/>
+    <function name="std::ranges::construct_at" link="cpp/memory/ranges/construct_at" since="c++20"/>
 
     <class name="std::raw_storage_iterator" link="cpp/memory/raw_storage_iterator">
         <constructor/>
@@ -4563,8 +4581,7 @@
 
     <function name="std::equal" link="cpp/algorithm/equal"/>
     <function name="std::lexicographical_compare" link="cpp/algorithm/lexicographical_compare"/>
-    <function name="std::compare_3way" link="cpp/algorithm/compare_3way" since="c++20"/>
-    <function name="std::lexicographical_compare_3way" link="cpp/algorithm/lexicographical_compare_3way" since="c++20"/>
+    <function name="std::lexicographical_compare_three_way" link="cpp/algorithm/lexicographical_compare_three_way" since="c++20"/>
 
     <function name="std::is_permutation" link="cpp/algorithm/is_permutation" since="c++11"/>
     <function name="std::next_permutation" link="cpp/algorithm/next_permutation"/>
@@ -4582,6 +4599,101 @@
     <function name="std::transform_reduce" link="cpp/algorithm/transform_reduce" since="c++17"/>
     <function name="std::transform_inclusive_scan" link="cpp/algorithm/transform_inclusive_scan" since="c++17"/>
     <function name="std::transform_exclusive_scan" link="cpp/algorithm/transform_exclusive_scan" since="c++17"/>
+
+    <function name="std::ranges::all_of" link="cpp/algorithm/ranges/all_any_none_of" since="c++20"/>
+    <function name="std::ranges::any_of" link="cpp/algorithm/ranges/all_any_none_of" since="c++20"/>
+    <function name="std::ranges::none_of" link="cpp/algorithm/ranges/all_any_none_of" since="c++20"/>
+    <function name="std::ranges::for_each" link="cpp/algorithm/ranges/for_each" since="c++20"/>
+    <function name="std::ranges::for_each_n" link="cpp/algorithm/ranges/for_each_n" since="c++20"/>
+    <function name="std::ranges::count" link="cpp/algorithm/ranges/count" since="c++20"/>
+    <function name="std::ranges::count_if" link="cpp/algorithm/ranges/count" since="c++20"/>
+    <function name="std::ranges::mismatch" link="cpp/algorithm/ranges/mismatch" since="c++20"/>
+    <function name="std::ranges::find" link="cpp/algorithm/ranges/find" since="c++20"/>
+    <function name="std::ranges::find_if" link="cpp/algorithm/ranges/find" since="c++20"/>
+    <function name="std::ranges::find_if_not" link="cpp/algorithm/ranges/find" since="c++20"/>
+    <function name="std::ranges::find_end" link="cpp/algorithm/ranges/find_end" since="c++20"/>
+    <function name="std::ranges::find_first_of" link="cpp/algorithm/ranges/find_first_of" since="c++20"/>
+    <function name="std::ranges::adjacent_find" link="cpp/algorithm/ranges/adjacent_find" since="c++20"/>
+    <function name="std::ranges::search" link="cpp/algorithm/ranges/search" since="c++20"/>
+    <function name="std::ranges::search_n" link="cpp/algorithm/ranges/search_n" since="c++20"/>
+
+    <function name="std::ranges::copy" link="cpp/algorithm/ranges/copy" since="c++20"/>
+    <function name="std::ranges::copy_if" link="cpp/algorithm/ranges/copy" since="c++20"/>
+    <function name="std::ranges::copy_n" link="cpp/algorithm/ranges/copy_n" since="c++20"/>
+    <function name="std::ranges::copy_backward" link="cpp/algorithm/ranges/copy_backward" since="c++20"/>
+    <function name="std::ranges::move" link="cpp/algorithm/ranges/move" since="c++20"/>
+    <function name="std::ranges::move_backward" link="cpp/algorithm/ranges/move_backward" since="c++20"/>
+    <function name="std::ranges::fill" link="cpp/algorithm/ranges/fill" since="c++20"/>
+    <function name="std::ranges::fill_n" link="cpp/algorithm/ranges/fill_n" since="c++20"/>
+    <function name="std::ranges::transform" link="cpp/algorithm/ranges/transform" since="c++20"/>
+    <function name="std::ranges::generate" link="cpp/algorithm/ranges/generate" since="c++20"/>
+    <function name="std::ranges::generate_n" link="cpp/algorithm/ranges/generate_n" since="c++20"/>
+    <function name="std::ranges::remove" link="cpp/algorithm/ranges/remove" since="c++20"/>
+    <function name="std::ranges::remove_if" link="cpp/algorithm/ranges/remove" since="c++20"/>
+    <function name="std::ranges::remove_copy" link="cpp/algorithm/ranges/remove_copy" since="c++20"/>
+    <function name="std::ranges::remove_copy_if" link="cpp/algorithm/ranges/remove_copy" since="c++20"/>
+    <function name="std::ranges::replace" link="cpp/algorithm/ranges/replace" since="c++20"/>
+    <function name="std::ranges::replace_if" link="cpp/algorithm/ranges/replace" since="c++20"/>
+    <function name="std::ranges::replace_copy" link="cpp/algorithm/ranges/replace_copy" since="c++20"/>
+    <function name="std::ranges::replace_copy_if" link="cpp/algorithm/ranges/replace_copy" since="c++20"/>
+    <function name="std::ranges::swap_ranges" link="cpp/algorithm/ranges/swap_ranges" since="c++20"/>
+    <function name="std::ranges::reverse" link="cpp/algorithm/ranges/reverse" since="c++20"/>
+    <function name="std::ranges::reverse_copy" link="cpp/algorithm/ranges/reverse_copy" since="c++20"/>
+    <function name="std::ranges::rotate" link="cpp/algorithm/ranges/rotate" since="c++20"/>
+    <function name="std::ranges::rotate_copy" link="cpp/algorithm/ranges/rotate_copy" since="c++20"/>
+    <function name="std::ranges::shuffle" link="cpp/algorithm/ranges/shuffle" since="c++20"/>
+    <function name="std::ranges::sample" link="cpp/algorithm/ranges/sample" since="c++20"/>
+    <function name="std::ranges::unique" link="cpp/algorithm/ranges/unique" since="c++20"/>
+    <function name="std::ranges::unique_copy" link="cpp/algorithm/ranges/unique_copy" since="c++20"/>
+
+    <function name="std::ranges::is_partitioned" link="cpp/algorithm/ranges/is_partitioned" since="c++20"/>
+    <function name="std::ranges::partition" link="cpp/algorithm/ranges/partition" since="c++20"/>
+    <function name="std::ranges::partition_copy" link="cpp/algorithm/ranges/partition_copy" since="c++20"/>
+    <function name="std::ranges::stable_partition" link="cpp/algorithm/ranges/stable_partition" since="c++20"/>
+    <function name="std::ranges::partition_point" link="cpp/algorithm/ranges/partition_point" since="c++20"/>
+
+    <function name="std::ranges::is_sorted" link="cpp/algorithm/ranges/is_sorted" since="c++20"/>
+    <function name="std::ranges::is_sorted_until" link="cpp/algorithm/ranges/is_sorted_until" since="c++20"/>
+    <function name="std::ranges::sort" link="cpp/algorithm/ranges/sort" since="c++20"/>
+    <function name="std::ranges::partial_sort" link="cpp/algorithm/ranges/partial_sort" since="c++20"/>
+    <function name="std::ranges::partial_sort_copy" link="cpp/algorithm/ranges/partial_sort_copy" since="c++20"/>
+    <function name="std::ranges::stable_sort" link="cpp/algorithm/ranges/stable_sort" since="c++20"/>
+    <function name="std::ranges::nth_element" link="cpp/algorithm/ranges/nth_element" since="c++20"/>
+
+    <function name="std::ranges::lower_bound" link="cpp/algorithm/ranges/lower_bound" since="c++20"/>
+    <function name="std::ranges::upper_bound" link="cpp/algorithm/ranges/upper_bound" since="c++20"/>
+    <function name="std::ranges::binary_search" link="cpp/algorithm/ranges/binary_search" since="c++20"/>
+    <function name="std::ranges::equal_range" link="cpp/algorithm/ranges/equal_range" since="c++20"/>
+
+    <function name="std::ranges::merge" link="cpp/algorithm/ranges/merge" since="c++20"/>
+    <function name="std::ranges::inplace_merge" link="cpp/algorithm/ranges/inplace_merge" since="c++20"/>
+    <function name="std::ranges::includes" link="cpp/algorithm/ranges/includes" since="c++20"/>
+    <function name="std::ranges::set_difference" link="cpp/algorithm/ranges/set_difference" since="c++20"/>
+    <function name="std::ranges::set_intersection" link="cpp/algorithm/ranges/set_intersection" since="c++20"/>
+    <function name="std::ranges::set_symmetric_difference" link="cpp/algorithm/ranges/set_symmetric_difference" since="c++20"/>
+    <function name="std::ranges::set_union" link="cpp/algorithm/ranges/set_union" since="c++20"/>
+
+    <function name="std::ranges::is_heap" link="cpp/algorithm/ranges/is_heap" since="c++20"/>
+    <function name="std::ranges::is_heap_until" link="cpp/algorithm/ranges/is_heap_until" since="c++20"/>
+    <function name="std::ranges::make_heap" link="cpp/algorithm/ranges/make_heap" since="c++20"/>
+    <function name="std::ranges::push_heap" link="cpp/algorithm/ranges/push_heap" since="c++20"/>
+    <function name="std::ranges::pop_heap" link="cpp/algorithm/ranges/pop_heap" since="c++20"/>
+    <function name="std::ranges::sort_heap" link="cpp/algorithm/ranges/sort_heap" since="c++20"/>
+
+    <function name="std::ranges::max" link="cpp/algorithm/ranges/max" since="c++20"/>
+    <function name="std::ranges::max_element" link="cpp/algorithm/ranges/max_element" since="c++20"/>
+    <function name="std::ranges::min" link="cpp/algorithm/ranges/min" since="c++20"/>
+    <function name="std::ranges::min_element" link="cpp/algorithm/ranges/min_element" since="c++20"/>
+    <function name="std::ranges::minmax" link="cpp/algorithm/ranges/minmax" since="c++20"/>
+    <function name="std::ranges::minmax_element" link="cpp/algorithm/ranges/minmax_element" since="c++20"/>
+    <function name="std::ranges::clamp" link="cpp/algorithm/ranges/clamp" since="c++20"/>
+
+    <function name="std::ranges::equal" link="cpp/algorithm/ranges/equal" since="c++20"/>
+    <function name="std::ranges::lexicographical_compare" link="cpp/algorithm/ranges/lexicographical_compare" since="c++20"/>
+
+    <function name="std::ranges::is_permutation" link="cpp/algorithm/ranges/is_permutation" since="c++20"/>
+    <function name="std::ranges::next_permutation" link="cpp/algorithm/ranges/next_permutation" since="c++20"/>
+    <function name="std::ranges::prev_permutation" link="cpp/algorithm/ranges/prev_permutation" since="c++20"/>
 
     <function name="std::gcd" link="cpp/numeric/gcd" since="c++17"/>
     <function name="std::lcm" link="cpp/numeric/lcm" since="c++17"/>
