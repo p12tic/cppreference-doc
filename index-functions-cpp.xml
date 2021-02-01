@@ -1970,10 +1970,31 @@
         <function name="operator()" link="."/>
     </class>
 
-    <!-- todo: deprecated content of <functional> -->
-
     <class name="std::unary_function" link="cpp/utility/functional/unary_function"/>
     <class name="std::binary_function" link="cpp/utility/functional/binary_function"/>
+
+    <class name="std::binder1st" link="cpp/utility/functional/binder12"/>
+    <class name="std::binder2nd" link="cpp/utility/functional/binder12"/>
+    <function name="std::bind1st" link="cpp/utility/functional/bind12"/>
+    <function name="std::bind2nd" link="cpp/utility/functional/bind12"/>
+
+    <class name="std::pointer_to_unary_function" link="cpp/utility/functional/pointer_to_unary_function"/>
+    <class name="std::pointer_to_binary_function" link="cpp/utility/functional/pointer_to_binary_function"/>
+    <function name="std::ptr_fun" link="cpp/utility/functional/ptr_fun"/>
+    <class name="std::mem_fun_t" link="cpp/utility/functional/mem_fun_t"/>
+    <class name="std::mem_fun1_t" link="cpp/utility/functional/mem_fun_t"/>
+    <class name="std::const_mem_fun_t" link="cpp/utility/functional/mem_fun_t"/>
+    <class name="std::const_mem_fun1_t" link="cpp/utility/functional/mem_fun_t"/>
+    <function name="std::mem_fun" link="cpp/utility/functional/mem_fun"/>
+    <class name="std::mem_fun_ref_t" link="cpp/utility/functional/mem_fun_ref_t"/>
+    <class name="std::mem_fun1_ref_t" link="cpp/utility/functional/mem_fun_ref_t"/>
+    <class name="std::const_mem_fun_ref_t" link="cpp/utility/functional/mem_fun_ref_t"/>
+    <class name="std::const_mem_fun1_ref_t" link="cpp/utility/functional/mem_fun_ref_t"/>
+    <function name="std::mem_fun_ref" link="cpp/utility/functional/mem_fun_ref"/>
+    <class name="std::unary_negate" link="cpp/utility/functional/unary_negate"/>
+    <class name="std::binary_negate" link="cpp/utility/functional/binary_negate"/>
+    <function name="std::not1" link="cpp/utility/functional/not1"/>
+    <function name="std::not2" link="cpp/utility/functional/not2"/>
 
     <!--=======================================================================-->
     <!-- cpp/utility/any -->
@@ -3727,25 +3748,148 @@
     <!-- cpp/numeric/valarray -->
 
     <class name="std::valarray" link="cpp/numeric/valarray">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator[]" link="operator_at"/>
+        <function name="operator+" link="operator_arith"/>
+        <function name="operator-" link="operator_arith"/>
+        <function name="operator~" link="operator_arith"/>
+        <function name="operator!" link="operator_arith"/>
+        <function name="operator+=" link="operator_arith2"/>
+        <function name="operator-=" link="operator_arith2"/>
+        <function name="operator*=" link="operator_arith2"/>
+        <function name="operator/=" link="operator_arith2"/>
+        <function name="operator%=" link="operator_arith2"/>
+        <function name="operator&amp;=" link="operator_arith2"/>
+        <function name="operator|=" link="operator_arith2"/>
+        <function name="operator^=" link="operator_arith2"/>
+        <function name="operator&lt;&lt;=" link="operator_arith2"/>
+        <function name="operator&gt;&gt;=" link="operator_arith2"/>
+        <function name="swap"/>
+        <function name="size"/>
+        <function name="resize"/>
+        <function name="sum"/>
+        <function name="min"/>
+        <function name="max"/>
+        <function name="shift"/>
+        <function name="cshift"/>
+        <function name="apply"/>
+
+        <overload name="std::swap" link="swap2"/>
+        <overload name="std::begin" link="begin2"/>
+        <overload name="std::end" link="end2"/>
+        <overload name="operator+" link="operator_arith3"/>
+        <overload name="operator-" link="operator_arith3"/>
+        <overload name="operator*" link="operator_arith3"/>
+        <overload name="operator/" link="operator_arith3"/>
+        <overload name="operator%" link="operator_arith3"/>
+        <overload name="operator&amp;" link="operator_arith3"/>
+        <overload name="operator|" link="operator_arith3"/>
+        <overload name="operator^" link="operator_arith3"/>
+        <overload name="operator&lt;&lt;" link="operator_arith3"/>
+        <overload name="operator&gt;&gt;" link="operator_arith3"/>
+        <overload name="operator&amp;&amp;" link="operator_arith3"/>
+        <overload name="operator||" link="operator_arith3"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="std::abs" link="abs"/>
+
+        <overload name="std::exp" link="exp"/>
+        <overload name="std::log" link="log"/>
+        <overload name="std::log10" link="log10"/>
+
+        <overload name="std::pow" link="pow"/>
+        <overload name="std::sqrt" link="sqrt"/>
+
+        <overload name="std::sin" link="sin"/>
+        <overload name="std::cos" link="cos"/>
+        <overload name="std::tan" link="tan"/>
+        <overload name="std::asin" link="asin"/>
+        <overload name="std::acos" link="acos"/>
+        <overload name="std::atan" link="atan"/>
+        <overload name="std::atan2" link="atan2"/>
+
+        <overload name="std::sinh" link="sinh"/>
+        <overload name="std::cosh" link="cosh"/>
+        <overload name="std::tanh" link="tanh"/>
     </class>
     <class name="std::slice" link="cpp/numeric/valarray/slice">
-        <!-- todo -->
+        <constructor link="."/>
+        <function name="start" link="."/>
+        <function name="size" link="."/>
+        <function name="stride" link="."/>
+        <overload name="operator==" link="." since="c++20"/>
     </class>
     <class name="std::gslice" link="cpp/numeric/valarray/gslice">
-        <!-- todo -->
+        <constructor link="."/>
+        <function name="start" link="."/>
+        <function name="size" link="."/>
+        <function name="stride" link="."/>
     </class>
     <class name="std::slice_array" link="cpp/numeric/valarray/slice_array">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator*=" link="operator_arith"/>
+        <function name="operator/=" link="operator_arith"/>
+        <function name="operator%=" link="operator_arith"/>
+        <function name="operator&amp;=" link="operator_arith"/>
+        <function name="operator|=" link="operator_arith"/>
+        <function name="operator^=" link="operator_arith"/>
+        <function name="operator&lt;&lt;=" link="operator_arith"/>
+        <function name="operator&gt;&gt;=" link="operator_arith"/>
     </class>
     <class name="std::gslice_array" link="cpp/numeric/valarray/gslice_array">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator*=" link="operator_arith"/>
+        <function name="operator/=" link="operator_arith"/>
+        <function name="operator%=" link="operator_arith"/>
+        <function name="operator&amp;=" link="operator_arith"/>
+        <function name="operator|=" link="operator_arith"/>
+        <function name="operator^=" link="operator_arith"/>
+        <function name="operator&lt;&lt;=" link="operator_arith"/>
+        <function name="operator&gt;&gt;=" link="operator_arith"/>
     </class>
     <class name="std::mask_array" link="cpp/numeric/valarray/mask_array">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator*=" link="operator_arith"/>
+        <function name="operator/=" link="operator_arith"/>
+        <function name="operator%=" link="operator_arith"/>
+        <function name="operator&amp;=" link="operator_arith"/>
+        <function name="operator|=" link="operator_arith"/>
+        <function name="operator^=" link="operator_arith"/>
+        <function name="operator&lt;&lt;=" link="operator_arith"/>
+        <function name="operator&gt;&gt;=" link="operator_arith"/>
     </class>
     <class name="std::indirect_array" link="cpp/numeric/valarray/indirect_array">
-        <!-- todo -->
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator*=" link="operator_arith"/>
+        <function name="operator/=" link="operator_arith"/>
+        <function name="operator%=" link="operator_arith"/>
+        <function name="operator&amp;=" link="operator_arith"/>
+        <function name="operator|=" link="operator_arith"/>
+        <function name="operator^=" link="operator_arith"/>
+        <function name="operator&lt;&lt;=" link="operator_arith"/>
+        <function name="operator&gt;&gt;=" link="operator_arith"/>
     </class>
 
     <!-- cpp/numeric/random -->
