@@ -1613,8 +1613,11 @@
         <function name="min"/>
         <function name="max"/>
 
-        <function name="operator+" link="operator_arith"/>
-        <function name="operator-" link="operator_arith"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+
+        <function name="operator++" link="operator_inc_dec" since="c++20"/>
+        <function name="operator--" link="operator_inc_dec" since="c++20"/>
 
         <overload name="operator+" link="operator_arith2"/>
         <overload name="operator-" link="operator_arith2"/>
@@ -1669,13 +1672,19 @@
         <overload name="operator&lt;=" link="operator_cmp"/>
         <overload name="operator&gt;" link="operator_cmp"/>
         <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp" since="c++20"/>
 
         <overload name="std::chrono::floor" link="floor" since="c++17"/>
         <overload name="std::chrono::ceil" link="ceil" since="c++17"/>
         <overload name="std::chrono::round" link="round" since="c++17"/>
         <overload name="std::chrono::abs" link="abs" since="c++17"/>
 
+        <overload name="operator&lt;&lt;" link="operator_ltlt" since="c++20"/>
+        <overload name="std::chrono::from_stream" link="from_stream" since="c++20"/>
+
         <specialization name="std::common_type" link="common_type"/>
+
+        <specialization name="std::formatter" link="formatter"/>
     </class>
 
     <typedef name="std::chrono::nanoseconds" alias="std::chrono::duration"/>
@@ -1684,6 +1693,10 @@
     <typedef name="std::chrono::seconds" alias="std::chrono::duration"/>
     <typedef name="std::chrono::minutes" alias="std::chrono::duration"/>
     <typedef name="std::chrono::hours" alias="std::chrono::duration"/>
+    <typedef name="std::chrono::days" alias="std::chrono::duration" since="c++20"/>
+    <typedef name="std::chrono::weeks" alias="std::chrono::duration" since="c++20"/>
+    <typedef name="std::chrono::months" alias="std::chrono::duration" since="c++20"/>
+    <typedef name="std::chrono::years" alias="std::chrono::duration" since="c++20"/>
 
     <function name="std::chrono::duration_cast" link="cpp/chrono/duration/duration_cast"/>
 
@@ -1704,6 +1717,14 @@
         <function name="from_time_t"/>
     </class>
 
+    <class name="std::chrono::sys_time" link="cpp/chrono/system_clock" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <typedef name="std::chrono::sys_seconds" alias="std::chrono::sys_time" since="c++20"/>
+    <typedef name="std::chrono::sys_days" alias="std::chrono::sys_time" since="c++20"/>
+
     <class name="std::chrono::steady_clock" link="cpp/chrono/steady_clock">
         <const name="is_steady" link="."/>
         <function name="now"/>
@@ -1713,6 +1734,460 @@
         <const name="is_steady" link="."/>
         <function name="now"/>
     </class>
+
+    <class name="std::chrono::utc_clock" link="cpp/chrono/utc_clock" since="c++20">
+        <const name="is_steady" link="."/>
+        <function name="now"/>
+        <function name="to_sys"/>
+        <function name="from_sys"/>
+    </class>
+
+    <class name="std::chrono::utc_time" link="cpp/chrono/utc_clock" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <typedef name="std::chrono::utc_seconds" alias="std::chrono::utc_time" since="c++20"/>
+
+    <class name="std::chrono::tai_clock" link="cpp/chrono/tai_clock" since="c++20">
+        <const name="is_steady" link="."/>
+        <function name="now"/>
+        <function name="to_utc"/>
+        <function name="from_utc"/>
+    </class>
+
+    <class name="std::chrono::tai_time" link="cpp/chrono/tai_clock" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <typedef name="std::chrono::tai_seconds" alias="std::chrono::tai_time" since="c++20"/>
+
+    <class name="std::chrono::gps_clock" link="cpp/chrono/gps_clock" since="c++20">
+        <const name="is_steady" link="."/>
+        <function name="now"/>
+        <function name="to_utc"/>
+        <function name="from_utc"/>
+    </class>
+
+    <class name="std::chrono::gps_time" link="cpp/chrono/gps_clock" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <typedef name="std::chrono::gps_seconds" alias="std::chrono::gps_time" since="c++20"/>
+
+    <class name="std::chrono::file_clock" link="cpp/chrono/file_clock" since="c++20">
+        <const name="is_steady" link="."/>
+        <function name="now"/>
+        <function name="to_utc" link="to_from_utc"/>
+        <function name="from_utc" link="to_from_utc"/>
+        <function name="to_sys" link="to_from_sys"/>
+        <function name="from_sys" link="to_from_sys"/>
+    </class>
+
+    <class name="std::chrono::file_time" link="cpp/chrono/file_clock" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::local_t" link="cpp/chrono/local_t" since="c++20"/>
+
+    <class name="std::chrono::local_time" link="cpp/chrono/local_t" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <typedef name="std::chrono::local_seconds" alias="std::chrono::local_time" since="c++20"/>
+    <typedef name="std::chrono::local_days" alias="std::chrono::local_time" since="c++20"/>
+
+    <class name="std::chrono::is_clock" link="cpp/chrono/is_clock" since="c++20"/>
+    <const name="std::chrono::is_clock_v" link="cpp/chrono/is_clock" since="c++20"/>
+
+    <class name="std::chrono::clock_time_conversion" link="cpp/chrono/clock_time_conversion" since="c++20"/>
+    <function name="std::chrono::clock_cast" link="cpp/chrono/clock_cast" since="c++20"/>
+
+    <class name="std::chrono::hh_mm_ss" link="cpp/chrono/hh_mm_ss" since="c++20">
+        <const name="fractional_width" link="."/>
+        <typedef name="precision" link="."/>
+        <constructor/>
+        <function name="is_negative" link="accessors"/>
+        <function name="hours" link="accessors"/>
+        <function name="minutes" link="accessors"/>
+        <function name="seconds" link="accessors"/>
+        <function name="subseconds" link="accessors"/>
+        <function name="operator precision" link="duration"/>
+        <function name="to_duration" link="duration"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <function name="std::chrono::is_am" link="cpp/chrono/hour_fun" since="c++20"/>
+    <function name="std::chrono::is_pm" link="cpp/chrono/hour_fun" since="c++20"/>
+    <function name="std::chrono::make12" link="cpp/chrono/hour_fun" since="c++20"/>
+    <function name="std::chrono::make24" link="cpp/chrono/hour_fun" since="c++20"/>
+
+    <class name="std::chrono::last_spec" link="cpp/chrono/last_spec" since="c++20"/>
+    <class name="std::chrono::last" link="cpp/chrono/last_spec" since="c++20"/>
+
+    <class name="std::chrono::day" link="cpp/chrono/day" since="c++20">
+        <constructor/>
+        <function name="operator++" link="operator_inc_dec"/>
+        <function name="operator++(int)" link="operator_inc_dec"/>
+        <function name="operator--" link="operator_inc_dec"/>
+        <function name="operator--(int)" link="operator_inc_dec"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator unsigned" link="operator_unsigned"/>
+        <function name="ok"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::month" link="cpp/chrono/month" since="c++20">
+        <constructor/>
+        <function name="operator++" link="operator_inc_dec"/>
+        <function name="operator++(int)" link="operator_inc_dec"/>
+        <function name="operator--" link="operator_inc_dec"/>
+        <function name="operator--(int)" link="operator_inc_dec"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator unsigned" link="operator_unsigned"/>
+        <function name="ok"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <const name="std::chrono::January" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::February" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::March" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::April" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::May" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::June" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::July" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::August" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::September" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::October" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::November" link="cpp/chrono/month" since="c++20"/>
+    <const name="std::chrono::December" link="cpp/chrono/month" since="c++20"/>
+
+    <class name="std::chrono::year" link="cpp/chrono/year" since="c++20">
+        <constructor/>
+        <function name="operator++" link="operator_inc_dec"/>
+        <function name="operator++(int)" link="operator_inc_dec"/>
+        <function name="operator--" link="operator_inc_dec"/>
+        <function name="operator--(int)" link="operator_inc_dec"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="operator+" link="operator_sign"/>
+        <function name="operator-" link="operator_sign"/>
+        <function name="is_leap"/>
+        <function name="operator int" link="operator_int"/>
+        <function name="ok"/>
+        <function name="min"/>
+        <function name="max"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::weekday" link="cpp/chrono/weekday" since="c++20">
+        <constructor/>
+        <function name="operator++" link="operator_inc_dec"/>
+        <function name="operator++(int)" link="operator_inc_dec"/>
+        <function name="operator--" link="operator_inc_dec"/>
+        <function name="operator--(int)" link="operator_inc_dec"/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="c_encoding" link="encoding"/>
+        <function name="iso_encoding" link="encoding"/>
+        <function name="ok"/>
+        <function name="operator[]" link="operator_at"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+    <const name="std::chrono::Sunday" link="cpp/chrono/weekday" since="c++20"/>
+    <const name="std::chrono::Monday" link="cpp/chrono/weekday" since="c++20"/>
+    <const name="std::chrono::Tuesday" link="cpp/chrono/weekday" since="c++20"/>
+    <const name="std::chrono::Wednesday" link="cpp/chrono/weekday" since="c++20"/>
+    <const name="std::chrono::Thursday" link="cpp/chrono/weekday" since="c++20"/>
+    <const name="std::chrono::Friday" link="cpp/chrono/weekday" since="c++20"/>
+    <const name="std::chrono::Saturday" link="cpp/chrono/weekday" since="c++20"/>
+
+    <class name="std::chrono::weekday_indexed" link="cpp/chrono/weekday_indexed" since="c++20">
+        <constructor/>
+        <function name="weekday"/>
+        <function name="index"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::weekday_last" link="cpp/chrono/weekday_last" since="c++20">
+        <constructor/>
+        <function name="weekday"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::month_day" link="cpp/chrono/month_day" since="c++20">
+        <constructor/>
+        <function name="month" link="accessors"/>
+        <function name="day" link="accessors"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::month_day_last" link="cpp/chrono/month_day_last" since="c++20">
+        <constructor/>
+        <function name="month"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::month_weekday" link="cpp/chrono/month_weekday" since="c++20">
+        <constructor/>
+        <function name="month" link="accessors"/>
+        <function name="weekday_indexed" link="accessors"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::month_weekday_last" link="cpp/chrono/month_weekday_last" since="c++20">
+        <constructor/>
+        <function name="month" link="accessors"/>
+        <function name="weekday_last" link="accessors"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::year_month" link="cpp/chrono/year_month" since="c++20">
+        <constructor/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="year" link="accessors"/>
+        <function name="month" link="accessors"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::year_month_day" link="cpp/chrono/year_month_day" since="c++20">
+        <constructor/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="year" link="accessors"/>
+        <function name="month" link="accessors"/>
+        <function name="day" link="accessors"/>
+        <function name="operator sys_days" link="operator_days"/>
+        <function name="operator local_days" link="operator_days"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <overload name="std::chrono::from_stream" link="from_stream"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::year_month_day_last" link="cpp/chrono/year_month_day_last" since="c++20">
+        <constructor/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="year" link="accessors"/>
+        <function name="month" link="accessors"/>
+        <function name="day" link="accessors"/>
+        <function name="month_day_last" link="accessors"/>
+        <function name="operator sys_days" link="operator_days"/>
+        <function name="operator local_days" link="operator_days"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::year_month_weekday" link="cpp/chrono/year_month_weekday" since="c++20">
+        <constructor/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="year" link="accessors"/>
+        <function name="month" link="accessors"/>
+        <function name="weekday" link="accessors"/>
+        <function name="index" link="accessors"/>
+        <function name="weekday_indexed" link="accessors"/>
+        <function name="operator sys_days" link="operator_days"/>
+        <function name="operator local_days" link="operator_days"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::year_month_weekday_last" link="cpp/chrono/year_month_weekday_last" since="c++20">
+        <constructor/>
+        <function name="operator+=" link="operator_arith"/>
+        <function name="operator-=" link="operator_arith"/>
+        <function name="year" link="accessors"/>
+        <function name="month" link="accessors"/>
+        <function name="weekday" link="accessors"/>
+        <function name="weekday_last" link="accessors"/>
+        <function name="operator sys_days" link="operator_days"/>
+        <function name="operator local_days" link="operator_days"/>
+        <function name="ok"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator+" link="operator_arith_2"/>
+        <overload name="operator-" link="operator_arith_2"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <function name="std::chrono::operator/" link="cpp/chrono/operator_slash" since="c++20"/>
+
+    <class name="std::chrono::tzdb" link="cpp/chrono/tzdb" since="c++20">
+        <function name="locate_zone"/>
+        <function name="current_zone"/>
+    </class>
+
+    <class name="std::chrono::tzdb_list" link="cpp/chrono/tzdb_list" since="c++20">
+        <function name="front"/>
+        <function name="erase_after"/>
+        <function name="begin"/>
+        <function name="cbegin" link="begin"/>
+        <function name="end"/>
+        <function name="cend" link="end"/>
+    </class>
+
+    <function name="std::chrono::get_tzdb_list" link="cpp/chrono/tzdb_functions" since="c++20"/>
+    <function name="std::chrono::get_tzdb" link="cpp/chrono/tzdb_functions" since="c++20"/>
+    <function name="std::chrono::remote_version" link="cpp/chrono/tzdb_functions" since="c++20"/>
+    <function name="std::chrono::reload_tzdb" link="cpp/chrono/tzdb_functions" since="c++20"/>
+
+    <function name="std::chrono::locate_zone" link="cpp/chrono/locate_zone" since="c++20"/>
+    <function name="std::chrono::current_zone" link="cpp/chrono/current_zone" since="c++20"/>
+
+    <class name="std::chrono::time_zone" link="cpp/chrono/time_zone" since="c++20">
+        <function name="name"/>
+        <function name="get_info"/>
+        <function name="to_sys"/>
+        <function name="to_local"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+    </class>
+
+    <class name="std::chrono::sys_info" link="cpp/chrono/sys_info" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::local_info" link="cpp/chrono/local_info" since="c++20">
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <enum name="std::chrono::choose" link="cpp/chrono/choose" since="c++20"/>
+
+    <class name="std::chrono::zoned_traits" link="cpp/chrono/zoned_traits" since="c++20"/>
+
+    <class name="std::chrono::zoned_time" link="cpp/chrono/zoned_time" since="c++20">
+        <constructor/>
+        <function name="operator="/>
+        <function name="get_time_zone"/>
+        <function name="operator local_time" link="get_local_time"/>
+        <function name="get_local_time"/>
+        <function name="operator sys_time" link="get_sys_time"/>
+        <function name="get_sys_time"/>
+        <function name="get_info"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+        <specialization name="std::formatter" link="formatter"/>
+    </class>
+
+    <class name="std::chrono::leap_second" link="cpp/chrono/leap_second" since="c++20">
+        <function name="date"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+    </class>
+
+    <class name="std::chrono::leap_second_info" link="cpp/chrono/utc_clock/leap_second_info" since="c++20"/>
+    <class name="std::chrono::get_leap_second_info" link="cpp/chrono/utc_clock/get_leap_second_info" since="c++20"/>
+
+    <class name="std::chrono::time_zone_link" link="cpp/chrono/time_zone_link" since="c++20">
+        <function name="name" link="accessors"/>
+        <function name="target" link="accessors"/>
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+    </class>
+
+    <class name="std::chrono::nonexistent_local_time" link="cpp/chrono/nonexistent_local_time" since="c++20">
+        <inherits name="std::runtime_error"/>
+        <constructor link="."/>
+        <function name="operator=" link="."/>
+        <function name="what" link="."/>
+    </class>
+
+    <class name="std::chrono::ambiguous_local_time" link="cpp/chrono/ambiguous_local_time" since="c++20">
+        <inherits name="std::runtime_error"/>
+        <constructor link="."/>
+        <function name="operator=" link="."/>
+        <function name="what" link="."/>
+    </class>
+
+    <function name="std::chrono::parse" link="cpp/chrono/parse" since="c++20"/>
 
     <!-- cpp/chrono/c -->
 
