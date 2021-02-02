@@ -5993,10 +5993,69 @@
         <specialization name="std::hash" link="hash"/>
     </class>
 
+    <class name="std::jthread" link="cpp/thread/jthread" since="c++20">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="joinable"/>
+        <function name="get_id"/>
+        <function name="native_handle"/>
+        <function name="hardware_concurrency"/>
+
+        <function name="join"/>
+        <function name="detach"/>
+        <function name="swap"/>
+
+        <function name="get_stop_source"/>
+        <function name="get_stop_token"/>
+        <function name="request_stop"/>
+
+        <overload name="swap" link="swap2"/>
+    </class>
+
     <function name="std::this_thread::get_id" link="cpp/thread/get_id"/>
     <function name="std::this_thread::sleep_for" link="cpp/thread/sleep_for"/>
     <function name="std::this_thread::sleep_until" link="cpp/thread/sleep_until"/>
     <function name="std::this_thread::yield" link="cpp/thread/yield"/>
+
+    <class name="std::stop_token" link="cpp/thread/stop_token" since="c++20">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="swap"/>
+
+        <function name="stop_requested"/>
+        <function name="stop_possible"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="swap" link="swap2"/>
+    </class>
+
+    <class name="std::stop_source" link="cpp/thread/stop_source" since="c++20">
+        <constructor/>
+        <destructor/>
+        <function name="operator="/>
+
+        <function name="request_stop"/>
+        <function name="swap"/>
+
+        <function name="get_token"/>
+        <function name="stop_requested"/>
+        <function name="stop_possible"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="swap" link="swap2"/>
+    </class>
+
+    <class name="nostopstate_t" link="cpp/thread/stop_source/nostopstate_t" since="c++20"/>
+    <const name="nostopstate" link="cpp/thread/stop_source/nostopstate" since="c++20"/>
+
+    <class name="stop_callback" link="cpp/thread/stop_callback" since="c++20">
+        <constructor/>
+        <destructor/>
+    </class>
 
     <const name="std::hardware_constructive_interference_size"
            link="cpp/thread/hardware_destructive_interference_size" since="c++17"/>
@@ -6005,6 +6064,7 @@
 
     <class name="std::mutex" link="cpp/thread/mutex">
         <constructor/>
+        <destructor/>
         <function name="lock"/>
         <function name="try_lock"/>
         <function name="unlock"/>
@@ -6013,6 +6073,7 @@
 
     <class name="std::recursive_mutex" link="cpp/thread/recursive_mutex">
         <constructor/>
+        <destructor/>
         <function name="lock"/>
         <function name="try_lock"/>
         <function name="unlock"/>
@@ -6021,6 +6082,7 @@
 
     <class name="std::timed_mutex" link="cpp/thread/timed_mutex">
         <constructor/>
+        <destructor/>
         <function name="lock"/>
         <function name="try_lock"/>
         <function name="try_lock_for"/>
@@ -6031,6 +6093,7 @@
 
     <class name="std::recursive_timed_mutex" link="cpp/thread/recursive_timed_mutex">
         <constructor/>
+        <destructor/>
         <function name="lock"/>
         <function name="try_lock"/>
         <function name="try_lock_for"/>
@@ -6041,6 +6104,7 @@
 
     <class name="std::shared_timed_mutex" link="cpp/thread/shared_timed_mutex" since="c++14">
         <constructor/>
+        <destructor/>
         <function name="lock"/>
         <function name="try_lock"/>
         <function name="try_lock_for"/>
@@ -6056,6 +6120,7 @@
 
     <class name="std::shared_mutex" link="cpp/thread/shared_mutex" since="c++17">
         <constructor/>
+        <destructor/>
         <function name="lock"/>
         <function name="try_lock"/>
         <function name="unlock"/>
@@ -6075,6 +6140,11 @@
     <const name="std::adopt_lock" link="cpp/thread/lock_tag"/>
 
     <class name="std::lock_guard" link="cpp/thread/lock_guard">
+        <constructor/>
+        <destructor/>
+    </class>
+
+    <class name="std::scoped_lock" link="cpp/thread/scoped_lock" since="c++17">
         <constructor/>
         <destructor/>
     </class>
@@ -6162,6 +6232,44 @@
         <const name="timeout" link="."/>
     </enum>
 
+    <class name="std::counting_semaphore" link="cpp/thread/counting_semaphore" since="c++20">
+        <constructor/>
+        <destructor/>
+
+        <function name="release"/>
+        <function name="acquire"/>
+        <function name="try_acquire"/>
+        <function name="try_acquire_for"/>
+        <function name="try_acquire_until"/>
+
+        <const name="max"/>
+    </class>
+    <typedef name="std::binary_semaphore" alias="std::counting_semaphore" since="c++20"/>
+
+    <class name="std::latch" link="cpp/thread/latch" since="c++20">
+        <constructor/>
+        <destructor/>
+
+        <function name="count_down"/>
+        <function name="try_wait"/>
+        <function name="wait"/>
+        <function name="arrive_and_wait"/>
+
+        <const name="max"/>
+    </class>
+
+    <class name="std::barrier" link="cpp/thread/barrier" since="c++20">
+        <constructor/>
+        <destructor/>
+
+        <function name="arrive"/>
+        <function name="wait"/>
+        <function name="arrive_and_wait"/>
+        <function name="arrive_and_drop"/>
+
+        <const name="max"/>
+    </class>
+
     <class name="std::promise" link="cpp/thread/promise">
         <constructor/>
         <destructor/>
@@ -6173,6 +6281,7 @@
         <function name="set_exception"/>
         <function name="set_exception_at_thread_exit"/>
 
+        <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
 
@@ -6213,6 +6322,7 @@
         <function name="make_ready_at_thread_exit"/>
         <function name="reset"/>
 
+        <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
 
@@ -6232,6 +6342,7 @@
     <class name="std::future_error" link="cpp/thread/future_error">
         <inherits name="std::logic_error"/>
         <constructor/>
+        <function name="operator="/>
         <function name="code"/>
         <function name="what"/>
     </class>
