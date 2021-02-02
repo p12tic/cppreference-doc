@@ -3458,6 +3458,24 @@
     </class>
     <const name="std::dynamic_extent" link="cpp/container/span/dynamic_extent" since="c++20"/>
 
+    <!-- cpp/numeric -->
+
+    <function name="std::midpoint" link="cpp/numeric/midpoint" since="c++20"/>
+    <function name="std::lerp" link="cpp/numeric/lerp" since="c++20"/>
+
+    <function name="std::bit_cast" link="cpp/numeric/bit_cast" since="c++20"/>
+    <function name="std::has_single_bit" link="cpp/numeric/has_single_bit" since="c++20"/>
+    <function name="std::bit_ceil" link="cpp/numeric/bit_ceil" since="c++20"/>
+    <function name="std::bit_floor" link="cpp/numeric/bit_floor" since="c++20"/>
+    <function name="std::bit_width" link="cpp/numeric/bit_width" since="c++20"/>
+    <function name="std::rotl" link="cpp/numeric/rotl" since="c++20"/>
+    <function name="std::rotr" link="cpp/numeric/rotr" since="c++20"/>
+    <function name="std::countl_zero" link="cpp/numeric/countl_zero" since="c++20"/>
+    <function name="std::countl_one" link="cpp/numeric/countl_one" since="c++20"/>
+    <function name="std::countr_zero" link="cpp/numeric/countr_zero" since="c++20"/>
+    <function name="std::countr_one" link="cpp/numeric/countr_one" since="c++20"/>
+    <function name="std::popcount" link="cpp/numeric/popcount" since="c++20"/>
+
     <!-- cpp/numeric/math -->
 
     <function name="std::abs(int)" link="cpp/numeric/math/abs"/>
