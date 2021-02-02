@@ -1,6 +1,6 @@
 # Travis CI configuration file
 # http://about.travis-ci.org/docs/
-dist: trusty
+dist: bionic
 
 language: python
 
