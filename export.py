@@ -19,9 +19,9 @@
 '''
 
 import argparse
+import json
 import urllib.parse
 import urllib.request
-import json
 
 
 def retrieve_page_names(root, ns_index):

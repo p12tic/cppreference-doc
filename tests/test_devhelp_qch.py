@@ -17,7 +17,9 @@
 
 import os
 import unittest
+
 from lxml import etree
+
 from index_transform.devhelp_qch import convert_devhelp_to_qch
 
 

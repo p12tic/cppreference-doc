@@ -20,7 +20,6 @@
 
 import lxml.etree as e
 
-
 '''
     This is a python script for various transformations of the index.
 

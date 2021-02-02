@@ -20,6 +20,7 @@
 
 import argparse
 import json
+
 from index_transform.autolinker import Index2AutolinkerGroups
 from index_transform.autolinker import Index2AutolinkerLinks
 

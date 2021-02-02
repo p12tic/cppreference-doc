@@ -21,10 +21,11 @@ import io
 import logging
 import os
 import warnings
-from premailer import Premailer
+
 import cssutils
 from lxml import etree
 from lxml.etree import strip_elements
+from premailer import Premailer
 
 
 def preprocess_html_merge_cssless(src_path, dst_path):

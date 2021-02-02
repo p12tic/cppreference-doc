@@ -16,10 +16,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
-import matplotlib.pyplot as plt
 import os
-from numpy import *
 from bisect import *
+
+import matplotlib.pyplot as plt
+from numpy import *
 
 #
 # DATA - array of items describing data to plot

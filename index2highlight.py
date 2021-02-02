@@ -19,6 +19,7 @@
 '''
 
 import argparse
+
 from index_transform.highlight import Index2Highlight
 
 

@@ -17,14 +17,14 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
+import math
+import os
+import pprint
+
 import matplotlib.cm as cm
 import matplotlib.colors as colors
 import matplotlib.pyplot as plt
-
-import os
 import numpy as np
-import math
-import pprint
 
 font = {'family' : 'DejaVu Sans',
         'weight' : 'normal',

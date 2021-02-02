@@ -18,10 +18,11 @@
 #   along with this program.  If not, see http://www.gnu.org/licenses/.
 
 
-import fontforge
 import os
-import psMat
 import sys
+
+import fontforge
+import psMat
 
 inputFont = sys.argv[1]
 outputFont = os.path.splitext(inputFont)[0] + "Condensed80.otf"
