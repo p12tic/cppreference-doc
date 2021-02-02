@@ -125,7 +125,7 @@
     <const name="PRIdFAST32" link="c/types/integer"/>
     <const name="PRIdFAST64" link="c/types/integer"/>
     <const name="PRIdMAX" link="c/types/integer"/>
-    <const name="PRIdPTR " link="c/types/integer"/>
+    <const name="PRIdPTR" link="c/types/integer"/>
 
     <const name="PRIi8" link="c/types/integer"/>
     <const name="PRIi16" link="c/types/integer"/>
@@ -140,7 +140,7 @@
     <const name="PRIiFAST32" link="c/types/integer"/>
     <const name="PRIiFAST64" link="c/types/integer"/>
     <const name="PRIiMAX" link="c/types/integer"/>
-    <const name="PRIiPTR " link="c/types/integer"/>
+    <const name="PRIiPTR" link="c/types/integer"/>
 
     <const name="PRIu8" link="c/types/integer"/>
     <const name="PRIu16" link="c/types/integer"/>
@@ -155,7 +155,7 @@
     <const name="PRIuFAST32" link="c/types/integer"/>
     <const name="PRIuFAST64" link="c/types/integer"/>
     <const name="PRIuMAX" link="c/types/integer"/>
-    <const name="PRIuPTR " link="c/types/integer"/>
+    <const name="PRIuPTR" link="c/types/integer"/>
 
     <const name="PRIo8" link="c/types/integer"/>
     <const name="PRIo16" link="c/types/integer"/>
@@ -170,7 +170,7 @@
     <const name="PRIoFAST32" link="c/types/integer"/>
     <const name="PRIoFAST64" link="c/types/integer"/>
     <const name="PRIoMAX" link="c/types/integer"/>
-    <const name="PRIoPTR " link="c/types/integer"/>
+    <const name="PRIoPTR" link="c/types/integer"/>
 
     <const name="PRIx8" link="c/types/integer"/>
     <const name="PRIx16" link="c/types/integer"/>
@@ -185,7 +185,7 @@
     <const name="PRIxFAST32" link="c/types/integer"/>
     <const name="PRIxFAST64" link="c/types/integer"/>
     <const name="PRIxMAX" link="c/types/integer"/>
-    <const name="PRIxPTR " link="c/types/integer"/>
+    <const name="PRIxPTR" link="c/types/integer"/>
 
     <const name="PRIX8" link="c/types/integer"/>
     <const name="PRIX16" link="c/types/integer"/>
@@ -200,7 +200,7 @@
     <const name="PRIXFAST32" link="c/types/integer"/>
     <const name="PRIXFAST64" link="c/types/integer"/>
     <const name="PRIXMAX" link="c/types/integer"/>
-    <const name="PRIXPTR " link="c/types/integer"/>
+    <const name="PRIXPTR" link="c/types/integer"/>
 
     <const name="SCNd8" link="c/types/integer"/>
     <const name="SCNd16" link="c/types/integer"/>
@@ -215,7 +215,7 @@
     <const name="SCNdFAST32" link="c/types/integer"/>
     <const name="SCNdFAST64" link="c/types/integer"/>
     <const name="SCNdMAX" link="c/types/integer"/>
-    <const name="SCNdPTR " link="c/types/integer"/>
+    <const name="SCNdPTR" link="c/types/integer"/>
 
     <const name="SCNi8" link="c/types/integer"/>
     <const name="SCNi16" link="c/types/integer"/>
@@ -230,7 +230,7 @@
     <const name="SCNiFAST32" link="c/types/integer"/>
     <const name="SCNiFAST64" link="c/types/integer"/>
     <const name="SCNiMAX" link="c/types/integer"/>
-    <const name="SCNiPTR " link="c/types/integer"/>
+    <const name="SCNiPTR" link="c/types/integer"/>
 
     <const name="SCNu8" link="c/types/integer"/>
     <const name="SCNu16" link="c/types/integer"/>
@@ -245,7 +245,7 @@
     <const name="SCNuFAST32" link="c/types/integer"/>
     <const name="SCNuFAST64" link="c/types/integer"/>
     <const name="SCNuMAX" link="c/types/integer"/>
-    <const name="SCNuPTR " link="c/types/integer"/>
+    <const name="SCNuPTR" link="c/types/integer"/>
 
     <const name="SCNo8" link="c/types/integer"/>
     <const name="SCNo16" link="c/types/integer"/>
@@ -260,7 +260,7 @@
     <const name="SCNoFAST32" link="c/types/integer"/>
     <const name="SCNoFAST64" link="c/types/integer"/>
     <const name="SCNoMAX" link="c/types/integer"/>
-    <const name="SCNoPTR " link="c/types/integer"/>
+    <const name="SCNoPTR" link="c/types/integer"/>
 
     <const name="SCNx8" link="c/types/integer"/>
     <const name="SCNx16" link="c/types/integer"/>
@@ -275,22 +275,7 @@
     <const name="SCNxFAST32" link="c/types/integer"/>
     <const name="SCNxFAST64" link="c/types/integer"/>
     <const name="SCNxMAX" link="c/types/integer"/>
-    <const name="SCNxPTR " link="c/types/integer"/>
-
-    <const name="SCNX8" link="c/types/integer"/>
-    <const name="SCNX16" link="c/types/integer"/>
-    <const name="SCNX32" link="c/types/integer"/>
-    <const name="SCNX64" link="c/types/integer"/>
-    <const name="SCNXLEAST8" link="c/types/integer"/>
-    <const name="SCNXLEAST16" link="c/types/integer"/>
-    <const name="SCNXLEAST32" link="c/types/integer"/>
-    <const name="SCNXLEAST64" link="c/types/integer"/>
-    <const name="SCNXFAST8" link="c/types/integer"/>
-    <const name="SCNXFAST16" link="c/types/integer"/>
-    <const name="SCNXFAST32" link="c/types/integer"/>
-    <const name="SCNXFAST64" link="c/types/integer"/>
-    <const name="SCNXMAX" link="c/types/integer"/>
-    <const name="SCNXPTR" link="c/types/integer"/>
+    <const name="SCNxPTR" link="c/types/integer"/>
 
         <!-- c/types/limits -->
     <const name="PTRDIFF_MIN" link="c/types/limits"/>

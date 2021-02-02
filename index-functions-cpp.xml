@@ -137,7 +137,7 @@
     <const name="PRIdFAST32" link="cpp/types/integer"/>
     <const name="PRIdFAST64" link="cpp/types/integer"/>
     <const name="PRIdMAX" link="cpp/types/integer"/>
-    <const name="PRIdPTR " link="cpp/types/integer"/>
+    <const name="PRIdPTR" link="cpp/types/integer"/>
 
     <const name="PRIi8" link="cpp/types/integer"/>
     <const name="PRIi16" link="cpp/types/integer"/>
@@ -152,7 +152,7 @@
     <const name="PRIiFAST32" link="cpp/types/integer"/>
     <const name="PRIiFAST64" link="cpp/types/integer"/>
     <const name="PRIiMAX" link="cpp/types/integer"/>
-    <const name="PRIiPTR " link="cpp/types/integer"/>
+    <const name="PRIiPTR" link="cpp/types/integer"/>
 
     <const name="PRIu8" link="cpp/types/integer"/>
     <const name="PRIu16" link="cpp/types/integer"/>
@@ -167,7 +167,7 @@
     <const name="PRIuFAST32" link="cpp/types/integer"/>
     <const name="PRIuFAST64" link="cpp/types/integer"/>
     <const name="PRIuMAX" link="cpp/types/integer"/>
-    <const name="PRIuPTR " link="cpp/types/integer"/>
+    <const name="PRIuPTR" link="cpp/types/integer"/>
 
     <const name="PRIo8" link="cpp/types/integer"/>
     <const name="PRIo16" link="cpp/types/integer"/>
@@ -182,7 +182,7 @@
     <const name="PRIoFAST32" link="cpp/types/integer"/>
     <const name="PRIoFAST64" link="cpp/types/integer"/>
     <const name="PRIoMAX" link="cpp/types/integer"/>
-    <const name="PRIoPTR " link="cpp/types/integer"/>
+    <const name="PRIoPTR" link="cpp/types/integer"/>
 
     <const name="PRIx8" link="cpp/types/integer"/>
     <const name="PRIx16" link="cpp/types/integer"/>
@@ -197,7 +197,7 @@
     <const name="PRIxFAST32" link="cpp/types/integer"/>
     <const name="PRIxFAST64" link="cpp/types/integer"/>
     <const name="PRIxMAX" link="cpp/types/integer"/>
-    <const name="PRIxPTR " link="cpp/types/integer"/>
+    <const name="PRIxPTR" link="cpp/types/integer"/>
 
     <const name="PRIX8" link="cpp/types/integer"/>
     <const name="PRIX16" link="cpp/types/integer"/>
@@ -212,7 +212,7 @@
     <const name="PRIXFAST32" link="cpp/types/integer"/>
     <const name="PRIXFAST64" link="cpp/types/integer"/>
     <const name="PRIXMAX" link="cpp/types/integer"/>
-    <const name="PRIXPTR " link="cpp/types/integer"/>
+    <const name="PRIXPTR" link="cpp/types/integer"/>
 
     <const name="SCNd8" link="cpp/types/integer"/>
     <const name="SCNd16" link="cpp/types/integer"/>
@@ -227,7 +227,7 @@
     <const name="SCNdFAST32" link="cpp/types/integer"/>
     <const name="SCNdFAST64" link="cpp/types/integer"/>
     <const name="SCNdMAX" link="cpp/types/integer"/>
-    <const name="SCNdPTR " link="cpp/types/integer"/>
+    <const name="SCNdPTR" link="cpp/types/integer"/>
 
     <const name="SCNi8" link="cpp/types/integer"/>
     <const name="SCNi16" link="cpp/types/integer"/>
@@ -242,7 +242,7 @@
     <const name="SCNiFAST32" link="cpp/types/integer"/>
     <const name="SCNiFAST64" link="cpp/types/integer"/>
     <const name="SCNiMAX" link="cpp/types/integer"/>
-    <const name="SCNiPTR " link="cpp/types/integer"/>
+    <const name="SCNiPTR" link="cpp/types/integer"/>
 
     <const name="SCNu8" link="cpp/types/integer"/>
     <const name="SCNu16" link="cpp/types/integer"/>
@@ -257,7 +257,7 @@
     <const name="SCNuFAST32" link="cpp/types/integer"/>
     <const name="SCNuFAST64" link="cpp/types/integer"/>
     <const name="SCNuMAX" link="cpp/types/integer"/>
-    <const name="SCNuPTR " link="cpp/types/integer"/>
+    <const name="SCNuPTR" link="cpp/types/integer"/>
 
     <const name="SCNo8" link="cpp/types/integer"/>
     <const name="SCNo16" link="cpp/types/integer"/>
@@ -272,7 +272,7 @@
     <const name="SCNoFAST32" link="cpp/types/integer"/>
     <const name="SCNoFAST64" link="cpp/types/integer"/>
     <const name="SCNoMAX" link="cpp/types/integer"/>
-    <const name="SCNoPTR " link="cpp/types/integer"/>
+    <const name="SCNoPTR" link="cpp/types/integer"/>
 
     <const name="SCNx8" link="cpp/types/integer"/>
     <const name="SCNx16" link="cpp/types/integer"/>
@@ -287,22 +287,7 @@
     <const name="SCNxFAST32" link="cpp/types/integer"/>
     <const name="SCNxFAST64" link="cpp/types/integer"/>
     <const name="SCNxMAX" link="cpp/types/integer"/>
-    <const name="SCNxPTR " link="cpp/types/integer"/>
-
-    <const name="SCNX8" link="cpp/types/integer"/>
-    <const name="SCNX16" link="cpp/types/integer"/>
-    <const name="SCNX32" link="cpp/types/integer"/>
-    <const name="SCNX64" link="cpp/types/integer"/>
-    <const name="SCNXLEAST8" link="cpp/types/integer"/>
-    <const name="SCNXLEAST16" link="cpp/types/integer"/>
-    <const name="SCNXLEAST32" link="cpp/types/integer"/>
-    <const name="SCNXLEAST64" link="cpp/types/integer"/>
-    <const name="SCNXFAST8" link="cpp/types/integer"/>
-    <const name="SCNXFAST16" link="cpp/types/integer"/>
-    <const name="SCNXFAST32" link="cpp/types/integer"/>
-    <const name="SCNXFAST64" link="cpp/types/integer"/>
-    <const name="SCNXMAX" link="cpp/types/integer"/>
-    <const name="SCNXPTR" link="cpp/types/integer"/>
+    <const name="SCNxPTR" link="cpp/types/integer"/>
 
         <!-- cpp/types/numeric_limits -->
 
