@@ -2213,35 +2213,11 @@
     <function name="std::as_const" link="cpp/utility/as_const" since="c++17"/>
     <function name="std::launder" link="cpp/utility/launder" since="c++17"/>
 
-    <class name="std::weak_equality" link="cpp/utility/compare/weak_equality" since="c++20">
-        <const name="equivalent" link="."/>
-        <const name="nonequivalent" link="."/>
-
-        <overload name="operator==" link="."/>
-        <overload name="operator!=" link="."/>
-        <overload name="operator&lt;=&gt;" link="."/>
-    </class>
-
-    <class name="std::strong_equality" link="cpp/utility/compare/strong_equality" since="c++20">
-        <const name="equivalent" link="."/>
-        <const name="equal" link="."/>
-        <const name="nonequivalent" link="."/>
-        <const name="nonequal" link="."/>
-
-        <function name="operator weak_equality" link="."/>
-
-        <overload name="operator==" link="."/>
-        <overload name="operator!=" link="."/>
-        <overload name="operator&lt;=&gt;" link="."/>
-    </class>
-
     <class name="std::partial_ordering" link="cpp/utility/compare/partial_ordering" since="c++20">
         <const name="less" link="."/>
         <const name="equivalent" link="."/>
         <const name="greater" link="."/>
         <const name="unordered" link="."/>
-
-        <function name="operator weak_equality" link="."/>
 
         <overload name="operator==" link="."/>
         <overload name="operator!=" link="."/>
@@ -2257,7 +2233,6 @@
         <const name="equivalent" link="."/>
         <const name="greater" link="."/>
 
-        <function name="operator weak_equality" link="."/>
         <function name="operator partial_ordering" link="."/>
 
         <overload name="operator==" link="."/>
@@ -2275,8 +2250,6 @@
         <const name="equal" link="."/>
         <const name="greater" link="."/>
 
-        <function name="operator strong_equality" link="."/>
-        <function name="operator weak_equality" link="."/>
         <function name="operator partial_ordering" link="."/>
         <function name="operator weak_ordering" link="."/>
 
@@ -2302,8 +2275,6 @@
     <function name="std::strong_order" link="cpp/utility/compare/strong_order" since="c++20"/>
     <function name="std::weak_order" link="cpp/utility/compare/weak_order" since="c++20"/>
     <function name="std::partial_order" link="cpp/utility/compare/partial_order" since="c++20"/>
-    <function name="std::strong_equal" link="cpp/utility/compare/strong_equal" since="c++20"/>
-    <function name="std::weak_equal" link="cpp/utility/compare/weak_equal" since="c++20"/>
 
     <function name="std::rel_ops::operator!=" link="cpp/utility/rel_ops/operator_cmp"/>
     <function name="std::rel_ops::operator&gt;" link="cpp/utility/rel_ops/operator_cmp"/>
@@ -3471,14 +3442,8 @@
         <function name="last"/>
         <function name="subspan"/>
 
-        <overload name="std::begin" link="begin_end_nonmem"/>
-        <overload name="std::end" link="begin_end_nonmem"/>
         <overload name="std::as_bytes" link="as_bytes"/>
         <overload name="std::as_writable_bytes" link="as_bytes"/>
-        <overload name="std::get" link="get"/>
-
-        <specialization name="std::tuple_size" link="tuple_size"/>
-        <specialization name="std::tuple_element" link="tuple_element"/>
     </class>
     <const name="std::dynamic_extent" link="cpp/container/span/dynamic_extent" since="c++20"/>
 
