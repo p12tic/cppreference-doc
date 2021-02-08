@@ -7250,6 +7250,7 @@
     <!--=======================================================================-->
     <!-- experimental -->
 
+    <!-- library extensions -->
     <class name="std::experimental::optional" link="cpp/experimental/optional" since="c++14">
         <constructor/>
         <destructor/>
@@ -7270,13 +7271,19 @@
 
     <function name="std::experimental::make_optional" link="cpp/experimental/optional/make_optional" since="exp"/>
 
-    <class name="std::experimental::bad_optional_access" link="cpp/utility/optional/bad_optional_access" since="c++11">
+    <class name="std::experimental::nullopt_t" link="cpp/experimental/optional/nullopt_t" since="exp"/>
+    <const name="std::experimental::nullopt" link="cpp/experimental/optional/nullopt" since="exp"/>
+    <class name="std::experimental::in_place_t" link="cpp/experimental/optional/in_place_t" since="exp"/>
+    <const name="std::experimental::in_place" link="cpp/experimental/optional/in_place" since="exp"/>
+
+    <class name="std::experimental::bad_optional_access" link="cpp/experimental/optional/bad_optional_access" since="exp">
         <inherits name="std::logic_error"/>
         <constructor link="."/>
     </class>
 
     <class name="std::experimental::any" link="cpp/experimental/any" since="exp">
         <constructor/>
+        <destructor/>
         <function name="operator="/>
         <function name="clear"/>
         <function name="empty"/>
@@ -7285,6 +7292,7 @@
         <overload name="std::swap" link="swap2"/>
     </class>
     <function name="std::experimental::any_cast" link="cpp/experimental/any/any_cast" since="exp"/>
+    <class name="std::experimental::bad_any_cast" link="cpp/experimental/any/bad_any_cast" since="exp"/>
 
     <class name="std::experimental::pmr::memory_resource" link="cpp/experimental/memory_resource" since="exp">
         <constructor/>
@@ -7299,16 +7307,73 @@
         <overload name="operator!=" link="operator_eq"/>
     </class>
 
-    <class name="std::experimental::pmr::monotonic_buffer_resource" link="cpp/experimental/monotonic_buffer_resource" since="exp" />
-    <class name="std::experimental::pmr::synchronized_pool_resource" link="cpp/experimental/synchronized_pool_resource" since="exp" />
-    <class name="std::experimental::pmr::unsynchronized_pool_resource" link="cpp/experimental/unsynchronized_pool_resource" since="exp" />
-    <class name="std::experimental::pmr::polymorphic_allocator" link="cpp/experimental/polymorphic_allocator" since="exp" />
-    <class name="std::experimental::pmr::resource_adaptor" link="cpp/experimental/resource_adaptor" since="exp" />
+    <class name="std::experimental::pmr::monotonic_buffer_resource" link="cpp/experimental/monotonic_buffer_resource" since="exp">
+        <constructor/>
+        <destructor/>
 
-    <class name="std::experimental::pmr::new_delete_resource" link="cpp/experimental/new_delete_resource" since="exp"/>
-    <class name="std::experimental::pmr::null_memory_resource" link="cpp/experimental/null_memory_resource" since="exp"/>
+        <function name="release"/>
+        <function name="upstream_resource"/>
+
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+    </class>
+
+    <class name="std::experimental::pmr::pool_options" link="cpp/experimental/pool_options" since="exp"/>
+
+    <class name="std::experimental::pmr::synchronized_pool_resource" link="cpp/experimental/synchronized_pool_resource" since="exp">
+        <constructor/>
+        <destructor/>
+
+        <function name="release"/>
+        <function name="upstream_resource"/>
+        <function name="options"/>
+
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+    </class>
+
+    <class name="std::experimental::pmr::unsynchronized_pool_resource" link="cpp/experimental/unsynchronized_pool_resource" since="exp">
+        <constructor/>
+        <destructor/>
+
+        <function name="release"/>
+        <function name="upstream_resource"/>
+        <function name="options"/>
+
+        <function name="do_allocate"/>
+        <function name="do_deallocate"/>
+        <function name="do_is_equal"/>
+    </class>
+
+    <class name="std::experimental::pmr::polymorphic_allocator" link="cpp/experimental/polymorphic_allocator" since="exp">
+        <constructor/>
+        <function name="operator="/>
+
+        <function name="allocate"/>
+        <function name="deallocate"/>
+        <function name="construct"/>
+        <function name="destroy"/>
+        <function name="select_on_container_copy_construction"/>
+        <function name="resource"/>
+
+        <overload name="operator==" link="operator_eq"/>
+        <overload name="operator!=" link="operator_eq"/>
+    </class>
+
+    <class name="std::experimental::pmr::resource_adaptor" link="cpp/experimental/resource_adaptor" since="exp"/>
+
+    <function name="std::experimental::pmr::new_delete_resource" link="cpp/experimental/new_delete_resource" since="exp"/>
+    <function name="std::experimental::pmr::null_memory_resource" link="cpp/experimental/null_memory_resource" since="exp"/>
     <function name="std::experimental::pmr::get_default_resource" link="cpp/experimental/get_default_resource" since="exp"/>
     <function name="std::experimental::pmr::set_default_resource" link="cpp/experimental/set_default_resource" since="exp"/>
+
+    <class name="std::experimental::function" link="cpp/experimental/function" since="exp"/>
+
+    <class name="std::experimental::promise (Library Fundamentals TS)" link="cpp/experimental/lib_extensions/promise" since="exp"/>
+    <class name="std::experimental::packaged_task (Library Fundamentals TS)" link="cpp/experimental/lib_extensions/packaged_task" since="exp"/>
+
     <function name="std::experimental::sample" link="cpp/experimental/sample" since="exp"/>
 
     <function name="std::experimental::search" link="cpp/experimental/search" since="exp"/>
@@ -7371,6 +7436,7 @@
         <overload name="operator&lt;=" link="operator_cmp"/>
         <overload name="operator&gt;" link="operator_cmp"/>
         <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
         <specialization name="std::hash" link="hash"/>
     </class>
 
@@ -7458,6 +7524,7 @@
     <variable name="std::experimental::is_placeholder_v" link="cpp/experimental/type_trait_variable_templates" since="exp"/>
     <variable name="std::experimental::uses_allocator_v" link="cpp/experimental/type_trait_variable_templates" since="exp"/>
 
+    <!-- library extensions v2 -->
     <class name="std::experimental::is_detected" link="cpp/experimental/is_detected" since="exp"/>
     <variable name="std::experimental::is_detected_v" link="cpp/experimental/is_detected" since="exp"/>
     <class name="std::experimental::detected_or" link="cpp/experimental/is_detected" since="exp"/>
@@ -7469,18 +7536,118 @@
 
     <class name="std::experimental::nonesuch" link="cpp/experimental/nonesuch" since="exp"/>
 
-    <class name="std::experimental::propagate_const" link="cpp/experimental/propagate_const" since="exp"/>
+    <class name="std::experimental::propagate_const" link="cpp/experimental/propagate_const" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="swap"/>
+
+        <function name="get"/>
+        <function name="operator bool" link="operator_bool"/>
+        <function name="operator*"/>
+        <function name="operator-&gt;" link="operator*"/>
+        <function name="operator element_type*" link="operator_element_type*"/>
+        <function name="operator const element_type*" link="operator_element_type*"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="swap" link="swap2"/>
+
+        <specialization name="std::hash" link="hash"/>
+        <specialization name="std::equal_to" link="cmp_func"/>
+        <specialization name="std::not_equal_to" link="cmp_func"/>
+        <specialization name="std::less" link="cmp_func"/>
+        <specialization name="std::greater" link="cmp_func"/>
+        <specialization name="std::less_equal" link="cmp_func"/>
+        <specialization name="std::greater_equal" link="cmp_func"/>
+    </class>
+    <function name="std::experimental::get_underlying" link="cpp/experimental/propagate_const/get_underlying" since="exp"/>
+
     <function name="std::experimental::not_fn" link="cpp/experimental/not_fn" since="exp"/>
-    <class name="std::experimental::observer_ptr" link="cpp/experimental/observer_ptr" since="exp"/>
+
+    <class name="std::experimental::observer_ptr" link="cpp/experimental/observer_ptr" since="exp">
+        <constructor/>
+
+        <function name="release"/>
+        <function name="reset"/>
+        <function name="swap"/>
+
+        <function name="get"/>
+        <function name="operator bool" link="operator_bool"/>
+        <function name="operator*"/>
+        <function name="operator->" link="operator*"/>
+
+        <function name="operator element_type*" link="operator_pointer"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator!=" link="operator_cmp"/>
+        <overload name="operator&lt;" link="operator_cmp"/>
+        <overload name="operator&lt;=" link="operator_cmp"/>
+        <overload name="operator&gt;" link="operator_cmp"/>
+        <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="swap" link="swap2"/>
+
+        <specialization name="std::hash" link="hash"/>
+    </class>
+    <function name="std::experimental::make_observer" link="cpp/experimental/observer_ptr/make_observer" since="exp"/>
+
     <function name="std::experimental::make_array" link="cpp/experimental/make_array" since="exp"/>
     <function name="std::experimental::to_array" link="cpp/experimental/to_array" since="exp"/>
-    <class name="std::experimental::ostream_joiner" link="cpp/experimental/ostream_joiner" since="exp"/>
+
+    <class name="std::experimental::ostream_joiner" link="cpp/experimental/ostream_joiner" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="operator*"/>
+        <function name="operator++" link="operator_arith"/>
+        <function name="operator++(int)" link="operator_arith"/>
+    </class>
+    <function name="std::experimental::make_ostream_joiner" link="cpp/experimental/ostream_joiner/make_ostream_joiner" since="exp"/>
+
     <function name="std::experimental::gcd" link="cpp/experimental/gcd" since="exp"/>
     <function name="std::experimental::lcm" link="cpp/experimental/lcm" since="exp"/>
-    <class name="std::experimental::source_location" link="cpp/experimental/source_location" since="exp"/>
+
+    <class name="std::experimental::source_location" link="cpp/experimental/source_location" since="exp">
+        <constructor/>
+        <function name="current"/>
+
+        <function name="line"/>
+        <function name="column"/>
+        <function name="file_name"/>
+        <function name="function_name"/>
+    </class>
 
     <function name="std::experimental::randint" link="cpp/experimental/randint" since="exp"/>
     <function name="std::experimental::reseed" link="cpp/experimental/reseed" since="exp"/>
+    <function name="std::experimental::shuffle" link="cpp/experimental/shuffle" since="exp"/>
+
+    <typedef name="std::experimental::void_t" link="cpp/experimental/void_t" since="exp"/>
+    <class name="std::experimental::conjunction" link="cpp/experimental/conjunction" since="exp"/>
+    <const name="std::experimental::conjunction_v" link="cpp/experimental/conjunction" since="exp"/>
+    <class name="std::experimental::disjunction" link="cpp/experimental/disjunction" since="exp"/>
+    <const name="std::experimental::disjunction_v" link="cpp/experimental/disjunction" since="exp"/>
+    <class name="std::experimental::negation" link="cpp/experimental/negation" since="exp"/>
+    <const name="std::experimental::negation_v" link="cpp/experimental/negation" since="exp"/>
+    <function name="std::experimental::erase(std::basic_string)" link="cpp/experimental/basic_string/erase" since="exp"/>
+    <function name="std::experimental::erase_if(std::basic_string)" link="cpp/experimental/basic_string/erase_if" since="exp"/>
+    <function name="std::experimental::erase(std::deque)" link="cpp/experimental/deque/erase" since="exp"/>
+    <function name="std::experimental::erase_if(std::deque)" link="cpp/experimental/deque/erase_if" since="exp"/>
+    <function name="std::experimental::erase(std::vector)" link="cpp/experimental/vector/erase" since="exp"/>
+    <function name="std::experimental::erase_if(std::vector)" link="cpp/experimental/vector/erase_if" since="exp"/>
+    <function name="std::experimental::erase(std::forward_list)" link="cpp/experimental/forward_list/erase" since="exp"/>
+    <function name="std::experimental::erase_if(std::forward_list)" link="cpp/experimental/forward_list/erase_if" since="exp"/>
+    <function name="std::experimental::erase(std::list)" link="cpp/experimental/list/erase" since="exp"/>
+    <function name="std::experimental::erase_if(std::list)" link="cpp/experimental/list/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::map)" link="cpp/experimental/map/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::multimap)" link="cpp/experimental/multimap/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::set)" link="cpp/experimental/set/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::multiset)" link="cpp/experimental/multiset/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::unordered_map)" link="cpp/experimental/unordered_map/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::unordered_multimap)" link="cpp/experimental/unordered_multimap/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::unordered_set)" link="cpp/experimental/unordered_set/erase_if" since="exp"/>
+    <function name="std::experimental::erase_if(std::unordered_multiset)" link="cpp/experimental/unordered_multiset/erase_if" since="exp"/>
 
     <!-- experimental/filesystem -->
     <class name="std::experimental::filesystem::path" link="cpp/experimental/fs/path" since="exp">
@@ -7536,6 +7703,9 @@
         <function name="has_filename" link="has_path"/>
         <function name="has_stem" link="has_path"/>
         <function name="has_extension" link="has_path"/>
+
+        <function name="is_absolute" link="is_absrel"/>
+        <function name="is_relative" link="is_absrel"/>
 
         <function name="begin"/>
         <function name="end" link="begin"/>
@@ -7719,4 +7889,85 @@
     <function name="std::experimental::filesystem::is_symlink" link="cpp/experimental/fs/is_symlink" since="exp"/>
     <function name="std::experimental::filesystem::status_known" link="cpp/experimental/fs/status_known" since="exp"/>
 
+    <!-- concurrency -->
+    <class name="std::experimental::future" link="cpp/experimental/future" since="exp">
+        <constructor/>
+        <function name="is_ready"/>
+        <function name="then"/>
+        <function name="operator="/>
+    </class>
+
+    <class name="std::experimental::shared_future" link="cpp/experimental/shared_future" since="exp">
+        <constructor/>
+        <function name="is_ready"/>
+        <function name="then"/>
+        <function name="operator="/>
+    </class>
+
+    <class name="std::experimental::promise (Concurrency TS)" link="cpp/experimental/concurrency/promise" since="exp"/>
+
+    <class name="std::experimental::packaged_task (Concurrency TS)" link="cpp/experimental/concurrency/packaged_task" since="exp"/>
+
+    <function name="std::experimental::when_all" link="cpp/experimental/when_all" since="exp"/>
+    <function name="std::experimental::when_any" link="cpp/experimental/when_any" since="exp"/>
+    <function name="std::experimental::make_ready_future" link="cpp/experimental/make_ready_future" since="exp"/>
+    <function name="std::experimental::make_exceptional_future" link="cpp/experimental/make_exceptional_future" since="exp"/>
+
+    <class name="std::experimental::latch" link="cpp/experimental/latch" since="exp">
+        <constructor/>
+        <destructor/>
+        <function name="count_down_and_wait"/>
+        <function name="count_down"/>
+        <function name="is_ready"/>
+        <function name="wait"/>
+    </class>
+
+    <class name="std::experimental::barrier" link="cpp/experimental/barrier" since="exp">
+        <constructor/>
+        <destructor/>
+        <function name="arrive_and_wait"/>
+        <function name="arrive_and_drop"/>
+    </class>
+
+    <class name="std::experimental::flex_barrier" link="cpp/experimental/flex_barrier" since="exp">
+        <constructor/>
+        <destructor/>
+        <function name="arrive_and_wait"/>
+        <function name="arrive_and_drop"/>
+    </class>
+
+    <class name="std::experimental::atomic_shared_ptr" link="cpp/experimental/atomic_shared_ptr" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="is_lock_free"/>
+        <function name="store"/>
+        <function name="load"/>
+        <function name="operator shared_ptr&lt;T&gt;" link="operator_shared_ptr"/>
+        <function name="exchange"/>
+        <function name="compare_exchange_weak" link="compare_exchange"/>
+        <function name="compare_exchange_strong" link="compare_exchange"/>
+    </class>
+
+    <class name="std::experimental::atomic_weak_ptr" link="cpp/experimental/atomic_weak_ptr" since="exp">
+        <constructor/>
+        <function name="operator="/>
+        <function name="is_lock_free"/>
+        <function name="store"/>
+        <function name="load"/>
+        <function name="operator weak_ptr&lt;T&gt;" link="operator_weak_ptr"/>
+        <function name="exchange"/>
+        <function name="compare_exchange_weak" link="compare_exchange"/>
+        <function name="compare_exchange_strong" link="compare_exchange"/>
+    </class>
+
+    <!-- parallelism -->
+    <class name="std::experimental::parallel::sequential_execution_policy" link="cpp/experimental/execution_policy_tag_t" since="exp"/>
+    <class name="std::experimental::parallel::parallel_execution_policy" link="cpp/experimental/execution_policy_tag_t" since="exp"/>
+    <class name="std::experimental::parallel::parallel_vector_execution_policy" link="cpp/experimental/execution_policy_tag_t" since="exp"/>
+    <const name="std::experimental::parallel::seq" link="cpp/experimental/execution_policy_tag" since="exp"/>
+    <const name="std::experimental::parallel::par" link="cpp/experimental/execution_policy_tag" since="exp"/>
+    <const name="std::experimental::parallel::par_vec" link="cpp/experimental/execution_policy_tag" since="exp"/>
+    <class name="std::experimental::parallel::is_execution_policy" link="cpp/experimental/is_execution_policy" since="exp"/>
+    <function name="std::experimental::parallel::reduce" link="cpp/experimental/reduce" since="exp"/>
+    <function name="std::experimental::parallel::transform_reduce" link="cpp/experimental/transform_reduce" since="exp"/>
 </index>
