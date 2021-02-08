@@ -4046,6 +4046,12 @@
     <function name="std::isnan" link="cpp/numeric/math/isnan"/>
     <function name="std::isnormal" link="cpp/numeric/math/isnormal"/>
     <function name="std::signbit" link="cpp/numeric/math/signbit"/>
+    <function name="std::isgreater" link="cpp/numeric/math/isgreater"/>
+    <function name="std::isgreaterequal" link="cpp/numeric/math/isgreaterequal"/>
+    <function name="std::isless" link="cpp/numeric/math/isless"/>
+    <function name="std::islessequal" link="cpp/numeric/math/islessequal"/>
+    <function name="std::islessgreater" link="cpp/numeric/math/islessgreater"/>
+    <function name="std::isunordered" link="cpp/numeric/math/isunordered"/>
 
     <const name="HUGE_VAL" link="cpp/numeric/math/HUGE_VAL"/>
     <const name="HUGE_VALF" link="cpp/numeric/math/HUGE_VAL"/>
