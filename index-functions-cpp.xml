@@ -1710,6 +1710,13 @@
         <function name="max"/>
     </class>
 
+    <function name="std::literals::chrono_literals::operator&quot;&quot;h" link="cpp/chrono/operator&quot;&quot;h" since="c++14"/>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;min" link="cpp/chrono/operator&quot;&quot;min" since="c++14"/>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;s" link="cpp/chrono/operator&quot;&quot;s" since="c++14"/>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;ms" link="cpp/chrono/operator&quot;&quot;ms" since="c++14"/>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;us" link="cpp/chrono/operator&quot;&quot;us" since="c++14"/>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;ns" link="cpp/chrono/operator&quot;&quot;ns" since="c++14"/>
+
     <class name="std::chrono::system_clock" link="cpp/chrono/system_clock">
         <const name="is_steady" link="."/>
         <function name="now"/>
@@ -1851,6 +1858,7 @@
 
         <specialization name="std::formatter" link="formatter"/>
     </class>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;d" link="cpp/chrono/operator&quot;&quot;d" since="c++20"/>
 
     <class name="std::chrono::month" link="cpp/chrono/month" since="c++20">
         <constructor/>
@@ -1910,6 +1918,7 @@
 
         <specialization name="std::formatter" link="formatter"/>
     </class>
+    <function name="std::literals::chrono_literals::operator&quot;&quot;y" link="cpp/chrono/operator&quot;&quot;y" since="c++20"/>
 
     <class name="std::chrono::weekday" link="cpp/chrono/weekday" since="c++20">
         <constructor/>
