@@ -3016,6 +3016,8 @@
     <typedef name="std::pmr::u16string" alias="std::basic_string" since="c++17"/>
     <typedef name="std::pmr::u32string" alias="std::basic_string" since="c++17"/>
 
+    <function name="std::literals::string_literals::operator&quot;&quot;s" link="cpp/string/basic_string/operator&quot;&quot;s" since="c++14"/>
+
     <!-- cpp/string/basic_string_view -->
 
     <class name="std::basic_string_view" link="cpp/string/basic_string_view" since="c++17">
@@ -3075,6 +3077,8 @@
     <typedef name="std::u8string_view" alias="std::basic_string_view" since="c++20"/>
     <typedef name="std::u16string_view" alias="std::basic_string_view" since="c++17"/>
     <typedef name="std::u32string_view" alias="std::basic_string_view" since="c++17"/>
+
+    <function name="std::literals::string_view_literals::operator&quot;&quot;sv" link="cpp/string/basic_string_view/operator&quot;&quot;sv" since="c++17"/>
 
     <!-- cpp/string -->
 
@@ -4214,6 +4218,9 @@
         <overload name="std::acosh" link="acosh"/>
         <overload name="std::atanh" link="atanh"/>
     </class>
+    <function name="std::literals::complex_literals::operator&quot;&quot;i" link="cpp/numeric/complex/operator&quot;&quot;i" since="c++14"/>
+    <function name="std::literals::complex_literals::operator&quot;&quot;if" link="cpp/numeric/complex/operator&quot;&quot;i" since="c++14"/>
+    <function name="std::literals::complex_literals::operator&quot;&quot;il" link="cpp/numeric/complex/operator&quot;&quot;i" since="c++14"/>
 
     <!-- cpp/numeric/valarray -->
 
