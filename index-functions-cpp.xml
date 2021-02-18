@@ -6495,6 +6495,8 @@
         <function name="operator="/>
         <function name="assign"/>
 
+        <enum name="format"/>
+
         <const name="preferred_separator" link="."/>
 
         <function name="append"/>
@@ -6573,6 +6575,7 @@
 
     <class name="std::filesystem::filesystem_error" link="cpp/filesystem/filesystem_error" since="c++17">
         <constructor/>
+        <function name="operator="/>
         <function name="path1" link="path"/>
         <function name="path2" link="path"/>
         <function name="what"/>
@@ -6583,18 +6586,34 @@
         <function name="operator="/>
         <function name="assign"/>
         <function name="replace_filename"/>
+        <function name="refresh"/>
 
         <function name="path"/>
         <overload name="operator const path&amp;" link="path"/>
+        <function name="exists"/>
+        <function name="is_block_file"/>
+        <function name="is_character_file"/>
+        <function name="is_directory"/>
+        <function name="is_fifo"/>
+        <function name="is_other"/>
+        <function name="is_regular_file"/>
+        <function name="is_socket"/>
+        <function name="is_symlink"/>
+        <function name="file_size"/>
+        <function name="hard_link_count"/>
+        <function name="last_write_time"/>
         <function name="status"/>
         <function name="symlink_status" link="status"/>
 
-        <overload name="operator==" link="operator_cmp"/>
-        <overload name="operator!=" link="operator_cmp"/>
-        <overload name="operator&lt;" link="operator_cmp"/>
-        <overload name="operator&lt;=" link="operator_cmp"/>
-        <overload name="operator&gt;" link="operator_cmp"/>
-        <overload name="operator&gt;=" link="operator_cmp"/>
+        <function name="operator==" link="operator_cmp"/>
+        <function name="operator!=" link="operator_cmp"/>
+        <function name="operator&lt;" link="operator_cmp"/>
+        <function name="operator&lt;=" link="operator_cmp"/>
+        <function name="operator&gt;" link="operator_cmp"/>
+        <function name="operator&gt;=" link="operator_cmp"/>
+        <function name="operator&lt;=&gt;" link="operator_cmp" since="c++20"/>
+
+        <overload name="operator&lt;&lt;" link="operator_ltlt"/>
     </class>
 
     <class name="std::filesystem::directory_iterator" link="cpp/filesystem/directory_iterator" since="c++17">
@@ -6637,6 +6656,8 @@
         <function name="operator="/>
         <function name="type"/>
         <function name="permissions"/>
+
+        <overload name="operator==" since="c++20"/>
     </class>
 
     <class name="std::filesystem::space_info" link="cpp/filesystem/space_info" since="c++17">
@@ -7085,6 +7106,7 @@
 
     <class name="std::experimental::filesystem::filesystem_error" link="cpp/experimental/fs/filesystem_error" since="exp">
         <constructor/>
+        <function name="operator="/>
         <function name="path1" link="path"/>
         <function name="path2" link="path"/>
         <function name="what"/>
