@@ -797,6 +797,9 @@
         <function name="operator*"/>
         <function name="operator++"/>
         <function name="operator++(int)" link="operator++"/>
+
+        <!-- protected -->
+        <variable name="container" link="."/>
     </class>
 
     <class name="std::front_insert_iterator" link="cpp/iterator/front_insert_iterator">
@@ -806,6 +809,9 @@
         <function name="operator*"/>
         <function name="operator++"/>
         <function name="operator++(int)" link="operator++"/>
+
+        <!-- protected -->
+        <variable name="container" link="."/>
     </class>
 
     <class name="std::insert_iterator" link="cpp/iterator/insert_iterator">
@@ -815,6 +821,10 @@
         <function name="operator*"/>
         <function name="operator++" link="operator++"/>
         <function name="operator++(int)" link="operator++"/>
+
+        <!-- protected -->
+        <variable name="container" link="."/>
+        <variable name="iter" link="."/>
     </class>
 
     <function name="std::make_reverse_iterator" link="cpp/iterator/make_reverse_iterator" since="c++14"/>
@@ -909,6 +919,7 @@
         <inherits name="std::exception"/>
         <constructor link="."/>
         <function name="operator=" link="."/>
+        <function name="what" link="."/>
     </class>
 
     <class name="std::bad_array_new_length" link="cpp/memory/new/bad_array_new_length" since="c++11">
@@ -3499,7 +3510,12 @@
     <typedef name="std::pmr::multiset" alias="std::multiset" since="c++17"/>
 
     <class name="std::map" link="cpp/container/map">
-        <class name="value_compare"/>
+        <class name="value_compare">
+            <function name="operator()" link="."/>
+            <!-- protected -->
+            <constructor link="."/>
+            <variable name="comp" link="."/>
+        </class>
 
         <constructor/>
         <destructor/>
@@ -3556,7 +3572,12 @@
     <typedef name="std::pmr::map" alias="std::map" since="c++17"/>
 
     <class name="std::multimap" link="cpp/container/multimap">
-        <class name="value_compare"/>
+        <class name="value_compare">
+            <function name="operator()" link="."/>
+            <!-- protected -->
+            <constructor link="."/>
+            <variable name="comp" link="."/>
+        </class>
 
         <constructor/>
         <destructor/>
@@ -3856,6 +3877,9 @@
 
         <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
+
+        <!-- protected -->
+        <variable name="c" link="."/>
     </class>
 
     <class name="std::queue" link="cpp/container/queue">
@@ -3883,6 +3907,9 @@
 
         <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
+
+        <!-- protected -->
+        <variable name="c" link="."/>
     </class>
 
     <class name="std::priority_queue" link="cpp/container/priority_queue">
@@ -3902,6 +3929,9 @@
 
         <overload name="std::swap" link="swap2"/>
         <specialization name="std::uses_allocator" link="uses_allocator"/>
+
+        <!-- protected -->
+        <variable name="c" link="."/>
     </class>
 
     <class name="std::span" link="cpp/container/span" since="c++20">
