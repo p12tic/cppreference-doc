@@ -28,9 +28,9 @@
 
     <typedef name="std::size_t" link="cpp/types/size_t"/>
     <typedef name="std::ptrdiff_t" link="cpp/types/ptrdiff_t"/>
-    <typedef name="std::nullptr_t" link="cpp/types/nullptr_t"/>
+    <typedef name="std::nullptr_t" link="cpp/types/nullptr_t" since="c++11"/>
     <const name="NULL" link="cpp/types/NULL"/>
-    <typedef name="std::max_align_t" link="cpp/types/max_align_t"/>
+    <typedef name="std::max_align_t" link="cpp/types/max_align_t" since="c++11"/>
     <function name="offsetof" link="cpp/types/offsetof"/>
     <class name="std::byte" link="cpp/types/byte" since="c++17">
         <overload name="std::to_integer" link="."/>
@@ -442,7 +442,7 @@
         <function name="name"/>
     </class>
 
-    <class name="std::type_index" link="cpp/types/type_index">
+    <class name="std::type_index" link="cpp/types/type_index" since="c++11">
         <constructor/>
         <function name="operator==" link="operator_cmp"/>
         <function name="operator!=" link="operator_cmp"/>
@@ -467,133 +467,133 @@
     </class>
 
     <!-- type traits -->
-    <class name="std::is_void" link="cpp/types/is_void"/>
+    <class name="std::is_void" link="cpp/types/is_void" since="c++11"/>
     <variable name="std::is_void_v" link="cpp/types/is_void" since="c++17"/>
     <class name="std::is_null_pointer" link="cpp/types/is_null_pointer" since="c++14"/>
     <variable name="std::is_null_pointer_v" link="cpp/types/is_null_pointer" since="c++17"/>
-    <class name="std::is_integral" link="cpp/types/is_integral"/>
+    <class name="std::is_integral" link="cpp/types/is_integral" since="c++11"/>
     <variable name="std::is_integral_v" link="cpp/types/is_integral" since="c++17"/>
-    <class name="std::is_floating_point" link="cpp/types/is_floating_point"/>
+    <class name="std::is_floating_point" link="cpp/types/is_floating_point" since="c++11"/>
     <variable name="std::is_floating_point_v" link="cpp/types/is_floating_point" since="c++17"/>
-    <class name="std::is_array" link="cpp/types/is_array"/>
+    <class name="std::is_array" link="cpp/types/is_array" since="c++11"/>
     <variable name="std::is_array_v" link="cpp/types/is_array" since="c++17"/>
-    <class name="std::is_enum" link="cpp/types/is_enum"/>
+    <class name="std::is_enum" link="cpp/types/is_enum" since="c++11"/>
     <variable name="std::is_enum_v" link="cpp/types/is_enum" since="c++17"/>
-    <class name="std::is_union" link="cpp/types/is_union"/>
+    <class name="std::is_union" link="cpp/types/is_union" since="c++11"/>
     <variable name="std::is_union_v" link="cpp/types/is_union" since="c++17"/>
-    <class name="std::is_class" link="cpp/types/is_class"/>
+    <class name="std::is_class" link="cpp/types/is_class" since="c++11"/>
     <variable name="std::is_class_v" link="cpp/types/is_class" since="c++17"/>
-    <class name="std::is_function" link="cpp/types/is_function"/>
+    <class name="std::is_function" link="cpp/types/is_function" since="c++11"/>
     <variable name="std::is_function_v" link="cpp/types/is_function" since="c++17"/>
-    <class name="std::is_pointer" link="cpp/types/is_pointer"/>
+    <class name="std::is_pointer" link="cpp/types/is_pointer" since="c++11"/>
     <variable name="std::is_pointer_v" link="cpp/types/is_pointer" since="c++17"/>
-    <class name="std::is_lvalue_reference" link="cpp/types/is_lvalue_reference"/>
+    <class name="std::is_lvalue_reference" link="cpp/types/is_lvalue_reference" since="c++11"/>
     <variable name="std::is_lvalue_reference_v" link="cpp/types/is_lvalue_reference" since="c++17"/>
-    <class name="std::is_rvalue_reference" link="cpp/types/is_rvalue_reference"/>
+    <class name="std::is_rvalue_reference" link="cpp/types/is_rvalue_reference" since="c++11"/>
     <variable name="std::is_rvalue_reference_v" link="cpp/types/is_rvalue_reference" since="c++17"/>
-    <class name="std::is_member_object_pointer" link="cpp/types/is_member_object_pointer"/>
+    <class name="std::is_member_object_pointer" link="cpp/types/is_member_object_pointer" since="c++11"/>
     <variable name="std::is_member_object_pointer_v" link="cpp/types/is_member_object_pointer" since="c++17"/>
-    <class name="std::is_member_function_pointer" link="cpp/types/is_member_function_pointer"/>
+    <class name="std::is_member_function_pointer" link="cpp/types/is_member_function_pointer" since="c++11"/>
     <variable name="std::is_member_function_pointer_v" link="cpp/types/is_member_function_pointer" since="c++17"/>
 
-    <class name="std::is_fundamental" link="cpp/types/is_fundamental"/>
+    <class name="std::is_fundamental" link="cpp/types/is_fundamental" since="c++11"/>
     <variable name="std::is_fundamental_v" link="cpp/types/is_fundamental" since="c++17"/>
-    <class name="std::is_arithmetic" link="cpp/types/is_arithmetic"/>
+    <class name="std::is_arithmetic" link="cpp/types/is_arithmetic" since="c++11"/>
     <variable name="std::is_arithmetic_v" link="cpp/types/is_arithmetic" since="c++17"/>
-    <class name="std::is_scalar" link="cpp/types/is_scalar"/>
+    <class name="std::is_scalar" link="cpp/types/is_scalar" since="c++11"/>
     <variable name="std::is_scalar_v" link="cpp/types/is_scalar" since="c++17"/>
-    <class name="std::is_object" link="cpp/types/is_object"/>
+    <class name="std::is_object" link="cpp/types/is_object" since="c++11"/>
     <variable name="std::is_object_v" link="cpp/types/is_object" since="c++17"/>
-    <class name="std::is_compound" link="cpp/types/is_compound"/>
+    <class name="std::is_compound" link="cpp/types/is_compound" since="c++11"/>
     <variable name="std::is_compound_v" link="cpp/types/is_compound" since="c++17"/>
-    <class name="std::is_reference" link="cpp/types/is_reference"/>
+    <class name="std::is_reference" link="cpp/types/is_reference" since="c++11"/>
     <variable name="std::is_reference_v" link="cpp/types/is_reference" since="c++17"/>
-    <class name="std::is_member_pointer" link="cpp/types/is_member_pointer"/>
+    <class name="std::is_member_pointer" link="cpp/types/is_member_pointer" since="c++11"/>
     <variable name="std::is_member_pointer_v" link="cpp/types/is_member_pointer" since="c++17"/>
 
-    <class name="std::is_const" link="cpp/types/is_const"/>
+    <class name="std::is_const" link="cpp/types/is_const" since="c++11"/>
     <variable name="std::is_const_v" link="cpp/types/is_const" since="c++17"/>
-    <class name="std::is_volatile" link="cpp/types/is_volatile"/>
+    <class name="std::is_volatile" link="cpp/types/is_volatile" since="c++11"/>
     <variable name="std::is_volatile_v" link="cpp/types/is_volatile" since="c++17"/>
-    <class name="std::is_trivial" link="cpp/types/is_trivial"/>
+    <class name="std::is_trivial" link="cpp/types/is_trivial" since="c++11"/>
     <variable name="std::is_trivial_v" link="cpp/types/is_trivial" since="c++17"/>
-    <class name="std::is_trivially_copyable" link="cpp/types/is_trivially_copyable"/>
+    <class name="std::is_trivially_copyable" link="cpp/types/is_trivially_copyable" since="c++11"/>
     <variable name="std::is_trivially_copyable_v" link="cpp/types/is_trivially_copyable" since="c++17"/>
-    <class name="std::is_standard_layout" link="cpp/types/is_standard_layout"/>
+    <class name="std::is_standard_layout" link="cpp/types/is_standard_layout" since="c++11"/>
     <variable name="std::is_standard_layout_v" link="cpp/types/is_standard_layout" since="c++17"/>
-    <class name="std::is_pod" link="cpp/types/is_pod"/>
+    <class name="std::is_pod" link="cpp/types/is_pod" since="c++11"/>
     <variable name="std::is_pod_v" link="cpp/types/is_pod" since="c++17"/>
-    <class name="std::is_literal_type" link="cpp/types/is_literal_type"/>
+    <class name="std::is_literal_type" link="cpp/types/is_literal_type" since="c++11"/>
     <variable name="std::is_literal_type_v" link="cpp/types/is_literal_type" since="c++17"/>
     <class name="std::has_unique_object_representations" link="cpp/types/has_unique_object_representations" since="c++17"/>
     <variable name="std::has_unique_object_representations_v" link="cpp/types/has_unique_object_representations" since="c++17"/>
-    <class name="std::is_empty" link="cpp/types/is_empty"/>
+    <class name="std::is_empty" link="cpp/types/is_empty" since="c++11"/>
     <variable name="std::is_empty_v" link="cpp/types/is_empty" since="c++17"/>
-    <class name="std::is_polymorphic" link="cpp/types/is_polymorphic"/>
+    <class name="std::is_polymorphic" link="cpp/types/is_polymorphic" since="c++11"/>
     <variable name="std::is_polymorphic_v" link="cpp/types/is_polymorphic" since="c++17"/>
-    <class name="std::is_abstract" link="cpp/types/is_abstract"/>
+    <class name="std::is_abstract" link="cpp/types/is_abstract" since="c++11"/>
     <variable name="std::is_abstract_v" link="cpp/types/is_abstract" since="c++17"/>
     <class name="std::is_final" link="cpp/types/is_final" since="c++14"/>
     <variable name="std::is_final_v" link="cpp/types/is_final" since="c++17"/>
     <class name="std::is_aggregate" link="cpp/types/is_aggregate" since="c++14"/>
     <variable name="std::is_aggregate_v" link="cpp/types/is_aggregate" since="c++17"/>
-    <class name="std::is_signed" link="cpp/types/is_signed"/>
+    <class name="std::is_signed" link="cpp/types/is_signed" since="c++11"/>
     <variable name="std::is_signed_v" link="cpp/types/is_signed" since="c++17"/>
-    <class name="std::is_unsigned" link="cpp/types/is_unsigned"/>
+    <class name="std::is_unsigned" link="cpp/types/is_unsigned" since="c++11"/>
     <variable name="std::is_unsigned_v" link="cpp/types/is_unsigned" since="c++17"/>
     <class name="std::is_bounded_array" link="cpp/types/is_bounded_array" since="c++20"/>
     <variable name="std::is_bounded_array_v" link="cpp/types/is_bounded_array" since="c++20"/>
     <class name="std::is_unbounded_array" link="cpp/types/is_unbounded_array" since="c++20"/>
     <variable name="std::is_unbounded_array_v" link="cpp/types/is_unbounded_array" since="c++20"/>
 
-    <class name="std::is_constructible" link="cpp/types/is_constructible"/>
+    <class name="std::is_constructible" link="cpp/types/is_constructible" since="c++11"/>
     <variable name="std::is_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
-    <class name="std::is_trivially_constructible" link="cpp/types/is_constructible"/>
+    <class name="std::is_trivially_constructible" link="cpp/types/is_constructible" since="c++11"/>
     <variable name="std::is_trivially_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
-    <class name="std::is_nothrow_constructible" link="cpp/types/is_constructible"/>
+    <class name="std::is_nothrow_constructible" link="cpp/types/is_constructible" since="c++11"/>
     <variable name="std::is_nothrow_constructible_v" link="cpp/types/is_constructible" since="c++17"/>
-    <class name="std::is_default_constructible" link="cpp/types/is_default_constructible"/>
+    <class name="std::is_default_constructible" link="cpp/types/is_default_constructible" since="c++11"/>
     <variable name="std::is_default_constructible_v" link="cpp/types/is_default_constructible" since="c++17"/>
-    <class name="std::is_trivially_default_constructible" link="cpp/types/is_default_constructible"/>
+    <class name="std::is_trivially_default_constructible" link="cpp/types/is_default_constructible" since="c++11"/>
     <variable name="std::is_trivially_default_constructible_v" link="cpp/types/is_default_constructible" since="c++17"/>
-    <class name="std::is_nothrow_default_constructible" link="cpp/types/is_default_constructible"/>
+    <class name="std::is_nothrow_default_constructible" link="cpp/types/is_default_constructible" since="c++11"/>
     <variable name="std::is_nothrow_default_constructible_v" link="cpp/types/is_default_constructible" since="c++17"/>
-    <class name="std::is_copy_constructible" link="cpp/types/is_copy_constructible"/>
+    <class name="std::is_copy_constructible" link="cpp/types/is_copy_constructible" since="c++11"/>
     <variable name="std::is_copy_constructible_v" link="cpp/types/is_copy_constructible" since="c++17"/>
-    <class name="std::is_trivially_copy_constructible" link="cpp/types/is_copy_constructible"/>
+    <class name="std::is_trivially_copy_constructible" link="cpp/types/is_copy_constructible" since="c++11"/>
     <variable name="std::is_trivially_copy_constructible_v" link="cpp/types/is_copy_constructible" since="c++17"/>
-    <class name="std::is_nothrow_copy_constructible" link="cpp/types/is_copy_constructible"/>
+    <class name="std::is_nothrow_copy_constructible" link="cpp/types/is_copy_constructible" since="c++11"/>
     <variable name="std::is_nothrow_copy_constructible_v" link="cpp/types/is_copy_constructible" since="c++17"/>
-    <class name="std::is_move_constructible" link="cpp/types/is_move_constructible"/>
+    <class name="std::is_move_constructible" link="cpp/types/is_move_constructible" since="c++11"/>
     <variable name="std::is_move_constructible_v" link="cpp/types/is_move_constructible" since="c++17"/>
-    <class name="std::is_trivially_move_constructible" link="cpp/types/is_move_constructible"/>
+    <class name="std::is_trivially_move_constructible" link="cpp/types/is_move_constructible" since="c++11"/>
     <variable name="std::is_trivially_move_constructible_v" link="cpp/types/is_move_constructible" since="c++17"/>
-    <class name="std::is_nothrow_move_constructible" link="cpp/types/is_move_constructible"/>
+    <class name="std::is_nothrow_move_constructible" link="cpp/types/is_move_constructible" since="c++11"/>
     <variable name="std::is_nothrow_move_constructible_v" link="cpp/types/is_move_constructible" since="c++17"/>
 
-    <class name="std::is_assignable" link="cpp/types/is_assignable"/>
+    <class name="std::is_assignable" link="cpp/types/is_assignable" since="c++11"/>
     <variable name="std::is_assignable_v" link="cpp/types/is_assignable" since="c++17"/>
-    <class name="std::is_trivially_assignable" link="cpp/types/is_assignable"/>
+    <class name="std::is_trivially_assignable" link="cpp/types/is_assignable" since="c++11"/>
     <variable name="std::is_trivially_assignable_v" link="cpp/types/is_assignable" since="c++17"/>
-    <class name="std::is_nothrow_assignable" link="cpp/types/is_assignable"/>
+    <class name="std::is_nothrow_assignable" link="cpp/types/is_assignable" since="c++11"/>
     <variable name="std::is_nothrow_assignable_v" link="cpp/types/is_assignable" since="c++17"/>
-    <class name="std::is_copy_assignable" link="cpp/types/is_copy_assignable"/>
+    <class name="std::is_copy_assignable" link="cpp/types/is_copy_assignable" since="c++11"/>
     <variable name="std::is_copy_assignable_v" link="cpp/types/is_copy_assignable" since="c++17"/>
-    <class name="std::is_trivially_copy_assignable" link="cpp/types/is_copy_assignable"/>
+    <class name="std::is_trivially_copy_assignable" link="cpp/types/is_copy_assignable" since="c++11"/>
     <variable name="std::is_trivially_copy_assignable_v" link="cpp/types/is_copy_assignable" since="c++17"/>
-    <class name="std::is_nothrow_copy_assignable" link="cpp/types/is_copy_assignable"/>
+    <class name="std::is_nothrow_copy_assignable" link="cpp/types/is_copy_assignable" since="c++11"/>
     <variable name="std::is_nothrow_copy_assignable_v" link="cpp/types/is_copy_assignable" since="c++17"/>
-    <class name="std::is_move_assignable" link="cpp/types/is_move_assignable"/>
+    <class name="std::is_move_assignable" link="cpp/types/is_move_assignable" since="c++11"/>
     <variable name="std::is_move_assignable_v" link="cpp/types/is_move_assignable" since="c++17"/>
-    <class name="std::is_trivially_move_assignable" link="cpp/types/is_move_assignable"/>
+    <class name="std::is_trivially_move_assignable" link="cpp/types/is_move_assignable" since="c++11"/>
     <variable name="std::is_trivially_move_assignable_v" link="cpp/types/is_move_assignable" since="c++17"/>
-    <class name="std::is_nothrow_move_assignable" link="cpp/types/is_move_assignable"/>
+    <class name="std::is_nothrow_move_assignable" link="cpp/types/is_move_assignable" since="c++11"/>
     <variable name="std::is_nothrow_move_assignable_v" link="cpp/types/is_move_assignable" since="c++17"/>
-    <class name="std::is_destructible" link="cpp/types/is_destructible"/>
+    <class name="std::is_destructible" link="cpp/types/is_destructible" since="c++11"/>
     <variable name="std::is_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
-    <class name="std::is_trivially_destructible" link="cpp/types/is_destructible"/>
+    <class name="std::is_trivially_destructible" link="cpp/types/is_destructible" since="c++11"/>
     <variable name="std::is_trivially_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
-    <class name="std::is_nothrow_destructible" link="cpp/types/is_destructible"/>
+    <class name="std::is_nothrow_destructible" link="cpp/types/is_destructible" since="c++11"/>
     <variable name="std::is_nothrow_destructible_v" link="cpp/types/is_destructible" since="c++17"/>
 
     <class name="std::is_swappable" link="cpp/types/is_swappable" since="c++17"/>
@@ -605,21 +605,21 @@
     <class name="std::is_nothrow_swappable_with" link="cpp/types/is_swappable" since="c++17"/>
     <variable name="std::is_nothrow_swappable_with_v" link="cpp/types/is_swappable" since="c++17"/>
 
-    <class name="std::has_virtual_destructor" link="cpp/types/has_virtual_destructor"/>
+    <class name="std::has_virtual_destructor" link="cpp/types/has_virtual_destructor" since="c++11"/>
     <variable name="std::has_virtual_destructor_v" link="cpp/types/has_virtual_destructor" since="c++17"/>
 
-    <class name="std::alignment_of" link="cpp/types/alignment_of"/>
+    <class name="std::alignment_of" link="cpp/types/alignment_of" since="c++11"/>
     <variable name="std::alignment_of_v" link="cpp/types/alignment_of" since="c++17"/>
-    <class name="std::rank" link="cpp/types/rank"/>
+    <class name="std::rank" link="cpp/types/rank" since="c++11"/>
     <variable name="std::rank_v" link="cpp/types/rank" since="c++17"/>
-    <class name="std::extent" link="cpp/types/extent"/>
+    <class name="std::extent" link="cpp/types/extent" since="c++11"/>
     <variable name="std::extent_v" link="cpp/types/extent" since="c++17"/>
 
-    <class name="std::is_same" link="cpp/types/is_same"/>
+    <class name="std::is_same" link="cpp/types/is_same" since="c++11"/>
     <variable name="std::is_same_v" link="cpp/types/is_same" since="c++17"/>
-    <class name="std::is_base_of" link="cpp/types/is_base_of"/>
+    <class name="std::is_base_of" link="cpp/types/is_base_of" since="c++11"/>
     <variable name="std::is_base_of_v" link="cpp/types/is_base_of" since="c++17"/>
-    <class name="std::is_convertible" link="cpp/types/is_convertible"/>
+    <class name="std::is_convertible" link="cpp/types/is_convertible" since="c++11"/>
     <variable name="std::is_convertible_v" link="cpp/types/is_convertible" since="c++17"/>
     <class name="std::is_nothrow_convertible" link="cpp/types/is_convertible" since="c++20"/>
     <variable name="std::is_nothrow_convertible_v" link="cpp/types/is_convertible" since="c++20"/>
@@ -668,29 +668,29 @@
     <class name="std::remove_all_extents" link="cpp/types/remove_all_extents" since="c++11"/>
     <typedef name="std::remove_all_extents_t" alias="std::remove_all_extents" since="c++14"/>
 
-    <class name="std::aligned_storage" link="cpp/types/aligned_storage"/>
+    <class name="std::aligned_storage" link="cpp/types/aligned_storage" since="c++11"/>
     <typedef name="std::aligned_storage_t" alias="std::aligned_storage" since="c++14"/>
-    <class name="std::aligned_union" link="cpp/types/aligned_union"/>
+    <class name="std::aligned_union" link="cpp/types/aligned_union" since="c++11"/>
     <typedef name="std::aligned_union_t" alias="std::aligned_union" since="c++14"/>
-    <class name="std::decay" link="cpp/types/decay"/>
+    <class name="std::decay" link="cpp/types/decay" since="c++11"/>
     <typedef name="std::decay_t" alias="std::decay" since="c++14"/>
     <class name="std::remove_cvref" link="cpp/types/remove_cvref" since="c++20"/>
     <typedef name="std::remove_cvref_t" alias="std::remove_cvref" since="c++20"/>
-    <class name="std::enable_if" link="cpp/types/enable_if"/>
+    <class name="std::enable_if" link="cpp/types/enable_if" since="c++11"/>
     <typedef name="std::enable_if_t" alias="std::enable_if" since="c++14"/>
-    <class name="std::conditional" link="cpp/types/conditional"/>
+    <class name="std::conditional" link="cpp/types/conditional" since="c++11"/>
     <typedef name="std::conditional_t" alias="std::conditional" since="c++14"/>
-    <class name="std::common_type" link="cpp/types/common_type"/>
+    <class name="std::common_type" link="cpp/types/common_type" since="c++11"/>
     <typedef name="std::common_type_t" alias="std::common_type" since="c++14"/>
     <class name="std::common_reference" link="cpp/types/common_reference" since="c++20"/>
     <typedef name="std::common_reference_t" alias="std::common_reference" since="c++20"/>
     <class name="std::basic_common_reference" link="cpp/types/common_reference" since="c++20"/>
-    <class name="std::underlying_type" link="cpp/types/underlying_type"/>
+    <class name="std::underlying_type" link="cpp/types/underlying_type" since="c++11"/>
     <typedef name="std::underlying_type_t" alias="std::underlying_type" since="c++14"/>
-    <class name="std::result_of" link="cpp/types/result_of"/>
+    <class name="std::result_of" link="cpp/types/result_of" since="c++11"/>
     <typedef name="std::result_of_t" alias="std::result_of" since="c++14"/>
     <class name="std::invoke_result" link="cpp/types/result_of" since="c++17"/>
-    <typedef name="std::invoke_result_t" alias="std::invoke_result" since="c++14"/>
+    <typedef name="std::invoke_result_t" alias="std::invoke_result" since="c++17"/>
     <typedef name="std::void_t" link="cpp/types/void_t" since="c++17"/>
     <class name="std::type_identity" link="cpp/types/type_identity" since="c++20"/>
     <typedef name="std::type_identity_t" alias="std::type_identity" since="c++20"/>
@@ -702,10 +702,10 @@
     <class name="std::negation" link="cpp/types/negation" since="c++17"/>
     <variable name="std::negation_v" link="cpp/types/negation" since="c++17"/>
 
-    <class name="std::integral_constant" link="cpp/types/integral_constant"/>
+    <class name="std::integral_constant" link="cpp/types/integral_constant" since="c++11"/>
     <typedef name="std::bool_constant" alias="std::integral_constant" since="c++17"/>
-    <typedef name="std::true_type" alias="std::integral_constant"/>
-    <typedef name="std::false_type" alias="std::integral_constant"/>
+    <typedef name="std::true_type" alias="std::integral_constant" since="c++11"/>
+    <typedef name="std::false_type" alias="std::integral_constant" since="c++11"/>
 
     <enum name="std::endian" link="cpp/types/endian" since="c++20">
         <const name="little" link="."/>
@@ -883,8 +883,8 @@
 
     <function name="std::advance" link="cpp/iterator/advance"/>
     <function name="std::distance" link="cpp/iterator/distance"/>
-    <function name="std::next" link="cpp/iterator/next"/>
-    <function name="std::prev" link="cpp/iterator/prev"/>
+    <function name="std::next" link="cpp/iterator/next" since="c++11"/>
+    <function name="std::prev" link="cpp/iterator/prev" since="c++11"/>
     <function name="std::begin" link="cpp/iterator/begin" since="c++11"/>
     <function name="std::cbegin" link="cpp/iterator/begin" since="c++14"/>
     <function name="std::rbegin" link="cpp/iterator/rbegin" since="c++14"/>
@@ -912,7 +912,7 @@
     <function name="operator delete" link="cpp/memory/new/operator_delete"/>
     <function name="operator delete[]" link="cpp/memory/new/operator_delete"/>
 
-    <function name="std::get_new_handler" link="cpp/memory/new/get_new_handler"/>
+    <function name="std::get_new_handler" link="cpp/memory/new/get_new_handler" since="c++11"/>
     <function name="std::set_new_handler" link="cpp/memory/new/set_new_handler"/>
 
     <class name="std::bad_alloc" link="cpp/memory/new/bad_alloc">
@@ -949,7 +949,9 @@
         <overload name="operator!=" link="operator_cmp"/>
     </class>
 
-    <class name="std::allocator_traits" link="cpp/memory/allocator_traits">
+    <class name="std::allocator_traits" link="cpp/memory/allocator_traits" since="c++11">
+        <typedef name="rebind_alloc" link="."/>
+        <typedef name="rebind_traits" link="."/>
         <function name="allocate"/>
         <function name="deallocate"/>
         <function name="max_size"/>
@@ -958,18 +960,19 @@
         <function name="select_on_container_copy_construction"/>
     </class>
 
-    <class name="std::allocator_arg_t" link="cpp/memory/allocator_arg_t"/>
-    <const name="std::allocator_arg" link="cpp/memory/allocator_arg"/>
+    <class name="std::allocator_arg_t" link="cpp/memory/allocator_arg_t" since="c++11"/>
+    <const name="std::allocator_arg" link="cpp/memory/allocator_arg" since="c++11"/>
 
-    <class name="std::uses_allocator" link="cpp/memory/uses_allocator"/>
+    <class name="std::uses_allocator" link="cpp/memory/uses_allocator" since="c++11"/>
     <variable name="std::uses_allocator_v" link="cpp/memory/uses_allocator" since="c++17"/>
     <function name="std::uses_allocator_construction_args" link="cpp/memory/uses_allocator_construction_args" since="c++20"/>
     <function name="std::make_obj_using_allocator" link="cpp/memory/make_obj_using_allocator" since="c++20"/>
     <function name="std::uninitialized_construct_using_allocator" link="cpp/memory/uninitialized_construct_using_allocator" since="c++20"/>
 
-    <class name="std::scoped_allocator_adaptor" link="cpp/memory/scoped_allocator_adaptor">
+    <class name="std::scoped_allocator_adaptor" link="cpp/memory/scoped_allocator_adaptor" since="c++11">
         <constructor/>
         <destructor/>
+        <function name="operator="/>
         <function name="inner_allocator"/>
         <function name="outer_allocator"/>
         <function name="allocate"/>
@@ -1018,7 +1021,7 @@
     <class name="std::pmr::synchronized_pool_resource" link="cpp/memory/synchronized_pool_resource" since="c++17">
         <inherits name="std::pmr::memory_resource"/>
         <constructor/>
-        <destructor link="."/>
+        <destructor/>
         <function name="release"/>
         <function name="upstream_resource"/>
         <function name="options"/>
@@ -1030,7 +1033,7 @@
     <class name="std::pmr::unsynchronized_pool_resource" link="cpp/memory/unsynchronized_pool_resource" since="c++17">
         <inherits name="std::pmr::memory_resource"/>
         <constructor/>
-        <destructor link="."/>
+        <destructor/>
         <function name="release"/>
         <function name="upstream_resource"/>
         <function name="options"/>
@@ -1042,7 +1045,7 @@
     <class name="std::pmr::monotonic_buffer_resource" link="cpp/memory/monotonic_buffer_resource" since="c++17">
         <inherits name="std::pmr::memory_resource"/>
         <constructor/>
-        <destructor link="."/>
+        <destructor/>
         <function name="release"/>
         <function name="upstream_resource"/>
         <function name="do_allocate"/>
@@ -1099,7 +1102,7 @@
     <function name="std::get_temporary_buffer" link="cpp/memory/get_temporary_buffer"/>
     <function name="std::return_temporary_buffer" link="cpp/memory/return_temporary_buffer"/>
 
-    <class name="std::unique_ptr" link="cpp/memory/unique_ptr">
+    <class name="std::unique_ptr" link="cpp/memory/unique_ptr" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -1110,6 +1113,7 @@
         <function name="get_deleter"/>
         <function name="operator*"/>
         <function name="operator->" link="operator*"/>
+        <function name="operator[]" link="operator_at"/>
         <function name="operator bool" link="operator_bool"/>
 
         <overload name="operator==" link="operator_cmp"/>
@@ -1118,12 +1122,14 @@
         <overload name="operator&lt;=" link="operator_cmp"/>
         <overload name="operator&gt;" link="operator_cmp"/>
         <overload name="operator&gt;=" link="operator_cmp"/>
+        <overload name="operator&lt;&lt;" link="operator_ltlt" since="c++20"/>
 
         <overload name="std::swap" link="swap2"/>
         <specialization name="std::hash" link="hash"/>
     </class>
 
-    <class name="std::shared_ptr" link="cpp/memory/shared_ptr">
+    <class name="std::shared_ptr" link="cpp/memory/shared_ptr" since="c++11">
+        <typedef name="weak_type" link="." since="c++17"/>
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -1156,21 +1162,25 @@
         <overload name="std::atomic_store_explicit" link="atomic"/>
         <overload name="std::atomic_exchange" link="atomic"/>
         <overload name="std::atomic_exchange_explicit" link="atomic"/>
-        <overload name="std::compare_exchange_weak" link="atomic"/>
-        <overload name="std::compare_exchange_strong" link="atomic"/>
-        <overload name="std::compare_exchange_weak_explicit" link="atomic"/>
-        <overload name="std::compare_exchange_strong_explicit" link="atomic"/>
+        <overload name="std::atomic_compare_exchange_weak" link="atomic"/>
+        <overload name="std::atomic_compare_exchange_strong" link="atomic"/>
+        <overload name="std::atomic_compare_exchange_weak_explicit" link="atomic"/>
+        <overload name="std::atomic_compare_exchange_strong_explicit" link="atomic"/>
         <specialization name="std::hash" link="hash"/>
     </class>
 
     <function name="std::make_unique" link="cpp/memory/unique_ptr/make_unique" since="c++14"/>
-    <function name="std::make_shared" link="cpp/memory/shared_ptr/make_shared"/>
-    <function name="std::allocate_shared" link="cpp/memory/shared_ptr/allocate_shared"/>
-    <function name="std::static_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
-    <function name="std::dynamic_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
-    <function name="std::const_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast"/>
+    <function name="std::make_unique_for_overwrite" link="cpp/memory/unique_ptr/make_unique" since="c++20"/>
+    <function name="std::make_shared" link="cpp/memory/shared_ptr/make_shared" since="c++11"/>
+    <function name="std::make_shared_for_overwrite" link="cpp/memory/shared_ptr/make_shared" since="c++20"/>
+    <function name="std::allocate_shared" link="cpp/memory/shared_ptr/allocate_shared" since="c++11"/>
+    <function name="std::allocate_shared_for_overwrite" link="cpp/memory/shared_ptr/allocate_shared" since="c++20"/>
+    <function name="std::static_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast" since="c++11"/>
+    <function name="std::dynamic_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast" since="c++11"/>
+    <function name="std::const_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast" since="c++11"/>
+    <function name="std::reinterpret_pointer_cast" link="cpp/memory/shared_ptr/pointer_cast" since="c++17"/>
 
-    <class name="std::weak_ptr" link="cpp/memory/weak_ptr">
+    <class name="std::weak_ptr" link="cpp/memory/weak_ptr" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -1184,7 +1194,7 @@
         <overload name="std::swap" link="swap"/>
     </class>
 
-     <class name="std::auto_ptr" link="cpp/memory/auto_ptr">
+    <class name="std::auto_ptr" link="cpp/memory/auto_ptr">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -1197,11 +1207,11 @@
         <function name="operator auto_ptr&lt;Y&gt;" link="operator_auto_ptr"/>
     </class>
 
-    <class name="std::owner_less" link="cpp/memory/owner_less">
+    <class name="std::owner_less" link="cpp/memory/owner_less" since="c++11">
         <function name="operator()" link="."/>
     </class>
 
-    <class name="std::enable_shared_from_this" link="cpp/memory/enable_shared_from_this">
+    <class name="std::enable_shared_from_this" link="cpp/memory/enable_shared_from_this" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -1209,39 +1219,41 @@
         <function name="weak_from_this" since="c++17"/>
     </class>
 
-    <class name="std::bad_weak_ptr" link="cpp/memory/bad_weak_ptr">
+    <class name="std::bad_weak_ptr" link="cpp/memory/bad_weak_ptr" since="c++11">
         <inherits name="std::exception"/>
         <constructor link="."/>
     </class>
 
-    <class name="std::default_delete" link="cpp/memory/default_delete">
+    <class name="std::default_delete" link="cpp/memory/default_delete" since="c++11">
         <constructor link="."/>
         <function name="operator()" link="."/>
     </class>
 
-    <function name="std::declare_reachable" link="cpp/memory/gc/declare_reachable"/>
-    <function name="std::undeclare_reachable" link="cpp/memory/gc/undeclare_reachable"/>
-    <function name="std::declare_no_pointers" link="cpp/memory/gc/declare_no_pointers"/>
-    <function name="std::undeclare_no_pointers" link="cpp/memory/gc/undeclare_no_pointers"/>
+    <function name="std::declare_reachable" link="cpp/memory/gc/declare_reachable" since="c++11"/>
+    <function name="std::undeclare_reachable" link="cpp/memory/gc/undeclare_reachable" since="c++11"/>
+    <function name="std::declare_no_pointers" link="cpp/memory/gc/declare_no_pointers" since="c++11"/>
+    <function name="std::undeclare_no_pointers" link="cpp/memory/gc/undeclare_no_pointers" since="c++11"/>
 
-    <class name="std::pointer_safety" link="cpp/memory/gc/pointer_safety">
+    <class name="std::pointer_safety" link="cpp/memory/gc/pointer_safety" since="c++11">
         <const name="relaxed" link="."/>
         <const name="preferred" link="."/>
         <const name="strict" link="."/>
     </class>
-    <function name="std::get_pointer_safety" link="cpp/memory/gc/get_pointer_safety"/>
+    <function name="std::get_pointer_safety" link="cpp/memory/gc/get_pointer_safety" since="c++11"/>
 
-    <class name="std::pointer_traits" link="cpp/memory/pointer_traits">
+    <class name="std::pointer_traits" link="cpp/memory/pointer_traits" since="c++11">
+        <typedef name="rebind" link="."/>
         <function name="pointer_to"/>
+        <function name="to_address"/>
     </class>
 
     <function name="std::to_address" link="cpp/memory/to_address" since="c++20"/>
-    <function name="std::addressof" link="cpp/memory/addressof"/>
-    <function name="std::align" link="cpp/memory/align"/>
+    <function name="std::addressof" link="cpp/memory/addressof" since="c++11"/>
+    <function name="std::align" link="cpp/memory/align" since="c++11"/>
     <function name="std::assume_aligned" link="cpp/memory/assume_aligned" since="c++20"/>
 
     <function name="std::malloc" link="cpp/memory/c/malloc"/>
-    <function name="std::aligned_alloc" link="cpp/memory/c/aligned_alloc" since="c++11"/>
+    <function name="std::aligned_alloc" link="cpp/memory/c/aligned_alloc" since="c++17"/>
     <function name="std::calloc" link="cpp/memory/c/calloc"/>
     <function name="std::realloc" link="cpp/memory/c/realloc"/>
     <function name="std::free" link="cpp/memory/c/free"/>
@@ -1305,30 +1317,30 @@
 
     <function name="std::uncaught_exception" link="cpp/error/uncaught_exception"/>
     <function name="std::uncaught_exceptions" link="cpp/error/uncaught_exception" since="c++17"/>
-    <typedef name="std::exception_ptr" link="cpp/error/exception_ptr"/>
-    <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr"/>
-    <function name="std::current_exception" link="cpp/error/current_exception"/>
-    <function name="std::rethrow_exception" link="cpp/error/rethrow_exception"/>
+    <typedef name="std::exception_ptr" link="cpp/error/exception_ptr" since="c++11"/>
+    <function name="std::make_exception_ptr" link="cpp/error/make_exception_ptr" since="c++11"/>
+    <function name="std::current_exception" link="cpp/error/current_exception" since="c++11"/>
+    <function name="std::rethrow_exception" link="cpp/error/rethrow_exception" since="c++11"/>
 
-    <class name="std::nested_exception" link="cpp/error/nested_exception">
+    <class name="std::nested_exception" link="cpp/error/nested_exception" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
         <function name="rethrow_nested"/>
         <function name="nested_ptr"/>
     </class>
-    <function name="std::throw_with_nested" link="cpp/error/throw_with_nested"/>
-    <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested"/>
+    <function name="std::throw_with_nested" link="cpp/error/throw_with_nested" since="c++11"/>
+    <function name="std::rethrow_if_nested" link="cpp/error/rethrow_if_nested" since="c++11"/>
 
     <function name="std::terminate" link="cpp/error/terminate"/>
     <typedef name="std::terminate_handler" link="cpp/error/terminate_handler"/>
-    <function name="std::get_terminate" link="cpp/error/get_terminate"/>
+    <function name="std::get_terminate" link="cpp/error/get_terminate" since="c++11"/>
     <function name="std::set_terminate" link="cpp/error/set_terminate"/>
 
     <function name="std::unexpected" link="cpp/error/unexpected"/>
     <class name="std::bad_exception" link="cpp/error/bad_exception"/>
     <typedef name="std::unexpected_handler" link="cpp/error/unexpected_handler"/>
-    <function name="std::get_unexpected" link="cpp/error/get_unexpected"/>
+    <function name="std::get_unexpected" link="cpp/error/get_unexpected" since="c++11"/>
     <function name="std::set_unexpected" link="cpp/error/set_unexpected"/>
 
     <const name="errno" link="cpp/error/errno"/>
@@ -1411,7 +1423,7 @@
     <const name="EWOULDBLOCK" link="cpp/error/errno_macros"/>
     <const name="EXDEV" link="cpp/error/errno_macros"/>
 
-    <class name="std::error_category" link="cpp/error/error_category">
+    <class name="std::error_category" link="cpp/error/error_category" since="c++11">
         <constructor/>
         <destructor/>
         <function name="name"/>
@@ -1423,10 +1435,10 @@
         <function name="operator&lt;" link="operator_cmp"/>
     </class>
 
-    <function name="std::generic_category" link="cpp/error/generic_category"/>
-    <function name="std::system_category" link="cpp/error/system_category"/>
+    <function name="std::generic_category" link="cpp/error/generic_category" since="c++11"/>
+    <function name="std::system_category" link="cpp/error/system_category" since="c++11"/>
 
-    <class name="std::error_condition" link="cpp/error/error_condition">
+    <class name="std::error_condition" link="cpp/error/error_condition" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="assign"/>
@@ -1439,12 +1451,14 @@
         <overload name="operator==" link="operator_cmp"/>
         <overload name="operator!=" link="operator_cmp"/>
         <overload name="operator&lt;" link="operator_cmp"/>
+
+        <specialization name="std::hash" link="hash" since="c++17"/>
     </class>
 
-    <class name="std::is_error_condition_enum" link="cpp/error/error_condition/is_error_condition_enum"/>
+    <class name="std::is_error_condition_enum" link="cpp/error/error_condition/is_error_condition_enum" since="c++11"/>
     <variable name="std::is_error_condition_enum_v" link="cpp/error/error_condition/is_error_condition_enum" since="c++17"/>
 
-    <class name="std::error_code" link="cpp/error/error_code">
+    <class name="std::error_code" link="cpp/error/error_code" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="assign"/>
@@ -1459,12 +1473,14 @@
         <overload name="operator!=" link="operator_cmp"/>
         <overload name="operator&lt;" link="operator_cmp"/>
         <overload name="operator&lt;&lt;" link="operator_ltlt"/>
+
+        <specialization name="std::hash" link="hash"/>
     </class>
 
-    <class name="std::is_error_code_enum" link="cpp/error/error_code/is_error_code_enum"/>
+    <class name="std::is_error_code_enum" link="cpp/error/error_code/is_error_code_enum" since="c++11"/>
     <class name="std::is_error_code_enum_v" link="cpp/error/error_code/is_error_code_enum" since="c++17"/>
 
-    <class name="std::errc" link="cpp/error/errc">
+    <class name="std::errc" link="cpp/error/errc" since="c++11">
         <const name="address_family_not_supported" link="."/>
         <const name="address_in_use" link="."/>
         <const name="address_not_available" link="."/>
@@ -1585,10 +1601,10 @@
 
     <function name="std::abort" link="cpp/utility/program/abort"/>
     <function name="std::exit" link="cpp/utility/program/exit"/>
-    <function name="std::quick_exit" link="cpp/utility/program/quick_exit"/>
-    <function name="std::_Exit" link="cpp/utility/program/_Exit"/>
+    <function name="std::quick_exit" link="cpp/utility/program/quick_exit" since="c++11"/>
+    <function name="std::_Exit" link="cpp/utility/program/_Exit" since="c++11"/>
     <function name="std::atexit" link="cpp/utility/program/atexit"/>
-    <function name="std::at_quick_exit" link="cpp/utility/program/at_quick_exit"/>
+    <function name="std::at_quick_exit" link="cpp/utility/program/at_quick_exit" since="c++11"/>
 
     <const name="EXIT_SUCCESS" link="cpp/utility/program/EXIT_status"/>
     <const name="EXIT_FAILURE" link="cpp/utility/program/EXIT_status"/>
@@ -1618,7 +1634,7 @@
     <!--=======================================================================-->
     <!-- cpp/chrono -->
 
-    <class name="std::chrono::time_point" link="cpp/chrono/time_point">
+    <class name="std::chrono::time_point" link="cpp/chrono/time_point" since="c++11">
         <constructor/>
         <function name="time_since_epoch"/>
         <function name="min"/>
@@ -1647,9 +1663,9 @@
         <specialization name="std::common_type" link="common_type"/>
     </class>
 
-    <function name="std::chrono::time_point_cast" link="cpp/chrono/time_point/time_point_cast"/>
+    <function name="std::chrono::time_point_cast" link="cpp/chrono/time_point/time_point_cast" since="c++11"/>
 
-    <class name="std::chrono::duration" link="cpp/chrono/duration">
+    <class name="std::chrono::duration" link="cpp/chrono/duration" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="count"/>
@@ -1698,24 +1714,24 @@
         <specialization name="std::formatter" link="formatter"/>
     </class>
 
-    <typedef name="std::chrono::nanoseconds" alias="std::chrono::duration"/>
-    <typedef name="std::chrono::microseconds" alias="std::chrono::duration"/>
-    <typedef name="std::chrono::milliseconds" alias="std::chrono::duration"/>
-    <typedef name="std::chrono::seconds" alias="std::chrono::duration"/>
-    <typedef name="std::chrono::minutes" alias="std::chrono::duration"/>
-    <typedef name="std::chrono::hours" alias="std::chrono::duration"/>
+    <typedef name="std::chrono::nanoseconds" alias="std::chrono::duration" since="c++11"/>
+    <typedef name="std::chrono::microseconds" alias="std::chrono::duration" since="c++11"/>
+    <typedef name="std::chrono::milliseconds" alias="std::chrono::duration" since="c++11"/>
+    <typedef name="std::chrono::seconds" alias="std::chrono::duration" since="c++11"/>
+    <typedef name="std::chrono::minutes" alias="std::chrono::duration" since="c++11"/>
+    <typedef name="std::chrono::hours" alias="std::chrono::duration" since="c++11"/>
     <typedef name="std::chrono::days" alias="std::chrono::duration" since="c++20"/>
     <typedef name="std::chrono::weeks" alias="std::chrono::duration" since="c++20"/>
     <typedef name="std::chrono::months" alias="std::chrono::duration" since="c++20"/>
     <typedef name="std::chrono::years" alias="std::chrono::duration" since="c++20"/>
 
-    <function name="std::chrono::duration_cast" link="cpp/chrono/duration/duration_cast"/>
+    <function name="std::chrono::duration_cast" link="cpp/chrono/duration/duration_cast" since="c++11"/>
 
-    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point">
+    <class name="std::chrono::treat_as_floating_point" link="cpp/chrono/treat_as_floating_point" since="c++11">
     </class>
     <variable name="std::chrono::treat_as_floating_point_v" link="cpp/chrono/treat_as_floating_point" since="c++11"/>
 
-    <class name="std::chrono::duration_values" link="cpp/chrono/duration_values">
+    <class name="std::chrono::duration_values" link="cpp/chrono/duration_values" since="c++11">
         <function name="zero"/>
         <function name="min"/>
         <function name="max"/>
@@ -1728,7 +1744,7 @@
     <function name="std::literals::chrono_literals::operator&quot;&quot;us" link="cpp/chrono/operator&quot;&quot;us" since="c++14"/>
     <function name="std::literals::chrono_literals::operator&quot;&quot;ns" link="cpp/chrono/operator&quot;&quot;ns" since="c++14"/>
 
-    <class name="std::chrono::system_clock" link="cpp/chrono/system_clock">
+    <class name="std::chrono::system_clock" link="cpp/chrono/system_clock" since="c++11">
         <const name="is_steady" link="."/>
         <function name="now"/>
         <function name="to_time_t"/>
@@ -1743,12 +1759,12 @@
     <typedef name="std::chrono::sys_seconds" alias="std::chrono::sys_time" since="c++20"/>
     <typedef name="std::chrono::sys_days" alias="std::chrono::sys_time" since="c++20"/>
 
-    <class name="std::chrono::steady_clock" link="cpp/chrono/steady_clock">
+    <class name="std::chrono::steady_clock" link="cpp/chrono/steady_clock" since="c++11">
         <const name="is_steady" link="."/>
         <function name="now"/>
     </class>
 
-    <class name="std::chrono::high_resolution_clock" link="cpp/chrono/high_resolution_clock">
+    <class name="std::chrono::high_resolution_clock" link="cpp/chrono/high_resolution_clock" since="c++11">
         <const name="is_steady" link="."/>
         <function name="now"/>
     </class>
@@ -2355,34 +2371,22 @@
         <function name="operator()" link="."/>
     </class>
 
-    <class name="std::unary_negate" link="cpp/utility/functional/unary_negate">
-        <constructor link="."/>
-        <function name="operator()" link="."/>
-    </class>
-
-    <class name="std::binary_negate" link="cpp/utility/functional/binary_negate">
-        <constructor link="."/>
-        <function name="operator()" link="."/>
-    </class>
-
     <function name="std::not_fn" link="cpp/utility/functional/not_fn" since="c++17"/>
-    <function name="std::not1" link="cpp/utility/functional/not1"/>
-    <function name="std::not2" link="cpp/utility/functional/not2"/>
 
     <class name="std::identity" link="cpp/utility/functional/identity" since="c++20">
         <function name="operator()" link="."/>
     </class>
 
-    <function name="std::bind" link="cpp/utility/functional/bind"/>
+    <function name="std::bind" link="cpp/utility/functional/bind" since="c++11"/>
     <function name="std::bind_front" link="cpp/utility/functional/bind_front" since="c++20"/>
-    <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression"/>
-    <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder"/>
+    <class name="std::is_bind_expression" link="cpp/utility/functional/is_bind_expression" since="c++11"/>
+    <class name="std::is_placeholder" link="cpp/utility/functional/is_placeholder" since="c++11"/>
     <variable name="std::is_bind_expression_v" link="cpp/utility/functional/is_bind_expression" since="c++17"/>
     <variable name="std::is_placeholder_v" link="cpp/utility/functional/is_placeholder" since="c++17"/>
 
-    <function name="std::mem_fn" link="cpp/utility/functional/mem_fn"/>
+    <function name="std::mem_fn" link="cpp/utility/functional/mem_fn" since="c++11"/>
     <function name="std::invoke" link="cpp/utility/functional/invoke" since="c++17"/>
-    <class name="std::function" link="cpp/utility/functional/function">
+    <class name="std::function" link="cpp/utility/functional/function" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -2393,19 +2397,19 @@
         <function name="target_type"/>
         <function name="target"/>
 
-        <overload name="std::swap" link="swap"/>
+        <overload name="std::swap" link="swap2"/>
         <overload name="operator==" link="operator_cmp"/>
         <overload name="operator!=" link="operator_cmp"/>
 
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
 
-    <class name="std::bad_function_call" link="cpp/utility/functional/bad_function_call">
+    <class name="std::bad_function_call" link="cpp/utility/functional/bad_function_call" since="c++11">
         <inherits name="std::exception"/>
         <constructor link="."/>
     </class>
 
-    <class name="std::placeholders" link="cpp/utility/functional/placeholders"/>
+    <class name="std::placeholders" link="cpp/utility/functional/placeholders" since="c++11"/>
 
     <class name="std::default_searcher" link="cpp/utility/functional/default_searcher" since="c++17">
         <constructor link="."/>
@@ -2419,11 +2423,8 @@
         <constructor link="."/>
         <function name="operator()" link="."/>
     </class>
-    <class name="std::make_default_searcher" link="cpp/utility/functional/default_searcher" since="c++17"/>
-    <class name="std::make_boyer_moore_searcher" link="cpp/utility/functional/boyer_moore_searcher" since="c++17"/>
-    <class name="std::make_boyer_moore_horspool_searcher" link="cpp/utility/functional/boyer_moore_horspool_searcher" since="c++17"/>
 
-    <class name="std::reference_wrapper" link="cpp/utility/functional/reference_wrapper">
+    <class name="std::reference_wrapper" link="cpp/utility/functional/reference_wrapper" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="operator T&amp;" link="get"/>
@@ -2431,10 +2432,11 @@
         <function name="operator()"/>
     </class>
 
-    <function name="std::ref" link="cpp/utility/functional/ref"/>
-    <function name="std::cref" link="cpp/utility/functional/ref"/>
+    <function name="std::ref" link="cpp/utility/functional/ref" since="c++11"/>
+    <function name="std::cref" link="cpp/utility/functional/ref" since="c++11"/>
 
     <class name="std::unwrap_reference" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
+    <alias name="std::unwrap_reference_t" link="cpp/utility/functional/unwrap_reference_t" since="c++20"/>
     <class name="std::unwrap_ref_decay" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
     <typedef name="std::unwrap_ref_decay_t" alias="std::unwrap_ref_decay" since="c++20"/>
 
@@ -2489,8 +2491,16 @@
     <class name="std::const_mem_fun_ref_t" link="cpp/utility/functional/mem_fun_ref_t"/>
     <class name="std::const_mem_fun1_ref_t" link="cpp/utility/functional/mem_fun_ref_t"/>
     <function name="std::mem_fun_ref" link="cpp/utility/functional/mem_fun_ref"/>
-    <class name="std::unary_negate" link="cpp/utility/functional/unary_negate"/>
-    <class name="std::binary_negate" link="cpp/utility/functional/binary_negate"/>
+    <class name="std::unary_negate" link="cpp/utility/functional/unary_negate">
+        <constructor link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
+    <class name="std::binary_negate" link="cpp/utility/functional/binary_negate">
+        <constructor link="."/>
+        <function name="operator()" link="."/>
+    </class>
+
     <function name="std::not1" link="cpp/utility/functional/not1"/>
     <function name="std::not2" link="cpp/utility/functional/not2"/>
 
@@ -2614,6 +2624,7 @@
     <function name="std::format" link="cpp/utility/format/format" since="c++20"/>
     <function name="std::format_to" link="cpp/utility/format/format_to" since="c++20"/>
     <function name="std::format_to_n" link="cpp/utility/format/format_to_n" since="c++20"/>
+    <class name="std::format_to_n_result" link="cpp/utility/format/format_to_n" since="c++20"/>
     <function name="std::formatted_size" link="cpp/utility/format/formatted_size" since="c++20"/>
     <function name="std::vformat" link="cpp/utility/format/vformat" since="c++20"/>
     <function name="std::vformat_to" link="cpp/utility/format/vformat_to" since="c++20"/>
@@ -2652,15 +2663,15 @@
         <overload name="operator&gt;=" link="operator_cmp"/>
 
         <overload name="std::swap" link="swap2"/>
-        <overload name="std::get" link="get"/>
+        <overload name="std::get" link="get" since="c++11"/>
 
-        <specialization name="std::tuple_size" link="tuple_size"/>
-        <specialization name="std::tuple_element" link="tuple_element"/>
+        <specialization name="std::tuple_size" link="tuple_size" since="c++11"/>
+        <specialization name="std::tuple_element" link="tuple_element" since="c++11"/>
     </class>
 
     <function name="std::make_pair" link="cpp/utility/pair/make_pair"/>
 
-    <class name="std::tuple" link="cpp/utility/tuple">
+    <class name="std::tuple" link="cpp/utility/tuple" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="swap"/>
@@ -2684,8 +2695,8 @@
 
     <function name="std::apply" link="cpp/utility/apply" since="c++17"/>
     <function name="std::make_from_tuple" link="cpp/utility/make_from_tuple" since="c++17"/>
-    <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t"></class>
-    <const name="std::piecewise_construct" link="cpp/utility/piecewise_construct"/>
+    <class name="std::piecewise_construct_t" link="cpp/utility/piecewise_construct_t" since="c++11"/>
+    <variable name="std::piecewise_construct" link="cpp/utility/piecewise_construct" since="c++11"/>
 
     <class name="std::integer_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
     <typedef name="std::index_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
@@ -2693,18 +2704,18 @@
     <typedef name="std::make_index_sequence" link="cpp/utility/integer_sequence" since="c++14"/>
     <typedef name="std::index_sequence_for" link="cpp/utility/integer_sequence" since="c++14"/>
 
-    <function name="std::make_tuple" link="cpp/utility/tuple/make_tuple"/>
-    <function name="std::tie" link="cpp/utility/tuple/tie"/>
-    <function name="std::forward_as_tuple" link="cpp/utility/tuple/forward_as_tuple"/>
-    <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat"/>
-    <const name="std::ignore" link="cpp/utility/tuple/ignore"/>
+    <function name="std::make_tuple" link="cpp/utility/tuple/make_tuple" since="c++11"/>
+    <function name="std::tie" link="cpp/utility/tuple/tie" since="c++11"/>
+    <function name="std::forward_as_tuple" link="cpp/utility/tuple/forward_as_tuple" since="c++11"/>
+    <function name="std::tuple_cat" link="cpp/utility/tuple/tuple_cat" since="c++11"/>
+    <const name="std::ignore" link="cpp/utility/tuple/ignore" since="c++11"/>
 
     <function name="std::ranges::swap" link="cpp/utility/ranges/swap" since="c++20"/>
-    <function name="std::forward" link="cpp/utility/forward"/>
+    <function name="std::forward" link="cpp/utility/forward" since="c++11"/>
     <function name="std::exchange" link="cpp/utility/exchange" since="c++14"/>
-    <function name="std::move (utility)" link="cpp/utility/move"/>
-    <function name="std::move_if_noexcept" link="cpp/utility/move_if_noexcept"/>
-    <function name="std::declval" link="cpp/utility/declval"/>
+    <function name="std::move (utility)" link="cpp/utility/move" since="c++11"/>
+    <function name="std::move_if_noexcept" link="cpp/utility/move_if_noexcept" since="c++11"/>
+    <function name="std::declval" link="cpp/utility/declval" since="c++11"/>
     <function name="std::as_const" link="cpp/utility/as_const" since="c++17"/>
     <function name="std::launder" link="cpp/utility/launder" since="c++17"/>
 
@@ -2794,7 +2805,7 @@
         <overload name="operator~" link="."/>
     </class>
 
-    <class name="std::hash" link="cpp/utility/hash">
+    <class name="std::hash" link="cpp/utility/hash" since="c++11">
         <constructor/>
         <function name="operator()"/>
     </class>
@@ -2820,11 +2831,11 @@
     <function name="std::atof" link="cpp/string/byte/atof"/>
     <function name="std::atoi" link="cpp/string/byte/atoi"/>
     <function name="std::atol" link="cpp/string/byte/atoi"/>
-    <function name="std::atoll" link="cpp/string/byte/atoi"/>
+    <function name="std::atoll" link="cpp/string/byte/atoi" since="c++11"/>
     <function name="std::strtol" link="cpp/string/byte/strtol"/>
     <function name="std::strtoll" link="cpp/string/byte/strtol"/>
     <function name="std::strtoul" link="cpp/string/byte/strtoul"/>
-    <function name="std::strtoull" link="cpp/string/byte/strtoul"/>
+    <function name="std::strtoull" link="cpp/string/byte/strtoul" since="c++11"/>
     <function name="std::strtof" link="cpp/string/byte/strtof"/>
     <function name="std::strtod" link="cpp/string/byte/strtof"/>
     <function name="std::strtold" link="cpp/string/byte/strtof"/>
@@ -3018,8 +3029,8 @@
     <typedef name="std::string" alias="std::basic_string"/>
     <typedef name="std::wstring" alias="std::basic_string"/>
     <typedef name="std::u8string" alias="std::basic_string" since="c++20"/>
-    <typedef name="std::u16string" alias="std::basic_string"/>
-    <typedef name="std::u32string" alias="std::basic_string"/>
+    <typedef name="std::u16string" alias="std::basic_string" since="c++11"/>
+    <typedef name="std::u32string" alias="std::basic_string" since="c++11"/>
 
     <typedef name="std::pmr::string" alias="std::basic_string" since="c++17"/>
     <typedef name="std::pmr::wstring" alias="std::basic_string" since="c++17"/>
@@ -3094,16 +3105,16 @@
     <!-- cpp/string -->
 
     <function name="std::getline" link="cpp/string/basic_string/getline"/>
-    <function name="std::stoi" link="cpp/string/basic_string/stol"/>
-    <function name="std::stol" link="cpp/string/basic_string/stol"/>
-    <function name="std::stoll" link="cpp/string/basic_string/stol"/>
-    <function name="std::stoul" link="cpp/string/basic_string/stoul"/>
-    <function name="std::stoull" link="cpp/string/basic_string/stoul"/>
-    <function name="std::stof" link="cpp/string/basic_string/stof"/>
-    <function name="std::stod" link="cpp/string/basic_string/stof"/>
-    <function name="std::stold" link="cpp/string/basic_string/stof"/>
-    <function name="std::to_string" link="cpp/string/basic_string/to_string"/>
-    <function name="std::to_wstring" link="cpp/string/basic_string/to_wstring"/>
+    <function name="std::stoi" link="cpp/string/basic_string/stol" since="c++11"/>
+    <function name="std::stol" link="cpp/string/basic_string/stol" since="c++11"/>
+    <function name="std::stoll" link="cpp/string/basic_string/stol" since="c++11"/>
+    <function name="std::stoul" link="cpp/string/basic_string/stoul" since="c++11"/>
+    <function name="std::stoull" link="cpp/string/basic_string/stoul" since="c++11"/>
+    <function name="std::stof" link="cpp/string/basic_string/stof" since="c++11"/>
+    <function name="std::stod" link="cpp/string/basic_string/stof" since="c++11"/>
+    <function name="std::stold" link="cpp/string/basic_string/stof" since="c++11"/>
+    <function name="std::to_string" link="cpp/string/basic_string/to_string" since="c++11"/>
+    <function name="std::to_wstring" link="cpp/string/basic_string/to_wstring" since="c++11"/>
 
     <class name="std::char_traits" link="cpp/string/char_traits">
         <function name="assign"/>
@@ -3123,7 +3134,7 @@
 
     <!-- cpp/container -->
 
-    <class name="std::array" link="cpp/container/array">
+    <class name="std::array" link="cpp/container/array" since="c++11">
 
         <function name="at"/>
         <function name="operator[]" link="operator_at"/>
@@ -3302,7 +3313,7 @@
     </class>
     <typedef name="std::pmr::deque" alias="std::deque" since="c++17"/>
 
-    <class name="std::forward_list" link="cpp/container/forward_list">
+    <class name="std::forward_list" link="cpp/container/forward_list" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -3987,7 +3998,8 @@
 
     <function name="std::abs(int)" link="cpp/numeric/math/abs"/>
     <function name="std::labs" link="cpp/numeric/math/abs"/>
-    <function name="std::llabs" link="cpp/numeric/math/abs"/>
+    <function name="std::llabs" link="cpp/numeric/math/abs" since="c++11"/>
+    <function name="std::imaxabs" link="cpp/numeric/math/abs" since="c++11"/>
     <function name="std::abs(float)" link="cpp/numeric/math/fabs"/>
     <function name="std::fabs" link="cpp/numeric/math/fabs"/>
     <function name="std::div" link="cpp/numeric/math/div"/>
@@ -4027,6 +4039,7 @@
     <function name="std::log" link="cpp/numeric/math/log"/>
     <function name="std::log10" link="cpp/numeric/math/log10"/>
     <function name="std::log1p" link="cpp/numeric/math/log1p"/>
+    <function name="std::log2" link="cpp/numeric/math/log2"/>
     <function name="std::ilogb" link="cpp/numeric/math/ilogb"/>
     <function name="std::logb" link="cpp/numeric/math/logb"/>
 
@@ -4407,7 +4420,7 @@
 
     <!-- cpp/numeric/random -->
 
-    <class name="std::linear_congruential_engine" link="cpp/numeric/random/linear_congruential_engine">
+    <class name="std::linear_congruential_engine" link="cpp/numeric/random/linear_congruential_engine" since="c++11">
         <constructor/>
         <function name="seed"/>
         <function name="operator()"/>
@@ -4426,7 +4439,7 @@
         <const name="default_seed" link="."/>
     </class>
 
-    <class name="std::mersenne_twister_engine" link="cpp/numeric/random/mersenne_twister_engine">
+    <class name="std::mersenne_twister_engine" link="cpp/numeric/random/mersenne_twister_engine" since="c++11">
         <constructor/>
         <function name="seed"/>
         <function name="operator()"/>
@@ -4455,7 +4468,7 @@
         <const name="default_seed" link="."/>
     </class>
 
-    <class name="std::subtract_with_carry_engine" link="cpp/numeric/random/subtract_with_carry_engine">
+    <class name="std::subtract_with_carry_engine" link="cpp/numeric/random/subtract_with_carry_engine" since="c++11">
         <constructor/>
         <function name="seed"/>
         <function name="operator()"/>
@@ -4474,7 +4487,7 @@
         <const name="default_seed" link="."/>
     </class>
 
-    <class name="std::discard_block_engine" link="cpp/numeric/random/discard_block_engine">
+    <class name="std::discard_block_engine" link="cpp/numeric/random/discard_block_engine" since="c++11">
         <constructor/>
         <function name="seed"/>
         <function name="base"/>
@@ -4489,10 +4502,10 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
 
         <const name="block_size" link="."/>
-        <const name="used_size" link="."/>
+        <const name="used_block" link="."/>
     </class>
 
-    <class name="std::independent_bits_engine" link="cpp/numeric/random/independent_bits_engine">
+    <class name="std::independent_bits_engine" link="cpp/numeric/random/independent_bits_engine" since="c++11">
         <constructor/>
         <function name="seed"/>
         <function name="base"/>
@@ -4507,7 +4520,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::shuffle_order_engine" link="cpp/numeric/random/shuffle_order_engine">
+    <class name="std::shuffle_order_engine" link="cpp/numeric/random/shuffle_order_engine" since="c++11">
         <constructor/>
         <function name="seed"/>
         <function name="base"/>
@@ -4524,7 +4537,7 @@
         <const name="table_size" link="."/>
     </class>
 
-    <class name="std::random_device" link="cpp/numeric/random/random_device">
+    <class name="std::random_device" link="cpp/numeric/random/random_device" since="c++11">
         <constructor/>
         <function name="operator()"/>
         <function name="min"/>
@@ -4532,31 +4545,31 @@
         <function name="entropy"/>
     </class>
 
-    <typedef name="std::minstd_rand0" alias="std::linear_congruential_engine"/>
-    <typedef name="std::minstd_rand" alias="std::linear_congruential_engine"/>
-    <typedef name="std::mt19937" alias="std::mersenne_twister_engine"/>
-    <typedef name="std::mt19937_64" alias="std::mersenne_twister_engine"/>
-    <typedef name="std::ranlux24_base" alias="std::subtract_with_carry_engine"/>
-    <typedef name="std::ranlux48_base" alias="std::subtract_with_carry_engine"/>
-    <typedef name="std::ranlux24" alias="std::discard_block_engine"/>
-    <typedef name="std::ranlux48" alias="std::discard_block_engine"/>
-    <typedef name="std::knuth_b" alias="std::shuffle_order_engine"/>
-    <typedef name="std::default_random_engine" link="cpp/numeric/random"/>
+    <typedef name="std::minstd_rand0" alias="std::linear_congruential_engine" since="c++11"/>
+    <typedef name="std::minstd_rand" alias="std::linear_congruential_engine" since="c++11"/>
+    <typedef name="std::mt19937" alias="std::mersenne_twister_engine" since="c++11"/>
+    <typedef name="std::mt19937_64" alias="std::mersenne_twister_engine" since="c++11"/>
+    <typedef name="std::ranlux24_base" alias="std::subtract_with_carry_engine" since="c++11"/>
+    <typedef name="std::ranlux48_base" alias="std::subtract_with_carry_engine" since="c++11"/>
+    <typedef name="std::ranlux24" alias="std::discard_block_engine" since="c++11"/>
+    <typedef name="std::ranlux48" alias="std::discard_block_engine" since="c++11"/>
+    <typedef name="std::knuth_b" alias="std::shuffle_order_engine" since="c++11"/>
+    <typedef name="std::default_random_engine" link="cpp/numeric/random" since="c++11"/>
 
     <function name="std::srand" link="cpp/numeric/random/srand"/>
     <function name="std::rand" link="cpp/numeric/random/rand"/>
     <const name="RAND_MAX" link="cpp/numeric/random/RAND_MAX"/>
 
-    <function name="std::generate_canonical" link="cpp/numeric/random/generate_canonical"/>
+    <function name="std::generate_canonical" link="cpp/numeric/random/generate_canonical" since="c++11"/>
 
-    <class name="std::seed_seq" link="cpp/numeric/random/seed_seq">
+    <class name="std::seed_seq" link="cpp/numeric/random/seed_seq" since="c++11">
         <constructor/>
         <function name="generate"/>
         <function name="size"/>
         <function name="param"/>
     </class>
 
-    <class name="std::uniform_int_distribution" link="cpp/numeric/random/uniform_int_distribution">
+    <class name="std::uniform_int_distribution" link="cpp/numeric/random/uniform_int_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4574,10 +4587,10 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::uniform_real_distribution" link="cpp/numeric/random/uniform_real_distribution">
+    <class name="std::uniform_real_distribution" link="cpp/numeric/random/uniform_real_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
-        <overload name="operator()"/>
+        <function name="operator()"/>
 
         <function name="a" link="params"/>
         <function name="b" link="params"/>
@@ -4592,10 +4605,10 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::bernoulli_distribution" link="cpp/numeric/random/bernoulli_distribution">
+    <class name="std::bernoulli_distribution" link="cpp/numeric/random/bernoulli_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
-        <overload name="operator()"/>
+        <function name="operator()"/>
 
         <function name="p"/>
         <function name="param"/>
@@ -4609,7 +4622,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::binomial_distribution" link="cpp/numeric/random/binomial_distribution">
+    <class name="std::binomial_distribution" link="cpp/numeric/random/binomial_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <overload name="operator()"/>
@@ -4627,10 +4640,10 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::negative_binomial_distribution" link="cpp/numeric/random/negative_binomial_distribution">
+    <class name="std::negative_binomial_distribution" link="cpp/numeric/random/negative_binomial_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
-        <overload name="operator()"/>
+        <function name="operator()"/>
 
         <function name="k" link="params"/>
         <function name="p" link="params"/>
@@ -4645,10 +4658,10 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::geometric_distribution" link="cpp/numeric/random/geometric_distribution">
+    <class name="std::geometric_distribution" link="cpp/numeric/random/geometric_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
-        <overload name="operator()"/>
+        <function name="operator()"/>
 
         <function name="p"/>
         <function name="param"/>
@@ -4662,10 +4675,10 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::poisson_distribution" link="cpp/numeric/random/poisson_distribution">
+    <class name="std::poisson_distribution" link="cpp/numeric/random/poisson_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
-        <overload name="operator()"/>
+        <function name="operator()"/>
 
         <function name="mean"/>
         <function name="param"/>
@@ -4679,7 +4692,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::exponential_distribution" link="cpp/numeric/random/exponential_distribution">
+    <class name="std::exponential_distribution" link="cpp/numeric/random/exponential_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4696,7 +4709,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::gamma_distribution" link="cpp/numeric/random/gamma_distribution">
+    <class name="std::gamma_distribution" link="cpp/numeric/random/gamma_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4714,7 +4727,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::weibull_distribution" link="cpp/numeric/random/weibull_distribution">
+    <class name="std::weibull_distribution" link="cpp/numeric/random/weibull_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4732,7 +4745,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::extreme_value_distribution" link="cpp/numeric/random/extreme_value_distribution">
+    <class name="std::extreme_value_distribution" link="cpp/numeric/random/extreme_value_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4750,7 +4763,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::normal_distribution" link="cpp/numeric/random/normal_distribution">
+    <class name="std::normal_distribution" link="cpp/numeric/random/normal_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4768,7 +4781,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::lognormal_distribution" link="cpp/numeric/random/lognormal_distribution">
+    <class name="std::lognormal_distribution" link="cpp/numeric/random/lognormal_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4786,7 +4799,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::chi_squared_distribution" link="cpp/numeric/random/chi_squared_distribution">
+    <class name="std::chi_squared_distribution" link="cpp/numeric/random/chi_squared_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4803,7 +4816,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::cauchy_distribution" link="cpp/numeric/random/cauchy_distribution">
+    <class name="std::cauchy_distribution" link="cpp/numeric/random/cauchy_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4821,7 +4834,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::fisher_f_distribution" link="cpp/numeric/random/fisher_f_distribution">
+    <class name="std::fisher_f_distribution" link="cpp/numeric/random/fisher_f_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4839,7 +4852,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::student_t_distribution" link="cpp/numeric/random/student_t_distribution">
+    <class name="std::student_t_distribution" link="cpp/numeric/random/student_t_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4856,7 +4869,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::discrete_distribution" link="cpp/numeric/random/discrete_distribution">
+    <class name="std::discrete_distribution" link="cpp/numeric/random/discrete_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4873,7 +4886,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::piecewise_constant_distribution" link="cpp/numeric/random/piecewise_constant_distribution">
+    <class name="std::piecewise_constant_distribution" link="cpp/numeric/random/piecewise_constant_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4891,7 +4904,7 @@
         <overload name="operator&gt;&gt;" link="operator_ltltgtgt"/>
     </class>
 
-    <class name="std::piecewise_linear_distribution" link="cpp/numeric/random/piecewise_linear_distribution">
+    <class name="std::piecewise_linear_distribution" link="cpp/numeric/random/piecewise_linear_distribution" since="c++11">
         <constructor/>
         <function name="reset"/>
         <function name="operator()"/>
@@ -4911,43 +4924,45 @@
 
     <!-- cpp/numeric/ratio -->
 
-    <class name="std::ratio" link="cpp/numeric/ratio/ratio"/>
+    <class name="std::ratio" link="cpp/numeric/ratio/ratio" since="c++11"/>
 
-    <typedef name="std::yocto" alias="std::ratio"/>
-    <typedef name="std::femto" alias="std::ratio"/>
-    <typedef name="std::pico" alias="std::ratio"/>
-    <typedef name="std::nano" alias="std::ratio"/>
-    <typedef name="std::micro" alias="std::ratio"/>
-    <typedef name="std::milli" alias="std::ratio"/>
-    <typedef name="std::centi" alias="std::ratio"/>
-    <typedef name="std::deci" alias="std::ratio"/>
-    <typedef name="std::deca" alias="std::ratio"/>
-    <typedef name="std::hecto" alias="std::ratio"/>
-    <typedef name="std::kilo" alias="std::ratio"/>
-    <typedef name="std::mega" alias="std::ratio"/>
-    <typedef name="std::giga" alias="std::ratio"/>
-    <typedef name="std::tera" alias="std::ratio"/>
-    <typedef name="std::peta" alias="std::ratio"/>
-    <typedef name="std::exa" alias="std::ratio"/>
-    <typedef name="std::zetta" alias="std::ratio"/>
-    <typedef name="std::yotta" alias="std::ratio"/>
+    <typedef name="std::yocto" alias="std::ratio" since="c++11"/>
+    <typedef name="std::zepto" alias="std::ratio" since="c++11"/>
+    <typedef name="std::atto" alias="std::ratio" since="c++11"/>
+    <typedef name="std::femto" alias="std::ratio" since="c++11"/>
+    <typedef name="std::pico" alias="std::ratio" since="c++11"/>
+    <typedef name="std::nano" alias="std::ratio" since="c++11"/>
+    <typedef name="std::micro" alias="std::ratio" since="c++11"/>
+    <typedef name="std::milli" alias="std::ratio" since="c++11"/>
+    <typedef name="std::centi" alias="std::ratio" since="c++11"/>
+    <typedef name="std::deci" alias="std::ratio" since="c++11"/>
+    <typedef name="std::deca" alias="std::ratio" since="c++11"/>
+    <typedef name="std::hecto" alias="std::ratio" since="c++11"/>
+    <typedef name="std::kilo" alias="std::ratio" since="c++11"/>
+    <typedef name="std::mega" alias="std::ratio" since="c++11"/>
+    <typedef name="std::giga" alias="std::ratio" since="c++11"/>
+    <typedef name="std::tera" alias="std::ratio" since="c++11"/>
+    <typedef name="std::peta" alias="std::ratio" since="c++11"/>
+    <typedef name="std::exa" alias="std::ratio" since="c++11"/>
+    <typedef name="std::zetta" alias="std::ratio" since="c++11"/>
+    <typedef name="std::yotta" alias="std::ratio" since="c++11"/>
 
-    <class name="std::ratio_add" link="cpp/numeric/ratio/ratio_add"/>
-    <class name="std::ratio_subtract" link="cpp/numeric/ratio/ratio_subtract"/>
-    <class name="std::ratio_multiply" link="cpp/numeric/ratio/ratio_multiply"/>
-    <class name="std::ratio_divide" link="cpp/numeric/ratio/ratio_divide"/>
+    <class name="std::ratio_add" link="cpp/numeric/ratio/ratio_add" since="c++11"/>
+    <class name="std::ratio_subtract" link="cpp/numeric/ratio/ratio_subtract" since="c++11"/>
+    <class name="std::ratio_multiply" link="cpp/numeric/ratio/ratio_multiply" since="c++11"/>
+    <class name="std::ratio_divide" link="cpp/numeric/ratio/ratio_divide" since="c++11"/>
 
-    <class name="std::ratio_equal" link="cpp/numeric/ratio/ratio_equal"/>
+    <class name="std::ratio_equal" link="cpp/numeric/ratio/ratio_equal" since="c++11"/>
     <variable name="std::ratio_equal_v" link="cpp/numeric/ratio/ratio_equal" since="c++17"/>
-    <class name="std::ratio_not_equal" link="cpp/numeric/ratio/ratio_not_equal"/>
+    <class name="std::ratio_not_equal" link="cpp/numeric/ratio/ratio_not_equal" since="c++11"/>
     <variable name="std::ratio_not_equal_v" link="cpp/numeric/ratio/ratio_not_equal" since="c++17"/>
-    <class name="std::ratio_less" link="cpp/numeric/ratio/ratio_less"/>
+    <class name="std::ratio_less" link="cpp/numeric/ratio/ratio_less" since="c++11"/>
     <variable name="std::ratio_less_v" link="cpp/numeric/ratio/ratio_less" since="c++17"/>
-    <class name="std::ratio_less_equal" link="cpp/numeric/ratio/ratio_less_equal"/>
+    <class name="std::ratio_less_equal" link="cpp/numeric/ratio/ratio_less_equal" since="c++11"/>
     <variable name="std::ratio_less_equal_v" link="cpp/numeric/ratio/ratio_less_equal" since="c++17"/>
-    <class name="std::ratio_greater" link="cpp/numeric/ratio/ratio_greater"/>
+    <class name="std::ratio_greater" link="cpp/numeric/ratio/ratio_greater" since="c++11"/>
     <variable name="std::ratio_greater_v" link="cpp/numeric/ratio/ratio_greater" since="c++17"/>
-    <class name="std::ratio_greater_equal" link="cpp/numeric/ratio/ratio_greater_equal"/>
+    <class name="std::ratio_greater_equal" link="cpp/numeric/ratio/ratio_greater_equal" since="c++11"/>
     <variable name="std::ratio_greater_equal_v" link="cpp/numeric/ratio/ratio_greater_equal" since="c++17"/>
 
     <!-- cpp/algorithm -->
@@ -5554,6 +5569,7 @@
     <typedef name="std::filebuf" alias="std::basic_filebuf"/>
     <typedef name="std::stringbuf" alias="std::basic_stringbuf"/>
     <typedef name="std::syncbuf" alias="std::basic_syncbuf" since="c++20"/>
+    <typedef name="std::ios" alias="std::basic_ios"/>
     <typedef name="std::istream" alias="std::basic_istream"/>
     <typedef name="std::ostream" alias="std::basic_ostream"/>
     <typedef name="std::iostream" alias="std::basic_iostream"/>
@@ -5569,6 +5585,7 @@
     <typedef name="std::wfilebuf" alias="std::basic_filebuf"/>
     <typedef name="std::wstringbuf" alias="std::basic_stringbuf"/>
     <typedef name="std::wsyncbuf" alias="std::basic_syncbuf" since="c++20"/>
+    <typedef name="std::wios" alias="std::basic_ios"/>
     <typedef name="std::wistream" alias="std::basic_istream"/>
     <typedef name="std::wostream" alias="std::basic_ostream"/>
     <typedef name="std::wiostream" alias="std::basic_iostream"/>
@@ -5663,8 +5680,8 @@
     <function name="std::oct" link="cpp/io/manip/hex"/>
     <function name="std::fixed" link="cpp/io/manip/fixed"/>
     <function name="std::scientific" link="cpp/io/manip/fixed"/>
-    <function name="std::hexfloat" link="cpp/io/manip/fixed"/>
-    <function name="std::defaultfloat" link="cpp/io/manip/fixed"/>
+    <function name="std::hexfloat" link="cpp/io/manip/fixed" since="c++11"/>
+    <function name="std::defaultfloat" link="cpp/io/manip/fixed" since="c++11"/>
 
     <function name="std::ws" link="cpp/io/manip/ws"/>
     <function name="std::ends" link="cpp/io/manip/ends"/>
@@ -5680,10 +5697,10 @@
     <function name="std::setfill" link="cpp/io/manip/setfill"/>
     <function name="std::setprecision" link="cpp/io/manip/setprecision"/>
     <function name="std::setw" link="cpp/io/manip/setw"/>
-    <function name="std::get_money" link="cpp/io/manip/get_money"/>
-    <function name="std::put_money" link="cpp/io/manip/put_money"/>
-    <function name="std::get_time" link="cpp/io/manip/get_time"/>
-    <function name="std::put_time" link="cpp/io/manip/put_time"/>
+    <function name="std::get_money" link="cpp/io/manip/get_money" since="c++11"/>
+    <function name="std::put_money" link="cpp/io/manip/put_money" since="c++11"/>
+    <function name="std::get_time" link="cpp/io/manip/get_time" since="c++11"/>
+    <function name="std::put_time" link="cpp/io/manip/put_time" since="c++11"/>
 
     <!-- misc -->
     <function name="std::quoted" link="cpp/io/manip/quoted" since="c++14"/>
@@ -5694,11 +5711,12 @@
     </class>
 
     <typedef name="std::streampos" alias="std::fpos"/>
-    <typedef name="std::u16streampos" alias="std::fpos"/>
-    <typedef name="std::u32streampos" alias="std::fpos"/>
+    <typedef name="std::u8streampos" alias="std::fpos" since="c++20"/>
+    <typedef name="std::u16streampos" alias="std::fpos" since="c++11"/>
+    <typedef name="std::u32streampos" alias="std::fpos" since="c++11"/>
     <typedef name="std::wstreampos" alias="std::fpos"/>
 
-    <class name="std::io_errc" link="cpp/io/io_errc">
+    <class name="std::io_errc" link="cpp/io/io_errc" since="c++11">
         <const name="stream" link="."/>
         <specialization name="std::is_error_code_enum" link="is_error_code_enum"/>
         <overload name="std::make_error_code" link="make_error_code"/>
@@ -5713,6 +5731,7 @@
     <function name="std::freopen" link="cpp/io/c/freopen"/>
     <function name="std::fflush" link="cpp/io/c/fflush"/>
     <function name="std::fclose" link="cpp/io/c/fclose"/>
+    <function name="std::fwide" link="cpp/io/c/fwide"/>
     <function name="std::setbuf" link="cpp/io/c/setbuf"/>
     <function name="std::setvbuf" link="cpp/io/c/setvbuf"/>
     <function name="std::fread" link="cpp/io/c/fread"/>
@@ -5729,8 +5748,10 @@
     <function name="std::puts" link="cpp/io/c/puts"/>
     <function name="std::ungetc" link="cpp/io/c/ungetc"/>
     <function name="std::fgetwc" link="cpp/io/c/fgetwc"/>
+    <function name="std::getwc" link="cpp/io/c/fgetwc"/>
     <function name="std::fgetws" link="cpp/io/c/fgetws"/>
     <function name="std::fputwc" link="cpp/io/c/fputwc"/>
+    <function name="std::putwc" link="cpp/io/c/fputwc"/>
     <function name="std::fputws" link="cpp/io/c/fputws"/>
     <function name="std::getwchar" link="cpp/io/c/getwchar"/>
     <function name="std::putwchar" link="cpp/io/c/putwchar"/>
@@ -5775,11 +5796,11 @@
     <function name="std::tmpfile" link="cpp/io/c/tmpfile"/>
     <function name="std::tmpnam" link="cpp/io/c/tmpnam"/>
 
-    <typedef name="std::FILE" link="cpp/io/c"/>
-    <typedef name="std::fpos_t" link="cpp/io/c"/>
-    <const name="stdin" link="cpp/io/c"/>
-    <const name="stdout" link="cpp/io/c"/>
-    <const name="stderr" link="cpp/io/c"/>
+    <typedef name="std::FILE" link="cpp/io/c/FILE"/>
+    <typedef name="std::fpos_t" link="cpp/io/c/fpos_t"/>
+    <const name="stdin" link="cpp/io/c/std_streams"/>
+    <const name="stdout" link="cpp/io/c/std_streams"/>
+    <const name="stderr" link="cpp/io/c/std_streams"/>
     <const name="EOF" link="cpp/io/c"/>
     <const name="FOPEN_MAX" link="cpp/io/c"/>
     <const name="FILENAME_MAX" link="cpp/io/c"/>
@@ -5836,7 +5857,7 @@
     <function name="std::use_facet" link="cpp/locale/use_facet"/>
     <function name="std::has_facet" link="cpp/locale/has_facet"/>
 
-    <class name="std::wstring_convert" link="cpp/locale/wstring_convert">
+    <class name="std::wstring_convert" link="cpp/locale/wstring_convert" since="c++11">
         <constructor/>
         <destructor/>
         <function name="from_bytes"/>
@@ -5845,7 +5866,7 @@
         <function name="state"/>
     </class>
 
-    <class name="std::wbuffer_convert" link="cpp/locale/wbuffer_convert">
+    <class name="std::wbuffer_convert" link="cpp/locale/wbuffer_convert" since="c++11">
         <constructor/>
         <destructor/>
         <function name="rdbuf"/>
@@ -5906,6 +5927,7 @@
         <destructor/>
         <function name="is"/>
         <function name="scan_is"/>
+        <function name="scan_not"/>
         <function name="toupper"/>
         <function name="tolower"/>
         <function name="widen"/>
@@ -5914,6 +5936,7 @@
         <!-- protected -->
         <function name="do_is" link="is"/>
         <function name="do_scan_is" link="scan_is"/>
+        <function name="do_scan_not" link="scan_not"/>
         <function name="do_toupper" link="toupper"/>
         <function name="do_tolower" link="tolower"/>
         <function name="do_widen" link="widen"/>
@@ -6229,7 +6252,7 @@
 
     <!-- cpp/regex -->
 
-    <class name="std::basic_regex" link="cpp/regex/basic_regex">
+    <class name="std::basic_regex" link="cpp/regex/basic_regex" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6242,12 +6265,16 @@
         <function name="imbue"/>
 
         <function name="swap"/>
+
+        <overload name="std::swap" link="swap2"/>
     </class>
 
-    <typedef name="std::regex" alias="std::basic_regex"/>
-    <typedef name="std::wregex" alias="std::basic_regex"/>
+    <typedef name="std::regex" alias="std::basic_regex" since="c++11"/>
+    <typedef name="std::wregex" alias="std::basic_regex" since="c++11"/>
 
-    <class name="std::sub_match" link="cpp/regex/sub_match">
+    <class name="std::sub_match" link="cpp/regex/sub_match" since="c++11">
+        <inherits name="std::pair"/>
+        <variable name="matched"/>
         <constructor/>
         <function name="length"/>
         <function name="str"/>
@@ -6255,12 +6282,12 @@
         <function name="compare"/>
     </class>
 
-    <typedef name="std::csub_match" alias="std::sub_match"/>
-    <typedef name="std::wcsub_match" alias="std::sub_match"/>
-    <typedef name="std::ssub_match" alias="std::sub_match"/>
-    <typedef name="std::wssub_match" alias="std::sub_match"/>
+    <typedef name="std::csub_match" alias="std::sub_match" since="c++11"/>
+    <typedef name="std::wcsub_match" alias="std::sub_match" since="c++11"/>
+    <typedef name="std::ssub_match" alias="std::sub_match" since="c++11"/>
+    <typedef name="std::wssub_match" alias="std::sub_match" since="c++11"/>
 
-    <class name="std::match_results" link="cpp/regex/match_results">
+    <class name="std::match_results" link="cpp/regex/match_results" since="c++11">
         <constructor/>
         <destructor/>
         <function name="get_allocator"/>
@@ -6287,16 +6314,16 @@
         <function name="swap"/>
     </class>
 
-    <typedef name="std::cmatch" alias="std::match_results"/>
-    <typedef name="std::wcmatch" alias="std::match_results"/>
-    <typedef name="std::smatch" alias="std::match_results"/>
-    <typedef name="std::wsmatch" alias="std::match_results"/>
+    <typedef name="std::cmatch" alias="std::match_results" since="c++11"/>
+    <typedef name="std::wcmatch" alias="std::match_results" since="c++11"/>
+    <typedef name="std::smatch" alias="std::match_results" since="c++11"/>
+    <typedef name="std::wsmatch" alias="std::match_results" since="c++11"/>
 
-    <function name="std::regex_match" link="cpp/regex/regex_match"/>
-    <function name="std::regex_search" link="cpp/regex/regex_search"/>
-    <function name="std::regex_replace" link="cpp/regex/regex_replace"/>
+    <function name="std::regex_match" link="cpp/regex/regex_match" since="c++11"/>
+    <function name="std::regex_search" link="cpp/regex/regex_search" since="c++11"/>
+    <function name="std::regex_replace" link="cpp/regex/regex_replace" since="c++11"/>
 
-    <class name="std::regex_iterator" link="cpp/regex/regex_iterator">
+    <class name="std::regex_iterator" link="cpp/regex/regex_iterator" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="operator==" link="operator_cmp"/>
@@ -6307,12 +6334,12 @@
         <function name="operator++(int)" link="operator_arith"/>
     </class>
 
-    <typedef name="std::cregex_iterator" alias="std::regex_iterator"/>
-    <typedef name="std::wcregex_iterator" alias="std::regex_iterator"/>
-    <typedef name="std::sregex_iterator" alias="std::regex_iterator"/>
-    <typedef name="std::wsregex_iterator" alias="std::regex_iterator"/>
+    <typedef name="std::cregex_iterator" alias="std::regex_iterator" since="c++11"/>
+    <typedef name="std::wcregex_iterator" alias="std::regex_iterator" since="c++11"/>
+    <typedef name="std::sregex_iterator" alias="std::regex_iterator" since="c++11"/>
+    <typedef name="std::wsregex_iterator" alias="std::regex_iterator" since="c++11"/>
 
-    <class name="std::regex_token_iterator" link="cpp/regex/regex_token_iterator">
+    <class name="std::regex_token_iterator" link="cpp/regex/regex_token_iterator" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="operator==" link="operator_cmp"/>
@@ -6323,18 +6350,18 @@
         <function name="operator++(int)" link="operator_arith"/>
     </class>
 
-    <typedef name="std::cregex_token_iterator" alias="std::regex_token_iterator"/>
-    <typedef name="std::wcregex_token_iterator" alias="std::regex_token_iterator"/>
-    <typedef name="std::sregex_token_iterator" alias="std::regex_token_iterator"/>
-    <typedef name="std::wsregex_token_iterator" alias="std::regex_token_iterator"/>
+    <typedef name="std::cregex_token_iterator" alias="std::regex_token_iterator" since="c++11"/>
+    <typedef name="std::wcregex_token_iterator" alias="std::regex_token_iterator" since="c++11"/>
+    <typedef name="std::sregex_token_iterator" alias="std::regex_token_iterator" since="c++11"/>
+    <typedef name="std::wsregex_token_iterator" alias="std::regex_token_iterator" since="c++11"/>
 
-    <class name="std::regex_error" link="cpp/regex/regex_error">
+    <class name="std::regex_error" link="cpp/regex/regex_error" since="c++11">
         <inherits name="std::runtime_error"/>
         <constructor/>
         <function name="code"/>
     </class>
 
-    <class name="std::regex_traits" link="cpp/regex/regex_traits">
+    <class name="std::regex_traits" link="cpp/regex/regex_traits" since="c++11">
         <constructor/>
         <function name="length"/>
         <function name="translate"/>
@@ -6349,51 +6376,52 @@
         <function name="getloc"/>
     </class>
 
-    <enum name="std::regex_constants::syntax_option_type" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::icase" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::nosubs" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::optimize" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::collate" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::ECMAScript" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::basic" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::extended" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::awk" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::grep" link="cpp/regex/syntax_option_type"/>
-    <const name="std::regex_constants::egrep" link="cpp/regex/syntax_option_type"/>
+    <enum name="std::regex_constants::syntax_option_type" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::icase" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::nosubs" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::optimize" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::collate" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::ECMAScript" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::basic" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::extended" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::awk" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::grep" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::egrep" link="cpp/regex/syntax_option_type" since="c++11"/>
+    <const name="std::regex_constants::multiline" link="cpp/regex/syntax_option_type" since="c++17"/>
 
-    <enum name="std::regex_constants::match_flag_type" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_default" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_not_bol" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_not_eol" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_not_bow" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_not_eow" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_any" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_not_null" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_continuous" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::match_prev_avail" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::format_default" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::format_sed" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::format_no_copy" link="cpp/regex/match_flag_type"/>
-    <const name="std::regex_constants::format_first_only" link="cpp/regex/match_flag_type"/>
+    <enum name="std::regex_constants::match_flag_type" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_default" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_not_bol" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_not_eol" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_not_bow" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_not_eow" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_any" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_not_null" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_continuous" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::match_prev_avail" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::format_default" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::format_sed" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::format_no_copy" link="cpp/regex/match_flag_type" since="c++11"/>
+    <const name="std::regex_constants::format_first_only" link="cpp/regex/match_flag_type" since="c++11"/>
 
-    <enum name="std::regex_constants::error_type" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_collate" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_ctype" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_escape" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_backref" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_brack" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_paren" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_brace" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_badbrace" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_range" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_space" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_badrepeat" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_complexity" link="cpp/regex/error_type"/>
-    <enum name="std::regex_constants::error_stack" link="cpp/regex/error_type"/>
+    <enum name="std::regex_constants::error_type" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_collate" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_ctype" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_escape" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_backref" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_brack" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_paren" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_brace" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_badbrace" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_range" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_space" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_badrepeat" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_complexity" link="cpp/regex/error_type" since="c++11"/>
+    <const name="std::regex_constants::error_stack" link="cpp/regex/error_type" since="c++11"/>
 
     <!-- cpp/atomic -->
 
-    <class name="std::atomic" link="cpp/atomic/atomic">
+    <class name="std::atomic" link="cpp/atomic/atomic" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="is_lock_free"/>
@@ -6462,43 +6490,43 @@
         <function name="operator^=" link="operator_arith2"/>
     </class>
 
-    <function name="std::atomic_is_lock_free" link="cpp/atomic/atomic_is_lock_free"/>
+    <function name="std::atomic_is_lock_free" link="cpp/atomic/atomic_is_lock_free" since="c++11"/>
 
-    <function name="std::atomic_store" link="cpp/atomic/atomic_store"/>
-    <function name="std::atomic_store_explicit" link="cpp/atomic/atomic_store"/>
+    <function name="std::atomic_store" link="cpp/atomic/atomic_store" since="c++11"/>
+    <function name="std::atomic_store_explicit" link="cpp/atomic/atomic_store" since="c++11"/>
 
-    <function name="std::atomic_load" link="cpp/atomic/atomic_load"/>
-    <function name="std::atomic_load_explicit" link="cpp/atomic/atomic_load"/>
+    <function name="std::atomic_load" link="cpp/atomic/atomic_load" since="c++11"/>
+    <function name="std::atomic_load_explicit" link="cpp/atomic/atomic_load" since="c++11"/>
 
-    <function name="std::atomic_exchange" link="cpp/atomic/atomic_exchange"/>
-    <function name="std::atomic_exchange_explicit" link="cpp/atomic/atomic_exchange"/>
+    <function name="std::atomic_exchange" link="cpp/atomic/atomic_exchange" since="c++11"/>
+    <function name="std::atomic_exchange_explicit" link="cpp/atomic/atomic_exchange" since="c++11"/>
 
-    <function name="std::atomic_compare_exchange_weak" link="cpp/atomic/atomic_compare_exchange"/>
-    <function name="std::atomic_compare_exchange_weak_explicit" link="cpp/atomic/atomic_compare_exchange"/>
-    <function name="std::atomic_compare_exchange_strong" link="cpp/atomic/atomic_compare_exchange"/>
-    <function name="std::atomic_compare_exchange_strong_explicit" link="cpp/atomic/atomic_compare_exchange"/>
+    <function name="std::atomic_compare_exchange_weak" link="cpp/atomic/atomic_compare_exchange" since="c++11"/>
+    <function name="std::atomic_compare_exchange_weak_explicit" link="cpp/atomic/atomic_compare_exchange" since="c++11"/>
+    <function name="std::atomic_compare_exchange_strong" link="cpp/atomic/atomic_compare_exchange" since="c++11"/>
+    <function name="std::atomic_compare_exchange_strong_explicit" link="cpp/atomic/atomic_compare_exchange" since="c++11"/>
 
-    <function name="std::atomic_fetch_add" link="cpp/atomic/atomic_fetch_add"/>
-    <function name="std::atomic_fetch_add_explicit" link="cpp/atomic/atomic_fetch_add"/>
+    <function name="std::atomic_fetch_add" link="cpp/atomic/atomic_fetch_add" since="c++11"/>
+    <function name="std::atomic_fetch_add_explicit" link="cpp/atomic/atomic_fetch_add" since="c++11"/>
 
-    <function name="std::atomic_fetch_sub" link="cpp/atomic/atomic_fetch_sub"/>
-    <function name="std::atomic_fetch_sub_explicit" link="cpp/atomic/atomic_fetch_sub"/>
+    <function name="std::atomic_fetch_sub" link="cpp/atomic/atomic_fetch_sub" since="c++11"/>
+    <function name="std::atomic_fetch_sub_explicit" link="cpp/atomic/atomic_fetch_sub" since="c++11"/>
 
-    <function name="std::atomic_fetch_and" link="cpp/atomic/atomic_fetch_and"/>
-    <function name="std::atomic_fetch_and_explicit" link="cpp/atomic/atomic_fetch_and"/>
+    <function name="std::atomic_fetch_and" link="cpp/atomic/atomic_fetch_and" since="c++11"/>
+    <function name="std::atomic_fetch_and_explicit" link="cpp/atomic/atomic_fetch_and" since="c++11"/>
 
-    <function name="std::atomic_fetch_or" link="cpp/atomic/atomic_fetch_or"/>
-    <function name="std::atomic_fetch_or_explicit" link="cpp/atomic/atomic_fetch_or"/>
+    <function name="std::atomic_fetch_or" link="cpp/atomic/atomic_fetch_or" since="c++11"/>
+    <function name="std::atomic_fetch_or_explicit" link="cpp/atomic/atomic_fetch_or" since="c++11"/>
 
-    <function name="std::atomic_fetch_xor" link="cpp/atomic/atomic_fetch_xor"/>
-    <function name="std::atomic_fetch_xor_explicit" link="cpp/atomic/atomic_fetch_xor"/>
+    <function name="std::atomic_fetch_xor" link="cpp/atomic/atomic_fetch_xor" since="c++11"/>
+    <function name="std::atomic_fetch_xor_explicit" link="cpp/atomic/atomic_fetch_xor" since="c++11"/>
 
     <function name="std::atomic_wait" link="cpp/atomic/atomic_wait" since="c++20"/>
     <function name="std::atomic_wait_explicit" link="cpp/atomic/atomic_wait" since="c++20"/>
     <function name="std::atomic_notify_one" link="cpp/atomic/atomic_notify_one" since="c++20"/>
     <function name="std::atomic_notify_all" link="cpp/atomic/atomic_notify_all" since="c++20"/>
 
-    <class name="std::atomic_flag" link="cpp/atomic/atomic_flag">
+    <class name="std::atomic_flag" link="cpp/atomic/atomic_flag" since="c++11">
         <constructor/>
         <function name="operator="/>
         <function name="clear"/>
@@ -6520,23 +6548,31 @@
     <function name="std::atomic_flag_notify_one" link="cpp/atomic/atomic_flag_notify_one" since="c++20"/>
     <function name="std::atomic_flag_notify_all" link="cpp/atomic/atomic_flag_notify_all" since="c++20"/>
 
-    <function name="std::atomic_init" link="cpp/atomic/atomic_init"/>
-    <function name="ATOMIC_VAR_INIT" link="cpp/atomic/ATOMIC_VAR_INIT"/>
-    <enum name="ATOMIC_FLAG_INIT" link="cpp/atomic/ATOMIC_FLAG_INIT"/>
+    <function name="std::atomic_init" link="cpp/atomic/atomic_init" since="c++11"/>
+    <function name="ATOMIC_VAR_INIT" link="cpp/atomic/ATOMIC_VAR_INIT" since="c++11"/>
+    <enum name="ATOMIC_FLAG_INIT" link="cpp/atomic/ATOMIC_FLAG_INIT" since="c++11"/>
 
-    <enum name="std::memory_order" link="cpp/atomic/memory_order"/>
-    <const name="std::memory_order_relaxed" link="cpp/atomic/memory_order"/>
-    <const name="std::memory_order_consume" link="cpp/atomic/memory_order"/>
-    <const name="std::memory_order_acquire" link="cpp/atomic/memory_order"/>
-    <const name="std::memory_order_release" link="cpp/atomic/memory_order"/>
-    <const name="std::memory_order_acq_rel" link="cpp/atomic/memory_order"/>
-    <const name="std::memory_order_seq_cst" link="cpp/atomic/memory_order"/>
+    <enum name="std::memory_order" link="cpp/atomic/memory_order" since="c++11">
+        <const name="relaxed" link="." since="c++20"/>
+        <const name="consume" link="." since="c++20"/>
+        <const name="acquire" link="." since="c++20"/>
+        <const name="release" link="." since="c++20"/>
+        <const name="acq_rel" link="." since="c++20"/>
+        <const name="seq_cst" link="." since="c++20"/>
+    </enum>
+    <const name="std::memory_order_relaxed" link="cpp/atomic/memory_order" since="c++11"/>
+    <const name="std::memory_order_consume" link="cpp/atomic/memory_order" since="c++11"/>
+    <const name="std::memory_order_acquire" link="cpp/atomic/memory_order" since="c++11"/>
+    <const name="std::memory_order_release" link="cpp/atomic/memory_order" since="c++11"/>
+    <const name="std::memory_order_acq_rel" link="cpp/atomic/memory_order" since="c++11"/>
+    <const name="std::memory_order_seq_cst" link="cpp/atomic/memory_order" since="c++11"/>
 
-    <function name="std::kill_dependency" link="cpp/atomic/kill_dependency"/>
-    <function name="std::atomic_thread_fence" link="cpp/atomic/atomic_thread_fence"/>
-    <function name="std::atomic_signal_fence" link="cpp/atomic/atomic_signal_fence"/>
+    <function name="std::kill_dependency" link="cpp/atomic/kill_dependency" since="c++11"/>
+    <function name="std::atomic_thread_fence" link="cpp/atomic/atomic_thread_fence" since="c++11"/>
+    <function name="std::atomic_signal_fence" link="cpp/atomic/atomic_signal_fence" since="c++11"/>
 
     <typedef name="std::atomic_bool" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_char" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_schar" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_uchar" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_short" alias="std::atomic" since="c++11"/>
@@ -6547,6 +6583,7 @@
     <typedef name="std::atomic_ulong" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_llong" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_ullong" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_char8_t" alias="std::atomic" since="c++20"/>
     <typedef name="std::atomic_char16_t" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_char32_t" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_wchar_t" alias="std::atomic" since="c++11"/>
@@ -6580,10 +6617,12 @@
     <typedef name="std::atomic_ptrdiff_t" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_intmax_t" alias="std::atomic" since="c++11"/>
     <typedef name="std::atomic_uintmax_t" alias="std::atomic" since="c++11"/>
+    <typedef name="std::atomic_signed_lock_free" alias="std::atomic" since="c++20"/>
+    <typedef name="std::atomic_unsigned_lock_free" alias="std::atomic" since="c++20"/>
 
     <!-- cpp/thread -->
 
-    <class name="std::thread" link="cpp/thread/thread">
+    <class name="std::thread" link="cpp/thread/thread" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6634,10 +6673,10 @@
         <overload name="swap" link="swap2"/>
     </class>
 
-    <function name="std::this_thread::get_id" link="cpp/thread/get_id"/>
-    <function name="std::this_thread::sleep_for" link="cpp/thread/sleep_for"/>
-    <function name="std::this_thread::sleep_until" link="cpp/thread/sleep_until"/>
-    <function name="std::this_thread::yield" link="cpp/thread/yield"/>
+    <function name="std::this_thread::get_id" link="cpp/thread/get_id" since="c++11"/>
+    <function name="std::this_thread::sleep_for" link="cpp/thread/sleep_for" since="c++11"/>
+    <function name="std::this_thread::sleep_until" link="cpp/thread/sleep_until" since="c++11"/>
+    <function name="std::this_thread::yield" link="cpp/thread/yield" since="c++11"/>
 
     <class name="std::stop_token" link="cpp/thread/stop_token" since="c++20">
         <constructor/>
@@ -6669,10 +6708,12 @@
         <overload name="swap" link="swap2"/>
     </class>
 
-    <class name="nostopstate_t" link="cpp/thread/stop_source/nostopstate_t" since="c++20"/>
-    <const name="nostopstate" link="cpp/thread/stop_source/nostopstate" since="c++20"/>
+    <class name="std::nostopstate_t" link="cpp/thread/stop_source/nostopstate_t" since="c++20"/>
+    <const name="std::nostopstate" link="cpp/thread/stop_source/nostopstate" since="c++20"/>
 
-    <class name="stop_callback" link="cpp/thread/stop_callback" since="c++20">
+    <class name="std::stop_callback" link="cpp/thread/stop_callback" since="c++20">
+        <typedef name="callback_type" link="."/>
+
         <constructor/>
         <destructor/>
     </class>
@@ -6682,7 +6723,7 @@
     <const name="std::hardware_destructive_interference_size"
            link="cpp/thread/hardware_destructive_interference_size" since="c++17"/>
 
-    <class name="std::mutex" link="cpp/thread/mutex">
+    <class name="std::mutex" link="cpp/thread/mutex" since="c++11">
         <constructor/>
         <destructor/>
         <function name="lock"/>
@@ -6691,7 +6732,7 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::recursive_mutex" link="cpp/thread/recursive_mutex">
+    <class name="std::recursive_mutex" link="cpp/thread/recursive_mutex" since="c++11">
         <constructor/>
         <destructor/>
         <function name="lock"/>
@@ -6700,7 +6741,7 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::timed_mutex" link="cpp/thread/timed_mutex">
+    <class name="std::timed_mutex" link="cpp/thread/timed_mutex" since="c++11">
         <constructor/>
         <destructor/>
         <function name="lock"/>
@@ -6711,7 +6752,7 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::recursive_timed_mutex" link="cpp/thread/recursive_timed_mutex">
+    <class name="std::recursive_timed_mutex" link="cpp/thread/recursive_timed_mutex" since="c++11">
         <constructor/>
         <destructor/>
         <function name="lock"/>
@@ -6751,15 +6792,15 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::defer_lock_t" link="cpp/thread/lock_tag_t"/>
-    <class name="std::try_to_lock_t" link="cpp/thread/lock_tag_t"/>
-    <class name="std::adopt_lock_t" link="cpp/thread/lock_tag_t"/>
+    <class name="std::defer_lock_t" link="cpp/thread/lock_tag_t" since="c++11"/>
+    <class name="std::try_to_lock_t" link="cpp/thread/lock_tag_t" since="c++11"/>
+    <class name="std::adopt_lock_t" link="cpp/thread/lock_tag_t" since="c++11"/>
 
-    <const name="std::defer_lock" link="cpp/thread/lock_tag"/>
-    <const name="std::try_to_lock" link="cpp/thread/lock_tag"/>
-    <const name="std::adopt_lock" link="cpp/thread/lock_tag"/>
+    <const name="std::defer_lock" link="cpp/thread/lock_tag" since="c++11"/>
+    <const name="std::try_to_lock" link="cpp/thread/lock_tag" since="c++11"/>
+    <const name="std::adopt_lock" link="cpp/thread/lock_tag" since="c++11"/>
 
-    <class name="std::lock_guard" link="cpp/thread/lock_guard">
+    <class name="std::lock_guard" link="cpp/thread/lock_guard" since="c++11">
         <constructor/>
         <destructor/>
     </class>
@@ -6769,7 +6810,7 @@
         <destructor/>
     </class>
 
-    <class name="std::unique_lock" link="cpp/thread/unique_lock">
+    <class name="std::unique_lock" link="cpp/thread/unique_lock" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6811,10 +6852,10 @@
         <overload name="std::swap" link="swap2"/>
     </class>
 
-    <function name="std::lock" link="cpp/thread/lock"/>
-    <function name="std::try_lock" link="cpp/thread/try_lock"/>
+    <function name="std::lock" link="cpp/thread/lock" since="c++11"/>
+    <function name="std::try_lock" link="cpp/thread/try_lock" since="c++11"/>
 
-    <class name="std::condition_variable" link="cpp/thread/condition_variable">
+    <class name="std::condition_variable" link="cpp/thread/condition_variable" since="c++11">
         <constructor/>
         <destructor/>
 
@@ -6828,7 +6869,7 @@
         <function name="native_handle"/>
     </class>
 
-    <class name="std::condition_variable_any" link="cpp/thread/condition_variable_any">
+    <class name="std::condition_variable_any" link="cpp/thread/condition_variable_any" since="c++11">
         <constructor/>
         <destructor/>
 
@@ -6840,14 +6881,14 @@
         <function name="wait_until"/>
     </class>
 
-    <function name="std::notify_all_at_thread_exit" link="cpp/thread/notify_all_at_thread_exit"/>
+    <function name="std::notify_all_at_thread_exit" link="cpp/thread/notify_all_at_thread_exit" since="c++11"/>
 
-    <class name="std::once_flag" link="cpp/thread/once_flag">
+    <class name="std::once_flag" link="cpp/thread/once_flag" since="c++11">
         <constructor link="."/>
     </class>
-    <function name="std::call_once" link="cpp/thread/call_once"/>
+    <function name="std::call_once" link="cpp/thread/call_once" since="c++11"/>
 
-    <enum name="std::cv_status" link="cpp/thread/cv_status">
+    <enum name="std::cv_status" link="cpp/thread/cv_status" since="c++11">
         <const name="no_timeout" link="."/>
         <const name="timeout" link="."/>
     </enum>
@@ -6879,6 +6920,8 @@
     </class>
 
     <class name="std::barrier" link="cpp/thread/barrier" since="c++20">
+        <typedef name="arrival_token" link="."/>
+
         <constructor/>
         <destructor/>
 
@@ -6890,7 +6933,7 @@
         <const name="max"/>
     </class>
 
-    <class name="std::promise" link="cpp/thread/promise">
+    <class name="std::promise" link="cpp/thread/promise" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6905,7 +6948,7 @@
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
 
-    <class name="std::future" link="cpp/thread/future">
+    <class name="std::future" link="cpp/thread/future" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6918,7 +6961,7 @@
         <function name="wait_until"/>
     </class>
 
-    <class name="std::shared_future" link="cpp/thread/shared_future">
+    <class name="std::shared_future" link="cpp/thread/shared_future" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6930,7 +6973,7 @@
         <function name="wait_until"/>
     </class>
 
-    <class name="std::packaged_task" link="cpp/thread/packaged_task">
+    <class name="std::packaged_task" link="cpp/thread/packaged_task" since="c++11">
         <constructor/>
         <destructor/>
         <function name="operator="/>
@@ -6946,20 +6989,20 @@
         <specialization name="std::uses_allocator" link="uses_allocator"/>
     </class>
 
-    <function name="std::async" link="cpp/thread/async"/>
+    <function name="std::async" link="cpp/thread/async" since="c++11"/>
 
-    <enum name="std::launch" link="cpp/thread/launch">
+    <enum name="std::launch" link="cpp/thread/launch" since="c++11">
         <const name="async" link="."/>
         <const name="deferred" link="."/>
     </enum>
 
-    <enum name="std::future_status" link="cpp/thread/future_status">
+    <enum name="std::future_status" link="cpp/thread/future_status" since="c++11">
         <const name="ready" link="."/>
         <const name="timeout" link="."/>
         <const name="deferred" link="."/>
     </enum>
 
-    <class name="std::future_error" link="cpp/thread/future_error">
+    <class name="std::future_error" link="cpp/thread/future_error" since="c++11">
         <inherits name="std::logic_error"/>
         <constructor/>
         <function name="operator="/>
@@ -6967,9 +7010,9 @@
         <function name="what"/>
     </class>
 
-    <function name="std::future_category" link="cpp/thread/future_category"/>
+    <function name="std::future_category" link="cpp/thread/future_category" since="c++11"/>
 
-    <class name="std::future_errc" link="cpp/thread/future_errc">
+    <class name="std::future_errc" link="cpp/thread/future_errc" since="c++11">
         <const name="broken_promise" link="."/>
         <const name="future_already_retrieved" link="."/>
         <const name="promise_already_satisfied" link="."/>
@@ -7081,7 +7124,7 @@
         <function name="refresh"/>
 
         <function name="path"/>
-        <overload name="operator const path&amp;" link="path"/>
+        <function name="operator const path&amp;" link="path"/>
         <function name="exists"/>
         <function name="is_block_file"/>
         <function name="is_character_file"/>
