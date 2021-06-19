@@ -1573,6 +1573,19 @@
     </class>
 
     <!--=======================================================================-->
+    <!-- cpp/utility/source_location -->
+
+    <class name="std::source_location" link="cpp/utility/source_location" since="c++20">
+        <constructor/>
+        <function name="current"/>
+
+        <function name="line"/>
+        <function name="column"/>
+        <function name="file_name"/>
+        <function name="function_name"/>
+    </class>
+
+    <!--=======================================================================-->
     <!-- cpp/utility/initializer_list -->
 
     <class name="std::initializer_list" link="cpp/utility/initializer_list" since="c++11">
