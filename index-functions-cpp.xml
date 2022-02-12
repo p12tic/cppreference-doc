@@ -458,12 +458,12 @@
 
     <class name="std::bad_typeid" link="cpp/types/bad_typeid">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::bad_cast" link="cpp/types/bad_cast">
         <inherits name="std::exception"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <!-- type traits -->
@@ -924,7 +924,7 @@
 
     <class name="std::bad_array_new_length" link="cpp/memory/new/bad_array_new_length" since="c++11">
         <inherits name="std::bad_alloc"/>
-        <constructor/>
+        <constructor link="."/>
     </class>
 
     <class name="std::nothrow_t" link="cpp/memory/new/nothrow_t"/>
@@ -2436,7 +2436,7 @@
     <function name="std::cref" link="cpp/utility/functional/ref" since="c++11"/>
 
     <class name="std::unwrap_reference" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
-    <alias name="std::unwrap_reference_t" link="cpp/utility/functional/unwrap_reference_t" since="c++20"/>
+    <typedef name="std::unwrap_reference_t" alias="std::unwrap_reference" since="c++20"/>
     <class name="std::unwrap_ref_decay" link="cpp/utility/functional/unwrap_reference" since="c++20"/>
     <typedef name="std::unwrap_ref_decay_t" alias="std::unwrap_ref_decay" since="c++20"/>
 
@@ -2639,7 +2639,6 @@
     <class name="std::basic_format_args" link="cpp/utility/format/basic_format_args" since="c++20"/>
     <typedef name="std::format_args" alias="std::basic_format_args" since="c++20"/>
     <typedef name="std::wformat_args" alias="std::basic_format_args" since="c++20"/>
-    <typedef name="std::format_args_t" alias="std::basic_format_args" since="c++20"/>
     <function name="std::visit_format_arg" link="cpp/utility/format/visit_format_arg" since="c++20"/>
     <function name="std::make_format_args" link="cpp/utility/format/make_format_args" since="c++20"/>
     <function name="std::make_wformat_args" link="cpp/utility/format/make_format_args" since="c++20"/>
@@ -2788,7 +2787,9 @@
     <function name="std::rel_ops::operator&gt;=" link="cpp/utility/rel_ops/operator_cmp"/>
 
     <function name="std::to_chars" link="cpp/utility/to_chars" since="c++17"/>
+    <class name="std::to_chars_result" link="cpp/utility/to_chars" since="c++17"/>
     <function name="std::from_chars" link="cpp/utility/from_chars" since="c++17"/>
+    <class name="std::from_chars_result" link="cpp/utility/from_chars" since="c++17"/>
 
     <class name="std::chars_format" link="cpp/utility/chars_format" since="c++17">
         <const name="scientific" link="."/>
@@ -5422,6 +5423,8 @@
         <inherits name="std::basic_ios"/>
         <constructor/>
         <destructor/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
 
         <function name="operator&gt;&gt;" link="operator_gtgt"/>
         <function name="get"/>
@@ -5451,6 +5454,8 @@
         <inherits name="std::basic_ios"/>
         <constructor/>
         <destructor/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
 
         <function name="operator&lt;&lt;" link="operator_ltlt"/>
         <function name="put"/>
@@ -5473,84 +5478,86 @@
         <inherits name="std::basic_ostream"/>
         <constructor/>
         <destructor/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
     </class>
 
     <class name="std::basic_ifstream" link="cpp/io/basic_ifstream">
         <inherits name="std::basic_istream"/>
         <constructor/>
-        <function name="operator="/>
-        <function name="swap"/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
         <function name="rdbuf"/>
 
         <function name="is_open"/>
         <function name="open"/>
         <function name="close"/>
 
-        <overload name="std::swap" link="swap2"/>
+        <overload name="std::swap" link="swap2" since="c++11"/>
     </class>
 
     <class name="std::basic_ofstream" link="cpp/io/basic_ofstream">
         <inherits name="std::basic_ostream"/>
         <constructor/>
-        <function name="operator="/>
-        <function name="swap"/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
         <function name="rdbuf"/>
 
         <function name="is_open"/>
         <function name="open"/>
         <function name="close"/>
 
-        <overload name="std::swap" link="swap2"/>
+        <overload name="std::swap" link="swap2" since="c++11"/>
     </class>
 
     <class name="std::basic_fstream" link="cpp/io/basic_fstream">
         <inherits name="std::basic_iostream"/>
         <constructor/>
-        <function name="operator="/>
-        <function name="swap"/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
         <function name="rdbuf"/>
 
         <function name="is_open"/>
         <function name="open"/>
         <function name="close"/>
 
-        <overload name="std::swap" link="swap2"/>
+        <overload name="std::swap" link="swap2" since="c++11"/>
     </class>
 
     <class name="std::basic_istringstream" link="cpp/io/basic_istringstream">
         <inherits name="std::basic_istream"/>
         <constructor/>
-        <function name="operator="/>
-        <function name="swap"/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
         <function name="rdbuf"/>
 
         <function name="str"/>
 
-        <overload name="std::swap" link="swap2"/>
+        <overload name="std::swap" link="swap2" since="c++11"/>
     </class>
 
     <class name="std::basic_ostringstream" link="cpp/io/basic_ostringstream">
         <inherits name="std::basic_ostream"/>
         <constructor/>
-        <function name="operator="/>
-        <function name="swap"/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
         <function name="rdbuf"/>
 
         <function name="str"/>
 
-        <overload name="std::swap" link="swap2"/>
+        <overload name="std::swap" link="swap2" since="c++11"/>
     </class>
 
     <class name="std::basic_stringstream" link="cpp/io/basic_stringstream">
         <inherits name="std::basic_iostream"/>
         <constructor/>
-        <function name="operator="/>
-        <function name="swap"/>
+        <function name="operator=" since="c++11"/>
+        <function name="swap" since="c++11"/>
         <function name="rdbuf"/>
 
         <function name="str"/>
 
-        <overload name="std::swap" link="swap2"/>
+        <overload name="std::swap" link="swap2" since="c++11"/>
     </class>
 
     <class name="std::basic_osyncstream" link="cpp/io/basic_osyncstream" since="c++20">
@@ -6274,7 +6281,7 @@
 
     <class name="std::sub_match" link="cpp/regex/sub_match" since="c++11">
         <inherits name="std::pair"/>
-        <variable name="matched"/>
+        <variable name="matched" link="."/>
         <constructor/>
         <function name="length"/>
         <function name="str"/>
