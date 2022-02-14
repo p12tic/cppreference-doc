@@ -1601,6 +1601,54 @@
     </class>
 
     <!--=======================================================================-->
+    <!-- cpp/coroutine -->
+
+    <class name="std::coroutine_traits" link="cpp/coroutine/coroutine_traits" since="c++20">
+        <typedef name="promise_type" link="."/>
+    </class>
+
+    <class name="std::coroutine_handle" link="cpp/coroutine/coroutine_handle" since="c++20">
+        <constructor/>
+        <function name="operator="/>
+        <function name="from_promise"/>
+
+        <function name="operator coroutine_handle<>" link="operator_coroutine_handle_void"/>
+
+        <function name="done"/>
+        <function name="operator bool" link="operator_bool"/>
+
+        <function name="operator()" link="resume"/>
+        <function name="resume"/>
+        <function name="destroy"/>
+
+        <function name="promise"/>
+
+        <function name="address"/>
+        <function name="from_address"/>
+
+        <overload name="operator==" link="operator_cmp"/>
+        <overload name="operator&lt;=&gt;" link="operator_cmp"/>
+
+        <specialization name="std::hash" link="hash"/>
+    </class>
+
+    <class name="std::noop_coroutine_promise" link="cpp/coroutine/noop_coroutine_promise" since="c++20"/>
+    <typedef name="std::noop_coroutine_handle" link="cpp/coroutine/coroutine_handle" since="c++20"/>
+    <function name="std::noop_coroutine" link="cpp/coroutine/noop_coroutine" since="c++20"/>
+
+    <class name="std::suspend_never" link="cpp/coroutine/suspend_never" since="c++20">
+        <function name="await_ready" link="."/>
+        <function name="await_suspend" link="."/>
+        <function name="await_resume" link="."/>
+    </class>
+
+    <class name="std::suspend_always" link="cpp/coroutine/suspend_always" since="c++20">
+        <function name="await_ready" link="."/>
+        <function name="await_suspend" link="."/>
+        <function name="await_resume" link="."/>
+    </class>
+
+    <!--=======================================================================-->
     <!-- cpp/utility/variadic -->
 
     <function name="va_start" link="cpp/utility/variadic/va_start"/>
