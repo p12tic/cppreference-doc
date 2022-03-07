@@ -1612,7 +1612,7 @@
         <function name="operator="/>
         <function name="from_promise"/>
 
-        <function name="operator coroutine_handle<>" link="operator_coroutine_handle_void"/>
+        <function name="operator coroutine_handle&lt;&gt;" link="operator_coroutine_handle_void"/>
 
         <function name="done"/>
         <function name="operator bool" link="operator_bool"/>
