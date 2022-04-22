@@ -1,0 +1,121 @@
+/*  Copyright (C) 2022  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_COMPARE_H
+#define CPPREFERENCE_COMPARE_H
+
+#if CPPREFERENCE_STDVER >= 2020
+namespace std {
+
+class partial_ordering {
+public:
+    struct __unspec {};
+
+    static const partial_ordering less;
+    static const partial_ordering equivalent;
+    static const partial_ordering greater;
+    static const partial_ordering unordered;
+
+    friend constexpr bool operator==(partial_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator==(partial_ordering a, partial_ordering b) noexcept;
+    friend constexpr bool operator<(partial_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<(__unspec a, partial_ordering b) noexcept;
+    friend constexpr bool operator<=(partial_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<=(__unspec a, partial_ordering b) noexcept;
+    friend constexpr bool operator>(partial_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator>(__unspec a, partial_ordering b) noexcept;
+    friend constexpr bool operator>=(partial_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator>=(__unspec a, partial_ordering b) noexcept;
+    friend constexpr bool operator<=>(partial_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<=>(__unspec a, partial_ordering b) noexcept;
+};
+
+class weak_ordering {
+public:
+    struct __unspec {};
+
+    static const weak_ordering less;
+    static const weak_ordering equivalent;
+    static const weak_ordering greater;
+
+    constexpr operator partial_ordering() const noexcept;
+
+    friend constexpr bool operator==(weak_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator==(weak_ordering a, weak_ordering b) noexcept;
+    friend constexpr bool operator<(weak_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<(__unspec a, weak_ordering b) noexcept;
+    friend constexpr bool operator<=(weak_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<=(__unspec a, weak_ordering b) noexcept;
+    friend constexpr bool operator>(weak_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator>(__unspec a, weak_ordering b) noexcept;
+    friend constexpr bool operator>=(weak_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator>=(__unspec a, weak_ordering b) noexcept;
+    friend constexpr bool operator<=>(weak_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<=>(__unspec a, weak_ordering b) noexcept;
+};
+
+
+class strong_ordering {
+public:
+    struct __unspec {};
+
+    static const strong_ordering less;
+    static const strong_ordering equal;
+    static const strong_ordering equivalent;
+    static const strong_ordering greater;
+
+    constexpr operator partial_ordering() const noexcept;
+    constexpr operator weak_ordering() const noexcept;
+
+    friend constexpr bool operator==(strong_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator==(strong_ordering a, strong_ordering b) noexcept;
+    friend constexpr bool operator<(strong_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<(__unspec a, strong_ordering b) noexcept;
+    friend constexpr bool operator<=(strong_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<=(__unspec a, strong_ordering b) noexcept;
+    friend constexpr bool operator>(strong_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator>(__unspec a, strong_ordering b) noexcept;
+    friend constexpr bool operator>=(strong_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator>=(__unspec a, strong_ordering b) noexcept;
+    friend constexpr bool operator<=>(strong_ordering a, __unspec b) noexcept;
+    friend constexpr bool operator<=>(__unspec a, strong_ordering b) noexcept;
+};
+
+constexpr bool is_eq(partial_ordering cmp) noexcept;
+constexpr bool is_neq(partial_ordering cmp) noexcept;
+constexpr bool is_lt(partial_ordering cmp) noexcept;
+constexpr bool is_lteq(partial_ordering cmp) noexcept;
+constexpr bool is_gt(partial_ordering cmp) noexcept;
+constexpr bool is_gteq(partial_ordering cmp) noexcept;
+
+template<class... T>
+struct common_comparison_category {
+    using type = partial_ordering; // SIMPLIFIED
+};
+
+template<class... T>
+using common_comparison_category_t = typename common_comparison_category<T...>::type;
+
+template<class T, class U = T> struct compare_three_way_result;
+
+template<class T, class U = T>
+using compare_three_way_result_t = typename compare_three_way_result<T, U>::type;
+
+struct compare_three_way;
+
+} // namespace std
+#endif // CPPREFERENCE_STDVER >= 2020
+
+#endif // CPPREFERENCE_COMPARE_H
