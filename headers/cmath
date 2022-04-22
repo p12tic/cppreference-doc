@@ -37,6 +37,11 @@ typedef float float_t;
 typedef double double_t;
 #endif // CPPREFERENCE_STDVER>= 2011
 
+// Workaround system headers being inluded and defining isnan
+#ifdef isnan
+#undef isnan
+#endif
+
 float       abs(float arg);
 double      abs(double arg);
 long double abs(long double arg);
