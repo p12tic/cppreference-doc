@@ -234,9 +234,27 @@ void swap(pair<T1, T2>& lhs, pair<T1, T2>& rhs);
 template<size_t N, class T>
 struct tuple_element;
 
+template<class T1, class T2>
+struct tuple_element<0, std::pair<T1, T2>> { using type = T1; };
+template<class T1, class T2>
+struct tuple_element<1, std::pair<T1, T2>> { using type = T2; };
+
 template<size_t N, class T1, class T2>
 typename tuple_element<N, std::pair<T1, T2>>::type&
         get(pair<T1, T2>& p);
+
+template<size_t N, class T1, class T2>
+const typename tuple_element<N, std::pair<T1, T2>>::type&
+        get(const pair<T1, T2>& p);
+
+template<size_t N, class T1, class T2>
+typename tuple_element<N, std::pair<T1, T2>>::type&&
+        get(pair<T1, T2>&& p);
+
+template<size_t N, class T1, class T2>
+const typename tuple_element<N, std::pair<T1, T2>>::type&&
+        get(const pair<T1, T2>&& p);
+
 // SIMPLIFIED: additional overloads omitted
 #endif
 
