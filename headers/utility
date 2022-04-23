@@ -232,7 +232,7 @@ void swap(pair<T1, T2>& lhs, pair<T1, T2>& rhs);
 
 #if CPPREFERENCE_STDVER>= 2011
 template<size_t N, class T>
-class tuple_element;
+struct tuple_element;
 
 template<size_t N, class T1, class T2>
 typename tuple_element<N, std::pair<T1, T2>>::type&

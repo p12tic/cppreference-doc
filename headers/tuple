@@ -92,7 +92,7 @@ template<class... Types >
 struct tuple_size<std::tuple<Types...> > : std::integral_constant<std::size_t, sizeof...(Types)> { };
 
 template<std::size_t I, class... Types >
-class tuple_element<I, tuple<Types...> > {
+struct tuple_element<I, tuple<Types...> > {
     typedef void type;
 }; // SIMPLIFIED
 
