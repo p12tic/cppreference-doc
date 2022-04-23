@@ -183,11 +183,39 @@ public:
 
     void insert(std::initializer_list<value_type> ilist);
 
+#if CPPREFERENCE_STDVER >= 2017
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign(const Key& key, M&& obj);
+
+    template<class M>
+    std::pair<iterator, bool> insert_or_assign(Key&& key, M&& obj);
+
+    template<class M>
+    iterator insert_or_assign(const_iterator hint, const Key& key, M&& obj);
+
+    template<class M>
+    iterator insert_or_assign(const_iterator hint, Key&& key, M&& obj);
+#endif
+
     template<class... Args>
     std::pair<iterator, bool> emplace(Args&& ... args);
 
     template <class... Args>
     iterator emplace_hint(const_iterator hint, Args&& ... args);
+
+#if CPPREFERENCE_STDVER >= 2017
+    template<class... Args>
+    std::pair<iterator, bool> try_emplace(const Key& key, Args&& ... args);
+
+    template<class... Args>
+    std::pair<iterator, bool> try_emplace(Key&& key, Args&& ... args);
+
+    template<class... Args>
+    std::pair<iterator, bool> try_emplace(const_iterator hint, const Key& key, Args&& ... args);
+
+    template<class... Args>
+    std::pair<iterator, bool> try_emplace(const_iterator hint, Key&& key, Args&& ... args);
+#endif
 
     iterator erase(const_iterator pos);
     iterator erase(const_iterator first, const_iterator last);
