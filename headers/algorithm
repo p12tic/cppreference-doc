@@ -711,6 +711,13 @@ constexpr std::pair<ForwardIt, ForwardIt>
 minmax_element(ForwardIt first, ForwardIt last, Compare comp);
 #endif
 
+#if CPPREFERENCE_STDVER >= 2017
+template<class T>
+constexpr const T& clamp(const T& v, const T& lo, const T& hi);
+template<class T, class Compare>
+constexpr const T& clamp(const T& v, const T& lo, const T& hi, Compare comp);
+#endif
+
 template<class InputIt1, class InputIt2 >
 bool lexicographical_compare(InputIt1 first1, InputIt1 last1,
                              InputIt2 first2, InputIt2 last2);
