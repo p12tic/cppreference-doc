@@ -231,7 +231,7 @@ template<class T1, class T2>
 void swap(pair<T1, T2>& lhs, pair<T1, T2>& rhs);
 
 #if CPPREFERENCE_STDVER>= 2011
-template<size_t N, class T>
+template<size_t N, class... Types>
 struct tuple_element;
 
 template<class T1, class T2>
@@ -260,10 +260,10 @@ const typename tuple_element<N, std::pair<T1, T2>>::type&&
 
 #if CPPREFERENCE_STDVER >= 2014
 template<class T>
-class tuple_size;
+struct tuple_size;
 
 template<class T1, class T2>
-class tuple_size<std::pair<T1, T2> > : public std::integral_constant<std::size_t, 2> { };
+struct tuple_size<std::pair<T1, T2> > : public std::integral_constant<std::size_t, 2> { };
 #endif
 
 } // namespace std
