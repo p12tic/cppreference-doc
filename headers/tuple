@@ -91,15 +91,25 @@ public:
 template<class... Types >
 struct tuple_size<std::tuple<Types...> > : std::integral_constant<std::size_t, sizeof...(Types)> { };
 
-template<std::size_t I, class... Types>
-struct tuple_element<I, tuple<Type, Types...> > {
-    using type = tuple_element<I-1, Types...>;
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+template<std::size_t I, class... Types >
+struct tuple_element<I, tuple<Types...> > {
+    typedef void type;
+};
+#else
+template<std::size_t I, class... Types >
+struct tuple_element;
+
+template<class T, class... Types >
+struct tuple_element<0, tuple<T, Types...> > {
+    using type = T;
 };
 
-template<class Type, class... Types>
-struct tuple_element<0, tuple<Type, Types...> > {
-    typedef Type type;
+template<std::size_t I, class T, class... Types >
+struct tuple_element<I, tuple<T, Types...> > {
+    using type = typename tuple_element<I - 1, Types...>::type;
 };
+#endif
 
 template<class... Types>
 tuple<Types...> make_tuple(Types&& ... args);
