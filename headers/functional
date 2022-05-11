@@ -40,26 +40,26 @@ public:
     function(const function& other);
     function(function&& other);
 
-    template<class F >
+    template<class F>
     function(F f) { (void) f; }
 
 #if CPPREFERENCE_STDVER < 2017
-    template<class Alloc >
+    template<class Alloc>
     function(std::allocator_arg_t, const Alloc& alloc);
 
-    template<class Alloc >
+    template<class Alloc>
     function(std::allocator_arg_t, const Alloc& alloc,
              std::nullptr_t);
 
-    template<class Alloc >
+    template<class Alloc>
     function(std::allocator_arg_t, const Alloc& alloc,
              const function& other);
 
-    template<class Alloc >
+    template<class Alloc>
     function(std::allocator_arg_t, const Alloc& alloc,
              function&& other);
 
-    template<class F, class Alloc >
+    template<class F, class Alloc>
     function(std::allocator_arg_t, const Alloc& alloc, F f);
 #endif
 
@@ -69,15 +69,15 @@ public:
     function& operator=(function&& other);
     function& operator=(std::nullptr_t);
 
-    template<class F >
+    template<class F>
     function& operator=(F&& f);
 
-    template<class F >
+    template<class F>
     function& operator=(std::reference_wrapper<F> f);
 
     void swap(function& other);
 
-    template<class F, class Alloc >
+    template<class F, class Alloc>
     void assign(F&& f, const Alloc& alloc);
 
     explicit operator bool() const;
@@ -86,26 +86,26 @@ public:
 
     const std::type_info& target_type() const;
 
-    template<class T >
+    template<class T>
     T* target();
 
-    template<class T >
+    template<class T>
     const T* target() const;
 };
 
 template<class R, class... Args>
 void swap(function<R(Args...)>& lhs, function<R(Args...)>& rhs);
 
-template<class R, class... ArgTypes >
+template<class R, class... ArgTypes>
 bool operator==(const std::function<R(ArgTypes...)>& f, std::nullptr_t);
 
-template<class R, class... ArgTypes >
+template<class R, class... ArgTypes>
 bool operator==(std::nullptr_t, const std::function<R(ArgTypes...)>& f);
 
-template<class R, class... ArgTypes >
+template<class R, class... ArgTypes>
 bool operator!=(const std::function<R(ArgTypes...)>& f, std::nullptr_t);
 
-template<class R, class... ArgTypes >
+template<class R, class... ArgTypes>
 bool operator!=(std::nullptr_t, const std::function<R(ArgTypes...)>& f);
 
 class bad_function_call : public std::exception {
@@ -115,13 +115,13 @@ public:
 
 // SIMPLIFIED: actual result is unspecified, std::function<R> is only for
 // providing return type
-template<class R, class T >
+template<class R, class T>
 std::function<R> mem_fn(R T::* pm);
 
-template<class R, class F, class... Args >
+template<class R, class F, class... Args>
 std::function<R> bind(F&& f, Args&& ... args);
 
-template<class R, class F, class... Args >
+template<class R, class F, class... Args>
 std::function<R> bind(F&& f, Args&& ... args);
 
 #if CPPREFERENCE_STDVER >= 2017
@@ -130,10 +130,10 @@ std::result_of_t<F&&(ArgTypes&&...)> invoke(F&& f, ArgTypes&&... args);
 #endif
 
 // SIMPLIFIED: the inherited type is simplified
-template<class T >
+template<class T>
 struct is_bind_expression : std::integral_constant<bool, true> {};
 
-template<class T >
+template<class T>
 struct is_placeholder : std::integral_constant<bool, true> {};
 
 namespace placeholders { // SIMPLIFIED: the actual type is unspecified
@@ -167,24 +167,24 @@ public:
     operator T& () const;
     T& get() const;
 
-    template<class... ArgTypes >
-    typename std::result_of < T& (ArgTypes&& ...) >::type
+    template<class... ArgTypes>
+    typename std::result_of<T&(ArgTypes&& ...)>::type
     operator()(ArgTypes&& ... args) const;   // only if T is function
 };
 
-template<class T >
+template<class T>
 std::reference_wrapper<T> ref(T& t);
 
-template<class T >
+template<class T>
 std::reference_wrapper<T> ref(std::reference_wrapper<T> t);
 
 template <class T>
 void ref(const T&&) = delete;
 
-template<class T >
+template<class T>
 std::reference_wrapper<const T> cref(const T& t);
 
-template<class T >
+template<class T>
 std::reference_wrapper<const T> cref(std::reference_wrapper<T> t);
 
 template <class T>
@@ -418,7 +418,7 @@ struct bit_not {
 };
 
 #if CPPREFERENCE_STDVER <= 2020
-template<class Predicate >
+template<class Predicate>
 struct unary_negate {
     typedef bool result_type;
     typedef typename Predicate::argument_type argument_type;
@@ -427,7 +427,7 @@ struct unary_negate {
     result_type operator()(argument_type const& x) const;
 };
 
-template<class Predicate >
+template<class Predicate>
 struct binary_negate {
     typedef bool result_type;
     typedef typename Predicate::first_argument_type first_argument_type;
@@ -438,15 +438,15 @@ struct binary_negate {
                            const second_argument_type& rhs) const;
 };
 
-template<class Predicate >
+template<class Predicate>
 std::unary_negate<Predicate> not1(const Predicate& pred);
 
-template<class Predicate >
+template<class Predicate>
 std::binary_negate<Predicate> not2(const Predicate& pred);
 #endif
 
 #if CPPREFERENCE_STDVER >= 2011
-template<class Key >
+template<class Key>
 struct hash {
     typedef Key argument_type;
     typedef std::size_t result_type;
