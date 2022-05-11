@@ -210,13 +210,13 @@ constexpr bool operator>=(const optional<T>& opt, const U& value);
 template<class T, class U>
 constexpr bool operator>=(const T& value, const optional<U>& opt);
 
-template<class T >
+template<class T>
 constexpr optional<decay_t<T>> make_optional(T&& value);
 
-template<class T, class... Args >
+template<class T, class... Args>
 constexpr optional<T> make_optional(Args&&... args);
 
-template<class T, class U, class... Args >
+template<class T, class U, class... Args>
 constexpr optional<T> make_optional(initializer_list<U> il, Args&&... args);
 
 template<class T>

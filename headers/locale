@@ -70,7 +70,7 @@ public:
     bool operator==(const locale& other) const;
     bool operator!=(const locale& other) const;
 
-    template<class CharT, class Traits, class Alloc >
+    template<class CharT, class Traits, class Alloc>
     bool operator()(const basic_string<CharT, Traits, Alloc>& s1,
                     const basic_string<CharT, Traits, Alloc>& s2) const;
 
@@ -592,7 +592,7 @@ protected:
     virtual ~money_put();
 };
 
-template<class CharT, bool International = false >
+template<class CharT, bool International = false>
 class moneypunct : public money_base, public locale::facet {
 public:
     typedef CharT char_type;

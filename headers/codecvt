@@ -41,7 +41,7 @@ public:
 
 template<class Elem,
          unsigned long Maxcode = 0x10ffff,
-         std::codecvt_mode Mode = static_cast<std::codecvt_mode>(0) >
+         std::codecvt_mode Mode = static_cast<std::codecvt_mode>(0)>
 class codecvt_utf16 : public std::codecvt<Elem, char, std::mbstate_t> {
 public:
     explicit codecvt_utf16(std::size_t refs = 0);
@@ -50,7 +50,7 @@ public:
 
 template<class Elem,
          unsigned long Maxcode = 0x10ffff,
-         std::codecvt_mode Mode = static_cast<std::codecvt_mode>(0) >
+         std::codecvt_mode Mode = static_cast<std::codecvt_mode>(0)>
 class codecvt_utf8_utf16 : public std::codecvt<Elem, char, std::mbstate_t> {
 public:
     explicit codecvt_utf8_utf16(std::size_t refs = 0);
