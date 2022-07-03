@@ -588,6 +588,9 @@ typedef std::basic_string<wchar_t> wstring;
 typedef std::basic_string<char16_t> u16string;
 typedef std::basic_string<char32_t> u32string;
 #endif
+#if CPPREFERENCE_STDVER >= 2020
+using u8string = std::basic_string<char8_t>;
+#endif
 
 template<class CharT, class Traits, class Alloc>
 basic_string<CharT, Traits, Alloc>

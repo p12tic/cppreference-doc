@@ -69,10 +69,19 @@ T&& forward(typename std::remove_reference<T>::type&& t);
 
 #if CPPREFERENCE_STDVER >= 2014
 template<class T>
-constexpr T&& move(T&& t); // SIMPLIFIED: return type
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
+constexpr T&& move(T&& t);
+#else
+constexpr typename remove_reference<T>::type&& move(T&& t);
+#endif
 #elif CPPREFERENCE_STDVER >= 2011
+#if CPPREFERENCE_SIMPLIFY_TYPEDEFS
 template<class T>
-T&& move(T&& t);   // SIMPLIFIED: return type
+T&& move(T&& t);
+#else
+template<class T>
+typename remove_reference<T>::type&& move(T&& t);
+#endif
 #endif
 
 #if CPPREFERENCE_STDVER >= 2014
