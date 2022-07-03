@@ -278,8 +278,15 @@ using add_volatile_t = T; // SIMPLIFIED typedef
 
 // references
 template<class T> struct remove_reference {
-    typedef T type; // SIMPLIFIED type
+    typedef T type;
 };
+template<class T> struct remove_reference<T&> {
+    typedef T type;
+};
+template<class T> struct remove_reference<T&&> {
+    typedef T type;
+};
+
 template<class T> struct add_lvalue_reference {
     typedef T type; // SIMPLIFIED type
 };
