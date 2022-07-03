@@ -19,6 +19,8 @@
 #if CPPREFERENCE_STDVER>= 2011
 #include <ratio>
 #include <ctime> // for time_t
+#include <iosfwd>
+#include <string>
 
 namespace std {
 namespace chrono {
@@ -133,6 +135,12 @@ typedef duration<int, std::milli> milliseconds;
 typedef duration<int> seconds;
 typedef duration<int, std::ratio<60>> minutes;
 typedef duration<int, std::ratio<3600>> hours;
+#if CPPREFERENCE_STDVER >= 2020
+using days = duration<int, ratio<86400>>;
+using weeks = duration<int, ratio<604800>>;
+using months = duration<int, ratio<2629746>>;
+using years = duration<int, ratio<31556952>>;
+#endif
 
 template <class Rep>
 struct treat_as_floating_point : std::is_floating_point<Rep> {};
@@ -251,6 +259,26 @@ public:
     static std::chrono::system_clock::time_point from_time_t(std::time_t t);
 };
 
+#if CPPREFERENCE_STDVER >= 2020
+template<class Duration>
+using sys_time = time_point<system_clock, Duration>;
+
+using sys_seconds = sys_time<seconds>;
+using sys_days = sys_time<days>;
+
+template <class CharT, class Traits, class Duration, class Alloc = allocator<CharT>>
+basic_istream<CharT, Traits>&
+    from_stream(basic_istream<CharT, Traits>& is, const CharT* fmt,
+                sys_time<Duration>& time_point,
+                basic_string<CharT, Traits, Alloc>* abbrev = nullptr,
+                minutes* offset = nullptr);
+
+template<class CharT, class Traits, class Duration>
+basic_ostream<CharT, Traits>&
+    operator<<(basic_ostream<CharT, Traits>& os,
+               const sys_time<Duration>& time_point);
+#endif
+
 class steady_clock {
 public:
     typedef int rep; // SIMPLIFIED: actually unspecified
@@ -274,6 +302,82 @@ public:
 
     static std::chrono::time_point<std::chrono::high_resolution_clock> now();
 };
+
+#if CPPREFERENCE_STDVER >= 2020
+class utc_clock {
+public:
+    using rep = int; // SIMPLIFIED: actually unspecified
+    using period = ratio<1>; // SIMPLIFIED: actually unspecified
+    using duration = std::chrono::duration<rep, period>;
+    using time_point = std::chrono::time_point<utc_clock>;
+
+    static time_point now();
+
+    template<class Duration>
+    static sys_time<common_type_t<Duration, seconds>>
+        to_sys(const std::chrono::time_point<utc_clock, Duration>& t);
+
+    template <class Duration>
+    static std::chrono::time_point<utc_clock, std::common_type_t<Duration, seconds>>
+        from_sys(const sys_time<Duration>& t);
+};
+
+template<class Duration>
+using utc_time = time_point<utc_clock, Duration>;
+
+using utc_seconds = utc_time<seconds>;
+
+template <class CharT, class Traits, class Duration, class Alloc = allocator<CharT>>
+basic_istream<CharT, Traits>&
+    from_stream(basic_istream<CharT, Traits>& is, const CharT* fmt,
+                utc_time<Duration>& time_point,
+                basic_string<CharT, Traits, Alloc>* abbrev = nullptr,
+                minutes* offset = nullptr);
+
+template<class CharT, class Traits, class Duration>
+basic_ostream<CharT, Traits>&
+    operator<<(basic_ostream<CharT, Traits>& os, const chrono::utc_time<Duration>& time_point);
+
+class file_clock {
+public:
+    using rep = int; // SIMPLIFIED: actually unspecified
+    using period = std::ratio<1>; // SIMPLIFIED: actually unspecified
+    using duration = duration<rep, period>;
+    using time_point = time_point<file_clock>;
+
+    static time_point now();
+
+    template<class Duration>
+    static sys_time<common_type_t<Duration, seconds>>
+        to_sys(const std::chrono::time_point<file_clock, Duration>& t);
+
+    template <class Duration>
+    static std::chrono::time_point<file_clock, std::common_type_t<Duration, seconds>>
+        from_sys(const sys_time<Duration>& t);
+
+    template<class Duration>
+    static utc_time<common_type_t<Duration, seconds>>
+        to_utc(const std::chrono::time_point<utc_clock, Duration>& t);
+
+    template <class Duration>
+    static std::chrono::time_point<file_clock, std::common_type_t<Duration, seconds>>
+        from_utc(const utc_time<Duration>& t);
+};
+
+template<class Duration>
+using file_time = time_point<file_clock, Duration>;
+
+template <class CharT, class Traits, class Duration, class Alloc = allocator<CharT>>
+basic_istream<CharT, Traits>&
+    from_stream(basic_istream<CharT, Traits>& is, const CharT* fmt,
+                file_time<Duration>& time_point,
+                basic_string<CharT, Traits, Alloc>* abbrev = nullptr,
+                minutes* offset = nullptr);
+
+template<class CharT, class Traits, class Duration>
+basic_ostream<CharT, Traits>&
+    operator<<(basic_ostream<CharT, Traits>& os, const file_time<Duration>& time_point);
+#endif
 
 } // namespace chrono
 } // namespace std
