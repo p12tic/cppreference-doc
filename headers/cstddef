@@ -38,4 +38,10 @@ typedef decltype(nullptr) nullptr_t;
 #endif
 } // namespace std
 
+#if !CPPREFERENCE_INT_TYPES_ONLY_IN_STD
+using std::ptrdiff_t;
+using std::size_t;
+using std::max_align_t;
+#endif // !CPPREFERENCE_INT_TYPES_ONLY_IN_STD
+
 #endif // CPPREFERENCE_CSTDDEF_H
