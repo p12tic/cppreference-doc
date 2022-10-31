@@ -32,6 +32,10 @@ macros:
    values are 1998, 2003, 2011, 2014, 2017 which correspond to the respective
    C++ standards.
 
+ - CPPREFERENCE_INT_TYPES_ONLY_IN_STD: non-zero value results in integer types
+   such as std::size_t, std::uint16_t and so on being defined only in std
+   namespace.
+
  - CPPREFERENCE_SIMPLIFY_TYPEDEFS: non-zero value results in simplified
    typedefs being exposed. Usage of various traits is greatly reduced; the
    typedefs refer to types that would be resolved in most common cases.
