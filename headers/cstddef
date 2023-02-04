@@ -36,6 +36,35 @@ typedef void* nullptr_t;
 typedef decltype(nullptr) nullptr_t;
 #endif
 #endif
+
+#if CPPREFERENCE_STDVER >= 2017
+enum class byte : unsigned char {};
+
+template<class IntegerType>
+constexpr IntegerType to_integer(std::byte b) noexcept;
+
+constexpr std::byte operator|(std::byte l, std::byte r) noexcept;
+constexpr std::byte operator&(std::byte l, std::byte r) noexcept;
+constexpr std::byte operator^(std::byte l, std::byte r) noexcept;
+constexpr std::byte operator~(std::byte b) noexcept;
+
+constexpr std::byte& operator|=(std::byte& l, std::byte r) noexcept;
+constexpr std::byte& operator&=(std::byte& l, std::byte r) noexcept;
+constexpr std::byte& operator^=(std::byte& l, std::byte r) noexcept;
+
+template <class IntegerType>
+constexpr std::byte operator<<(std::byte b, IntegerType shift) noexcept;
+
+template <class IntegerType>
+constexpr std::byte operator>>(std::byte b, IntegerType shift) noexcept;
+
+template <class IntegerType>
+constexpr std::byte& operator<<=(std::byte& b, IntegerType shift) noexcept;
+
+template <class IntegerType>
+constexpr std::byte& operator>>=(std::byte& b, IntegerType shift) noexcept;
+#endif
+
 } // namespace std
 
 #if !CPPREFERENCE_INT_TYPES_ONLY_IN_STD
