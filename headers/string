@@ -242,7 +242,12 @@ public:
     CharT& back();
     const CharT& back() const;
 #endif
+
     const CharT* data() const;
+#if CPPREFERENCE_STDVER >= 2017
+    CharT* data();
+#endif
+
     const CharT* c_str() const;
 
     // iterators

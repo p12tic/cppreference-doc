@@ -1,0 +1,120 @@
+/*  Copyright (C) 2023  Povilas Kanapickas <povilas@radix.lt>
+
+    This file is part of cppreference-doc
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+    Unported License. To view a copy of this license, visit
+    http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative
+    Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3 or
+    any later version published by the Free Software Foundation; with no
+    Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+*/
+
+#ifndef CPPREFERENCE_SPAN_H
+#define CPPREFERENCE_SPAN_H
+
+#if CPPREFERENCE_STDVER >= 2020
+
+#include <cstddef>
+#include <limits>
+#include <type_traits>
+
+namespace std {
+
+inline constexpr size_t dynamic_extent = numeric_limits<size_t>::max();
+
+template<class T, size_t Extent = dynamic_extent>
+class span {
+    using element_type = T;
+    using value_type = remove_cv_t<T>;
+    using size_type = size_t;
+    using difference_type = ptrdiff_t;
+    using pointer = element_type*;
+    using const_pointer = const element_type*;
+    using reference = element_type&;
+    using const_reference = const element_type&;
+    using iterator = T*; // actual type is unspecified
+    using const_iterator = const T*; // actual type is const_iterator<iterator>;
+    using reverse_iterator = T*; // actual type is reverse_iterator<iterator>;
+    using const_reverse_iterator = const T*; // actual type is const_iterator<reverse_iterator>;
+    static constexpr size_type extent = Extent;
+
+    // constructor
+    constexpr span() noexcept;
+
+    template<class It>
+    constexpr explicit(extent != dynamic_extent) span(It first, size_type count);
+
+    template<class It, class End>
+    constexpr explicit(extent != dynamic_extent) span(It first, End last);
+
+    template<size_t N>
+    constexpr span(type_identity_t<element_type> (&arr)[N]) noexcept;
+
+    template<class U, size_t N>
+    constexpr span(array<U, N>& arr) noexcept;
+
+    template<class U, size_t N>
+    constexpr span(const array<U, N>& arr) noexcept;
+
+    template<class R>
+    constexpr explicit(extent != dynamic_extent) span(R&& r);
+
+    constexpr span(const span& other) noexcept = default;
+
+    template<class OtherT, size_t OtherExtent>
+    constexpr explicit span(const span<OtherT, OtherExtent>& s) noexcept;
+
+    ~span() noexcept = default;
+
+    constexpr span& operator=(const span& other) noexcept = default;
+
+    // subviews
+    template<size_t Count>
+    constexpr span<element_type, Count> first() const;
+
+    template<size_t Count>
+    constexpr span<element_type, Count> last() const;
+
+    template<size_t Offset, size_t Count = dynamic_extent>
+    constexpr span<element_type, /* see description */> subspan() const;
+
+    constexpr span<element_type, dynamic_extent> first(size_type count) const;
+    constexpr span<element_type, dynamic_extent> last(size_type count) const;
+    constexpr span<element_type, dynamic_extent> subspan(size_type offset,
+                                                         size_type count = dynamic_extent) const;
+    // observers
+    constexpr size_type size() const noexcept;
+    constexpr size_type size_bytes() const noexcept;
+    [[nodiscard]] constexpr bool empty() const noexcept;
+
+    // element access
+    constexpr reference operator[](size_type idx) const;
+    constexpr reference front() const;
+    constexpr reference back() const;
+    constexpr pointer data() const noexcept;
+
+    // iterator support
+    constexpr iterator begin() const noexcept;
+    constexpr iterator end() const noexcept;
+    constexpr const_iterator cbegin() const noexcept;
+    constexpr const_iterator cend() const noexcept;
+    constexpr reverse_iterator rbegin() const noexcept;
+    constexpr reverse_iterator rend() const noexcept;
+    constexpr const_reverse_iterator crbegin() const noexcept;
+    constexpr const_reverse_iterator crend() const noexcept;
+};
+
+template<class T, size_t N>
+span<const byte, N> as_bytes(span<T, N> s) noexcept;
+
+template<class T, size_t N>
+span<byte, N> as_writable_bytes(span<T, N> s) noexcept
+
+} // namespace std
+#endif
+
+#endif // CPPREFERENCE_OSTREAM_H
