@@ -1,8 +1,9 @@
 Information
 -----------
 
-This is source package for Cppreference C++ standard library reference
-documentation available at <http://en.cppreference.com>.
+This is source package for generating an offline version of
+Cppreference C++ standard library reference documentation available at
+<http://en.cppreference.com>.
 
 If there is no 'reference/' subdirectory in this package, the actual
 documentation is not present here and must be obtained separately in order to
